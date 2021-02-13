@@ -11,9 +11,11 @@ https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY
 2. Unpack and overwrite every file in your Valheim game folder
 
 3. Add all dll's of "\Valheim\valheim_Data\Managed" folder as references to the project.
+
 (Except : "mscorlib.dll", "System.Configuration.dll", "System.Core.dll", "System.dll", "System.Xml.dll")
 
 4. Add all BepInEx dll's ("Valheim\BepInEx\core") as refernces to the project.
+
 (Except : "0Harmony.dll", "0Harmony20.dll")
 
 
