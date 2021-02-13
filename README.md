@@ -2,7 +2,7 @@
 A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 
 
-#Valheim Plus Compiler Requirements
+# Valheim Plus Compiler Requirements
 
 You will be dependent on a package of stripped .net/mono Unity files from the Valheim directory.
 How to get BepInEx working:
