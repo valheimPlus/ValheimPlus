@@ -3,9 +3,12 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 
 
 #Valheim Plus Compiler Requirements
+
 You will be dependent on a package of stripped .net/mono Unity files from the Valheim directory.
 How to get BepInEx working:
+
 1. Download this package:
+
 https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY
 
 2. Unpack into your Valheim root folder and overwrite every file when asked.
