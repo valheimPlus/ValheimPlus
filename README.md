@@ -21,6 +21,13 @@ https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY
 
 (Except : "0Harmony.dll", "0Harmony20.dll")
 
+# Configuration File
 
-#Credits
+The Config files name is supposed to be "valheim_multipliers.cfg" it needs to be placed in "BepInEx\config"
+
+You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder
+
+(If the project does not properly show the dependency on the ini parser, this is the library i used : https://github.com/rickyah/ini-parser)
+
+# Credits
 nx#8830 - All (as of now)
