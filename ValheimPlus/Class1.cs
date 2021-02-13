@@ -117,11 +117,11 @@ namespace ValheimPlus
             {
                 if (Config["Beehive"]["enabled"] == "true")
                 {
-                    ___m_secPerUnit = float.Parse(Config["Beehive"]["honeyProductionValue"]);
+                    ___m_secPerUnit = float.Parse(Config["Beehive"]["honeyProductionSpeed"]);
                     ___m_maxHoney = int.Parse(Config["Beehive"]["maximumHoneyPerBeehive"]);
                     if (isDebug)
                     {
-                        Debug.Log("Beehive Production :" + toFloat(Config["Beehive"]["honeyProductionValue"]));
+                        Debug.Log("Beehive Production :" + toFloat(Config["Beehive"]["honeyProductionSpeed"]));
                         Debug.Log("Beehive Maximum :" + int.Parse(Config["Beehive"]["maximumHoneyPerBeehive"]));
                     }
                 }
@@ -129,6 +129,36 @@ namespace ValheimPlus
             }
 
         }
+
+        // ##################################################### SECTION = Fermenter
+        [HarmonyPatch(typeof(Fermenter), "Awake")]
+        public static class ApplyFermenterChanges
+        {
+            private static bool Prefix(ref float ___m_fermentationDuration, ref Fermenter __instance)
+            {
+                float fermenterDuration = toFloat(Config["Fermenter"]["fermenterDuration"]);
+                if (fermenterDuration > 0)
+                {
+                    ___m_fermentationDuration = fermenterDuration;
+                }
+                return true;
+            }
+
+        }
+        [HarmonyPatch(typeof(Fermenter), "GetItemConversion")]
+        public static class ApplyFermenterItemCountChanges
+        {
+            private static void Postfix(ref Fermenter.ItemConversion __result)
+            {
+                int fermenterItemCount = int.Parse(Config["Fermenter"]["fermenterItemsProduced"]);
+                if (fermenterItemCount > 0)
+                {
+                    __result.m_producedItems = fermenterItemCount;
+                }
+            }
+
+        }
+
 
         // ##################################################### SECTION = Items
         [HarmonyPatch(typeof(Inventory), "IsTeleportable")]
@@ -140,8 +170,23 @@ namespace ValheimPlus
                     __result = true;
             }
         }
-        // TODO: Replace m_sharedIsTeleportable
 
+        // ##################################################### SECTION = Furnace
+        [HarmonyPatch(typeof(Smelter), "Awake")]
+        public static class ApplyFurnaceChanges
+        {
+            private static void Prefix(ref Smelter __instance)
+            {
+                int MaximumOre = int.Parse(Config["Furnace"]["maximumOre"]); 
+                int MaximumFuel = int.Parse(Config["Furnace"]["maximumCoal"]);
+                float ProductionSpeed = toFloat(Config["Furnace"]["productionSpeed"]);
+                int CoalPerProduct = int.Parse(Config["Furnace"]["coalUsedPerProduct"]);
+                __instance.m_maxOre = MaximumOre;
+                __instance.m_maxFuel = MaximumFuel;
+                __instance.m_secPerProduct = ProductionSpeed;
+                __instance.m_fuelPerProduct = CoalPerProduct;
+            }
+        }
 
         // ##################################################### SECTION = Tooltip & Item Modification
         [HarmonyPatch(typeof(ItemDrop), "Awake")]
@@ -223,5 +268,6 @@ namespace ValheimPlus
             Tool,
             Attach_Atgeir
         }
+
     }
 }
