@@ -25,6 +25,8 @@ https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY
 
 The Config files name is supposed to be "valheim_multipliers.cfg" it needs to be placed in "BepInEx\config"
 
+(The name will be adjusted in the future)
+
 You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder
 
 (If the project does not properly show the dependency on the ini parser, this is the library i used : https://github.com/rickyah/ini-parser)
