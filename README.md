@@ -67,7 +67,7 @@ maximumHoneyPerBeehive=7
 
 honeyProductionSpeed=1
 ;(float), default is 10. Do not go lower than 5.
-
+```
 # Valheim Plus Compiler Requirements
 
 You will be dependent on a package of stripped .net/mono Unity files from the Valheim directory.
@@ -88,9 +88,6 @@ https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY
 (Except : "0Harmony.dll", "0Harmony20.dll")
 
 5. Add Ini-parser and HarmonyX via nu-get
-
-
-```
 
 # Credits
 
