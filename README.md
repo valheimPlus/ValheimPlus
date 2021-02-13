@@ -31,5 +31,41 @@ You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" f
 
 (If the project does not properly show the dependency on the ini parser, this is the library i used : https://github.com/rickyah/ini-parser)
 
+# Currently Supported Configuration
+```INI
+[Player]
+baseMegingjordBuff=150
+; default is 150 (float)
+; Ingame Tooltip is not affected
+
+baseMaximumWeight=300
+; default is 300 (float)
+
+baseAutoPickUpRange=2
+; default is 2 (float)
+
+
+[Food]
+foodDurationMultiplier=0.0
+; default is 0, it adds to the value meaning 0.0 is 100%, 1 is 200%.
+[Items]
+noTeleportPrevention=false
+;default is false (boolean)
+baseItemWeightReduction=0
+;(float), removes from value. 1 is 100% weight reduction of every item, 0.5 is 50%.
+
+[Building]
+noInvalidPlacementRestriction=false
+;(boolean)
+
+[Beehive]
+enabled=false
+maximumHoneyPerBeehive=4
+;(integer)
+honeyProductionValue=10
+;(float), default is 10. Do not go lower than 5.
+```
+
 # Credits
+
 nx#8830 - All (as of now)
