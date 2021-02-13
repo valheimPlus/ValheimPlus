@@ -8,7 +8,7 @@ How to get BepInEx working:
 1. Download this package:
 https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY
 
-2. Unpack and overwrite every file in your Valheim game folder
+2. Unpack into your Valheim root folder and overwrite every file when asked.
 
 3. Add all dll's of "\Valheim\valheim_Data\Managed" folder as references to the project.
 
