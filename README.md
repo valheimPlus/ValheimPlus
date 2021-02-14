@@ -5,21 +5,20 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 
 # Configuration File
 
-The Config files name is supposed to be "valheim_multipliers.cfg" it needs to be placed in "BepInEx\config"
+The Config files name is supposed to be "valheim_plus.cfg" it needs to be placed in "BepInEx\config"
 (The name will be adjusted in the future)
 You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder (its supplied by default within the release versions)
 
 # Currently Supported Configuration
-```INI
-[Player]
-baseMegingjordBuff=200
+```INI[Player]
+baseMegingjordBuff=500
 ; default is 150 (float)
 ; Ingame Tooltip is not affected
 
-baseMaximumWeight=300
+baseMaximumWeight=1000
 ; default is 300 (float)
 
-baseAutoPickUpRange=2
+baseAutoPickUpRange=4
 ; default is 2 (float)
 
 
@@ -30,44 +29,52 @@ foodDurationMultiplier=5.0
 [Fermenter]
 fermenterDuration=2400
 ; default is 2400 (float) (24 ingame hours ?)
+; lower is faster
 
 fermenterItemsProduced=4
 ; default is 4 (integer) items per fermenter process
 
 [Furnace]
-maximumOre=20
-;default is 10 (int)
+; Changes to these values apply to the Charcoal kiln and the Smelter/Furnace
+maximumOre=60
+; default is 10 (int)
 
-maximumCoal=20
-;default is 10 (int)
+maximumCoal=60
+; default is 10 (int)
 
 productionSpeed=2
-;default it 10 (float)
+; default it 10 (float)
+; lower is faster
 
-coalUsedPerProduct=1
-;default is 4 (int)
+coalUsedPerProduct=4
+; default is 4 (int)
 
 [Items]
 noTeleportPrevention=true
-;default is false (boolean)
+; default is false (boolean)
 
 baseItemWeightReduction=0
 ;(float), removes from value (original - (original * baseItemWeightReduction). 
-;1 is 100% weight reduction of every item, 0.5 is 50%.
+; 1 is 100% weight reduction of every item, 0.5 is 50%.
 
 [Building]
 noInvalidPlacementRestriction=true
-;(boolean)
+; (boolean) Removes the "Invalid Placement" restriction
+noWeatherDamage=true
+; Removes weather/rain damage on building objects
 
 [Beehive]
 enabled=true
 
 maximumHoneyPerBeehive=7
-;(integer)
+; (integer)
 
-honeyProductionSpeed=1
-;(float), default is 10. Do not go lower than 5.
+honeyProductionSpeed=7
+; (float), default is 10. Do not go lower than 5.
+; lower is faster
+
 ```
+
 # Valheim Plus Compiler Requirements
 
 You will be dependent on a package of stripped .net/mono Unity files from the Valheim directory.
