@@ -1,6 +1,21 @@
 # ValheimPlus
 A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 
+# Features
+- Modify Player weight values (base and Megingjord)
+- Modify Food Duration
+- Modify Fermenter Speed & Output
+- Modify Furnace Maximum coal/ore, speed and coal usage
+- Modify Kiln production speed
+- Remove Item teleport prevention from ores
+- Reduce Item weight of all items by %
+- Remove Building "Invalid Placement" restriction
+- Remove Building Object deterioration by weather.
+- Modify Beehive production speed & maximum
+- Remove Password requirement for server
+- Modify maximum Players on a server
+- Shared Map System with a setting to either ignore or respect player map visibility settings
+(You only get map progression when you are online)
 
 
 # Configuration File
@@ -19,7 +34,7 @@ baseMegingjordBuff=150
 baseMaximumWeight=300
 ; default is 300 (float)
 
-baseAutoPickUpRange=4
+baseAutoPickUpRange=2
 ; default is 2 (float)
 
 
@@ -74,17 +89,29 @@ noWeatherDamage=false
 enabled=false
 ; Enable/Disable beehive changes
 
-maximumHoneyPerBeehive=7
-; (integer)
+maximumHoneyPerBeehive=4
+; (integer) default is 4.
 
-honeyProductionSpeed=7
+honeyProductionSpeed=10
 ; (float), default is 10. Do not go lower than 5.
 ; lower is faster
 
 
 
+[Server]
+maxPlayers=10
+; (int) default is 10
+disableServerPassword=false
+; (boolean) default is false
 
-
+[Map]
+exploreRadius=100
+; default 10 (float), the radius around each player that get explored
+shareMapProgression=false
+; default false (boolean), shares the map progress (reveal) across all players
+; players need to be online to receive map progression
+onlyShareMapProgressionWhenVisible=false
+; only share the map progression of people that have selected to be visible on the map
 ```
 
 # Valheim Plus Compiler Requirements

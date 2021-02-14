@@ -13,6 +13,8 @@ using IniParser;
 using IniParser.Model;
 using HarmonyLib;
 using System.Globalization;
+using Steamworks;
+
 
 namespace ValheimPlus
 {
@@ -177,7 +179,7 @@ namespace ValheimPlus
         {
             private static void Prefix(ref Smelter __instance)
             {
-                int MaximumOre = int.Parse(Config["Furnace"]["maximumOre"]); 
+                int MaximumOre = int.Parse(Config["Furnace"]["maximumOre"]);
                 int MaximumFuel = int.Parse(Config["Furnace"]["maximumCoal"]);
                 float ProductionSpeed = toFloat(Config["Furnace"]["productionSpeed"]);
                 int CoalPerProduct = int.Parse(Config["Furnace"]["coalUsedPerProduct"]);
@@ -238,8 +240,8 @@ namespace ValheimPlus
         {
             private static void Postfix(ref Int32 ___m_placementStatus, ref GameObject ___m_placementGhost)
             {
-                if(isDebug)
-					Debug.Log(___m_placementGhost.name);
+                if (isDebug)
+                    Debug.Log(___m_placementGhost.name);
 
                 if (Config["Building"]["noInvalidPlacementRestriction"] == "true")
                 {
@@ -259,11 +261,120 @@ namespace ValheimPlus
             {
                 if (Config["Building"]["noWeatherDamage"] == "true")
                 {
-                    return true;
+                    return false;
                 }
-                return false;
+                return true;
             }
         }
+        
+        // ##################################################### SECTION = SERVER
+        [HarmonyPatch(typeof(ZNet), "Awake")]
+        public static class ChangeGameServerVariables
+        {
+            private static void Postfix(ref ZNet __instance) 
+            {
+                int maxPlayers = int.Parse(Config["Server"]["maxPlayers"]);
+                if (maxPlayers >= 1)
+                {
+                    // Set Server Instance Max Players
+                    __instance.m_serverPlayerLimit = maxPlayers;
+                }
+            }
+            
+        }
+        [HarmonyPatch(typeof(SteamGameServer), "SetMaxPlayerCount")]
+        public static class ChangeSteamServerVariables
+        {
+            private static void Prefix(ref int cPlayersMax) 
+            {
+                int maxPlayers = int.Parse(Config["Server"]["maxPlayers"]);
+                if (maxPlayers >= 1)
+                {
+                    cPlayersMax = maxPlayers;
+                }
+            }
+
+        }
+        [HarmonyPatch(typeof(FejdStartup), "IsPublicPasswordValid")]
+        public static class ChangeServerPasswordBehavior
+        {
+           
+            private static void Postfix(ref Boolean __result) // Set after awake function
+            {
+                string disable = Config["Server"]["disableServerPassword"];
+                if (disable == "true")
+                {
+                    __result = true;
+                }
+                
+            }
+        }
+
+        // ##################################################### SECTION = MAP
+
+        [HarmonyPatch(typeof(Minimap))]
+        public class hookExplore
+        {
+            [HarmonyReversePatch]
+            [HarmonyPatch(typeof(Minimap), "Explore", new Type[] { typeof(Vector3), typeof(float) }) ]
+            public static void call_Explore(object instance, Vector3 p, float radius) => throw new NotImplementedException();
+        }
+
+        [HarmonyPatch(typeof(Minimap), "UpdateExplore")]
+        public static class ChangeMapBehavior
+        {
+            
+            private static Boolean Prefix(ref float dt, ref Player player,ref Minimap __instance, ref float ___m_exploreTimer, ref float ___m_exploreInterval, ref List<ZNet.PlayerInfo> ___m_tempPlayerInfo) // Set after awake function
+            {
+                string shareProgression = Config["Map"]["shareMapProgression"];
+                float exploreRadius = toFloat(Config["Map"]["exploreRadius"]);
+                if (shareProgression == "true")
+                {
+                    ___m_exploreTimer += Time.deltaTime;
+                    if (___m_exploreTimer > ___m_exploreInterval)
+                    {
+                        if(Config["Map"]["onlyShareMapProgressionWhenVisible"] == "true")
+                        {
+                            ___m_tempPlayerInfo.Clear();
+                            ZNet.instance.GetOtherPublicPlayers(___m_tempPlayerInfo); // inconsistent returns but works
+
+                            if (___m_tempPlayerInfo.Count() > 0)
+                            {
+                                foreach (ZNet.PlayerInfo m_Player in ___m_tempPlayerInfo)
+                                {
+                                    hookExplore.call_Explore(__instance, m_Player.m_position, exploreRadius);
+                                }
+                            }
+                            // GetOtherPublicPlayers excludes yourself from being returned from the function, thus we need to reveal the own map manually
+                            hookExplore.call_Explore(__instance, player.transform.position, exploreRadius);
+                        }
+                        else
+                        {
+                            ___m_tempPlayerInfo.Clear();
+                            ___m_tempPlayerInfo = ZNet.instance.GetPlayerList(); // inconsistent returns but works
+
+                            if (___m_tempPlayerInfo.Count() > 0)
+                            {
+                                foreach (ZNet.PlayerInfo m_Player in ___m_tempPlayerInfo)
+                                {
+                                    hookExplore.call_Explore(__instance, m_Player.m_position, exploreRadius);
+                                }
+                            }
+                            else
+                            {
+                                // assure that your own map is always revealed even if you get wrong returns from GetPlayerList()
+                                hookExplore.call_Explore(__instance, player.transform.position, exploreRadius);
+                            }
+                        }
+                        
+                    }
+                    return false;
+                    
+                }
+                return true;
+            }
+        }
+
 
         // Helper Functions
         private static float toFloat(string value)
