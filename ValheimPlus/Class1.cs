@@ -15,7 +15,6 @@ using HarmonyLib;
 using System.Globalization;
 using Steamworks;
 
-
 namespace ValheimPlus
 {
     // COPYRIGHT 2021 KEVIN "nx#8830" J. // http://n-x.xyz
@@ -189,6 +188,7 @@ namespace ValheimPlus
             }
         }
 
+        
         // ##################################################### SECTION = Furnace
         [HarmonyPatch(typeof(Smelter), "Awake")]
         public static class ApplyFurnaceChanges
@@ -202,9 +202,9 @@ namespace ValheimPlus
                     float ProductionSpeed = toFloat(Config["Furnace"]["productionSpeed"]);
                     int CoalPerProduct = int.Parse(Config["Furnace"]["coalUsedPerProduct"]);
 
-                    if (!__instance.m_addWoodSwitch)
+                    if (!__instance.m_addWoodSwitch && Config["Kiln"]["enabled"] == "true")
                     {
-                        float ProductionSpeed_k = toFloat(Config["Kiln"]["productionSpeed"]);
+                       float ProductionSpeed_k = toFloat(Config["Kiln"]["productionSpeed"]);
 
                         __instance.m_secPerProduct = ProductionSpeed_k;
                     }
@@ -307,6 +307,7 @@ namespace ValheimPlus
             }
             
         }
+
         [HarmonyPatch(typeof(SteamGameServer), "SetMaxPlayerCount")]
         public static class ChangeSteamServerVariables
         {
@@ -324,6 +325,7 @@ namespace ValheimPlus
             }
 
         }
+        
         [HarmonyPatch(typeof(FejdStartup), "IsPublicPasswordValid")]
         public static class ChangeServerPasswordBehavior
         {
@@ -340,7 +342,7 @@ namespace ValheimPlus
                 }
             }
         }
-
+       
         // ##################################################### SECTION = MAP
 
         [HarmonyPatch(typeof(Minimap))]
@@ -350,62 +352,94 @@ namespace ValheimPlus
             [HarmonyPatch(typeof(Minimap), "Explore", new Type[] { typeof(Vector3), typeof(float) }) ]
             public static void call_Explore(object instance, Vector3 p, float radius) => throw new NotImplementedException();
         }
+        [HarmonyPatch(typeof(ZNet))]
+        public class hookZNet
+        {
+            [HarmonyReversePatch]
+            [HarmonyPatch(typeof(ZNet), "GetOtherPublicPlayers", new Type[] { typeof(List<ZNet.PlayerInfo>) })]
+            public static void GetOtherPublicPlayers(object instance, List<ZNet.PlayerInfo> playerList) => throw new NotImplementedException();
+
+        }
 
         [HarmonyPatch(typeof(Minimap), "UpdateExplore")]
         public static class ChangeMapBehavior
         {
             
-            private static Boolean Prefix(ref float dt, ref Player player,ref Minimap __instance, ref float ___m_exploreTimer, ref float ___m_exploreInterval, ref List<ZNet.PlayerInfo> ___m_tempPlayerInfo) // Set after awake function
+            private static void Prefix(ref float dt, ref Player player,ref Minimap __instance, ref float ___m_exploreTimer, ref float ___m_exploreInterval, ref List<ZNet.PlayerInfo> ___m_tempPlayerInfo) // Set after awake function
             {
                 string shareProgression = Config["Map"]["shareMapProgression"];
                 float exploreRadius = toFloat(Config["Map"]["exploreRadius"]);
                 if (shareProgression == "true" && Config["Map"]["enabled"] == "true")
                 {
-                    ___m_exploreTimer += Time.deltaTime;
-                    if (___m_exploreTimer > ___m_exploreInterval)
+                    float explorerTime = ___m_exploreTimer;
+                    explorerTime += Time.deltaTime;
+                    if (explorerTime > ___m_exploreInterval)
                     {
-                        if(Config["Map"]["onlyShareMapProgressionWhenVisible"] == "true")
-                        {
-                            ___m_tempPlayerInfo.Clear();
-                            ZNet.instance.GetOtherPublicPlayers(___m_tempPlayerInfo); // inconsistent returns but works
+                        ___m_tempPlayerInfo.Clear();
+                        hookZNet.GetOtherPublicPlayers(ZNet.instance, ___m_tempPlayerInfo); // inconsistent returns but works
 
-                            if (___m_tempPlayerInfo.Count() > 0)
-                            {
-                                foreach (ZNet.PlayerInfo m_Player in ___m_tempPlayerInfo)
-                                {
-                                    hookExplore.call_Explore(__instance, m_Player.m_position, exploreRadius);
-                                }
-                            }
-                            // GetOtherPublicPlayers excludes yourself from being returned from the function, thus we need to reveal the own map manually
-                            hookExplore.call_Explore(__instance, player.transform.position, exploreRadius);
-                        }
-                        else
+                        if (___m_tempPlayerInfo.Count() > 0)
                         {
-                            ___m_tempPlayerInfo.Clear();
-                            ___m_tempPlayerInfo = ZNet.instance.GetPlayerList(); // inconsistent returns but works
-
-                            if (___m_tempPlayerInfo.Count() > 0)
+                            foreach (ZNet.PlayerInfo m_Player in ___m_tempPlayerInfo)
                             {
-                                foreach (ZNet.PlayerInfo m_Player in ___m_tempPlayerInfo)
-                                {
-                                    hookExplore.call_Explore(__instance, m_Player.m_position, exploreRadius);
-                                }
-                            }
-                            else
-                            {
-                                // assure that your own map is always revealed even if you get wrong returns from GetPlayerList()
-                                hookExplore.call_Explore(__instance, player.transform.position, exploreRadius);
+                                hookExplore.call_Explore(__instance, m_Player.m_position, exploreRadius);
                             }
                         }
-                        
+                        // Always reveal for your own, we do this non the less to apply the potentially bigger exploreRadius
+                        hookExplore.call_Explore(__instance, player.transform.position, exploreRadius);
                     }
-                    return false;
-                    
                 }
-                return true;
             }
         }
+        
 
+
+        // ##################################################### SECTION = HOTKEYS
+        [HarmonyPatch(typeof(Player))]
+        public class hookDodgeRoll
+        {
+            [HarmonyReversePatch]
+            [HarmonyPatch(typeof(Player), "Dodge", new Type[] { typeof(Vector3) })]
+            public static void Dodge(object instance, Vector3 dodgeDir) => throw new NotImplementedException();
+        }
+        [HarmonyPatch(typeof(Player), "Update")]
+        public static class ApplyHotkeys
+        {
+            private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir)
+            {
+                KeyCode rollKeyForward = (KeyCode)System.Enum.Parse(typeof(KeyCode), Config["Hotkeys"]["rollForwards"]);
+                KeyCode rollKeyBackwards = (KeyCode)System.Enum.Parse(typeof(KeyCode), Config["Hotkeys"]["rollBackwards"]);
+
+                if (Input.GetKeyDown(rollKeyBackwards))
+                {
+                    if(isDebug)
+                        Debug.Log("ROLL BACKWARDS");
+
+                    Vector3 dodgeDir = ___m_moveDir;
+                    if (dodgeDir.magnitude < 0.1f)
+                    {
+                        dodgeDir = -___m_lookDir;
+                        dodgeDir.y = 0f;
+                        dodgeDir.Normalize();
+                    }
+                    hookDodgeRoll.Dodge(__instance, dodgeDir);
+                }
+                if (Input.GetKeyDown(rollKeyForward))
+                {
+                    if(isDebug)
+                        Debug.Log("ROLL FORWARDS");
+
+                    Vector3 dodgeDir = ___m_moveDir;
+                    if (dodgeDir.magnitude < 0.1f)
+                    {
+                        dodgeDir = ___m_lookDir;
+                        dodgeDir.y = 0f;
+                        dodgeDir.Normalize();
+                    }
+                    hookDodgeRoll.Dodge(__instance, dodgeDir);
+                }
+            }
+        }
 
         // Helper Functions
         private static float toFloat(string value)
