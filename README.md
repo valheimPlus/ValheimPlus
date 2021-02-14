@@ -16,7 +16,8 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 - Modify Beehive production speed & maximum
 - Remove Password requirement for server
 - Modify maximum Players on a server
-- Shared Map System with a setting to either ignore or respect player map visibility settings
+- Shared Map System with a setting that respects player map visibility settings
+- Hotkey options for fowards and backwards roll.
 
 (You only get map progression when you are online)
 
