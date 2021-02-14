@@ -142,7 +142,7 @@ disableServerPassword=false
 ; (boolean) default is false
 
 [Map]
-enabled=true
+enabled=false
 ; enable/disable Map changes
 
 exploreRadius=100

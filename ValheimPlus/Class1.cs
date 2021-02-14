@@ -385,9 +385,13 @@ namespace ValheimPlus
                                 hookExplore.call_Explore(__instance, m_Player.m_position, exploreRadius);
                             }
                         }
-                        // Always reveal for your own, we do this non the less to apply the potentially bigger exploreRadius
-                        hookExplore.call_Explore(__instance, player.transform.position, exploreRadius);
+                        
                     }
+                }
+                if(Config["Map"]["enabled"] == "true")
+                {
+                    // Always reveal for your own, we do this non the less to apply the potentially bigger exploreRadius
+                    hookExplore.call_Explore(__instance, player.transform.position, exploreRadius);
                 }
             }
         }
