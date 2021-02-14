@@ -83,22 +83,25 @@ namespace ValheimPlus
         {
             private static void Postfix(ref float __result)
             {
-                bool Megingjord = false;
-                float carryWeight = __result;
-
-                if (carryWeight > 300)
+                if(Config["Player"]["enabled"] == "true")
                 {
-                    Megingjord = true;
-                    carryWeight -= 150;
-                }
+                    bool Megingjord = false;
+                    float carryWeight = __result;
 
-                carryWeight = toFloat(Config["Player"]["baseMaximumWeight"]);
-                if (Megingjord)
-                {
-                    carryWeight = carryWeight + toFloat(Config["Player"]["baseMegingjordBuff"]);
-                }
+                    if (carryWeight > 300)
+                    {
+                        Megingjord = true;
+                        carryWeight -= 150;
+                    }
 
-                __result = carryWeight;
+                    carryWeight = toFloat(Config["Player"]["baseMaximumWeight"]);
+                    if (Megingjord)
+                    {
+                        carryWeight = carryWeight + toFloat(Config["Player"]["baseMegingjordBuff"]);
+                    }
+
+                    __result = carryWeight;
+                }
             }
         }
         [HarmonyPatch(typeof(Player), "AutoPickup")]
@@ -106,7 +109,10 @@ namespace ValheimPlus
         {
             private static bool Prefix(ref float ___m_autoPickupRange)
             {
-                ___m_autoPickupRange = toFloat(Config["Player"]["baseAutoPickUpRange"]);
+                if (Config["Player"]["enabled"] == "true")
+                {
+                    ___m_autoPickupRange = toFloat(Config["Player"]["baseAutoPickUpRange"]);
+                }
                 return true;
             }
         }
@@ -138,10 +144,13 @@ namespace ValheimPlus
         {
             private static bool Prefix(ref float ___m_fermentationDuration, ref Fermenter __instance)
             {
-                float fermenterDuration = toFloat(Config["Fermenter"]["fermenterDuration"]);
-                if (fermenterDuration > 0)
+                if (Config["Fermenter"]["enabled"] == "true")
                 {
-                    ___m_fermentationDuration = fermenterDuration;
+                    float fermenterDuration = toFloat(Config["Fermenter"]["fermenterDuration"]);
+                    if (fermenterDuration > 0)
+                    {
+                        ___m_fermentationDuration = fermenterDuration;
+                    }
                 }
                 return true;
             }
@@ -152,11 +161,15 @@ namespace ValheimPlus
         {
             private static void Postfix(ref Fermenter.ItemConversion __result)
             {
-                int fermenterItemCount = int.Parse(Config["Fermenter"]["fermenterItemsProduced"]);
-                if (fermenterItemCount > 0)
+                if (Config["Fermenter"]["enabled"] == "true")
                 {
-                    __result.m_producedItems = fermenterItemCount;
+                    int fermenterItemCount = int.Parse(Config["Fermenter"]["fermenterItemsProduced"]);
+                    if (fermenterItemCount > 0)
+                    {
+                        __result.m_producedItems = fermenterItemCount;
+                    }
                 }
+                    
             }
 
         }
@@ -168,8 +181,11 @@ namespace ValheimPlus
         {
             private static void Postfix(ref Boolean __result)
             {
-                if (Config["Items"]["noTeleportPrevention"] == "true")
+                if (Config["Items"]["enabled"] == "true")
+                {
+                    if (Config["Items"]["noTeleportPrevention"] == "true")
                     __result = true;
+                }
             }
         }
 
@@ -179,24 +195,27 @@ namespace ValheimPlus
         {
             private static void Prefix(ref Smelter __instance)
             {
-                int MaximumOre = int.Parse(Config["Furnace"]["maximumOre"]);
-                int MaximumFuel = int.Parse(Config["Furnace"]["maximumCoal"]);
-                float ProductionSpeed = toFloat(Config["Furnace"]["productionSpeed"]);
-                int CoalPerProduct = int.Parse(Config["Furnace"]["coalUsedPerProduct"]);
-
-                if (!__instance.m_addWoodSwitch)
+                if (Config["Furnace"]["enabled"] == "true")
                 {
-                    float ProductionSpeed_k = toFloat(Config["Kiln"]["productionSpeed"]);
+                    int MaximumOre = int.Parse(Config["Furnace"]["maximumOre"]);
+                    int MaximumFuel = int.Parse(Config["Furnace"]["maximumCoal"]);
+                    float ProductionSpeed = toFloat(Config["Furnace"]["productionSpeed"]);
+                    int CoalPerProduct = int.Parse(Config["Furnace"]["coalUsedPerProduct"]);
 
-                    __instance.m_secPerProduct = ProductionSpeed_k;
-                }
-                else
-                {
-                    // is furnace
-                    __instance.m_maxOre = MaximumOre;
-                    __instance.m_maxFuel = MaximumFuel;
-                    __instance.m_secPerProduct = ProductionSpeed;
-                    __instance.m_fuelPerProduct = CoalPerProduct;
+                    if (!__instance.m_addWoodSwitch)
+                    {
+                        float ProductionSpeed_k = toFloat(Config["Kiln"]["productionSpeed"]);
+
+                        __instance.m_secPerProduct = ProductionSpeed_k;
+                    }
+                    else
+                    {
+                        // is furnace
+                        __instance.m_maxOre = MaximumOre;
+                        __instance.m_maxFuel = MaximumFuel;
+                        __instance.m_secPerProduct = ProductionSpeed;
+                        __instance.m_fuelPerProduct = CoalPerProduct;
+                    }
                 }
             }
         }
@@ -207,27 +226,31 @@ namespace ValheimPlus
         {
             private static void Prefix(ref ItemDrop __instance)
             {
-                if (isDebug)
-                    Debug.Log(__instance.m_itemData.m_shared.m_name + ", type:" + __instance.m_itemData.m_shared.m_itemType.ToString());
-
-                if (Config["Items"]["noTeleportPrevention"] == "true")
+                
+                if (Config["Items"]["noTeleportPrevention"] == "true" && Config["Items"]["enabled"] == "true")
                 {
                     __instance.m_itemData.m_shared.m_teleportable = true;
                 }
 
-                float food_multiplier = toFloat(Config["Food"]["foodDurationMultiplier"]);
-                if (food_multiplier > 0.1)
+                if (Config["Food"]["enabled"] == "true")
                 {
-                    if (Convert.ToInt32(__instance.m_itemData.m_shared.m_itemType) == 2)
-                        __instance.m_itemData.m_shared.m_foodBurnTime = __instance.m_itemData.m_shared.m_foodBurnTime + (__instance.m_itemData.m_shared.m_foodBurnTime * toFloat(Config["Food"]["foodDurationMultiplier"]));
+                    float food_multiplier = toFloat(Config["Food"]["foodDurationMultiplier"]);
+                    if (food_multiplier > 0.1)
+                    {
+                        if (Convert.ToInt32(__instance.m_itemData.m_shared.m_itemType) == 2)
+                            __instance.m_itemData.m_shared.m_foodBurnTime = __instance.m_itemData.m_shared.m_foodBurnTime + (__instance.m_itemData.m_shared.m_foodBurnTime * toFloat(Config["Food"]["foodDurationMultiplier"]));
+                    }
                 }
 
-                float itemWeigthReduction = toFloat(Config["Items"]["baseItemWeightReduction"]);
-                if (itemWeigthReduction > 0)
-                {
-                    __instance.m_itemData.m_shared.m_weight = __instance.m_itemData.m_shared.m_weight - (__instance.m_itemData.m_shared.m_weight * itemWeigthReduction);
-                }
 
+                if (Config["Items"]["enabled"] == "true")
+                {
+                    float itemWeigthReduction = toFloat(Config["Items"]["baseItemWeightReduction"]);
+                    if (itemWeigthReduction > 0)
+                    {
+                        __instance.m_itemData.m_shared.m_weight = __instance.m_itemData.m_shared.m_weight - (__instance.m_itemData.m_shared.m_weight * itemWeigthReduction);
+                    }
+                }
 
             }
         }
@@ -240,10 +263,8 @@ namespace ValheimPlus
         {
             private static void Postfix(ref Int32 ___m_placementStatus, ref GameObject ___m_placementGhost)
             {
-                if (isDebug)
-                    Debug.Log(___m_placementGhost.name);
-
-                if (Config["Building"]["noInvalidPlacementRestriction"] == "true")
+                
+                if (Config["Building"]["noInvalidPlacementRestriction"] == "true" && Config["Building"]["enabled"] == "true")
                 {
                     if (___m_placementStatus == 1)
                     {
@@ -259,7 +280,7 @@ namespace ValheimPlus
         {
             private static Boolean Prefix()
             {
-                if (Config["Building"]["noWeatherDamage"] == "true")
+                if (Config["Building"]["noWeatherDamage"] == "true" && Config["Building"]["enabled"] == "true")
                 {
                     return false;
                 }
@@ -273,12 +294,16 @@ namespace ValheimPlus
         {
             private static void Postfix(ref ZNet __instance) 
             {
-                int maxPlayers = int.Parse(Config["Server"]["maxPlayers"]);
-                if (maxPlayers >= 1)
+                if(Config["Server"]["enabled"] == "true")
                 {
-                    // Set Server Instance Max Players
-                    __instance.m_serverPlayerLimit = maxPlayers;
+                    int maxPlayers = int.Parse(Config["Server"]["maxPlayers"]);
+                    if (maxPlayers >= 1)
+                    {
+                        // Set Server Instance Max Players
+                        __instance.m_serverPlayerLimit = maxPlayers;
+                    }
                 }
+                
             }
             
         }
@@ -287,11 +312,15 @@ namespace ValheimPlus
         {
             private static void Prefix(ref int cPlayersMax) 
             {
-                int maxPlayers = int.Parse(Config["Server"]["maxPlayers"]);
-                if (maxPlayers >= 1)
+                if (Config["Server"]["enabled"] == "true")
                 {
-                    cPlayersMax = maxPlayers;
+                    int maxPlayers = int.Parse(Config["Server"]["maxPlayers"]);
+                    if (maxPlayers >= 1)
+                    {
+                        cPlayersMax = maxPlayers;
+                    }
                 }
+                
             }
 
         }
@@ -301,12 +330,14 @@ namespace ValheimPlus
            
             private static void Postfix(ref Boolean __result) // Set after awake function
             {
-                string disable = Config["Server"]["disableServerPassword"];
-                if (disable == "true")
+                if (Config["Server"]["enabled"] == "true")
                 {
-                    __result = true;
+                    string disable = Config["Server"]["disableServerPassword"];
+                    if (disable == "true")
+                    {
+                        __result = true;
+                    }
                 }
-                
             }
         }
 
@@ -328,7 +359,7 @@ namespace ValheimPlus
             {
                 string shareProgression = Config["Map"]["shareMapProgression"];
                 float exploreRadius = toFloat(Config["Map"]["exploreRadius"]);
-                if (shareProgression == "true")
+                if (shareProgression == "true" && Config["Map"]["enabled"] == "true")
                 {
                     ___m_exploreTimer += Time.deltaTime;
                     if (___m_exploreTimer > ___m_exploreInterval)

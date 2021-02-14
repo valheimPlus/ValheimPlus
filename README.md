@@ -37,6 +37,9 @@ You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" f
 # Currently Supported Configuration (0.3)
 ```INI
 [Player]
+enabled=false
+; enable/disable Player changes
+
 baseMegingjordBuff=150
 ; default is 150 (float)
 ; Ingame Tooltip is not affected
@@ -49,10 +52,16 @@ baseAutoPickUpRange=2
 
 
 [Food]
-foodDurationMultiplier=1.0
+enabled=false
+; enable/disable Food changes
+
+foodDurationMultiplier=0.0
 ; default is 0, it adds to the value meaning 0.0 is 100%, 1 is 200%.
 
 [Fermenter]
+enabled=false
+; enable/disable Fermenter changes
+
 fermenterDuration=2400
 ; default is 2400 (float) (24 ingame hours ?)
 ; lower is faster
@@ -61,6 +70,9 @@ fermenterItemsProduced=4
 ; default is 4 (integer) items per fermenter process
 
 [Furnace]
+enabled=false
+; enable/disable Furnace changes
+
 maximumOre=10
 ; default is 10 (int)
 
@@ -76,12 +88,19 @@ coalUsedPerProduct=4
 
 [Kiln]
 ; Responsible for changing Charcoal Kiln stats
+
+enabled=false
+; enable/disable Kiln changes
+
 productionSpeed=10
 ; default it 10 (float)
 ; lower is faster
 
 
 [Items]
+enabled=false
+; enable/disable Building changes
+
 noTeleportPrevention=false
 ; default is false (boolean)
 
@@ -90,14 +109,18 @@ baseItemWeightReduction=0
 ; 1 is 100% weight reduction of every item, 0.5 is 50%.
 
 [Building]
+enabled=false
+; enable/disable Building changes
+
 noInvalidPlacementRestriction=false
 ; (boolean) Removes the "Invalid Placement" restriction
+
 noWeatherDamage=false
 ; Removes weather/rain damage on building objects
 
 [Beehive]
 enabled=false
-; Enable/Disable beehive changes
+; enable/disable Beehive changes
 
 maximumHoneyPerBeehive=4
 ; (integer) default is 4.
@@ -109,19 +132,29 @@ honeyProductionSpeed=10
 
 
 [Server]
+enabled=false
+; enable/disable Server changes
+
 maxPlayers=10
 ; (int) default is 10
+
 disableServerPassword=false
 ; (boolean) default is false
 
 [Map]
+enabled=false
+; enable/disable Map changes
+
 exploreRadius=100
-; default 100 (float), the radius around each player that get explored
+; default 10 (float), the radius around each player that get explored
+
 shareMapProgression=false
 ; default false (boolean), shares the map progress (reveal) across all players
 ; players need to be online to receive map progression
+
 onlyShareMapProgressionWhenVisible=false
 ; only share the map progression of people that have selected to be visible on the map
+
 ```
 
 # Valheim Plus Compiler Requirements
