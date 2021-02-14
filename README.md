@@ -20,6 +20,9 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 
 (You only get map progression when you are online)
 
+# Join the Discord
+![ValheimPlus Icon](https://raw.githubusercontent.com/nxPublic/ValheimPlus/master/ico.png)
+https://discord.gg/AmH6Va97GT
 
 # Configuration File
 
@@ -109,7 +112,7 @@ disableServerPassword=false
 
 [Map]
 exploreRadius=100
-; default 10 (float), the radius around each player that get explored
+; default 100 (float), the radius around each player that get explored
 shareMapProgression=false
 ; default false (boolean), shares the map progress (reveal) across all players
 ; players need to be online to receive map progression
