@@ -34,7 +34,7 @@ The Config files name is supposed to be "valheim_plus.cfg" it needs to be placed
 
 You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder (its supplied by default within the release versions)
 
-# Currently Supported Configuration (0.3)
+# Currently Supported Configuration (0.4)
 ```INI
 [Player]
 baseMegingjordBuff=150
