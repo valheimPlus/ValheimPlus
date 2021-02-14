@@ -1,3 +1,5 @@
+![ValheimPlus Logo](https://raw.githubusercontent.com/nxPublic/ValheimPlus/master/logo.png)
+
 # ValheimPlus
 A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 
