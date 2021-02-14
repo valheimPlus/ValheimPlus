@@ -57,7 +57,7 @@ productionSpeed=10
 
 
 [Items]
-noTeleportPrevention=true
+noTeleportPrevention=false
 ; default is false (boolean)
 
 baseItemWeightReduction=0
@@ -65,13 +65,13 @@ baseItemWeightReduction=0
 ; 1 is 100% weight reduction of every item, 0.5 is 50%.
 
 [Building]
-noInvalidPlacementRestriction=true
+noInvalidPlacementRestriction=false
 ; (boolean) Removes the "Invalid Placement" restriction
-noWeatherDamage=true
+noWeatherDamage=false
 ; Removes weather/rain damage on building objects
 
 [Beehive]
-enabled=true
+enabled=false
 ; Enable/Disable beehive changes
 
 maximumHoneyPerBeehive=7
@@ -80,6 +80,10 @@ maximumHoneyPerBeehive=7
 honeyProductionSpeed=7
 ; (float), default is 10. Do not go lower than 5.
 ; lower is faster
+
+
+
+
 
 ```
 
