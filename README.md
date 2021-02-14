@@ -20,6 +20,10 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 
 (You only get map progression when you are online)
 
+# Server
+If you want to host a server, you can repeat the usual process of installing the mod just like you would do for your game folder and unpack everything into your root folder of the server.
+Please be aware that EVERY client(user) that connects needs to have the mod installed to have everything working as intended.
+
 # Join the Discord
 ![ValheimPlus Icon](https://raw.githubusercontent.com/nxPublic/ValheimPlus/master/ico.png)
 https://discord.gg/AmH6Va97GT
