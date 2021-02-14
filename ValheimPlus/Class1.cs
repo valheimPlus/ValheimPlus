@@ -184,18 +184,18 @@ namespace ValheimPlus
 
                 if (!__instance.m_addWoodSwitch)
                 {
-                    // is charcoal kiln
-                    //__instance.m_maxFuel = MaximumFuel;
-                    // unclear why this is not working as intended
+                    float ProductionSpeed_k = toFloat(Config["Kiln"]["productionSpeed"]);
+
+                    __instance.m_secPerProduct = ProductionSpeed_k;
                 }
                 else
                 {
                     // is furnace
                     __instance.m_maxOre = MaximumOre;
                     __instance.m_maxFuel = MaximumFuel;
+                    __instance.m_secPerProduct = ProductionSpeed;
+                    __instance.m_fuelPerProduct = CoalPerProduct;
                 }
-                __instance.m_secPerProduct = ProductionSpeed;
-                __instance.m_fuelPerProduct = CoalPerProduct;
             }
         }
 

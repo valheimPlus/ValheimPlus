@@ -9,14 +9,14 @@ The Config files name is supposed to be "valheim_plus.cfg" it needs to be placed
 (The name will be adjusted in the future)
 You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder (its supplied by default within the release versions)
 
-# Currently Supported Configuration
+# Currently Supported Configuration (0.3)
 ```INI
 [Player]
-baseMegingjordBuff=500
+baseMegingjordBuff=150
 ; default is 150 (float)
 ; Ingame Tooltip is not affected
 
-baseMaximumWeight=1000
+baseMaximumWeight=300
 ; default is 300 (float)
 
 baseAutoPickUpRange=4
@@ -24,7 +24,7 @@ baseAutoPickUpRange=4
 
 
 [Food]
-foodDurationMultiplier=5.0
+foodDurationMultiplier=1.0
 ; default is 0, it adds to the value meaning 0.0 is 100%, 1 is 200%.
 
 [Fermenter]
@@ -36,19 +36,25 @@ fermenterItemsProduced=4
 ; default is 4 (integer) items per fermenter process
 
 [Furnace]
-; Changes to these values apply to the Charcoal kiln and the Smelter/Furnace
-maximumOre=60
+maximumOre=10
 ; default is 10 (int)
 
-maximumCoal=60
+maximumCoal=10
 ; default is 10 (int)
 
-productionSpeed=2
+productionSpeed=10
 ; default it 10 (float)
 ; lower is faster
 
 coalUsedPerProduct=4
 ; default is 4 (int)
+
+[Kiln]
+; Responsible for changing Charcoal Kiln stats
+productionSpeed=10
+; default it 10 (float)
+; lower is faster
+
 
 [Items]
 noTeleportPrevention=true
@@ -66,6 +72,7 @@ noWeatherDamage=true
 
 [Beehive]
 enabled=true
+; Enable/Disable beehive changes
 
 maximumHoneyPerBeehive=7
 ; (integer)
