@@ -20,10 +20,10 @@ namespace ValheimPlus
     // GITHUB REPOSITORY https://github.com/nxPublic/ValheimPlus
 
 
-    [BepInPlugin("org.bepinex.plugins.valheim_multipliers", "Valheim Multipliers", "0.5.0.0")]
+    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.8.0.0")]
     class ValheimMultipliersPlugin : BaseUnityPlugin
     {
-        string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_multipliers.cfg";
+        string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.cfg";
 
         // DO NOT REMOVE MY CREDITS
         string Author = "nx";
@@ -34,7 +34,7 @@ namespace ValheimPlus
         // Add your credits here
         String ModifiedBy = "YourName";
 
-        public static Boolean isDebug = true;
+        public static Boolean isDebug = false;
 
         public static IniData Config { get; set; }
 
@@ -227,6 +227,9 @@ namespace ValheimPlus
         {
             private static void Postfix(ref Int32 ___m_placementStatus, ref GameObject ___m_placementGhost)
             {
+                if(isDebug)
+					Debug.Log(___m_placementGhost.name);
+
                 if (Config["Building"]["noInvalidPlacementRestriction"] == "true")
                 {
                     if (___m_placementStatus == 1)
@@ -238,6 +241,18 @@ namespace ValheimPlus
             }
         }
 
+        [HarmonyPatch(typeof(WearNTear), "ApplyDamage")]
+        public static class RemoveWearNTear
+        {
+            private static Boolean Prefix(ref Int32 ___m_placementStatus, ref GameObject ___m_placementGhost)
+            {
+                if (Config["Building"]["noWeatherDamage"] == "true")
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
 
         // Helper Functions
         private static float toFloat(string value)
