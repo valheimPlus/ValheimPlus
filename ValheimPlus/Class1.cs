@@ -181,8 +181,19 @@ namespace ValheimPlus
                 int MaximumFuel = int.Parse(Config["Furnace"]["maximumCoal"]);
                 float ProductionSpeed = toFloat(Config["Furnace"]["productionSpeed"]);
                 int CoalPerProduct = int.Parse(Config["Furnace"]["coalUsedPerProduct"]);
-                __instance.m_maxOre = MaximumOre;
-                __instance.m_maxFuel = MaximumFuel;
+
+                if (!__instance.m_addWoodSwitch)
+                {
+                    // is charcoal kiln
+                    //__instance.m_maxFuel = MaximumFuel;
+                    // unclear why this is not working as intended
+                }
+                else
+                {
+                    // is furnace
+                    __instance.m_maxOre = MaximumOre;
+                    __instance.m_maxFuel = MaximumFuel;
+                }
                 __instance.m_secPerProduct = ProductionSpeed;
                 __instance.m_fuelPerProduct = CoalPerProduct;
             }
@@ -244,7 +255,7 @@ namespace ValheimPlus
         [HarmonyPatch(typeof(WearNTear), "ApplyDamage")]
         public static class RemoveWearNTear
         {
-            private static Boolean Prefix(ref Int32 ___m_placementStatus, ref GameObject ___m_placementGhost)
+            private static Boolean Prefix()
             {
                 if (Config["Building"]["noWeatherDamage"] == "true")
                 {
