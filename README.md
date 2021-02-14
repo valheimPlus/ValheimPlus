@@ -15,6 +15,7 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 - Remove Password requirement for server
 - Modify maximum Players on a server
 - Shared Map System with a setting to either ignore or respect player map visibility settings
+
 (You only get map progression when you are online)
 
 
