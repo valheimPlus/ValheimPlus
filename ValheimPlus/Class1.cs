@@ -261,9 +261,235 @@ namespace ValheimPlus
         [HarmonyPatch(typeof(Player), "UpdatePlacementGhost")]
         public static class ModifyPlacingRestrictionOfGhost
         {
-            private static void Postfix(ref Int32 ___m_placementStatus, ref GameObject ___m_placementGhost)
+
+
+            static Boolean DelayedStop = false;
+            static Boolean BlockRefresh = false;
+            static Boolean controlFlag = false;
+            static Boolean shiftFlag = false;
+            static Boolean altFlag = false;
+            
+            private static Boolean Prefix(ref Player __instance, ref Int32 ___m_placementStatus, ref GameObject ___m_placementGhost, ref GameObject ___m_placementMarkerInstance, ref int ___m_placeRotation)
             {
+
+                if(Config["AdvancedBuildingMode"]["enabled"] != "true")
+                {
+                    return true;
+                }
+
+                KeyCode enter = (KeyCode)System.Enum.Parse(typeof(KeyCode), Config["Hotkeys"]["enterAdvancedBuildingMode"]);
+                KeyCode exit = (KeyCode)System.Enum.Parse(typeof(KeyCode), Config["Hotkeys"]["exitAdvancedBuildingMode"]);
+
+                // Error Handling and removal of left over placement marker
+                if (!__instance.InPlaceMode() || ___m_placementGhost == null)
+                {
+                    DelayedStop = false;
+                    BlockRefresh = false;
+                    ___m_placementMarkerInstance.SetActive(false);
+                    return true;
+                }
+
+                // Delayed function stop to place the object at the right location (if we would immediatly stop, it would be placed at cursor location)
+                if (DelayedStop)
+                {
+                    DelayedStop = false;
+                    BlockRefresh = false;
+                    return true;
+                }
+
+                float rX = 0;
+                float rZ = 0;
+                float rY = 0;
+
+                Piece component = ___m_placementGhost.GetComponent<Piece>();
+
+                if (Input.GetKeyDown(enter))
+                {
+                    BlockRefresh = true;
+                }
+                if (Input.GetKeyDown(exit))
+                {
+                    BlockRefresh = false;
+                    ___m_placeRotation = 0;
+                }
+
+                float distance = 2;
+                float scrollDistance = 2;
+
+                // TODO ADD INCREASE / DECREASE HOTKEYS
+                // TODO ADD HOTKEY TO SAVE / LOAD ROTATION
                 
+                if (Input.GetKeyDown(KeyCode.LeftControl)){controlFlag = true;}
+                if (Input.GetKeyUp(KeyCode.LeftControl)){controlFlag = false;}
+
+                if (Input.GetKeyDown(KeyCode.LeftShift)) { shiftFlag = true; }
+                if (Input.GetKeyUp(KeyCode.LeftShift)) { shiftFlag = false; }
+                if (shiftFlag){distance = 6; scrollDistance = 6; } else{distance = 2; scrollDistance=2;}
+
+                if (Input.GetKeyDown(KeyCode.LeftAlt)) { altFlag = true; }
+                if (Input.GetKeyUp(KeyCode.LeftAlt)) { altFlag = false; }
+
+                if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+                {
+                    
+                    Quaternion rotation;
+                    if (controlFlag)
+                    {
+                        rX++;
+                        rotation = Quaternion.Euler(component.transform.eulerAngles.x + (scrollDistance * (float)rX), component.transform.eulerAngles.y, component.transform.eulerAngles.z); // forward to backwards
+                    }
+                    else
+                    {
+                        if (altFlag)
+                        {
+                            rZ++;
+                            rotation = Quaternion.Euler(component.transform.eulerAngles.x, component.transform.eulerAngles.y, component.transform.eulerAngles.z + (scrollDistance * (float)rZ)); // diagonal
+                        }
+                        else
+                        {
+                            rY++;
+                            rotation = Quaternion.Euler(component.transform.eulerAngles.x, component.transform.eulerAngles.y + (scrollDistance * (float)rY), component.transform.eulerAngles.z); // left<->right
+                        }
+                    }
+                    component.transform.rotation = rotation;
+                }
+                if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+                {
+                    Quaternion rotation;
+                    if (controlFlag)
+                    {
+                        rX--;
+                        rotation = Quaternion.Euler(component.transform.eulerAngles.x + (scrollDistance * (float)rX), component.transform.eulerAngles.y, component.transform.eulerAngles.z); // forward to backwards
+                    }
+                    else
+                    {
+                        if (altFlag)
+                        {
+                            rZ--;
+                            rotation = Quaternion.Euler(component.transform.eulerAngles.x, component.transform.eulerAngles.y, component.transform.eulerAngles.z + (scrollDistance * (float)rZ)); // diagonal
+                        }
+                        else
+                        {
+                            rY--;
+                            rotation = Quaternion.Euler(component.transform.eulerAngles.x, component.transform.eulerAngles.y + (scrollDistance * (float)rY), component.transform.eulerAngles.z); // left<->right
+                        }
+                    }
+
+                    component.transform.rotation = rotation;
+                }
+                
+
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    if (controlFlag)
+                    {
+                        component.transform.Translate(Vector3.up * distance * Time.deltaTime);
+                    }
+                    else
+                    {
+                        component.transform.Translate(Vector3.forward * distance * Time.deltaTime);
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    if (controlFlag)
+                    {
+                        component.transform.Translate(Vector3.down * distance * Time.deltaTime);
+                    }
+                    else
+                    {
+                        component.transform.Translate(Vector3.back * distance * Time.deltaTime);
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    component.transform.Translate(Vector3.left * distance * Time.deltaTime);
+                }
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    component.transform.Translate(Vector3.right * distance * Time.deltaTime);
+                }
+
+
+                // ToDo, add a custom additional downwards raycast from the position of the component to the ground to add the rest of the placement restrictions
+
+                bool water = component.m_waterPiece || component.m_noInWater;
+                
+                ___m_placementStatus = 0; // VALID
+
+                if (component.m_groundOnly || component.m_groundPiece || component.m_cultivatedGroundOnly)
+                {
+                    ___m_placementMarkerInstance.SetActive(false);
+                }
+
+                StationExtension component2 = component.GetComponent<StationExtension>();
+
+                if (component2 != null)
+                {
+                    CraftingStation craftingStation = component2.FindClosestStationInRange(component.transform.position);
+                    if (craftingStation)
+                    {
+                        component2.StartConnectionEffect(craftingStation);
+                    }
+                    else
+                    {
+                        component2.StopConnectionEffect();
+                        ___m_placementStatus = 7; // Missing Station
+                    }
+                    if (component2.OtherExtensionInRange(component.m_spaceRequirement))
+                    {
+                       ___m_placementStatus = 5; // More Space
+                    }
+                }
+
+                if (component.m_onlyInTeleportArea && !EffectArea.IsPointInsideArea(component.transform.position, EffectArea.Type.Teleport, 0f))
+                {
+                    ___m_placementStatus = 6;
+                }
+                if (!component.m_allowedInDungeons && (component.transform.position.y > 3000f))
+                {
+                    ___m_placementStatus = 10;
+                }
+                if (Location.IsInsideNoBuildLocation(___m_placementGhost.transform.position))
+                {
+                    ___m_placementStatus = 3;
+                }
+                float radius = component.GetComponent<PrivateArea>() ? component.GetComponent<PrivateArea>().m_radius : 0f;
+                if (!PrivateArea.CheckAccess(___m_placementGhost.transform.position, radius, true))
+                {
+                    ___m_placementStatus = 4;
+                }
+
+                if(___m_placementStatus != 0)
+                {
+                    component.SetInvalidPlacementHeightlight(true);
+                }
+                else
+                {
+                    component.SetInvalidPlacementHeightlight(false);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    // Stop with the next iteration of the function and place the piece
+                    DelayedStop = true;
+                }
+
+                return !BlockRefresh;
+
+            }
+
+            private static void Postfix(ref Player __instance,ref Int32 ___m_placementStatus, ref GameObject ___m_placementGhost, ref GameObject ___m_placementMarkerInstance)
+            {
+
+                if (!__instance.InPlaceMode() || ___m_placementGhost == null)
+                {
+                    if (___m_placementMarkerInstance)
+                    {
+                        ___m_placementMarkerInstance.SetActive(false);
+                    }
+                }
+
                 if (Config["Building"]["noInvalidPlacementRestriction"] == "true" && Config["Building"]["enabled"] == "true")
                 {
                     if (___m_placementStatus == 1)
@@ -272,7 +498,10 @@ namespace ValheimPlus
                         ___m_placementGhost.GetComponent<Piece>().SetInvalidPlacementHeightlight(false);
                     }
                 }
+
             }
+
+
         }
 
         [HarmonyPatch(typeof(WearNTear), "ApplyDamage")]
@@ -287,6 +516,8 @@ namespace ValheimPlus
                 return true;
             }
         }
+
+
         
         // ##################################################### SECTION = SERVER
         [HarmonyPatch(typeof(ZNet), "Awake")]
@@ -307,7 +538,6 @@ namespace ValheimPlus
             }
             
         }
-
         [HarmonyPatch(typeof(SteamGameServer), "SetMaxPlayerCount")]
         public static class ChangeSteamServerVariables
         {
@@ -325,7 +555,6 @@ namespace ValheimPlus
             }
 
         }
-        
         [HarmonyPatch(typeof(FejdStartup), "IsPublicPasswordValid")]
         public static class ChangeServerPasswordBehavior
         {
@@ -409,7 +638,7 @@ namespace ValheimPlus
         [HarmonyPatch(typeof(Player), "Update")]
         public static class ApplyHotkeys
         {
-            private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir)
+            private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost)
             {
                 KeyCode rollKeyForward = (KeyCode)System.Enum.Parse(typeof(KeyCode), Config["Hotkeys"]["rollForwards"]);
                 KeyCode rollKeyBackwards = (KeyCode)System.Enum.Parse(typeof(KeyCode), Config["Hotkeys"]["rollBackwards"]);
@@ -475,5 +704,30 @@ namespace ValheimPlus
             Attach_Atgeir
         }
 
+        public enum PlacementStatus
+        {
+            // Token: 0x04000FC5 RID: 4037
+            Valid = 0,
+            // Token: 0x04000FC6 RID: 4038
+            Invalid = 1,
+            // Token: 0x04000FC7 RID: 4039
+            BlockedbyPlayer = 2,
+            // Token: 0x04000FC8 RID: 4040
+            NoBuildZone = 3,
+            // Token: 0x04000FC9 RID: 4041
+            PrivateZone = 4,
+            // Token: 0x04000FCA RID: 4042
+            MoreSpace = 5,
+            // Token: 0x04000FCB RID: 4043
+            NoTeleportArea = 6,
+            // Token: 0x04000FCC RID: 4044
+            ExtensionMissingStation = 7,
+            // Token: 0x04000FCD RID: 4045
+            WrongBiome = 8,
+            // Token: 0x04000FCE RID: 4046
+            NeedCultivated = 9,
+            // Token: 0x04000FCF RID: 4047
+            NotInDungeon = 10
+        }
     }
 }

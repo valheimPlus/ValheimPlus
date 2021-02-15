@@ -18,8 +18,25 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 - Modify maximum Players on a server
 - Shared Map System with a setting that respects player map visibility settings
 - Hotkey options for fowards and backwards roll.
+- Advanced Building Mode
 
 (You only get map progression when you are online)
+
+# Advanced Building Mode
+How it works.
+1. You freeze the item by pressing the configurated key (F1 is default).
+2. You can modify the items position and rotation with the following key combinations:
+- Arrow Up/Down/Left/Right = moves the building object in the respective direction.
+- Arrow Up/Down + Control = moves the building object up and down
+- ScrollWheel = rotates the building object on the Y axis.
+- ScrollWheel + Control = rotates the building object on the X axis.
+- ScrollWheel + left Alt = rotates the building object on the Z axis.
+(Pressing Shift at any moment in time increases the distance/rotation angle by *3)
+3. Build the object with a mouse click.
+
+*Building objects build with this system are not excempt from the structure/support system!*
+
+*They are also not able to be build inside dungeons or placed in restricted areas!*
 
 # Server
 If you want to host a server, you can repeat the usual process of installing the mod just like you would do for your game by unpack everything into your root folder of the server. 
@@ -157,14 +174,19 @@ shareMapProgression=true
 [Hotkeys]
 enabled=false
 ; enable/disable all hotkeys changes
-; https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.keys?view=net-5.0 <- a list of keycodes
+; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
 
 rollForwards=F9
 ; roll forward on button press
 
 rollBackwards=F10
 ; roll backwards on button press
+enterAdvancedBuildingMode=F1
+exitAdvancedBuildingMode=F3
 
+[AdvancedBuildingMode]
+enabled=false
+; enables advanced building mode, more info on the github page
 ```
 
 # Valheim Plus Compiler Requirements
