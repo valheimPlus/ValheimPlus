@@ -19,6 +19,7 @@ namespace ValheimPlus
     class ValheimPlusPlugin : BaseUnityPlugin
     {
         string ConfigYamlPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.yml";
+        string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.ini";
 
         // DO NOT REMOVE MY CREDITS
         string Author = "nx";
@@ -37,30 +38,32 @@ namespace ValheimPlus
         void Awake()
         {
             Logger.LogInfo("Trying to load the configuration file");
-            if (File.Exists(ConfigYamlPath))
+
+            if (LoadSettings() != true)
             {
-                Logger.LogInfo("Configuration file found, loading configuration.");
-                if (LoadSettings() != true)
-                {
-                    Logger.LogError("Error while loading configuration file.");
-                }
-                else
-                {
-                    Logger.LogInfo("Configuration file loaded succesfully.");
-                    // apply hooks
-                    Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
-                }
+                Logger.LogError("Error while loading configuration file.");
             }
             else
             {
-                Logger.LogError("Error: File not found. Plugin not loaded.");
+                Logger.LogInfo("Configuration file loaded succesfully.");
+                // apply hooks
+                Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly());
             }
+            
         }
         private bool LoadSettings()
         {
             try
             {
-                Conf = Configuration.LoadFromYaml(ConfigYamlPath);
+                if (File.Exists(ConfigYamlPath))
+                    Conf = ConfigurationExtra.LoadFromYaml(ConfigYamlPath);
+                else if (File.Exists(ConfigIniPath))
+                    Conf = ConfigurationExtra.LoadFromIni(ConfigIniPath);
+                else
+                {
+                    Logger.LogError("Error: Configuration not found. Plugin not loaded.");
+                    return false;
+                }
                 //var parser = new FileIniDataParser();
                 //Config = parser.ReadFile(ConfigPath);
             }
