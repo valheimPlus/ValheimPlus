@@ -534,6 +534,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConfigurationExtra.cs" />
     <Compile Include="ValheimPlusPlugin.cs" />
     <Compile Include="Configuration\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
