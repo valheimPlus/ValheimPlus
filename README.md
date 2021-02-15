@@ -46,6 +46,11 @@ Please be aware that **EVERY** client(user) that connects needs to have the mod 
 ![ValheimPlus Icon](https://raw.githubusercontent.com/nxPublic/ValheimPlus/master/ico.png)
 https://discord.gg/AmH6Va97GT
 
+# Support the Project on Patreon
+(No obligation, people asked how they could support me.)
+https://www.patreon.com/valheimPlus
+
+
 # Configuration File
 
 The Config files name is supposed to be "valheim_plus.cfg" it needs to be placed in "BepInEx\config"
@@ -94,8 +99,8 @@ enabled=false
 maximumOre=10
 ; default is 10 (int)
 
-maximumCoal=10
-; default is 10 (int)
+maximumCoal=20
+; default is 20 (int)
 
 productionSpeed=10
 ; default it 10 (float)
@@ -148,7 +153,6 @@ honeyProductionSpeed=10
 ; lower is faster
 
 
-
 [Server]
 enabled=false
 ; enable/disable Server changes
@@ -182,7 +186,9 @@ rollForwards=F9
 rollBackwards=F10
 ; roll backwards on button press
 enterAdvancedBuildingMode=F1
+; Freeze Object and allow advanced controls
 exitAdvancedBuildingMode=F3
+; Unfreeze Object and use default place mode
 
 [AdvancedBuildingMode]
 enabled=false
