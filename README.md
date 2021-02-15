@@ -88,7 +88,7 @@ fermenterItemsProduced=4
 ; default is 4 (integer) items per fermenter process
 
 [Furnace]
-enabled=true
+enabled=false
 ; enable/disable Furnace changes
 
 maximumOre=10
@@ -97,7 +97,7 @@ maximumOre=10
 maximumCoal=10
 ; default is 10 (int)
 
-productionSpeed=2
+productionSpeed=10
 ; default it 10 (float)
 ; lower is faster
 
@@ -107,10 +107,10 @@ coalUsedPerProduct=4
 [Kiln]
 ; Responsible for changing Charcoal Kiln stats
 
-enabled=true
+enabled=false
 ; enable/disable Kiln changes
 
-productionSpeed=2
+productionSpeed=10
 ; default it 10 (float)
 ; lower is faster
 
