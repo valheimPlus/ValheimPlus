@@ -66,6 +66,12 @@ namespace ValheimPlus
             {
                 var keyName = prop.Name;
 
+                // Set first char of keyName to lowercase
+                if (keyName != string.Empty && char.IsUpper(keyName[0]))
+                {
+                    keyName = char.ToLower(keyName[0]) + keyName.Substring(1);
+                }
+
                 if (ValheimPlusPlugin.isDebug)
                 {
                     if (data.ContainsKey(keyName))
@@ -75,11 +81,6 @@ namespace ValheimPlus
                 }
 
                 if (!data.ContainsKey(keyName)) continue;
-
-                if (keyName != string.Empty && char.IsUpper(keyName[0]))
-                {
-                    keyName = char.ToLower(keyName[0]) + keyName.Substring(1);
-                }
 
                 if (prop.PropertyType == typeof(float))
                 {
