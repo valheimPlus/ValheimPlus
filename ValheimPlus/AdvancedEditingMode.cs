@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
+﻿using HarmonyLib;
+using System;
 using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
-using UnityEngine.Rendering;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -170,7 +156,7 @@ namespace ValheimPlus
 
             if (!isActive)
             {
-                if (Input.GetKeyDown(Settings.getHotkey("enterAdvancedEditingMode")))
+                if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.EnterAdvancedEditingMode))
                 {
                     if (checkForObject())
                         startMode();
@@ -178,7 +164,7 @@ namespace ValheimPlus
                 }
             }
 
-            if (Input.GetKeyDown(Settings.getHotkey("abortAndExitAdvancedEditingMode")))
+            if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.AbortAndExitAdvancedEditingMode))
             {
                 exitMode();
                 resetObjectTransform();
@@ -225,12 +211,12 @@ namespace ValheimPlus
             float rY = 0;
             
 
-            if (Input.GetKeyDown(Settings.getHotkey("resetAdvancedEditingMode")))
+            if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.ResetAdvancedEditingMode))
             {
                 resetObjectTransform();
             }
 
-            if (Input.GetKeyDown(Settings.getHotkey("confirmPlacementOfAdvancedEditingMode")))
+            if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.ConfirmPlacementOfAdvancedEditingMode))
             {
                 if (isContainer())
                     dropContainerContents();

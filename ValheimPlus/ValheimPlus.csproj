@@ -332,6 +332,20 @@
     <Compile Include="AdvancedEditingMode.cs" />
     <Compile Include="Beehive.cs" />
     <Compile Include="Experience.cs" />
+    <Compile Include="Configurations\Sections\AdvancedBuildingModeConfiguration.cs" />
+    <Compile Include="Configurations\Sections\AdvancedEditingModeConfiguration.cs" />
+    <Compile Include="Configurations\Sections\BeehiveConfiguration.cs" />
+    <Compile Include="Configurations\Sections\BuildingConfiguration.cs" />
+    <Compile Include="Configurations\Sections\FermenterConfiguration.cs" />
+    <Compile Include="Configurations\Sections\FoodConfiguration.cs" />
+    <Compile Include="Configurations\Sections\FurnaceConfiguration.cs" />
+    <Compile Include="Configurations\Sections\HotkeyConfiguration.cs" />
+    <Compile Include="Configurations\Sections\ItemsConfiguration.cs" />
+    <Compile Include="Configurations\Sections\KilnConfiguration.cs" />
+    <Compile Include="Configurations\Sections\MapConfiguration.cs" />
+    <Compile Include="Configurations\Sections\PlayerConfiguration.cs" />
+    <Compile Include="Configurations\Sections\ServerConfiguration.cs" />
+    <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Initialize.cs" />
     <Compile Include="Fermenter.cs" />
@@ -534,9 +548,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ConfigurationExtra.cs" />
-    <Compile Include="ValheimPlusPlugin.cs" />
-    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configurations\ConfigurationExtra.cs" />
+    <Compile Include="Configurations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Settings.cs" />
@@ -550,5 +563,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

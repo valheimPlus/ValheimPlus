@@ -1,20 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
-using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
+﻿using HarmonyLib;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -23,10 +8,10 @@ namespace ValheimPlus
     {
         private static bool Prefix(ref float ___m_secPerUnit, ref int ___m_maxHoney)
         {
-            if (Settings.isEnabled("Beehive"))
+            if (Configuration.Current.Beehive.IsEnabled)
             {
-                ___m_secPerUnit = Settings.getFloat("Beehive", "honeyProductionSpeed");
-                ___m_maxHoney = Settings.getInt("Beehive", "maximumHoneyPerBeehive");
+                ___m_secPerUnit = Configuration.Current.Beehive.HoneyProductionSpeed;
+                ___m_maxHoney = Configuration.Current.Beehive.MaximumHoneyPerBeehive;
             }
             return true;
         }

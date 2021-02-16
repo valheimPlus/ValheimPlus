@@ -1,16 +1,45 @@
-﻿using IniParser;
+﻿using BepInEx;
+using IniParser;
 using IniParser.Model;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using ValheimPlus.Configurations.Sections;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace ValheimPlus
+namespace ValheimPlus.Configurations
 {
     public class ConfigurationExtra
     {
+        static string ConfigYamlPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.yml";
+        static string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.cfg";
+
+        public static bool LoadSettings()
+        {
+            try
+            {
+
+                if (File.Exists(ConfigYamlPath))
+                    Configuration.Current = LoadFromYaml(ConfigYamlPath);
+                else if (File.Exists(ConfigIniPath))
+                    Configuration.Current = LoadFromIni(ConfigIniPath);
+                else
+                {
+                    Debug.LogError("Error: Configuration not found. Plugin not loaded.");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Could not load config file: {ex}");
+                return false;
+            }
+            return true;
+        }
+
         public static Configuration LoadFromYaml(string filename)
         {
             var deserializer = new DeserializerBuilder()
@@ -24,8 +53,9 @@ namespace ValheimPlus
         {
             var parser = new FileIniDataParser();
             var configdata = parser.ReadFile(filename);
-            var conf = new Configuration() {
-                AdvancedBuildingMode = AdvancedBuildingModeConfiguration.LoadIni(configdata,"AdvancedBuildingMode"),
+            var conf = new Configuration()
+            {
+                AdvancedBuildingMode = AdvancedBuildingModeConfiguration.LoadIni(configdata, "AdvancedBuildingMode"),
                 Items = ItemsConfiguration.LoadIni(configdata, "Items"),
                 Beehive = BeehiveConfiguration.LoadIni(configdata, "Beehive"),
                 Building = BuildingConfiguration.LoadIni(configdata, "Building"),
@@ -36,7 +66,9 @@ namespace ValheimPlus
                 Kiln = KilnConfiguration.LoadIni(configdata, "Kiln"),
                 Map = MapConfiguration.LoadIni(configdata, "Map"),
                 Player = PlayerConfiguration.LoadIni(configdata, "Player"),
-                Server = ServerConfiguration.LoadIni(configdata, "Server")
+                Server = ServerConfiguration.LoadIni(configdata, "Server"),
+                Stamina = StaminaConfiguration.LoadIni(configdata, "Stamina"),
+                AdvancedEditingMode = AdvancedEditingModeConfiguration.LoadIni(configdata, "AdvancedEditingMode")
             };
 
             return conf;
@@ -51,17 +83,23 @@ namespace ValheimPlus
 
     public abstract class BaseConfig<T> : IConfig where T : IConfig, new()
     {
+        public bool IsEnabled = false;
+
         public static T LoadIni(IniData data, string section)
         {
-            Debug.Log($"Loading config section {section}");
-            if (data[section] == null || !data[section].GetBool("enabled")) return default(T);
             var n = new T();
+
+            Debug.Log($"Loading config section {section}");
+            if (data[section] == null || !data[section].GetBool("enabled")) return n;
+
             n.LoadIniData(data[section]);
             return n;
         }
 
         public void LoadIniData(KeyDataCollection data)
         {
+            IsEnabled = true;
+
             foreach (var prop in typeof(T).GetProperties())
             {
                 var keyName = prop.Name;
@@ -133,10 +171,11 @@ namespace ValheimPlus
             return (KeyCode)System.Enum.Parse(typeof(KeyCode), data[key]);
         }
 
-        public static T LoadConfiguration<T>(this IniData data, string key) where T: BaseConfig<T>, new() {
+        public static T LoadConfiguration<T>(this IniData data, string key) where T : BaseConfig<T>, new()
+        {
             // this function gives null reference error
             var idata = data[key];
-            return (T)typeof(T).GetMethod("LoadIni").Invoke(null, new[]{ idata});
+            return (T)typeof(T).GetMethod("LoadIni").Invoke(null, new[] { idata });
         }
 
     }
