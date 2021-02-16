@@ -19,6 +19,9 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 - Shared Map System with a setting that respects player map visibility settings
 - Hotkey options for fowards and backwards roll.
 - Advanced Building Mode
+- Advanced Editing Mode
+- Stamina Multipliers
+- Option to remove screen shake
 
 (You only get map progression when you are online)
 
@@ -48,6 +51,7 @@ https://discord.gg/AmH6Va97GT
 
 # Support the Project on Patreon
 (No obligation, people asked how they could support me.)
+
 https://www.patreon.com/valheimPlus
 
 
@@ -57,7 +61,7 @@ The Config files name is supposed to be "valheim_plus.cfg" it needs to be placed
 
 You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder (its supplied by default within the release versions)
 
-# Currently Supported Configuration (0.5)
+# Currently Supported Configuration (0.6)
 ```INI
 [Player]
 enabled=false
@@ -73,13 +77,19 @@ baseMaximumWeight=300
 baseAutoPickUpRange=2
 ; default is 2 (float)
 
+disableCameraShake=false
+; enable/disable screen shake
+
 
 [Food]
 enabled=false
 ; enable/disable Food changes
 
-foodDurationMultiplier=0.0
-; default is 0, it adds to the value meaning 0.0 is 100%, 1 is 200%.
+foodDuration=0
+; default is 0, this is a percent value. (default + foodDuration%)
+; 100 is 100% increased food duration.
+; currently does not properly show in item tooltips
+
 
 [Fermenter]
 enabled=false
@@ -91,6 +101,7 @@ fermenterDuration=2400
 
 fermenterItemsProduced=4
 ; default is 4 (integer) items per fermenter process
+
 
 [Furnace]
 enabled=false
@@ -106,18 +117,22 @@ productionSpeed=10
 ; default it 10 (float)
 ; lower is faster
 
-coalUsedPerProduct=4
-; default is 4 (int)
+coalUsedPerProduct=2
+; default is 2 (int)
+
 
 [Kiln]
 ; Responsible for changing Charcoal Kiln stats
 
-enabled=false
+enabled=true
 ; enable/disable Kiln changes
 
 productionSpeed=10
 ; default it 10 (float)
 ; lower is faster
+
+maximumWood=25
+; default 25
 
 
 [Items]
@@ -127,12 +142,14 @@ enabled=false
 noTeleportPrevention=false
 ; default is false (boolean)
 
-baseItemWeightReduction=0
-;(float), removes from value (original - (original * baseItemWeightReduction). 
-; 1 is 100% weight reduction of every item, 0.5 is 50%.
+baseItemWeight=0
+; default is 0, this is a percent value. (default - foodDurationMultiplier%)
+; 10 is 10% weight reduction of every item, 50 is 50%, -50% is +50% weight.
+; if you set this to a -number, the base weight will be increased by that much in %
+
 
 [Building]
-enabled=false
+enabled=true
 ; enable/disable Building changes
 
 noInvalidPlacementRestriction=false
@@ -140,6 +157,10 @@ noInvalidPlacementRestriction=false
 
 noWeatherDamage=false
 ; Removes weather/rain damage on building objects
+
+maximumPlacementDistance=5
+; default 5(float)
+
 
 [Beehive]
 enabled=false
@@ -149,7 +170,7 @@ maximumHoneyPerBeehive=4
 ; (integer) default is 4.
 
 honeyProductionSpeed=10
-; (float), default is 10. Do not go lower than 5.
+; (float), default is 10. I suggest to not go lower than 5.
 ; lower is faster
 
 
@@ -163,6 +184,7 @@ maxPlayers=10
 disableServerPassword=false
 ; (boolean) default is false
 
+
 [Map]
 enabled=false
 ; enable/disable Map changes
@@ -170,51 +192,88 @@ enabled=false
 exploreRadius=100
 ; default 100 (float), the radius around each player that get explored
 
-shareMapProgression=true
+shareMapProgression=false
 ; default false (boolean), shares the map progress (reveal) across all players
 ; players need to be online to receive map progression
 ; only shares the map progression of people that have selected to be visible on the map
 
-[Hotkeys]
-enabled=false
-; enable/disable all hotkeys changes
-; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
 
+[Hotkeys]
+; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
 rollForwards=F9
 ; roll forward on button press
 
 rollBackwards=F10
 ; roll backwards on button press
+
 enterAdvancedBuildingMode=F1
 ; Freeze Object and allow advanced controls
+
 exitAdvancedBuildingMode=F3
 ; Unfreeze Object and use default place mode
 
+enterAdvancedEditingMode=Keypad0
+; the object you are looking at will be selected to be modified using AEM
+
+confirmPlacementOfAdvancedEditingMode=KeypadEnter
+; Confirms Placement of selected and modified object
+
+resetAdvancedEditingMode=F7
+; Resets the position and rotation of the object selected with AEM
+
+abortAndExitAdvancedEditingMode=F8
+; Resets the position and rotation of the object selected with AEM and stops AEM mode
+
 [AdvancedBuildingMode]
 enabled=false
-; enables advanced building mode, more info on the github page
+; enable/disable advanced building mode, more info on the github page
+[AdvancedEditingMode]
+enabled=false
+; enable/disable advanced editing mode, more info on the github page
+; EXPERIMENTAL - Please be aware that i am limited in the amount of things i can test before releasing a feature. Please report any bugs to the Repository as Issues.
+
+[Stamina]
+enabled=false
+dodgeStaminaUsage=10
+; default 10(float)
+encumberedStaminaDrain=10
+; default 10(float)
+sneakStaminaDrain=10
+; default 5(float)
+runStaminaDrain=10
+; default 10(float)
+staminaRegenDelay=0.5
+; default 1(float)
+staminaRegen=5
+; default 5(float)
+swimStaminaDrain=5
+; default 5(float)
 ```
 
 # Valheim Plus Compiler Requirements
 
-You will be dependent on a package of stripped .net/mono Unity files from the Valheim directory.
-How to get BepInEx working:
+How to setup the development enviroment to compile ValheimPlus yourself.
 
 1. Download this package:
-
 https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY
 
 2. Unpack into your Valheim root folder and overwrite every file when asked.
 
-3. Add all dll's of "\Valheim\valheim_Data\Managed" folder as references to the project.
+3. Download this this repositories executable version.
+Repo: https://github.com/MrPurple6411/Bepinex-Tools/releases/tag/1.0.0-Publicizer
+Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
+
+4. Drag and drop all assembly_.dll files onto "AssemblyPublicizer.exe"
+
+5. Add all dll's of "\Valheim\valheim_Data\Managed" and "publicized_assemblies" folder as references to the project.
 
 (Except : "mscorlib.dll", "System.Configuration.dll", "System.Core.dll", "System.dll", "System.Xml.dll")
 
-4. Add all BepInEx dll's ("Valheim\BepInEx\core") as refernces to the project.
+6. Add all BepInEx dll's ("Valheim\BepInEx\core") as refernces to the project.
 
 (Except : "0Harmony.dll", "0Harmony20.dll")
 
-5. Add Ini-parser and HarmonyX via nu-get
+7. Add Ini-parser and HarmonyX via nu-get
 
 # Credits
 
