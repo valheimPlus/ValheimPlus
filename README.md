@@ -28,7 +28,7 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 # Advanced Building Mode
 How it works.
 1. You freeze the item by pressing the configurated key (F1 is default).
-2. You can modify the items position and rotation with the following key combinations:
+2. You can modify the item position and rotation with the following key combinations:
 - Arrow Up/Down/Left/Right = moves the building object in the respective direction.
 - Arrow Up/Down + Control = moves the building object up and down
 - ScrollWheel = rotates the building object on the Y axis.
@@ -40,6 +40,25 @@ How it works.
 *Building objects build with this system are not excempt from the structure/support system!*
 
 *They are also not able to be build inside dungeons or placed in restricted areas!*
+
+# Advanced Editing Mode
+How it works.
+*You cannot be in Build mode (hammer, hoe or terrain tool).*
+1. You select the item with the configurated key (Numpad0 is default).
+2. You can modify the item position and rotation with the following key combinations:
+- Arrow Up/Down/Left/Right = moves the building object in the respective direction.
+- Arrow Up/Down + Control = moves the building object up and down
+- ScrollWheel = rotates the building object on the Y axis.
+- ScrollWheel + Control = rotates the building object on the X axis.
+- ScrollWheel + left Alt = rotates the building object on the Z axis.
+- resetAdvancedEditingMode HotKey = resets the position and rotation to the inital values.
+(Pressing Shift at any moment in time increases the distance/rotation angle by *3)
+3. Press the confirmPlacementOfAdvancedEditingMode Hotkey to confirm the changes.
+*3. To Abort the editing mode and reset the object press abortAndExitAdvancedEditingMode HotKey*
+ 
+*People you are playing with will not be able to see the item being moved until you confirm the placement.* 
+
+*Building objects build with this system are not excempt from the structure/support system!*
 
 # Server
 If you want to host a server, you can repeat the usual process of installing the mod just like you would do for your game by unpack everything into your root folder of the server. 
