@@ -297,3 +297,4 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 # Credits
 
 nx#8830 - All (as of now)
+MrPurple6411#0415 (BepInEx Valheim version, AssemblyPublicizer)
