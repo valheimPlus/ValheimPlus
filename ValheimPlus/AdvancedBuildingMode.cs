@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HarmonyLib;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
 using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -22,7 +10,7 @@ namespace ValheimPlus
     class AdvancedBuildingMode
     {
         public static Boolean isInABM = false;
-        
+
         static Boolean DelayedStop = false;
         static Boolean BlockRefresh = false;
         static Boolean controlFlag = false;
@@ -36,18 +24,19 @@ namespace ValheimPlus
             {
                 Player PlayerInstance = __instance;
                 if (PlayerInstance == null)
-                {return true;}
+                { return true; }
 
-               if (!Settings.isEnabled("AdvancedBuildingMode") || !__instance.InPlaceMode())
-               {
-                   return true;
-               }
-               
-               KeyCode enter = Settings.getHotkey("enterAdvancedBuildingMode");
-               KeyCode exit = Settings.getHotkey("exitAdvancedBuildingMode");
+                if (Configuration.Current.AdvancedBuildingMode != null || !__instance.InPlaceMode())
+                {
+                    return true;
+                }
+
+                KeyCode enter = Configuration.Current.AdvancedBuildingMode.EnterAdvancedBuildingMode;
+                KeyCode exit = Configuration.Current.AdvancedBuildingMode.ExitAdvancedBuildingMode;
 
                 // Error Handling/Detection for Hoe & Terrain Tool
-                if(PlayerInstance.m_buildPieces != null) { 
+                if (PlayerInstance.m_buildPieces != null)
+                {
                     GameObject selectedPrefab = PlayerInstance.m_buildPieces.GetSelectedPrefab();
                     if (selectedPrefab == null || IsHoeOrTerrainTool(selectedPrefab))
                     {
@@ -60,7 +49,7 @@ namespace ValheimPlus
                 {
                     return true;
                 }
-                
+
 
                 // Delayed function stop to place the object at the right location (if we would immediatly stop, it would be placed at cursor location)
                 if (DelayedStop)
@@ -83,7 +72,7 @@ namespace ValheimPlus
                     return true;
                 }
 
-               
+
                 float rX = 0;
                 float rZ = 0;
                 float rY = 0;
@@ -222,7 +211,7 @@ namespace ValheimPlus
                     component.transform.Translate(Vector3.right * distance * Time.deltaTime);
                 }
 
-                
+
                 bool water = component.m_waterPiece || component.m_noInWater;
 
                 PlayerInstance.m_placementStatus = 0;
@@ -285,10 +274,10 @@ namespace ValheimPlus
                     DelayedStop = true;
                 }
 
-                
+
 
                 return !BlockRefresh;
-                
+
             }
 
             // ToDo hook equipped item to determine what tool is active
@@ -301,7 +290,7 @@ namespace ValheimPlus
                         __instance.m_placementMarkerInstance.SetActive(false);
                     }
                 }
-                if (Settings.isEnabled("Building") && Settings.getBool("Building", "noInvalidPlacementRestriction"))
+                if (Configuration.Current.Building != null && Configuration.Current.Building.NoInvalidPlacementRestriction)
                 {
                     if (__instance.m_placementStatus == Player.PlacementStatus.Invalid)
                     {

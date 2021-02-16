@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
+﻿using HarmonyLib;
+using System;
 using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
-using UnityEngine.Rendering;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -48,7 +34,7 @@ namespace ValheimPlus
             static Boolean HitExsists;
             private static void Postfix(Player __instance)
             {
-                if (Settings.isEnabled("AdvancedEditingMode"))
+                if (Configuration.Current.AdvancedEditingMode.IsEnabled)
                 {
 
                     if (isInAEM && __instance.InPlaceMode())
@@ -58,7 +44,7 @@ namespace ValheimPlus
                         HitPiece.transform.rotation = InitialRotation;
                     }
 
-                    if (Input.GetKeyDown(Settings.getHotkey("enterAdvancedEditingMode")) && !isInAEM && !__instance.InPlaceMode())
+                    if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.EnterAdvancedEditingMode) && !isInAEM && !__instance.InPlaceMode())
                     {
                         if (!AdvancedBuildingMode.isInABM)
                         {
@@ -161,20 +147,20 @@ namespace ValheimPlus
                         float rZ = 0;
                         float rY = 0;
 
-                        if (Input.GetKeyDown(Settings.getHotkey("resetAdvancedEditingMode")))
+                        if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.ResetAdvancedEditingMode))
                         {
                             HitPiece.transform.position = InitialPosition;
                             HitPiece.transform.rotation = InitialRotation;
                         }
 
-                        if (Input.GetKeyDown(Settings.getHotkey("abortAndExitAdvancedEditingMode")))
+                        if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.AbortAndExitAdvancedEditingMode))
                         {
                             HitPiece.transform.position = InitialPosition;
                             HitPiece.transform.rotation = InitialRotation;
                             DelayedStop = true;
                         }
 
-                        if (Input.GetKeyDown(Settings.getHotkey("confirmPlacementOfAdvancedEditingMode")))
+                        if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.ConfirmPlacementOfAdvancedEditingMode))
                         {
 
                             GameObject gameObject2 = UnityEngine.Object.Instantiate<GameObject>(HitPiece.gameObject, HitPiece.transform.position, HitPiece.transform.rotation);

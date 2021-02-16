@@ -1,20 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
-using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
+﻿using HarmonyLib;
+using System;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -23,7 +9,7 @@ namespace ValheimPlus
     {
         private static Boolean Prefix()
         {
-            if (Settings.isEnabled("Building") && Settings.getBool("Building", "noWeatherDamage"))
+            if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.NoWeatherDamage)
             {
                 return false;
             }

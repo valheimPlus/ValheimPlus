@@ -1,20 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
-using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
+﻿using HarmonyLib;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -23,9 +8,9 @@ namespace ValheimPlus
     {
         private static bool Prefix(ref float ___m_fermentationDuration, ref Fermenter __instance)
         {
-            if (Settings.isEnabled("Fermenter"))
+            if (Configuration.Current.Fermenter.IsEnabled)
             {
-                float fermenterDuration = Settings.getFloat("Fermenter", "fermenterDuration");
+                float fermenterDuration = Configuration.Current.Fermenter.FermenterDuration;
                 if (fermenterDuration > 0)
                 {
                     ___m_fermentationDuration = fermenterDuration;
@@ -40,9 +25,9 @@ namespace ValheimPlus
     {
         private static void Postfix(ref Fermenter.ItemConversion __result)
         {
-            if (Settings.isEnabled("Fermenter"))
+            if (Configuration.Current.Fermenter.IsEnabled)
             {
-                int fermenterItemCount = Settings.getInt("Fermenter", "fermenterItemsProduced");
+                int fermenterItemCount = Configuration.Current.Fermenter.FermenterItemsProduced;
                 if (fermenterItemCount > 0)
                 {
                     __result.m_producedItems = fermenterItemCount;

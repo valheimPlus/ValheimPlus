@@ -1,20 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
-using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
+﻿using HarmonyLib;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -23,21 +8,21 @@ namespace ValheimPlus
     {
         private static void Prefix(ref Smelter __instance)
         {
-            if (!__instance.m_addWoodSwitch && Settings.isEnabled("Kiln"))
+            if (!__instance.m_addWoodSwitch && Configuration.Current.Kiln.IsEnabled)
             {
                 // is kiln
-                __instance.m_maxOre = Settings.getInt("Kiln", "maximumWood");
-                __instance.m_secPerProduct = Settings.getFloat("Kiln", "productionSpeed");
+                __instance.m_maxOre = Configuration.Current.Kiln.MaximumWood;
+                __instance.m_secPerProduct = Configuration.Current.Kiln.ProductionSpeed;
             }
             else
             {
                 // is furnace
-                if (Settings.isEnabled("Furnace"))
+                if (Configuration.Current.Furnace.IsEnabled)
                 {
-                    __instance.m_maxOre = Settings.getInt("Furnace", "maximumOre");
-                    __instance.m_maxFuel = Settings.getInt("Furnace", "maximumCoal");
-                    __instance.m_secPerProduct = Settings.getFloat("Furnace", "productionSpeed");
-                    __instance.m_fuelPerProduct = Settings.getInt("Furnace", "coalUsedPerProduct");
+                    __instance.m_maxOre = Configuration.Current.Furnace.MaximumOre;
+                    __instance.m_maxFuel = Configuration.Current.Furnace.MaximumCoal;
+                    __instance.m_secPerProduct = Configuration.Current.Furnace.ProductionSpeed;
+                    __instance.m_fuelPerProduct = Configuration.Current.Furnace.CoalUsedPerProduct;
                 }
             }
         }

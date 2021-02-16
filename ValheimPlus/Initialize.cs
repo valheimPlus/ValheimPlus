@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
-using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
+﻿using BepInEx;
 using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-
+using System;
+using System.IO;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -43,44 +31,31 @@ namespace ValheimPlus
         // Awake is called once when both the game and the plug-in are loaded
         void Awake()
         {
-
-
-
             Logger.LogInfo("Trying to load the configuration file");
-            if (File.Exists(ConfigPath))
+
+            if (ConfigurationExtra.LoadSettings() != true)
             {
-                Logger.LogInfo("Configuration file found, loading configuration.");
-                if (ValheimPlus.Settings.LoadSettings() != true)
-                {
-                    Logger.LogError("Error while loading configuration file.");
-                }
-                else
-                {
-
-                    Logger.LogInfo("Configuration file loaded succesfully.");
-
-                    var harmony = new Harmony("mod.valheim_plus");
-                    harmony.PatchAll();
-
-                    if (Settings.isNewVersionAvailable("0.6"))
-                    {
-                        Logger.LogError("There is a newer version available of ValheimPlus.");
-                        Logger.LogWarning("Please visit " + ValheimPlusPlugin.Repository + ".");
-                    }
-                    else
-                    {
-                        Logger.LogInfo("ValheimPlus is up to date.");
-                    }
-
-                }
+                Logger.LogError("Error while loading configuration file.");
             }
             else
             {
-                Logger.LogError("Error: File not found. Plugin not loaded.");
+
+                Logger.LogInfo("Configuration file loaded succesfully.");
+
+                var harmony = new Harmony("mod.valheim_plus");
+                harmony.PatchAll();
+
+                if (Settings.isNewVersionAvailable("0.6"))
+                {
+                    Logger.LogError("There is a newer version available of ValheimPlus.");
+                    Logger.LogWarning("Please visit " + ValheimPlusPlugin.Repository + ".");
+                }
+                else
+                {
+                    Logger.LogInfo("ValheimPlus is up to date.");
+                }
+
             }
         }
-
-
-        
     }
 }

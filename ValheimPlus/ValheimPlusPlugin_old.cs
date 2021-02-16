@@ -16,7 +16,7 @@ namespace ValheimPlus
 
 
     [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.8.0.0")]
-    class ValheimPlusPlugin : BaseUnityPlugin
+    class ValheimPlusPluginOld : BaseUnityPlugin
     {
         string ConfigYamlPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.yml";
         string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.ini";
