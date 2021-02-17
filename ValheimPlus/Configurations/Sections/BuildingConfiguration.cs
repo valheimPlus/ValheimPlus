@@ -1,4 +1,4 @@
-﻿8namespace ValheimPlus.Configurations.Sections
+﻿namespace ValheimPlus.Configurations.Sections
 {
     public class BuildingConfiguration : BaseConfig<BuildingConfiguration>
     {
