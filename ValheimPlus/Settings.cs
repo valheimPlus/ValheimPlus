@@ -24,19 +24,28 @@ namespace ValheimPlus
     {
 
         public static IniData Config { get; set; }
+        public static IniData Defaults { get; set; }
 
-        
         static string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.cfg";
+        static string ConfigDefaultsPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus_defaults.cfg";
 
         public static bool LoadSettings()
         {
             try
             {
+                IniData userConfig;
                 var parser = new FileIniDataParser();
-                Config = parser.ReadFile(ConfigPath);
+
+                userConfig = parser.ReadFile(ConfigPath);
+                Defaults = parser.ReadFile(ConfigDefaultsPath);
+
+                Defaults.Merge(userConfig);
+
+                Config = Defaults;
             }
             catch (Exception ex)
             {
+                Debug.Log(ex.Message);
                 return false;
             }
             return true;
@@ -77,45 +86,68 @@ namespace ValheimPlus
             return HotKey;
         }
 
-        public static Boolean isNewVersionAvailable (string version)
+        public static Boolean isNewVersionAvailable ()
         {
-            
             WebClient client = new WebClient();
             client.Headers.Add("User-Agent: V+ Server");
-
-            string reply = client.DownloadString(ValheimPlusPlugin.ApiRepository);
-
-            string newestVersion = reply.Split(new[] { "," }, StringSplitOptions.None)[0].Trim().Replace("\"", "").Replace("[{name:", "");
+            string reply;
             try
             {
-               if(newestVersion != version)
-                {
-                    return true;
-                }
+                reply = client.DownloadString(ValheimPlusPlugin.ApiRepository);
+                ValheimPlusPlugin.newestVersion = reply.Split(new[] { "," }, StringSplitOptions.None)[0].Trim().Replace("\"", "").Replace("[{name:", "");
             }
             catch(Exception e)
             {
                 Debug.Log("The newest version could not be determined.");
-                return false;
+                ValheimPlusPlugin.newestVersion = "Unknown";
+            }
+
+            if (ValheimPlusPlugin.newestVersion != ValheimPlusPlugin.version)
+            {
+                return true;
             }
             return false;
         }
 
-        public class GithubTagInfo
+        public static string getHash()
         {
-            public string name { get; set; }
-            public DateTimeOffset Date { get; set; }
-            public string zipball_url { get; set; }
-            public string tarball_url { get; set; }
-            public Dictionary<string, commitHashes> Hashes { get; set; }
-            public string node_id { get; set; }
+            string toHash = "";
+
+            string[] importantSections = { "Player", "Food", "Fermenter", "Furnace", "Kiln", "Items", "Building", "Beehive", "AdvancedBuildingMode", "Stamina" };
+
+            foreach (SectionData Section in Config.Sections)
+            {
+                if (importantSections.Contains(Section.SectionName))
+                {
+                    foreach (KeyData lines in Config[Section.SectionName])
+                    {
+                        toHash += "[" + lines.KeyName +"]" + "[" + lines.Value + "]";
+                    }
+                }
+            }
+
+            return CreateMD5(toHash);
         }
 
-        public class commitHashes
+        private static string CreateMD5(string input)
         {
-            public int sha { get; set; }
-            public int url { get; set; }
+            // Use input string to calculate MD5 hash
+            using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
+            {
+                byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+                // Convert the byte array to hexadecimal string
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    sb.Append(hashBytes[i].ToString("X2"));
+                }
+                return sb.ToString();
+            }
         }
+
+       
 
     }
 }
