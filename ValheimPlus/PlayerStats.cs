@@ -32,6 +32,7 @@ namespace ValheimPlus
                 __instance.m_staminaRegenDelay = Settings.getFloat("Stamina", "staminaRegenDelay");
                 __instance.m_staminaRegen = Settings.getFloat("Stamina", "staminaRegen");
                 __instance.m_swimStaminaDrainMinSkill = Settings.getFloat("Stamina", "swimStaminaDrain");
+                __instance.m_jumpStaminaUsage = Settings.getFloat("Stamina", "jumpStaminaUsage");
             }
             if (Settings.isEnabled("Player"))
             {

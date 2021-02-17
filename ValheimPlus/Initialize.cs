@@ -20,11 +20,15 @@ namespace ValheimPlus
 {
     // COPYRIGHT 2021 KEVIN "nx#8830" J. // http://n-x.xyz
     // GITHUB REPOSITORY https://github.com/nxPublic/ValheimPlus
+    
 
-
-    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.6")]
+    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.7")]
     class ValheimPlusPlugin : BaseUnityPlugin
     {
+        
+        public static string version = "0.7";
+        public static string newestVersion = "";
+        public static Boolean isUpToDate = false;
 
         string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.cfg";
 
@@ -62,14 +66,15 @@ namespace ValheimPlus
                     var harmony = new Harmony("mod.valheim_plus");
                     harmony.PatchAll();
 
-                    if (Settings.isNewVersionAvailable("0.6"))
+                    isUpToDate = !Settings.isNewVersionAvailable();
+                    if (!isUpToDate)
                     {
                         Logger.LogError("There is a newer version available of ValheimPlus.");
                         Logger.LogWarning("Please visit " + ValheimPlusPlugin.Repository + ".");
                     }
                     else
                     {
-                        Logger.LogInfo("ValheimPlus is up to date.");
+                        Logger.LogInfo("ValheimPlus [" + version + "] is up to date.");
                     }
 
                 }
