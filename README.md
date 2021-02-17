@@ -18,13 +18,14 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim
 * Remove Password requirement for server
 * Modify maximum Players on a server
 * Shared Map System with a setting that respects player map visibility settings
+*(You only get map progression when you are online)*
 * Hotkey options for fowards and backwards roll.
 * Advanced Building Mode
 * Advanced Editing Mode
 * Stamina usage configuration
 * Option to remove screen shake
 
-(You only get map progression when you are online)
+
 
 # Advanced Building Mode
 How it works.
