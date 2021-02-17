@@ -74,10 +74,11 @@ This should resolve any issues related.
 If you want to host a server, you can repeat the usual process of installing the mod just like you would do for your game except that you have to rename the folder *valheim_Data* to *valheim_server_Data* before unpacking/moving the files to the server directory. 
 Please be aware that **EVERY** client(user) that connects needs to have the mod installed to have everything working as intended.
 
-# Server Config & Version Control
-Nobody will able to join any V+ server's without the exact same mod version __AND__ mod configuration!
-*The server and every user that wants to join must have the exact same Configuration file settings.*
-**This is intentional and __you can turn off only the option to enforce the same client configuration as the server__ not the game&mod version control.**
+# Server Config & Version Control (About Version Enforcement)
+* If you have enforceConfiguration and enforceMod enabled, only people with the same configuration and mod version can join your server and you can only join servers with the same mod and configuration.
+* If you have enforceConfiguration and enforceMod disabled, you can join every server including vanilla ones as long as they allow you to. 
+*(Meaning they have either no v+ mod installed or enforceMod disabled)*
+* If you have enforceConfiguration disabled and enforceMod enabled, you will be able to join every server with v+ installed as long as its the same version.
 
 # Join the Discord
 ![ValheimPlus Icon](https://raw.githubusercontent.com/nxPublic/ValheimPlus/master/ico.png)
@@ -229,6 +230,10 @@ disableServerPassword=false
 enforceConfiguration=true
 ; enforce every user trying to join your game or server to have the same mod configuration.
 ; NOTE: if people want to join your server with a custom configuration, they need to set this setting to false as well as the server.
+
+enforceMod=true
+; enforce every user to atleast have the mod installed when connecting to the server
+; turn this off to remove version restrictions from your client and from your server
 
 
 [Map]
