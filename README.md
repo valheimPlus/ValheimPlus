@@ -58,7 +58,7 @@ How it works.
 * Numpad plus/minus to either increase or decrease the speeds, press SHIFT in addition to raise/lower by 10 instead of 1
 (Pressing Shift at any moment in time increases the distance/rotation angle by *3)
 3. Press the confirmPlacementOfAdvancedEditingMode Hotkey to confirm the changes.
-*3. To Abort the editing mode and reset the object press abortAndExitAdvancedEditingMode HotKey*
+*(3. To Abort the editing mode and reset the object press abortAndExitAdvancedEditingMode HotKey)*
 
 **NOTES:**
 *People you are playing with will not be able to see the item being moved until you confirm the placement.* 
