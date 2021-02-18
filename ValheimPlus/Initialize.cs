@@ -30,7 +30,7 @@ namespace ValheimPlus
         public static string newestVersion = "";
         public static Boolean isUpToDate = false;
 
-        string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.cfg";
+        string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";
 
         // DO NOT REMOVE MY CREDITS
         public static string Author = "Kevin 'nx' J.";
@@ -40,7 +40,7 @@ namespace ValheimPlus
         public static string ApiRepository = "https://api.github.com/repos/nxPublic/valheimPlus/tags";
 
         // Add your credits here in case you modify the code or make additions, feel free to add as many as you like
-        String ModifiedBy = "YourName";
+        String ModifiedBy = "Greg 'Zedle' G.";
 
         public static Boolean isDebug = false;
 

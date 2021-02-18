@@ -26,8 +26,8 @@ namespace ValheimPlus
         public static IniData Config { get; set; }
         public static IniData Defaults { get; set; }
 
-        static string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.cfg";
-        static string ConfigDefaultsPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus_defaults.cfg";
+        static string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";
+        static string ConfigDefaultsPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus_defaults.cfg";
 
         public static bool LoadSettings()
         {
