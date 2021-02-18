@@ -19,6 +19,33 @@ using ValheimPlus;
 
 namespace ValheimPlus
 {
+    [HarmonyPatch(typeof(Player), "OnSpawned")]
+    public static class ModifyOnSpawned
+    {
+        private static void Prefix()
+        {
+            if (ValheimPlusPlugin.isDebug)
+            {
+                Player.m_localPlayer.m_shownTutorials.Remove("vplus");
+            }
+
+            Tutorial.TutorialText introTutorial = new Tutorial.TutorialText()
+            {
+                m_label = "ValheimPlus Intro",
+                m_name = "vplus",
+                m_text = "We hope you enjoy the mod, please support our Patreon so we can continue to provide new updates!",
+                m_topic = "Welcome to Valheim+"
+            };
+
+            if (!Tutorial.instance.m_texts.Contains(introTutorial))
+            {
+                Tutorial.instance.m_texts.Add(introTutorial);
+            }
+
+            Player.m_localPlayer.ShowTutorial("vplus");
+        }
+    }
+
     [HarmonyPatch(typeof(Player), "GetMaxCarryWeight")]
     public static class ModifyMaximumCarryWeight
     {
