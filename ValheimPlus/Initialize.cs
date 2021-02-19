@@ -22,27 +22,31 @@ namespace ValheimPlus
     // GITHUB REPOSITORY https://github.com/nxPublic/ValheimPlus
     
 
-    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.7")]
+    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.8")]
     class ValheimPlusPlugin : BaseUnityPlugin
     {
         
-        public static string version = "0.7";
+        public static string version = "0.8";
         public static string newestVersion = "";
         public static Boolean isUpToDate = false;
 
         string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";
 
-        // DO NOT REMOVE MY CREDITS
-        public static string Author = "Kevin 'nx' J.";
-        public static string Website = "http://n-x.xyz";
-        public static string Discord = "nx#8830";
-        public static string Repository = "https://github.com/nxPublic/ValheimPlus";
-        public static string ApiRepository = "https://api.github.com/repos/nxPublic/valheimPlus/tags";
+        // DO NOT REMOVE CREDITS
+        public static string Author_Name = "Kevin 'nx' J.";
+        public static string Author_Website = "http://n-x.xyz";
+        public static string Author_Discord = "nx#8830";
 
         // Add your credits here in case you modify the code or make additions, feel free to add as many as you like
-        String ModifiedBy = "Greg 'Zedle' G.";
+        public static string Contributor_Zedle = "Greg 'Zedle' G.";
+        public static string Contributor_Zedle_GitHub = "https://github.com/zedle";
 
-        public static Boolean isDebug = false;
+        public static string ModifiedBy = "";
+
+
+        // Project Repository Info
+        public static string Repository = "https://github.com/nxPublic/ValheimPlus";
+        public static string ApiRepository = "https://api.github.com/repos/nxPublic/valheimPlus/tags";
 
         // Awake is called once when both the game and the plug-in are loaded
         void Awake()

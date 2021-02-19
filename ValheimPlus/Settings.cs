@@ -113,7 +113,7 @@ namespace ValheimPlus
         {
             string toHash = "";
 
-            string[] importantSections = { "Player", "Food", "Fermenter", "Furnace", "Kiln", "Items", "Building", "Beehive", "AdvancedBuildingMode", "Stamina" };
+            string[] importantSections = { "Player", "Food", "Fermenter", "Furnace", "Kiln", "Items", "Building", "Beehive", "Stamina" };
 
             foreach (SectionData Section in Config.Sections)
             {

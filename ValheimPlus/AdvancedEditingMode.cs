@@ -96,7 +96,7 @@ namespace ValheimPlus
                 ) &&
                 raycastHit.collider &&
                 !raycastHit.collider.attachedRigidbody &&
-                Vector3.Distance(Helper.getPlayerCharacter().m_eye.position, raycastHit.point) < playerInstance.m_maxPlaceDistance)
+                Vector3.Distance(Helper.getPlayerCharacter(playerInstance).m_eye.position, raycastHit.point) < playerInstance.m_maxPlaceDistance)
             {
                 HitPoint = raycastHit.point;
                 HitNormal = raycastHit.normal;
@@ -134,6 +134,8 @@ namespace ValheimPlus
         public static void run()
         {
 
+            // ADD ZNET ERROR HANDLING AND REMOVE OBJECT IF
+
             // force exit
             if (forceExitNextIteration)
             {
@@ -142,6 +144,7 @@ namespace ValheimPlus
                 isActive = false;
                 return;
             }
+
 
             // CHECK FOR BUILD MODE
             if (isInBuildMode())
@@ -156,8 +159,12 @@ namespace ValheimPlus
             // CHECK FOR ABM
             if (ABM.isActive)
             {
-                exitMode();
-                resetObjectTransform();
+                if (isActive)
+                {
+                    exitMode();
+                    resetObjectTransform();
+                }
+
                 return;
             }
 
@@ -182,6 +189,24 @@ namespace ValheimPlus
                 // If object is not in exsistence anymore
                 if (hitPieceStillExsists())
                 {
+
+                    // Try to prevent znet error, relatively untested yet if this is any solution.
+                    // ghetto solution, will be improved in future version if it proofs to be effective.
+                    try
+                    {
+                        ZNetView component1 = HitPiece.GetComponent<ZNetView>();
+                        if ((UnityEngine.Object)component1 == (UnityEngine.Object)null)
+                        {
+                            Debug.Log("AEM: Error, network object empty. Code: 2.");
+                            exitMode();
+                            return;
+                        }
+                    }
+                    catch (Exception e) {
+                        Debug.Log("AEM: Error, network object empty. Code: 3.");
+                        exitMode();
+                    }
+
                     AEM.isRunning();
                     listenToHotKeysAndDoWork();
                 }
@@ -210,13 +235,27 @@ namespace ValheimPlus
                 if (isContainer())
                     dropContainerContents();
 
-                // REMOVE OLD AND PLACE NEW OBJECT
+                // PLACE NEW
                 GameObject gameObject2 = UnityEngine.Object.Instantiate<GameObject>(HitPiece.gameObject, HitPiece.transform.position, HitPiece.transform.rotation);
                 HitPiece.m_placeEffect.Create(HitPiece.transform.position, HitPiece.transform.rotation, gameObject2.transform, 1f);
 
+                // REMOVE OLD
+                ZNetView component1 = HitPiece.GetComponent<ZNetView>();
+                if ((UnityEngine.Object)component1 == (UnityEngine.Object)null) {
+                    Debug.Log("AEM: Error, network object empty.");
+
+                    resetObjectTransform();
+                    exitMode();
+                    return;
+                }
+
+                component1.ClaimOwnership();
                 ZNetScene.instance.Destroy(HitPiece.gameObject);
+                Debug.Log("AEM: Executed.");
+
 
                 exitMode();
+                return;
             }
 
 
@@ -413,16 +452,16 @@ namespace ValheimPlus
             forceExitNextIteration = true;
         }
 
-        private static void notifyUser(string Message)
+        private static void notifyUser(string Message, MessageHud.MessageType position = MessageHud.MessageType.TopLeft)
         {
-            Helper.getPlayerCharacter().Message(MessageHud.MessageType.TopLeft, "AEM: " + Message, 0, null); 
+            MessageHud.instance.ShowMessage(position, "AEM: " + Message);
         }
 
         private static void isRunning()
         {
             if (isActive)
             {
-                Helper.getPlayerCharacter().Message(MessageHud.MessageType.Center, "AEM is active.", 0, null);
+                MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, "AEM is active");
             }
         }
 

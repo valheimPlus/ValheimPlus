@@ -97,7 +97,7 @@ namespace ValheimPlus
                         float num2 = 1f;
                         __instance.m_seman.ModifyHealthRegen(ref num2);
                         num *= num2;
-                        Helper.getPlayerCharacter().Heal(num, true);
+                        Helper.getPlayerCharacter(__instance).Heal(num, true);
                     }
                 }
             }
