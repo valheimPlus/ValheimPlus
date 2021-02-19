@@ -59,10 +59,18 @@ namespace ValheimPlus
             static bool Prefix(ref string __result)
             {
                 string gameVersion = Version.CombineVersion(global::Version.m_major, global::Version.m_minor, global::Version.m_patch);
-                if(Settings.getBool("Server","enforceConfiguration"))
+                __result = gameVersion;
+
+                if (Settings.getBool("Server", "enforceConfiguration") && Settings.getBool("Server", "enforceMod"))
+                {
                     __result = gameVersion + "@" + ValheimPlusPlugin.version + "@" + Settings.getHash();
-                else
-                    __result = gameVersion + "@" + ValheimPlusPlugin.version;
+                    return false;
+                }
+
+                if (Settings.getBool("Server", "enforceMod")) { 
+                    __result = gameVersion + "@" + ValheimPlusPlugin.version; return false;
+                    return false;
+                }
 
                 return false;
             }

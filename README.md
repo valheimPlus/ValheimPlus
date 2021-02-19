@@ -119,6 +119,8 @@ We will not explain how you create a dedicated server. This will only explain ho
 
 *Make sure to run the run_bepinex.sh*
 
+**Uses libc6-dev**
+
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
 # What if the game updates?
@@ -132,7 +134,7 @@ This should resolve any issues related. If you continue to have issues, contact 
 *(Meaning they have either no v+ mod installed or enforceMod disabled)*
 * If you have enforceConfiguration disabled and enforceMod enabled, you will be able to join every server with v+ installed as long as its the same version.
 
-**This system is working 100% reliable and is issue free. **
+**This system is working 100% reliable and is issue free.**
 
 **If you encounter problems, you have not properly set up the configuration or your server/client is not running v+**
 
