@@ -24,10 +24,6 @@ namespace ValheimPlus
     {
         private static void Prefix()
         {
-            if (ValheimPlusPlugin.isDebug)
-            {
-                Player.m_localPlayer.m_shownTutorials.Remove("vplus");
-            }
 
             Tutorial.TutorialText introTutorial = new Tutorial.TutorialText()
             {
