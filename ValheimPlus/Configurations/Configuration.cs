@@ -20,6 +20,10 @@ namespace ValheimPlus.Configurations
         public HotkeyConfiguration Hotkeys { get; set; }
         public StaminaConfiguration Stamina { get; set; }
         public AdvancedEditingModeConfiguration AdvancedEditingMode { get; set; }
+        public StaminaWeapons WeaponsStamina { get; set; }
+        public FireplaceC FireplaceC { get; set; }
+        public Unarmed UnarmedScaling { get; set; }
+        public WorkbenchC Workbench { get; set; }
     }
 
 }

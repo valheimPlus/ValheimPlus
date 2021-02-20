@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus 
 {
@@ -13,9 +14,9 @@ namespace ValheimPlus
         {
             private static void Postfix(Fireplace __instance, ref ZNetView ___m_nview) 
             {
-                if (Settings.isEnabled("Fireplace"))
+                if (Configuration.Current.FireplaceC.IsEnabled)
 	            {
-		            if (Settings.getBool("Fireplace", "onlyTorches"))
+		            if (Configuration.Current.FireplaceC.onlyTorches)
 	                {
 		                if (__instance.GetHoverText().Contains("torch") || __instance.GetHoverText().Contains("Scounce") || __instance.GetHoverText().Contains("brazier")) 
                         {
