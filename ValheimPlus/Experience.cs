@@ -17,6 +17,7 @@ using Steamworks;
 using ValheimPlus;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -36,7 +37,7 @@ namespace ValheimPlus
 
             private static void Postfix(Skills __instance, Skills.SkillType skillType, float factor = 1f)
             {
-                if (Settings.isEnabled("Player") && Settings.getBool("Player", "experienceGainedNotifications"))
+                if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.ExperienceGainedNotifications)
                 {
                     Skills.Skill skill = __instance.GetSkill(skillType);
                     float percent = skill.m_accumulator / (skill.GetNextLevelRequirement() / 100);

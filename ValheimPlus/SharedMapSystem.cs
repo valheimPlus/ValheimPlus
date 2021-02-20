@@ -1,20 +1,9 @@
-﻿using System;
+﻿using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
 using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
+using ValheimPlus.Configurations;
 
 // ToDo add packet system to convey map markers
 
@@ -43,9 +32,9 @@ namespace ValheimPlus
 
         private static void Prefix(ref float dt, ref Player player, ref Minimap __instance, ref float ___m_exploreTimer, ref float ___m_exploreInterval, ref List<ZNet.PlayerInfo> ___m_tempPlayerInfo) // Set after awake function
         {
+            if (!Configuration.Current.Map.IsEnabled) return;
 
-            float exploreRadius = Settings.getFloat("Map", "exploreRadius");
-            if (Settings.isEnabled("Map") && Settings.getBool("Map", "shareMapProgression"))
+            if (Configuration.Current.Map.ShareMapProgression)
             {
                 float explorerTime = ___m_exploreTimer;
                 explorerTime += Time.deltaTime;
@@ -58,17 +47,15 @@ namespace ValheimPlus
                     {
                         foreach (ZNet.PlayerInfo m_Player in ___m_tempPlayerInfo)
                         {
-                            hookExplore.call_Explore(__instance, m_Player.m_position, exploreRadius);
+                            hookExplore.call_Explore(__instance, m_Player.m_position, Configuration.Current.Map.ExploreRadius);
                         }
                     }
-
                 }
             }
-            if (Settings.isEnabled("Map"))
-            {
-                // Always reveal for your own, we do this non the less to apply the potentially bigger exploreRadius
-                hookExplore.call_Explore(__instance, player.transform.position, exploreRadius);
-            }
+
+            // Always reveal for your own, we do this non the less to apply the potentially bigger exploreRadius
+            hookExplore.call_Explore(__instance, player.transform.position, Configuration.Current.Map.ExploreRadius);
+            
         }
     }
 }

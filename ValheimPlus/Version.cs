@@ -15,6 +15,7 @@ using HarmonyLib;
 using System.Globalization;
 using Steamworks;
 using ValheimPlus;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -61,14 +62,15 @@ namespace ValheimPlus
                 string gameVersion = Version.CombineVersion(global::Version.m_major, global::Version.m_minor, global::Version.m_patch);
                 __result = gameVersion;
 
-                if (Settings.getBool("Server", "enforceConfiguration") && Settings.getBool("Server", "enforceMod"))
+                if (Configuration.Current.Server.EnforceConfiguration && Configuration.Current.Server.EnforceMod)
                 {
-                    __result = gameVersion + "@" + ValheimPlusPlugin.version + "@" + Settings.getHash();
+                    __result = gameVersion + "@" + ValheimPlusPlugin.version + "@" + ConfigurationExtra.GetServerHashFor(Configuration.Current);
+                    Debug.Log($"Version generated : {__result}");
                     return false;
                 }
 
-                if (Settings.getBool("Server", "enforceMod")) { 
-                    __result = gameVersion + "@" + ValheimPlusPlugin.version; return false;
+                if (Configuration.Current.Server.EnforceMod) { 
+                    __result = gameVersion + "@" + ValheimPlusPlugin.version;
                     return false;
                 }
 
