@@ -358,8 +358,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mv "$(TargetDir)ValheimPlus.dll" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll"
-mv "$(TargetDir)ValheimPlus.pdb" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.pdb"
-mv "$(TargetDir)ValheimPlus.dll.config" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll.config"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetDir)ValheimPlus.dll" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll"
+copy "$(TargetDir)ValheimPlus.pdb" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.pdb"
+copy "$(TargetDir)ValheimPlus.dll.config" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll.config"</PostBuildEvent>
   </PropertyGroup>
 </Project>
