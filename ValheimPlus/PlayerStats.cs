@@ -17,7 +17,7 @@ namespace ValheimPlus
                 __instance.m_staminaRegenDelay = Configuration.Current.Stamina.StaminaRegenDelay;
                 __instance.m_staminaRegen = Configuration.Current.Stamina.StaminaRegen;
                 __instance.m_swimStaminaDrainMinSkill = Configuration.Current.Stamina.SwimStaminaDrain;
-                __instance.m_jumpStaminaUsage = Configuration.Current.Stamina.JumpStaminaUsage;
+                __instance.m_jumpStaminaUsage = Configuration.Current.Stamina.JumpStaminaDrain;
             }
             if (Configuration.Current.Player.IsEnabled)
             {
@@ -36,38 +36,38 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(Attack), "GetStaminaUsage")]
         public static class SelectiveWeaponStaminaDescrease {
             private static void Postfix(ref float __result, ItemDrop.ItemData ___m_weapon) {
-                if (Configuration.Current.WeaponsStamina.IsEnabled)
+                if (Configuration.Current.WeaponStamina.IsEnabled)
 	            {
                     string weaponType = ___m_weapon.m_shared.m_skillType.ToString();
 
                     switch (weaponType)
                     {
                         case "Swords":
-                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.swords) / 100);
+                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Swords) / 100);
                             break;
                         case "Knives":
-                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.knives) / 100);
+                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Knives) / 100);
                         break;
                         case "Clubs":
-                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.clubs) / 100);
+                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Clubs) / 100);
                         break;
                         case "Polearms":
-                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.polearms) / 100);
+                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Polearms) / 100);
                         break;
                         case "Spears":
-                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.spears) / 100);
+                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Spears) / 100);
                         break;
                         case "Axes":
-                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.axes) / 100);
+                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Axes) / 100);
                         break;
                         case "Bows":
-                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.bows) / 100);
+                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Bows) / 100);
                         break;
                         case "Unarmed":
-                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.unarmed) / 100);
+                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Unarmed) / 100);
                         break;
                         case "Pickaxes":
-                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.pickaxes) / 100);
+                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Pickaxes) / 100);
                         break;
                         default:
                             break;
