@@ -41,8 +41,10 @@ namespace ValheimPlus
         public static string Contributor_Zedle = "Greg 'Zedle' G.";
         public static string Contributor_Zedle_GitHub = "https://github.com/zedle";
 
-        public static string ModifiedBy = "";
+        public static string Contributor_Radmint = "Paige 'radmint' N.";
+        public static string Contributor_Radmint_GitHub = "https://github.com/radmint";
 
+        public static string ModifiedBy = "";
 
         // Project Repository Info
         public static string Repository = "https://github.com/nxPublic/ValheimPlus";
