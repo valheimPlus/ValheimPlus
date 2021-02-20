@@ -24,10 +24,6 @@ namespace ValheimPlus
     {
         private static void Prefix()
         {
-            if (ValheimPlusPlugin.isDebug)
-            {
-                Player.m_localPlayer.m_shownTutorials.Remove("vplus");
-            }
 
             Tutorial.TutorialText introTutorial = new Tutorial.TutorialText()
             {
@@ -124,7 +120,7 @@ namespace ValheimPlus
                         float num2 = 1f;
                         __instance.m_seman.ModifyHealthRegen(ref num2);
                         num *= num2;
-                        Helper.getPlayerCharacter().Heal(num, true);
+                        Helper.getPlayerCharacter(__instance).Heal(num, true);
                     }
                 }
             }

@@ -32,7 +32,9 @@ namespace ValheimPlus
                     ABM.PlayerInstance = __instance;
                     ABM.run();
                 }
-                return !ABM.isActive;
+                if (ABM.isActive)
+                    return false;
+                return true;
             }
 
 
@@ -284,7 +286,10 @@ namespace ValheimPlus
                 component.transform.Translate(Vector3.right * distance * Time.deltaTime);
             }
 
-            isValidPlacement();
+            try
+            {
+                isValidPlacement();
+            }catch(Exception e) { }
         }
 
         private static Boolean isValidPlacement()
@@ -405,14 +410,14 @@ namespace ValheimPlus
 
         private static void notifyUser(string Message, MessageHud.MessageType position = MessageHud.MessageType.TopLeft)
         {
-            Helper.getPlayerCharacter().Message(position, "ABM: " + Message, 0, null);
+            MessageHud.instance.ShowMessage(position, "ABM: " + Message);
         }
 
         private static void isRunning()
         {
             if (isActive)
             {
-                notifyUser("is active.", MessageHud.MessageType.Center);
+                MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, "ABM is active");
             }
         }
 
