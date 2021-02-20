@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 using HarmonyLib;
 using Steamworks;
 
@@ -25,6 +24,25 @@ namespace ValheimPlus
                 // Set player position visibility to public by default on server join
                 __instance.m_publicReferencePosition = true;
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(ZNet), "SetPublicReferencePosition")]
+    public static class PreventPublicPositionToggle
+    {
+        private static bool Prefix(ref bool pub, ref bool ___m_publicReferencePosition)
+        {
+            if (Settings.getBool("Map", "preventPlayerFromTurningOffPublicPosition"))
+            {
+                ___m_publicReferencePosition = true;
+            }
+            else
+            {
+                ___m_publicReferencePosition = pub;
+            }
+
+            // skip original method.
+            return true;
         }
     }
 
