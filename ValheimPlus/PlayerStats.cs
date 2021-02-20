@@ -17,6 +17,7 @@ namespace ValheimPlus
                 __instance.m_staminaRegenDelay = Configuration.Current.Stamina.StaminaRegenDelay;
                 __instance.m_staminaRegen = Configuration.Current.Stamina.StaminaRegen;
                 __instance.m_swimStaminaDrainMinSkill = Configuration.Current.Stamina.SwimStaminaDrain;
+                __instance.m_jumpStaminaUsage = Configuration.Current.Stamina.JumpStaminaUsage;
             }
             if (Configuration.Current.Player.IsEnabled)
             {

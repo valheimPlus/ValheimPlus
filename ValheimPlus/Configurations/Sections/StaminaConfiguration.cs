@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ValheimPlus.Configurations.Sections
 {
-    public class StaminaConfiguration : BaseConfig<StaminaConfiguration>
+    public class StaminaConfiguration : ServerSyncConfig<StaminaConfiguration>
     {
         public float DodgeStaminaUsage { get; internal set; } = 10;
         public float EncumberedStaminaDrain { get; internal set; } = 10;
@@ -14,5 +14,6 @@ namespace ValheimPlus.Configurations.Sections
         public float StaminaRegenDelay { get; internal set; } = 0.5f;
         public float StaminaRegen { get; internal set; } = 5;
         public float SwimStaminaDrain { get; internal set; } = 5;
+        public float JumpStaminaUsage { get; internal set; } = 10;
     }
 }

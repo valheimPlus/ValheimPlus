@@ -14,7 +14,7 @@ namespace ValheimPlus
                 __instance.m_itemData.m_shared.m_teleportable = true;
             }
 
-            /* Disabled for now. Need to hook the Item ToolTip function properly instead.
+            /* Disabled for now. Need to hook the Item ToolTip function properly instead due to the way the game handles food durations.
             if (Settings.isEnabled("Food"))
             {
                 float food_multiplier = Settings.getFloat("Food", "foodDuration");
@@ -35,13 +35,23 @@ namespace ValheimPlus
             if (Configuration.Current.Items.IsEnabled)
             {
                 float itemWeigthReduction = Configuration.Current.Items.BaseItemWeightReduction;
-                if (itemWeigthReduction > 0 && itemWeigthReduction <= 100)
+                if (itemWeigthReduction > 0)
                 {
-                    __instance.m_itemData.m_shared.m_weight = __instance.m_itemData.m_shared.m_weight - ((__instance.m_itemData.m_shared.m_weight / 100) * itemWeigthReduction);
+                    __instance.m_itemData.m_shared.m_weight = __instance.m_itemData.m_shared.m_weight + ((__instance.m_itemData.m_shared.m_weight / 100) * itemWeigthReduction);
                 }
                 if (itemWeigthReduction < 0)
                 {
-                    __instance.m_itemData.m_shared.m_weight = __instance.m_itemData.m_shared.m_weight + ((__instance.m_itemData.m_shared.m_weight / 100) * (itemWeigthReduction * -1));
+                    __instance.m_itemData.m_shared.m_weight = __instance.m_itemData.m_shared.m_weight - ((__instance.m_itemData.m_shared.m_weight / 100) * (itemWeigthReduction * -1));
+                }
+
+                float itemStackMultiplier = Configuration.Current.Items.ItemStackMultiplier;
+                if(__instance.m_itemData.m_shared.m_maxStackSize > 1)
+                {
+                    if (itemStackMultiplier >= 1)
+                    {
+                        __instance.m_itemData.m_shared.m_maxStackSize = __instance.m_itemData.m_shared.m_maxStackSize + (int)(((float)(__instance.m_itemData.m_shared.m_maxStackSize) / 100) * itemStackMultiplier);
+                    }
+
                 }
             }
 

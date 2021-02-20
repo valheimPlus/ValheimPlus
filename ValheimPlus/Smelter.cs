@@ -8,11 +8,14 @@ namespace ValheimPlus
     {
         private static void Prefix(ref Smelter __instance)
         {
-            if (!__instance.m_addWoodSwitch && Configuration.Current.Kiln.IsEnabled)
+            if (!__instance.m_addWoodSwitch)
             {
                 // is kiln
-                __instance.m_maxOre = Configuration.Current.Kiln.MaximumWood;
-                __instance.m_secPerProduct = Configuration.Current.Kiln.ProductionSpeed;
+                if (Configuration.Current.Kiln.IsEnabled)
+                {
+                    __instance.m_maxOre = Configuration.Current.Kiln.MaximumWood;
+                    __instance.m_secPerProduct = Configuration.Current.Kiln.ProductionSpeed;
+                }
             }
             else
             {

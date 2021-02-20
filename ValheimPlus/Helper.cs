@@ -1,17 +1,19 @@
-﻿namespace ValheimPlus
+using System;
+
+namespace ValheimPlus
 {
-    class Helper
+    static class Helper
     {
-        public static Character getPlayerCharacter()
+		public static Character getPlayerCharacter(Player __instance)
+		{
+			return (Character)__instance;
+		}
+
+        public static float tFloat(this float value, int digits)
         {
-            foreach (Character character in Character.GetAllCharacters())
-            {
-                if (character.IsPlayer())
-                {
-                    return character;
-                }
-            }
-            return null;
+            double mult = Math.Pow(10.0, digits);
+            double result = Math.Truncate(mult * value) / mult;
+            return (float)result;
         }
     }
 }

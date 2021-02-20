@@ -4,16 +4,16 @@ using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
-    [HarmonyPatch(typeof(WearNTear), "ApplyDamage")]
+    [HarmonyPatch(typeof(WearNTear), "HaveRoof")]
     public static class RemoveWearNTear
     {
-        private static Boolean Prefix()
+        
+        private static void Postfix(ref Boolean __result)
         {
             if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.NoWeatherDamage)
             {
-                return false;
+                __result = true;
             }
-            return true;
         }
     }
 }
