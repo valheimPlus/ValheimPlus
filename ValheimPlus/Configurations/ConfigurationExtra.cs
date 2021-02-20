@@ -31,8 +31,8 @@ namespace ValheimPlus.Configurations
             return Settings.CreateMD5(serialized);
         }
 
-        static string ConfigYamlPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.yml";
-        static string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.cfg";
+        static string ConfigYamlPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.yml";
+        static string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";
 
         public static bool LoadSettings()
         {

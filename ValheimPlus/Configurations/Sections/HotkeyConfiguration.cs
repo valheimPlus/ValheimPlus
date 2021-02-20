@@ -7,5 +7,4 @@ namespace ValheimPlus.Configurations.Sections
         public KeyCode RollForwards { get; set; } = KeyCode.F9;
         public KeyCode RollBackwards { get; set; } = KeyCode.F10;
     }
-
 }

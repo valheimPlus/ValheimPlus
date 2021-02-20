@@ -346,6 +346,7 @@
     <Compile Include="Configurations\Sections\PlayerConfiguration.cs" />
     <Compile Include="Configurations\Sections\ServerConfiguration.cs" />
     <Compile Include="Configurations\Sections\FireplaceConfiguration.cs" />
+    <Compile Include="Configurations\Sections\TimeConfiguration.cs" />
     <Compile Include="Configurations\Sections\WorkbenchConfiguration.cs" />
     <Compile Include="Configurations\Sections\WeaponStaminaConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
@@ -367,6 +368,7 @@
     <Compile Include="PlayerStats.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="WearNTear.cs" />
+    <Compile Include="Time.cs" />
     <Compile Include="Workbench.cs" />
   </ItemGroup>
   <ItemGroup>

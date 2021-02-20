@@ -34,7 +34,10 @@ namespace ValheimPlus
 
             if (Configuration.Current.Items.IsEnabled)
             {
-                float itemWeigthReduction = Configuration.Current.Items.BaseItemWeightReduction;
+                // 50 results in a float point error
+                float itemWeigthReduction = (Configuration.Current.Items.BaseItemWeightReduction == 50 ? 51 : Configuration.Current.Items.BaseItemWeightReduction);
+                
+
                 if (itemWeigthReduction > 0)
                 {
                     __instance.m_itemData.m_shared.m_weight = __instance.m_itemData.m_shared.m_weight + ((__instance.m_itemData.m_shared.m_weight / 100) * itemWeigthReduction);

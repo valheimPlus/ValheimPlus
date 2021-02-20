@@ -21,11 +21,11 @@ Fermenter:
   FermenterDuration: 2400
   FermenterItemsProduced: 4
 
-Food:
-  FoodDurationMultiplier: 0
-
 Fireplace:
   OnlyTorches: false
+
+Food:
+  FoodDurationMultiplier: 0
 
 Furnace:
   CoalUsedPerProduct: 2
