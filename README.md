@@ -182,6 +182,13 @@ disableCameraShake=false
 experienceGainedNotifications=true
 ; enabled/disable EXP gained notification for skills in the top left corner
 
+[UnarmedScaling]
+enabled=true
+; enable/disable changes to the Unarmed weapons scaling
+
+baseDamage=100
+; default is 100, this is the value it will approach in damage as you gain skill until capped.
+
 
 [Food]
 enabled=false
@@ -427,7 +434,8 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 
 # Credits
 
-* Kevin 'nx#8830' J. - https://github.com/nxPublic
+* Kevin 'nx#8830' J.- https://github.com/nxPublic
 * Greg 'Zedle' G. - https://github.com/zedle
 * Bruno Vasconcelos - https://github.com/Drakeny
+* GaelicGamer - https://github.com/GaelicGamer
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
