@@ -19,10 +19,10 @@ namespace ValheimPlus.ConsolePlus
         private Dictionary<string, IValheimPlusCommand> commandMap;
         public ConsolePlus(Console console)
         {
-            console.AddString("ConsolePlus loaded");
             valheimConsole = console;
-
             ConsoleCommandExecuted += OnConsoleCommandExecuted;
+
+            Log("ConsolePlus loaded");
         }
 
         private bool OnConsoleCommandExecuted(string command, params object[] args)
@@ -59,8 +59,7 @@ namespace ValheimPlus.ConsolePlus
         }
         public void LogFormat(string formatString, params object[] args)
         {
-            //Nice
-            Log(string.Format("[ConsolePlus]: {0}", string.Format(formatString, args)));
+            Log(string.Format(formatString, args));
         }
         public void Log(object message)
         {
@@ -90,7 +89,7 @@ namespace ValheimPlus.ConsolePlus
         [HarmonyPatch(typeof(ZNet), "Awake")]
         public static class ZNetAwakePatch
         {
-            private static void Prefix(ZNet __instance)
+            private static void Postfix(ZNet __instance)
             {
                 //Load commands into server as well
                 if (__instance.IsServer())

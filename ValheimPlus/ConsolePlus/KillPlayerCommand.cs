@@ -13,7 +13,7 @@ namespace ValheimPlus.ConsolePlus
     {
         public override List<string> Arguments => new List<string>{ "targetPlayer" };
         public override bool RequiresAdmin => true;
-
+        public override string CommandName => "kill";
         protected override void ExecuteClientContext()
         {
         }
