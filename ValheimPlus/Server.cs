@@ -1,24 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
 using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
 using HarmonyLib;
-using System.Globalization;
 using Steamworks;
-using ValheimPlus;
 
 namespace ValheimPlus
 {
-
     [HarmonyPatch(typeof(ZNet), "Awake")]
     public static class ChangeGameServerVariables
     {
@@ -34,9 +20,14 @@ namespace ValheimPlus
                 }
             }
 
+            if (Settings.getBool("Map", "playerPositionPublicOnJoin"));
+            {
+                // Set player position visibility to public by default on server join
+                __instance.m_publicReferencePosition = true;
+            }
         }
-
     }
+
     [HarmonyPatch(typeof(SteamGameServer), "SetMaxPlayerCount")]
     public static class ChangeSteamServerVariables
     {
@@ -50,14 +41,12 @@ namespace ValheimPlus
                     cPlayersMax = maxPlayers;
                 }
             }
-
         }
-
     }
+
     [HarmonyPatch(typeof(FejdStartup), "IsPublicPasswordValid")]
     public static class ChangeServerPasswordBehavior
     {
-
         private static void Postfix(ref Boolean __result) // Set after awake function
         {
             if (Settings.isEnabled("Server"))
@@ -69,6 +58,4 @@ namespace ValheimPlus
             }
         }
     }
-
-
 }
