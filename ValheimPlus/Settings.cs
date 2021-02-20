@@ -35,27 +35,7 @@ namespace ValheimPlus
             return false;
         }
 
-        public static string getHash()
-        {
-            string toHash = "";
-
-            string[] importantSections = { "Player", "Food", "Fermenter", "Furnace", "Kiln", "Items", "Building", "Beehive", "Stamina" };
-
-            foreach (SectionData Section in Config.Sections)
-            {
-                if (importantSections.Contains(Section.SectionName))
-                {
-                    foreach (KeyData lines in Config[Section.SectionName])
-                    {
-                        toHash += "[" + lines.KeyName +"]" + "[" + lines.Value + "]";
-                    }
-                }
-            }
-
-            return CreateMD5(toHash);
-        }
-
-        private static string CreateMD5(string input)
+        public static string CreateMD5(string input)
         {
             // Use input string to calculate MD5 hash
             using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())

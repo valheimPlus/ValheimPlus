@@ -12,9 +12,9 @@ namespace ValheimPlus.Configurations
     public abstract class BaseConfig<T> : IConfig where T : IConfig, new()
     {
 
-        public string SerializeSection()
+        public string ServerSerializeSection()
         {
-            if (!IsEnabled) return "";
+            if (!IsEnabled || !NeedsServerSync) return "";
             return JsonConvert.SerializeObject(this);
         }
 

@@ -15,6 +15,22 @@ namespace ValheimPlus.Configurations
 {
     public class ConfigurationExtra
     {
+        public static string GetServerHashFor(Configuration config) {
+            var serialized = "";
+            foreach (var prop in typeof(Configuration).GetProperties())
+            {
+                var keyName = prop.Name;
+                var method = prop.PropertyType.GetMethod("ServerSerializeSection", BindingFlags.Public | BindingFlags.FlattenHierarchy);
+                
+                if (method != null)
+                {
+                    string result = (string)method.Invoke(null, new object[] { });
+                    serialized += result;
+                }
+            }
+            return Settings.CreateMD5(serialized);
+        }
+
         static string ConfigYamlPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.yml";
         static string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + "\\valheim_plus.cfg";
 
@@ -90,6 +106,8 @@ namespace ValheimPlus.Configurations
             return conf;
         }
     }
+
+
 
     public static class IniDataExtensions
     {
