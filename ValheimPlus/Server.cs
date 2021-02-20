@@ -30,19 +30,12 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(ZNet), "SetPublicReferencePosition")]
     public static class PreventPublicPositionToggle
     {
-        private static bool Prefix(ref bool pub, ref bool ___m_publicReferencePosition)
+        private static void Postfix(ref bool pub, ref bool ___m_publicReferencePosition)
         {
             if (Settings.getBool("Map", "preventPlayerFromTurningOffPublicPosition"))
             {
                 ___m_publicReferencePosition = true;
             }
-            else
-            {
-                ___m_publicReferencePosition = pub;
-            }
-
-            // skip original method.
-            return true;
         }
     }
 
