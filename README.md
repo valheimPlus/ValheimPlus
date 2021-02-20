@@ -34,9 +34,17 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Remove Password requirement for server
 * Modify maximum Players on a server
 
-## Shared map system
+## Map
+
+### Shared map system
 Allows you to see the explored areas on the map of other players on the server if they have their position on the map shared ingame.
 *You currently only receive exploration when you are online.*
+
+### Player visibility
+Allows you to be visible on the server map by default when joining.
+
+### Prevent player from turning off visibility
+Prevents players on the server from making themselves invisible on the map.
 
 ## Custom Keybinds
 * Hotkey options for fowards and backwards roll.

@@ -39,8 +39,10 @@ AdvancedBuildingMode:
   ExitAdvancedBuildingMode: F3
 
 Map:
-  ShareMapProgression: true
+  ShareMapProgression: false
   ExploreRadius: 100
+  PlayerPositionPublicOnJoin: false
+  PreventPlayerFromTurningOffPublicPosition: false
 
 Hotkeys:
   RollForwards: F9
