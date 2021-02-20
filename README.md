@@ -260,7 +260,7 @@ maximumWood=25
 
 [Items]
 enabled=false
-; enable/disable Building changes
+; enable/disable item changes
 
 noTeleportPrevention=false
 ; default is false (boolean)
