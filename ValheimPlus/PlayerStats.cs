@@ -29,7 +29,53 @@ namespace ValheimPlus
                 __instance.m_maxPlaceDistance = Configuration.Current.Building.MaximumPlacementDistance;
             }
         }
+
+
     }
+
+    [HarmonyPatch(typeof(Attack), "GetStaminaUsage")]
+        public static class SelectiveWeaponStaminaDescrease {
+            private static void Postfix(ref float __result, ItemDrop.ItemData ___m_weapon) {
+                if (Settings.isEnabled("WeaponsStamina"))
+	            {
+                    string weaponType = ___m_weapon.m_shared.m_skillType.ToString();
+
+                    switch (weaponType)
+                    {
+                        case "Swords":
+                            __result = __result - ( __result * (Settings.getFloat("WeaponsStamina", "Swords")/100) );
+                            break;
+                        case "Knives":
+                            __result = __result - ( __result * (Settings.getFloat("WeaponsStamina", "Knives")/100) );
+                            break;
+                        case "Clubs":
+                            __result = __result - ( __result * (Settings.getFloat("WeaponsStamina", "Clubs")/100) );
+                            break;
+                        case "Polearms":
+                            __result = __result - ( __result * (Settings.getFloat("WeaponsStamina", "Polearms")/100) );
+                            break;
+                        case "Spears":
+                            __result = __result - ( __result * (Settings.getFloat("WeaponsStamina", "Spears")/100) );
+                            break;
+                        case "Axes":
+                            __result = __result - ( __result * (Settings.getFloat("WeaponsStamina", "Axes")/100) );
+                            break;
+                        case "Bows":
+                            __result = __result - ( __result * (Settings.getFloat("WeaponsStamina", "Bows")/100) );
+                            break;
+                        case "Unarmed":
+                            __result = __result - ( __result * (Settings.getFloat("WeaponsStamina", "Unarmed")/100) );
+                            break;
+                        case "Pickaxes":
+                            __result = __result - ( __result * (Settings.getFloat("WeaponsStamina", "Pickaxes")/100) );
+                            break;
+                        default:
+                            break;
+                    } 
+	            }
+                
+            }
+        }
 
 
 }

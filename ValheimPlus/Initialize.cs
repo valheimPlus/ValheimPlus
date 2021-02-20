@@ -20,18 +20,6 @@ namespace ValheimPlus
 
         string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";
 
-        // DO NOT REMOVE CREDITS
-        public static string Author_Name = "Kevin 'nx' J.";
-        public static string Author_Website = "http://n-x.xyz";
-        public static string Author_Discord = "nx#8830";
-
-        // Add your credits here in case you modify the code or make additions, feel free to add as many as you like
-        public static string Contributor_Zedle = "Greg 'Zedle' G.";
-        public static string Contributor_Zedle_GitHub = "https://github.com/zedle";
-
-        public static string ModifiedBy = "";
-
-
         // Project Repository Info
         public static string Repository = "https://github.com/nxPublic/ValheimPlus";
         public static string ApiRepository = "https://api.github.com/repos/nxPublic/valheimPlus/tags";
@@ -41,13 +29,11 @@ namespace ValheimPlus
         {
             Logger.LogInfo("Trying to load the configuration file");
 
+
             if (ConfigurationExtra.LoadSettings() != true)
             {
                 Logger.LogError("Error while loading configuration file.");
-            }
-
-            else
-            {
+            }else{
 
                 Logger.LogInfo("Configuration file loaded succesfully.");
 
