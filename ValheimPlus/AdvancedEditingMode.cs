@@ -12,7 +12,7 @@ namespace ValheimPlus
         {
             private static void Postfix(Player __instance)
             {
-                if (Settings.isEnabled("AdvancedEditingMode"))
+                if (Configuration.Current.AdvancedEditingMode.IsEnabled)
                 {
                     AEM.PlayerInstance = __instance;
                     AEM.run();

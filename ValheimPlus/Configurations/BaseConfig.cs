@@ -1,4 +1,5 @@
 using IniParser.Model;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace ValheimPlus.Configurations
@@ -10,6 +11,13 @@ namespace ValheimPlus.Configurations
 
     public abstract class BaseConfig<T> : IConfig where T : IConfig, new()
     {
+
+        public string SerializeSection()
+        {
+            if (!IsEnabled) return "";
+            return JsonConvert.SerializeObject(this);
+        }
+
         public bool IsEnabled = false;
         public virtual bool NeedsServerSync { get; set;} = false;
 
@@ -38,13 +46,12 @@ namespace ValheimPlus.Configurations
                     keyName = char.ToLower(keyName[0]) + keyName.Substring(1);
                 }
 
-                if (ValheimPlusPlugin.isDebug)
-                {
-                    if (data.ContainsKey(keyName))
-                        Debug.Log($"Loading key {keyName}");
-                    else
-                        Debug.Log($"Key {keyName} not defined, using default value");
-                }
+
+                if (data.ContainsKey(keyName))
+                    Debug.Log($"Loading key {keyName}");
+                else
+                    Debug.Log($"Key {keyName} not defined, using default value");
+               
 
                 if (!data.ContainsKey(keyName)) continue;
 

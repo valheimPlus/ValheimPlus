@@ -45,6 +45,7 @@ namespace ValheimPlus
             {
                 Logger.LogError("Error while loading configuration file.");
             }
+
             else
             {
 
@@ -53,33 +54,20 @@ namespace ValheimPlus
                 var harmony = new Harmony("mod.valheim_plus");
                 harmony.PatchAll();
 
-                if (Settings.isNewVersionAvailable("0.6"))
+                isUpToDate = !Settings.isNewVersionAvailable();
+                if (!isUpToDate)
                 {
                     Logger.LogError("There is a newer version available of ValheimPlus.");
                     Logger.LogWarning("Please visit " + ValheimPlusPlugin.Repository + ".");
                 }
                 else
                 {
-
-                    Logger.LogInfo("Configuration file loaded succesfully.");
-
-                    var harmony = new Harmony("mod.valheim_plus");
-                    harmony.PatchAll();
-
-                    isUpToDate = !Settings.isNewVersionAvailable();
-                    if (!isUpToDate)
-                    {
-                        Logger.LogError("There is a newer version available of ValheimPlus.");
-                        Logger.LogWarning("Please visit " + ValheimPlusPlugin.Repository + ".");
-                    }
-                    else
-                    {
-                        Logger.LogInfo("ValheimPlus [" + version + "] is up to date.");
-                    }
-
+                    Logger.LogInfo("ValheimPlus [" + version + "] is up to date.");
                 }
 
             }
+
+            
         }
     }
 }
