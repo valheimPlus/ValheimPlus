@@ -32,6 +32,10 @@ namespace ValheimPlus
 
         string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";
 
+        // Project Repository Info
+        public static string Repository = "https://github.com/nxPublic/ValheimPlus";
+        public static string ApiRepository = "https://api.github.com/repos/nxPublic/valheimPlus/tags";
+
         // Awake is called once when both the game and the plug-in are loaded
         void Awake()
         {
