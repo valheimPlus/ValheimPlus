@@ -332,6 +332,7 @@
     <Compile Include="AdvancedBuildingMode.cs" />
     <Compile Include="AdvancedEditingMode.cs" />
     <Compile Include="Beehive.cs" />
+    <Compile Include="Fireplace.cs" />
     <Compile Include="Experience.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Initialize.cs" />
@@ -348,6 +349,7 @@
     <Compile Include="PlayerStats.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="WearNTear.cs" />
+    <Compile Include="Workbench.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
