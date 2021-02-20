@@ -40,8 +40,6 @@ namespace ValheimPlus
         void Awake()
         {
 
-
-
             Logger.LogInfo("Trying to load the configuration file");
             if (File.Exists(ConfigPath))
             {

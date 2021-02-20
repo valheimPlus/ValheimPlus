@@ -9,8 +9,10 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Player
 
 * Modification of Stamina usage and regeneration
+* Modification of Stamina by tools and weaponry
 * Modification of carry weight
 * Mofification of Food duration
+* Mofification of Unarmed Damage
 * Option to force all remove screen shake
 
 ## Fermenter, Beehive, Kiln and Furnace
@@ -44,6 +46,8 @@ Allows you to see the explored areas on the map of other players on the server i
 * Remove Building Object deterioration by weather.
 * Advanced Building Mode
 * Advanced Editing Mode
+* Disable the need to refuel torches and fireplaces
+* Modify the work bench ranges
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
@@ -183,7 +187,7 @@ experienceGainedNotifications=true
 ; enabled/disable EXP gained notification for skills in the top left corner
 
 [UnarmedScaling]
-enabled=true
+enabled=false
 ; enable/disable changes to the Unarmed weapons scaling
 
 baseDamage=100
