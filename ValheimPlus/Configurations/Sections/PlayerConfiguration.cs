@@ -1,6 +1,6 @@
 ﻿namespace ValheimPlus.Configurations.Sections
 {
-    public class PlayerConfiguration : BaseConfig<PlayerConfiguration>
+    public class PlayerConfiguration : ServerSyncConfig<PlayerConfiguration>
     {
         public float BaseMaximumWeight { get; set; } = 300;
         public float BaseMegingjordBuff { get; set; } = 150;

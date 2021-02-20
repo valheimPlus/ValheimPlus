@@ -5,6 +5,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using ValheimPlus.Configurations.Sections;
 using YamlDotNet.Serialization;
@@ -51,124 +52,76 @@ namespace ValheimPlus.Configurations
 
         public static Configuration LoadFromIni(string filename)
         {
+
+
             var parser = new FileIniDataParser();
             var configdata = parser.ReadFile(filename);
-            var conf = new Configuration()
+
+            var conf = new Configuration();
+            foreach (var prop in typeof(Configuration).GetProperties())
             {
-                AdvancedBuildingMode = AdvancedBuildingModeConfiguration.LoadIni(configdata, "AdvancedBuildingMode"),
-                Items = ItemsConfiguration.LoadIni(configdata, "Items"),
-                Beehive = BeehiveConfiguration.LoadIni(configdata, "Beehive"),
-                Building = BuildingConfiguration.LoadIni(configdata, "Building"),
-                Fermenter = FermenterConfiguration.LoadIni(configdata, "Fermenter"),
-                Food = FoodConfiguration.LoadIni(configdata, "Food"),
-                Furnace = FurnaceConfiguration.LoadIni(configdata, "Furnace"),
-                Hotkeys = HotkeyConfiguration.LoadIni(configdata, "Hotkeys"),
-                Kiln = KilnConfiguration.LoadIni(configdata, "Kiln"),
-                Map = MapConfiguration.LoadIni(configdata, "Map"),
-                Player = PlayerConfiguration.LoadIni(configdata, "Player"),
-                Server = ServerConfiguration.LoadIni(configdata, "Server"),
-                Stamina = StaminaConfiguration.LoadIni(configdata, "Stamina"),
-                AdvancedEditingMode = AdvancedEditingModeConfiguration.LoadIni(configdata, "AdvancedEditingMode")
-            };
+                var keyName = prop.Name;
+                var method = prop.PropertyType.GetMethod("LoadIni", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+
+                if (method != null)
+                {
+                    var result = method.Invoke(null, new object[] { configdata, keyName });
+                    prop.SetValue(conf, result, null);
+                }
+            }
+            //conf = new Configuration()
+            //{
+            //    AdvancedBuildingMode = AdvancedBuildingModeConfiguration.LoadIni(configdata, "AdvancedBuildingMode"),
+            //    Items = ItemsConfiguration.LoadIni(configdata, "Items"),
+            //    Beehive = BeehiveConfiguration.LoadIni(configdata, "Beehive"),
+            //    Building = BuildingConfiguration.LoadIni(configdata, "Building"),
+            //    Fermenter = FermenterConfiguration.LoadIni(configdata, "Fermenter"),
+            //    Food = FoodConfiguration.LoadIni(configdata, "Food"),
+            //    Furnace = FurnaceConfiguration.LoadIni(configdata, "Furnace"),
+            //    Hotkeys = HotkeyConfiguration.LoadIni(configdata, "Hotkeys"),
+            //    Kiln = KilnConfiguration.LoadIni(configdata, "Kiln"),
+            //    Map = MapConfiguration.LoadIni(configdata, "Map"),
+            //    Player = PlayerConfiguration.LoadIni(configdata, "Player"),
+            //    Server = ServerConfiguration.LoadIni(configdata, "Server"),
+            //    Stamina = StaminaConfiguration.LoadIni(configdata, "Stamina"),
+            //    AdvancedEditingMode = AdvancedEditingModeConfiguration.LoadIni(configdata, "AdvancedEditingMode")
+            //};
 
             return conf;
         }
-
-    }
-
-    public interface IConfig
-    {
-        void LoadIniData(KeyDataCollection data);
-    }
-
-    public abstract class BaseConfig<T> : IConfig where T : IConfig, new()
-    {
-        public bool IsEnabled = false;
-
-        public static T LoadIni(IniData data, string section)
-        {
-            var n = new T();
-
-            Debug.Log($"Loading config section {section}");
-            if (data[section] == null || data[section]["enabled"] == null || !data[section].GetBool("enabled")) return n;
-
-            n.LoadIniData(data[section]);
-            return n;
-        }
-
-        public void LoadIniData(KeyDataCollection data)
-        {
-            IsEnabled = true;
-
-            foreach (var prop in typeof(T).GetProperties())
-            {
-                var keyName = prop.Name;
-
-                // Set first char of keyName to lowercase
-                if (keyName != string.Empty && char.IsUpper(keyName[0]))
-                {
-                    keyName = char.ToLower(keyName[0]) + keyName.Substring(1);
-                }
-
-                if (ValheimPlusPlugin.isDebug)
-                {
-                    if (data.ContainsKey(keyName))
-                        Debug.Log($"Loading key {keyName}");
-                    else
-                        Debug.Log($"Key {keyName} not defined, using default value");
-                }
-
-                if (!data.ContainsKey(keyName)) continue;
-
-                if (prop.PropertyType == typeof(float))
-                {
-                    prop.SetValue(this, data.GetFloat(keyName), null);
-                    continue;
-                }
-
-                if (prop.PropertyType == typeof(int))
-                {
-                    prop.SetValue(this, data.GetInt(keyName), null);
-                    continue;
-                }
-
-                if (prop.PropertyType == typeof(bool))
-                {
-                    prop.SetValue(this, data.GetBool(keyName), null);
-                    continue;
-                }
-
-                if (prop.PropertyType == typeof(KeyCode))
-                {
-                    prop.SetValue(this, data.GetKeyCode(keyName), null);
-                    continue;
-                }
-
-                Debug.LogWarning($"Could not load data of type {prop.PropertyType} for key {keyName}");
-            }
-        }
-
     }
 
     public static class IniDataExtensions
     {
-        public static float GetFloat(this KeyDataCollection data, string key)
+        public static float GetFloat(this KeyDataCollection data, string key, float defaultVal)
         {
-            return float.Parse(data[key], CultureInfo.InvariantCulture.NumberFormat);
+            if (float.TryParse(data[key], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out var result)) { 
+                return result;
+            }
+            Debug.LogWarning($"[Float] Could not read {key}, using default value of {defaultVal}");
+            return defaultVal;
         }
         public static bool GetBool(this KeyDataCollection data, string key)
         {
             var truevals = new[] { "y", "yes", "true" };
             return truevals.Contains(data[key].ToLower());
         }
-        public static int GetInt(this KeyDataCollection data, string key)
+        public static int GetInt(this KeyDataCollection data, string key, int defaultVal)
         {
-            return int.Parse(data[key]);
+            if (int.TryParse(data[key], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out var result)) { 
+                return result;
+            }
+            Debug.LogWarning($"[Int] Could not read {key}, using default value of {defaultVal}");
+            return defaultVal;
         }
 
-        public static KeyCode GetKeyCode(this KeyDataCollection data, string key)
+        public static KeyCode GetKeyCode(this KeyDataCollection data, string key, KeyCode defaultVal)
         {
-            return (KeyCode)System.Enum.Parse(typeof(KeyCode), data[key]);
+            if (System.Enum.TryParse<KeyCode>(data[key], out var result)) {
+                return result;
+            }
+            Debug.LogWarning($"[KeyCode] Could not read {key}, using default value of {defaultVal}");
+            return defaultVal;
         }
 
         public static T LoadConfiguration<T>(this IniData data, string key) where T : BaseConfig<T>, new()
