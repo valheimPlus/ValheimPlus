@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using ValheimPlus.Configurations.Sections;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -20,11 +19,12 @@ namespace ValheimPlus.Configurations
             foreach (var prop in typeof(Configuration).GetProperties())
             {
                 var keyName = prop.Name;
-                var method = prop.PropertyType.GetMethod("ServerSerializeSection", BindingFlags.Public | BindingFlags.FlattenHierarchy);
+                var method = prop.PropertyType.GetMethod("ServerSerializeSection", BindingFlags.Public | BindingFlags.FlattenHierarchy | BindingFlags.Instance);
                 
                 if (method != null)
                 {
-                    string result = (string)method.Invoke(null, new object[] { });
+                    var instance = prop.GetValue(config, null);
+                    string result = (string)method.Invoke(instance, new object[] { });
                     serialized += result;
                 }
             }
@@ -85,24 +85,6 @@ namespace ValheimPlus.Configurations
                     prop.SetValue(conf, result, null);
                 }
             }
-            //conf = new Configuration()
-            //{
-            //    AdvancedBuildingMode = AdvancedBuildingModeConfiguration.LoadIni(configdata, "AdvancedBuildingMode"),
-            //    Items = ItemsConfiguration.LoadIni(configdata, "Items"),
-            //    Beehive = BeehiveConfiguration.LoadIni(configdata, "Beehive"),
-            //    Building = BuildingConfiguration.LoadIni(configdata, "Building"),
-            //    Fermenter = FermenterConfiguration.LoadIni(configdata, "Fermenter"),
-            //    Food = FoodConfiguration.LoadIni(configdata, "Food"),
-            //    Furnace = FurnaceConfiguration.LoadIni(configdata, "Furnace"),
-            //    Hotkeys = HotkeyConfiguration.LoadIni(configdata, "Hotkeys"),
-            //    Kiln = KilnConfiguration.LoadIni(configdata, "Kiln"),
-            //    Map = MapConfiguration.LoadIni(configdata, "Map"),
-            //    Player = PlayerConfiguration.LoadIni(configdata, "Player"),
-            //    Server = ServerConfiguration.LoadIni(configdata, "Server"),
-            //    Stamina = StaminaConfiguration.LoadIni(configdata, "Stamina"),
-            //    AdvancedEditingMode = AdvancedEditingModeConfiguration.LoadIni(configdata, "AdvancedEditingMode")
-            //};
-
             return conf;
         }
     }
@@ -116,7 +98,7 @@ namespace ValheimPlus.Configurations
             if (float.TryParse(data[key], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out var result)) { 
                 return result;
             }
-            Debug.LogWarning($"[Float] Could not read {key}, using default value of {defaultVal}");
+            Debug.LogWarning($" [Float] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
         public static bool GetBool(this KeyDataCollection data, string key)
@@ -129,7 +111,7 @@ namespace ValheimPlus.Configurations
             if (int.TryParse(data[key], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out var result)) { 
                 return result;
             }
-            Debug.LogWarning($"[Int] Could not read {key}, using default value of {defaultVal}");
+            Debug.LogWarning($" [Int] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
 
@@ -138,7 +120,7 @@ namespace ValheimPlus.Configurations
             if (System.Enum.TryParse<KeyCode>(data[key], out var result)) {
                 return result;
             }
-            Debug.LogWarning($"[KeyCode] Could not read {key}, using default value of {defaultVal}");
+            Debug.LogWarning($" [KeyCode] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
 

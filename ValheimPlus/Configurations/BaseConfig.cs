@@ -1,6 +1,7 @@
 using IniParser.Model;
-using Newtonsoft.Json;
 using UnityEngine;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace ValheimPlus.Configurations
 {
@@ -15,7 +16,15 @@ namespace ValheimPlus.Configurations
         public string ServerSerializeSection()
         {
             if (!IsEnabled || !NeedsServerSync) return "";
-            return JsonConvert.SerializeObject(this);
+
+            var serializer = new SerializerBuilder()
+                .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                .Build();
+            var r = serializer.Serialize(new { 
+               type = this.GetType().Name,
+               data = this
+            });
+            return r;
         }
 
         public bool IsEnabled = false;
@@ -26,7 +35,11 @@ namespace ValheimPlus.Configurations
             var n = new T();
 
             Debug.Log($"Loading config section {section}");
-            if (data[section] == null || data[section]["enabled"] == null || !data[section].GetBool("enabled")) return n;
+            if (data[section] == null || data[section]["enabled"] == null || !data[section].GetBool("enabled"))
+            {
+                Debug.Log(" Section not enabled");
+                return n;
+            }
 
             n.LoadIniData(data[section]);
             return n;
@@ -48,9 +61,9 @@ namespace ValheimPlus.Configurations
 
 
                 if (data.ContainsKey(keyName))
-                    Debug.Log($"Loading key {keyName}");
+                    Debug.Log($" Loading key {keyName}");
                 else
-                    Debug.Log($"Key {keyName} not defined, using default value");
+                    Debug.Log($" Key {keyName} not defined, using default value");
                
 
                 if (!data.ContainsKey(keyName)) continue;
@@ -81,7 +94,7 @@ namespace ValheimPlus.Configurations
                     continue;
                 }
 
-                Debug.LogWarning($"Could not load data of type {prop.PropertyType} for key {keyName}");
+                Debug.LogWarning($" Could not load data of type {prop.PropertyType} for key {keyName}");
             }
         }
 
