@@ -65,15 +65,16 @@ namespace ValheimPlus
                 if (Configuration.Current.Server.EnforceConfiguration && Configuration.Current.Server.EnforceMod)
                 {
                     __result = gameVersion + "@" + ValheimPlusPlugin.version + "@" + ConfigurationExtra.GetServerHashFor(Configuration.Current);
-                    Debug.Log($"Version generated : {__result}");
+                    Debug.Log($"Version generated with enforced mod and config hash : {__result}");
                     return false;
                 }
 
-                if (Configuration.Current.Server.EnforceMod) { 
+                if (Configuration.Current.Server.EnforceMod) {
+                    Debug.Log($"Version generated with enforced mod : {__result}");
                     __result = gameVersion + "@" + ValheimPlusPlugin.version;
                     return false;
                 }
-
+                Debug.Log($"Version generated : {__result}");
                 return false;
             }
 
