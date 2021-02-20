@@ -92,6 +92,8 @@ How it works.
 # Installation Instructions
 We supply 4 different versions of V+ with every release since version 0.8. You can find detailed instructions on how to install these varients below.
 
+**ATTENTION FOR MULTIPLAYER**: The game and the server both should have this mod installed to prevent all kinds of different issues. If you have the mod installed and then have friends join over steam they should have the mod as well.
+
 ## **[Game] Windows (Steam)**
 
 1. Download the [latest package called WindowsClient.zip over this link](https://github.com/nxPublic/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
