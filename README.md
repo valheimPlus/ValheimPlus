@@ -160,8 +160,9 @@ The Config files name is supposed to be "valheim_plus.cfg" it needs to be placed
 
 You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder (its supplied by default within the release versions)
 
-# Currently Supported Configuration (0.8)
-```INI[Player]
+# Currently Supported Configuration (0.8.5)
+```INI
+[Player]
 enabled=false
 ; enable/disable Player changes
 
@@ -203,6 +204,14 @@ fermenterDuration=2400
 fermenterItemsProduced=6
 ; default is 6 (integer) items per fermenter process
 
+[Fireplace]
+enabled=false
+; enable/disable Fireplace changes
+; "disables" fuel consumption of all "fireplace" type objects (Torches/campfires/braziers), fuel can still be added, but will always stay at 1
+
+onlyTorches=false 
+; applies the effect only to torches(Torches/Scounce/Brazier)
+; (boolean) default false
 
 [Furnace]
 enabled=false
@@ -345,6 +354,7 @@ enabled=false
 
 [Stamina]
 enabled=false
+; Each of these values reduce the stamina cost by percent
 dodgeStaminaUsage=10
 ; default 10(float)
 encumberedStaminaDrain=10
@@ -361,6 +371,33 @@ swimStaminaDrain=5
 ; default 5(float)
 jumpStaminaUsage=10
 ; default 10(float)
+
+[WeaponsStamina]
+enabled=false
+Swords=0
+; default 0(float)
+Knives=0
+; default 0(float)
+Clubs=0
+; default 0(float)
+Polearms=0
+; default 0(float)
+Spears=0
+; default 0(float)
+Axes=0
+; default 0(float)
+Bows=0
+; default 0(float)
+Unarmed=0
+; default 0(float)
+Pickaxes=0
+; default 0(float)
+
+[Workbench]
+enabled=false
+workbenchRange=20
+; default 20(float)
+
 ```
 
 # Valheim Plus Compiler Requirements
@@ -390,6 +427,7 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 
 # Credits
 
-* Kevin 'nx#8830' J.
-* "Greg 'Zedle' G. - Linux compatibility patch
+* Kevin 'nx#8830' J. - https://github.com/nxPublic
+* Greg 'Zedle' G. - https://github.com/zedle
+* Bruno Vasconcelos - https://github.com/Drakeny
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
