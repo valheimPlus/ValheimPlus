@@ -318,7 +318,8 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 
 4. Drag and drop all assembly_.dll files onto "AssemblyPublicizer.exe"
 
-5. Define Enviroment Variable `VALHEIM_INSTALL` with path to Valheim Install Directory
+5. Define Enviroment Variable `VALHEIM_INSTALL` with path to Valheim Install Directory  
+example: `setx VALHEIM_INSTALL "C:\Program Files\Steam\steamapps\common\Valheim" /M`
 
 # Credits
 
