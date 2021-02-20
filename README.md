@@ -444,4 +444,5 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 * Greg 'Zedle' G. - https://github.com/zedle
 * Bruno Vasconcelos - https://github.com/Drakeny
 * GaelicGamer - https://github.com/GaelicGamer
+* TheTerrasque - https://github.com/TheTerrasque
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
