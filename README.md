@@ -9,8 +9,10 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Player
 
 * Modification of Stamina usage and regeneration
+* Modification of Stamina by tools and weaponry
 * Modification of carry weight
 * Mofification of Food duration
+* Mofification of Unarmed Damage
 * Option to force all remove screen shake
 
 ## Fermenter, Beehive, Kiln and Furnace
@@ -44,6 +46,8 @@ Allows you to see the explored areas on the map of other players on the server i
 * Remove Building Object deterioration by weather.
 * Advanced Building Mode
 * Advanced Editing Mode
+* Disable the need to refuel torches and fireplaces
+* Modify the work bench ranges
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
@@ -87,6 +91,8 @@ How it works.
 
 # Installation Instructions
 We supply 4 different versions of V+ with every release since version 0.8. You can find detailed instructions on how to install these varients below.
+
+**ATTENTION FOR MULTIPLAYER**: The game and the server both should have this mod installed to prevent all kinds of different issues. If you have the mod installed and then have friends join over steam they should have the mod as well.
 
 ## **[Game] Windows (Steam)**
 
@@ -183,7 +189,7 @@ experienceGainedNotifications=true
 ; enabled/disable EXP gained notification for skills in the top left corner
 
 [UnarmedScaling]
-enabled=true
+enabled=false
 ; enable/disable changes to the Unarmed weapons scaling
 
 baseDamage=100
@@ -254,7 +260,7 @@ maximumWood=25
 
 [Items]
 enabled=false
-; enable/disable Building changes
+; enable/disable item changes
 
 noTeleportPrevention=false
 ; default is false (boolean)
