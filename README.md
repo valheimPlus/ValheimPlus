@@ -9,8 +9,10 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Player
 
 * Modification of Stamina usage and regeneration
+* Modification of Stamina by tools and weaponry
 * Modification of carry weight
 * Mofification of Food duration
+* Mofification of Unarmed Damage
 * Option to force all remove screen shake
 
 ## Fermenter, Beehive, Kiln and Furnace
@@ -44,6 +46,8 @@ Allows you to see the explored areas on the map of other players on the server i
 * Remove Building Object deterioration by weather.
 * Advanced Building Mode
 * Advanced Editing Mode
+* Disable the need to refuel torches and fireplaces
+* Modify the work bench ranges
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
@@ -87,6 +91,8 @@ How it works.
 
 # Installation Instructions
 We supply 4 different versions of V+ with every release since version 0.8. You can find detailed instructions on how to install these varients below.
+
+**ATTENTION FOR MULTIPLAYER**: The game and the server both should have this mod installed to prevent all kinds of different issues. If you have the mod installed and then have friends join over steam they should have the mod as well.
 
 ## **[Game] Windows (Steam)**
 
@@ -160,8 +166,9 @@ The Config files name is supposed to be "valheim_plus.cfg" it needs to be placed
 
 You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder (its supplied by default within the release versions)
 
-# Currently Supported Configuration (0.8)
-```INI[Player]
+# Currently Supported Configuration (0.8.5)
+```INI
+[Player]
 enabled=false
 ; enable/disable Player changes
 
@@ -180,6 +187,13 @@ disableCameraShake=false
 
 experienceGainedNotifications=true
 ; enabled/disable EXP gained notification for skills in the top left corner
+
+[UnarmedScaling]
+enabled=false
+; enable/disable changes to the Unarmed weapons scaling
+
+baseDamage=100
+; default is 100, this is the value it will approach in damage as you gain skill until capped.
 
 
 [Food]
@@ -203,6 +217,14 @@ fermenterDuration=2400
 fermenterItemsProduced=6
 ; default is 6 (integer) items per fermenter process
 
+[Fireplace]
+enabled=false
+; enable/disable Fireplace changes
+; "disables" fuel consumption of all "fireplace" type objects (Torches/campfires/braziers), fuel can still be added, but will always stay at 1
+
+onlyTorches=false 
+; applies the effect only to torches(Torches/Scounce/Brazier)
+; (boolean) default false
 
 [Furnace]
 enabled=false
@@ -238,7 +260,7 @@ maximumWood=25
 
 [Items]
 enabled=false
-; enable/disable Building changes
+; enable/disable item changes
 
 noTeleportPrevention=false
 ; default is false (boolean)
@@ -345,6 +367,7 @@ enabled=false
 
 [Stamina]
 enabled=false
+; Each of these values reduce the stamina cost by percent
 dodgeStaminaUsage=10
 ; default 10(float)
 encumberedStaminaDrain=10
@@ -361,6 +384,33 @@ swimStaminaDrain=5
 ; default 5(float)
 jumpStaminaUsage=10
 ; default 10(float)
+
+[WeaponsStamina]
+enabled=false
+Swords=0
+; default 0(float)
+Knives=0
+; default 0(float)
+Clubs=0
+; default 0(float)
+Polearms=0
+; default 0(float)
+Spears=0
+; default 0(float)
+Axes=0
+; default 0(float)
+Bows=0
+; default 0(float)
+Unarmed=0
+; default 0(float)
+Pickaxes=0
+; default 0(float)
+
+[Workbench]
+enabled=false
+workbenchRange=20
+; default 20(float)
+
 ```
 
 # Valheim Plus Compiler Requirements
@@ -390,6 +440,9 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 
 # Credits
 
-* Kevin 'nx#8830' J.
-* "Greg 'Zedle' G. - Linux compatibility patch
+* Kevin 'nx#8830' J.- https://github.com/nxPublic
+* Greg 'Zedle' G. - https://github.com/zedle
+* Bruno Vasconcelos - https://github.com/Drakeny
+* GaelicGamer - https://github.com/GaelicGamer
+* TheTerrasque - https://github.com/TheTerrasque
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer

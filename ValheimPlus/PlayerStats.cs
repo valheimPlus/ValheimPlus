@@ -1,20 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
-using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
+﻿using HarmonyLib;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -23,28 +8,74 @@ namespace ValheimPlus
     {
         private static void Postfix(Player __instance)
         {
-            if (Settings.isEnabled("Stamina"))
+            if (Configuration.Current.Stamina.IsEnabled)
             {
-                __instance.m_dodgeStaminaUsage = Settings.getFloat("Stamina", "dodgeStaminaUsage");
-                __instance.m_encumberedStaminaDrain = Settings.getFloat("Stamina", "encumberedStaminaDrain");
-                __instance.m_sneakStaminaDrain = Settings.getFloat("Stamina", "sneakStaminaDrain");
-                __instance.m_runStaminaDrain = Settings.getFloat("Stamina", "runStaminaDrain");
-                __instance.m_staminaRegenDelay = Settings.getFloat("Stamina", "staminaRegenDelay");
-                __instance.m_staminaRegen = Settings.getFloat("Stamina", "staminaRegen");
-                __instance.m_swimStaminaDrainMinSkill = Settings.getFloat("Stamina", "swimStaminaDrain");
-                __instance.m_jumpStaminaUsage = Settings.getFloat("Stamina", "jumpStaminaUsage");
+                __instance.m_dodgeStaminaUsage = Configuration.Current.Stamina.DodgeStaminaUsage;;
+                __instance.m_encumberedStaminaDrain = Configuration.Current.Stamina.EncumberedStaminaDrain;
+                __instance.m_sneakStaminaDrain = Configuration.Current.Stamina.SneakStaminaDrain;
+                __instance.m_runStaminaDrain = Configuration.Current.Stamina.RunStaminaDrain;
+                __instance.m_staminaRegenDelay = Configuration.Current.Stamina.StaminaRegenDelay;
+                __instance.m_staminaRegen = Configuration.Current.Stamina.StaminaRegen;
+                __instance.m_swimStaminaDrainMinSkill = Configuration.Current.Stamina.SwimStaminaDrain;
+                __instance.m_jumpStaminaUsage = Configuration.Current.Stamina.JumpStaminaUsage;
             }
-            if (Settings.isEnabled("Player"))
+            if (Configuration.Current.Player.IsEnabled)
             {
-                __instance.m_autoPickupRange = Settings.getFloat("Player", "baseAutoPickUpRange");
-                __instance.m_baseCameraShake = Settings.getBool("Player", "disableCameraShake") ? 0f : 4f;
+                __instance.m_autoPickupRange = Configuration.Current.Player.BaseAutoPickUpRange;
+                __instance.m_baseCameraShake = Configuration.Current.Player.DisableCameraShake ? 0f : 4f;
             }
-            if (Settings.isEnabled("Building"))
+            if (Configuration.Current.Building.IsEnabled)
             {
-                __instance.m_maxPlaceDistance = Settings.getFloat("Building", "maximumPlacementDistance");
+                __instance.m_maxPlaceDistance = Configuration.Current.Building.MaximumPlacementDistance;
             }
         }
+
+
     }
+
+    [HarmonyPatch(typeof(Attack), "GetStaminaUsage")]
+        public static class SelectiveWeaponStaminaDescrease {
+            private static void Postfix(ref float __result, ItemDrop.ItemData ___m_weapon) {
+                if (Configuration.Current.WeaponsStamina.IsEnabled)
+	            {
+                    string weaponType = ___m_weapon.m_shared.m_skillType.ToString();
+
+                    switch (weaponType)
+                    {
+                        case "Swords":
+                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.swords) / 100);
+                            break;
+                        case "Knives":
+                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.knives) / 100);
+                        break;
+                        case "Clubs":
+                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.clubs) / 100);
+                        break;
+                        case "Polearms":
+                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.polearms) / 100);
+                        break;
+                        case "Spears":
+                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.spears) / 100);
+                        break;
+                        case "Axes":
+                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.axes) / 100);
+                        break;
+                        case "Bows":
+                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.bows) / 100);
+                        break;
+                        case "Unarmed":
+                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.unarmed) / 100);
+                        break;
+                        case "Pickaxes":
+                            __result = __result - ( __result * (Configuration.Current.WeaponsStamina.pickaxes) / 100);
+                        break;
+                        default:
+                            break;
+                    } 
+	            }
+                
+            }
+        }
 
 
 }
