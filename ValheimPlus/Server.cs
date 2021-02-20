@@ -1,6 +1,7 @@
 ﻿using System;
 using HarmonyLib;
 using Steamworks;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -9,9 +10,9 @@ namespace ValheimPlus
     {
         private static void Postfix(ref ZNet __instance)
         {
-            if (Settings.isEnabled("Server"))
+            if (Configuration.Current.Server.IsEnabled)
             {
-                int maxPlayers = Settings.getInt("Server", "maxPlayers");
+                int maxPlayers = Configuration.Current.Server.MaxPlayers;
                 if (maxPlayers >= 1)
                 {
                     // Set Server Instance Max Players
@@ -44,9 +45,9 @@ namespace ValheimPlus
     {
         private static void Prefix(ref int cPlayersMax)
         {
-            if (Settings.isEnabled("Server"))
+            if (Configuration.Current.Server.IsEnabled)
             {
-                int maxPlayers = Settings.getInt("Server", "maxPlayers");
+                int maxPlayers = Configuration.Current.Server.MaxPlayers;
                 if (maxPlayers >= 1)
                 {
                     cPlayersMax = maxPlayers;
@@ -60,9 +61,9 @@ namespace ValheimPlus
     {
         private static void Postfix(ref Boolean __result) // Set after awake function
         {
-            if (Settings.isEnabled("Server"))
+            if (Configuration.Current.Server.IsEnabled)
             {
-                if (Settings.getBool("Server", "disableServerPassword"))
+                if (Configuration.Current.Server.DisableServerPassword)
                 {
                     __result = true;
                 }

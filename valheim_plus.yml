@@ -1,0 +1,47 @@
+Items:
+  NoTeleportPrevention: false
+  BaseItemWeightReduction: 0
+
+Player:
+  BaseMaximumWeight: 300
+  BaseMegingjordBuff: 150
+
+Beehive:
+  HoneyProductionSpeed: 10
+  MaximumHoneyPerBeehive: 4
+
+Fermenter:
+  FermenterDuration: 2400
+  FermenterItemsProduced: 4
+
+Furnace:
+  MaximumOre: 10
+  MaximumCoal: 10
+  CoalUsedPerProduct: 4
+  ProductionSpeed: 10
+
+Kiln:
+  ProductionSpeed: 10
+
+Food:
+  FoodDurationMultiplier: 0
+
+Building:
+  NoInvalidPlacementRestriction: false
+  NoWeatherDamage: false
+
+Server:
+  MaxPlayers: 10
+  DisableServerPassword: false
+
+AdvancedBuildingMode:
+  EnterAdvancedBuildingMode: F1
+  ExitAdvancedBuildingMode: F3
+
+Map:
+  ShareMapProgression: true
+  ExploreRadius: 100
+
+Hotkeys:
+  RollForwards: F9
+  RollBackwards: F10
