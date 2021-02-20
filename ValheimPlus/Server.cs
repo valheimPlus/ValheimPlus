@@ -1,11 +1,10 @@
-﻿using HarmonyLib;
+﻿using System;
+using HarmonyLib;
 using Steamworks;
-using System;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
-
     [HarmonyPatch(typeof(ZNet), "Awake")]
     public static class ChangeGameServerVariables
     {
@@ -21,9 +20,26 @@ namespace ValheimPlus
                 }
             }
 
+            if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.PlayerPositionPublicOnJoin)
+            {
+                // Set player position visibility to public by default on server join
+                __instance.m_publicReferencePosition = true;
+            }
         }
-
     }
+
+    [HarmonyPatch(typeof(ZNet), "SetPublicReferencePosition")]
+    public static class PreventPublicPositionToggle
+    {
+        private static void Postfix(ref bool pub, ref bool ___m_publicReferencePosition)
+        {
+            if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.PreventPlayerFromTurningOffPublicPosition)
+            {
+                ___m_publicReferencePosition = true;
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(SteamGameServer), "SetMaxPlayerCount")]
     public static class ChangeSteamServerVariables
     {
@@ -37,14 +53,12 @@ namespace ValheimPlus
                     cPlayersMax = maxPlayers;
                 }
             }
-
         }
-
     }
+
     [HarmonyPatch(typeof(FejdStartup), "IsPublicPasswordValid")]
     public static class ChangeServerPasswordBehavior
     {
-
         private static void Postfix(ref Boolean __result) // Set after awake function
         {
             if (Configuration.Current.Server.IsEnabled)
@@ -56,6 +70,4 @@ namespace ValheimPlus
             }
         }
     }
-
-
 }

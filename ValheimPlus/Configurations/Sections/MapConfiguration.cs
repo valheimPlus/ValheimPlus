@@ -2,8 +2,9 @@
 {
     public class MapConfiguration : BaseConfig<MapConfiguration>
     {
-        public bool ShareMapProgression { get; set; } = true;
-        public float ExploreRadius { get; set; } = 100;
+        public bool ShareMapProgression { get; internal set; } = false;
+        public float ExploreRadius { get; internal set; } = 100;
+        public bool PlayerPositionPublicOnJoin { get; internal set; } = false;
+        public bool PreventPlayerFromTurningOffPublicPosition { get; internal set; } = false;
     }
-
 }
