@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HarmonyLib;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
 using UnityEngine;
 using System.IO;
 using System.Reflection;
 using System.Runtime;
 using IniParser;
 using IniParser.Model;
-using HarmonyLib;
 using System.Globalization;
 using Steamworks;
 using ValheimPlus;
 using UnityEngine.Rendering;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -27,7 +23,7 @@ namespace ValheimPlus
         {
             private static Boolean Prefix(Player __instance, bool flashGuardStone)
             {
-                if (Settings.isEnabled("AdvancedBuildingMode"))
+                if (Configuration.Current.AdvancedBuildingMode.IsEnabled)
                 {
                     ABM.PlayerInstance = __instance;
                     ABM.run();
@@ -53,7 +49,7 @@ namespace ValheimPlus
 
                     }
                 }
-                if (Settings.isEnabled("Building") && Settings.getBool("Building", "noInvalidPlacementRestriction"))
+                if (Configuration.Current.AdvancedBuildingMode.IsEnabled && Configuration.Current.Building.NoInvalidPlacementRestriction)
                 {
                     if (__instance.m_placementStatus == Player.PlacementStatus.Invalid)
                     {
@@ -118,7 +114,7 @@ namespace ValheimPlus
                 return;
             }
 
-            if (Input.GetKeyDown(Settings.getHotkey("exitAdvancedBuildingMode")))
+            if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.ExitAdvancedBuildingMode))
             {
                 if (isActive)
                     exitMode();
@@ -171,7 +167,7 @@ namespace ValheimPlus
             }
             else
             {
-                if (Input.GetKeyDown(Settings.getHotkey("enterAdvancedBuildingMode")))
+                if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.EnterAdvancedBuildingMode))
                 {
                     startMode();
                 }

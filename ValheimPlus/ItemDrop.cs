@@ -1,20 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
-using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
+﻿using HarmonyLib;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -24,7 +9,7 @@ namespace ValheimPlus
         private static void Prefix(ref ItemDrop __instance)
         {
 
-            if (Settings.isEnabled("Items") && Settings.getBool("Items", "noTeleportPrevention"))
+            if (Configuration.Current.Items.IsEnabled && Configuration.Current.Items.NoTeleportPrevention)
             {
                 __instance.m_itemData.m_shared.m_teleportable = true;
             }
@@ -47,9 +32,12 @@ namespace ValheimPlus
             }*/
 
 
-            if (Settings.isEnabled("Items"))
+            if (Configuration.Current.Items.IsEnabled)
             {
-                float itemWeigthReduction = Settings.getFloat("Items", "baseItemWeight");
+                // 50 results in a float point error
+                float itemWeigthReduction = (Configuration.Current.Items.BaseItemWeightReduction == 50 ? 51 : Configuration.Current.Items.BaseItemWeightReduction);
+                
+
                 if (itemWeigthReduction > 0)
                 {
                     __instance.m_itemData.m_shared.m_weight = __instance.m_itemData.m_shared.m_weight + ((__instance.m_itemData.m_shared.m_weight / 100) * itemWeigthReduction);
@@ -59,7 +47,7 @@ namespace ValheimPlus
                     __instance.m_itemData.m_shared.m_weight = __instance.m_itemData.m_shared.m_weight - ((__instance.m_itemData.m_shared.m_weight / 100) * (itemWeigthReduction * -1));
                 }
 
-                float itemStackMultiplier = Settings.getFloat("Items", "itemStackMultiplier");
+                float itemStackMultiplier = Configuration.Current.Items.ItemStackMultiplier;
                 if(__instance.m_itemData.m_shared.m_maxStackSize > 1)
                 {
                     if (itemStackMultiplier >= 1)
