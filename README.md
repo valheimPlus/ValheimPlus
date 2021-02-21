@@ -409,6 +409,10 @@ Pickaxes=0
 [Workbench]
 enabled=false
 workbenchRange=20
+
+[ConsolePlus]
+serverAllowCommands=true
+deniedCommands=
 ; default 20(float)
 
 ```
