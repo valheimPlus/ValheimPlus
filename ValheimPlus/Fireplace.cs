@@ -22,7 +22,7 @@ namespace ValheimPlus
 	                } 
                     else
                     {
-                        ___m_nview.GetZDO().Set("fuel", 1f);
+                        ___m_nview.GetZDO().Set("fuel", 3f);
                     }
 	            }
 
