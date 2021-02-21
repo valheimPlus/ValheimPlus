@@ -1,30 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
-using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
-
+﻿using HarmonyLib;
+using System;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
+    [HarmonyPatch(typeof(Player), "OnSpawned")]
+    public static class ModifyOnSpawned
+    {
+        private static void Prefix()
+        {
+
+            Tutorial.TutorialText introTutorial = new Tutorial.TutorialText()
+            {
+                m_label = "ValheimPlus Intro",
+                m_name = "vplus",
+                m_text = "We hope you enjoy the mod, please support our Patreon so we can continue to provide new updates!",
+                m_topic = "Welcome to Valheim+"
+            };
+
+            if (!Tutorial.instance.m_texts.Contains(introTutorial))
+            {
+                Tutorial.instance.m_texts.Add(introTutorial);
+            }
+
+            Player.m_localPlayer.ShowTutorial("vplus");
+        }
+    }
+
     [HarmonyPatch(typeof(Player), "GetMaxCarryWeight")]
     public static class ModifyMaximumCarryWeight
     {
         private static void Postfix(ref float __result)
         {
-            if (Settings.isEnabled("Player"))
+            if (Configuration.Current.Player.IsEnabled)
             {
                 bool Megingjord = false;
                 float carryWeight = __result;
@@ -35,10 +43,10 @@ namespace ValheimPlus
                     carryWeight -= 150;
                 }
 
-                carryWeight = Settings.getFloat("Player", "baseMaximumWeight");
+                carryWeight = Configuration.Current.Player.BaseMaximumWeight;
                 if (Megingjord)
                 {
-                    carryWeight = carryWeight + Settings.getFloat("Player", "baseMegingjordBuff");
+                    carryWeight = carryWeight + Configuration.Current.Player.BaseMegingjordBuff;
                 }
 
                 __result = carryWeight;
@@ -97,7 +105,7 @@ namespace ValheimPlus
                         float num2 = 1f;
                         __instance.m_seman.ModifyHealthRegen(ref num2);
                         num *= num2;
-                        Helper.getPlayerCharacter().Heal(num, true);
+                        Helper.getPlayerCharacter(__instance).Heal(num, true);
                     }
                 }
             }
@@ -111,9 +119,9 @@ namespace ValheimPlus
             float defaultDeltaTimeTarget = 1f;
             float newDetalTimeTarget = 1f;
 
-            if (Settings.isEnabled("Food"))
+            if (Configuration.Current.Food.IsEnabled)
             {
-                float food_multiplier = Settings.getFloat("Food", "foodDuration");
+                float food_multiplier = Configuration.Current.Food.FoodDurationMultiplier;
                 if (food_multiplier == 50) food_multiplier = 51; // Decimal issue
 
                 if (food_multiplier >= 0)

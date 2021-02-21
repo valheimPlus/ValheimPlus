@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using HarmonyLib;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
 using UnityEngine;
 using System.IO;
 using System.Reflection;
 using System.Runtime;
 using IniParser;
 using IniParser.Model;
-using HarmonyLib;
 using System.Globalization;
 using Steamworks;
 using ValheimPlus;
 using UnityEngine.Rendering;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -27,12 +23,14 @@ namespace ValheimPlus
         {
             private static Boolean Prefix(Player __instance, bool flashGuardStone)
             {
-                if (Settings.isEnabled("AdvancedBuildingMode"))
+                if (Configuration.Current.AdvancedBuildingMode.IsEnabled)
                 {
                     ABM.PlayerInstance = __instance;
                     ABM.run();
                 }
-                return !ABM.isActive;
+                if (ABM.isActive)
+                    return false;
+                return true;
             }
 
 
@@ -51,7 +49,7 @@ namespace ValheimPlus
 
                     }
                 }
-                if (Settings.isEnabled("Building") && Settings.getBool("Building", "noInvalidPlacementRestriction"))
+                if (Configuration.Current.AdvancedBuildingMode.IsEnabled && Configuration.Current.Building.NoInvalidPlacementRestriction)
                 {
                     if (__instance.m_placementStatus == Player.PlacementStatus.Invalid)
                     {
@@ -116,7 +114,7 @@ namespace ValheimPlus
                 return;
             }
 
-            if (Input.GetKeyDown(Settings.getHotkey("exitAdvancedBuildingMode")))
+            if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.ExitAdvancedBuildingMode))
             {
                 if (isActive)
                     exitMode();
@@ -169,7 +167,7 @@ namespace ValheimPlus
             }
             else
             {
-                if (Input.GetKeyDown(Settings.getHotkey("enterAdvancedBuildingMode")))
+                if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.EnterAdvancedBuildingMode))
                 {
                     startMode();
                 }
@@ -284,7 +282,10 @@ namespace ValheimPlus
                 component.transform.Translate(Vector3.right * distance * Time.deltaTime);
             }
 
-            isValidPlacement();
+            try
+            {
+                isValidPlacement();
+            }catch(Exception e) { }
         }
 
         private static Boolean isValidPlacement()
@@ -405,14 +406,14 @@ namespace ValheimPlus
 
         private static void notifyUser(string Message, MessageHud.MessageType position = MessageHud.MessageType.TopLeft)
         {
-            Helper.getPlayerCharacter().Message(position, "ABM: " + Message, 0, null);
+            MessageHud.instance.ShowMessage(position, "ABM: " + Message);
         }
 
         private static void isRunning()
         {
             if (isActive)
             {
-                notifyUser("is active.", MessageHud.MessageType.Center);
+                MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, "ABM is active");
             }
         }
 
