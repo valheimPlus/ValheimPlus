@@ -15,7 +15,6 @@ namespace ValheimPlus {
                 {
                     ___m_rangeBuild = Configuration.Current.Workbench.WorkbenchRange;
                     ___m_areaMarker.GetComponent<CircleProjector>().m_radius = ___m_rangeBuild;
-                    //___m_areaMarker.gameObject.transform.localScale = new Vector3(
                     float scaleIncrease = ( Configuration.Current.Workbench.WorkbenchRange - 20f ) / 20f * 100f;
                     ___m_areaMarker.gameObject.transform.localScale = new Vector3(scaleIncrease / 100, 1f, scaleIncrease / 100);
                 }
