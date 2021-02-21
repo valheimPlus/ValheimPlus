@@ -51,6 +51,7 @@ Map:
   ShareMapProgression: false
   PlayerPositionPublicOnJoin: false
   PreventPlayerFromTurningOffPublicPosition: false
+  RemoveDeathPinOnTombstoneEmpty: true
 
 Player:
   BaseAutoPickUpRange: 2
