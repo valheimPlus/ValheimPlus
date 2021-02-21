@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HarmonyLib;
+using UnityEngine;
 
 namespace ValheimPlus.ConsolePlus
 {
@@ -9,31 +11,48 @@ namespace ValheimPlus.ConsolePlus
     /// Proof of concept command
     /// Kill targetPlayerName
     /// </summary>
-    class KillPlayerCommand : BaseValheimPlusCommand
+    public class KillPlayerCommand : ValheimPlusCommand
     {
-        public override List<string> Arguments => new List<string>{ "targetPlayer" };
-        public override bool RequiresAdmin => true;
+        public override List<string> Arguments => new List<string> { "targetPlayer", "<message>"};
+        public override bool RequiresAdmin => false;
         public override string CommandName => "kill";
-        protected override void ExecuteClientContext()
+
+        public override string Description => "Slays the target player with an optional message";
+
+        protected override bool ClientValidArguments(params object[] args)
         {
+            return args.Length == Arguments.Count || args.Length == 1;
         }
+
+        protected override void ExecuteClientContext(params object[] args) { }
 
         protected override void ExecuteServerContext(params object[] args)
         {
-            var allPlayers = ZNet.instance.GetPlayerList()
-                .Select(pi => Player.GetPlayer(pi.m_characterID.userID));
+            var target = args[0].ToString();
+            var message = (args.Length > 1) ? args[1].ToString() : string.Empty;
 
-            foreach(var player in allPlayers)
+            var targetPeer = ZNet.instance.GetPeers().Where(p => p.m_playerName.Equals(target)).FirstOrDefault();
+
+            if (targetPeer == null)
             {
-                player.ApplyDamage(new HitData()
-                { 
-                    m_damage = 
-                    { 
-                        m_damage = 99999f 
-                    } 
-                }, true, false);
+                ServerSendReponse("Player not found " + target);
+                return;
             }
 
+            ServerExecuteRoutedRPC(targetPeer, "Damage", new HitData()
+            {
+                m_damage =
+                {
+                    m_damage = 99999f
+                }
+            });
+            if(!string.IsNullOrEmpty(message))
+            {
+                //Does not work, requires Localization system
+                //Or a mod to the MessageHud to add non-localized messages to the message HUD
+                //ServerExecuteRoutedRPC(targetPeer, "Message", MessageHud.MessageType.Center, message, 0);
+            }
+            ServerSendReponse("Player has been slain!");
         }
     }
 }
