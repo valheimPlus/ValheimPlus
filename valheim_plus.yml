@@ -1,0 +1,91 @@
+AdvancedBuildingMode:
+  EnterAdvancedBuildingMode: F1
+  ExitAdvancedBuildingMode: F3
+
+AdvancedEditingMode:
+  AbortAndExitAdvancedEditingMode: F8
+  ConfirmPlacementOfAdvancedEditingMode: KeypadEnter
+  EnterAdvancedEditingMode: Keypad0
+  ResetAdvancedEditingMode: F7
+  
+Beehive:
+  HoneyProductionSpeed: 10
+  MaximumHoneyPerBeehive: 4
+
+Building:
+  MaximumPlacementDistance: 5
+  NoInvalidPlacementRestriction: false
+  NoWeatherDamage: false
+
+Fermenter:
+  FermenterDuration: 2400
+  FermenterItemsProduced: 4
+
+Fireplace:
+  OnlyTorches: false
+
+Food:
+  FoodDurationMultiplier: 0
+
+Furnace:
+  CoalUsedPerProduct: 2
+  MaximumCoal: 20
+  MaximumOre: 10
+  ProductionSpeed: 10
+
+Hotkeys:
+  RollBackwards: F10
+  RollForwards: F9
+
+Items:
+  BaseItemWeightReduction: 0
+  ItemStackMultiplier: 1
+  NoTeleportPrevention: false
+
+Kiln:
+  MaximumWood: 25
+  ProductionSpeed: 10
+
+Map:
+  ExploreRadius: 100
+  ShareMapProgression: false
+  PlayerPositionPublicOnJoin: false
+  PreventPlayerFromTurningOffPublicPosition: false
+
+Player:
+  BaseAutoPickUpRange: 2
+  BaseMaximumWeight: 300
+  BaseMegingjordBuff: 150
+  BaseUnarmedDamage: 0
+  DisableCameraShake: false
+  ExperienceGainedNotifications: false
+
+Server:
+  DisableServerPassword: false
+  EnforceConfiguration: true
+  EnforceMod: true
+  MaxPlayers: 10
+
+Stamina:
+  DodgeStaminaUsage: 10
+  EncumberedStaminaDrain: 10
+  JumpStaminaDrain: 10
+  RunStaminaDrain: 10
+  SneakStaminaDrain: 10
+  StaminaRegen: 5
+  StaminaRegenDelay: 0.5
+  SwimStaminaDrain: 5
+
+WeaponStamina:
+  Axes: 0
+  Bows: 0
+  Clubs: 0
+  Knives: 0
+  Pickaxes: 0
+  Polearms: 0
+  Spears: 0
+  Swords: 0
+  Unarmed: 0
+
+Workbench:
+  WorkbenchRange: 20
