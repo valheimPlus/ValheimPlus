@@ -9,11 +9,19 @@
 # ---- EDIT AS NEEDED ------
 
 # EDIT THIS: The name of the executable to run
-# LINUX: This is the name of the Unity game executable 
-# MACOS: This is the name of the game app folder, including the .app suffix
+# LINUX: This is the name of the Unity game executable [preconfigured]
+# MACOS: This is the name of the game app folder, including the .app suffix [must provide if needed]
 executable_name="valheim_server.x86_64"
 
-# The rest is automatically handled by BepInEx
+# EDIT THIS: Valheim server parameters
+# Can be overriden by script parameters named exactly like the ones for the Valheim executable
+# (e.g. ./run_bepinex.sh -name="MyValheimPlusServer" -password="somethingsafe" -port=2456 -world="myworld")
+server_name="Valheim+"
+server_password="password"
+server_port=2456
+server_world="world"
+
+# The rest is automatically handled by BepInEx for Valheim+
 
 # Whether or not to enable Doorstop. Valid values: TRUE or FALSE
 export DOORSTOP_ENABLE=TRUE
@@ -25,7 +33,7 @@ export DOORSTOP_INVOKE_DLL_PATH="${PWD}/BepInEx/core/BepInEx.Preloader.dll"
 # ----- (unless you know what you're doing) ------
 
 if [ ! -x "$1" -a ! -x "$executable_name" ]; then
-    echo "Please open run.sh in a text editor and configure executable name."
+    echo "Please open run_bepinex.sh in a text editor and provide the correct executable."
     exit 1
 fi
 
@@ -53,28 +61,6 @@ case $os_type in
         ;;
 esac
 
-# Special case: if there is an arg, use that as executable path
-# Linux: arg is path to the executable
-# MacOS: arg is path to the .app folder which we need to resolve to the exectuable
-if [ -n "$1" ]; then
-    case $os_type in
-        Linux*)
-            executable_path="$1"
-            ;;
-        Darwin*)
-            # Special case: allow to specify path to the executable within .app
-            full_path_part=`echo "$1" | grep "\.app/Contents/MacOS"`
-            if [ -z "$full_path_part" ]; then
-                executable_name=`basename "$1" .app`
-                real_executable_name=`defaults read "$1/Contents/Info" CFBundleExecutable`
-                executable_path="$1/Contents/MacOS/${real_executable_name}"
-            else
-                executable_path="$1"
-            fi
-            ;;
-    esac
-fi
-
 executable_type=`LD_PRELOAD="" file -b "${executable_path}"`;
 
 case $executable_type in
@@ -101,7 +87,28 @@ export templdpath=$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=./linux64:$LD_LIBRARY_PATH
 export SteamAppId=892970
 
-"${PWD}/${executable_name}" -name "servername" -password "serverpassword" -nographics -batchmode -port 2456 -world "world"
+for arg in "$@"
+do
+	case $arg in
+	-name)
+	server_name=$2
+	shift 2
+	;;
+	-password)
+	server_password=$2
+	shift 2
+	;;
+	-port)
+	server_port=$2
+	shift 2
+	;;
+	-world)
+	server_world=$2
+	shift 2
+	;;
+	esac
+done
 
+"${PWD}/${executable_name}" -name "${server_name}" -password "${server_password}" -port "${server_port}" -world "${server_world}"
 
 export LD_LIBRARY_PATH=$templdpath
