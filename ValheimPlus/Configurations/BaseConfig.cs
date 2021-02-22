@@ -1,7 +1,5 @@
 using IniParser.Model;
 using UnityEngine;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace ValheimPlus.Configurations
 {
@@ -12,21 +10,6 @@ namespace ValheimPlus.Configurations
 
     public abstract class BaseConfig<T> : IConfig where T : IConfig, new()
     {
-
-        public string ServerSerializeSection()
-        {
-            if (!IsEnabled || !NeedsServerSync) return "";
-
-            var serializer = new SerializerBuilder()
-                .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                .Build();
-            var r = serializer.Serialize(new { 
-               type = this.GetType().Name,
-               data = this
-            });
-            return r;
-        }
-
         public bool IsEnabled = false;
         public virtual bool NeedsServerSync { get; set;} = false;
 
@@ -59,13 +42,11 @@ namespace ValheimPlus.Configurations
                     keyName = char.ToLower(keyName[0]) + keyName.Substring(1);
                 }
 
-
                 if (data.ContainsKey(keyName))
                     Debug.Log($" Loading key {keyName}");
                 else
                     Debug.Log($" Key {keyName} not defined, using default value");
                
-
                 if (!data.ContainsKey(keyName)) continue;
 
                 var existingValue = prop.GetValue(this, null);
