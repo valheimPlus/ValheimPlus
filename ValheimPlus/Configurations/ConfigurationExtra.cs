@@ -52,6 +52,7 @@ namespace ValheimPlus.Configurations
             return true;
         }
 
+
         public static Configuration LoadFromIni(string filename)
         {
             FileIniDataParser parser = new FileIniDataParser();

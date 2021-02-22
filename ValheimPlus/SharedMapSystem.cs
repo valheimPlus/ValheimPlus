@@ -34,7 +34,7 @@ namespace ValheimPlus
         {
             if (!Configuration.Current.Map.IsEnabled) return;
 
-            if (Configuration.Current.Map.ShareMapProgression)
+            if (Configuration.Current.Map.shareMapProgression)
             {
                 float explorerTime = ___m_exploreTimer;
                 explorerTime += Time.deltaTime;
@@ -47,14 +47,14 @@ namespace ValheimPlus
                     {
                         foreach (ZNet.PlayerInfo m_Player in ___m_tempPlayerInfo)
                         {
-                            hookExplore.call_Explore(__instance, m_Player.m_position, Configuration.Current.Map.ExploreRadius);
+                            hookExplore.call_Explore(__instance, m_Player.m_position, Configuration.Current.Map.exploreRadius);
                         }
                     }
                 }
             }
 
             // Always reveal for your own, we do this non the less to apply the potentially bigger exploreRadius
-            hookExplore.call_Explore(__instance, player.transform.position, Configuration.Current.Map.ExploreRadius);
+            hookExplore.call_Explore(__instance, player.transform.position, Configuration.Current.Map.exploreRadius);
             
         }
     }

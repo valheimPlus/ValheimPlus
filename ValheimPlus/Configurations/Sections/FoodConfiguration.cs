@@ -2,7 +2,7 @@
 {
     public class FoodConfiguration : ServerSyncConfig<FoodConfiguration>
     {
-        public float FoodDurationMultiplier { get; set; } = 0;
+        public float foodDurationMultiplier { get; set; } = 0;
     }
 
 }
