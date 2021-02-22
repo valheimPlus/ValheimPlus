@@ -49,8 +49,8 @@ namespace ValheimPlus
             {
                 if (Configuration.Current.Kiln.IsEnabled) 
                 {
-                    if (Configuration.Current.Kiln.AutoDeposit) {
-                        Collider[] hitColliders = hitColliders = Physics.OverlapSphere(__instance.gameObject.transform.localPosition, Configuration.Current.Furnace.AutoDepositRange);
+                    if (Configuration.Current.Kiln.autoDeposit) {
+                        Collider[] hitColliders = hitColliders = Physics.OverlapSphere(__instance.gameObject.transform.localPosition, Configuration.Current.Furnace.autoDepositRange);
                         foreach (var hitCollider in hitColliders) {
                             if (hitCollider.gameObject.GetComponentInParent<Container>() != null) {
                                 GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(__instance.GetItemConversion(ore).m_to.gameObject.name);
@@ -76,8 +76,8 @@ namespace ValheimPlus
             else
             {
                 if (Configuration.Current.Furnace.IsEnabled) {
-                    if (Configuration.Current.Furnace.AutoDeposit) {
-                        Collider[] hitColliders = hitColliders = Physics.OverlapSphere(__instance.gameObject.transform.localPosition, Configuration.Current.Furnace.AutoDepositRange);
+                    if (Configuration.Current.Furnace.autoDeposit) {
+                        Collider[] hitColliders = hitColliders = Physics.OverlapSphere(__instance.gameObject.transform.localPosition, Configuration.Current.Furnace.autoDepositRange);
                         foreach (var hitCollider in hitColliders) {
                             if (hitCollider.gameObject.GetComponentInParent<Container>() != null) {
                                 GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(__instance.GetItemConversion(ore).m_to.gameObject.name);
