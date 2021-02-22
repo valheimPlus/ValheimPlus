@@ -66,12 +66,14 @@ namespace ValheimPlus.Configurations
             return deserializer.Deserialize<Configuration>(File.ReadAllText(filename));
         }
 
+
         public static Configuration LoadFromIni(string filename)
         {
 
 
             var parser = new FileIniDataParser();
-            var configdata = parser.ReadFile(filename);
+            IniData configdata = parser.ReadFile(filename);
+
 
             var conf = new Configuration();
             foreach (var prop in typeof(Configuration).GetProperties())

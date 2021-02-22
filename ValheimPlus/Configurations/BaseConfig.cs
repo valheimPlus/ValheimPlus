@@ -1,4 +1,10 @@
+using BepInEx;
+using IniParser;
 using IniParser.Model;
+using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -30,18 +36,26 @@ namespace ValheimPlus.Configurations
         public bool IsEnabled = false;
         public virtual bool NeedsServerSync { get; set;} = false;
 
+        private static string currentSection = "";
+        public static IniData iniUpdated = null;
+
         public static T LoadIni(IniData data, string section)
         {
             var n = new T();
 
+            
             Debug.Log($"Loading config section {section}");
             if (data[section] == null || data[section]["enabled"] == null || !data[section].GetBool("enabled"))
             {
                 Debug.Log(" Section not enabled");
                 return n;
             }
-
+            currentSection = section;
             n.LoadIniData(data[section]);
+
+            var parser = new FileIniDataParser();
+            parser.WriteFile(Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg", ConfigurationExtra.configdata);
+
             return n;
         }
 
@@ -59,12 +73,15 @@ namespace ValheimPlus.Configurations
                     keyName = char.ToLower(keyName[0]) + keyName.Substring(1);
                 }
 
-
-                if (data.ContainsKey(keyName))
+                Debug.Log("Start loading ini.");
+                if (data.ContainsKey(keyName)) { 
                     Debug.Log($" Loading key {keyName}");
-                else
-                    Debug.Log($" Key {keyName} not defined, using default value");
-               
+                }
+                else { 
+                    if(keyName != "needsServerSync") {
+                        Debug.LogError($" Key {keyName} not defined, using default value");
+                    }
+                }
 
                 if (!data.ContainsKey(keyName)) continue;
 

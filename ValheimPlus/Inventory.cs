@@ -11,7 +11,7 @@ namespace ValheimPlus
         {
             if (Configuration.Current.Items.IsEnabled)
             {
-                if (Configuration.Current.Items.NoTeleportPrevention)
+                if (Configuration.Current.Items.noTeleportPrevention)
                     __result = true;
             }
         }
