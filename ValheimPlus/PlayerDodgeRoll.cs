@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BepInEx;
-using Unity;
+﻿using HarmonyLib;
+using System;
 using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using HarmonyLib;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
-
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -32,8 +18,10 @@ namespace ValheimPlus
     {
         private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost, Transform ___m_eye)
         {
-            KeyCode rollKeyForward = Settings.getHotkey("rollForwards");
-            KeyCode rollKeyBackwards = Settings.getHotkey("rollBackwards");
+            if (!Configuration.Current.Hotkeys.IsEnabled) return;
+
+            KeyCode rollKeyForward = Configuration.Current.Hotkeys.RollForwards;
+            KeyCode rollKeyBackwards = Configuration.Current.Hotkeys.RollBackwards;
 
             if (Input.GetKeyDown(rollKeyBackwards))
             {
