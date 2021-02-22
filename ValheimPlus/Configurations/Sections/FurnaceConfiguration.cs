@@ -6,6 +6,8 @@
         public int MaximumCoal { get; set; } = 20;
         public int CoalUsedPerProduct { get; set; } = 2;
         public float ProductionSpeed { get; set; } = 10;
+        public bool AutoDeposit { get; set; } = false;
+        public float AutoDepositRange { get; set; } = 10;
     }
 
 }
