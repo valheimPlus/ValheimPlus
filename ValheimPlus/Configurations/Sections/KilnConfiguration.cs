@@ -6,6 +6,7 @@
         public int maximumWood { get; internal set; } = 25;
         public bool autoDeposit { get; set; } = false;
         public float autoDepositRange { get; set; } = 10;
+
     }
 
 }

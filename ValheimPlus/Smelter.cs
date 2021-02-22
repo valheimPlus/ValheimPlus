@@ -20,8 +20,8 @@ namespace ValheimPlus
                 // is kiln
                 if (Configuration.Current.Kiln.IsEnabled)
                 {
-                    __instance.m_maxOre = Configuration.Current.Kiln.MaximumWood;
-                    __instance.m_secPerProduct = Configuration.Current.Kiln.ProductionSpeed;
+                    __instance.m_maxOre = Configuration.Current.Kiln.maximumWood;
+                    __instance.m_secPerProduct = Configuration.Current.Kiln.productionSpeed;
                 }
             }
             else
@@ -29,10 +29,10 @@ namespace ValheimPlus
                 // is furnace
                 if (Configuration.Current.Furnace.IsEnabled)
                 {
-                    __instance.m_maxOre = Configuration.Current.Furnace.MaximumOre;
-                    __instance.m_maxFuel = Configuration.Current.Furnace.MaximumCoal;
-                    __instance.m_secPerProduct = Configuration.Current.Furnace.ProductionSpeed;
-                    __instance.m_fuelPerProduct = Configuration.Current.Furnace.CoalUsedPerProduct;
+                    __instance.m_maxOre = Configuration.Current.Furnace.maximumOre;
+                    __instance.m_maxFuel = Configuration.Current.Furnace.maximumCoal;
+                    __instance.m_secPerProduct = Configuration.Current.Furnace.productionSpeed;
+                    __instance.m_fuelPerProduct = Configuration.Current.Furnace.coalUsedPerProduct;
                 }
             }
         }
