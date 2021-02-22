@@ -11,8 +11,8 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modification of Stamina usage and regeneration
 * Modification of Stamina by tools and weaponry
 * Modification of carry weight
-* Mofification of Food duration
-* Mofification of Unarmed Damage
+* Modification of Food duration
+* Modification of Unarmed Damage
 * Option to force all remove screen shake
 
 ## Fermenter, Beehive, Kiln and Furnace
