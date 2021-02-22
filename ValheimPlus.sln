@@ -10,6 +10,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{F008016E-2845-42DA-8471-924A20835234}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinClient", "WinClient", "{ADE5B3BF-34B6-428C-B901-0D65AF80A586}"
+	ProjectSection(SolutionItems) = preProject
+		resources\WindowsServer\BepInEx.cfg = resources\WindowsServer\BepInEx.cfg
+		resources\WindowsClient\doorstop_config.ini = resources\WindowsClient\doorstop_config.ini
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinServer", "WinServer", "{7922D9E9-729D-47D4-B9D0-9948EED36FE6}"
+	ProjectSection(SolutionItems) = preProject
+		resources\WindowsServer\BepInEx.cfg = resources\WindowsServer\BepInEx.cfg
+		resources\WindowsServer\doorstop_config.ini = resources\WindowsServer\doorstop_config.ini
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnixServer", "UnixServer", "{3337D983-0BA2-4430-9E4E-19E61BBC38EF}"
+	ProjectSection(SolutionItems) = preProject
+		resources\UnixServer\BepInEx.cfg = resources\UnixServer\BepInEx.cfg
+		resources\UnixServer\run_bepinex.sh = resources\UnixServer\run_bepinex.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +43,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F008016E-2845-42DA-8471-924A20835234} = {39F54A13-F762-43B8-A561-E42BB2468A75}
+		{ADE5B3BF-34B6-428C-B901-0D65AF80A586} = {F008016E-2845-42DA-8471-924A20835234}
+		{7922D9E9-729D-47D4-B9D0-9948EED36FE6} = {F008016E-2845-42DA-8471-924A20835234}
+		{3337D983-0BA2-4430-9E4E-19E61BBC38EF} = {F008016E-2845-42DA-8471-924A20835234}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8BB54996-FC8D-4569-B330-0DE5062FE2D4}
