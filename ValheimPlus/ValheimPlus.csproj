@@ -363,7 +363,6 @@
     <Compile Include="SharedMapSystem.cs" />
     <Compile Include="Smelter.cs" />
     <Compile Include="PlayerStats.cs" />
-    <Compile Include="TombStone.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="WearNTear.cs" />
     <Compile Include="Time.cs" />
