@@ -59,7 +59,7 @@ Prevents players on the server from making themselves invisible on the map.
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
-1. You freeze the item by pressing the configurated key (F1 is default).
+1. You freeze the item by pressing the configured key (F1 is default).
 2. You can modify the item position and rotation with the following key combinations:
   * Arrow Up/Down/Left/Right = moves the building object in the respective direction.
   * Arrow Up/Down + Control = moves the building object up and down
@@ -77,7 +77,7 @@ Prevents players on the server from making themselves invisible on the map.
 ### Advanced Editing Mode | Video : https://imgur.com/DMb4ZUv.mp4
 How it works.
 *You cannot be in Build mode (hammer, hoe or terrain tool).*
-1. You select the item with the configurated key (Numpad0 is default).
+1. You select the item with the configured key (Numpad0 is default).
 2. You can modify the item position and rotation with the following key combinations:
 * Arrow Up/Down/Left/Right = moves the building object in the respective direction.
 * Arrow Up/Down + Control = moves the building object up and down
@@ -212,10 +212,10 @@ confirmPlacementOfAdvancedEditingMode = KeypadEnter
 ; Change false to true to enable this section
 enabled=false
 
-; Configurate the speed at which the bees produce honey in seconds, 1200 seconds are 24 ingame hours
+; configure the speed at which the bees produce honey in seconds, 1200 seconds are 24 ingame hours
 honeyProductionSpeed = 1200
 
-; Configurate the maximum amount of honey in beehives
+; configure the maximum amount of honey in beehives
 maximumHoneyPerBeehive = 4
 
 [Building]
@@ -251,10 +251,10 @@ itemStackMultiplier=0
 ; Change false to true to enable this section
 enabled=false
 
-; Configurate the time that the fermenter takes to produce its product, 2400 seconds are 48 ingame hours
+; configure the time that the fermenter takes to produce its product, 2400 seconds are 48 ingame hours
 fermenterDuration=2400
 
-; Configurate the total amount of produced items from a fermenter
+; configure the total amount of produced items from a fermenter
 fermenterItemsProduced=6
 
 [Fireplace]
