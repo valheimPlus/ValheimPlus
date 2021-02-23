@@ -7,26 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ValheimPlusManager.Data;
+using ValheimPlusManager.Models;
 using ValheimPlusManager.SupportClasses;
 
 namespace ValheimPlusManager
 {
     public partial class Form1 : Form
     {
-        private string ClientInstallationPath = "C:/Program Files (x86)/Steam/steamapps/common/Valheim/";
-        //private string ServerInstallationPath = "C:/Program Files (x86)/Steam/steamapps/common/Valheim dedicated server/BepInEx/plugins/";
-        private string ServerInstallationPath = "C:/Users/msn/Desktop/ServerTest/";
-
-        private string ValheimPlusClientSource = "C:/Users/msn/Downloads/WindowsServer";
         private bool ValheimPlusInstalledClient { get; set; }
         private bool ValheimPlusInstalledServer { get; set; }
+        private Settings settings { get; set; }
 
         public Form1()
         {
             InitializeComponent();
 
-            ValheimPlusInstalledClient = Validation.CheckInstallationStatus(ClientInstallationPath);
-            ValheimPlusInstalledServer = Validation.CheckInstallationStatus(ServerInstallationPath);
+            // Fetching path settings
+            settings = SettingsDAL.GetSettings();
+
+            // Checking installation status
+            ValheimPlusInstalledClient = Validation.CheckInstallationStatus(settings.ClientInstallationPath);
+            ValheimPlusInstalledServer = Validation.CheckInstallationStatus(settings.ServerInstallationPath);
 
             if(ValheimPlusInstalledClient)
             {
@@ -71,8 +73,8 @@ namespace ValheimPlusManager
             {
                 try
                 {
-                    FileManager.InstallValheimPlus(ValheimPlusClientSource, ServerInstallationPath);
-                    ValheimPlusInstalledServer = Validation.CheckInstallationStatus(ServerInstallationPath);
+                    FileManager.InstallValheimPlus(settings.ServerPath, settings.ServerInstallationPath);
+                    ValheimPlusInstalledServer = Validation.CheckInstallationStatus(settings.ServerInstallationPath);
                     if (ValheimPlusInstalledServer)
                     {
                         serverInstalledLabel.Text = "ValheimPlus v0.8.5 installed on server";
