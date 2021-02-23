@@ -53,9 +53,6 @@ namespace ValheimPlus.Configurations
             currentSection = section;
             n.LoadIniData(data[section]);
 
-            var parser = new FileIniDataParser();
-            parser.WriteFile(Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg", ConfigurationExtra.configdata);
-
             return n;
         }
 
