@@ -16,19 +16,19 @@ param(
 function Create-BepInEx{
     param (
         [Parameter(Mandatory)]
-        [System.IO.DirectoryInfo]$BasePath,
+        [System.IO.DirectoryInfo]$DistPath,
 
         [Parameter(Mandatory)]
         [ValidateSet('Windows','Unix')]
-        [System.String]$TargetSystem
+        [System.String]$DistSystem
     )
-    Write-Host "Creating BepInEx in $BasePath"
+    Write-Host "Creating BepInEx in $DistPath"
 
     # copy needed files for this target system
-    Copy-Item -Path "$SolutionPath\resources\$TargetSystem\*" -Exclude 'BepInEx.cfg' -Destination "$BasePath" -Recurse -Force
+    Copy-Item -Path "$SolutionPath\resources\$DistSystem\*" -Exclude 'BepInEx.cfg' -Destination "$DistPath" -Recurse -Force
     
     # create \BepInEx
-    $bepinex = $BasePath.CreateSubdirectory('BepInEx')
+    $bepinex = $DistPath.CreateSubdirectory('BepInEx')
     
     # create \BepInEx\core and copy core dlls from build
     $core = $bepinex.CreateSubdirectory('core');
@@ -39,7 +39,7 @@ function Create-BepInEx{
 
     # create \BepInEx\config and copy config files
     $conf = $bepinex.CreateSubdirectory('config');
-    Copy-Item -Path "$SolutionPath\resources\$TargetSystem\*" -Include 'BepInEx.cfg' -Destination "$conf" -Force
+    Copy-Item -Path "$SolutionPath\resources\$DistSystem\*" -Include 'BepInEx.cfg' -Destination "$conf" -Force
     
     # create \BepInEx\plugins and copy plugin dlls from build
     $plug = $bepinex.CreateSubdirectory('plugins');
@@ -52,30 +52,41 @@ function Create-BepInEx{
 function Copy-Corlib{
     param(
         [Parameter(Mandatory)]
-        [System.IO.DirectoryInfo]$BasePath,
+        [System.IO.DirectoryInfo]$DistPath,
         
         [Parameter(Mandatory)]
         [System.IO.DirectoryInfo]$LibPath
     )
-    Write-Host "Copying unstripped_corlib to $BasePath"
+    Write-Host "Copying unstripped_corlib to $DistPath"
 
-    $rel = $BasePath.CreateSubdirectory('unstripped_corlib')
+    $rel = $DistPath.CreateSubdirectory('unstripped_corlib')
     Copy-Item -Path "$LibPath\*" -Filter '*.dll' -Destination "$rel" -Force
+
+}
+
+function Copy-Config{
+    param(
+        [Parameter(Mandatory)]
+        [System.IO.DirectoryInfo]$DistPath
+    )
+    Write-Host "Copying V+ config to $DistPath\BepInEx\config"
+
+    Copy-Item -Path "$SolutionPath\*" -Include 'valheim_plus.cfg' -Destination "$DistPath\BepInEx\config" -Force
 
 }
 
 function Make-Archive{
     param(
         [Parameter(Mandatory)]
-        [System.IO.DirectoryInfo]$BasePath
+        [System.IO.DirectoryInfo]$DistPath
     )
 
-    $rel = $BasePath.Parent.FullName
-    $zip = $BasePath.Name + ".zip"
+    $rel = $DistPath.Parent.FullName
+    $zip = $DistPath.Name + ".zip"
     
-    Write-Host "Creating archive $zip for $BasePath"
+    Write-Host "Creating archive $zip for $DistPath"
 
-    Compress-Archive -Path "$BasePath\*" -DestinationPath "$rel\$zip" -Force
+    Compress-Archive -Path "$DistPath\*" -DestinationPath "$rel\$zip" -Force
 }
 
 Write-Host "Publishing V+ for $Target from $TargetPath"
@@ -84,7 +95,7 @@ if ($Target.Equals("Debug")) {
     Write-Host "Copying dlls to Valheim installation $ValheimPath"
 
     $valheim = New-Item -ItemType Directory -Path "$ValheimPath" -Force
-    Create-BepInEx -BasePath $valheim -TargetSystem 'Windows'
+    Create-BepInEx -DistPath $valheim -DistSystem 'Windows'
 }
 
 if ($Target.Equals("Release")) {
@@ -94,23 +105,12 @@ if ($Target.Equals("Release")) {
     Write-Host "Building release packages to $rel"
     
     # create all distros as folders and zip
-    $winclient = New-Item -ItemType Directory -Path "$rel\WindowsClient" -Force;
-    Create-BepInEx -BasePath $winclient -TargetSystem 'Windows'
-    Copy-Corlib -BasePath $winclient -LibPath $lib
-    Make-Archive -BasePath $winclient
-
-    $winserver = New-Item -ItemType Directory -Path "$rel\WindowsServer" -Force
-    Create-BepInEx -BasePath $winserver -TargetSystem 'Windows'
-    Copy-Corlib -BasePath $winserver -LibPath $lib
-    Make-Archive -BasePath $winserver
-
-    $unixserver = New-Item -ItemType Directory -Path "$rel\UnixServer" -Force
-    Create-BepInEx -BasePath $unixserver -TargetSystem 'Unix'
-    Copy-Corlib -BasePath $unixserver -LibPath $lib
-    Make-Archive -BasePath $unixserver
-
-    # delete folders afterwards
-    $winclient.Delete($true)
-    $winserver.Delete($true)
-    $unixserver.Delete($true)
+    ('Windows','Unix') | % {
+        $dist = New-Item -ItemType Directory -Path "$rel\$_" -Force;
+        Create-BepInEx -DistPath $dist -DistSystem $_
+        Copy-Config -DistPath $dist
+        Copy-Corlib -DistPath $dist -LibPath $lib
+        Make-Archive -DistPath $dist
+        $dist.Delete($true);
+    }
 }
