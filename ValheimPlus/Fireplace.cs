@@ -14,9 +14,9 @@ namespace ValheimPlus
         {
             private static void Postfix(Fireplace __instance, ref ZNetView ___m_nview) 
             {
-                if (Configuration.Current.FireplaceC.IsEnabled)
+                if (Configuration.Current.Fireplace.IsEnabled)
 	            {
-		            if (Configuration.Current.FireplaceC.onlyTorches)
+		            if (Configuration.Current.Fireplace.onlyTorches)
 	                {
 		                if (__instance.GetHoverText().Contains("torch") || __instance.GetHoverText().Contains("Scounce") || __instance.GetHoverText().Contains("brazier")) 
                         {

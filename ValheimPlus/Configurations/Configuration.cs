@@ -12,6 +12,7 @@ namespace ValheimPlus.Configurations
         public BeehiveConfiguration Beehive { get; set; }
         public BuildingConfiguration Building { get; set; }
         public FermenterConfiguration Fermenter { get; set; }
+        public FireplaceConfiguration Fireplace { get; set; }
         public FoodConfiguration Food { get; set; }
         public FurnaceConfiguration Furnace { get; set; }
         public HotkeyConfiguration Hotkeys { get; set; }
@@ -22,7 +23,9 @@ namespace ValheimPlus.Configurations
         public MapConfiguration Map { get; set; }
         public ServerConfiguration Server { get; set; }
         public StaminaConfiguration Stamina { get; set; }
+        public StaminaWeapons WeaponsStamina { get; set; }
         public UnarmedConfiguration Unarmed { get; set; }
+        public WorkbenchConfiguration Workbench { get; set; }
     }
 
 }

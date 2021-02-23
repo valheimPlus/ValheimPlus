@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ValheimPlus.Configurations.Sections
 {
-    public class FireplaceC : ServerSyncConfig<FireplaceC>
+    public class FireplaceConfiguration : ServerSyncConfig<FireplaceConfiguration>
     {
         public Boolean onlyTorches { get; internal set; } = false;
     }
