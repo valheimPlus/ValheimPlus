@@ -6,8 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace ValheimPlus.Configurations
 {
@@ -18,21 +16,6 @@ namespace ValheimPlus.Configurations
 
     public abstract class BaseConfig<T> : IConfig where T : IConfig, new()
     {
-
-        public string ServerSerializeSection()
-        {
-            if (!IsEnabled || !NeedsServerSync) return "";
-
-            var serializer = new SerializerBuilder()
-                .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                .Build();
-            var r = serializer.Serialize(new { 
-               type = this.GetType().Name,
-               data = this
-            });
-            return r;
-        }
-
         public bool IsEnabled = false;
         public virtual bool NeedsServerSync { get; set;} = false;
 
