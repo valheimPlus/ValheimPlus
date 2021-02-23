@@ -56,11 +56,13 @@ namespace ValheimPlusManager
 
             if (!ValheimPlusInstalledServer)
             {
-                dialogResult = MessageBox.Show("Are you sure you wish to install ValheimPlus on your server?", "Confirm", MessageBoxButtons.YesNo);
+                dialogResult = MessageBox
+                    .Show("Are you sure you wish to install ValheimPlus on your server?", "Confirm", MessageBoxButtons.YesNo);
             }
             else
             {
-                dialogResult = MessageBox.Show("Are you sure you wish to update/reinstall ValheimPlus on your server?", "Confirm", MessageBoxButtons.YesNo);
+                dialogResult = MessageBox
+                    .Show("Are you sure you wish to update/reinstall ValheimPlus on your server? This will overwrite your current configurations!", "Confirm", MessageBoxButtons.YesNo);
             }
 
             if (dialogResult == DialogResult.Yes)
@@ -78,20 +80,20 @@ namespace ValheimPlusManager
                 }
                 catch (Exception)
                 {
-                    throw new Exception();
+                    throw new Exception(); // ToDo - handling of errors
                 }
             }
         }
 
         private void manageServerButton_Click(object sender, EventArgs e)
         {
-            new ConfigEditor(false).Show();
+            new ConfigEditor(false).Show(); // Bool determines if user will manage conf. for server or game client
         }
 
 
         private void manageClientButton_Click(object sender, EventArgs e)
         {
-            new ConfigEditor(true).Show();
+            new ConfigEditor(true).Show(); // Bool determines if user will manage conf. for server or game client
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
