@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <PackageReference Include="ini-parser-netstandard" Version="2.5.2" />
   </ItemGroup>
 
   <ItemGroup>
