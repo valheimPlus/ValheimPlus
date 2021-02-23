@@ -7,22 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ValheimPlusManager.SupportClasses;
 
 namespace ValheimPlusManager
 {
     public partial class Form1 : Form
     {
-        private bool valheimPlusInstalledClient { get; set; }
-        private bool valheimPlusInstalledServer { get; set; }
+        private string ClientInstallationPath = "C:/Program Files (x86)/Steam/steamapps/common/Valheim/";
+        //private string ServerInstallationPath = "C:/Program Files (x86)/Steam/steamapps/common/Valheim dedicated server/BepInEx/plugins/";
+        private string ServerInstallationPath = "C:/Users/msn/Desktop/ServerTest/";
+
+        private string ValheimPlusClientSource = "C:/Users/msn/Downloads/WindowsClient";
+        private bool ValheimPlusInstalledClient { get; set; }
+        private bool ValheimPlusInstalledServer { get; set; }
 
         public Form1()
         {
             InitializeComponent();
-            // Checking if ValheimPlus is already installed for the client and/or server
-            valheimPlusInstalledClient = System.IO.File.Exists("C:/Program Files (x86)/Steam/steamapps/common/Valheim/BepInEx/plugins/ValheimPlus.dll");
-            valheimPlusInstalledServer = System.IO.File.Exists("C:/Program Files (x86)/Steam/steamapps/common/Valheim dedicated server/BepInEx/plugins/ValheimPlus.dll");
 
-            if(valheimPlusInstalledClient)
+            ValheimPlusInstalledClient = Validation.CheckInstallationStatus(ClientInstallationPath);
+            ValheimPlusInstalledServer = Validation.CheckInstallationStatus(ServerInstallationPath);
+
+            if(ValheimPlusInstalledClient)
             {
                 clientInstalledLabel.Text = "ValheimPlus installed on client";
                 clientInstalledLabel.ForeColor = Color.Green;
@@ -35,17 +41,49 @@ namespace ValheimPlusManager
                 installClientButton.Enabled = true;
             }
 
-            if(valheimPlusInstalledServer)
+            if(ValheimPlusInstalledServer)
             {
                 serverInstalledLabel.Text = "ValheimPlus installed on server";
                 serverInstalledLabel.ForeColor = Color.Green;
-                installServerButton.Enabled = false;
+                installServerButton.Text = "Update/reinstall ValheimPlus on server";
             }
             else
             {
                 serverInstalledLabel.Text = "ValheimPlus not installed on server";
                 serverInstalledLabel.ForeColor = Color.Red;
-                installServerButton.Enabled = true;
+            }
+        }
+
+        private void installServerButton_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult;
+
+            if (!ValheimPlusInstalledServer)
+            {
+                dialogResult = MessageBox.Show("Are you sure you wish to install ValheimPlus on your server?", "Confirm", MessageBoxButtons.YesNo);
+            }
+            else
+            {
+                dialogResult = MessageBox.Show("Are you sure you wish to update/reinstall ValheimPlus on your server?", "Confirm", MessageBoxButtons.YesNo);
+            }
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                try
+                {
+                    FileManager.InstallValheimPlus(ValheimPlusClientSource, ServerInstallationPath);
+                    ValheimPlusInstalledServer = Validation.CheckInstallationStatus(ServerInstallationPath);
+                    if (ValheimPlusInstalledServer)
+                    {
+                        serverInstalledLabel.Text = "ValheimPlus installed on server";
+                        serverInstalledLabel.ForeColor = Color.Green;
+                        installServerButton.Text = "Update/reinstall ValheimPlus on server";
+                    }
+                }
+                catch (Exception)
+                {
+                    throw new Exception();
+                }
             }
         }
     }

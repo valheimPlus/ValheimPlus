@@ -81,6 +81,7 @@ namespace ValheimPlusManager
             this.installServerButton.TabIndex = 4;
             this.installServerButton.Text = "Install ValheimPlus on server";
             this.installServerButton.UseVisualStyleBackColor = true;
+            this.installServerButton.Click += new System.EventHandler(this.installServerButton_Click);
             // 
             // Form1
             // 
