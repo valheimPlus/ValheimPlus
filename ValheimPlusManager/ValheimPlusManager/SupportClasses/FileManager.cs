@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ValheimPlusManager.SupportClasses
+﻿namespace ValheimPlusManager.SupportClasses
 {
     public static class FileManager
     {

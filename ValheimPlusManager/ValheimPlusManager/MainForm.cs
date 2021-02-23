@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ValheimPlusManager.Data;
 using ValheimPlusManager.Models;
@@ -30,7 +24,7 @@ namespace ValheimPlusManager
             ValheimPlusInstalledClient = Validation.CheckInstallationStatus(settings.ClientInstallationPath);
             ValheimPlusInstalledServer = Validation.CheckInstallationStatus(settings.ServerInstallationPath);
 
-            if(ValheimPlusInstalledClient)
+            if (ValheimPlusInstalledClient)
             {
                 clientInstalledLabel.Text = String.Format("ValheimPlus {0} installed on client", settings.Version);
                 clientInstalledLabel.ForeColor = Color.Green;
@@ -43,7 +37,7 @@ namespace ValheimPlusManager
                 installClientButton.Enabled = true;
             }
 
-            if(ValheimPlusInstalledServer)
+            if (ValheimPlusInstalledServer)
             {
                 serverInstalledLabel.Text = String.Format("ValheimPlus {0} installed on server", settings.Version);
                 serverInstalledLabel.ForeColor = Color.Green;

@@ -11,6 +11,7 @@
     <RepositoryUrl>https://github.com/valheimPlus/ValheimPlus</RepositoryUrl>
     <PackageReleaseNotes>Initial release for alpha testing.</PackageReleaseNotes>
     <PackageIcon>logo.png</PackageIcon>
+    <Copyright>Robert Roos (rr222cy)</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
