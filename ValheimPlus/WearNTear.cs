@@ -23,7 +23,7 @@ namespace ValheimPlus
         private static Boolean Prefix(ref WearNTear __instance, out float maxSupport, out float minSupport, out float horizontalLoss, out float verticalLoss)
         {
 
-			if (Configuration.Current.StructuralIntegrity.IsEnabled && Configuration.Current.StructuralIntegrity.disableStructualIntegrity)
+			if (Configuration.Current.StructuralIntegrity.IsEnabled && Configuration.Current.StructuralIntegrity.disableStructuralIntegrity)
 			{
 				maxSupport = 1500f;
 				minSupport = 20f;

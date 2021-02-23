@@ -6,6 +6,6 @@
         public float stone { get; internal set; } = 0;
         public float iron { get; internal set; } = 0;
         public float hardWood { get; internal set; } = 0;
-        public bool disableStructualIntegrity { get; set; } = false;
+        public bool disableStructuralIntegrity { get; set; } = false;
     }
 }

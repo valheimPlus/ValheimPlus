@@ -21,26 +21,5 @@
 		public float swim { get; internal set; } = 0;
 
 	}
-/*
- None,
-			Swords,
-			Knives,
-			Clubs,
-			Polearms,
-			Spears,
-			Blocking,
-			Axes,
-			Bows,
-			FireMagic,
-			FrostMagic,
-			Unarmed,
-			Pickaxes,
-			WoodCutting,
-			Jump = 100,
-			Sneak,
-			Run,
-			Swim,
-			All = 999
- 
- */
+
 }
