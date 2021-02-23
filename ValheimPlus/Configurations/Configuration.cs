@@ -23,7 +23,6 @@ namespace ValheimPlus.Configurations
         public ServerConfiguration Server { get; set; }
         public StaminaConfiguration Stamina { get; set; }
         public UnarmedConfiguration Unarmed { get; set; }
-
     }
 
 }
