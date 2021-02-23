@@ -3,6 +3,6 @@
     public class VagonConfiguration : ServerSyncConfig<VagonConfiguration>
     {
         public float wagonItemWeight { get; internal set; } = 0;
-        public float vagonBaseMass { get; internal set; } = 20;
+        public float wagonBaseMass { get; internal set; } = 20;
     }
 }
