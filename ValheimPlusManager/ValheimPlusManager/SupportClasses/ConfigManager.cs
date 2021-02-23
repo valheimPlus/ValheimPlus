@@ -9,7 +9,7 @@ namespace ValheimPlusManager.SupportClasses
 {
     public class ConfigManager
     {
-        public static void ReadConfigFile()
+        public static ValheimPlusConf ReadConfigFile()
         {
             ValheimPlusConf valheimPlusConfiguration = new ValheimPlusConf();
 
@@ -19,7 +19,7 @@ namespace ValheimPlusManager.SupportClasses
             // Advanced building mode settings
             valheimPlusConfiguration.advancedBuildingModeEnabled = bool.Parse(data["AdvancedBuildingMode"]["enabled"]);
             valheimPlusConfiguration.enterAdvancedBuildingMode = data["AdvancedBuildingMode"]["enterAdvancedBuildingMode"];
-            valheimPlusConfiguration.enterAdvancedBuildingMode = data["AdvancedBuildingMode"]["exitAdvancedBuildingMode"];
+            valheimPlusConfiguration.exitAdvancedBuildingMode = data["AdvancedBuildingMode"]["exitAdvancedBuildingMode"];
 
             // Advanced editing mode settings
 
@@ -31,6 +31,8 @@ namespace ValheimPlusManager.SupportClasses
             valheimPlusConfiguration.baseAutoPickUpRange = float.Parse(data["Player"]["baseAutoPickUpRange"]);
             valheimPlusConfiguration.disableCameraShake = bool.Parse(data["Player"]["disableCameraShake"]);
             valheimPlusConfiguration.baseUnarmedDamage = float.Parse(data["Player"]["baseUnarmedDamage"]);
+
+            return valheimPlusConfiguration;
         }
     }
 }

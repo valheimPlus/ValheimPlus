@@ -125,6 +125,7 @@ namespace ValheimPlusManager
             this.manageClientButton.TabIndex = 8;
             this.manageClientButton.Text = "Manage ValheimPlus settings";
             this.manageClientButton.UseVisualStyleBackColor = true;
+            this.manageClientButton.Click += new System.EventHandler(this.manageClientButton_Click);
             // 
             // Form1
             // 
