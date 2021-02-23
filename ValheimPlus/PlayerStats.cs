@@ -51,7 +51,7 @@ namespace ValheimPlus
                 if (__instance.GetRightItem() == null)
                     weaponType = "Unarmed";
 
-                if(weaponType != "Unarmed")
+                if(weaponType != "Unarmed") 
                 {
                     try
                     {

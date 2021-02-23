@@ -36,7 +36,6 @@ namespace ValheimPlus.Configurations
         public bool IsEnabled = false;
         public virtual bool NeedsServerSync { get; set;} = false;
 
-        private static string currentSection = "";
         public static IniData iniUpdated = null;
 
         public static T LoadIni(IniData data, string section)
@@ -50,7 +49,7 @@ namespace ValheimPlus.Configurations
                 Debug.Log(" Section not enabled");
                 return n;
             }
-            currentSection = section;
+
             n.LoadIniData(data[section]);
 
             return n;
@@ -63,22 +62,14 @@ namespace ValheimPlus.Configurations
             foreach (var prop in typeof(T).GetProperties())
             {
                 var keyName = prop.Name;
-
-                // Set first char of keyName to lowercase
-                if (keyName != string.Empty && char.IsUpper(keyName[0]))
-                {
-                    keyName = char.ToLower(keyName[0]) + keyName.Substring(1);
-                }
-
+                
                 Debug.Log("Start loading ini.");
-                if (data.ContainsKey(keyName)) { 
+
+                if (data.ContainsKey(keyName)) 
                     Debug.Log($" Loading key {keyName}");
-                }
-                else { 
-                    if(keyName != "needsServerSync") {
-                        Debug.LogError($" Key {keyName} not defined, using default value");
-                    }
-                }
+                else 
+                     Debug.LogError($" Key {keyName} not defined, using default value");
+                
 
                 if (!data.ContainsKey(keyName)) continue;
 
