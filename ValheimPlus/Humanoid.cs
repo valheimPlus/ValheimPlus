@@ -14,7 +14,7 @@ namespace ValheimPlus
                 {
                     if (__weapon.m_shared.m_name == "Unarmed")
                     {
-                        __weapon.m_shared.m_damages.m_blunt = __instance.GetSkillFactor(Skills.SkillType.Unarmed) * Configuration.Current.Player.BaseUnarmedDamage;
+                        __weapon.m_shared.m_damages.m_blunt = __instance.GetSkillFactor(Skills.SkillType.Unarmed) * Configuration.Current.Player.baseUnarmedDamage;
                     }
                 }
             }

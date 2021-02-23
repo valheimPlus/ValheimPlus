@@ -2,8 +2,8 @@
 {
     public class KilnConfiguration : ServerSyncConfig<KilnConfiguration>
     {
-        public float ProductionSpeed { get; set; } = 10;
-        public int MaximumWood { get; internal set; } = 25;
+        public float productionSpeed { get; set; } = 30;
+        public int maximumWood { get; internal set; } = 25;
     }
 
 }

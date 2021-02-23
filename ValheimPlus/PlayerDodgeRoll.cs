@@ -20,8 +20,8 @@ namespace ValheimPlus
         {
             if (!Configuration.Current.Hotkeys.IsEnabled) return;
 
-            KeyCode rollKeyForward = Configuration.Current.Hotkeys.RollForwards;
-            KeyCode rollKeyBackwards = Configuration.Current.Hotkeys.RollBackwards;
+            KeyCode rollKeyForward = Configuration.Current.Hotkeys.rollForwards;
+            KeyCode rollKeyBackwards = Configuration.Current.Hotkeys.rollBackwards;
 
             if (Input.GetKeyDown(rollKeyBackwards))
             {

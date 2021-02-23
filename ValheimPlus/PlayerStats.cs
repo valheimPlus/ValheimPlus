@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
+using UnityEngine;
 
 namespace ValheimPlus
 {
@@ -10,72 +11,105 @@ namespace ValheimPlus
         {
             if (Configuration.Current.Stamina.IsEnabled)
             {
-                __instance.m_dodgeStaminaUsage = Configuration.Current.Stamina.DodgeStaminaUsage;;
-                __instance.m_encumberedStaminaDrain = Configuration.Current.Stamina.EncumberedStaminaDrain;
-                __instance.m_sneakStaminaDrain = Configuration.Current.Stamina.SneakStaminaDrain;
-                __instance.m_runStaminaDrain = Configuration.Current.Stamina.RunStaminaDrain;
-                __instance.m_staminaRegenDelay = Configuration.Current.Stamina.StaminaRegenDelay;
-                __instance.m_staminaRegen = Configuration.Current.Stamina.StaminaRegen;
-                __instance.m_swimStaminaDrainMinSkill = Configuration.Current.Stamina.SwimStaminaDrain;
-                __instance.m_jumpStaminaUsage = Configuration.Current.Stamina.JumpStaminaDrain;
+                __instance.m_dodgeStaminaUsage = Configuration.Current.Stamina.dodgeStaminaUsage;;
+                __instance.m_encumberedStaminaDrain = Configuration.Current.Stamina.encumberedStaminaDrain;
+                __instance.m_sneakStaminaDrain = Configuration.Current.Stamina.sneakStaminaDrain;
+                __instance.m_runStaminaDrain = Configuration.Current.Stamina.runStaminaDrain;
+                __instance.m_staminaRegenDelay = Configuration.Current.Stamina.staminaRegenDelay;
+                __instance.m_staminaRegen = Configuration.Current.Stamina.staminaRegen;
+                __instance.m_swimStaminaDrainMinSkill = Configuration.Current.Stamina.swimStaminaDrain;
+                __instance.m_jumpStaminaUsage = Configuration.Current.Stamina.jumpStaminaDrain;
             }
             if (Configuration.Current.Player.IsEnabled)
             {
-                __instance.m_autoPickupRange = Configuration.Current.Player.BaseAutoPickUpRange;
-                __instance.m_baseCameraShake = Configuration.Current.Player.DisableCameraShake ? 0f : 4f;
+                __instance.m_autoPickupRange = Configuration.Current.Player.baseAutoPickUpRange;
+                __instance.m_baseCameraShake = Configuration.Current.Player.disableCameraShake ? 0f : 4f;
             }
             if (Configuration.Current.Building.IsEnabled)
             {
-                __instance.m_maxPlaceDistance = Configuration.Current.Building.MaximumPlacementDistance;
+                __instance.m_maxPlaceDistance = Configuration.Current.Building.maximumPlacementDistance;
             }
+
         }
 
 
     }
 
-    [HarmonyPatch(typeof(Attack), "GetStaminaUsage")]
-        public static class SelectiveWeaponStaminaDescrease {
-            private static void Postfix(ref float __result, ItemDrop.ItemData ___m_weapon) {
-                if (Configuration.Current.WeaponStamina.IsEnabled)
-	            {
-                    string weaponType = ___m_weapon.m_shared.m_skillType.ToString();
 
-                    switch (weaponType)
+    [HarmonyPatch(typeof(Player), "UseStamina")]
+    public static class ChangeStaminaUsageOfToolsAndWeapons
+    {
+        private static void Prefix(ref Player __instance, ref float v)
+        {
+
+            if (Configuration.Current.StaminaUsage.IsEnabled)
+            {
+                string weaponType = "";
+                bool isHoe = false;
+                bool isHammer = false;
+
+                if (__instance.GetRightItem() == null)
+                    weaponType = "Unarmed";
+
+                if(weaponType != "Unarmed") 
+                {
+                    try
                     {
-                        case "Swords":
-                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Swords) / 100);
-                            break;
-                        case "Knives":
-                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Knives) / 100);
-                        break;
-                        case "Clubs":
-                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Clubs) / 100);
-                        break;
-                        case "Polearms":
-                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Polearms) / 100);
-                        break;
-                        case "Spears":
-                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Spears) / 100);
-                        break;
-                        case "Axes":
-                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Axes) / 100);
-                        break;
-                        case "Bows":
-                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Bows) / 100);
-                        break;
-                        case "Unarmed":
-                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Unarmed) / 100);
-                        break;
-                        case "Pickaxes":
-                            __result = __result - ( __result * (Configuration.Current.WeaponStamina.Pickaxes) / 100);
-                        break;
-                        default:
-                            break;
-                    } 
-	            }
+                        weaponType = __instance.GetRightItem().m_shared.m_skillType.ToString();
+                    }
+                    catch (System.Exception e)
+                    { }
+
+                    isHoe = (__instance.GetRightItem().m_shared.m_name == "$item_hoe" ? true : false);
+                    isHammer = (__instance.GetRightItem().m_shared.m_name == "$item_hammer" ? true : false);
+                }
                 
+                if(weaponType != "")
+                switch (weaponType)
+                {
+                    case "Swords":
+                        v = v - (v * (Configuration.Current.StaminaUsage.swords) / 100);
+                        break;
+                    case "Knives":
+                        v = v - (v * (Configuration.Current.StaminaUsage.knives) / 100);
+                        break;
+                    case "Clubs":
+                        v = v - (v * (Configuration.Current.StaminaUsage.clubs) / 100);
+                        break;
+                    case "Polearms":
+                        v = v - (v * (Configuration.Current.StaminaUsage.polearms) / 100);
+                        break;
+                    case "Spears":
+                        v = v - (v * (Configuration.Current.StaminaUsage.spears) / 100);
+                        break;
+                    case "Axes":
+                        v = v - (v * (Configuration.Current.StaminaUsage.axes) / 100);
+                            break;
+                    case "Bows":
+                        v = v - (v * (Configuration.Current.StaminaUsage.bows) / 100);
+                        break;
+                    case "Unarmed":
+                        v = v - (v * (Configuration.Current.StaminaUsage.unarmed) / 100);
+                        break;
+                    case "Pickaxes":
+                        v = v - (v * (Configuration.Current.StaminaUsage.pickaxes) / 100);
+                        break;
+                    default:
+                        break;
+                }
+
+                if (isHammer)
+                {
+                    v = v - (v * (Configuration.Current.StaminaUsage.hammer) / 100);
+                }
+                if (isHoe)
+                {
+                    v = v - (v * (Configuration.Current.StaminaUsage.hoe) / 100);
+                }
             }
+
         }
+    }
 
 
 }

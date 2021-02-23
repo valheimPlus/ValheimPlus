@@ -21,7 +21,15 @@ namespace ValheimPlus.Configurations
         public PlayerConfiguration Player { get; set; }
         public ServerConfiguration Server { get; set; }
         public StaminaConfiguration Stamina { get; set; }
-        public WeaponStaminaConfiguration WeaponStamina { get; set; }
+        public StaminaUsageConfiguration StaminaUsage { get; set; }
         public WorkbenchConfiguration Workbench { get; set; }
+        public TimeConfiguration Time { get; set; }
+        public WardConfiguration Ward { get; set; }
+        public StructuralIntegrityConfiguration StructuralIntegrity { get; set; }
+        public HudConfiguration Hud { get; set; }
+        public ExperienceConfiguration Experience { get; set; }
+        public CameraConfiguration Camera { get; set; }
+        public GameConfiguration Game { get; set; }
+        public VagonConfiguration Wagon { get; set; }
     }
 }

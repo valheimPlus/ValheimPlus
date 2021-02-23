@@ -1,8 +1,6 @@
 using IniParser.Model;
 using System.Linq;
 using UnityEngine;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace ValheimPlus.Configurations
 {
@@ -30,10 +28,13 @@ namespace ValheimPlus.Configurations
         public bool IsEnabled = false;
         public virtual bool NeedsServerSync { get; set;} = false;
 
+        public static IniData iniUpdated = null;
+
         public static T LoadIni(IniData data, string section)
         {
             var n = new T();
 
+            
             Debug.Log($"Loading config section {section}");
             if (data[section] == null || data[section]["enabled"] == null || !data[section].GetBool("enabled"))
             {
@@ -42,6 +43,7 @@ namespace ValheimPlus.Configurations
             }
 
             n.LoadIniData(data[section]);
+
             return n;
         }
 

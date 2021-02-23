@@ -1,7 +1,8 @@
 ﻿namespace ValheimPlus.Configurations.Sections
 {
-    public class imeConfiguration : BaseConfig<imeConfiguration>
+    public class TimeConfiguration : ServerSyncConfig<TimeConfiguration>
     {
-        public long DayTime { get; internal set; } = 1200L;
+        public float totalDayTimeInSeconds { get; internal set; } = 1200;
+        public float nightTimeSpeedMultiplier { get; internal set; } = 0;
     }
 }
