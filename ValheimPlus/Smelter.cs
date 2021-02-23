@@ -10,11 +10,6 @@ namespace ValheimPlus
         
         private static void Prefix(ref Smelter __instance)
         {
-            Debug.Log("Not first Awake");
-            
-            
-
-
             if (!__instance.m_addWoodSwitch)
             {
                 // is kiln
