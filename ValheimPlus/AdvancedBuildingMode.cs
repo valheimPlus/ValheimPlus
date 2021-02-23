@@ -49,7 +49,7 @@ namespace ValheimPlus
 
                     }
                 }
-                if (Configuration.Current.AdvancedBuildingMode.IsEnabled && Configuration.Current.Building.NoInvalidPlacementRestriction)
+                if (Configuration.Current.AdvancedBuildingMode.IsEnabled && Configuration.Current.Building.noInvalidPlacementRestriction)
                 {
                     if (__instance.m_placementStatus == Player.PlacementStatus.Invalid)
                     {
@@ -114,7 +114,7 @@ namespace ValheimPlus
                 return;
             }
 
-            if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.ExitAdvancedBuildingMode))
+            if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.exitAdvancedBuildingMode))
             {
                 if (isActive)
                     exitMode();
@@ -167,7 +167,7 @@ namespace ValheimPlus
             }
             else
             {
-                if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.EnterAdvancedBuildingMode))
+                if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.enterAdvancedBuildingMode))
                 {
                     startMode();
                 }

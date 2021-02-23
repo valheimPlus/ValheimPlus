@@ -21,7 +21,7 @@ namespace ValheimPlus
 {
     class VersionInfo
     {
-
+        
         [HarmonyPatch(typeof(Console), "Awake")]
         public static class HookConsole
         {
@@ -57,23 +57,29 @@ namespace ValheimPlus
         [HarmonyPatch(typeof(Version), "GetVersionString")]
         public static class VersionServerControl
         {
-            static bool Prefix(ref string __result)
+            private static Boolean Prefix(ref string __result)
             {
                 string gameVersion = Version.CombineVersion(global::Version.m_major, global::Version.m_minor, global::Version.m_patch);
                 __result = gameVersion;
 
-                if (Configuration.Current.Server.EnforceConfiguration && Configuration.Current.Server.EnforceMod)
+                Debug.Log($"Version generator started.");
+                if (Configuration.Current.Server.IsEnabled)
                 {
-                    __result = gameVersion + "@" + ValheimPlusPlugin.version + "@" + ConfigurationExtra.GetServerHashFor(Configuration.Current);
-                    Debug.Log($"Version generated with enforced mod and config hash : {__result}");
-                    return false;
+                    if (Configuration.Current.Server.enforceConfiguration && Configuration.Current.Server.enforceMod)
+                    {
+                        __result = gameVersion + "@" + ValheimPlusPlugin.version + "@" + ConfigurationExtra.GetServerHashFor(Configuration.Current);
+                        Debug.Log($"Version generated with enforced mod and config hash : {__result}");
+                        return false;
+                    }
+
+                    if (Configuration.Current.Server.enforceMod)
+                    {
+                        Debug.Log($"Version generated with enforced mod : {__result}");
+                        __result = gameVersion + "@" + ValheimPlusPlugin.version;
+                        return false;
+                    }
                 }
 
-                if (Configuration.Current.Server.EnforceMod) {
-                    Debug.Log($"Version generated with enforced mod : {__result}");
-                    __result = gameVersion + "@" + ValheimPlusPlugin.version;
-                    return false;
-                }
                 Debug.Log($"Version generated : {__result}");
                 return false;
             }
