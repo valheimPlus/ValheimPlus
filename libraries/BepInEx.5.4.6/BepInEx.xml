@@ -1389,6 +1389,11 @@
                 Paths used by BepInEx
             </summary>
         </member>
+        <member name="P:BepInEx.Paths.DllSearchPaths">
+            <summary>
+            	List of directories from where Mono will search assemblies before assembly resolving is invoked.
+            </summary>
+        </member>
         <member name="P:BepInEx.Paths.BepInExAssemblyDirectory">
             <summary>
                 The directory that the core BepInEx DLLs reside in.
@@ -1628,6 +1633,15 @@
             which has problems with encoding.
             Using <see cref="T:System.Reflection.AssemblyName"/> solves this by doing parsing on managed side instead.
             </remarks>
+        </member>
+        <member name="M:BepInEx.Utility.GetUniqueFilesInDirectories(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Gets unique files in all given directories. If the file with the same name exists in multiple directories,
+            only the first occurrence is returned.
+            </summary>
+            <param name="directories">Directories to search from.</param>
+            <param name="pattern">File pattern to search.</param>
+            <returns>Collection of all files in the directories.</returns>
         </member>
         <member name="T:UnityInjector.ConsoleUtil.SafeConsole">
             <summary>

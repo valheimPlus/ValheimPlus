@@ -25,6 +25,11 @@
             Full path to the game executable currently running.
             </summary>
         </member>
+        <member name="P:BepInEx.Preloader.EnvVars.DOORSTOP_DLL_SEARCH_DIRS">
+            <summary>
+            Array of paths where Mono searches DLLs from before assembly resolvers are invoked.
+            </summary>
+        </member>
         <member name="T:BepInEx.Preloader.Patching.AssemblyPatcherDelegate">
             <summary>
                 Delegate used in patching assemblies.
@@ -59,11 +64,11 @@
                 Releases all patchers to let them be collected by GC.
             </summary>
         </member>
-        <member name="M:BepInEx.Preloader.Patching.AssemblyPatcher.PatchAndLoad(System.String)">
+        <member name="M:BepInEx.Preloader.Patching.AssemblyPatcher.PatchAndLoad(System.String[])">
             <summary>
                 Applies patchers to all assemblies in the given directory and loads patched assemblies into memory.
             </summary>
-            <param name="directory">Directory to load CLR assemblies from.</param>
+            <param name="directories">Directories to load CLR assemblies from in their search order.</param>
         </member>
         <member name="M:BepInEx.Preloader.Patching.AssemblyPatcher.Load(Mono.Cecil.AssemblyDefinition,System.String)">
             <summary>
