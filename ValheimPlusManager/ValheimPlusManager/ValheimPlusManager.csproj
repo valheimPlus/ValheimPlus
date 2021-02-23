@@ -2,8 +2,15 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <Version>0.1.0-alpha</Version>
+    <Authors>Robert Roos</Authors>
+    <Description>Manager for ValheimPlus, install and configure ValheimPlus for both your game client and server client with this GUI.</Description>
+    <PackageProjectUrl>https://github.com/valheimPlus/ValheimPlus</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/valheimPlus/ValheimPlus</RepositoryUrl>
+    <PackageReleaseNotes>Initial release for alpha testing.</PackageReleaseNotes>
+    <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +35,10 @@
   <ItemGroup>
     <None Update="Data\Settings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 
