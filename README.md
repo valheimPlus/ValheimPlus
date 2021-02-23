@@ -244,7 +244,7 @@ noTeleportPrevention=false
 baseItemWeightReduction=0
 
 ; Increase the size of all item stacks by %. The value 50 would set a usual item stack of 100 to be 150.
-itemStackMultiplier
+itemStackMultiplier=0
 
 [Fermenter]
 
@@ -263,7 +263,7 @@ fermenterItemsProduced=6
 enabled=false
 
 ; If you enable this option only placed torches do not need to be refilled.
-onlyTorches
+onlyTorches=false
 
 [Food]
 
@@ -538,6 +538,16 @@ cameraBoatMaximumZoomDistance = 6;
 ; The game camera FOV
 cameraFOV = 85;
 
+[Vagon]
+
+; Change false to true to enable this section
+enabled=false
+
+; Change the base vagon physical mass of the vagon object
+vagonBaseMass=20
+
+; This value changes the game physical weight of Vagons by +/- more/less from item weight inside. The value 50 would increase the weight by 50% more. The value -100 would remove the entire extra weight.
+vagonExtraMassFromItems=0
 ```
 
 # Valheim Plus Compiler Requirements

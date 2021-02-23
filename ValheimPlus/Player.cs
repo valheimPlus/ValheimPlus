@@ -126,6 +126,7 @@ namespace ValheimPlus
             {
                 float food_multiplier = Configuration.Current.Food.foodDurationMultiplier;
                 if (food_multiplier == 50) food_multiplier = 51; // Decimal issue
+                if (food_multiplier == -50) food_multiplier = -51; // Decimal issue
 
                 if (food_multiplier >= 0)
                 {

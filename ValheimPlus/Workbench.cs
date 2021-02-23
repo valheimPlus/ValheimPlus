@@ -36,7 +36,7 @@ namespace ValheimPlus {
                         {
                             player.Message(MessageHud.MessageType.Center, "$msg_needfire", 0, null);
                         }
-                        __result = false;
+                        __result = true;
                         return false;
                     }
                     __result = true;

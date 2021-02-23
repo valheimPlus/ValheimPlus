@@ -348,6 +348,7 @@
     <Compile Include="Configurations\Sections\ServerConfiguration.cs" />
     <Compile Include="Configurations\Sections\FireplaceConfiguration.cs" />
     <Compile Include="Configurations\Sections\TimeConfiguration.cs" />
+    <Compile Include="Configurations\Sections\VagonConfiguration.cs" />
     <Compile Include="Configurations\Sections\WardConfiguration.cs" />
     <Compile Include="Configurations\Sections\StructuralIntegrityConfiguration.cs" />
     <Compile Include="Configurations\Sections\HudConfiguration.cs" />
@@ -374,6 +375,7 @@
     <Compile Include="Smelter.cs" />
     <Compile Include="PlayerStats.cs" />
     <Compile Include="Version.cs" />
+    <Compile Include="Vagon.cs" />
     <Compile Include="WearNTear.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="Ward.cs" />
