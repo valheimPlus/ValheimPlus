@@ -349,7 +349,6 @@
     <Compile Include="Configurations\Sections\FireplaceConfiguration.cs" />
     <Compile Include="Configurations\Sections\Workbench.cs" />
     <Compile Include="Configurations\Sections\UnarmedConfiguration.cs" />
-    <Compile Include="Configurations\Sections\StaminaWeapons.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
     <Compile Include="Experience.cs" />
     <Compile Include="Fireplace.cs" />

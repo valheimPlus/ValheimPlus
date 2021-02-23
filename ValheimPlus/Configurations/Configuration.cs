@@ -19,12 +19,18 @@ namespace ValheimPlus.Configurations
         public MapConfiguration Map { get; set; }
         public HotkeyConfiguration Hotkeys { get; set; }
         public StaminaConfiguration Stamina { get; set; }
-        public AdvancedEditingModeConfiguration AdvancedEditingMode { get; set; }
-        public StaminaWeapons WeaponsStamina { get; set; }
-        public FireplaceC FireplaceC { get; set; }
+        public StaminaUsageConfiguration StaminaUsage { get; set; }
+        public WorkbenchConfiguration Workbench { get; set; }
+        public TimeConfiguration Time { get; set; }
+        public WardConfiguration Ward { get; set; }
+        public StructuralIntegrityConfiguration StructuralIntegrity { get; set; }
+        public HudConfiguration Hud { get; set; }
+        public ExperienceConfiguration Experience { get; set; }
+        public CameraConfiguration Camera { get; set; }
+        public GameConfiguration Game { get; set; }
+        public VagonConfiguration Wagon { get; set; }
         public UnarmedConfiguration Unarmed { get; set; }
         public InventoryConfiguration Inventory { get; set; }
-        public WorkbenchC Workbench { get; set; }
     }
 
 }
