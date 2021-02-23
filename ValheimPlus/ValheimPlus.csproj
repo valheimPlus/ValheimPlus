@@ -403,6 +403,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>powershell.exe -ExecutionPolicy RemoteSigned -File $(SolutionDir)publish.ps1 -Target $(ConfigurationName) -TargetPath $(TargetDir) -ValheimPath $(VALHEIM_INSTALL) -SolutionPath $(SolutionDir)</PostBuildEvent>
+    <PostBuildEvent>powershell.exe -ExecutionPolicy RemoteSigned -File $(SolutionDir)publish.ps1 -Target $(ConfigurationName) -TargetPath $(TargetDir) -ValheimPath $(ValheimDir) -SolutionPath $(SolutionDir)</PostBuildEvent>
   </PropertyGroup>
 </Project>

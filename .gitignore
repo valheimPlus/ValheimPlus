@@ -365,3 +365,6 @@ FodyWeavers.xsd
 # publish folders
 [Dd]ist/
 [Tt]mp/
+
+# csproj.user file (for local environment)
+*.csproj.user
