@@ -18,14 +18,23 @@ function Create-BepInEx([System.String]$BasePath) {
     $base = New-Item -ItemType Directory -Path "$BasePath" -Force;
     
     # create \BepInEx
-    $bepinex = $base.CreateSubdirectory("BepInEx");
+    $bepinex = $base.CreateSubdirectory('BepInEx');
     
     # create \BepInEx\core and copy core dlls from build
-    $core = $bepinex.CreateSubdirectory("core");
-    Copy-Item -Path "$TargetPath" -Filter BepInEx* -Recurse -Destination $core -Force
+    $core = $bepinex.CreateSubdirectory('core');
+    Copy-Item -Path "$TargetPath\*" -Filter 'BepInEx*.dll' -Destination $core -Force
+    Copy-Item -Path "$TargetPath\*" -Filter '*Harmony*.dll' -Destination $core -Force
+    Copy-Item -Path "$TargetPath\*" -Filter 'Mono.Cecil*.dll' -Destination $core -Force
+    Copy-Item -Path "$TargetPath\*" -Filter 'MonoMod*.dll' -Destination $core -Force
 
-    $conf = $bepinex.CreateSubdirectory("config");
-    $plug = $bepinex.CreateSubdirectory("plugins");
+    # create \BepInEx\config
+    $conf = $bepinex.CreateSubdirectory('config');
+    
+    # create \BepInEx\plugins and copy plugin dlls from build
+    $plug = $bepinex.CreateSubdirectory('plugins');
+    Copy-Item -Path "$TargetPath\*" -Include 'ValheimPlus.dll','YamlDotNet.dll','INIFileParser.dll' -Destination $plug -Force
+
+    # return basepath as DirectoryInfo
     return $base
 }
 
