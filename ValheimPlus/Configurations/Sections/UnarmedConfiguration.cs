@@ -5,8 +5,8 @@ using System.Text;
 
 namespace ValheimPlus.Configurations.Sections
 {
-    public class Unarmed : ServerSyncConfig<Unarmed>
+    public class UnarmedConfiguration : ServerSyncConfig<UnarmedConfiguration>
     {
-        public float baseDamage { get; internal set; } = 0;
+        public float scaleDamage { get; internal set; } = 100;
     }
 }

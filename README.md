@@ -188,13 +188,23 @@ disableCameraShake=false
 experienceGainedNotifications=true
 ; enabled/disable EXP gained notification for skills in the top left corner
 
-[UnarmedScaling]
+[Unarmed]
 enabled=false
 ; enable/disable changes to the Unarmed weapons scaling
 
-baseDamage=100
+scaleDamage=100
 ; default is 100, this is the value it will approach in damage as you gain skill until capped.
 
+[Inventory]
+enabled=false
+; enable/diable changes to the Inventory grid
+
+width=8
+; default is 8 to match vanilla, how many columns the inventory is
+
+height=4
+; default is 4 to match vanilla, how many rows the inventory is, 
+; Adjust this value for extra inventory due to how the UI handles these changes when creating tombstones etc.
 
 [Food]
 enabled=false

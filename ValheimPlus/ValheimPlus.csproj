@@ -340,6 +340,7 @@
     <Compile Include="Configurations\Sections\FoodConfiguration.cs" />
     <Compile Include="Configurations\Sections\FurnaceConfiguration.cs" />
     <Compile Include="Configurations\Sections\HotkeyConfiguration.cs" />
+    <Compile Include="Configurations\Sections\InventoryConfiguration.cs" />
     <Compile Include="Configurations\Sections\ItemsConfiguration.cs" />
     <Compile Include="Configurations\Sections\KilnConfiguration.cs" />
     <Compile Include="Configurations\Sections\MapConfiguration.cs" />
@@ -347,7 +348,7 @@
     <Compile Include="Configurations\Sections\ServerConfiguration.cs" />
     <Compile Include="Configurations\Sections\FireplaceConfiguration.cs" />
     <Compile Include="Configurations\Sections\Workbench.cs" />
-    <Compile Include="Configurations\Sections\Unarmed.cs" />
+    <Compile Include="Configurations\Sections\UnarmedConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaWeapons.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
     <Compile Include="Experience.cs" />
@@ -358,6 +359,7 @@
     <Compile Include="Fermenter.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="ItemDrop.cs" />
+    <Compile Include="ObjectDB.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerDodgeRoll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

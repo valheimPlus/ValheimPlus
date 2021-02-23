@@ -22,7 +22,9 @@ namespace ValheimPlus.Configurations
         public AdvancedEditingModeConfiguration AdvancedEditingMode { get; set; }
         public StaminaWeapons WeaponsStamina { get; set; }
         public FireplaceC FireplaceC { get; set; }
-        public Unarmed UnarmedScaling { get; set; }
+        public UnarmedConfiguration Unarmed { get; set; }
+
+        public InventoryConfiguration Inventory { get; set; }
         public WorkbenchC Workbench { get; set; }
     }
 
