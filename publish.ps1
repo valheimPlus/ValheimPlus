@@ -13,7 +13,17 @@ param(
     [System.String]$SolutionPath
 )
 
-function Create-BepInEx([System.String]$BasePath, [System.String]$TargetSystem = 'Windows') {
+function Create-BepInEx{
+    param (
+        [Parameter(Mandatory)]
+        [System.String]$BasePath,
+
+        [Parameter(Mandatory)]
+        [ValidateSet('Windows','Unix')]
+        [System.String]$TargetSystem
+    )
+    Write-Host "Creating BepInEx in $BasePath"
+
     # make sure basepath exists
     $base = New-Item -ItemType Directory -Path "$BasePath" -Force;
 
@@ -30,8 +40,9 @@ function Create-BepInEx([System.String]$BasePath, [System.String]$TargetSystem =
     Copy-Item -Path "$TargetPath\*" -Filter 'Mono.Cecil*.dll' -Destination $core -Force
     Copy-Item -Path "$TargetPath\*" -Filter 'MonoMod*.dll' -Destination $core -Force
 
-    # create \BepInEx\config
+    # create \BepInEx\config and copy config files
     $conf = $bepinex.CreateSubdirectory('config');
+    Copy-Item -Path "$SolutionPath\resources\$TargetSystem\*" -Include 'BepInEx.cfg' -Destination $conf -Force
     
     # create \BepInEx\plugins and copy plugin dlls from build
     $plug = $bepinex.CreateSubdirectory('plugins');
@@ -44,16 +55,18 @@ function Create-BepInEx([System.String]$BasePath, [System.String]$TargetSystem =
 Write-Host "Publishing V+ for $Target from $TargetPath"
 
 if ($Target.Equals("Debug")) {
-    Write-Host "Copying Debug dll to Valheim installation $ValheimPath"
+    Write-Host "Copying dlls to Valheim installation $ValheimPath"
 
-    $valheim = Create-BepInEx($ValheimPath);
+    $valheim = Create-BepInEx -BasePath $ValheimPath -TargetSystem 'Windows'
 }
 
 if ($Target.Equals("Release")) {
-    Write-Host "Building release packages to $SolutionPath"
+    $relpath = "$SolutionPath" + "release"
+    New-Item -ItemType Directory -Path "$relpath" -Force
 
-    $rel = New-Item -ItemType Directory -Path "$SolutionPath\release" -Force;
-    $winclient = Create-BepInEx("$rel\WinClient", 'Windows');
-    $winserver = Create-BepInEx("$rel\WinServer", 'Windows');
-    $unixserver = Create-BepInEx("$rel\UnixServer", 'Unix');
+    Write-Host "Building release packages to $relpath"
+    
+    $winclient = Create-BepInEx -BasePath "$relpath\WinClient" -TargetSystem 'Windows'
+    $winserver = Create-BepInEx -BasePath "$relpath\WinServer" -TargetSystem 'Windows'
+    $unixserver = Create-BepInEx -BasePath "$relpath\UnixServer" -TargetSystem 'Unix'
 }
