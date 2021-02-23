@@ -45,7 +45,8 @@ namespace ValheimPlus
             {
                 if (Configuration.Current.Kiln.IsEnabled) 
                 {
-                    if (Configuration.Current.Kiln.autoDeposit) {
+                    if (Configuration.Current.Kiln.autoDeposit) 
+                    {
                         var result = spawn(true);
                         return result; 
                     }
@@ -53,8 +54,10 @@ namespace ValheimPlus
             }
             else
             {
-                if (Configuration.Current.Furnace.IsEnabled) {
-                    if (Configuration.Current.Furnace.autoDeposit) {
+                if (Configuration.Current.Furnace.IsEnabled) 
+                {
+                    if (Configuration.Current.Furnace.autoDeposit) 
+                    {
                         var result = spawn(false);
                         return result;
                     }
@@ -66,9 +69,11 @@ namespace ValheimPlus
                 //SphereCast grabbing all overlaps (didn't bother trying to find a mask, so this might be "heavy")
                 Collider[] hitColliders = Physics.OverlapSphere(smelter.gameObject.transform.localPosition, isKiln ? Configuration.Current.Kiln.autoDepositRange : Configuration.Current.Furnace.autoDepositRange);
                 
-                foreach (var hitCollider in hitColliders) {
+                foreach (var hitCollider in hitColliders) 
+                {
                     //Search for Containers components
-                    if (hitCollider.gameObject.GetComponentInParent<Container>() != null) {
+                    if (hitCollider.gameObject.GetComponentInParent<Container>() != null) 
+                    {
 
                         //Replicating original code, just "spawning/adding" the item inside the chest makes it "not have a prefab"
                         GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(smelter.GetItemConversion(ore).m_to.gameObject.name);
@@ -83,7 +88,8 @@ namespace ValheimPlus
                         comp.m_itemData.m_stack = stack;
 
                         var result = hitCollider.gameObject.GetComponentInParent<Container>().m_inventory.AddItem(comp.m_itemData);
-                        if (!result) {
+                        if (!result) 
+                        {
                             //Chest full, move to the next
                             continue;
                         }
