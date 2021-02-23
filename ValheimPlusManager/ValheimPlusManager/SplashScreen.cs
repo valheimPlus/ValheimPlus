@@ -10,7 +10,7 @@ namespace ValheimPlusManager
 {
     public partial class SplashScreen : Form
     {
-        int timeLeft = 150;
+        int timeLeft = 100;
         public SplashScreen()
         {
             InitializeComponent();

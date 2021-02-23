@@ -13,15 +13,7 @@ namespace ValheimPlusManager
     {
 		public MainScreen()
 		{
-			Thread t = new Thread(new ThreadStart(StartForm));
-			t.Start();
-			Thread.Sleep(5000);
 			InitializeComponent();
-		}
-
-		public void StartForm()
-		{
-			Application.Run(new SplashScreen());
 		}
 
 		private void MainScreen_Load(object sender, EventArgs e)

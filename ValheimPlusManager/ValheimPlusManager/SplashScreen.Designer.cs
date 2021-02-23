@@ -39,6 +39,7 @@ namespace ValheimPlusManager
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,12 +120,22 @@ namespace ValheimPlusManager
             this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(591, 496);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(62, 15);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "v0.1-alpha";
+            // 
             // SplashScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(657, 540);
             this.ControlBox = false;
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -138,6 +149,7 @@ namespace ValheimPlusManager
             this.Load += new System.EventHandler(this.SplashScreen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -151,5 +163,6 @@ namespace ValheimPlusManager
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label6;
     }
 }

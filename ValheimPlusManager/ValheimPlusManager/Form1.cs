@@ -45,7 +45,7 @@ namespace ValheimPlusManager
             {
                 serverInstalledLabel.Text = "ValheimPlus installed on server";
                 serverInstalledLabel.ForeColor = Color.Green;
-                installServerButton.Text = "Update/reinstall ValheimPlus on server";
+                installServerButton.Text = "Reinstall ValheimPlus on server";
             }
             else
             {
@@ -85,6 +85,11 @@ namespace ValheimPlusManager
                     throw new Exception();
                 }
             }
+        }
+
+        private void manageServerButton_Click(object sender, EventArgs e)
+        {
+            new MainScreen().Show();
         }
     }
 }
