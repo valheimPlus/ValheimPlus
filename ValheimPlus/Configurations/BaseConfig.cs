@@ -1,4 +1,5 @@
 using IniParser.Model;
+using System.Linq;
 using UnityEngine;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -17,13 +18,12 @@ namespace ValheimPlus.Configurations
         {
             if (!IsEnabled || !NeedsServerSync) return "";
 
-            var serializer = new SerializerBuilder()
-                .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                .Build();
-            var r = serializer.Serialize(new { 
-               type = this.GetType().Name,
-               data = this
-            });
+            var r = "";
+
+            foreach (var prop in typeof(T).GetProperties())
+            {
+                r += $"{prop.Name}={prop.GetValue(this, null)}|";
+            }
             return r;
         }
 
@@ -52,22 +52,19 @@ namespace ValheimPlus.Configurations
             foreach (var prop in typeof(T).GetProperties())
             {
                 var keyName = prop.Name;
-
+                if (new[] { "NeedsServerSync", "IsEnabled" }.Contains(keyName)) continue;
                 // Set first char of keyName to lowercase
                 if (keyName != string.Empty && char.IsUpper(keyName[0]))
                 {
                     keyName = char.ToLower(keyName[0]) + keyName.Substring(1);
                 }
 
-
-                if (data.ContainsKey(keyName))
-                    Debug.Log($" Loading key {keyName}");
-                else
+                if (!data.ContainsKey(keyName)) {
                     Debug.Log($" Key {keyName} not defined, using default value");
-               
+                    continue;
+                }
 
-                if (!data.ContainsKey(keyName)) continue;
-
+                Debug.Log($" Loading key {keyName}");
                 var existingValue = prop.GetValue(this, null);
 
                 if (prop.PropertyType == typeof(float))
