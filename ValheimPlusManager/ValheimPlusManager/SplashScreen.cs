@@ -25,7 +25,7 @@ namespace ValheimPlusManager
             else
             {
                 timer1.Stop();
-                new Form1().Show();
+                new MainForm().Show();
                 this.Hide();
             }
         }

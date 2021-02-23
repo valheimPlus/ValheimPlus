@@ -4,4 +4,5 @@
   <ServerInstallationPath>C:/Users/msn/Desktop/ServerTest/</ServerInstallationPath>
   <ClientPath>C:/Users/msn/Downloads/WindowsServer</ClientPath>
   <ServerPath>C:/Users/msn/Downloads/WindowsServer</ServerPath>
+  <Version>v0.8.5</Version>
 </Settings>

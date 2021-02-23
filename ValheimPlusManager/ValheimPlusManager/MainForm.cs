@@ -13,13 +13,13 @@ using ValheimPlusManager.SupportClasses;
 
 namespace ValheimPlusManager
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private bool ValheimPlusInstalledClient { get; set; }
         private bool ValheimPlusInstalledServer { get; set; }
         private Settings settings { get; set; }
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -32,7 +32,7 @@ namespace ValheimPlusManager
 
             if(ValheimPlusInstalledClient)
             {
-                clientInstalledLabel.Text = "ValheimPlus v0.8.5 installed on client";
+                clientInstalledLabel.Text = String.Format("ValheimPlus {0} installed on client", settings.Version);
                 clientInstalledLabel.ForeColor = Color.Green;
                 installClientButton.Enabled = false;
             }
@@ -45,7 +45,7 @@ namespace ValheimPlusManager
 
             if(ValheimPlusInstalledServer)
             {
-                serverInstalledLabel.Text = "ValheimPlus v0.8.5 installed on server";
+                serverInstalledLabel.Text = String.Format("ValheimPlus {0} installed on server", settings.Version);
                 serverInstalledLabel.ForeColor = Color.Green;
                 installServerButton.Text = "Reinstall ValheimPlus on server";
             }
@@ -77,7 +77,7 @@ namespace ValheimPlusManager
                     ValheimPlusInstalledServer = Validation.CheckInstallationStatus(settings.ServerInstallationPath);
                     if (ValheimPlusInstalledServer)
                     {
-                        serverInstalledLabel.Text = "ValheimPlus v0.8.5 installed on server";
+                        serverInstalledLabel.Text = String.Format("ValheimPlus {0} installed on server", settings.Version);
                         serverInstalledLabel.ForeColor = Color.Green;
                         installServerButton.Text = "Reinstall ValheimPlus on server";
                     }
