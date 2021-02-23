@@ -342,6 +342,7 @@
     <Compile Include="Configurations\Sections\FermenterConfiguration.cs" />
     <Compile Include="Configurations\Sections\FoodConfiguration.cs" />
     <Compile Include="Configurations\Sections\FurnaceConfiguration.cs" />
+    <Compile Include="Configurations\Sections\GameConfiguration.cs" />
     <Compile Include="Configurations\Sections\HotkeyConfiguration.cs" />
     <Compile Include="Configurations\Sections\ItemsConfiguration.cs" />
     <Compile Include="Configurations\Sections\KilnConfiguration.cs" />
@@ -350,8 +351,14 @@
     <Compile Include="Configurations\Sections\ServerConfiguration.cs" />
     <Compile Include="Configurations\Sections\FireplaceConfiguration.cs" />
     <Compile Include="Configurations\Sections\TimeConfiguration.cs" />
+    <Compile Include="Configurations\Sections\VagonConfiguration.cs" />
+    <Compile Include="Configurations\Sections\WardConfiguration.cs" />
+    <Compile Include="Configurations\Sections\StructuralIntegrityConfiguration.cs" />
+    <Compile Include="Configurations\Sections\HudConfiguration.cs" />
+    <Compile Include="Configurations\Sections\ExperienceConfiguration.cs" />
+    <Compile Include="Configurations\Sections\CameraConfiguration.cs" />
     <Compile Include="Configurations\Sections\WorkbenchConfiguration.cs" />
-    <Compile Include="Configurations\Sections\WeaponStaminaConfiguration.cs" />
+    <Compile Include="Configurations\Sections\StaminaUsageConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
     <Compile Include="Experience.cs" />
     <Compile Include="Fireplace.cs" />
@@ -364,14 +371,18 @@
     <Compile Include="Player.cs" />
     <Compile Include="PlayerDodgeRoll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SharedMapSystem.cs" />
     <Compile Include="Smelter.cs" />
     <Compile Include="PlayerStats.cs" />
     <Compile Include="Version.cs" />
+    <Compile Include="Vagon.cs" />
     <Compile Include="WearNTear.cs" />
     <Compile Include="Time.cs" />
+    <Compile Include="Ward.cs" />
+    <Compile Include="Hud.cs" />
     <Compile Include="Workbench.cs" />
   </ItemGroup>
   <ItemGroup>

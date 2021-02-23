@@ -2,6 +2,6 @@
 {
     public class FireplaceConfiguration : ServerSyncConfig<FireplaceConfiguration>
     {
-        public bool OnlyTorches { get; internal set; } = false;
+        public bool onlyTorches { get; internal set; } = false;
     }
 }

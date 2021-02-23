@@ -59,7 +59,7 @@ Prevents players on the server from making themselves invisible on the map.
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
-1. You freeze the item by pressing the configurated key (F1 is default).
+1. You freeze the item by pressing the configured key (F1 is default).
 2. You can modify the item position and rotation with the following key combinations:
   * Arrow Up/Down/Left/Right = moves the building object in the respective direction.
   * Arrow Up/Down + Control = moves the building object up and down
@@ -77,7 +77,7 @@ Prevents players on the server from making themselves invisible on the map.
 ### Advanced Editing Mode | Video : https://imgur.com/DMb4ZUv.mp4
 How it works.
 *You cannot be in Build mode (hammer, hoe or terrain tool).*
-1. You select the item with the configurated key (Numpad0 is default).
+1. You select the item with the configured key (Numpad0 is default).
 2. You can modify the item position and rotation with the following key combinations:
 * Arrow Up/Down/Left/Right = moves the building object in the respective direction.
 * Arrow Up/Down + Control = moves the building object up and down
@@ -174,251 +174,380 @@ The Config files name is supposed to be "valheim_plus.cfg" it needs to be placed
 
 You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder (its supplied by default within the release versions)
 
-# Currently Supported Configuration (0.8.5)
+# Currently Supported Configuration (0.8.5 - in development)
 ```INI
-[Player]
+[AdvancedBuildingMode]
+; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
+
+; Change false to true to enable this section, if you set this to false the mode will not be accesible
 enabled=false
-; enable/disable Player changes
 
-baseMegingjordBuff=150
-; default is 150 (float)
-; Ingame Tooltip is not affected
+; Enter the advanced building mode with this key when building
+enterAdvancedBuildingMode = F1
 
-baseMaximumWeight=300
-; default is 300 (float)
+; Exit the advanced building mode with this key when building
+exitAdvancedBuildingMode = F3
 
-baseAutoPickUpRange=2
-; default is 2 (float)
+[AdvancedEditingMode]
 
-disableCameraShake=false
-; enable/disable screen shake
-
-experienceGainedNotifications=true
-; enabled/disable EXP gained notification for skills in the top left corner
-
-[UnarmedScaling]
+; Change false to true to enable this section, if you set this to false the mode will not be accesible
 enabled=false
-; enable/disable changes to the Unarmed weapons scaling
 
-baseDamage=100
-; default is 100, this is the value it will approach in damage as you gain skill until capped.
+; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
 
+; Enter the advanced editing mode with this key
+enterAdvancedEditingMode = Keypad0
 
-[Food]
-enabled=false
-; enable/disable Food changes
+; Reset the object to its original position and rotation
+resetAdvancedEditingMode = F7
 
-foodDuration=0
-; default is 0, this is a percent value. (default + foodDuration%)
-; 100 is 100% increased food duration.
-; currently does not properly show in item tooltips
+; Exit the advanced editing mode with this key and reset the object
+abortAndExitAdvancedEditingMode = F8
 
-
-[Fermenter]
-enabled=false
-; enable/disable Fermenter changes
-
-fermenterDuration=2400
-; default is 2400 (float) (48 ingame hours)
-; lower is faster
-
-fermenterItemsProduced=6
-; default is 6 (integer) items per fermenter process
-
-[Fireplace]
-enabled=false
-; enable/disable Fireplace changes
-; "disables" fuel consumption of all "fireplace" type objects (Torches/campfires/braziers), fuel can still be added, but will always stay at 1
-
-onlyTorches=false 
-; applies the effect only to torches(Torches/Scounce/Brazier)
-; (boolean) default false
-
-[Furnace]
-enabled=false
-; enable/disable Furnace changes
-
-maximumOre=10
-; default is 10 (int)
-
-maximumCoal=20
-; default is 20 (int)
-
-productionSpeed=30
-; default it 30 (float)
-; lower is faster
-
-coalUsedPerProduct=2
-; default is 2 (int)
-
-
-[Kiln]
-; Responsible for changing Charcoal Kiln stats
-
-enabled=false
-; enable/disable Kiln changes
-
-productionSpeed=15
-; default it 15 (float)
-; lower is faster
-
-maximumWood=25
-; default 25
-
-
-[Items]
-enabled=false
-; enable/disable item changes
-
-noTeleportPrevention=false
-; default is false (boolean)
-
-baseItemWeight=0
-; default is 0(float), this is a percent value.
-; -50 is -50% item weight, 50 is +50% item weight.
-
-itemStackMultiplier=0
-; default is 0(float), this is a percent value.
-; Only positive values are allowed.
-; 50 would be 50% increased maximum stack size.
-; !CAUTION! -> If you reduce the stack size, items above the limit are lost.
-
-[Building]
-enabled=false
-; enable/disable Building changes
-
-noInvalidPlacementRestriction=false
-; (boolean) Removes the "Invalid Placement" restriction
-
-noWeatherDamage=false
-; Removes weather/rain damage on building objects
-
-maximumPlacementDistance=5
-; default 5(float)
-
+; Confirm the placement of the object and place it
+confirmPlacementOfAdvancedEditingMode = KeypadEnter
 
 [Beehive]
+
+; Change false to true to enable this section
 enabled=false
-; enable/disable Beehive changes
 
-maximumHoneyPerBeehive=4
-; (integer) default is 4.
+; configure the speed at which the bees produce honey in seconds, 1200 seconds are 24 ingame hours
+honeyProductionSpeed = 1200
 
-honeyProductionSpeed=1200
-; (float), default is 1200. (24 ingame hours)
-; lower is faster
+; configure the maximum amount of honey in beehives
+maximumHoneyPerBeehive = 4
 
+[Building]
 
-[Server]
+; Change false to true to enable this section
 enabled=false
-; enable/disable Server changes
 
-maxPlayers=10
-; (int) default is 10
+; Remove some of the Invalid placement messages, most notably provides the ability to place objects into other objects
+noInvalidPlacementRestriction=false
 
-disableServerPassword=false
-; (boolean) default is false
+; Removes the weather damage from rain
+noWeatherDamage=false
 
-enforceConfiguration=true
-; enforce every user trying to join your game or server to have the same mod configuration.
-; NOTE: if people want to join your server with a custom configuration, they need to set this setting to false as well as the server.
+; The maximum range that you can place build objects at
+maximumPlacementDistance=5
 
-enforceMod=true
-; enforce every user to atleast have the mod installed when connecting to the server
-; turn this off to remove version restrictions from your client and from your server
+[Items]
 
-
-[Map]
+; Change false to true to enable this section
 enabled=false
-; enable/disable Map changes
 
-exploreRadius=100
-; default 100 (float), the radius around each player that get explored
+; Enables you to teleport with ores and other usually restricted objects
+noTeleportPrevention=false
 
-shareMapProgression=false
-; default false (boolean), shares the map progress (reveal) across all players
-; players need to be online to receive map progression
-; only shares the map progression of people that have selected to be visible on the map
+; Increase or reduce item weight by % percent. The value -50 will reduce item weight of every object by 50%.
+baseItemWeightReduction=0
+
+; Increase the size of all item stacks by %. The value 50 would set a usual item stack of 100 to be 150.
+itemStackMultiplier=0
+
+[Fermenter]
+
+; Change false to true to enable this section
+enabled=false
+
+; configure the time that the fermenter takes to produce its product, 2400 seconds are 48 ingame hours
+fermenterDuration=2400
+
+; configure the total amount of produced items from a fermenter
+fermenterItemsProduced=6
+
+[Fireplace]
+
+; If changed to enabled all fireplaces do not need to be refilled.
+enabled=false
+
+; If you enable this option only placed torches do not need to be refilled.
+onlyTorches=false
+
+[Food]
+
+; Change false to true to enable this section
+enabled=false
+
+; Increase or reduce the time that food lasts by %. The value 50 would cause food to run out 50% slower.
+foodDurationMultiplier=0
+
+
+[Furnace]
+
+; Change false to true to enable this section
+enabled=false
+
+; Maximum amount of ore in a funace
+maximumOre=10
+
+; Maximum amount of coal in a funace
+maximumCoal=20
+
+; The total amount of coal used to produce a single smelted ingot.
+coalUsedPerProduct=2
+
+; The time it takes for the furnace to produce a single ingot in seconds.
+productionSpeed=30
+
+[Game]
+
+; Change false to true to enable this section
+enabled=false
+
+; The games damage multiplier per person nearby in difficultyScaleRange(m) radius.
+gameDifficultyDamageScale=0.4
+
+; The games health multiplier per person nearby in difficultyScaleRange(m) radius.
+gameDifficultyHealthScale=0.4 
+
+; Adds additional players to the difficulty calculation in multiplayer unrelated to the actual amount
+extraPlayerCountNearby=0
+
+; Sets the nearby player count always to this value + extraPlayerCountNearby
+setFixedPlayerCountTo=0
+
+; The interval in seconds that the game auto saves at (client only)
+autoSaveInterval=1200
+
+; The range in meters at which other players count towards nearby players for the difficulty scale
+difficultyScaleRange=200
+
 
 [Hotkeys]
 ; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
+
+; Roll forwards on key pressed
 rollForwards=F9
-; roll forward on button press
 
+; Roll backwards on key pressed
 rollBackwards=F10
-; roll backwards on button press
 
-enterAdvancedBuildingMode=F1
-; Freeze Object and allow advanced controls
 
-exitAdvancedBuildingMode=F3
-; Unfreeze Object and use default place mode
+[Hud]
 
-enterAdvancedEditingMode=Keypad0
-; the object you are looking at will be selected to be modified using AEM
-
-confirmPlacementOfAdvancedEditingMode=KeypadEnter
-; Confirms Placement of selected and modified object
-
-resetAdvancedEditingMode=F7
-; Resets the position and rotation of the object selected with AEM
-
-abortAndExitAdvancedEditingMode=F8
-; Resets the position and rotation of the object selected with AEM and stops AEM mode
-
-[AdvancedBuildingMode]
+; Change false to true to enable this section
 enabled=false
-; enable/disable advanced building mode, more info on the github page
-[AdvancedEditingMode]
+
+; Shows the required amount of items AND the amount of items in your inventory in build mode and while crafting.
+showRequiredItems=false
+
+; Shows small notifications about all skill experienced gained in the top left corner.
+experienceGainedNotifications=false
+
+[Kiln]
+
+; Change false to true to enable this section
 enabled=false
-; enable/disable advanced editing mode, more info on the github page
+
+; Maximum amount of wood in a Kiln
+maximumWood=20
+
+; The time it takes for the Kiln to produce a single piece of coal in seconds.
+productionSpeed=30
+
+[Map]
+
+; Change false to true to enable this section
+enabled=false
+
+; With this enabled you will receive the same exploration progression as other players on the server
+shareMapProgression=false
+
+; The radius of the map that you explore when moving
+exploreRadius=100
+
+; Automatically turn on the Map option to share your position when joining or starting a game
+playerPositionPublicOnJoin=false
+
+; Prevents you and other people on the server to turn off their map sharing option
+preventPlayerFromTurningOffPublicPosition=false
+
+; Remove the Map marker of your death when you have picked up your tombstone items
+removeDeathPinOnTombstoneEmpty=false
+
+[Player]
+
+; Change false to true to enable this section
+enabled=false
+
+; The base amount of carry weight of your character
+baseMaximumWeight=300
+
+; Increase the buff you receive to your carry weight from Megingjord's girdle
+baseMegingjordBuff=150
+
+; Increase auto pickup range of all items
+baseAutoPickUpRange=2
+
+; Disable all types of camera shake
+disableCameraShake=false
+
+; The base unarmed damage multiplied by your skill level
+baseUnarmedDamage=10
+
+[Server]
+
+; Change false to true to enable this section
+enabled=false
+
+; Modify the amount of players on your Server
+maxPlayers=10
+
+; Removes the requirement to have a server password
+disableServerPassword=false
+
+; This setting adds a version control check to verifiy that the server and yourself have the same configuration file installed.
+enforceConfiguration=false
+
+; This settings add a version control check to make sure that people that try to join your game or the server you try to join has V+ installed
+enforceMod=true
+
+; The total amount of data that the server and client can send per second in kilobyte
+dataRate=60
 
 [Stamina]
-enabled=false
-; Each of these values reduce the stamina cost by percent
-dodgeStaminaUsage=10
-; default 10(float)
-encumberedStaminaDrain=10
-; default 10(float)
-sneakStaminaDrain=10
-; default 5(float)
-runStaminaDrain=10
-; default 10(float)
-staminaRegenDelay=0.5
-; default 1(float)
-staminaRegen=10
-; default 5(float)
-swimStaminaDrain=5
-; default 5(float)
-jumpStaminaUsage=10
-; default 10(float)
 
-[WeaponsStamina]
+; Change false to true to enable this section
 enabled=false
-Swords=0
-; default 0(float)
-Knives=0
-; default 0(float)
-Clubs=0
-; default 0(float)
-Polearms=0
-; default 0(float)
-Spears=0
-; default 0(float)
-Axes=0
-; default 0(float)
-Bows=0
-; default 0(float)
-Unarmed=0
-; default 0(float)
-Pickaxes=0
-; default 0(float)
+
+; Changes the flat amount of stamina cost of using the dodge roll
+dodgeStaminaUsage = 10;
+
+; Changes the stamina drain of being overweight
+encumberedStaminaDrain = 10;
+
+; Changes the stamina cost of jumping
+jumpStaminaDrain = 10;
+
+; Changes the stamina cost of running
+runStaminaDrain = 10;
+
+; Changes the stamina drain by sneaking
+sneakStaminaDrain = 10;
+
+; Changes the total amount of stamina recovered per second
+staminaRegen = 5;
+
+; Changes the delay until stamina regeneration sets in
+staminaRegenDelay = 0.5f;
+
+; Changes the stamina drain of swimming
+swimStaminaDrain = 5;
+
+
+[StaminaUsage]
+
+; Change false to true to enable this section
+enabled=false
+
+; Each of these values reduces the stamina drain by %. The value 50 would result in 50% less stamina cost.
+axes = 0; 
+bows = 0;
+clubs = 0;
+knives = 0;
+pickaxes = 0;
+polearms = 0;
+spears = 0; 
+swords = 0;
+unarmed = 0;
+hammer = 0;
+hoe = 0;
 
 [Workbench]
-enabled=false
-workbenchRange=20
-; default 20(float)
 
+; Change false to true to enable this section
+enabled=false
+
+; Set the workbench radius in meters
+workbenchRange=20
+
+; Disables the roof and exposure requirement to use a workbench
+disableRoofCheck=false
+
+[Time]
+
+; Change false to true to enable this section
+enabled=false
+
+; Total amount of time one complete day and night circle takes to complete
+totalDayTimeInSeconds=1200
+
+; Increase the speed at which time passes at night by %. The value 50 would result in a 50% reduced amount of night time.
+nightTimeSpeedMultiplier=0
+
+[Ward]
+
+; Change false to true to enable this section
+enabled=false
+
+; The range of wards by meters
+wardRange=20
+
+[StructuralIntegrity]
+
+; Change false to true to enable this section
+enabled=false
+
+; Disables the entire structural integrity system and allows for placement in free air, does not prevent building damage.
+disableStructuralIntegrity = false;
+
+; Each of these values reduce the loss of structural integrity by % less. The value 100 would result in disabled structural integrity and allow placement in free air.
+wood = 0;
+stone = 0;
+iron = 0;
+hardWood = 0;
+
+[Experience]
+
+; Change false to true to enable this section
+enabled=false
+
+; Each of these values represent the increase to experience gained by % increased. The value 50 would result in 50% increased experience gained for the respective skill by name.
+swords = 0;
+knives = 0;
+clubs = 0;
+polearms = 0;
+spears = 0;
+blocking = 0;
+axes = 0;
+bows = 0;
+fireMagic = 0;
+frostMagic = 0;
+unarmed = 0;
+pickaxes = 0;
+woodCutting = 0;
+jump = 0;
+sneak = 0;
+run = 0;
+swim = 0;
+
+
+[Camera]
+
+; Change false to true to enable this section
+enabled=false
+
+; The maximum zoom distance to your character
+cameraMaximumZoomDistance = 6;
+
+; The maximum zoom distance to your character when in a boat
+cameraBoatMaximumZoomDistance = 6;
+
+; The game camera FOV
+cameraFOV = 85;
+
+[Vagon]
+
+; Change false to true to enable this section
+enabled=false
+
+; Change the base vagon physical mass of the vagon object
+vagonBaseMass=20
+
+; This value changes the game physical weight of Vagons by +/- more/less from item weight inside. The value 50 would increase the weight by 50% more. The value -100 would remove the entire extra weight.
+vagonExtraMassFromItems=0
 ```
 
 # Valheim Plus Compiler Requirements
