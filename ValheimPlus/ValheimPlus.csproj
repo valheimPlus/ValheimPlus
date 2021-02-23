@@ -364,7 +364,7 @@
     <Compile Include="Initialize.cs" />
     <Compile Include="Fermenter.cs" />
     <Compile Include="Inventory.cs" />
-    <Compile Include="ItemDrop.cs" />
+    <Compile Include="Items.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerDodgeRoll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

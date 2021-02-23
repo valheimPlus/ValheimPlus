@@ -8,12 +8,14 @@ All of these features can be adjusted by a configuration file. This also allows 
 
 ## Player
 
-* Modification of Stamina usage and regeneration
-* Modification of Stamina by tools and weaponry
+* Modification of stamina usage and regeneration
+* Modification of stamina usage of all tools and weaponry
 * Modification of carry weight
-* Modification of Food duration
+* Modification of food duration
 * Modification of Unarmed Damage
-* Option to force all remove screen shake
+* Modification of auto pickup range
+* Option to force remove all screen shakes
+* Modify the base amount of Unarmed damage multiplied by your unarmed skill level
 
 ## Fermenter, Beehive, Kiln and Furnace
 * Modify Fermenter speed
@@ -25,6 +27,48 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify Kiln processing speed
 * Modify Kiln maximum wood
 
+## Workbench and Ward
+* Modify Workbench radius
+* Modify Ward radius
+
+## Torches and Fireplaces
+* Disable torches running out of fuel
+* Disable fireplaces running out of fuel
+
+## Time and Day Manipulation
+* Modify total time of a day and night cycle
+* Modify the speed of the time passing at night
+
+## Structural Integrity
+* Modify the structural integrity of the following materials by a modifier
+  * Wood
+  * Stone
+  * Iron
+  * Hardwood
+* Disable structural integrity entirely, allowing you to place objects in free air.
+
+## Player Hud
+* Show the experience you gained for a skill in the top left corner
+* Show the amount of items you have in your inventory when crafting or building a object. 
+
+## Game Difficulty
+* Modify the game difficulty multipliers applied to health and damage of enemies based on the amount of connected players.
+* Change the range of where the game considers other players to be nearby.
+* Add a additional amount of Players to the player count for the difficulty calculation.
+* Set the difficulty calculation to a specific player count.
+
+## Skill Experience
+* Modify each skill's experience gain seperately by percent.
+
+## Camera
+* Change your FOV
+* Change the maximum zoom out distance
+* Change the maximum zoom out distance when in a boat
+
+## Wagon
+* Modify the physical weight of the Wagon received by items inside
+* Modify the base physical weight
+
 ## Items
 * Remove Item teleport prevention from all items
 * Reduce Item weight of all items by %
@@ -33,8 +77,13 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Server
 * Remove Password requirement for server
 * Modify maximum Players on a server
+* Modify auto save interval
+* Modify server data rate in kilobyte
 
 ## Map
+* Activate shared position on map automatically
+* Setting to force other people to share their position with you
+* Remove death marker on the map on collecting your tombstone
 
 ### Shared map system
 Allows you to see the explored areas on the map of other players on the server if they have their position on the map shared ingame.
@@ -54,8 +103,7 @@ Prevents players on the server from making themselves invisible on the map.
 * Remove Building Object deterioration by weather.
 * Advanced Building Mode
 * Advanced Editing Mode
-* Disable the need to refuel torches and fireplaces
-* Modify the work bench ranges
+* Structural Integrity modification system
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
@@ -174,7 +222,7 @@ The Config files name is supposed to be "valheim_plus.cfg" it needs to be placed
 
 You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder (its supplied by default within the release versions)
 
-# Currently Supported Configuration (0.8.5 - in development)
+# Currently Supported Configuration (0.8.5)
 ```INI
 [AdvancedBuildingMode]
 ; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
@@ -308,9 +356,6 @@ extraPlayerCountNearby=0
 ; Sets the nearby player count always to this value + extraPlayerCountNearby
 setFixedPlayerCountTo=0
 
-; The interval in seconds that the game auto saves at (client only)
-autoSaveInterval=1200
-
 ; The range in meters at which other players count towards nearby players for the difficulty scale
 difficultyScaleRange=200
 
@@ -406,6 +451,9 @@ enforceMod=true
 
 ; The total amount of data that the server and client can send per second in kilobyte
 dataRate=60
+
+; The interval in seconds that the game auto saves at (client only)
+autoSaveInterval=1200
 
 [Stamina]
 
