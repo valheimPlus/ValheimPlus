@@ -10,12 +10,15 @@ param(
     [System.String]$ValheimPath,
 
     [Parameter(Mandatory)]
-    [System.String]$PublishPath
+    [System.String]$SolutionPath
 )
 
-function Create-BepInEx([System.String]$BasePath) {
+function Create-BepInEx([System.String]$BasePath, [System.String]$TargetSystem = 'Windows') {
     # make sure basepath exists
     $base = New-Item -ItemType Directory -Path "$BasePath" -Force;
+
+    # copy needed files
+    Copy-Item -Path "$SolutionPath\resources\$TargetSystem\*" -Exclude 'BepInEx.cfg' -Destination $base -Recurse -Force
     
     # create \BepInEx
     $bepinex = $base.CreateSubdirectory('BepInEx');
@@ -47,10 +50,10 @@ if ($Target.Equals("Debug")) {
 }
 
 if ($Target.Equals("Release")) {
-    Write-Host "Building release packages to $PublishPath"
+    Write-Host "Building release packages to $SolutionPath"
 
-    New-Item -ItemType Directory -Path "$PublishPath" -Force;
-    $winclient = Create-BepInEx("$PublishPath\WinClient");
-    $winserver = Create-BepInEx("$PublishPath\WinServer");
-    $unixserver = Create-BepInEx("$PublishPath\UnixServer");
+    $rel = New-Item -ItemType Directory -Path "$SolutionPath\release" -Force;
+    $winclient = Create-BepInEx("$rel\WinClient", 'Windows');
+    $winserver = Create-BepInEx("$rel\WinServer", 'Windows');
+    $unixserver = Create-BepInEx("$rel\UnixServer", 'Unix');
 }
