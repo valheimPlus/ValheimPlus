@@ -363,6 +363,9 @@ difficultyScaleRange=200
 [Hotkeys]
 ; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
 
+; Change false to true to enable this section
+enabled=false
+
 ; Roll forwards on key pressed
 rollForwards=F9
 
@@ -479,7 +482,7 @@ sneakStaminaDrain=10
 staminaRegen=5
 
 ; Changes the delay until stamina regeneration sets in
-staminaRegenDelay=0.5f
+staminaRegenDelay=0.5
 
 ; Changes the stamina drain of swimming
 swimStaminaDrain=5
@@ -536,7 +539,7 @@ wardRange=20
 enabled=false
 
 ; Disables the entire structural integrity system and allows for placement in free air, does not prevent building damage.
-disableStructuralIntegrity=false;
+disableStructuralIntegrity=false
 
 ; Each of these values reduce the loss of structural integrity by % less. The value 100 would result in disabled structural integrity and allow placement in free air.
 wood=0
@@ -581,7 +584,7 @@ cameraMaximumZoomDistance=6
 cameraBoatMaximumZoomDistance=6
 
 ; The game camera FOV
-cameraFOV=85
+cameraFOV=65
 
 [Wagon]
 
