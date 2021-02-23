@@ -94,9 +94,15 @@ namespace ValheimPlusManager
             new ConfigEditor(false).Show();
         }
 
+
         private void manageClientButton_Click(object sender, EventArgs e)
         {
             new ConfigEditor(true).Show();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
