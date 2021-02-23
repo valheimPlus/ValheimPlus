@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ValheimPlus
 {
-    [HarmonyPatch(typeof(ObjectDB), MethodType.Constructor)]
+    /*[HarmonyPatch(typeof(ObjectDB), MethodType.Constructor)]
     public static class ObjectDB_Constructor
     {
         private static void Postfix(ref ObjectDB __instance)
@@ -60,5 +60,5 @@ namespace ValheimPlus
 
             return __result;
         }
-    }
+    }*/
 }
