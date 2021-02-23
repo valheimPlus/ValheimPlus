@@ -29,6 +29,9 @@ export DOORSTOP_ENABLE=TRUE
 # What .NET assembly to execute. Valid value is a path to a .NET DLL that mono can execute.
 export DOORSTOP_INVOKE_DLL_PATH="${PWD}/BepInEx/core/BepInEx.Preloader.dll"
 
+# Which folder should be put in front of the Unity dll loading path
+export DOORSTOP_CORLIB_OVERRIDE_PATH=./unstripped_corlib
+
 # ----- DO NOT EDIT FROM THIS LINE FORWARD  ------
 # ----- (unless you know what you're doing) ------
 

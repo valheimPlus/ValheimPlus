@@ -15,7 +15,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unix", "unix", "{72578288-BFEE-4364-8BEC-64D201ECF87B}"
 	ProjectSection(SolutionItems) = preProject
 		resources\Unix\BepInEx.cfg = resources\Unix\BepInEx.cfg
-		resources\Unix\doorstop_config.ini = resources\Unix\doorstop_config.ini
 		resources\Unix\start_game_bepinex.sh = resources\Unix\start_game_bepinex.sh
 		resources\Unix\start_server_bepinex.sh = resources\Unix\start_server_bepinex.sh
 	EndProjectSection
