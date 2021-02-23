@@ -61,12 +61,17 @@ if ($Target.Equals("Debug")) {
 }
 
 if ($Target.Equals("Release")) {
-    $relpath = "$SolutionPath" + "release"
-    New-Item -ItemType Directory -Path "$relpath" -Force
+    $lib = Get-Item -Path "$ValheimPath\unstripped_corlib"
+    $rel = New-Item -ItemType Directory -Path "$SolutionPath\release" -Force
 
-    Write-Host "Building release packages to $relpath"
+    Write-Host "Building release packages to $rel"
     
-    $winclient = Create-BepInEx -BasePath "$relpath\WinClient" -TargetSystem 'Windows'
-    $winserver = Create-BepInEx -BasePath "$relpath\WinServer" -TargetSystem 'Windows'
-    $unixserver = Create-BepInEx -BasePath "$relpath\UnixServer" -TargetSystem 'Unix'
+    $winclient = Create-BepInEx -BasePath "$rel\WinClient" -TargetSystem 'Windows'
+    Copy-Item -Path "$lib\*" -Filter '*.dll' -Destination "$winclient\unstripped_corlib" -Force
+
+    $winserver = Create-BepInEx -BasePath "$rel\WinServer" -TargetSystem 'Windows'
+    Copy-Item -Path "$lib\*" -Filter '*.dll' -Destination "$winserver\unstripped_corlib" -Force
+
+    $unixserver = Create-BepInEx -BasePath "$rel\UnixServer" -TargetSystem 'Unix'
+    Copy-Item -Path "$lib\*" -Filter '*.dll' -Destination "$unixserver\unstripped_corlib" -Force
 }
