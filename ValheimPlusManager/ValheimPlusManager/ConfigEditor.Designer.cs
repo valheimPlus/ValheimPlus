@@ -46,6 +46,20 @@ namespace ValheimPlusManager
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.tabPage11 = new System.Windows.Forms.TabPage();
             this.saveConfigButton = new System.Windows.Forms.Button();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.tabPage14 = new System.Windows.Forms.TabPage();
+            this.tabPage15 = new System.Windows.Forms.TabPage();
+            this.tabPage16 = new System.Windows.Forms.TabPage();
+            this.tabPage17 = new System.Windows.Forms.TabPage();
+            this.tabPage18 = new System.Windows.Forms.TabPage();
+            this.tabPage19 = new System.Windows.Forms.TabPage();
+            this.tabPage20 = new System.Windows.Forms.TabPage();
+            this.tabPage21 = new System.Windows.Forms.TabPage();
+            this.tabPage22 = new System.Windows.Forms.TabPage();
+            this.tabPage23 = new System.Windows.Forms.TabPage();
+            this.tabPage24 = new System.Windows.Forms.TabPage();
+            this.tabPage25 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -103,13 +117,27 @@ namespace ValheimPlusManager
             this.tabControl1.Controls.Add(this.tabPage9);
             this.tabControl1.Controls.Add(this.tabPage10);
             this.tabControl1.Controls.Add(this.tabPage11);
+            this.tabControl1.Controls.Add(this.tabPage12);
+            this.tabControl1.Controls.Add(this.tabPage13);
+            this.tabControl1.Controls.Add(this.tabPage14);
+            this.tabControl1.Controls.Add(this.tabPage15);
+            this.tabControl1.Controls.Add(this.tabPage16);
+            this.tabControl1.Controls.Add(this.tabPage17);
+            this.tabControl1.Controls.Add(this.tabPage18);
+            this.tabControl1.Controls.Add(this.tabPage19);
+            this.tabControl1.Controls.Add(this.tabPage20);
+            this.tabControl1.Controls.Add(this.tabPage21);
+            this.tabControl1.Controls.Add(this.tabPage22);
+            this.tabControl1.Controls.Add(this.tabPage23);
+            this.tabControl1.Controls.Add(this.tabPage24);
+            this.tabControl1.Controls.Add(this.tabPage25);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.ImeMode = System.Windows.Forms.ImeMode.Katakana;
             this.tabControl1.Location = new System.Drawing.Point(259, 0);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(746, 585);
+            this.tabControl1.Size = new System.Drawing.Size(862, 585);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -244,7 +272,10 @@ namespace ValheimPlusManager
             // 
             // saveConfigButton
             // 
-            this.saveConfigButton.Location = new System.Drawing.Point(845, 593);
+            this.saveConfigButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.saveConfigButton.Location = new System.Drawing.Point(962, 592);
             this.saveConfigButton.Name = "saveConfigButton";
             this.saveConfigButton.Size = new System.Drawing.Size(151, 45);
             this.saveConfigButton.TabIndex = 2;
@@ -252,11 +283,137 @@ namespace ValheimPlusManager
             this.saveConfigButton.UseVisualStyleBackColor = true;
             this.saveConfigButton.Click += new System.EventHandler(this.saveConfigButton_Click);
             // 
+            // tabPage12
+            // 
+            this.tabPage12.Location = new System.Drawing.Point(4, 44);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Size = new System.Drawing.Size(738, 537);
+            this.tabPage12.TabIndex = 11;
+            this.tabPage12.Text = "Hotkeys";
+            this.tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // tabPage13
+            // 
+            this.tabPage13.Location = new System.Drawing.Point(4, 44);
+            this.tabPage13.Name = "tabPage13";
+            this.tabPage13.Size = new System.Drawing.Size(738, 537);
+            this.tabPage13.TabIndex = 12;
+            this.tabPage13.Text = "Hud";
+            this.tabPage13.UseVisualStyleBackColor = true;
+            // 
+            // tabPage14
+            // 
+            this.tabPage14.Location = new System.Drawing.Point(4, 44);
+            this.tabPage14.Name = "tabPage14";
+            this.tabPage14.Size = new System.Drawing.Size(738, 537);
+            this.tabPage14.TabIndex = 13;
+            this.tabPage14.Text = "Items";
+            this.tabPage14.UseVisualStyleBackColor = true;
+            // 
+            // tabPage15
+            // 
+            this.tabPage15.Location = new System.Drawing.Point(4, 44);
+            this.tabPage15.Name = "tabPage15";
+            this.tabPage15.Size = new System.Drawing.Size(738, 537);
+            this.tabPage15.TabIndex = 14;
+            this.tabPage15.Text = "Kiln";
+            this.tabPage15.UseVisualStyleBackColor = true;
+            // 
+            // tabPage16
+            // 
+            this.tabPage16.Location = new System.Drawing.Point(4, 44);
+            this.tabPage16.Name = "tabPage16";
+            this.tabPage16.Size = new System.Drawing.Size(738, 537);
+            this.tabPage16.TabIndex = 15;
+            this.tabPage16.Text = "Map";
+            this.tabPage16.UseVisualStyleBackColor = true;
+            // 
+            // tabPage17
+            // 
+            this.tabPage17.Location = new System.Drawing.Point(4, 44);
+            this.tabPage17.Name = "tabPage17";
+            this.tabPage17.Size = new System.Drawing.Size(738, 537);
+            this.tabPage17.TabIndex = 16;
+            this.tabPage17.Text = "Player";
+            this.tabPage17.UseVisualStyleBackColor = true;
+            // 
+            // tabPage18
+            // 
+            this.tabPage18.Location = new System.Drawing.Point(4, 44);
+            this.tabPage18.Name = "tabPage18";
+            this.tabPage18.Size = new System.Drawing.Size(738, 537);
+            this.tabPage18.TabIndex = 17;
+            this.tabPage18.Text = "Server";
+            this.tabPage18.UseVisualStyleBackColor = true;
+            // 
+            // tabPage19
+            // 
+            this.tabPage19.Location = new System.Drawing.Point(4, 44);
+            this.tabPage19.Name = "tabPage19";
+            this.tabPage19.Size = new System.Drawing.Size(738, 537);
+            this.tabPage19.TabIndex = 18;
+            this.tabPage19.Text = "Stamina";
+            this.tabPage19.UseVisualStyleBackColor = true;
+            // 
+            // tabPage20
+            // 
+            this.tabPage20.Location = new System.Drawing.Point(4, 44);
+            this.tabPage20.Name = "tabPage20";
+            this.tabPage20.Size = new System.Drawing.Size(738, 537);
+            this.tabPage20.TabIndex = 19;
+            this.tabPage20.Text = "Stamina usage";
+            this.tabPage20.UseVisualStyleBackColor = true;
+            // 
+            // tabPage21
+            // 
+            this.tabPage21.Location = new System.Drawing.Point(4, 44);
+            this.tabPage21.Name = "tabPage21";
+            this.tabPage21.Size = new System.Drawing.Size(738, 537);
+            this.tabPage21.TabIndex = 20;
+            this.tabPage21.Text = "Structural integrity";
+            this.tabPage21.UseVisualStyleBackColor = true;
+            // 
+            // tabPage22
+            // 
+            this.tabPage22.Location = new System.Drawing.Point(4, 64);
+            this.tabPage22.Name = "tabPage22";
+            this.tabPage22.Size = new System.Drawing.Size(738, 517);
+            this.tabPage22.TabIndex = 21;
+            this.tabPage22.Text = "Time";
+            this.tabPage22.UseVisualStyleBackColor = true;
+            // 
+            // tabPage23
+            // 
+            this.tabPage23.Location = new System.Drawing.Point(4, 64);
+            this.tabPage23.Name = "tabPage23";
+            this.tabPage23.Size = new System.Drawing.Size(738, 517);
+            this.tabPage23.TabIndex = 22;
+            this.tabPage23.Text = "Wagon";
+            this.tabPage23.UseVisualStyleBackColor = true;
+            // 
+            // tabPage24
+            // 
+            this.tabPage24.Location = new System.Drawing.Point(4, 64);
+            this.tabPage24.Name = "tabPage24";
+            this.tabPage24.Size = new System.Drawing.Size(738, 517);
+            this.tabPage24.TabIndex = 23;
+            this.tabPage24.Text = "Ward";
+            this.tabPage24.UseVisualStyleBackColor = true;
+            // 
+            // tabPage25
+            // 
+            this.tabPage25.Location = new System.Drawing.Point(4, 64);
+            this.tabPage25.Name = "tabPage25";
+            this.tabPage25.Size = new System.Drawing.Size(738, 517);
+            this.tabPage25.TabIndex = 24;
+            this.tabPage25.Text = "Workbench";
+            this.tabPage25.UseVisualStyleBackColor = true;
+            // 
             // ConfigEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1005, 647);
+            this.ClientSize = new System.Drawing.Size(1121, 647);
             this.Controls.Add(this.saveConfigButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.configCheckedListBox);
@@ -288,5 +445,19 @@ namespace ValheimPlusManager
         private System.Windows.Forms.TabPage tabPage9;
         private System.Windows.Forms.TabPage tabPage10;
         private System.Windows.Forms.TabPage tabPage11;
+        private System.Windows.Forms.TabPage tabPage12;
+        private System.Windows.Forms.TabPage tabPage13;
+        private System.Windows.Forms.TabPage tabPage14;
+        private System.Windows.Forms.TabPage tabPage15;
+        private System.Windows.Forms.TabPage tabPage16;
+        private System.Windows.Forms.TabPage tabPage17;
+        private System.Windows.Forms.TabPage tabPage18;
+        private System.Windows.Forms.TabPage tabPage19;
+        private System.Windows.Forms.TabPage tabPage20;
+        private System.Windows.Forms.TabPage tabPage21;
+        private System.Windows.Forms.TabPage tabPage22;
+        private System.Windows.Forms.TabPage tabPage23;
+        private System.Windows.Forms.TabPage tabPage24;
+        private System.Windows.Forms.TabPage tabPage25;
     }
 }
