@@ -1,9 +1,11 @@
 ﻿using HarmonyLib;
 using System;
 using ValheimPlus.Configurations;
+using UnityEngine;
 
 namespace ValheimPlus
 {
+    
     [HarmonyPatch(typeof(Player), "OnSpawned")]
     public static class ModifyOnSpawned
     {
@@ -26,6 +28,7 @@ namespace ValheimPlus
             Player.m_localPlayer.ShowTutorial("vplus");
         }
     }
+    
 
     [HarmonyPatch(typeof(Player), "GetMaxCarryWeight")]
     public static class ModifyMaximumCarryWeight
@@ -43,10 +46,10 @@ namespace ValheimPlus
                     carryWeight -= 150;
                 }
 
-                carryWeight = Configuration.Current.Player.BaseMaximumWeight;
+                carryWeight = Configuration.Current.Player.baseMaximumWeight;
                 if (Megingjord)
                 {
-                    carryWeight = carryWeight + Configuration.Current.Player.BaseMegingjordBuff;
+                    carryWeight = carryWeight + Configuration.Current.Player.baseMegingjordBuff;
                 }
 
                 __result = carryWeight;
@@ -121,8 +124,9 @@ namespace ValheimPlus
 
             if (Configuration.Current.Food.IsEnabled)
             {
-                float food_multiplier = Configuration.Current.Food.FoodDurationMultiplier;
+                float food_multiplier = Configuration.Current.Food.foodDurationMultiplier;
                 if (food_multiplier == 50) food_multiplier = 51; // Decimal issue
+                if (food_multiplier == -50) food_multiplier = -51; // Decimal issue
 
                 if (food_multiplier >= 0)
                 {

@@ -10,7 +10,7 @@ namespace ValheimPlus
         {
             if (Configuration.Current.Fermenter.IsEnabled)
             {
-                float fermenterDuration = Configuration.Current.Fermenter.FermenterDuration;
+                float fermenterDuration = Configuration.Current.Fermenter.fermenterDuration;
                 if (fermenterDuration > 0)
                 {
                     ___m_fermentationDuration = fermenterDuration;
@@ -27,7 +27,7 @@ namespace ValheimPlus
         {
             if (Configuration.Current.Fermenter.IsEnabled)
             {
-                int fermenterItemCount = Configuration.Current.Fermenter.FermenterItemsProduced;
+                int fermenterItemCount = Configuration.Current.Fermenter.fermenterItemsProduced;
                 if (fermenterItemCount > 0)
                 {
                     __result.m_producedItems = fermenterItemCount;

@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
+using UnityEngine;
 
 namespace ValheimPlus 
 {
@@ -12,7 +13,7 @@ namespace ValheimPlus
             {
                 if (Configuration.Current.Fireplace.IsEnabled)
 	            {
-		            if (Configuration.Current.Fireplace.IsEnabled)
+		            if (Configuration.Current.Fireplace.onlyTorches)
 	                {
 		                if (__instance.GetHoverText().Contains("torch") || __instance.GetHoverText().Contains("Scounce") || __instance.GetHoverText().Contains("brazier")) 
                         {
@@ -21,7 +22,7 @@ namespace ValheimPlus
 	                } 
                     else
                     {
-                        ___m_nview.GetZDO().Set("fuel", 1f);
+                        ___m_nview.GetZDO().Set("fuel", 3f);
                     }
 	            }
 
