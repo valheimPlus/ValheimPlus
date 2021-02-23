@@ -17,7 +17,7 @@ namespace ValheimPlusManager
         //private string ServerInstallationPath = "C:/Program Files (x86)/Steam/steamapps/common/Valheim dedicated server/BepInEx/plugins/";
         private string ServerInstallationPath = "C:/Users/msn/Desktop/ServerTest/";
 
-        private string ValheimPlusClientSource = "C:/Users/msn/Downloads/WindowsClient";
+        private string ValheimPlusClientSource = "C:/Users/msn/Downloads/WindowsServer";
         private bool ValheimPlusInstalledClient { get; set; }
         private bool ValheimPlusInstalledServer { get; set; }
 
@@ -30,7 +30,7 @@ namespace ValheimPlusManager
 
             if(ValheimPlusInstalledClient)
             {
-                clientInstalledLabel.Text = "ValheimPlus installed on client";
+                clientInstalledLabel.Text = "ValheimPlus v0.8.5 installed on client";
                 clientInstalledLabel.ForeColor = Color.Green;
                 installClientButton.Enabled = false;
             }
@@ -43,7 +43,7 @@ namespace ValheimPlusManager
 
             if(ValheimPlusInstalledServer)
             {
-                serverInstalledLabel.Text = "ValheimPlus installed on server";
+                serverInstalledLabel.Text = "ValheimPlus v0.8.5 installed on server";
                 serverInstalledLabel.ForeColor = Color.Green;
                 installServerButton.Text = "Reinstall ValheimPlus on server";
             }
@@ -75,9 +75,9 @@ namespace ValheimPlusManager
                     ValheimPlusInstalledServer = Validation.CheckInstallationStatus(ServerInstallationPath);
                     if (ValheimPlusInstalledServer)
                     {
-                        serverInstalledLabel.Text = "ValheimPlus installed on server";
+                        serverInstalledLabel.Text = "ValheimPlus v0.8.5 installed on server";
                         serverInstalledLabel.ForeColor = Color.Green;
-                        installServerButton.Text = "Update/reinstall ValheimPlus on server";
+                        installServerButton.Text = "Reinstall ValheimPlus on server";
                     }
                 }
                 catch (Exception)
