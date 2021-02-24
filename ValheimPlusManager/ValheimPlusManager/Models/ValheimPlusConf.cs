@@ -9,7 +9,7 @@
 
         // Advanced editing mode
         public bool advancedEditingModeEnabled { get; set; } = false;
-        public string enterAdvancedEditingMode { get; set; } = "NumPad0";
+        public string enterAdvancedEditingMode { get; set; } = "Keypad0";
         public string resetAdvancedEditingMode { get; set; } = "F7";
         public string abortAndExitAdvancedEditingMode { get; set; } = "F8";
         public string confirmPlacementOfAdvancedEditingMode { get; set; } = "KeypadEnter";
