@@ -82,9 +82,21 @@ namespace ValheimPlus
                         }
                     }
 
-                    if (sleepingCount >= Configuration.Current.Sleep.numberOfPlayersToSleep)
+                    if (Configuration.Current.Sleep.byPlayers)
                     {
-                        return true;
+                        if (sleepingCount >= Configuration.Current.Sleep.numberOfPlayersToSleep)
+                        {
+                            return true;
+                        }
+                    }
+
+                    if(Configuration.Current.Sleep.byPercentage)
+                    {
+                        double percentSleeping = sleepingCount / allCharacterZdos.Count * 100;
+                        if (percentSleeping >= Configuration.Current.Sleep.percentageOfPlayersToSleep)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
