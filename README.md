@@ -646,3 +646,4 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 * TheTerrasque - https://github.com/TheTerrasque
 * Bruno Vasconcelos - https://github.com/Drakeny
 * Noah 'GaelicGamer' H. - https://github.com/GaelicGamer
+* MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
