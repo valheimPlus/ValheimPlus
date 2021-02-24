@@ -19,37 +19,46 @@ namespace ValheimPlusManager
             this.Icon = Properties.Resources.valheim_plus;
 
             // Fetching path settings
-            settings = SettingsDAL.GetSettings();
-
-            // Checking installation status
-            ValheimPlusInstalledClient = Validation.CheckInstallationStatus(settings.ClientInstallationPath);
-            ValheimPlusInstalledServer = Validation.CheckInstallationStatus(settings.ServerInstallationPath);
-
-            if (ValheimPlusInstalledClient)
+            try
             {
-                clientInstalledLabel.Text = String.Format("ValheimPlus {0} installed on client", settings.ValheimPlusVersion);
-                clientInstalledLabel.ForeColor = Color.Green;
-                installClientButton.Text = "Reinstall ValheimPlus on client";
-            }
-            else
-            {
-                clientInstalledLabel.Text = "ValheimPlus not installed on client";
-                clientInstalledLabel.ForeColor = Color.Red;
-            }
+                settings = SettingsDAL.GetSettings();
 
-            if (ValheimPlusInstalledServer)
-            {
-                serverInstalledLabel.Text = String.Format("ValheimPlus {0} installed on server", settings.ValheimPlusVersion);
-                serverInstalledLabel.ForeColor = Color.Green;
-                installServerButton.Text = "Reinstall ValheimPlus on server";
-            }
-            else
-            {
-                serverInstalledLabel.Text = "ValheimPlus not installed on server";
-                serverInstalledLabel.ForeColor = Color.Red;
-            }
+                // Checking installation status
+                ValheimPlusInstalledClient = Validation.CheckInstallationStatus(settings.ClientInstallationPath);
+                ValheimPlusInstalledServer = Validation.CheckInstallationStatus(settings.ServerInstallationPath);
 
-            installServerUpdateIconButton.Hide();
+                if (ValheimPlusInstalledClient)
+                {
+                    clientInstalledLabel.Text = String.Format("ValheimPlus {0} installed on client", settings.ValheimPlusVersion);
+                    clientInstalledLabel.ForeColor = Color.Green;
+                    installClientButton.Text = "Reinstall ValheimPlus on client";
+                }
+                else
+                {
+                    clientInstalledLabel.Text = "ValheimPlus not installed on client";
+                    clientInstalledLabel.ForeColor = Color.Red;
+                }
+
+                if (ValheimPlusInstalledServer)
+                {
+                    serverInstalledLabel.Text = String.Format("ValheimPlus {0} installed on server", settings.ValheimPlusVersion);
+                    serverInstalledLabel.ForeColor = Color.Green;
+                    installServerButton.Text = "Reinstall ValheimPlus on server";
+                }
+                else
+                {
+                    serverInstalledLabel.Text = "ValheimPlus not installed on server";
+                    serverInstalledLabel.ForeColor = Color.Red;
+                }
+
+                installServerUpdateIconButton.Hide();
+            }
+            catch (Exception)
+            {
+                clientPanel.Hide();
+                serverPanel.Hide();
+                errorLabel.Text = "ERROR! Settings file not found, reinstall manager.";
+            }
         }
 
         private void installServerButton_Click(object sender, EventArgs e)
