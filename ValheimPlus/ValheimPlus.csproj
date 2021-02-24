@@ -348,7 +348,9 @@
     <Compile Include="Configurations\Sections\PlayerConfiguration.cs" />
     <Compile Include="Configurations\Sections\ServerConfiguration.cs" />
     <Compile Include="Configurations\Sections\FireplaceConfiguration.cs" />
+    <Compile Include="Configurations\Sections\SleepConfiguration.cs" />
     <Compile Include="Configurations\Sections\TimeConfiguration.cs" />
+    <Compile Include="Configurations\Sections\UnarmedConfiguration.cs" />
     <Compile Include="Configurations\Sections\VagonConfiguration.cs" />
     <Compile Include="Configurations\Sections\WardConfiguration.cs" />
     <Compile Include="Configurations\Sections\StructuralIntegrityConfiguration.cs" />
@@ -366,12 +368,11 @@
     <Compile Include="Initialize.cs" />
     <Compile Include="Fermenter.cs" />
     <Compile Include="Inventory.cs" />
-    <Compile Include="ItemDrop.cs" />
+    <Compile Include="Items.cs" />
     <Compile Include="ObjectDB.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerDodgeRoll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Game.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SharedMapSystem.cs" />

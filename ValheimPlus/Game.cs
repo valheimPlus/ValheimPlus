@@ -3,6 +3,7 @@ using HarmonyLib;
 using Steamworks;
 using ValheimPlus.Configurations;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace ValheimPlus
 {
@@ -35,7 +36,6 @@ namespace ValheimPlus
             return true;
         }
     }
-
 
     [HarmonyPatch(typeof(Game), "GetPlayerDifficulty")]
     public static class ChangePlayerDifficultyCount
