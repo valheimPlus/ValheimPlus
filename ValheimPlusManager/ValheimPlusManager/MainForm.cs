@@ -28,13 +28,12 @@ namespace ValheimPlusManager
             {
                 clientInstalledLabel.Text = String.Format("ValheimPlus {0} installed on client", settings.Version);
                 clientInstalledLabel.ForeColor = Color.Green;
-                installClientButton.Enabled = false;
+                installClientButton.Text = "Reinstall ValheimPlus on client";
             }
             else
             {
                 clientInstalledLabel.Text = "ValheimPlus not installed on client";
                 clientInstalledLabel.ForeColor = Color.Red;
-                installClientButton.Enabled = true;
             }
 
             if (ValheimPlusInstalledServer)

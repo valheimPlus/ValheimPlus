@@ -43,22 +43,35 @@ namespace ValheimPlusManager
 
             // Beehive
             honeyProductionSpeedNumeric.Value = (decimal)valheimPlusConf.honeyProductionSpeed;
-            maximumHoneyPerBeehiveNumeric.Value = (decimal)valheimPlusConf.maximumHoneyPerBeehive;
+            maximumHoneyPerBeehiveNumeric.Value = valheimPlusConf.maximumHoneyPerBeehive;
 
             // Building
+            maximumPlacementDistanceNumeric.Value = (decimal)valheimPlusConf.maximumPlacementDistance;
+            noWeatherDamageCheckBox.Checked = valheimPlusConf.noWeatherDamage;
+            noInvalidPlacementRestrictionCheckBox.Checked = valheimPlusConf.noInvalidPlacementRestriction;
 
             // Camera
 
             // Experience
 
-            
-            
-
-            
         }
 
         private void saveConfigButton_Click(object sender, EventArgs e)
         {
+            // Advanced building mode settings
+            valheimPlusConf.enterAdvancedBuildingMode = enterAdvancedBuildingModeTextBox.Text;
+            valheimPlusConf.exitAdvancedBuildingMode = exitAdvancedBuildingModeTextBox.Text;
+
+            // Advanced editing mode settings
+            valheimPlusConf.enterAdvancedEditingMode = enterAdvancedEditingModeTextBox.Text;
+            valheimPlusConf.resetAdvancedEditingMode = resetAdvancedEditingModeTextBox.Text;
+            valheimPlusConf.abortAndExitAdvancedEditingMode = abortAndExitAdvancedEditingModeTextBox.Text;
+            valheimPlusConf.confirmPlacementOfAdvancedEditingMode = confirmPlacementOfAdvancedEditingModeTextBox.Text;
+
+            // Beehive
+            valheimPlusConf.honeyProductionSpeed = (float)honeyProductionSpeedNumeric.Value;
+            valheimPlusConf.maximumHoneyPerBeehive = (int)maximumHoneyPerBeehiveNumeric.Value;
+
             bool success = ConfigManager.WriteConfigFile(valheimPlusConf, manageClient);
             
             if(success)

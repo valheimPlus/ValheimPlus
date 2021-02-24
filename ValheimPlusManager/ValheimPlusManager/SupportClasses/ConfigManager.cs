@@ -42,6 +42,9 @@ namespace ValheimPlusManager.SupportClasses
 
             // Building
             valheimPlusConfiguration.buildingSettingsEnabled = bool.Parse(data["Building"]["enabled"]);
+            valheimPlusConfiguration.noInvalidPlacementRestriction = bool.Parse(data["Building"]["noInvalidPlacementRestriction"]);
+            valheimPlusConfiguration.noWeatherDamage = bool.Parse(data["Building"]["noWeatherDamage"]);
+            valheimPlusConfiguration.maximumPlacementDistance = float.Parse(data["Building"]["maximumPlacementDistance"]);
 
             // Items
             valheimPlusConfiguration.itemsSettingsEnabled = bool.Parse(data["Items"]["enabled"]);
@@ -139,6 +142,8 @@ namespace ValheimPlusManager.SupportClasses
 
             // Beehive
             data["Beehive"]["enabled"] = valheimPlusConf.beehiveSettingsEnabled.ToString().ToLower();
+            data["Beehive"]["honeyProductionSpeed"] = valheimPlusConf.honeyProductionSpeed.ToString();
+            data["Beehive"]["maximumHoneyPerBeehive"] = valheimPlusConf.maximumHoneyPerBeehive.ToString();
 
             // Building
             data["Building"]["enabled"] = valheimPlusConf.buildingSettingsEnabled.ToString().ToLower();
