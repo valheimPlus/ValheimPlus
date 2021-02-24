@@ -52,8 +52,14 @@ namespace ValheimPlusManager
             noInvalidPlacementRestrictionCheckBox.Checked = valheimPlusConf.noInvalidPlacementRestriction;
 
             // Camera
+            cameraMaximumZoomDistanceNumeric.Value = (decimal)valheimPlusConf.cameraMaximumZoomDistance;
+            cameraBoatMaximumZoomDistanceNumeric.Value = (decimal)valheimPlusConf.cameraBoatMaximumZoomDistance;
+            cameraFOVNumeric.Value = (decimal)valheimPlusConf.cameraFOV;
 
             // Experience
+
+            // Ward
+            wardRangeNumeric.Value = (decimal)valheimPlusConf.wardRange;
 
         }
 
@@ -72,6 +78,19 @@ namespace ValheimPlusManager
             // Beehive
             valheimPlusConf.honeyProductionSpeed = (float)honeyProductionSpeedNumeric.Value;
             valheimPlusConf.maximumHoneyPerBeehive = (int)maximumHoneyPerBeehiveNumeric.Value;
+
+            // Building
+            valheimPlusConf.maximumPlacementDistance = (float)maximumPlacementDistanceNumeric.Value;
+            valheimPlusConf.noWeatherDamage = noWeatherDamageCheckBox.Checked;
+            valheimPlusConf.noInvalidPlacementRestriction = noInvalidPlacementRestrictionCheckBox.Checked;
+
+            // Camera
+            valheimPlusConf.cameraMaximumZoomDistance = (float)cameraMaximumZoomDistanceNumeric.Value;
+            valheimPlusConf.cameraBoatMaximumZoomDistance = (float)cameraBoatMaximumZoomDistanceNumeric.Value;
+            valheimPlusConf.cameraFOV = (float)cameraFOVNumeric.Value;
+
+            // Ward
+            valheimPlusConf.wardRange = (float)wardRangeNumeric.Value;
 
             bool success = ConfigManager.WriteConfigFile(valheimPlusConf, manageClient);
             

@@ -232,6 +232,9 @@ namespace ValheimPlusManager.SupportClasses
 
             // Building
             data["Building"]["enabled"] = valheimPlusConf.buildingSettingsEnabled.ToString().ToLower();
+            data["Building"]["maximumPlacementDistance"] = valheimPlusConf.maximumPlacementDistance.ToString().ToLower();
+            data["Building"]["noWeatherDamage"] = valheimPlusConf.noWeatherDamage.ToString();
+            data["Building"]["noInvalidPlacementRestriction"] = valheimPlusConf.noInvalidPlacementRestriction.ToString();
 
             // Items
             data["Items"]["enabled"] = valheimPlusConf.itemsSettingsEnabled.ToString().ToLower();
@@ -283,6 +286,7 @@ namespace ValheimPlusManager.SupportClasses
 
             // Ward
             data["Ward"]["enabled"] = valheimPlusConf.wardSettingsEnabled.ToString().ToLower();
+            data["Ward"]["wardRange"] = valheimPlusConf.wardRange.ToString().ToLower();
 
             // StructuralIntegrity
             data["StructuralIntegrity"]["enabled"] = valheimPlusConf.structuralIntegritySettingsEnabled.ToString().ToLower();
@@ -292,6 +296,9 @@ namespace ValheimPlusManager.SupportClasses
 
             // Camera
             data["Camera"]["enabled"] = valheimPlusConf.cameraSettingsEnabled.ToString().ToLower();
+            data["Camera"]["cameraMaximumZoomDistance"] = valheimPlusConf.cameraMaximumZoomDistance.ToString().ToLower();
+            data["Camera"]["cameraBoatMaximumZoomDistance"] = valheimPlusConf.cameraBoatMaximumZoomDistance.ToString().ToLower();
+            data["Camera"]["cameraFOV"] = valheimPlusConf.cameraFOV.ToString().ToLower();
 
             // Wagon
             data["Wagon"]["enabled"] = valheimPlusConf.wagonSettingsEnabled.ToString().ToLower();

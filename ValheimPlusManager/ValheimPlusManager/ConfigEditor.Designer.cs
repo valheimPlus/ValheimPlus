@@ -54,8 +54,18 @@ namespace ValheimPlusManager
             this.honeyProductionSpeedNumeric = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.buildingTab = new System.Windows.Forms.TabPage();
+            this.noWeatherDamageCheckBox = new System.Windows.Forms.CheckBox();
+            this.noInvalidPlacementRestrictionCheckBox = new System.Windows.Forms.CheckBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.maximumPlacementDistanceNumeric = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
             this.cameraTab = new System.Windows.Forms.TabPage();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.cameraFOVNumeric = new System.Windows.Forms.NumericUpDown();
+            this.cameraBoatMaximumZoomDistanceNumeric = new System.Windows.Forms.NumericUpDown();
+            this.cameraMaximumZoomDistanceNumeric = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.experienceTab = new System.Windows.Forms.TabPage();
             this.label15 = new System.Windows.Forms.Label();
@@ -94,6 +104,8 @@ namespace ValheimPlusManager
             this.wagonTab = new System.Windows.Forms.TabPage();
             this.label33 = new System.Windows.Forms.Label();
             this.wardTab = new System.Windows.Forms.TabPage();
+            this.label40 = new System.Windows.Forms.Label();
+            this.wardRangeNumeric = new System.Windows.Forms.NumericUpDown();
             this.label34 = new System.Windows.Forms.Label();
             this.workbenchTab = new System.Windows.Forms.TabPage();
             this.label35 = new System.Windows.Forms.Label();
@@ -102,10 +114,6 @@ namespace ValheimPlusManager
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.saveChangesLabel = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.maximumPlacementDistanceNumeric = new System.Windows.Forms.NumericUpDown();
-            this.noInvalidPlacementRestrictionCheckBox = new System.Windows.Forms.CheckBox();
-            this.noWeatherDamageCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.advancedBuildingModeTab.SuspendLayout();
             this.advancedEditingTab.SuspendLayout();
@@ -113,7 +121,11 @@ namespace ValheimPlusManager
             ((System.ComponentModel.ISupportInitialize)(this.maximumHoneyPerBeehiveNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.honeyProductionSpeedNumeric)).BeginInit();
             this.buildingTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maximumPlacementDistanceNumeric)).BeginInit();
             this.cameraTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cameraFOVNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cameraBoatMaximumZoomDistanceNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cameraMaximumZoomDistanceNumeric)).BeginInit();
             this.experienceTab.SuspendLayout();
             this.fermenterTab.SuspendLayout();
             this.fireplaceTab.SuspendLayout();
@@ -133,8 +145,8 @@ namespace ValheimPlusManager
             this.timeTab.SuspendLayout();
             this.wagonTab.SuspendLayout();
             this.wardTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wardRangeNumeric)).BeginInit();
             this.workbenchTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.maximumPlacementDistanceNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // configCheckedListBox
@@ -275,7 +287,7 @@ namespace ValheimPlusManager
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(4, 4);
+            this.label1.Location = new System.Drawing.Point(3, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(263, 30);
             this.label1.TabIndex = 0;
@@ -393,7 +405,7 @@ namespace ValheimPlusManager
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(4, 4);
+            this.label6.Location = new System.Drawing.Point(3, 4);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(251, 30);
             this.label6.TabIndex = 5;
@@ -461,7 +473,7 @@ namespace ValheimPlusManager
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(4, 4);
+            this.label7.Location = new System.Drawing.Point(3, 4);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(92, 30);
             this.label7.TabIndex = 6;
@@ -481,11 +493,55 @@ namespace ValheimPlusManager
             this.buildingTab.Text = "Building";
             this.buildingTab.UseVisualStyleBackColor = true;
             // 
+            // noWeatherDamageCheckBox
+            // 
+            this.noWeatherDamageCheckBox.AutoSize = true;
+            this.noWeatherDamageCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.noWeatherDamageCheckBox.Location = new System.Drawing.Point(6, 141);
+            this.noWeatherDamageCheckBox.Name = "noWeatherDamageCheckBox";
+            this.noWeatherDamageCheckBox.Size = new System.Drawing.Size(147, 21);
+            this.noWeatherDamageCheckBox.TabIndex = 12;
+            this.noWeatherDamageCheckBox.Text = "No weather damage";
+            this.noWeatherDamageCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // noInvalidPlacementRestrictionCheckBox
+            // 
+            this.noInvalidPlacementRestrictionCheckBox.AutoSize = true;
+            this.noInvalidPlacementRestrictionCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.noInvalidPlacementRestrictionCheckBox.Location = new System.Drawing.Point(6, 111);
+            this.noInvalidPlacementRestrictionCheckBox.Name = "noInvalidPlacementRestrictionCheckBox";
+            this.noInvalidPlacementRestrictionCheckBox.Size = new System.Drawing.Size(218, 21);
+            this.noInvalidPlacementRestrictionCheckBox.TabIndex = 11;
+            this.noInvalidPlacementRestrictionCheckBox.Text = "No invalid placement restrictions";
+            this.noInvalidPlacementRestrictionCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label36.Location = new System.Drawing.Point(4, 50);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(331, 17);
+            this.label36.TabIndex = 10;
+            this.label36.Text = "The maximum range that you can place build objects at";
+            // 
+            // maximumPlacementDistanceNumeric
+            // 
+            this.maximumPlacementDistanceNumeric.Location = new System.Drawing.Point(6, 70);
+            this.maximumPlacementDistanceNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.maximumPlacementDistanceNumeric.Name = "maximumPlacementDistanceNumeric";
+            this.maximumPlacementDistanceNumeric.Size = new System.Drawing.Size(329, 23);
+            this.maximumPlacementDistanceNumeric.TabIndex = 9;
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label13.Location = new System.Drawing.Point(4, 4);
+            this.label13.Location = new System.Drawing.Point(3, 4);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(96, 30);
             this.label13.TabIndex = 7;
@@ -493,6 +549,12 @@ namespace ValheimPlusManager
             // 
             // cameraTab
             // 
+            this.cameraTab.Controls.Add(this.label39);
+            this.cameraTab.Controls.Add(this.label37);
+            this.cameraTab.Controls.Add(this.label38);
+            this.cameraTab.Controls.Add(this.cameraFOVNumeric);
+            this.cameraTab.Controls.Add(this.cameraBoatMaximumZoomDistanceNumeric);
+            this.cameraTab.Controls.Add(this.cameraMaximumZoomDistanceNumeric);
             this.cameraTab.Controls.Add(this.label14);
             this.cameraTab.Location = new System.Drawing.Point(4, 44);
             this.cameraTab.Name = "cameraTab";
@@ -501,11 +563,77 @@ namespace ValheimPlusManager
             this.cameraTab.Text = "Camera";
             this.cameraTab.UseVisualStyleBackColor = true;
             // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label39.Location = new System.Drawing.Point(4, 163);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(141, 17);
+            this.label39.TabIndex = 11;
+            this.label39.Text = "The game camera FOV";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label37.Location = new System.Drawing.Point(4, 106);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(372, 17);
+            this.label37.TabIndex = 11;
+            this.label37.Text = "The maximum zoom distance to your character when in a boat";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label38.Location = new System.Drawing.Point(4, 50);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(282, 17);
+            this.label38.TabIndex = 12;
+            this.label38.Text = "The maximum zoom distance to your character";
+            // 
+            // cameraFOVNumeric
+            // 
+            this.cameraFOVNumeric.Location = new System.Drawing.Point(6, 183);
+            this.cameraFOVNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.cameraFOVNumeric.Name = "cameraFOVNumeric";
+            this.cameraFOVNumeric.Size = new System.Drawing.Size(370, 23);
+            this.cameraFOVNumeric.TabIndex = 9;
+            // 
+            // cameraBoatMaximumZoomDistanceNumeric
+            // 
+            this.cameraBoatMaximumZoomDistanceNumeric.Location = new System.Drawing.Point(6, 126);
+            this.cameraBoatMaximumZoomDistanceNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.cameraBoatMaximumZoomDistanceNumeric.Name = "cameraBoatMaximumZoomDistanceNumeric";
+            this.cameraBoatMaximumZoomDistanceNumeric.Size = new System.Drawing.Size(370, 23);
+            this.cameraBoatMaximumZoomDistanceNumeric.TabIndex = 9;
+            // 
+            // cameraMaximumZoomDistanceNumeric
+            // 
+            this.cameraMaximumZoomDistanceNumeric.Location = new System.Drawing.Point(6, 70);
+            this.cameraMaximumZoomDistanceNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.cameraMaximumZoomDistanceNumeric.Name = "cameraMaximumZoomDistanceNumeric";
+            this.cameraMaximumZoomDistanceNumeric.Size = new System.Drawing.Size(370, 23);
+            this.cameraMaximumZoomDistanceNumeric.TabIndex = 10;
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label14.Location = new System.Drawing.Point(4, 4);
+            this.label14.Location = new System.Drawing.Point(3, 4);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(88, 30);
             this.label14.TabIndex = 7;
@@ -873,6 +1001,8 @@ namespace ValheimPlusManager
             // 
             // wardTab
             // 
+            this.wardTab.Controls.Add(this.label40);
+            this.wardTab.Controls.Add(this.wardRangeNumeric);
             this.wardTab.Controls.Add(this.label34);
             this.wardTab.Location = new System.Drawing.Point(4, 44);
             this.wardTab.Name = "wardTab";
@@ -881,15 +1011,37 @@ namespace ValheimPlusManager
             this.wardTab.Text = "Ward";
             this.wardTab.UseVisualStyleBackColor = true;
             // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label40.Location = new System.Drawing.Point(4, 50);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(184, 17);
+            this.label40.TabIndex = 10;
+            this.label40.Text = "The range of wards by meters";
+            // 
+            // wardRangeNumeric
+            // 
+            this.wardRangeNumeric.Location = new System.Drawing.Point(6, 70);
+            this.wardRangeNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.wardRangeNumeric.Name = "wardRangeNumeric";
+            this.wardRangeNumeric.Size = new System.Drawing.Size(306, 23);
+            this.wardRangeNumeric.TabIndex = 9;
+            // 
             // label34
             // 
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label34.Location = new System.Drawing.Point(381, 253);
+            this.label34.Location = new System.Drawing.Point(3, 4);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(92, 30);
+            this.label34.Size = new System.Drawing.Size(65, 30);
             this.label34.TabIndex = 7;
-            this.label34.Text = "Beehive";
+            this.label34.Text = "Ward";
             // 
             // workbenchTab
             // 
@@ -967,50 +1119,6 @@ namespace ValheimPlusManager
             this.label27.TabIndex = 7;
             this.label27.Text = "Beehive";
             // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label36.Location = new System.Drawing.Point(4, 50);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(331, 17);
-            this.label36.TabIndex = 10;
-            this.label36.Text = "The maximum range that you can place build objects at";
-            // 
-            // maximumPlacementDistanceNumeric
-            // 
-            this.maximumPlacementDistanceNumeric.Location = new System.Drawing.Point(6, 70);
-            this.maximumPlacementDistanceNumeric.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.maximumPlacementDistanceNumeric.Name = "maximumPlacementDistanceNumeric";
-            this.maximumPlacementDistanceNumeric.Size = new System.Drawing.Size(329, 23);
-            this.maximumPlacementDistanceNumeric.TabIndex = 9;
-            // 
-            // noInvalidPlacementRestrictionCheckBox
-            // 
-            this.noInvalidPlacementRestrictionCheckBox.AutoSize = true;
-            this.noInvalidPlacementRestrictionCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.noInvalidPlacementRestrictionCheckBox.Location = new System.Drawing.Point(6, 111);
-            this.noInvalidPlacementRestrictionCheckBox.Name = "noInvalidPlacementRestrictionCheckBox";
-            this.noInvalidPlacementRestrictionCheckBox.Size = new System.Drawing.Size(218, 21);
-            this.noInvalidPlacementRestrictionCheckBox.TabIndex = 11;
-            this.noInvalidPlacementRestrictionCheckBox.Text = "No invalid placement restrictions";
-            this.noInvalidPlacementRestrictionCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // noWeatherDamageCheckBox
-            // 
-            this.noWeatherDamageCheckBox.AutoSize = true;
-            this.noWeatherDamageCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.noWeatherDamageCheckBox.Location = new System.Drawing.Point(6, 141);
-            this.noWeatherDamageCheckBox.Name = "noWeatherDamageCheckBox";
-            this.noWeatherDamageCheckBox.Size = new System.Drawing.Size(147, 21);
-            this.noWeatherDamageCheckBox.TabIndex = 12;
-            this.noWeatherDamageCheckBox.Text = "No weather damage";
-            this.noWeatherDamageCheckBox.UseVisualStyleBackColor = true;
-            // 
             // ConfigEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1035,8 +1143,12 @@ namespace ValheimPlusManager
             ((System.ComponentModel.ISupportInitialize)(this.honeyProductionSpeedNumeric)).EndInit();
             this.buildingTab.ResumeLayout(false);
             this.buildingTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maximumPlacementDistanceNumeric)).EndInit();
             this.cameraTab.ResumeLayout(false);
             this.cameraTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cameraFOVNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cameraBoatMaximumZoomDistanceNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cameraMaximumZoomDistanceNumeric)).EndInit();
             this.experienceTab.ResumeLayout(false);
             this.experienceTab.PerformLayout();
             this.fermenterTab.ResumeLayout(false);
@@ -1075,9 +1187,9 @@ namespace ValheimPlusManager
             this.wagonTab.PerformLayout();
             this.wardTab.ResumeLayout(false);
             this.wardTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wardRangeNumeric)).EndInit();
             this.workbenchTab.ResumeLayout(false);
             this.workbenchTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.maximumPlacementDistanceNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1163,5 +1275,13 @@ namespace ValheimPlusManager
         private System.Windows.Forms.CheckBox noInvalidPlacementRestrictionCheckBox;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.NumericUpDown maximumPlacementDistanceNumeric;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.NumericUpDown cameraFOVNumeric;
+        private System.Windows.Forms.NumericUpDown cameraBoatMaximumZoomDistanceNumeric;
+        private System.Windows.Forms.NumericUpDown cameraMaximumZoomDistanceNumeric;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.NumericUpDown wardRangeNumeric;
     }
 }
