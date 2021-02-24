@@ -23,6 +23,7 @@ namespace ValheimPlus.Configurations
         public MapConfiguration Map { get; set; }
         public ServerConfiguration Server { get; set; }
         public StaminaConfiguration Stamina { get; set; }
+        public SleepConfiguration Sleep { get; set; }
         public StaminaWeapons WeaponsStamina { get; set; }
         public UnarmedConfiguration Unarmed { get; set; }
         public WorkbenchConfiguration Workbench { get; set; }
