@@ -41,7 +41,7 @@ namespace ValheimPlus
                 else if (h == 3 && w == 6)
                 {
                     w = Configuration.Current.Inventory.ironChestColumns > 8 ? 8 : Configuration.Current.Inventory.ironChestColumns;
-                    h = Configuration.Current.Inventory.ironChestRows > 10 ? 10 : Configuration.Current.Inventory.ironChestColumns;
+                    h = Configuration.Current.Inventory.ironChestRows > 10 ? 10 : Configuration.Current.Inventory.ironChestRows;
                 }
             }
         }
