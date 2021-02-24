@@ -1,4 +1,5 @@
 using IniParser.Model;
+using System.Globalization;
 using System.Linq;
 using UnityEngine;
 
@@ -20,7 +21,11 @@ namespace ValheimPlus.Configurations
 
             foreach (var prop in typeof(T).GetProperties())
             {
-                r += $"{prop.Name}={prop.GetValue(this, null)}|";
+                var value = prop.GetValue(this, null);
+                if (prop.PropertyType ==  typeof(float)) { 
+                    value = ((float)prop.GetValue(this, null)).ToString("0.00", CultureInfo.InvariantCulture);
+                }
+                r += $"{prop.Name}={value}|";
             }
             return r;
         }
