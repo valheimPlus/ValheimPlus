@@ -40,6 +40,12 @@
     <None Update="Data\Settings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Data\ValheimPlusGameClient\Place ValheimPlus Windows game client here.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\ValheimPlusServerClient\Place ValheimPlus Windows server client here.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\valheim-plus.ico">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
