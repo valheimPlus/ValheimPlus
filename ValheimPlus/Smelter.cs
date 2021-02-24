@@ -33,7 +33,9 @@ namespace ValheimPlus
         }
 
     }
-
+    // This functionality needs further testing before we can release it. 
+    // nx
+    /*
     [HarmonyPatch(typeof(Smelter), "Spawn")]
     public static class AutoFurnaceDrop
     {
@@ -108,4 +110,5 @@ namespace ValheimPlus
         }
 
     }
+    */
 }

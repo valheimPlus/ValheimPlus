@@ -26,6 +26,8 @@ namespace ValheimPlus
                 // Set player position visibility to public by default on server join
                 __instance.m_publicReferencePosition = true;
             }
+
+
         }
     }
 
@@ -72,14 +74,44 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(FejdStartup), "IsPublicPasswordValid")]
     public static class ChangeServerPasswordBehavior
     {
-        private static void Postfix(ref Boolean __result) // Set after awake function
+        private static Boolean Prefix(ref Boolean __result) // Set after awake function
         {
+            if (Configuration.Current.Server.IsEnabled && Configuration.Current.Server.disableServerPassword)
+            {
+                __result = true;
+                return false;
+            }
+            return true;
+        }
+    }
+
+    [HarmonyPatch(typeof(FejdStartup), "GetPublicPasswordError")]
+    public static class RemovePublicPasswordError
+    {
+        private static Boolean Prefix(ref string __result) 
+        {
+            if (Configuration.Current.Server.IsEnabled && Configuration.Current.Server.disableServerPassword)
+            {
+                __result = "";
+                return false;
+            }
+            return true;
+        }
+    }
+
+
+    [HarmonyPatch(typeof(FejdStartup), "Awake")]
+    public static class HookServerStart
+    {
+        private static void Postfix(ref FejdStartup __instance)
+        {
+            if (Configuration.Current.Server.IsEnabled && Configuration.Current.Server.disableServerPassword)
+            {
+                __instance.m_minimumPasswordLength = 0;
+            }
             if (Configuration.Current.Server.IsEnabled)
             {
-                if (Configuration.Current.Server.disableServerPassword)
-                {
-                    __result = true;
-                }
+                __instance.m_serverPlayerLimit = Configuration.Current.Server.maxPlayers;
             }
         }
     }
@@ -89,7 +121,7 @@ namespace ValheimPlus
     {
         private static Boolean Prefix(ref Game __instance, ref float dt)
         {
-            if (Configuration.Current.Server.IsEnabled && Configuration.Current.Server.autoSaveInterval >= 10)
+            if (Configuration.Current.Server.IsEnabled && Configuration.Current.Server.autoSaveInterval >= 10 && ZNet.instance.IsServer())
             {
                 __instance.m_saveTimer += dt;
                 if (__instance.m_saveTimer > Configuration.Current.Server.autoSaveInterval)
