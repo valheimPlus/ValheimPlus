@@ -602,19 +602,27 @@ wagonExtraMassFromItems=0
 
 How to setup the development enviroment to compile ValheimPlus yourself.
 
-1. Download this package:
-https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY
+1. Download this package: ''to be defined''
 
-2. Unpack into your Valheim root folder and overwrite every file when asked.
+2. Unpack into your Valheim root folder. You should now see a new folder called \Valheim\unstripped_corlib.
 
 3. Download this repositories executable version.
 Repo: https://github.com/MrPurple6411/Bepinex-Tools/releases/tag/1.0.0-Publicizer
 Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 
-4. Drag and drop all assembly_.dll files onto "AssemblyPublicizer.exe"
+4. Drag and drop all assembly_.dll files from \Valheim\valheim_Data\Managed onto "AssemblyPublicizer.exe". You should get a new folder "publicized_assemblies" with all dragged dll files in it.
 
-5. Define Enviroment Variable `VALHEIM_INSTALL` with path to Valheim Install Directory  
-example: `setx VALHEIM_INSTALL "C:\Program Files\Steam\steamapps\common\Valheim" /M`
+5. Create a user project file (ValheimPlus.csproj.user) to define some properties local to your own coding machine.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ValheimDir>F:\Steam\steamapps\common\Valheim</ValheimDir> <!-- Needs to be your path to the base Valheim folder -->
+  </PropertyGroup>
+</Project>
+```
+
 
 # Credits
 
