@@ -341,7 +341,6 @@
     <Compile Include="Configurations\Sections\FurnaceConfiguration.cs" />
     <Compile Include="Configurations\Sections\GameConfiguration.cs" />
     <Compile Include="Configurations\Sections\HotkeyConfiguration.cs" />
-    <Compile Include="Configurations\Sections\InventoryConfiguration.cs" />
     <Compile Include="Configurations\Sections\ItemsConfiguration.cs" />
     <Compile Include="Configurations\Sections\KilnConfiguration.cs" />
     <Compile Include="Configurations\Sections\MapConfiguration.cs" />
