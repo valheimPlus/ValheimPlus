@@ -3,6 +3,7 @@ using HarmonyLib;
 using System;
 using System.IO;
 using ValheimPlus.Configurations;
+using ValheimPlus.UI;
 
 namespace ValheimPlus
 {
@@ -50,6 +51,9 @@ namespace ValheimPlus
                 {
                     Logger.LogInfo("ValheimPlus [" + version + "] is up to date.");
                 }
+
+                //Logo
+                VPlusMainMenu.Load();
 
             }
 

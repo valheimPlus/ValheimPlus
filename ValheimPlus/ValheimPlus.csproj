@@ -361,6 +361,7 @@
     <Compile Include="Configurations\Sections\StaminaUsageConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
     <Compile Include="Experience.cs" />
+    <Compile Include="FejdStartup.cs" />
     <Compile Include="Fireplace.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Humanoid.cs" />
@@ -377,6 +378,8 @@
     <Compile Include="SharedMapSystem.cs" />
     <Compile Include="Smelter.cs" />
     <Compile Include="PlayerStats.cs" />
+    <Compile Include="UI\VPlusMainMenu.cs" />
+    <Compile Include="Utility\EmbeddedAsset.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="Vagon.cs" />
     <Compile Include="WearNTear.cs" />
@@ -390,8 +393,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Assets\logo.png" />
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
