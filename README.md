@@ -3,8 +3,18 @@
 # ValheimPlus
 A HarmonyX Mod aimed at improving the gameplay quality of Valheim. The mod includes several different main features including modifiers to ingame stats of players, buildings and entities and a sophisticated system to build and place objects with high precision and a system to modify already placed objects with high precision. The general goal is to provide V+ as a base modification for your gameplay to increase quality of life, change difficulty or have a better experience in general. The mod also comes with a version and configuration control system for servers and users, allowing servers to make sure that only people with the same configuration are able to join their servers.
 
+# ValheimPlus Server Hosting
+Below you can find a list of hosting companies that are supporting ValehimPlus with good prices and easy installation.
+
+[![ValheimPlus Logo](http://valheimplus.com/zap/692x127.jpg)](https://zap-hosting.com/valheimplus)
+
+If you are interested in being in this list, please contact us via Discord, GitHub, Nexus or via e-mail at "contact@valheim.plus".
+
+*(We do not agree to exclusive deals.)*
+
 # Features
 All of these features can be adjusted by a configuration file. This also allows you to only enable very specific featues.
+
 
 ## Player
 
@@ -163,7 +173,10 @@ We supply 4 different versions of V+ with every release since version 0.8. You c
 
 ## **[Server] Windows**
 
+[Easy to setup and ready to use ValheimPlus servers can be rented here at Zap hosting !](https://zap-hosting.com/valheimplus)
+
 We will not explain how you create a dedicated server. This will only explain how you install the mod.
+
 1. Download the [latest package called WindowsServer.zip over this link](https://github.com/nxPublic/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
 2. Unpack the downloaded zip file it into your root server folder.
 
@@ -171,6 +184,8 @@ We will not explain how you create a dedicated server. This will only explain ho
 
 
 ## **[Server] Unix**
+
+[Easy to setup and ready to use ValheimPlus servers can be rented here at Zap hosting !](https://zap-hosting.com/valheimplus)
 
 We will not explain how you create a dedicated server. This will only explain how you install the mod.
 1. Download the [latest package called UnixServer.zip over this link](https://github.com/nxPublic/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
