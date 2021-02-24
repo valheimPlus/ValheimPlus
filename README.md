@@ -258,13 +258,13 @@ enabled=false
 
 ; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
 
-[Unarmed]
 ; Enter the advanced editing mode with this key
 enterAdvancedEditingMode=Keypad0
 
 ; Reset the object to its original position and rotation
 resetAdvancedEditingMode=F7
 
+; Exit the advanced editing mode with this key and reset the object
 abortAndExitAdvancedEditingMode=F8
 
 ; Confirm the placement of the object and place it
@@ -645,5 +645,4 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 * Paige 'radmint' N. - https://github.com/radmint
 * TheTerrasque - https://github.com/TheTerrasque
 * Bruno Vasconcelos - https://github.com/Drakeny
-* GaelicGamer - https://github.com/GaelicGamer
-* MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
+* Noah 'GaelicGamer' H. - https://github.com/GaelicGamer
