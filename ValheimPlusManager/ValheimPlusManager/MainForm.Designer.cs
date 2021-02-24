@@ -38,6 +38,8 @@ namespace ValheimPlusManager
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.manageClientButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -62,7 +64,7 @@ namespace ValheimPlusManager
             // 
             this.clientInstalledLabel.AutoSize = true;
             this.clientInstalledLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.clientInstalledLabel.Location = new System.Drawing.Point(8, 74);
+            this.clientInstalledLabel.Location = new System.Drawing.Point(7, 74);
             this.clientInstalledLabel.Name = "clientInstalledLabel";
             this.clientInstalledLabel.Size = new System.Drawing.Size(167, 15);
             this.clientInstalledLabel.TabIndex = 2;
@@ -71,7 +73,7 @@ namespace ValheimPlusManager
             // serverInstalledLabel
             // 
             this.serverInstalledLabel.AutoSize = true;
-            this.serverInstalledLabel.Location = new System.Drawing.Point(8, 194);
+            this.serverInstalledLabel.Location = new System.Drawing.Point(7, 258);
             this.serverInstalledLabel.Name = "serverInstalledLabel";
             this.serverInstalledLabel.Size = new System.Drawing.Size(169, 15);
             this.serverInstalledLabel.TabIndex = 3;
@@ -79,7 +81,7 @@ namespace ValheimPlusManager
             // 
             // installServerButton
             // 
-            this.installServerButton.Location = new System.Drawing.Point(8, 228);
+            this.installServerButton.Location = new System.Drawing.Point(8, 292);
             this.installServerButton.Name = "installServerButton";
             this.installServerButton.Size = new System.Drawing.Size(185, 32);
             this.installServerButton.TabIndex = 4;
@@ -89,7 +91,7 @@ namespace ValheimPlusManager
             // 
             // manageServerButton
             // 
-            this.manageServerButton.Location = new System.Drawing.Point(205, 228);
+            this.manageServerButton.Location = new System.Drawing.Point(8, 330);
             this.manageServerButton.Name = "manageServerButton";
             this.manageServerButton.Size = new System.Drawing.Size(185, 32);
             this.manageServerButton.TabIndex = 5;
@@ -111,7 +113,7 @@ namespace ValheimPlusManager
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(6, 169);
+            this.label3.Location = new System.Drawing.Point(6, 233);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 21);
             this.label3.TabIndex = 7;
@@ -119,7 +121,7 @@ namespace ValheimPlusManager
             // 
             // manageClientButton
             // 
-            this.manageClientButton.Location = new System.Drawing.Point(205, 110);
+            this.manageClientButton.Location = new System.Drawing.Point(8, 148);
             this.manageClientButton.Name = "manageClientButton";
             this.manageClientButton.Size = new System.Drawing.Size(185, 32);
             this.manageClientButton.TabIndex = 8;
@@ -127,12 +129,30 @@ namespace ValheimPlusManager
             this.manageClientButton.UseVisualStyleBackColor = true;
             this.manageClientButton.Click += new System.EventHandler(this.manageClientButton_Click);
             // 
-            // Form1
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(199, 110);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(185, 32);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Check for updates";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(199, 292);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(185, 32);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Check for updates";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(402, 269);
+            this.ClientSize = new System.Drawing.Size(392, 393);
             this.Controls.Add(this.manageClientButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -140,9 +160,11 @@ namespace ValheimPlusManager
             this.Controls.Add(this.installServerButton);
             this.Controls.Add(this.serverInstalledLabel);
             this.Controls.Add(this.clientInstalledLabel);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.installClientButton);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ValheimPlus Manager";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -162,6 +184,8 @@ namespace ValheimPlusManager
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button manageClientButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
