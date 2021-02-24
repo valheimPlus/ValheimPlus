@@ -162,11 +162,13 @@ We supply 4 different versions of V+ with every release since version 0.8. You c
 
 ## **[Game] Windows (Steam)**
 
-1. Download the [latest package called WindowsClient.zip over this link](https://github.com/nxPublic/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
-2. Locate your game folder, go into steam and :
-   1. Right click the valheim game in your steam library
+1. Download the [latest package called Windows.zip over this link](https://github.com/valheimPlus/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
+2. Locate your game folder manually or start Steam client and :
+   1. Right click the Valheim game in your steam library
    2. "Go to Manage" -> "Browse local files"
-   2. Steam should open your game folder for you when clicked
+   3. Steam should open your game folder
+3. Extract the contents of the archive into the game folder
+4. Locate valheim_plus.cfg under BepInEx\config and configure the mod to your needs
    
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
@@ -177,8 +179,9 @@ We supply 4 different versions of V+ with every release since version 0.8. You c
 
 We will not explain how you create a dedicated server. This will only explain how you install the mod.
 
-1. Download the [latest package called WindowsServer.zip over this link](https://github.com/nxPublic/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
-2. Unpack the downloaded zip file it into your root server folder.
+1. Download the [latest package called Windows.zip over this link](https://github.com/valheimPlus/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
+2. Extract the contents of the archive into your root server folder
+3. Locate valheim_plus.cfg under BepInEx\config and configure the mod to your needs
 
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
@@ -188,17 +191,30 @@ We will not explain how you create a dedicated server. This will only explain ho
 [Easy to setup and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com !](https://zap-hosting.com/valheimplus)
 
 We will not explain how you create a dedicated server. This will only explain how you install the mod.
-1. Download the [latest package called UnixServer.zip over this link](https://github.com/nxPublic/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
-2. Locate your server folder
-3. Unpack all the contents into your root server folder.
+1. Download the [latest package called Unix.zip over this link](https://github.com/valheimPlus/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
+2. Extract the contents of the archive into your root server folder
+3. *Make sure to execute 'chmod u+x start_server_bepinex.sh' to make the start script executable*
+4. *Make sure to start the server via start_server_bepinex.sh or the mod will not be loaded*
+5. If you are using [LGSM](https://linuxgsm.com) go inside your instance config file and change executable to "./start_server_bepinex.sh" to load the mod and your server arguments
 
-*Make sure to execute 'chmod u+x run_bepinex.sh'*
-
-*Make sure to run the run_bepinex.sh*
-
-**Uses libc6-dev**
+**Uses libc6-dev or distro equivalent**
 
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
+
+
+## **[Game] Unix**
+
+1. Download the [latest package called Unix.zip over this link](https://github.com/valheimPlus/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
+2. Locate your game folder manually or start Steam client and :
+   1. Right click the Valheim game in your steam library
+   2. Go to "Manage" -> "Browse local files"
+   3. Steam should open your game folder
+3. Extract the contents of the archive into the game folder
+4. *Make sure to execute 'chmod u+x start_game_bepinex.sh' to make the start script executable*
+5. Right click the Valheim game in your steam library
+6. Go to "Properties..." -> "Launch options" and input "./start_game_bepinex.sh %command%"
+
+**Uses libc6-dev or distro equivalent**
 
 # What if the game updates?
 Game updates are unlikely to do more than partially break ValheimPlus at worst. In case you encounter any issues, use Steam's verify integrity feature- wait for it to download/update all files.
@@ -622,7 +638,9 @@ How to setup the development enviroment to compile ValheimPlus yourself.
 2. Unpack into your Valheim root folder. You should now see a new folder called \Valheim\unstripped_corlib.
 
 3. Download this repositories executable version.
+
 Repo: https://github.com/MrPurple6411/Bepinex-Tools/releases/tag/1.0.0-Publicizer
+
 Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 
 4. Drag and drop all assembly_.dll files from \Valheim\valheim_Data\Managed onto "AssemblyPublicizer.exe". You should get a new folder "publicized_assemblies" with all dragged dll files in it.
@@ -633,7 +651,14 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ValheimDir>F:\Steam\steamapps\common\Valheim</ValheimDir> <!-- Needs to be your path to the base Valheim folder -->
+    <!-- Needs to be your path to the base Valheim folder -->
+    <ValheimDir>F:\Steam\steamapps\common\Valheim</ValheimDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <!-- Runs Steam opening Valheim after building debug -->
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files %28x86%29\Steam\steam.exe</StartProgram>
+    <StartArguments>-applauncher 892970</StartArguments>
   </PropertyGroup>
 </Project>
 ```
