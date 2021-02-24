@@ -4,5 +4,5 @@
   <ServerInstallationPath>C:/Program Files (x86)/Steam/steamapps/common/Valheim dedicated server/</ServerInstallationPath>
   <ClientPath>C:/Users/msn/Downloads/WindowsServer</ClientPath>
   <ServerPath>C:/Users/msn/Downloads/WindowsServer</ServerPath>
-  <Version>v0.8.5</Version>
+  <ValheimPlusVersion>0.8.5</ValheimPlusVersion>
 </Settings>

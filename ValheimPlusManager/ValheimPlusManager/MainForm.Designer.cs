@@ -38,8 +38,9 @@ namespace ValheimPlusManager
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.manageClientButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.checkServerUpdatesIconButton = new FontAwesome.Sharp.IconButton();
+            this.installServerUpdateIconButton = new FontAwesome.Sharp.IconButton();
             this.SuspendLayout();
             // 
             // label1
@@ -129,23 +130,49 @@ namespace ValheimPlusManager
             this.manageClientButton.UseVisualStyleBackColor = true;
             this.manageClientButton.Click += new System.EventHandler(this.manageClientButton_Click);
             // 
-            // button1
+            // iconButton1
             // 
-            this.button1.Location = new System.Drawing.Point(199, 110);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(185, 32);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Check for updates";
-            this.button1.UseVisualStyleBackColor = true;
+            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.Download;
+            this.iconButton1.IconColor = System.Drawing.Color.Black;
+            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButton1.IconSize = 24;
+            this.iconButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.iconButton1.Location = new System.Drawing.Point(199, 110);
+            this.iconButton1.Name = "iconButton1";
+            this.iconButton1.Size = new System.Drawing.Size(185, 32);
+            this.iconButton1.TabIndex = 9;
+            this.iconButton1.Text = "Check for updates";
+            this.iconButton1.UseVisualStyleBackColor = true;
+            this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
             // 
-            // button2
+            // checkServerUpdatesIconButton
             // 
-            this.button2.Location = new System.Drawing.Point(199, 292);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(185, 32);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Check for updates";
-            this.button2.UseVisualStyleBackColor = true;
+            this.checkServerUpdatesIconButton.IconChar = FontAwesome.Sharp.IconChar.Download;
+            this.checkServerUpdatesIconButton.IconColor = System.Drawing.Color.Black;
+            this.checkServerUpdatesIconButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.checkServerUpdatesIconButton.IconSize = 24;
+            this.checkServerUpdatesIconButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.checkServerUpdatesIconButton.Location = new System.Drawing.Point(199, 292);
+            this.checkServerUpdatesIconButton.Name = "checkServerUpdatesIconButton";
+            this.checkServerUpdatesIconButton.Size = new System.Drawing.Size(185, 32);
+            this.checkServerUpdatesIconButton.TabIndex = 9;
+            this.checkServerUpdatesIconButton.Text = "Check for updates";
+            this.checkServerUpdatesIconButton.UseVisualStyleBackColor = true;
+            this.checkServerUpdatesIconButton.Click += new System.EventHandler(this.checkServerUpdatesIconButton_Click_1);
+            // 
+            // installServerUpdateIconButton
+            // 
+            this.installServerUpdateIconButton.IconChar = FontAwesome.Sharp.IconChar.Cogs;
+            this.installServerUpdateIconButton.IconColor = System.Drawing.Color.Black;
+            this.installServerUpdateIconButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.installServerUpdateIconButton.IconSize = 24;
+            this.installServerUpdateIconButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.installServerUpdateIconButton.Location = new System.Drawing.Point(199, 330);
+            this.installServerUpdateIconButton.Name = "installServerUpdateIconButton";
+            this.installServerUpdateIconButton.Size = new System.Drawing.Size(185, 32);
+            this.installServerUpdateIconButton.TabIndex = 10;
+            this.installServerUpdateIconButton.Text = "Install update";
+            this.installServerUpdateIconButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -153,6 +180,9 @@ namespace ValheimPlusManager
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(392, 393);
+            this.Controls.Add(this.installServerUpdateIconButton);
+            this.Controls.Add(this.checkServerUpdatesIconButton);
+            this.Controls.Add(this.iconButton1);
             this.Controls.Add(this.manageClientButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -160,8 +190,6 @@ namespace ValheimPlusManager
             this.Controls.Add(this.installServerButton);
             this.Controls.Add(this.serverInstalledLabel);
             this.Controls.Add(this.clientInstalledLabel);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.installClientButton);
             this.Controls.Add(this.label1);
             this.Name = "MainForm";
@@ -184,8 +212,9 @@ namespace ValheimPlusManager
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button manageClientButton;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton checkServerUpdatesIconButton;
+        private FontAwesome.Sharp.IconButton installServerUpdateIconButton;
     }
 }
 

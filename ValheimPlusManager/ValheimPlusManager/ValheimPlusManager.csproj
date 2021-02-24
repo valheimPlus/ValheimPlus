@@ -16,7 +16,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="5.15.3" />
     <PackageReference Include="ini-parser-netstandard" Version="2.5.2" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
   </ItemGroup>
 
   <ItemGroup>
