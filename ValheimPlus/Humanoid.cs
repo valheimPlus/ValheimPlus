@@ -22,4 +22,16 @@ namespace ValheimPlus
             return __weapon;
         }
     }
+
+    [HarmonyPatch(typeof(Humanoid), MethodType.Constructor)]
+    public static class ModifyPlayerInventorySize
+    {
+        private static void Postfix(ref Humanoid __instance)
+        {
+            if (Configuration.Current.Inventory.IsEnabled)
+            {
+                __instance.m_inventory = new Inventory("Inventory", (Sprite)null, Configuration.Current.Inventory.width, Configuration.Current.Inventory.height);
+            }
+        }
+    }
 }

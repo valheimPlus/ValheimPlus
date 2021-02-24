@@ -258,13 +258,13 @@ enabled=false
 
 ; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
 
+[Unarmed]
 ; Enter the advanced editing mode with this key
 enterAdvancedEditingMode=Keypad0
 
 ; Reset the object to its original position and rotation
 resetAdvancedEditingMode=F7
 
-; Exit the advanced editing mode with this key and reset the object
 abortAndExitAdvancedEditingMode=F8
 
 ; Confirm the placement of the object and place it
