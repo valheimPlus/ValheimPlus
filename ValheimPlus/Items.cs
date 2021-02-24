@@ -2,11 +2,13 @@
 using BepInEx;
 using ValheimPlus.Configurations;
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 namespace ValheimPlus
 {
     [HarmonyPatch(typeof(ItemDrop), "Awake")]
-    public static class ChangeTooltip
+    public static class ChangeItemData
     {
         private static void Prefix(ref ItemDrop __instance)
         {
@@ -16,22 +18,8 @@ namespace ValheimPlus
                 __instance.m_itemData.m_shared.m_teleportable = true;
             }
 
-            /* Disabled for now. Need to hook the Item ToolTip function properly instead due to the way the game handles food durations.
-            if (Settings.isEnabled("Food"))
-            {
-                float food_multiplier = Settings.getFloat("Food", "foodDuration");
-                if (food_multiplier > 0)
-                {
-                    if (Convert.ToInt32(__instance.m_itemData.m_shared.m_itemType) == 2) // Item Type = Food
-                        __instance.m_itemData.m_shared.m_foodBurnTime = __instance.m_itemData.m_shared.m_foodBurnTime + ((__instance.m_itemData.m_shared.m_foodBurnTime / 100) * food_multiplier);
-                }
-                if (food_multiplier < 0 && food_multiplier >= -100)
-                {
-                    if (Convert.ToInt32(__instance.m_itemData.m_shared.m_itemType) == 2) // Item Type = Food
-                        __instance.m_itemData.m_shared.m_foodBurnTime = __instance.m_itemData.m_shared.m_foodBurnTime - ((__instance.m_itemData.m_shared.m_foodBurnTime / 100) * (food_multiplier * -1));
-                }
+            // Disabled for now. Need to hook the Item ToolTip function properly instead due to the way the game handles food durations.
 
-            }*/
 
             if (Configuration.Current.Items.IsEnabled)
             {
@@ -49,7 +37,7 @@ namespace ValheimPlus
                 }
 
                 float itemStackMultiplier = Configuration.Current.Items.itemStackMultiplier;
-                if(__instance.m_itemData.m_shared.m_maxStackSize > 1)
+                if (__instance.m_itemData.m_shared.m_maxStackSize > 1)
                 {
                     if (itemStackMultiplier >= 1)
                     {
@@ -61,5 +49,6 @@ namespace ValheimPlus
 
         }
     }
+
 
 }

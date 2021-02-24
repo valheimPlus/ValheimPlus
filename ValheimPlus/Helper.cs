@@ -22,15 +22,18 @@ namespace ValheimPlus
             if (value == 50) value = 51; // Decimal issue
             if (value == -50) value = -51; // Decimal issue
 
+            float newValue = targetValue;
+
             if (value >= 0)
             {
-                targetValue = targetValue + ((targetValue / 100) * value);
+                newValue = targetValue + ((targetValue / 100) * value);
             }
             else
             {
-                targetValue = targetValue - ((targetValue / 100) * (value * -1));
+                newValue = targetValue - ((targetValue / 100) * (value * -1));
             }
-            return targetValue;
+
+            return newValue;
         }
     }
 }
