@@ -33,7 +33,7 @@ namespace ValheimPlus {
                 return;
             }
             double num = ZNet.instance.GetTimeSeconds();
-            num += (double)deltaTime * amount;
+            num += (double)deltaTime *  (((double)deltaTime / 100) * amount);
             ZNet.instance.SetNetTime(num);
         }
         
