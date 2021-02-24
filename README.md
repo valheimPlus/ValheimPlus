@@ -370,6 +370,9 @@ difficultyScaleRange=200
 [Hotkeys]
 ; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
 
+; Change false to true to enable this section
+enabled=false
+
 ; Roll forwards on key pressed
 rollForwards=F9
 
@@ -486,7 +489,7 @@ sneakStaminaDrain=10
 staminaRegen=5
 
 ; Changes the delay until stamina regeneration sets in
-staminaRegenDelay=0.5f
+staminaRegenDelay=0.5
 
 ; Changes the stamina drain of swimming
 swimStaminaDrain=5
@@ -543,7 +546,7 @@ wardRange=20
 enabled=false
 
 ; Disables the entire structural integrity system and allows for placement in free air, does not prevent building damage.
-disableStructuralIntegrity=false;
+disableStructuralIntegrity=false
 
 ; Each of these values reduce the loss of structural integrity by % less. The value 100 would result in disabled structural integrity and allow placement in free air.
 wood=0
@@ -588,7 +591,7 @@ cameraMaximumZoomDistance=6
 cameraBoatMaximumZoomDistance=6
 
 ; The game camera FOV
-cameraFOV=85
+cameraFOV=65
 
 [Wagon]
 
@@ -631,8 +634,8 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 
 * Kevin 'nx#8830' J.- https://github.com/nxPublic
 * Greg 'Zedle' G. - https://github.com/zedle
+* Paige 'radmint' N. - https://github.com/radmint
+* TheTerrasque - https://github.com/TheTerrasque
 * Bruno Vasconcelos - https://github.com/Drakeny
 * GaelicGamer - https://github.com/GaelicGamer
-* TheTerrasque - https://github.com/TheTerrasque
-* Paige 'radmint' N. - https://github.com/radmint
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
