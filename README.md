@@ -280,6 +280,28 @@ noWeatherDamage=false
 ; The maximum range that you can place build objects at
 maximumPlacementDistance=5
 
+[Inventory]
+; Change false to true to enable this section. 
+; WARNING: Disabling this section will destroy the items in the extra slots if there are any
+enabled=false
+
+; Player inventory number of rows (7 max)
+playerInventoryRows=4
+
+; Wood chest number of columns (8 max)
+woodChestColumns=5
+
+; Wood chest number of rows (more than 4 rows will add a scrollbar, 10 max)
+woodChestRows=2
+
+; Iron chests already have 8 columns by default but now you can lower it. 
+; This also affects the cart and boat inventory
+ironChestColumns=8
+
+; Iron chest number of rows (more than 4 rows will add a scrollbar, 20 max).
+; This also affects the cart and boat inventory
+ironChestRows=3
+
 [Items]
 
 ; Change false to true to enable this section

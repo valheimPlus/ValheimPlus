@@ -52,21 +52,24 @@ namespace ValheimPlus
     {
         public static void Postfix(ref InventoryGui __instance)
         {
-            RectTransform container = __instance.m_container;
-            RectTransform player = __instance.m_player;
+            if (Configuration.Current.Inventory.IsEnabled)
+            {
+                RectTransform container = __instance.m_container;
+                RectTransform player = __instance.m_player;
 
-            int playerInventoryRows = Configuration.Current.Inventory.playerInventoryRows > 7 ? 7 : Configuration.Current.Inventory.playerInventoryRows;
+                int playerInventoryRows = Configuration.Current.Inventory.playerInventoryRows > 7 ? 7 : Configuration.Current.Inventory.playerInventoryRows;
 
-            float oneRowSize = 70.5f;
-            float containerOriginalY = -90.0f;
-            float containerHeight = -340.0f;
+                float oneRowSize = 70.5f;
+                float containerOriginalY = -90.0f;
+                float containerHeight = -340.0f;
 
-            float containerNewY = containerOriginalY - oneRowSize * playerInventoryRows;
+                float containerNewY = containerOriginalY - oneRowSize * playerInventoryRows;
 
-            player.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, playerInventoryRows * oneRowSize);
+                player.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, playerInventoryRows * oneRowSize);
 
-            container.offsetMax = new Vector2(610, containerNewY);
-            container.offsetMin = new Vector2(40, containerNewY + containerHeight);
+                container.offsetMax = new Vector2(610, containerNewY);
+                container.offsetMin = new Vector2(40, containerNewY + containerHeight);
+            }
         }
     }
 }
