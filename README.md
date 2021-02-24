@@ -658,7 +658,7 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
     <!-- Runs Steam opening Valheim after building debug -->
     <StartAction>Program</StartAction>
     <StartProgram>C:\Program Files %28x86%29\Steam\steam.exe</StartProgram>
-    <StartArguments>-applauncher 892970</StartArguments>
+    <StartArguments>-applaunch 892970</StartArguments>
   </PropertyGroup>
 </Project>
 ```
