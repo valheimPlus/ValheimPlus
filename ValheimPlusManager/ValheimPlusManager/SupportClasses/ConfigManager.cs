@@ -48,6 +48,9 @@ namespace ValheimPlusManager.SupportClasses
 
             // Items
             valheimPlusConfiguration.itemsSettingsEnabled = bool.Parse(data["Items"]["enabled"]);
+            valheimPlusConfiguration.noTeleportPrevention = bool.Parse(data["Items"]["noTeleportPrevention"]);
+            valheimPlusConfiguration.baseItemWeightReduction = float.Parse(data["Items"]["baseItemWeightReduction"]);
+            valheimPlusConfiguration.itemStackMultiplier = float.Parse(data["Items"]["itemStackMultiplier"]);
 
             // Fermenter
             valheimPlusConfiguration.fermenterSettingsEnabled = bool.Parse(data["Fermenter"]["enabled"]);
