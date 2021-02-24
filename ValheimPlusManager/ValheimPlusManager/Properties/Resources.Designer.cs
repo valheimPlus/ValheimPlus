@@ -69,5 +69,15 @@ namespace ValheimPlusManager.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon valheim_plus {
+            get {
+                object obj = ResourceManager.GetObject("valheim_plus", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

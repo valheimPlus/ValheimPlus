@@ -17,6 +17,7 @@ namespace ValheimPlusManager
         public ConfigEditor(bool manageClient)
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.valheim_plus;
 
             this.manageClient = manageClient;
 

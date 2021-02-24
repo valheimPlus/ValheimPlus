@@ -16,6 +16,7 @@ namespace ValheimPlusManager
         public MainForm()
         {
             InitializeComponent();
+            this.Icon = Properties.Resources.valheim_plus;
 
             // Fetching path settings
             settings = SettingsDAL.GetSettings();
