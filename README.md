@@ -173,7 +173,7 @@ We supply 4 different versions of V+ with every release since version 0.8. You c
 
 ## **[Server] Windows**
 
-[Easy to setup and ready to use ValheimPlus servers can be rented here at Zap hosting !](https://zap-hosting.com/valheimplus)
+[Easy to setup and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com !](https://zap-hosting.com/valheimplus)
 
 We will not explain how you create a dedicated server. This will only explain how you install the mod.
 
@@ -185,7 +185,7 @@ We will not explain how you create a dedicated server. This will only explain ho
 
 ## **[Server] Unix**
 
-[Easy to setup and ready to use ValheimPlus servers can be rented here at Zap hosting !](https://zap-hosting.com/valheimplus)
+[Easy to setup and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com !](https://zap-hosting.com/valheimplus)
 
 We will not explain how you create a dedicated server. This will only explain how you install the mod.
 1. Download the [latest package called UnixServer.zip over this link](https://github.com/nxPublic/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
