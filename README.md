@@ -266,6 +266,13 @@ honeyProductionSpeed=1200
 ; configure the maximum amount of honey in beehives
 maximumHoneyPerBeehive=4
 
+[Unarmed]
+enabled=false
+; Change false to true to enable this section
+
+scaleDamage=100
+; default is 100, this is the value it will approach in damage as you gain skill until capped.
+
 [Building]
 
 ; Change false to true to enable this section

@@ -356,6 +356,8 @@
     <Compile Include="Configurations\Sections\CameraConfiguration.cs" />
     <Compile Include="Configurations\Sections\WorkbenchConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaUsageConfiguration.cs" />
+    <Compile Include="Configurations\Sections\UnarmedConfiguration.cs" />
+    <Compile Include="Configurations\Sections\StaminaWeapons.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
     <Compile Include="Experience.cs" />
     <Compile Include="Fireplace.cs" />
@@ -365,6 +367,7 @@
     <Compile Include="Fermenter.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Items.cs" />
+    <Compile Include="ObjectDB.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerDodgeRoll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
