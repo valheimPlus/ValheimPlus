@@ -38,11 +38,12 @@ namespace ValheimPlusManager
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.manageClientButton = new System.Windows.Forms.Button();
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.checkCLientUpdatesIconButton = new FontAwesome.Sharp.IconButton();
             this.checkServerUpdatesIconButton = new FontAwesome.Sharp.IconButton();
             this.installServerUpdateIconButton = new FontAwesome.Sharp.IconButton();
-            this.errorLabel = new System.Windows.Forms.Label();
+            this.statusLabel = new System.Windows.Forms.Label();
             this.clientPanel = new System.Windows.Forms.Panel();
+            this.installClientUpdateIconButton = new FontAwesome.Sharp.IconButton();
             this.serverPanel = new System.Windows.Forms.Panel();
             this.clientPanel.SuspendLayout();
             this.serverPanel.SuspendLayout();
@@ -135,20 +136,20 @@ namespace ValheimPlusManager
             this.manageClientButton.UseVisualStyleBackColor = true;
             this.manageClientButton.Click += new System.EventHandler(this.manageClientButton_Click);
             // 
-            // iconButton1
+            // checkCLientUpdatesIconButton
             // 
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.Download;
-            this.iconButton1.IconColor = System.Drawing.Color.Black;
-            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton1.IconSize = 24;
-            this.iconButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButton1.Location = new System.Drawing.Point(196, 68);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(185, 32);
-            this.iconButton1.TabIndex = 9;
-            this.iconButton1.Text = "Check for updates";
-            this.iconButton1.UseVisualStyleBackColor = true;
-            this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
+            this.checkCLientUpdatesIconButton.IconChar = FontAwesome.Sharp.IconChar.Download;
+            this.checkCLientUpdatesIconButton.IconColor = System.Drawing.Color.Black;
+            this.checkCLientUpdatesIconButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.checkCLientUpdatesIconButton.IconSize = 24;
+            this.checkCLientUpdatesIconButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.checkCLientUpdatesIconButton.Location = new System.Drawing.Point(196, 68);
+            this.checkCLientUpdatesIconButton.Name = "checkCLientUpdatesIconButton";
+            this.checkCLientUpdatesIconButton.Size = new System.Drawing.Size(185, 32);
+            this.checkCLientUpdatesIconButton.TabIndex = 9;
+            this.checkCLientUpdatesIconButton.Text = "Check for updates";
+            this.checkCLientUpdatesIconButton.UseVisualStyleBackColor = true;
+            this.checkCLientUpdatesIconButton.Click += new System.EventHandler(this.checkCLientUpdatesIconButton_Click);
             // 
             // checkServerUpdatesIconButton
             // 
@@ -167,6 +168,7 @@ namespace ValheimPlusManager
             // 
             // installServerUpdateIconButton
             // 
+            this.installServerUpdateIconButton.BackColor = System.Drawing.Color.LightGreen;
             this.installServerUpdateIconButton.IconChar = FontAwesome.Sharp.IconChar.Cogs;
             this.installServerUpdateIconButton.IconColor = System.Drawing.Color.Black;
             this.installServerUpdateIconButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -177,31 +179,47 @@ namespace ValheimPlusManager
             this.installServerUpdateIconButton.Size = new System.Drawing.Size(185, 32);
             this.installServerUpdateIconButton.TabIndex = 10;
             this.installServerUpdateIconButton.Text = "Install update";
-            this.installServerUpdateIconButton.UseVisualStyleBackColor = true;
+            this.installServerUpdateIconButton.UseVisualStyleBackColor = false;
             // 
-            // errorLabel
+            // statusLabel
             // 
-            this.errorLabel.AutoSize = true;
-            this.errorLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.errorLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.errorLabel.ForeColor = System.Drawing.Color.Red;
-            this.errorLabel.Location = new System.Drawing.Point(0, 373);
-            this.errorLabel.Name = "errorLabel";
-            this.errorLabel.Size = new System.Drawing.Size(0, 20);
-            this.errorLabel.TabIndex = 11;
-            this.errorLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.statusLabel.AutoSize = true;
+            this.statusLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.statusLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.statusLabel.ForeColor = System.Drawing.Color.Red;
+            this.statusLabel.Location = new System.Drawing.Point(0, 373);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(0, 20);
+            this.statusLabel.TabIndex = 11;
+            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // clientPanel
             // 
+            this.clientPanel.Controls.Add(this.installClientUpdateIconButton);
             this.clientPanel.Controls.Add(this.manageClientButton);
             this.clientPanel.Controls.Add(this.installClientButton);
             this.clientPanel.Controls.Add(this.clientInstalledLabel);
             this.clientPanel.Controls.Add(this.label2);
-            this.clientPanel.Controls.Add(this.iconButton1);
+            this.clientPanel.Controls.Add(this.checkCLientUpdatesIconButton);
             this.clientPanel.Location = new System.Drawing.Point(-1, 48);
             this.clientPanel.Name = "clientPanel";
             this.clientPanel.Size = new System.Drawing.Size(395, 155);
             this.clientPanel.TabIndex = 12;
+            // 
+            // installClientUpdateIconButton
+            // 
+            this.installClientUpdateIconButton.BackColor = System.Drawing.Color.LightGreen;
+            this.installClientUpdateIconButton.IconChar = FontAwesome.Sharp.IconChar.Cogs;
+            this.installClientUpdateIconButton.IconColor = System.Drawing.Color.Black;
+            this.installClientUpdateIconButton.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.installClientUpdateIconButton.IconSize = 24;
+            this.installClientUpdateIconButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.installClientUpdateIconButton.Location = new System.Drawing.Point(196, 106);
+            this.installClientUpdateIconButton.Name = "installClientUpdateIconButton";
+            this.installClientUpdateIconButton.Size = new System.Drawing.Size(185, 32);
+            this.installClientUpdateIconButton.TabIndex = 11;
+            this.installClientUpdateIconButton.Text = "Install update";
+            this.installClientUpdateIconButton.UseVisualStyleBackColor = false;
             // 
             // serverPanel
             // 
@@ -211,9 +229,9 @@ namespace ValheimPlusManager
             this.serverPanel.Controls.Add(this.manageServerButton);
             this.serverPanel.Controls.Add(this.installServerButton);
             this.serverPanel.Controls.Add(this.serverInstalledLabel);
-            this.serverPanel.Location = new System.Drawing.Point(-1, 211);
+            this.serverPanel.Location = new System.Drawing.Point(-1, 209);
             this.serverPanel.Name = "serverPanel";
-            this.serverPanel.Size = new System.Drawing.Size(395, 155);
+            this.serverPanel.Size = new System.Drawing.Size(395, 157);
             this.serverPanel.TabIndex = 13;
             // 
             // MainForm
@@ -224,7 +242,7 @@ namespace ValheimPlusManager
             this.ClientSize = new System.Drawing.Size(392, 393);
             this.Controls.Add(this.serverPanel);
             this.Controls.Add(this.clientPanel);
-            this.Controls.Add(this.errorLabel);
+            this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.label1);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -250,12 +268,13 @@ namespace ValheimPlusManager
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button manageClientButton;
-        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton checkCLientUpdatesIconButton;
         private FontAwesome.Sharp.IconButton checkServerUpdatesIconButton;
         private FontAwesome.Sharp.IconButton installServerUpdateIconButton;
-        private System.Windows.Forms.Label errorLabel;
+        private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.Panel clientPanel;
         private System.Windows.Forms.Panel serverPanel;
+        private FontAwesome.Sharp.IconButton installClientUpdateIconButton;
     }
 }
 

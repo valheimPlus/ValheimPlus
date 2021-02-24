@@ -8,91 +8,91 @@ namespace ValheimPlusManager
 {
     public partial class ConfigEditor : Form
     {
-        private ValheimPlusConf valheimPlusConf { get; set; }
+        private ValheimPlusConf ValheimPlusConf { get; set; }
 
-        private bool manageClient { get; set; }
+        private bool ManageClient { get; set; }
 
-        TabControl.TabPageCollection tabSetup { get; set; }
+        TabControl.TabPageCollection TabSetup { get; set; }
 
         public ConfigEditor(bool manageClient)
         {
             InitializeComponent();
             this.Icon = Properties.Resources.valheim_plus;
 
-            this.manageClient = manageClient;
+            this.ManageClient = manageClient;
 
             if(manageClient)
             {
-                valheimPlusConf = ConfigManager.ReadConfigFile(true);
+                ValheimPlusConf = ConfigManager.ReadConfigFile(true);
             }
             else
             {
-                valheimPlusConf = ConfigManager.ReadConfigFile(false);
+                ValheimPlusConf = ConfigManager.ReadConfigFile(false);
             }
             
-            tabSetup = tabControl1.TabPages;
+            TabSetup = tabControl1.TabPages;
 
             // Advanced building mode settings
-            enterAdvancedBuildingModeTextBox.Text = valheimPlusConf.enterAdvancedBuildingMode;
-            exitAdvancedBuildingModeTextBox.Text = valheimPlusConf.exitAdvancedBuildingMode;
+            enterAdvancedBuildingModeTextBox.Text = ValheimPlusConf.enterAdvancedBuildingMode;
+            exitAdvancedBuildingModeTextBox.Text = ValheimPlusConf.exitAdvancedBuildingMode;
 
             // Advanced editing mode settings
-            enterAdvancedEditingModeTextBox.Text = valheimPlusConf.enterAdvancedEditingMode;
-            resetAdvancedEditingModeTextBox.Text = valheimPlusConf.resetAdvancedEditingMode;
-            abortAndExitAdvancedEditingModeTextBox.Text = valheimPlusConf.abortAndExitAdvancedEditingMode;
-            confirmPlacementOfAdvancedEditingModeTextBox.Text = valheimPlusConf.confirmPlacementOfAdvancedEditingMode;
+            enterAdvancedEditingModeTextBox.Text = ValheimPlusConf.enterAdvancedEditingMode;
+            resetAdvancedEditingModeTextBox.Text = ValheimPlusConf.resetAdvancedEditingMode;
+            abortAndExitAdvancedEditingModeTextBox.Text = ValheimPlusConf.abortAndExitAdvancedEditingMode;
+            confirmPlacementOfAdvancedEditingModeTextBox.Text = ValheimPlusConf.confirmPlacementOfAdvancedEditingMode;
 
             // Beehive
-            honeyProductionSpeedNumeric.Value = (decimal)valheimPlusConf.honeyProductionSpeed;
-            maximumHoneyPerBeehiveNumeric.Value = valheimPlusConf.maximumHoneyPerBeehive;
+            honeyProductionSpeedNumeric.Value = (decimal)ValheimPlusConf.honeyProductionSpeed;
+            maximumHoneyPerBeehiveNumeric.Value = ValheimPlusConf.maximumHoneyPerBeehive;
 
             // Building
-            maximumPlacementDistanceNumeric.Value = (decimal)valheimPlusConf.maximumPlacementDistance;
-            noWeatherDamageCheckBox.Checked = valheimPlusConf.noWeatherDamage;
-            noInvalidPlacementRestrictionCheckBox.Checked = valheimPlusConf.noInvalidPlacementRestriction;
+            maximumPlacementDistanceNumeric.Value = (decimal)ValheimPlusConf.maximumPlacementDistance;
+            noWeatherDamageCheckBox.Checked = ValheimPlusConf.noWeatherDamage;
+            noInvalidPlacementRestrictionCheckBox.Checked = ValheimPlusConf.noInvalidPlacementRestriction;
 
             // Camera
-            cameraMaximumZoomDistanceNumeric.Value = (decimal)valheimPlusConf.cameraMaximumZoomDistance;
-            cameraBoatMaximumZoomDistanceNumeric.Value = (decimal)valheimPlusConf.cameraBoatMaximumZoomDistance;
-            cameraFOVNumeric.Value = (decimal)valheimPlusConf.cameraFOV;
+            cameraMaximumZoomDistanceNumeric.Value = (decimal)ValheimPlusConf.cameraMaximumZoomDistance;
+            cameraBoatMaximumZoomDistanceNumeric.Value = (decimal)ValheimPlusConf.cameraBoatMaximumZoomDistance;
+            cameraFOVNumeric.Value = (decimal)ValheimPlusConf.cameraFOV;
 
             // Experience
 
             // Ward
-            wardRangeNumeric.Value = (decimal)valheimPlusConf.wardRange;
+            wardRangeNumeric.Value = (decimal)ValheimPlusConf.wardRange;
 
         }
 
         private void saveConfigButton_Click(object sender, EventArgs e)
         {
             // Advanced building mode settings
-            valheimPlusConf.enterAdvancedBuildingMode = enterAdvancedBuildingModeTextBox.Text;
-            valheimPlusConf.exitAdvancedBuildingMode = exitAdvancedBuildingModeTextBox.Text;
+            ValheimPlusConf.enterAdvancedBuildingMode = enterAdvancedBuildingModeTextBox.Text;
+            ValheimPlusConf.exitAdvancedBuildingMode = exitAdvancedBuildingModeTextBox.Text;
 
             // Advanced editing mode settings
-            valheimPlusConf.enterAdvancedEditingMode = enterAdvancedEditingModeTextBox.Text;
-            valheimPlusConf.resetAdvancedEditingMode = resetAdvancedEditingModeTextBox.Text;
-            valheimPlusConf.abortAndExitAdvancedEditingMode = abortAndExitAdvancedEditingModeTextBox.Text;
-            valheimPlusConf.confirmPlacementOfAdvancedEditingMode = confirmPlacementOfAdvancedEditingModeTextBox.Text;
+            ValheimPlusConf.enterAdvancedEditingMode = enterAdvancedEditingModeTextBox.Text;
+            ValheimPlusConf.resetAdvancedEditingMode = resetAdvancedEditingModeTextBox.Text;
+            ValheimPlusConf.abortAndExitAdvancedEditingMode = abortAndExitAdvancedEditingModeTextBox.Text;
+            ValheimPlusConf.confirmPlacementOfAdvancedEditingMode = confirmPlacementOfAdvancedEditingModeTextBox.Text;
 
             // Beehive
-            valheimPlusConf.honeyProductionSpeed = (float)honeyProductionSpeedNumeric.Value;
-            valheimPlusConf.maximumHoneyPerBeehive = (int)maximumHoneyPerBeehiveNumeric.Value;
+            ValheimPlusConf.honeyProductionSpeed = (float)honeyProductionSpeedNumeric.Value;
+            ValheimPlusConf.maximumHoneyPerBeehive = (int)maximumHoneyPerBeehiveNumeric.Value;
 
             // Building
-            valheimPlusConf.maximumPlacementDistance = (float)maximumPlacementDistanceNumeric.Value;
-            valheimPlusConf.noWeatherDamage = noWeatherDamageCheckBox.Checked;
-            valheimPlusConf.noInvalidPlacementRestriction = noInvalidPlacementRestrictionCheckBox.Checked;
+            ValheimPlusConf.maximumPlacementDistance = (float)maximumPlacementDistanceNumeric.Value;
+            ValheimPlusConf.noWeatherDamage = noWeatherDamageCheckBox.Checked;
+            ValheimPlusConf.noInvalidPlacementRestriction = noInvalidPlacementRestrictionCheckBox.Checked;
 
             // Camera
-            valheimPlusConf.cameraMaximumZoomDistance = (float)cameraMaximumZoomDistanceNumeric.Value;
-            valheimPlusConf.cameraBoatMaximumZoomDistance = (float)cameraBoatMaximumZoomDistanceNumeric.Value;
-            valheimPlusConf.cameraFOV = (float)cameraFOVNumeric.Value;
+            ValheimPlusConf.cameraMaximumZoomDistance = (float)cameraMaximumZoomDistanceNumeric.Value;
+            ValheimPlusConf.cameraBoatMaximumZoomDistance = (float)cameraBoatMaximumZoomDistanceNumeric.Value;
+            ValheimPlusConf.cameraFOV = (float)cameraFOVNumeric.Value;
 
             // Ward
-            valheimPlusConf.wardRange = (float)wardRangeNumeric.Value;
+            ValheimPlusConf.wardRange = (float)wardRangeNumeric.Value;
 
-            bool success = ConfigManager.WriteConfigFile(valheimPlusConf, manageClient);
+            bool success = ConfigManager.WriteConfigFile(ValheimPlusConf, ManageClient);
             
             if(success)
             {
@@ -105,8 +105,10 @@ namespace ValheimPlusManager
                 saveChangesLabel.ForeColor = Color.Red;
             }
 
-            var t = new Timer();
-            t.Interval = 3000; // it will Tick in 3 seconds
+            var t = new Timer
+            {
+                Interval = 3000 // it will Tick in 3 seconds
+            };
             t.Tick += (s, e) =>
             {
                 saveChangesLabel.Hide();
@@ -124,83 +126,83 @@ namespace ValheimPlusManager
                 {
                     if (configCheckedListBox.GetItemChecked(i))
                     {
-                        tabSetup[i].Enabled = true;
+                        TabSetup[i].Enabled = true;
                         switch (i)
                         {
                             case 0:
-                                valheimPlusConf.advancedBuildingModeEnabled = true;
+                                ValheimPlusConf.advancedBuildingModeEnabled = true;
                                 break;
                             case 1:
-                                valheimPlusConf.advancedEditingModeEnabled = true;
+                                ValheimPlusConf.advancedEditingModeEnabled = true;
                                 break;
                             case 2:
-                                valheimPlusConf.beehiveSettingsEnabled = true;
+                                ValheimPlusConf.beehiveSettingsEnabled = true;
                                 break;
                             case 3:
-                                valheimPlusConf.buildingSettingsEnabled = true;
+                                ValheimPlusConf.buildingSettingsEnabled = true;
                                 break;
                             case 4:
-                                valheimPlusConf.cameraSettingsEnabled = true;
+                                ValheimPlusConf.cameraSettingsEnabled = true;
                                 break;
                             case 5:
-                                valheimPlusConf.experienceSettingsEnabled = true;
+                                ValheimPlusConf.experienceSettingsEnabled = true;
                                 break;
                             case 6:
-                                valheimPlusConf.fermenterSettingsEnabled = true;
+                                ValheimPlusConf.fermenterSettingsEnabled = true;
                                 break;
                             case 7:
-                                valheimPlusConf.fireplaceSettingsEnabled = true;
+                                ValheimPlusConf.fireplaceSettingsEnabled = true;
                                 break;
                             case 8:
-                                valheimPlusConf.foodSettingsEnabled = true;
+                                ValheimPlusConf.foodSettingsEnabled = true;
                                 break;
                             case 9:
-                                valheimPlusConf.furnaceSettingsEnabled = true;
+                                ValheimPlusConf.furnaceSettingsEnabled = true;
                                 break;
                             case 10:
-                                valheimPlusConf.gameSettingsEnabled = true;
+                                ValheimPlusConf.gameSettingsEnabled = true;
                                 break;
                             case 11:
-                                valheimPlusConf.hotkeysSettingsEnabled = true;
+                                ValheimPlusConf.hotkeysSettingsEnabled = true;
                                 break;
                             case 12:
-                                valheimPlusConf.hudSettingsEnabled = true;
+                                ValheimPlusConf.hudSettingsEnabled = true;
                                 break;
                             case 13:
-                                valheimPlusConf.itemsSettingsEnabled = true;
+                                ValheimPlusConf.itemsSettingsEnabled = true;
                                 break;
                             case 14:
-                                valheimPlusConf.kilnSettingsEnabled = true;
+                                ValheimPlusConf.kilnSettingsEnabled = true;
                                 break;
                             case 15:
-                                valheimPlusConf.mapSettingsEnabled = true;
+                                ValheimPlusConf.mapSettingsEnabled = true;
                                 break;
                             case 16:
-                                valheimPlusConf.playerSettingsEnabled = true;
+                                ValheimPlusConf.playerSettingsEnabled = true;
                                 break;
                             case 17:
-                                valheimPlusConf.serverSettingsEnabled = true;
+                                ValheimPlusConf.serverSettingsEnabled = true;
                                 break;
                             case 18:
-                                valheimPlusConf.staminaSettingsEnabled = true;
+                                ValheimPlusConf.staminaSettingsEnabled = true;
                                 break;
                             case 19:
-                                valheimPlusConf.staminaUsageSettingsEnabled = true;
+                                ValheimPlusConf.staminaUsageSettingsEnabled = true;
                                 break;
                             case 20:
-                                valheimPlusConf.structuralIntegritySettingsEnabled = true;
+                                ValheimPlusConf.structuralIntegritySettingsEnabled = true;
                                 break;
                             case 21:
-                                valheimPlusConf.timeSettingsEnabled = true;
+                                ValheimPlusConf.timeSettingsEnabled = true;
                                 break;
                             case 22:
-                                valheimPlusConf.wagonSettingsEnabled = true;
+                                ValheimPlusConf.wagonSettingsEnabled = true;
                                 break;
                             case 23:
-                                valheimPlusConf.wardSettingsEnabled = true;
+                                ValheimPlusConf.wardSettingsEnabled = true;
                                 break;
                             case 24:
-                                valheimPlusConf.workbenchSettingsEnabled = true;
+                                ValheimPlusConf.workbenchSettingsEnabled = true;
                                 break;
                             default:
                                 break;
@@ -211,84 +213,84 @@ namespace ValheimPlusManager
                         switch (i)
                         {
                             case 0:
-                                valheimPlusConf.advancedBuildingModeEnabled = false;
+                                ValheimPlusConf.advancedBuildingModeEnabled = false;
                                 break;
                             case 1:
-                                valheimPlusConf.advancedEditingModeEnabled = false;
+                                ValheimPlusConf.advancedEditingModeEnabled = false;
                                 break;
                             case 2:
-                                valheimPlusConf.beehiveSettingsEnabled = false;
+                                ValheimPlusConf.beehiveSettingsEnabled = false;
                                 break;
                             case 3:
-                                valheimPlusConf.buildingSettingsEnabled = false;
+                                ValheimPlusConf.buildingSettingsEnabled = false;
                                 break;
                             case 4:
-                                valheimPlusConf.cameraSettingsEnabled = false;
+                                ValheimPlusConf.cameraSettingsEnabled = false;
                                 break;
                             case 5:
-                                valheimPlusConf.experienceSettingsEnabled = false;
+                                ValheimPlusConf.experienceSettingsEnabled = false;
                                 break;
                             case 6:
-                                valheimPlusConf.fermenterSettingsEnabled = false;
+                                ValheimPlusConf.fermenterSettingsEnabled = false;
                                 break;
                             case 7:
-                                valheimPlusConf.fireplaceSettingsEnabled = false;
+                                ValheimPlusConf.fireplaceSettingsEnabled = false;
                                 break;
                             case 8:
-                                valheimPlusConf.foodSettingsEnabled = false;
+                                ValheimPlusConf.foodSettingsEnabled = false;
                                 break;
                             case 9:
-                                valheimPlusConf.furnaceSettingsEnabled = false;
+                                ValheimPlusConf.furnaceSettingsEnabled = false;
                                 break;
                             case 10:
-                                valheimPlusConf.gameSettingsEnabled = false;
+                                ValheimPlusConf.gameSettingsEnabled = false;
                                 break;
                             case 11:
-                                valheimPlusConf.hotkeysSettingsEnabled = false;
+                                ValheimPlusConf.hotkeysSettingsEnabled = false;
                                 break;
                             case 12:
-                                valheimPlusConf.hudSettingsEnabled = false;
+                                ValheimPlusConf.hudSettingsEnabled = false;
                                 break;
                             case 13:
-                                valheimPlusConf.itemsSettingsEnabled = false;
+                                ValheimPlusConf.itemsSettingsEnabled = false;
                                 break;
                             case 14:
-                                valheimPlusConf.kilnSettingsEnabled = false;
+                                ValheimPlusConf.kilnSettingsEnabled = false;
                                 break;
                             case 15:
-                                valheimPlusConf.mapSettingsEnabled = false;
+                                ValheimPlusConf.mapSettingsEnabled = false;
                                 break;
                             case 16:
-                                valheimPlusConf.playerSettingsEnabled = false;
+                                ValheimPlusConf.playerSettingsEnabled = false;
                                 break;
                             case 17:
-                                valheimPlusConf.serverSettingsEnabled = false;
+                                ValheimPlusConf.serverSettingsEnabled = false;
                                 break;
                             case 18:
-                                valheimPlusConf.staminaSettingsEnabled = false;
+                                ValheimPlusConf.staminaSettingsEnabled = false;
                                 break;
                             case 19:
-                                valheimPlusConf.staminaUsageSettingsEnabled = false;
+                                ValheimPlusConf.staminaUsageSettingsEnabled = false;
                                 break;
                             case 20:
-                                valheimPlusConf.structuralIntegritySettingsEnabled = false;
+                                ValheimPlusConf.structuralIntegritySettingsEnabled = false;
                                 break;
                             case 21:
-                                valheimPlusConf.timeSettingsEnabled = false;
+                                ValheimPlusConf.timeSettingsEnabled = false;
                                 break;
                             case 22:
-                                valheimPlusConf.wagonSettingsEnabled = false;
+                                ValheimPlusConf.wagonSettingsEnabled = false;
                                 break;
                             case 23:
-                                valheimPlusConf.wardSettingsEnabled = false;
+                                ValheimPlusConf.wardSettingsEnabled = false;
                                 break;
                             case 24:
-                                valheimPlusConf.workbenchSettingsEnabled = false;
+                                ValheimPlusConf.workbenchSettingsEnabled = false;
                                 break;
                             default:
                                 break;
                         }
-                        tabSetup[i].Enabled = false;
+                        TabSetup[i].Enabled = false;
                     }
                 }
             }));
@@ -296,129 +298,129 @@ namespace ValheimPlusManager
 
         private void ConfigEditor_Load(object sender, EventArgs e)
         {
-            if (valheimPlusConf.advancedBuildingModeEnabled)
+            if (ValheimPlusConf.advancedBuildingModeEnabled)
             {
-                configCheckedListBox.SetItemChecked(0, valheimPlusConf.advancedBuildingModeEnabled);
+                configCheckedListBox.SetItemChecked(0, ValheimPlusConf.advancedBuildingModeEnabled);
                 advancedBuildingModeTab.Enabled = true;
             }
-            if (valheimPlusConf.advancedEditingModeEnabled)
+            if (ValheimPlusConf.advancedEditingModeEnabled)
             {
-                configCheckedListBox.SetItemChecked(1, valheimPlusConf.advancedEditingModeEnabled);
+                configCheckedListBox.SetItemChecked(1, ValheimPlusConf.advancedEditingModeEnabled);
                 advancedEditingTab.Enabled = true;
             }
-            if (valheimPlusConf.beehiveSettingsEnabled)
+            if (ValheimPlusConf.beehiveSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(2, valheimPlusConf.beehiveSettingsEnabled);
+                configCheckedListBox.SetItemChecked(2, ValheimPlusConf.beehiveSettingsEnabled);
                 beehiveTab.Enabled = true;
             }
-            if (valheimPlusConf.buildingSettingsEnabled)
+            if (ValheimPlusConf.buildingSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(3, valheimPlusConf.buildingSettingsEnabled);
+                configCheckedListBox.SetItemChecked(3, ValheimPlusConf.buildingSettingsEnabled);
                 buildingTab.Enabled = true;
             }
-            if (valheimPlusConf.cameraSettingsEnabled)
+            if (ValheimPlusConf.cameraSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(4, valheimPlusConf.cameraSettingsEnabled);
+                configCheckedListBox.SetItemChecked(4, ValheimPlusConf.cameraSettingsEnabled);
                 cameraTab.Enabled = true;
             }
-            if (valheimPlusConf.experienceSettingsEnabled)
+            if (ValheimPlusConf.experienceSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(5, valheimPlusConf.experienceSettingsEnabled);
+                configCheckedListBox.SetItemChecked(5, ValheimPlusConf.experienceSettingsEnabled);
                 experienceTab.Enabled = true;
             }
-            if (valheimPlusConf.fermenterSettingsEnabled)
+            if (ValheimPlusConf.fermenterSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(6, valheimPlusConf.fermenterSettingsEnabled);
+                configCheckedListBox.SetItemChecked(6, ValheimPlusConf.fermenterSettingsEnabled);
                 fermenterTab.Enabled = true;
             }
-            if (valheimPlusConf.fireplaceSettingsEnabled)
+            if (ValheimPlusConf.fireplaceSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(7, valheimPlusConf.fireplaceSettingsEnabled);
+                configCheckedListBox.SetItemChecked(7, ValheimPlusConf.fireplaceSettingsEnabled);
                 fireplaceTab.Enabled = true;
             }
-            if (valheimPlusConf.foodSettingsEnabled)
+            if (ValheimPlusConf.foodSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(8, valheimPlusConf.foodSettingsEnabled);
+                configCheckedListBox.SetItemChecked(8, ValheimPlusConf.foodSettingsEnabled);
                 foodTab.Enabled = true;
             }
-            if (valheimPlusConf.furnaceSettingsEnabled)
+            if (ValheimPlusConf.furnaceSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(9, valheimPlusConf.furnaceSettingsEnabled);
+                configCheckedListBox.SetItemChecked(9, ValheimPlusConf.furnaceSettingsEnabled);
                 furnaceTab.Enabled = true;
             }
-            if (valheimPlusConf.gameSettingsEnabled)
+            if (ValheimPlusConf.gameSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(10, valheimPlusConf.gameSettingsEnabled);
+                configCheckedListBox.SetItemChecked(10, ValheimPlusConf.gameSettingsEnabled);
                 gameTab.Enabled = true;
             }
-            if (valheimPlusConf.hotkeysSettingsEnabled)
+            if (ValheimPlusConf.hotkeysSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(11, valheimPlusConf.hotkeysSettingsEnabled);
+                configCheckedListBox.SetItemChecked(11, ValheimPlusConf.hotkeysSettingsEnabled);
                 hotkeysTab.Enabled = true;
             }
-            if (valheimPlusConf.hudSettingsEnabled)
+            if (ValheimPlusConf.hudSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(12, valheimPlusConf.hudSettingsEnabled);
+                configCheckedListBox.SetItemChecked(12, ValheimPlusConf.hudSettingsEnabled);
                 hudTab.Enabled = true;
             }
-            if (valheimPlusConf.itemsSettingsEnabled)
+            if (ValheimPlusConf.itemsSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(13, valheimPlusConf.itemsSettingsEnabled);
+                configCheckedListBox.SetItemChecked(13, ValheimPlusConf.itemsSettingsEnabled);
                 itemsTab.Enabled = true;
             }
-            if (valheimPlusConf.kilnSettingsEnabled)
+            if (ValheimPlusConf.kilnSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(14, valheimPlusConf.kilnSettingsEnabled);
+                configCheckedListBox.SetItemChecked(14, ValheimPlusConf.kilnSettingsEnabled);
                 kilnTab.Enabled = true;
             }
-            if (valheimPlusConf.mapSettingsEnabled)
+            if (ValheimPlusConf.mapSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(15, valheimPlusConf.mapSettingsEnabled);
+                configCheckedListBox.SetItemChecked(15, ValheimPlusConf.mapSettingsEnabled);
                 mapTab.Enabled = true;
             }
-            if (valheimPlusConf.playerSettingsEnabled)
+            if (ValheimPlusConf.playerSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(16, valheimPlusConf.playerSettingsEnabled);
+                configCheckedListBox.SetItemChecked(16, ValheimPlusConf.playerSettingsEnabled);
                 playerTab.Enabled = true;
             }
-            if (valheimPlusConf.serverSettingsEnabled)
+            if (ValheimPlusConf.serverSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(17, valheimPlusConf.serverSettingsEnabled);
+                configCheckedListBox.SetItemChecked(17, ValheimPlusConf.serverSettingsEnabled);
                 serverTab.Enabled = true;
             }
-            if (valheimPlusConf.staminaSettingsEnabled)
+            if (ValheimPlusConf.staminaSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(18, valheimPlusConf.staminaSettingsEnabled);
+                configCheckedListBox.SetItemChecked(18, ValheimPlusConf.staminaSettingsEnabled);
                 staminaTab.Enabled = true;
             }
-            if (valheimPlusConf.staminaUsageSettingsEnabled)
+            if (ValheimPlusConf.staminaUsageSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(19, valheimPlusConf.staminaUsageSettingsEnabled);
+                configCheckedListBox.SetItemChecked(19, ValheimPlusConf.staminaUsageSettingsEnabled);
                 staminaUsageTab.Enabled = true;
             }
-            if (valheimPlusConf.structuralIntegritySettingsEnabled)
+            if (ValheimPlusConf.structuralIntegritySettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(20, valheimPlusConf.structuralIntegritySettingsEnabled);
+                configCheckedListBox.SetItemChecked(20, ValheimPlusConf.structuralIntegritySettingsEnabled);
                 structuralIntegrityTab.Enabled = true;
             }
-            if (valheimPlusConf.timeSettingsEnabled)
+            if (ValheimPlusConf.timeSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(21, valheimPlusConf.timeSettingsEnabled);
+                configCheckedListBox.SetItemChecked(21, ValheimPlusConf.timeSettingsEnabled);
                 timeTab.Enabled = true;
             }
-            if (valheimPlusConf.wagonSettingsEnabled)
+            if (ValheimPlusConf.wagonSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(22, valheimPlusConf.wagonSettingsEnabled);
+                configCheckedListBox.SetItemChecked(22, ValheimPlusConf.wagonSettingsEnabled);
                 wagonTab.Enabled = true;
             }
-            if (valheimPlusConf.wardSettingsEnabled)
+            if (ValheimPlusConf.wardSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(23, valheimPlusConf.wardSettingsEnabled);
+                configCheckedListBox.SetItemChecked(23, ValheimPlusConf.wardSettingsEnabled);
                 wardTab.Enabled = true;
             }
-            if (valheimPlusConf.workbenchSettingsEnabled)
+            if (ValheimPlusConf.workbenchSettingsEnabled)
             {
-                configCheckedListBox.SetItemChecked(24, valheimPlusConf.workbenchSettingsEnabled);
+                configCheckedListBox.SetItemChecked(24, ValheimPlusConf.workbenchSettingsEnabled);
                 workbenchTab.Enabled = true;
             }
 
@@ -426,11 +428,11 @@ namespace ValheimPlusManager
             {
                 if (configCheckedListBox.GetItemChecked(i))
                 {
-                    tabSetup[i].Enabled = true;
+                    TabSetup[i].Enabled = true;
                 }
                 else if (!configCheckedListBox.GetItemChecked(i))
                 {
-                    tabSetup[i].Enabled = false;
+                    TabSetup[i].Enabled = false;
                 }
             }
         }

@@ -16,7 +16,7 @@ namespace ValheimPlusManager
         {
             if (timeLeft > 0)
             {
-                timeLeft = timeLeft - 1;
+                timeLeft -= 1;
             }
             else
             {
