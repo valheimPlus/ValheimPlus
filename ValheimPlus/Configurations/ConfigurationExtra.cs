@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace ValheimPlus.Configurations
 {
@@ -29,6 +31,7 @@ namespace ValheimPlus.Configurations
             return Settings.CreateMD5(serialized);
         }
 
+        static string ConfigYamlPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.yml";
         static string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";
 
         public static bool LoadSettings()
@@ -36,7 +39,9 @@ namespace ValheimPlus.Configurations
             try
             {
 
-                if (File.Exists(ConfigIniPath))
+                if (File.Exists(ConfigYamlPath))
+                    Configuration.Current = LoadFromYaml(ConfigYamlPath);
+                else if (File.Exists(ConfigIniPath))
                     Configuration.Current = LoadFromIni(ConfigIniPath);
                 else
                 {
@@ -52,10 +57,23 @@ namespace ValheimPlus.Configurations
             return true;
         }
 
+        public static Configuration LoadFromYaml(string filename)
+        {
+            var deserializer = new DeserializerBuilder()
+            .WithNamingConvention(PascalCaseNamingConvention.Instance)  // see height_in_inches in sample yml 
+            .Build();
+
+            return deserializer.Deserialize<Configuration>(File.ReadAllText(filename));
+        }
+
+
         public static Configuration LoadFromIni(string filename)
         {
+
+
             var parser = new FileIniDataParser();
             IniData configdata = parser.ReadFile(filename);
+
 
             var conf = new Configuration();
             foreach (var prop in typeof(Configuration).GetProperties())
@@ -72,6 +90,8 @@ namespace ValheimPlus.Configurations
             return conf;
         }
     }
+
+
 
     public static class IniDataExtensions
     {
