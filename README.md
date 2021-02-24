@@ -482,7 +482,7 @@ sneakStaminaDrain=10
 staminaRegen=5
 
 ; Changes the delay until stamina regeneration sets in
-staminaRegenDelay=0.5
+staminaRegenDelay=1
 
 ; Changes the stamina drain of swimming
 swimStaminaDrain=5
