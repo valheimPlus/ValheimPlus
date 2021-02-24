@@ -19,8 +19,6 @@ namespace ValheimPlus
         public static string newestVersion = "";
         public static Boolean isUpToDate = false;
 
-        string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";
-
         // Project Repository Info
         public static string Repository = "https://github.com/nxPublic/ValheimPlus";
         public static string ApiRepository = "https://api.github.com/repos/nxPublic/valheimPlus/tags";

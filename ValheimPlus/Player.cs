@@ -26,6 +26,13 @@ namespace ValheimPlus
             }
 
             Player.m_localPlayer.ShowTutorial("vplus");
+
+            //TODO: Move the initial request somewhere that makes more sense. Moved here as a test because we can't do it prior to client auth.
+            if (!ZNet.m_isServer)
+            {
+                ZLog.Log("-------------------- SENDING VPLUGCONFIGSYNC REQUEST");
+                ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusConfigSync", new object[] { new ZPackage() });
+            }
         }
     }
     
