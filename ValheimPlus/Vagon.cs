@@ -22,15 +22,15 @@ namespace ValheimPlus {
 
 
 
-				float totalWeight;
+				float totalWeight = 0;
 
-				if (Configuration.Current.Vagon.IsEnabled)
-					totalWeight = Helper.applyModifierValue(__instance.m_container.GetInventory().GetTotalWeight(), Configuration.Current.Vagon.wagonItemWeight);
+				if (Configuration.Current.Wagon.IsEnabled)
+					totalWeight = Helper.applyModifierValue(__instance.m_container.GetInventory().GetTotalWeight(), Configuration.Current.Wagon.wagonExtraMassFromItems);
 				else
 					totalWeight = __instance.m_container.GetInventory().GetTotalWeight();
-
-				if (Configuration.Current.Vagon.IsEnabled)
-					__instance.m_baseMass = Configuration.Current.Vagon.vagonBaseMass;
+				
+				if (Configuration.Current.Wagon.IsEnabled)
+					__instance.m_baseMass = Configuration.Current.Wagon.wagonBaseMass;
 				else
 					__instance.m_baseMass = 20;
 

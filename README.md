@@ -8,12 +8,14 @@ All of these features can be adjusted by a configuration file. This also allows 
 
 ## Player
 
-* Modification of Stamina usage and regeneration
-* Modification of Stamina by tools and weaponry
+* Modification of stamina usage and regeneration
+* Modification of stamina usage of all tools and weaponry
 * Modification of carry weight
-* Modification of Food duration
+* Modification of food duration
 * Modification of Unarmed Damage
-* Option to force all remove screen shake
+* Modification of auto pickup range
+* Option to force remove all screen shakes
+* Modify the base amount of Unarmed damage multiplied by your unarmed skill level
 
 ## Fermenter, Beehive, Kiln and Furnace
 * Modify Fermenter speed
@@ -25,6 +27,48 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify Kiln processing speed
 * Modify Kiln maximum wood
 
+## Workbench and Ward
+* Modify Workbench radius
+* Modify Ward radius
+
+## Torches and Fireplaces
+* Disable torches running out of fuel
+* Disable fireplaces running out of fuel
+
+## Time and Day Manipulation
+* Modify total time of a day and night cycle
+* Modify the speed of the time passing at night
+
+## Structural Integrity
+* Modify the structural integrity of the following materials by a modifier
+  * Wood
+  * Stone
+  * Iron
+  * Hardwood
+* Disable structural integrity entirely, allowing you to place objects in free air.
+
+## Player Hud
+* Show the experience you gained for a skill in the top left corner
+* Show the amount of items you have in your inventory when crafting or building a object. 
+
+## Game Difficulty
+* Modify the game difficulty multipliers applied to health and damage of enemies based on the amount of connected players.
+* Change the range of where the game considers other players to be nearby.
+* Add a additional amount of Players to the player count for the difficulty calculation.
+* Set the difficulty calculation to a specific player count.
+
+## Skill Experience
+* Modify each skill's experience gain seperately by percent.
+
+## Camera
+* Change your FOV
+* Change the maximum zoom out distance
+* Change the maximum zoom out distance when in a boat
+
+## Wagon
+* Modify the physical weight of the Wagon received by items inside
+* Modify the base physical weight
+
 ## Items
 * Remove Item teleport prevention from all items
 * Reduce Item weight of all items by %
@@ -33,8 +77,13 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Server
 * Remove Password requirement for server
 * Modify maximum Players on a server
+* Modify auto save interval
+* Modify server data rate in kilobyte
 
 ## Map
+* Activate shared position on map automatically
+* Setting to force other people to share their position with you
+* Remove death marker on the map on collecting your tombstone
 
 ### Shared map system
 Allows you to see the explored areas on the map of other players on the server if they have their position on the map shared ingame.
@@ -54,8 +103,7 @@ Prevents players on the server from making themselves invisible on the map.
 * Remove Building Object deterioration by weather.
 * Advanced Building Mode
 * Advanced Editing Mode
-* Disable the need to refuel torches and fireplaces
-* Modify the work bench ranges
+* Structural Integrity modification system
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
@@ -174,7 +222,7 @@ The Config files name is supposed to be "valheim_plus.cfg" it needs to be placed
 
 You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder (its supplied by default within the release versions)
 
-# Currently Supported Configuration (0.8.5 - in development)
+# Currently Supported Configuration (0.8.5)
 ```INI
 [AdvancedBuildingMode]
 ; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
@@ -183,10 +231,10 @@ You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" f
 enabled=false
 
 ; Enter the advanced building mode with this key when building
-enterAdvancedBuildingMode = F1
+enterAdvancedBuildingMode=F1
 
 ; Exit the advanced building mode with this key when building
-exitAdvancedBuildingMode = F3
+exitAdvancedBuildingMode=F3
 
 [AdvancedEditingMode]
 
@@ -196,16 +244,16 @@ enabled=false
 ; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
 
 ; Enter the advanced editing mode with this key
-enterAdvancedEditingMode = Keypad0
+enterAdvancedEditingMode=Keypad0
 
 ; Reset the object to its original position and rotation
-resetAdvancedEditingMode = F7
+resetAdvancedEditingMode=F7
 
 ; Exit the advanced editing mode with this key and reset the object
-abortAndExitAdvancedEditingMode = F8
+abortAndExitAdvancedEditingMode=F8
 
 ; Confirm the placement of the object and place it
-confirmPlacementOfAdvancedEditingMode = KeypadEnter
+confirmPlacementOfAdvancedEditingMode=KeypadEnter
 
 [Beehive]
 
@@ -213,10 +261,10 @@ confirmPlacementOfAdvancedEditingMode = KeypadEnter
 enabled=false
 
 ; configure the speed at which the bees produce honey in seconds, 1200 seconds are 24 ingame hours
-honeyProductionSpeed = 1200
+honeyProductionSpeed=1200
 
 ; configure the maximum amount of honey in beehives
-maximumHoneyPerBeehive = 4
+maximumHoneyPerBeehive=4
 
 [Building]
 
@@ -279,10 +327,10 @@ foodDurationMultiplier=0
 ; Change false to true to enable this section
 enabled=false
 
-; Maximum amount of ore in a funace
+; Maximum amount of ore in a furnace
 maximumOre=10
 
-; Maximum amount of coal in a funace
+; Maximum amount of coal in a furnace
 maximumCoal=20
 
 ; The total amount of coal used to produce a single smelted ingot.
@@ -308,15 +356,15 @@ extraPlayerCountNearby=0
 ; Sets the nearby player count always to this value + extraPlayerCountNearby
 setFixedPlayerCountTo=0
 
-; The interval in seconds that the game auto saves at (client only)
-autoSaveInterval=1200
-
 ; The range in meters at which other players count towards nearby players for the difficulty scale
 difficultyScaleRange=200
 
 
 [Hotkeys]
 ; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
+
+; Change false to true to enable this section
+enabled=false
 
 ; Roll forwards on key pressed
 rollForwards=F9
@@ -407,56 +455,56 @@ enforceMod=true
 ; The total amount of data that the server and client can send per second in kilobyte
 dataRate=60
 
+; The interval in seconds that the game auto saves at (client only)
+autoSaveInterval=1200
+
 [Stamina]
 
 ; Change false to true to enable this section
 enabled=false
 
 ; Changes the flat amount of stamina cost of using the dodge roll
-dodgeStaminaUsage = 10;
+dodgeStaminaUsage=10
 
 ; Changes the stamina drain of being overweight
-encumberedStaminaDrain = 10;
+encumberedStaminaDrain=10
 
 ; Changes the stamina cost of jumping
-jumpStaminaDrain = 10;
+jumpStaminaDrain=10
 
 ; Changes the stamina cost of running
-runStaminaDrain = 10;
+runStaminaDrain=10
 
 ; Changes the stamina drain by sneaking
-sneakStaminaDrain = 10;
+sneakStaminaDrain=10
 
 ; Changes the total amount of stamina recovered per second
-staminaRegen = 5;
+staminaRegen=5
 
 ; Changes the delay until stamina regeneration sets in
-staminaRegenDelay = 0.5f;
+staminaRegenDelay=0.5
 
 ; Changes the stamina drain of swimming
-swimStaminaDrain = 5;
+swimStaminaDrain=5
 
 
 [StaminaUsage]
-
 ; Change false to true to enable this section
 enabled=false
-
 ; Each of these values reduces the stamina drain by %. The value 50 would result in 50% less stamina cost.
-axes = 0; 
-bows = 0;
-clubs = 0;
-knives = 0;
-pickaxes = 0;
-polearms = 0;
-spears = 0; 
-swords = 0;
-unarmed = 0;
-hammer = 0;
-hoe = 0;
+axes=0
+bows=0
+clubs=0
+knives=0
+pickaxes=0
+polearms=0
+spears=0
+swords=0
+unarmed=0
+hammer=0
+hoe=0
 
 [Workbench]
-
 ; Change false to true to enable this section
 enabled=false
 
@@ -491,13 +539,13 @@ wardRange=20
 enabled=false
 
 ; Disables the entire structural integrity system and allows for placement in free air, does not prevent building damage.
-disableStructuralIntegrity = false;
+disableStructuralIntegrity=false
 
 ; Each of these values reduce the loss of structural integrity by % less. The value 100 would result in disabled structural integrity and allow placement in free air.
-wood = 0;
-stone = 0;
-iron = 0;
-hardWood = 0;
+wood=0
+stone=0
+iron=0
+hardWood=0
 
 [Experience]
 
@@ -505,23 +553,23 @@ hardWood = 0;
 enabled=false
 
 ; Each of these values represent the increase to experience gained by % increased. The value 50 would result in 50% increased experience gained for the respective skill by name.
-swords = 0;
-knives = 0;
-clubs = 0;
-polearms = 0;
-spears = 0;
-blocking = 0;
-axes = 0;
-bows = 0;
-fireMagic = 0;
-frostMagic = 0;
-unarmed = 0;
-pickaxes = 0;
-woodCutting = 0;
-jump = 0;
-sneak = 0;
-run = 0;
-swim = 0;
+swords=0
+knives=0
+clubs=0
+polearms=0
+spears=0
+blocking=0
+axes=0
+bows=0
+fireMagic=0
+frostMagic=0
+unarmed=0
+pickaxes=0
+woodCutting=0
+jump=0
+sneak=0
+run=0
+swim=0
 
 
 [Camera]
@@ -530,24 +578,24 @@ swim = 0;
 enabled=false
 
 ; The maximum zoom distance to your character
-cameraMaximumZoomDistance = 6;
+cameraMaximumZoomDistance=6
 
 ; The maximum zoom distance to your character when in a boat
-cameraBoatMaximumZoomDistance = 6;
+cameraBoatMaximumZoomDistance=6
 
 ; The game camera FOV
-cameraFOV = 85;
+cameraFOV=65
 
-[Vagon]
+[Wagon]
 
 ; Change false to true to enable this section
 enabled=false
 
 ; Change the base vagon physical mass of the vagon object
-vagonBaseMass=20
+wagonBaseMass=20
 
 ; This value changes the game physical weight of Vagons by +/- more/less from item weight inside. The value 50 would increase the weight by 50% more. The value -100 would remove the entire extra weight.
-vagonExtraMassFromItems=0
+wagonExtraMassFromItems=0
 ```
 
 # Valheim Plus Compiler Requirements
@@ -579,8 +627,8 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 
 * Kevin 'nx#8830' J.- https://github.com/nxPublic
 * Greg 'Zedle' G. - https://github.com/zedle
+* Paige 'radmint' N. - https://github.com/radmint
+* TheTerrasque - https://github.com/TheTerrasque
 * Bruno Vasconcelos - https://github.com/Drakeny
 * GaelicGamer - https://github.com/GaelicGamer
-* TheTerrasque - https://github.com/TheTerrasque
-* Paige 'radmint' N. - https://github.com/radmint
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer

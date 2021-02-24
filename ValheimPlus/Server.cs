@@ -62,10 +62,9 @@ namespace ValheimPlus
     {
         private static void Prefix(ref ZDOMan __instance, ref int ___m_dataPerSec)
         {
-            if (Configuration.Current.Server.IsEnabled && Configuration.Current.Server.dataRate != ___m_dataPerSec && Configuration.Current.Server.dataRate > 0)
+            if (Configuration.Current.Server.IsEnabled && Configuration.Current.Server.dataRate >= 60)
             {
                 ___m_dataPerSec = Configuration.Current.Server.dataRate * 1024;
-                Debug.Log("Server Data Rate has been set to " + ___m_dataPerSec);
             }
         }
     }
@@ -84,4 +83,29 @@ namespace ValheimPlus
             }
         }
     }
+
+    [HarmonyPatch(typeof(Game), "UpdateSaving")]
+    public static class ChangeClientAndServerSaveInterval
+    {
+        private static Boolean Prefix(ref Game __instance, ref float dt)
+        {
+            if (Configuration.Current.Server.IsEnabled && Configuration.Current.Server.autoSaveInterval >= 10)
+            {
+                __instance.m_saveTimer += dt;
+                if (__instance.m_saveTimer > Configuration.Current.Server.autoSaveInterval)
+                {
+                    __instance.m_saveTimer = 0f;
+                    __instance.SavePlayerProfile(false);
+                    if (ZNet.instance)
+                    {
+                        ZNet.instance.Save(false);
+                    }
+                    Debug.Log("Saving world data.");
+                }
+                return false;
+            }
+            return true;
+        }
+    }
+
 }
