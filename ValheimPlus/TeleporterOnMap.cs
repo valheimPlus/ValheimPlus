@@ -15,7 +15,8 @@ namespace ValheimPlus
         private static void Prefix()
         {
             //Config Sync
-            ZRoutedRpc.instance.Register(nameof(VPlusTeleporterSync.RPC_VPlusTeleporterSync).Substring(4), new Action<long, ZPackage>(VPlusTeleporterSync.RPC_VPlusTeleporterSync));
+            ZRoutedRpc.instance.Register(nameof(VPlusTeleporterSync.RPC_VPlusTeleporterSync).Substring(4),
+                new Action<long, ZPackage>(VPlusTeleporterSync.RPC_VPlusTeleporterSync));
         }
     }
 
@@ -26,14 +27,9 @@ namespace ValheimPlus
         public static List<Minimap.PinData> addedPins = new List<Minimap.PinData>();
 
         // Helper to create PinData objects without adding them to the map
-        public static Minimap.PinData AddPinHelper(
-            Vector3 pos,
-            Minimap.PinType type,
-            string name,
-            bool save,
-            bool isChecked)
+        public static Minimap.PinData AddPinHelper(Vector3 pos, Minimap.PinType type, string name, bool save, bool isChecked)
         {
-            Minimap.PinData pinData = new Minimap.PinData();
+            var pinData = new Minimap.PinData();
             pinData.m_type = type;
             pinData.m_name = name;
             pinData.m_pos = pos;
@@ -50,19 +46,19 @@ namespace ValheimPlus
             if (ZNet.instance.IsServer())
             {
                 // Create package and send it to all clients
-                ZPackage package = new ZPackage();
+                var package = new ZPackage();
 
                 // Collect all portal locations/names
-                List<ZDO> connected = new List<ZDO>();
-                Dictionary<string, ZDO> unconnected = new Dictionary<string, ZDO>();
+                var connected = new List<ZDO>();
+                var unconnected = new Dictionary<string, ZDO>();
 
-                foreach (List<ZDO> zdoarray in ZDOMan.instance.m_objectsBySector)
+                foreach (var zdoarray in ZDOMan.instance.m_objectsBySector)
                 {
                     if (zdoarray != null)
                     {
-                        foreach (ZDO zdo in zdoarray.Where(x => x.m_prefab == -661882940))
+                        foreach (var zdo in zdoarray.Where(x => x.m_prefab == -661882940))
                         {
-                            string tag = zdo.GetString("tag");
+                            var tag = zdo.GetString("tag");
 
                             if (!unconnected.ContainsKey(tag))
                             {
@@ -74,7 +70,6 @@ namespace ValheimPlus
                                 connected.Add(unconnected[tag]);
                                 unconnected.Remove(tag);
                             }
-
                         }
                     }
                 }
@@ -97,8 +92,9 @@ namespace ValheimPlus
                 if (teleporterZPackage == null)
                 {
                     ZLog.Log("Sending portal information to client (new peer)");
+
                     // Send to single client (on new connections only)
-                    ZRoutedRpc.instance.InvokeRoutedRPC(sender, nameof(RPC_VPlusTeleporterSync).Substring(4), new object[] { package });
+                    ZRoutedRpc.instance.InvokeRoutedRPC(sender, nameof(RPC_VPlusTeleporterSync).Substring(4), package);
                 }
                 else
                 {
@@ -108,7 +104,7 @@ namespace ValheimPlus
                         if (!peer.m_server)
                         {
                             // Send to all clients
-                            ZRoutedRpc.instance.InvokeRoutedRPC(peer.m_uid, nameof(RPC_VPlusTeleporterSync).Substring(4), new object[] { package });
+                            ZRoutedRpc.instance.InvokeRoutedRPC(peer.m_uid, nameof(RPC_VPlusTeleporterSync).Substring(4), package);
                         }
                     }
                 }
@@ -119,22 +115,22 @@ namespace ValheimPlus
             {
                 if (teleporterZPackage != null && teleporterZPackage.Size() > 0 && sender == ZRoutedRpc.instance.GetServerPeerID())
                 {
-                    int numConnectedPortals = teleporterZPackage.ReadInt();
+                    var numConnectedPortals = teleporterZPackage.ReadInt();
 
-                    Dictionary<Vector3, string> checkList = new Dictionary<Vector3, string>();
+                    var checkList = new Dictionary<Vector3, string>();
 
                     // prevent MT crashing
                     lock (addedPins)
                     {
                         while (numConnectedPortals > 0)
                         {
-                            Vector3 portalPosition = teleporterZPackage.ReadVector3();
-                            string portalName = teleporterZPackage.ReadString();
+                            var portalPosition = teleporterZPackage.ReadVector3();
+                            var portalName = teleporterZPackage.ReadString();
 
                             checkList.Add(portalPosition, portalName);
 
                             // Was pin already added?
-                            Minimap.PinData foundPin = addedPins.FirstOrDefault(x => x.m_pos == portalPosition);
+                            var foundPin = addedPins.FirstOrDefault(x => x.m_pos == portalPosition);
                             if (foundPin != null)
                             {
                                 // Did the pin's name change?
@@ -154,17 +150,17 @@ namespace ValheimPlus
                             numConnectedPortals--;
                         }
 
-                        int numUnconnectedPortals = teleporterZPackage.ReadInt();
+                        var numUnconnectedPortals = teleporterZPackage.ReadInt();
 
                         while (numUnconnectedPortals > 0)
                         {
-                            Vector3 portalPosition = teleporterZPackage.ReadVector3();
-                            string portalName = teleporterZPackage.ReadString();
+                            var portalPosition = teleporterZPackage.ReadVector3();
+                            var portalName = teleporterZPackage.ReadString();
 
                             checkList.Add(portalPosition, portalName);
 
                             // Was pin already added?
-                            Minimap.PinData foundPin = addedPins.FirstOrDefault(x => x.m_pos == portalPosition);
+                            var foundPin = addedPins.FirstOrDefault(x => x.m_pos == portalPosition);
                             if (foundPin != null)
                             {
                                 // Did the pin's name change?
@@ -200,11 +196,9 @@ namespace ValheimPlus
     }
 
 
-
-
     // React to setting tag on portal
     // Send special Chatmessage to server
-    [HarmonyPatch(typeof(TeleportWorld), "RPC_SetTag", new Type[] { typeof(long), typeof(string) })]
+    [HarmonyPatch(typeof(TeleportWorld), "RPC_SetTag", typeof(long), typeof(string))]
     public static class SyncTeleporterOnMap1
     {
         public static void Postfix(TeleportWorld __instance, long sender, string tag)
@@ -215,7 +209,7 @@ namespace ValheimPlus
             }
 
             // Force sending ZDO to server
-            ZDO temp = __instance.m_nview.GetZDO();
+            var temp = __instance.m_nview.GetZDO();
 
             ZDOMan.instance.GetZDO(temp.m_uid);
 
@@ -224,10 +218,11 @@ namespace ValheimPlus
             {
                 // Wait for ZDO to be sent else server won't have accurate information to send back
                 Thread.Sleep(5000);
+
                 // Send trigger to server
                 ZLog.Log("Sending message to server to trigger delivery of map icons after renaming portal");
                 ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), nameof(VPlusTeleporterSync.RPC_VPlusTeleporterSync).Substring(4),
-                    new object[] { new ZPackage() });
+                    new ZPackage());
             });
         }
     }
@@ -248,7 +243,7 @@ namespace ValheimPlus
             {
                 ZLog.Log("Sending message to server to trigger delivery of map icons");
                 ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), nameof(VPlusTeleporterSync.RPC_VPlusTeleporterSync).Substring(4),
-                    new object[] {new ZPackage()});
+                    new ZPackage());
             }
         }
     }
@@ -275,7 +270,7 @@ namespace ValheimPlus
 
                 foreach (var pin in copy)
                 {
-                    Minimap.PinData foundPin = Minimap.instance.m_pins.FirstOrDefault(x => x.m_pos == pin.m_pos);
+                    var foundPin = Minimap.instance.m_pins.FirstOrDefault(x => x.m_pos == pin.m_pos);
 
                     if (foundPin == null)
                     {
