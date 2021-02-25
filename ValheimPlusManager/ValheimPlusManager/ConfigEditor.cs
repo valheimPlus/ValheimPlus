@@ -86,14 +86,28 @@ namespace ValheimPlusManager
             foodDurationMultiplierNumeric.Value = (decimal)ValheimPlusConf.foodDurationMultiplier;
 
             // Furnace
-            maximumOreNumeric.Value = (int)ValheimPlusConf.maximumOre;
-            maximumCoalNumeric.Value = (int)ValheimPlusConf.maximumCoal;
-            coalUsedPerProductNumeric.Value = (int)ValheimPlusConf.coalUsedPerProduct;
+            maximumOreNumeric.Value = ValheimPlusConf.maximumOre;
+            maximumCoalNumeric.Value = ValheimPlusConf.maximumCoal;
+            coalUsedPerProductNumeric.Value = ValheimPlusConf.coalUsedPerProduct;
             productionSpeedFurnaceNumeric.Value = (decimal)ValheimPlusConf.furnaceProductionSpeed;
+
+            // Game
+            gameDifficultyDamageScaleNumeric.Value = (decimal)ValheimPlusConf.gameDifficultyDamageScale;
+            gameDifficultyHealthScaleNumeric.Value = (decimal)ValheimPlusConf.gameDifficultyHealthScale;
+            extraPlayerCountNearbyNumeric.Value = ValheimPlusConf.extraPlayerCountNearby;
+            setFixedPlayerCountToNumeric.Value = ValheimPlusConf.setFixedPlayerCountTo;
+            difficultyScaleRangeNumeric.Value = ValheimPlusConf.difficultyScaleRange;
+
+            // Hotkeys
+            rollBackwardsTextBox.Text = ValheimPlusConf.rollBackwards;
+            rollForwardsTextBox.Text = ValheimPlusConf.rollForwards;
+
+            // Hud
+            showRequiredItemsCheckBox.Checked = ValheimPlusConf.showRequiredItems;
+            experienceGainedNotificationsCheckBox.Checked = ValheimPlusConf.experienceGainedNotifications;
 
             // Ward
             wardRangeNumeric.Value = (decimal)ValheimPlusConf.wardRange;
-
         }
 
         private void saveConfigButton_Click(object sender, EventArgs e)
@@ -146,7 +160,7 @@ namespace ValheimPlusManager
             ValheimPlusConf.fermenterItemsProduced = (int)fermenterItemsProducedNumeric.Value;
 
             // Fireplace
-            ValheimPlusConf.onlyTorches = (bool)onlyTorchesCheckBox.Checked;
+            ValheimPlusConf.onlyTorches = onlyTorchesCheckBox.Checked;
 
             // Food
             ValheimPlusConf.foodDurationMultiplier = (float)foodDurationMultiplierNumeric.Value;
@@ -156,6 +170,21 @@ namespace ValheimPlusManager
             ValheimPlusConf.maximumCoal = (int)maximumCoalNumeric.Value;
             ValheimPlusConf.coalUsedPerProduct = (int)coalUsedPerProductNumeric.Value;
             ValheimPlusConf.furnaceProductionSpeed = (float)productionSpeedFurnaceNumeric.Value;
+
+            // Game
+            ValheimPlusConf.gameDifficultyDamageScale = (float)gameDifficultyDamageScaleNumeric.Value;
+            ValheimPlusConf.gameDifficultyHealthScale = (float)gameDifficultyHealthScaleNumeric.Value;
+            ValheimPlusConf.extraPlayerCountNearby = (int)extraPlayerCountNearbyNumeric.Value;
+            ValheimPlusConf.setFixedPlayerCountTo = (int)setFixedPlayerCountToNumeric.Value;
+            ValheimPlusConf.difficultyScaleRange = (int)setFixedPlayerCountToNumeric.Value;
+
+            // Hotkeys
+            ValheimPlusConf.rollForwards = rollForwardsTextBox.Text;
+            ValheimPlusConf.rollBackwards = rollBackwardsTextBox.Text;
+
+            // Hud
+            ValheimPlusConf.showRequiredItems = showRequiredItemsCheckBox.Checked;
+            ValheimPlusConf.experienceGainedNotifications = experienceGainedNotificationsCheckBox.Checked;
 
             // Ward
             ValheimPlusConf.wardRange = (float)wardRangeNumeric.Value;

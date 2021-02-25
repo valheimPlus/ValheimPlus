@@ -119,10 +119,32 @@ namespace ValheimPlusManager
             this.label61 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.furnaceTab = new System.Windows.Forms.TabPage();
+            this.label65 = new System.Windows.Forms.Label();
+            this.label66 = new System.Windows.Forms.Label();
+            this.productionSpeedFurnaceNumeric = new System.Windows.Forms.NumericUpDown();
+            this.coalUsedPerProductNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label63 = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
+            this.maximumCoalNumeric = new System.Windows.Forms.NumericUpDown();
+            this.maximumOreNumeric = new System.Windows.Forms.NumericUpDown();
             this.label19 = new System.Windows.Forms.Label();
             this.gameTab = new System.Windows.Forms.TabPage();
+            this.label71 = new System.Windows.Forms.Label();
+            this.difficultyScaleRangeNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label67 = new System.Windows.Forms.Label();
+            this.label68 = new System.Windows.Forms.Label();
+            this.setFixedPlayerCountToNumeric = new System.Windows.Forms.NumericUpDown();
+            this.extraPlayerCountNearbyNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label69 = new System.Windows.Forms.Label();
+            this.label70 = new System.Windows.Forms.Label();
+            this.gameDifficultyHealthScaleNumeric = new System.Windows.Forms.NumericUpDown();
+            this.gameDifficultyDamageScaleNumeric = new System.Windows.Forms.NumericUpDown();
             this.label20 = new System.Windows.Forms.Label();
             this.hotkeysTab = new System.Windows.Forms.TabPage();
+            this.rollBackwardsTextBox = new System.Windows.Forms.TextBox();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
+            this.rollForwardsTextBox = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.hudTab = new System.Windows.Forms.TabPage();
             this.label22 = new System.Windows.Forms.Label();
@@ -157,14 +179,8 @@ namespace ValheimPlusManager
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.saveChangesLabel = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.label63 = new System.Windows.Forms.Label();
-            this.label64 = new System.Windows.Forms.Label();
-            this.maximumCoalNumeric = new System.Windows.Forms.NumericUpDown();
-            this.maximumOreNumeric = new System.Windows.Forms.NumericUpDown();
-            this.label65 = new System.Windows.Forms.Label();
-            this.label66 = new System.Windows.Forms.Label();
-            this.productionSpeedFurnaceNumeric = new System.Windows.Forms.NumericUpDown();
-            this.coalUsedPerProductNumeric = new System.Windows.Forms.NumericUpDown();
+            this.experienceGainedNotificationsCheckBox = new System.Windows.Forms.CheckBox();
+            this.showRequiredItemsCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.advancedBuildingModeTab.SuspendLayout();
             this.advancedEditingTab.SuspendLayout();
@@ -202,7 +218,16 @@ namespace ValheimPlusManager
             this.foodTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.foodDurationMultiplierNumeric)).BeginInit();
             this.furnaceTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.productionSpeedFurnaceNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coalUsedPerProductNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maximumCoalNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maximumOreNumeric)).BeginInit();
             this.gameTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.difficultyScaleRangeNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.setFixedPlayerCountToNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.extraPlayerCountNearbyNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gameDifficultyHealthScaleNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gameDifficultyDamageScaleNumeric)).BeginInit();
             this.hotkeysTab.SuspendLayout();
             this.hudTab.SuspendLayout();
             this.itemsTab.SuspendLayout();
@@ -218,10 +243,6 @@ namespace ValheimPlusManager
             this.wardTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wardRangeNumeric)).BeginInit();
             this.workbenchTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.maximumCoalNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maximumOreNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productionSpeedFurnaceNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.coalUsedPerProductNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // configCheckedListBox
@@ -1328,6 +1349,94 @@ namespace ValheimPlusManager
             this.furnaceTab.Text = "Furnace";
             this.furnaceTab.UseVisualStyleBackColor = true;
             // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label65.Location = new System.Drawing.Point(4, 219);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(411, 17);
+            this.label65.TabIndex = 19;
+            this.label65.Text = "The time it takes for the furnace to produce a single ingot in seconds";
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label66.Location = new System.Drawing.Point(4, 163);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(385, 17);
+            this.label66.TabIndex = 20;
+            this.label66.Text = "The total amount of coal used to produce a single smelted ingot";
+            // 
+            // productionSpeedFurnaceNumeric
+            // 
+            this.productionSpeedFurnaceNumeric.Location = new System.Drawing.Point(6, 239);
+            this.productionSpeedFurnaceNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.productionSpeedFurnaceNumeric.Name = "productionSpeedFurnaceNumeric";
+            this.productionSpeedFurnaceNumeric.Size = new System.Drawing.Size(409, 23);
+            this.productionSpeedFurnaceNumeric.TabIndex = 17;
+            // 
+            // coalUsedPerProductNumeric
+            // 
+            this.coalUsedPerProductNumeric.Location = new System.Drawing.Point(6, 183);
+            this.coalUsedPerProductNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.coalUsedPerProductNumeric.Name = "coalUsedPerProductNumeric";
+            this.coalUsedPerProductNumeric.Size = new System.Drawing.Size(409, 23);
+            this.coalUsedPerProductNumeric.TabIndex = 18;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label63.Location = new System.Drawing.Point(4, 106);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(229, 17);
+            this.label63.TabIndex = 15;
+            this.label63.Text = "Maximum amount of coal in a furnace";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label64.Location = new System.Drawing.Point(4, 50);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(225, 17);
+            this.label64.TabIndex = 16;
+            this.label64.Text = "Maximum amount of ore in a furnace";
+            // 
+            // maximumCoalNumeric
+            // 
+            this.maximumCoalNumeric.Location = new System.Drawing.Point(6, 126);
+            this.maximumCoalNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.maximumCoalNumeric.Name = "maximumCoalNumeric";
+            this.maximumCoalNumeric.Size = new System.Drawing.Size(409, 23);
+            this.maximumCoalNumeric.TabIndex = 13;
+            // 
+            // maximumOreNumeric
+            // 
+            this.maximumOreNumeric.Location = new System.Drawing.Point(6, 70);
+            this.maximumOreNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.maximumOreNumeric.Name = "maximumOreNumeric";
+            this.maximumOreNumeric.Size = new System.Drawing.Size(409, 23);
+            this.maximumOreNumeric.TabIndex = 14;
+            // 
             // label19
             // 
             this.label19.AutoSize = true;
@@ -1340,6 +1449,16 @@ namespace ValheimPlusManager
             // 
             // gameTab
             // 
+            this.gameTab.Controls.Add(this.label71);
+            this.gameTab.Controls.Add(this.difficultyScaleRangeNumeric);
+            this.gameTab.Controls.Add(this.label67);
+            this.gameTab.Controls.Add(this.label68);
+            this.gameTab.Controls.Add(this.setFixedPlayerCountToNumeric);
+            this.gameTab.Controls.Add(this.extraPlayerCountNearbyNumeric);
+            this.gameTab.Controls.Add(this.label69);
+            this.gameTab.Controls.Add(this.label70);
+            this.gameTab.Controls.Add(this.gameDifficultyHealthScaleNumeric);
+            this.gameTab.Controls.Add(this.gameDifficultyDamageScaleNumeric);
             this.gameTab.Controls.Add(this.label20);
             this.gameTab.Location = new System.Drawing.Point(4, 44);
             this.gameTab.Name = "gameTab";
@@ -1347,6 +1466,130 @@ namespace ValheimPlusManager
             this.gameTab.TabIndex = 10;
             this.gameTab.Text = "Game";
             this.gameTab.UseVisualStyleBackColor = true;
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label71.Location = new System.Drawing.Point(4, 277);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(562, 17);
+            this.label71.TabIndex = 30;
+            this.label71.Text = "The range in meters at which other players count towards nearby players for the d" +
+    "ifficulty scale";
+            // 
+            // difficultyScaleRangeNumeric
+            // 
+            this.difficultyScaleRangeNumeric.Location = new System.Drawing.Point(8, 297);
+            this.difficultyScaleRangeNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.difficultyScaleRangeNumeric.Name = "difficultyScaleRangeNumeric";
+            this.difficultyScaleRangeNumeric.Size = new System.Drawing.Size(564, 23);
+            this.difficultyScaleRangeNumeric.TabIndex = 29;
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label67.Location = new System.Drawing.Point(4, 219);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(448, 17);
+            this.label67.TabIndex = 27;
+            this.label67.Text = "Sets the nearby player count always to this value + extraPlayerCountNearby";
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label68.Location = new System.Drawing.Point(4, 163);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(566, 17);
+            this.label68.TabIndex = 28;
+            this.label68.Text = "Adds additional players to the difficulty calculation in multiplayer unrelated to" +
+    " the actual amount";
+            // 
+            // setFixedPlayerCountToNumeric
+            // 
+            this.setFixedPlayerCountToNumeric.Location = new System.Drawing.Point(6, 239);
+            this.setFixedPlayerCountToNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.setFixedPlayerCountToNumeric.Name = "setFixedPlayerCountToNumeric";
+            this.setFixedPlayerCountToNumeric.Size = new System.Drawing.Size(564, 23);
+            this.setFixedPlayerCountToNumeric.TabIndex = 25;
+            // 
+            // extraPlayerCountNearbyNumeric
+            // 
+            this.extraPlayerCountNearbyNumeric.Location = new System.Drawing.Point(6, 183);
+            this.extraPlayerCountNearbyNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.extraPlayerCountNearbyNumeric.Name = "extraPlayerCountNearbyNumeric";
+            this.extraPlayerCountNearbyNumeric.Size = new System.Drawing.Size(564, 23);
+            this.extraPlayerCountNearbyNumeric.TabIndex = 26;
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label69.Location = new System.Drawing.Point(4, 106);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(474, 17);
+            this.label69.TabIndex = 23;
+            this.label69.Text = "The games health multiplier per person nearby in difficultyScaleRange(m) radius";
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label70.Location = new System.Drawing.Point(4, 50);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(487, 17);
+            this.label70.TabIndex = 24;
+            this.label70.Text = "The games damage multiplier per person nearby in difficultyScaleRange(m) radius";
+            // 
+            // gameDifficultyHealthScaleNumeric
+            // 
+            this.gameDifficultyHealthScaleNumeric.DecimalPlaces = 1;
+            this.gameDifficultyHealthScaleNumeric.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.gameDifficultyHealthScaleNumeric.Location = new System.Drawing.Point(6, 126);
+            this.gameDifficultyHealthScaleNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.gameDifficultyHealthScaleNumeric.Name = "gameDifficultyHealthScaleNumeric";
+            this.gameDifficultyHealthScaleNumeric.Size = new System.Drawing.Size(564, 23);
+            this.gameDifficultyHealthScaleNumeric.TabIndex = 21;
+            // 
+            // gameDifficultyDamageScaleNumeric
+            // 
+            this.gameDifficultyDamageScaleNumeric.DecimalPlaces = 1;
+            this.gameDifficultyDamageScaleNumeric.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.gameDifficultyDamageScaleNumeric.Location = new System.Drawing.Point(6, 70);
+            this.gameDifficultyDamageScaleNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.gameDifficultyDamageScaleNumeric.Name = "gameDifficultyDamageScaleNumeric";
+            this.gameDifficultyDamageScaleNumeric.Size = new System.Drawing.Size(564, 23);
+            this.gameDifficultyDamageScaleNumeric.TabIndex = 22;
             // 
             // label20
             // 
@@ -1360,6 +1603,10 @@ namespace ValheimPlusManager
             // 
             // hotkeysTab
             // 
+            this.hotkeysTab.Controls.Add(this.rollBackwardsTextBox);
+            this.hotkeysTab.Controls.Add(this.label72);
+            this.hotkeysTab.Controls.Add(this.label73);
+            this.hotkeysTab.Controls.Add(this.rollForwardsTextBox);
             this.hotkeysTab.Controls.Add(this.label21);
             this.hotkeysTab.Location = new System.Drawing.Point(4, 44);
             this.hotkeysTab.Name = "hotkeysTab";
@@ -1367,6 +1614,49 @@ namespace ValheimPlusManager
             this.hotkeysTab.TabIndex = 11;
             this.hotkeysTab.Text = "Hotkeys";
             this.hotkeysTab.UseVisualStyleBackColor = true;
+            // 
+            // rollBackwardsTextBox
+            // 
+            this.rollBackwardsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rollBackwardsTextBox.Location = new System.Drawing.Point(6, 127);
+            this.rollBackwardsTextBox.Name = "rollBackwardsTextBox";
+            this.rollBackwardsTextBox.Size = new System.Drawing.Size(367, 23);
+            this.rollBackwardsTextBox.TabIndex = 11;
+            // 
+            // label72
+            // 
+            this.label72.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label72.AutoSize = true;
+            this.label72.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label72.Location = new System.Drawing.Point(4, 107);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(189, 17);
+            this.label72.TabIndex = 10;
+            this.label72.Text = "Roll backwards on key pressed";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label73.Location = new System.Drawing.Point(4, 50);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(179, 17);
+            this.label73.TabIndex = 9;
+            this.label73.Text = "Roll forwards on key pressed";
+            // 
+            // rollForwardsTextBox
+            // 
+            this.rollForwardsTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rollForwardsTextBox.Location = new System.Drawing.Point(6, 70);
+            this.rollForwardsTextBox.Name = "rollForwardsTextBox";
+            this.rollForwardsTextBox.Size = new System.Drawing.Size(367, 23);
+            this.rollForwardsTextBox.TabIndex = 8;
             // 
             // label21
             // 
@@ -1380,6 +1670,8 @@ namespace ValheimPlusManager
             // 
             // hudTab
             // 
+            this.hudTab.Controls.Add(this.showRequiredItemsCheckBox);
+            this.hudTab.Controls.Add(this.experienceGainedNotificationsCheckBox);
             this.hudTab.Controls.Add(this.label22);
             this.hudTab.Location = new System.Drawing.Point(4, 44);
             this.hudTab.Name = "hudTab";
@@ -1392,11 +1684,11 @@ namespace ValheimPlusManager
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label22.Location = new System.Drawing.Point(381, 253);
+            this.label22.Location = new System.Drawing.Point(4, 4);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(92, 30);
+            this.label22.Size = new System.Drawing.Size(55, 30);
             this.label22.TabIndex = 7;
-            this.label22.Text = "Beehive";
+            this.label22.Text = "Hud";
             // 
             // itemsTab
             // 
@@ -1412,11 +1704,11 @@ namespace ValheimPlusManager
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label23.Location = new System.Drawing.Point(381, 253);
+            this.label23.Location = new System.Drawing.Point(4, 4);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(92, 30);
+            this.label23.Size = new System.Drawing.Size(67, 30);
             this.label23.TabIndex = 7;
-            this.label23.Text = "Beehive";
+            this.label23.Text = "Items";
             // 
             // kilnTab
             // 
@@ -1716,93 +2008,29 @@ namespace ValheimPlusManager
             this.label27.TabIndex = 7;
             this.label27.Text = "Beehive";
             // 
-            // label63
+            // experienceGainedNotificationsCheckBox
             // 
-            this.label63.AutoSize = true;
-            this.label63.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label63.Location = new System.Drawing.Point(4, 106);
-            this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(229, 17);
-            this.label63.TabIndex = 15;
-            this.label63.Text = "Maximum amount of coal in a furnace";
+            this.experienceGainedNotificationsCheckBox.AutoSize = true;
+            this.experienceGainedNotificationsCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.experienceGainedNotificationsCheckBox.Location = new System.Drawing.Point(9, 86);
+            this.experienceGainedNotificationsCheckBox.Name = "experienceGainedNotificationsCheckBox";
+            this.experienceGainedNotificationsCheckBox.Size = new System.Drawing.Size(489, 21);
+            this.experienceGainedNotificationsCheckBox.TabIndex = 13;
+            this.experienceGainedNotificationsCheckBox.Text = "Show small notifications about all skill experienced gained in the top left corne" +
+    "r";
+            this.experienceGainedNotificationsCheckBox.UseVisualStyleBackColor = true;
             // 
-            // label64
+            // showRequiredItemsCheckBox
             // 
-            this.label64.AutoSize = true;
-            this.label64.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label64.Location = new System.Drawing.Point(4, 50);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(225, 17);
-            this.label64.TabIndex = 16;
-            this.label64.Text = "Maximum amount of ore in a furnace";
-            // 
-            // maximumCoalNumeric
-            // 
-            this.maximumCoalNumeric.Location = new System.Drawing.Point(6, 126);
-            this.maximumCoalNumeric.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.maximumCoalNumeric.Name = "maximumCoalNumeric";
-            this.maximumCoalNumeric.Size = new System.Drawing.Size(409, 23);
-            this.maximumCoalNumeric.TabIndex = 13;
-            // 
-            // maximumOreNumeric
-            // 
-            this.maximumOreNumeric.Location = new System.Drawing.Point(6, 70);
-            this.maximumOreNumeric.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.maximumOreNumeric.Name = "maximumOreNumeric";
-            this.maximumOreNumeric.Size = new System.Drawing.Size(409, 23);
-            this.maximumOreNumeric.TabIndex = 14;
-            // 
-            // label65
-            // 
-            this.label65.AutoSize = true;
-            this.label65.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label65.Location = new System.Drawing.Point(4, 219);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(411, 17);
-            this.label65.TabIndex = 19;
-            this.label65.Text = "The time it takes for the furnace to produce a single ingot in seconds";
-            // 
-            // label66
-            // 
-            this.label66.AutoSize = true;
-            this.label66.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label66.Location = new System.Drawing.Point(4, 163);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(385, 17);
-            this.label66.TabIndex = 20;
-            this.label66.Text = "The total amount of coal used to produce a single smelted ingot";
-            // 
-            // productionSpeedFurnaceNumeric
-            // 
-            this.productionSpeedFurnaceNumeric.Location = new System.Drawing.Point(6, 239);
-            this.productionSpeedFurnaceNumeric.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.productionSpeedFurnaceNumeric.Name = "productionSpeedFurnaceNumeric";
-            this.productionSpeedFurnaceNumeric.Size = new System.Drawing.Size(409, 23);
-            this.productionSpeedFurnaceNumeric.TabIndex = 17;
-            // 
-            // coalUsedPerProductNumeric
-            // 
-            this.coalUsedPerProductNumeric.Location = new System.Drawing.Point(6, 183);
-            this.coalUsedPerProductNumeric.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.coalUsedPerProductNumeric.Name = "coalUsedPerProductNumeric";
-            this.coalUsedPerProductNumeric.Size = new System.Drawing.Size(409, 23);
-            this.coalUsedPerProductNumeric.TabIndex = 18;
+            this.showRequiredItemsCheckBox.AutoSize = true;
+            this.showRequiredItemsCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.showRequiredItemsCheckBox.Location = new System.Drawing.Point(9, 50);
+            this.showRequiredItemsCheckBox.Name = "showRequiredItemsCheckBox";
+            this.showRequiredItemsCheckBox.Size = new System.Drawing.Size(678, 21);
+            this.showRequiredItemsCheckBox.TabIndex = 14;
+            this.showRequiredItemsCheckBox.Text = "Show the required amount of items AND the amount of items in your inventory in bu" +
+    "ild mode and while crafting";
+            this.showRequiredItemsCheckBox.UseVisualStyleBackColor = true;
             // 
             // ConfigEditor
             // 
@@ -1864,8 +2092,17 @@ namespace ValheimPlusManager
             ((System.ComponentModel.ISupportInitialize)(this.foodDurationMultiplierNumeric)).EndInit();
             this.furnaceTab.ResumeLayout(false);
             this.furnaceTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.productionSpeedFurnaceNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coalUsedPerProductNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maximumCoalNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.maximumOreNumeric)).EndInit();
             this.gameTab.ResumeLayout(false);
             this.gameTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.difficultyScaleRangeNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.setFixedPlayerCountToNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.extraPlayerCountNearbyNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gameDifficultyHealthScaleNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gameDifficultyDamageScaleNumeric)).EndInit();
             this.hotkeysTab.ResumeLayout(false);
             this.hotkeysTab.PerformLayout();
             this.hudTab.ResumeLayout(false);
@@ -1895,10 +2132,6 @@ namespace ValheimPlusManager
             ((System.ComponentModel.ISupportInitialize)(this.wardRangeNumeric)).EndInit();
             this.workbenchTab.ResumeLayout(false);
             this.workbenchTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.maximumCoalNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.maximumOreNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.productionSpeedFurnaceNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.coalUsedPerProductNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2043,5 +2276,21 @@ namespace ValheimPlusManager
         private System.Windows.Forms.Label label64;
         private System.Windows.Forms.NumericUpDown maximumCoalNumeric;
         private System.Windows.Forms.NumericUpDown maximumOreNumeric;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.Label label68;
+        private System.Windows.Forms.NumericUpDown setFixedPlayerCountToNumeric;
+        private System.Windows.Forms.NumericUpDown extraPlayerCountNearbyNumeric;
+        private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.NumericUpDown gameDifficultyHealthScaleNumeric;
+        private System.Windows.Forms.NumericUpDown gameDifficultyDamageScaleNumeric;
+        private System.Windows.Forms.Label label71;
+        private System.Windows.Forms.NumericUpDown difficultyScaleRangeNumeric;
+        private System.Windows.Forms.TextBox rollBackwardsTextBox;
+        private System.Windows.Forms.Label label72;
+        private System.Windows.Forms.Label label73;
+        private System.Windows.Forms.TextBox rollForwardsTextBox;
+        private System.Windows.Forms.CheckBox showRequiredItemsCheckBox;
+        private System.Windows.Forms.CheckBox experienceGainedNotificationsCheckBox;
     }
 }

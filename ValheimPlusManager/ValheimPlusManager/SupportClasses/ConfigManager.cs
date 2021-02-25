@@ -261,24 +261,50 @@ namespace ValheimPlusManager.SupportClasses
 
             // Game
             data["Game"]["enabled"] = valheimPlusConfiguration.gameSettingsEnabled.ToString().ToLower();
+            data["Game"]["gameDifficultyDamageScale"] = valheimPlusConfiguration.gameDifficultyDamageScale.ToString();
+            data["Game"]["gameDifficultyHealthScale"] = valheimPlusConfiguration.gameDifficultyHealthScale.ToString();
+            data["Game"]["extraPlayerCountNearby"] = valheimPlusConfiguration.extraPlayerCountNearby.ToString();
+            data["Game"]["setFixedPlayerCountTo"] = valheimPlusConfiguration.setFixedPlayerCountTo.ToString();
+            data["Game"]["difficultyScaleRange"] = valheimPlusConfiguration.difficultyScaleRange.ToString();
 
             // Hotkeys
             data["Hotkeys"]["enabled"] = valheimPlusConfiguration.hotkeysSettingsEnabled.ToString().ToLower();
+            data["Hotkeys"]["rollForwards"] = valheimPlusConfiguration.rollForwards.ToString().ToLower();
+            data["Hotkeys"]["rollBackwards"] = valheimPlusConfiguration.rollBackwards.ToString().ToLower();
 
             // Hud
             data["Hud"]["enabled"] = valheimPlusConfiguration.hudSettingsEnabled.ToString().ToLower();
+            data["Hud"]["showRequiredItems"] = valheimPlusConfiguration.showRequiredItems.ToString().ToLower();
+            data["Hud"]["experienceGainedNotifications"] = valheimPlusConfiguration.experienceGainedNotifications.ToString().ToLower();
 
             // Kiln
             data["Kiln"]["enabled"] = valheimPlusConfiguration.kilnSettingsEnabled.ToString().ToLower();
+            data["Kiln"]["maximumWood"] = valheimPlusConfiguration.maximumWood.ToString();
+            data["Kiln"]["productionSpeed"] = valheimPlusConfiguration.kilnProductionSpeed.ToString();
 
             // Map
             data["Map"]["enabled"] = valheimPlusConfiguration.mapSettingsEnabled.ToString().ToLower();
+            data["Map"]["shareMapProgression"] = valheimPlusConfiguration.shareMapProgression.ToString().ToLower();
+            data["Map"]["exploreRadius"] = valheimPlusConfiguration.exploreRadius.ToString();
+            data["Map"]["playerPositionPublicOnJoin"] = valheimPlusConfiguration.playerPositionPublicOnJoin.ToString().ToLower();
+            data["Map"]["preventPlayerFromTurningOffPublicPosition"] = valheimPlusConfiguration.preventPlayerFromTurningOffPublicPosition.ToString().ToLower();
+            data["Map"]["removeDeathPinOnTombstoneEmpty"] = valheimPlusConfiguration.removeDeathPinOnTombstoneEmpty.ToString().ToLower();
 
             // Player
             data["Player"]["enabled"] = valheimPlusConfiguration.playerSettingsEnabled.ToString().ToLower();
+            data["Player"]["baseMaximumWeight"] = valheimPlusConfiguration.baseMaximumWeight.ToString();
+            data["Player"]["baseMegingjordBuff"] = valheimPlusConfiguration.baseMegingjordBuff.ToString();
+            data["Player"]["baseAutoPickUpRange"] = valheimPlusConfiguration.baseAutoPickUpRange.ToString();
+            data["Player"]["disableCameraShake"] = valheimPlusConfiguration.disableCameraShake.ToString().ToLower();
+            data["Player"]["baseUnarmedDamage"] = valheimPlusConfiguration.baseUnarmedDamage.ToString();
 
             // Server
             data["Server"]["enabled"] = valheimPlusConfiguration.serverSettingsEnabled.ToString().ToLower();
+            data["Server"]["maxPlayers"] = valheimPlusConfiguration.maxPlayers.ToString();
+            data["Server"]["disableServerPassword"] = valheimPlusConfiguration.disableServerPassword.ToString().ToLower();
+            data["Server"]["enforceMod"] = valheimPlusConfiguration.enforceMod.ToString().ToLower();
+            data["Server"]["dataRate"] = valheimPlusConfiguration.dataRate.ToString();
+            data["Server"]["autoSaveInterval"] = valheimPlusConfiguration.autoSaveInterval.ToString();
 
             // Stamina
             data["Stamina"]["enabled"] = valheimPlusConfiguration.staminaSettingsEnabled.ToString().ToLower();
@@ -288,9 +314,13 @@ namespace ValheimPlusManager.SupportClasses
 
             // Workbench
             data["Workbench"]["enabled"] = valheimPlusConfiguration.workbenchSettingsEnabled.ToString().ToLower();
+            data["Workbench"]["workbenchRange"] = valheimPlusConfiguration.workbenchRange.ToString();
+            data["Workbench"]["disableRoofCheck"] = valheimPlusConfiguration.disableRoofCheck.ToString().ToLower();
 
             // Time
             data["Time"]["enabled"] = valheimPlusConfiguration.timeSettingsEnabled.ToString().ToLower();
+            data["Time"]["totalDayTimeInSeconds"] = valheimPlusConfiguration.totalDayTimeInSeconds.ToString();
+            data["Time"]["nightTimeSpeedMultiplier"] = valheimPlusConfiguration.nightTimeSpeedMultiplier.ToString();
 
             // Ward
             data["Ward"]["enabled"] = valheimPlusConfiguration.wardSettingsEnabled.ToString().ToLower();
@@ -327,6 +357,8 @@ namespace ValheimPlusManager.SupportClasses
 
             // Wagon
             data["Wagon"]["enabled"] = valheimPlusConfiguration.wagonSettingsEnabled.ToString().ToLower();
+            data["Wagon"]["wagonBaseMass"] = valheimPlusConfiguration.wagonBaseMass.ToString();
+            data["Wagon"]["wagonExtraMassFromItems"] = valheimPlusConfiguration.wagonExtraMassFromItems.ToString();
 
             // Writing the new settings to configuration file
             try
