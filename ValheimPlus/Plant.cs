@@ -1,15 +1,4 @@
-﻿// ---------------------------------------------------------------------------------------
-// Solution: ValheimPlus
-// Project: ValheimPlus
-// Filename: Plant.cs
-// 
-// Last modified: 2021-02-25 17:34
-// Created:       2021-02-25 17:34
-// 
-// Copyright: 2021 Walter Wissing & Co
-// ---------------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using HarmonyLib;
 using UnityEngine.UIElements;
 using ValheimPlus.Configurations;
