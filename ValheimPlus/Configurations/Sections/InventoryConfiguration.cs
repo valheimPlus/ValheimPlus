@@ -9,5 +9,4 @@
         public int ironChestColumns { get; set; } = 8;
         public int ironChestRows { get; set; } = 3;
     }
-
 }
