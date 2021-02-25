@@ -6,6 +6,7 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim. The mod inclu
 # ValheimPlus Server Hosting
 Below you can find a list of hosting companies that are supporting ValehimPlus with good prices and easy installation.
 
+[![GPortal](http://valheim.plus/gportal/banner.jpg)](https://www.g-portal.com/valheim)
 [![ZapHosting](http://valheimplus.com/zap/692x127.jpg)](https://zap-hosting.com/valheimplus)
 [![GFXHosting](https://www.gtxgaming.co.uk/wp-content/uploads/2021/02/valheim_plus_banner-3.png)](https://www.gtxgaming.co.uk/clientarea/aff.php?aff=2096)
 
