@@ -631,17 +631,9 @@ wagonExtraMassFromItems=0
 How to setup the development enviroment to compile ValheimPlus yourself.
 
 1. Download this package: ''to be defined''
-
-2. Unpack into your Valheim root folder. You should now see a new folder called \Valheim\unstripped_corlib.
-
-3. Download this repositories executable version.
-
-Repo: https://github.com/MrPurple6411/Bepinex-Tools/releases/tag/1.0.0-Publicizer
-
-Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
-
-4. Drag and drop all assembly_.dll files from \Valheim\valheim_Data\Managed onto "AssemblyPublicizer.exe". You should get a new folder "publicized_assemblies" with all dragged dll files in it.
-
+2. Unpack into your Valheim root folder. You should now see a new folder called .\Valheim\unstripped_corlib.
+3. [Compile](https://github.com/MrPurple6411/Bepinex-Tools) or [Download](https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA) Publicizers executable version.
+4. Drag and drop all assembly_.dll files from .\Valheim\valheim_Data\Managed onto "AssemblyPublicizer.exe". You should get a new folder .\Valheim\valheim_Data\Managed\publicized_assemblies with all dragged dll files in it.
 5. Create a user project file (ValheimPlus.csproj.user) to define some properties local to your own coding machine.
 
 ```xml
@@ -659,6 +651,18 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
   </PropertyGroup>
 </Project>
 ```
+
+# Valheim Plus Debugging
+
+Thanks to mono and unity-mono being open source, we could patch and compile our own mono runtime and enable actual live debugging of the game and the mod itself with dnSpy.
+
+1. Download [dnSpy-net-win64](https://github.com/dnSpy/dnSpy/releases) and extract the exe.
+2. Load all assemblies from .\Valheim\unstripped_corlib into dnSpy (just drag&drop the folder onto it).
+3. Load all assembly_* from .\Valheim\valheim_Data\Managed into dnSpy (*do not load the publicized ones, they will not be loaded into the process and therefore can not be debugged*).
+4. Load ValheimPlus.dll from .\Valheim\BepInEx\plugins into dnSpy.
+5. Copy resources\mono-2.0-bdwgc.dll from this repo into .\Valheim\MonoBleedingEdge\EmbedRuntime and overwrite the existing file.
+6. Now go to `Debug` -> `Start Debugging` and select Unity debug engine. Select your valheim.exe as the executable and hit OK.
+7. If you did set some breakpoints, the game will halt when it hits the breakpoint in memory and dnSpy will show you the objects in memory and much more useful stuff.
 
 
 # Credits
