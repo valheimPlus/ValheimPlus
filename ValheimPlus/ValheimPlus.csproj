@@ -413,7 +413,6 @@
     <EmbeddedResource Include="Assets\logo.png" />
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
 	<PostBuildEvent>powershell.exe -ExecutionPolicy RemoteSigned -File $(SolutionDir)publish.ps1 -Target $(ConfigurationName) -TargetPath $(TargetDir) -TargetAssembly $(TargetFileName),INIFileParser.dll -ValheimPath $(ValheimDir) -SolutionPath $(SolutionDir)</PostBuildEvent>
