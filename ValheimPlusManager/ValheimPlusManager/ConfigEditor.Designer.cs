@@ -68,6 +68,14 @@ namespace ValheimPlusManager
             this.cameraMaximumZoomDistanceNumeric = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.experienceTab = new System.Windows.Forms.TabPage();
+            this.label58 = new System.Windows.Forms.Label();
+            this.runNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label57 = new System.Windows.Forms.Label();
+            this.swimNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label56 = new System.Windows.Forms.Label();
+            this.sneakNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label55 = new System.Windows.Forms.Label();
+            this.jumpNumeric = new System.Windows.Forms.NumericUpDown();
             this.label54 = new System.Windows.Forms.Label();
             this.pickaxesNumeric = new System.Windows.Forms.NumericUpDown();
             this.label53 = new System.Windows.Forms.Label();
@@ -141,14 +149,10 @@ namespace ValheimPlusManager
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.saveChangesLabel = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.jumpNumeric = new System.Windows.Forms.NumericUpDown();
-            this.label56 = new System.Windows.Forms.Label();
-            this.sneakNumeric = new System.Windows.Forms.NumericUpDown();
-            this.label57 = new System.Windows.Forms.Label();
-            this.swimNumeric = new System.Windows.Forms.NumericUpDown();
-            this.label58 = new System.Windows.Forms.Label();
-            this.runNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
+            this.fermenterItemsProducedNumeric = new System.Windows.Forms.NumericUpDown();
+            this.fermenterDurationNumeric = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.advancedBuildingModeTab.SuspendLayout();
             this.advancedEditingTab.SuspendLayout();
@@ -162,6 +166,10 @@ namespace ValheimPlusManager
             ((System.ComponentModel.ISupportInitialize)(this.cameraBoatMaximumZoomDistanceNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cameraMaximumZoomDistanceNumeric)).BeginInit();
             this.experienceTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.runNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.swimNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sneakNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jumpNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pickaxesNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.frostMagicNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bowsNumeric)).BeginInit();
@@ -195,10 +203,8 @@ namespace ValheimPlusManager
             this.wardTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wardRangeNumeric)).BeginInit();
             this.workbenchTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.jumpNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sneakNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.swimNumeric)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.runNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fermenterItemsProducedNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fermenterDurationNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // configCheckedListBox
@@ -287,7 +293,7 @@ namespace ValheimPlusManager
             this.advancedBuildingModeTab.Location = new System.Drawing.Point(4, 44);
             this.advancedBuildingModeTab.Name = "advancedBuildingModeTab";
             this.advancedBuildingModeTab.Padding = new System.Windows.Forms.Padding(3);
-            this.advancedBuildingModeTab.Size = new System.Drawing.Size(854, 537);
+            this.advancedBuildingModeTab.Size = new System.Drawing.Size(854, 672);
             this.advancedBuildingModeTab.TabIndex = 0;
             this.advancedBuildingModeTab.Text = "Advanced building mode";
             this.advancedBuildingModeTab.UseVisualStyleBackColor = true;
@@ -359,7 +365,7 @@ namespace ValheimPlusManager
             this.advancedEditingTab.Location = new System.Drawing.Point(4, 44);
             this.advancedEditingTab.Name = "advancedEditingTab";
             this.advancedEditingTab.Padding = new System.Windows.Forms.Padding(3);
-            this.advancedEditingTab.Size = new System.Drawing.Size(854, 537);
+            this.advancedEditingTab.Size = new System.Drawing.Size(854, 672);
             this.advancedEditingTab.TabIndex = 1;
             this.advancedEditingTab.Text = "Advanced editing mode";
             this.advancedEditingTab.UseVisualStyleBackColor = true;
@@ -472,7 +478,7 @@ namespace ValheimPlusManager
             this.beehiveTab.Controls.Add(this.label7);
             this.beehiveTab.Location = new System.Drawing.Point(4, 44);
             this.beehiveTab.Name = "beehiveTab";
-            this.beehiveTab.Size = new System.Drawing.Size(854, 537);
+            this.beehiveTab.Size = new System.Drawing.Size(854, 672);
             this.beehiveTab.TabIndex = 2;
             this.beehiveTab.Text = "Beehive";
             this.beehiveTab.UseVisualStyleBackColor = true;
@@ -540,7 +546,7 @@ namespace ValheimPlusManager
             this.buildingTab.Controls.Add(this.label13);
             this.buildingTab.Location = new System.Drawing.Point(4, 44);
             this.buildingTab.Name = "buildingTab";
-            this.buildingTab.Size = new System.Drawing.Size(854, 537);
+            this.buildingTab.Size = new System.Drawing.Size(854, 672);
             this.buildingTab.TabIndex = 3;
             this.buildingTab.Text = "Building";
             this.buildingTab.UseVisualStyleBackColor = true;
@@ -610,7 +616,7 @@ namespace ValheimPlusManager
             this.cameraTab.Controls.Add(this.label14);
             this.cameraTab.Location = new System.Drawing.Point(4, 44);
             this.cameraTab.Name = "cameraTab";
-            this.cameraTab.Size = new System.Drawing.Size(854, 537);
+            this.cameraTab.Size = new System.Drawing.Size(854, 672);
             this.cameraTab.TabIndex = 4;
             this.cameraTab.Text = "Camera";
             this.cameraTab.UseVisualStyleBackColor = true;
@@ -736,6 +742,94 @@ namespace ValheimPlusManager
             this.experienceTab.TabIndex = 5;
             this.experienceTab.Text = "Experience";
             this.experienceTab.UseVisualStyleBackColor = true;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label58.Location = new System.Drawing.Point(432, 530);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(30, 17);
+            this.label58.TabIndex = 45;
+            this.label58.Text = "Run";
+            // 
+            // runNumeric
+            // 
+            this.runNumeric.Location = new System.Drawing.Point(432, 550);
+            this.runNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.runNumeric.Name = "runNumeric";
+            this.runNumeric.Size = new System.Drawing.Size(348, 23);
+            this.runNumeric.TabIndex = 44;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label57.Location = new System.Drawing.Point(4, 596);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(38, 17);
+            this.label57.TabIndex = 43;
+            this.label57.Text = "Swim";
+            // 
+            // swimNumeric
+            // 
+            this.swimNumeric.Location = new System.Drawing.Point(6, 616);
+            this.swimNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.swimNumeric.Name = "swimNumeric";
+            this.swimNumeric.Size = new System.Drawing.Size(348, 23);
+            this.swimNumeric.TabIndex = 42;
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label56.Location = new System.Drawing.Point(4, 530);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(42, 17);
+            this.label56.TabIndex = 41;
+            this.label56.Text = "Sneak";
+            // 
+            // sneakNumeric
+            // 
+            this.sneakNumeric.Location = new System.Drawing.Point(6, 550);
+            this.sneakNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.sneakNumeric.Name = "sneakNumeric";
+            this.sneakNumeric.Size = new System.Drawing.Size(348, 23);
+            this.sneakNumeric.TabIndex = 40;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label55.Location = new System.Drawing.Point(432, 467);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(39, 17);
+            this.label55.TabIndex = 39;
+            this.label55.Text = "Jump";
+            // 
+            // jumpNumeric
+            // 
+            this.jumpNumeric.Location = new System.Drawing.Point(432, 487);
+            this.jumpNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.jumpNumeric.Name = "jumpNumeric";
+            this.jumpNumeric.Size = new System.Drawing.Size(348, 23);
+            this.jumpNumeric.TabIndex = 38;
             // 
             // label54
             // 
@@ -1046,10 +1140,14 @@ namespace ValheimPlusManager
             // 
             // fermenterTab
             // 
+            this.fermenterTab.Controls.Add(this.label59);
+            this.fermenterTab.Controls.Add(this.label60);
+            this.fermenterTab.Controls.Add(this.fermenterItemsProducedNumeric);
+            this.fermenterTab.Controls.Add(this.fermenterDurationNumeric);
             this.fermenterTab.Controls.Add(this.label16);
             this.fermenterTab.Location = new System.Drawing.Point(4, 44);
             this.fermenterTab.Name = "fermenterTab";
-            this.fermenterTab.Size = new System.Drawing.Size(854, 537);
+            this.fermenterTab.Size = new System.Drawing.Size(854, 672);
             this.fermenterTab.TabIndex = 6;
             this.fermenterTab.Text = "Fermenter";
             this.fermenterTab.UseVisualStyleBackColor = true;
@@ -1058,18 +1156,18 @@ namespace ValheimPlusManager
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label16.Location = new System.Drawing.Point(381, 253);
+            this.label16.Location = new System.Drawing.Point(4, 4);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(92, 30);
+            this.label16.Size = new System.Drawing.Size(116, 30);
             this.label16.TabIndex = 7;
-            this.label16.Text = "Beehive";
+            this.label16.Text = "Fermenter";
             // 
             // fireplaceTab
             // 
             this.fireplaceTab.Controls.Add(this.label17);
             this.fireplaceTab.Location = new System.Drawing.Point(4, 44);
             this.fireplaceTab.Name = "fireplaceTab";
-            this.fireplaceTab.Size = new System.Drawing.Size(854, 537);
+            this.fireplaceTab.Size = new System.Drawing.Size(854, 672);
             this.fireplaceTab.TabIndex = 7;
             this.fireplaceTab.Text = "Fireplace";
             this.fireplaceTab.UseVisualStyleBackColor = true;
@@ -1078,18 +1176,18 @@ namespace ValheimPlusManager
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label17.Location = new System.Drawing.Point(381, 253);
+            this.label17.Location = new System.Drawing.Point(4, 4);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(92, 30);
+            this.label17.Size = new System.Drawing.Size(102, 30);
             this.label17.TabIndex = 7;
-            this.label17.Text = "Beehive";
+            this.label17.Text = "Fireplace";
             // 
             // foodTab
             // 
             this.foodTab.Controls.Add(this.label18);
             this.foodTab.Location = new System.Drawing.Point(4, 44);
             this.foodTab.Name = "foodTab";
-            this.foodTab.Size = new System.Drawing.Size(854, 537);
+            this.foodTab.Size = new System.Drawing.Size(854, 672);
             this.foodTab.TabIndex = 8;
             this.foodTab.Text = "Food";
             this.foodTab.UseVisualStyleBackColor = true;
@@ -1098,18 +1196,18 @@ namespace ValheimPlusManager
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label18.Location = new System.Drawing.Point(381, 253);
+            this.label18.Location = new System.Drawing.Point(4, 4);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(92, 30);
+            this.label18.Size = new System.Drawing.Size(63, 30);
             this.label18.TabIndex = 7;
-            this.label18.Text = "Beehive";
+            this.label18.Text = "Food";
             // 
             // furnaceTab
             // 
             this.furnaceTab.Controls.Add(this.label19);
             this.furnaceTab.Location = new System.Drawing.Point(4, 44);
             this.furnaceTab.Name = "furnaceTab";
-            this.furnaceTab.Size = new System.Drawing.Size(854, 537);
+            this.furnaceTab.Size = new System.Drawing.Size(854, 672);
             this.furnaceTab.TabIndex = 9;
             this.furnaceTab.Text = "Furnace";
             this.furnaceTab.UseVisualStyleBackColor = true;
@@ -1118,18 +1216,18 @@ namespace ValheimPlusManager
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label19.Location = new System.Drawing.Point(381, 253);
+            this.label19.Location = new System.Drawing.Point(4, 4);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(92, 30);
+            this.label19.Size = new System.Drawing.Size(91, 30);
             this.label19.TabIndex = 7;
-            this.label19.Text = "Beehive";
+            this.label19.Text = "Furnace";
             // 
             // gameTab
             // 
             this.gameTab.Controls.Add(this.label20);
             this.gameTab.Location = new System.Drawing.Point(4, 44);
             this.gameTab.Name = "gameTab";
-            this.gameTab.Size = new System.Drawing.Size(854, 537);
+            this.gameTab.Size = new System.Drawing.Size(854, 672);
             this.gameTab.TabIndex = 10;
             this.gameTab.Text = "Game";
             this.gameTab.UseVisualStyleBackColor = true;
@@ -1138,18 +1236,18 @@ namespace ValheimPlusManager
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label20.Location = new System.Drawing.Point(381, 253);
+            this.label20.Location = new System.Drawing.Point(4, 4);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(92, 30);
+            this.label20.Size = new System.Drawing.Size(70, 30);
             this.label20.TabIndex = 7;
-            this.label20.Text = "Beehive";
+            this.label20.Text = "Game";
             // 
             // hotkeysTab
             // 
             this.hotkeysTab.Controls.Add(this.label21);
             this.hotkeysTab.Location = new System.Drawing.Point(4, 44);
             this.hotkeysTab.Name = "hotkeysTab";
-            this.hotkeysTab.Size = new System.Drawing.Size(854, 537);
+            this.hotkeysTab.Size = new System.Drawing.Size(854, 672);
             this.hotkeysTab.TabIndex = 11;
             this.hotkeysTab.Text = "Hotkeys";
             this.hotkeysTab.UseVisualStyleBackColor = true;
@@ -1158,18 +1256,18 @@ namespace ValheimPlusManager
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label21.Location = new System.Drawing.Point(381, 253);
+            this.label21.Location = new System.Drawing.Point(4, 4);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(92, 30);
+            this.label21.Size = new System.Drawing.Size(94, 30);
             this.label21.TabIndex = 7;
-            this.label21.Text = "Beehive";
+            this.label21.Text = "Hotkeys";
             // 
             // hudTab
             // 
             this.hudTab.Controls.Add(this.label22);
             this.hudTab.Location = new System.Drawing.Point(4, 44);
             this.hudTab.Name = "hudTab";
-            this.hudTab.Size = new System.Drawing.Size(854, 537);
+            this.hudTab.Size = new System.Drawing.Size(854, 672);
             this.hudTab.TabIndex = 12;
             this.hudTab.Text = "Hud";
             this.hudTab.UseVisualStyleBackColor = true;
@@ -1189,7 +1287,7 @@ namespace ValheimPlusManager
             this.itemsTab.Controls.Add(this.label23);
             this.itemsTab.Location = new System.Drawing.Point(4, 44);
             this.itemsTab.Name = "itemsTab";
-            this.itemsTab.Size = new System.Drawing.Size(854, 537);
+            this.itemsTab.Size = new System.Drawing.Size(854, 672);
             this.itemsTab.TabIndex = 13;
             this.itemsTab.Text = "Items";
             this.itemsTab.UseVisualStyleBackColor = true;
@@ -1209,7 +1307,7 @@ namespace ValheimPlusManager
             this.kilnTab.Controls.Add(this.label24);
             this.kilnTab.Location = new System.Drawing.Point(4, 44);
             this.kilnTab.Name = "kilnTab";
-            this.kilnTab.Size = new System.Drawing.Size(854, 537);
+            this.kilnTab.Size = new System.Drawing.Size(854, 672);
             this.kilnTab.TabIndex = 14;
             this.kilnTab.Text = "Kiln";
             this.kilnTab.UseVisualStyleBackColor = true;
@@ -1229,7 +1327,7 @@ namespace ValheimPlusManager
             this.mapTab.Controls.Add(this.label25);
             this.mapTab.Location = new System.Drawing.Point(4, 44);
             this.mapTab.Name = "mapTab";
-            this.mapTab.Size = new System.Drawing.Size(854, 537);
+            this.mapTab.Size = new System.Drawing.Size(854, 672);
             this.mapTab.TabIndex = 15;
             this.mapTab.Text = "Map";
             this.mapTab.UseVisualStyleBackColor = true;
@@ -1249,7 +1347,7 @@ namespace ValheimPlusManager
             this.playerTab.Controls.Add(this.label26);
             this.playerTab.Location = new System.Drawing.Point(4, 44);
             this.playerTab.Name = "playerTab";
-            this.playerTab.Size = new System.Drawing.Size(854, 537);
+            this.playerTab.Size = new System.Drawing.Size(854, 672);
             this.playerTab.TabIndex = 16;
             this.playerTab.Text = "Player";
             this.playerTab.UseVisualStyleBackColor = true;
@@ -1269,7 +1367,7 @@ namespace ValheimPlusManager
             this.serverTab.Controls.Add(this.label28);
             this.serverTab.Location = new System.Drawing.Point(4, 44);
             this.serverTab.Name = "serverTab";
-            this.serverTab.Size = new System.Drawing.Size(854, 537);
+            this.serverTab.Size = new System.Drawing.Size(854, 672);
             this.serverTab.TabIndex = 17;
             this.serverTab.Text = "Server";
             this.serverTab.UseVisualStyleBackColor = true;
@@ -1289,7 +1387,7 @@ namespace ValheimPlusManager
             this.staminaTab.Controls.Add(this.label29);
             this.staminaTab.Location = new System.Drawing.Point(4, 44);
             this.staminaTab.Name = "staminaTab";
-            this.staminaTab.Size = new System.Drawing.Size(854, 537);
+            this.staminaTab.Size = new System.Drawing.Size(854, 672);
             this.staminaTab.TabIndex = 18;
             this.staminaTab.Text = "Stamina";
             this.staminaTab.UseVisualStyleBackColor = true;
@@ -1309,7 +1407,7 @@ namespace ValheimPlusManager
             this.staminaUsageTab.Controls.Add(this.label30);
             this.staminaUsageTab.Location = new System.Drawing.Point(4, 44);
             this.staminaUsageTab.Name = "staminaUsageTab";
-            this.staminaUsageTab.Size = new System.Drawing.Size(854, 537);
+            this.staminaUsageTab.Size = new System.Drawing.Size(854, 672);
             this.staminaUsageTab.TabIndex = 19;
             this.staminaUsageTab.Text = "Stamina usage";
             this.staminaUsageTab.UseVisualStyleBackColor = true;
@@ -1329,7 +1427,7 @@ namespace ValheimPlusManager
             this.structuralIntegrityTab.Controls.Add(this.label31);
             this.structuralIntegrityTab.Location = new System.Drawing.Point(4, 44);
             this.structuralIntegrityTab.Name = "structuralIntegrityTab";
-            this.structuralIntegrityTab.Size = new System.Drawing.Size(854, 537);
+            this.structuralIntegrityTab.Size = new System.Drawing.Size(854, 672);
             this.structuralIntegrityTab.TabIndex = 20;
             this.structuralIntegrityTab.Text = "Structural integrity";
             this.structuralIntegrityTab.UseVisualStyleBackColor = true;
@@ -1349,7 +1447,7 @@ namespace ValheimPlusManager
             this.timeTab.Controls.Add(this.label32);
             this.timeTab.Location = new System.Drawing.Point(4, 44);
             this.timeTab.Name = "timeTab";
-            this.timeTab.Size = new System.Drawing.Size(854, 537);
+            this.timeTab.Size = new System.Drawing.Size(854, 672);
             this.timeTab.TabIndex = 21;
             this.timeTab.Text = "Time";
             this.timeTab.UseVisualStyleBackColor = true;
@@ -1369,7 +1467,7 @@ namespace ValheimPlusManager
             this.wagonTab.Controls.Add(this.label33);
             this.wagonTab.Location = new System.Drawing.Point(4, 44);
             this.wagonTab.Name = "wagonTab";
-            this.wagonTab.Size = new System.Drawing.Size(854, 537);
+            this.wagonTab.Size = new System.Drawing.Size(854, 672);
             this.wagonTab.TabIndex = 22;
             this.wagonTab.Text = "Wagon";
             this.wagonTab.UseVisualStyleBackColor = true;
@@ -1391,7 +1489,7 @@ namespace ValheimPlusManager
             this.wardTab.Controls.Add(this.label34);
             this.wardTab.Location = new System.Drawing.Point(4, 44);
             this.wardTab.Name = "wardTab";
-            this.wardTab.Size = new System.Drawing.Size(854, 537);
+            this.wardTab.Size = new System.Drawing.Size(854, 672);
             this.wardTab.TabIndex = 23;
             this.wardTab.Text = "Ward";
             this.wardTab.UseVisualStyleBackColor = true;
@@ -1433,7 +1531,7 @@ namespace ValheimPlusManager
             this.workbenchTab.Controls.Add(this.label35);
             this.workbenchTab.Location = new System.Drawing.Point(4, 44);
             this.workbenchTab.Name = "workbenchTab";
-            this.workbenchTab.Size = new System.Drawing.Size(854, 537);
+            this.workbenchTab.Size = new System.Drawing.Size(854, 672);
             this.workbenchTab.TabIndex = 24;
             this.workbenchTab.Text = "Workbench";
             this.workbenchTab.UseVisualStyleBackColor = true;
@@ -1502,93 +1600,49 @@ namespace ValheimPlusManager
             this.label27.TabIndex = 7;
             this.label27.Text = "Beehive";
             // 
-            // label55
+            // label59
             // 
-            this.label55.AutoSize = true;
-            this.label55.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label55.Location = new System.Drawing.Point(432, 467);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(39, 17);
-            this.label55.TabIndex = 39;
-            this.label55.Text = "Jump";
+            this.label59.AutoSize = true;
+            this.label59.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label59.Location = new System.Drawing.Point(4, 106);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(149, 17);
+            this.label59.TabIndex = 11;
+            this.label59.Text = "Amount produced items";
             // 
-            // jumpNumeric
+            // label60
             // 
-            this.jumpNumeric.Location = new System.Drawing.Point(432, 487);
-            this.jumpNumeric.Maximum = new decimal(new int[] {
+            this.label60.AutoSize = true;
+            this.label60.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label60.Location = new System.Drawing.Point(4, 50);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(348, 17);
+            this.label60.TabIndex = 12;
+            this.label60.Text = "Speed at which the fermenter produce product in seconds";
+            // 
+            // fermenterItemsProducedNumeric
+            // 
+            this.fermenterItemsProducedNumeric.Location = new System.Drawing.Point(6, 126);
+            this.fermenterItemsProducedNumeric.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.jumpNumeric.Name = "jumpNumeric";
-            this.jumpNumeric.Size = new System.Drawing.Size(348, 23);
-            this.jumpNumeric.TabIndex = 38;
+            this.fermenterItemsProducedNumeric.Name = "fermenterItemsProducedNumeric";
+            this.fermenterItemsProducedNumeric.Size = new System.Drawing.Size(346, 23);
+            this.fermenterItemsProducedNumeric.TabIndex = 9;
             // 
-            // label56
+            // fermenterDurationNumeric
             // 
-            this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label56.Location = new System.Drawing.Point(4, 530);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(42, 17);
-            this.label56.TabIndex = 41;
-            this.label56.Text = "Sneak";
-            // 
-            // sneakNumeric
-            // 
-            this.sneakNumeric.Location = new System.Drawing.Point(6, 550);
-            this.sneakNumeric.Maximum = new decimal(new int[] {
+            this.fermenterDurationNumeric.Location = new System.Drawing.Point(6, 70);
+            this.fermenterDurationNumeric.Maximum = new decimal(new int[] {
             100000,
             0,
             0,
             0});
-            this.sneakNumeric.Name = "sneakNumeric";
-            this.sneakNumeric.Size = new System.Drawing.Size(348, 23);
-            this.sneakNumeric.TabIndex = 40;
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label57.Location = new System.Drawing.Point(4, 596);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(38, 17);
-            this.label57.TabIndex = 43;
-            this.label57.Text = "Swim";
-            // 
-            // swimNumeric
-            // 
-            this.swimNumeric.Location = new System.Drawing.Point(6, 616);
-            this.swimNumeric.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.swimNumeric.Name = "swimNumeric";
-            this.swimNumeric.Size = new System.Drawing.Size(348, 23);
-            this.swimNumeric.TabIndex = 42;
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label58.Location = new System.Drawing.Point(432, 530);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(30, 17);
-            this.label58.TabIndex = 45;
-            this.label58.Text = "Run";
-            // 
-            // runNumeric
-            // 
-            this.runNumeric.Location = new System.Drawing.Point(432, 550);
-            this.runNumeric.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.runNumeric.Name = "runNumeric";
-            this.runNumeric.Size = new System.Drawing.Size(348, 23);
-            this.runNumeric.TabIndex = 44;
+            this.fermenterDurationNumeric.Name = "fermenterDurationNumeric";
+            this.fermenterDurationNumeric.Size = new System.Drawing.Size(346, 23);
+            this.fermenterDurationNumeric.TabIndex = 10;
             // 
             // ConfigEditor
             // 
@@ -1622,6 +1676,10 @@ namespace ValheimPlusManager
             ((System.ComponentModel.ISupportInitialize)(this.cameraMaximumZoomDistanceNumeric)).EndInit();
             this.experienceTab.ResumeLayout(false);
             this.experienceTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.runNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.swimNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sneakNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jumpNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pickaxesNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.frostMagicNumeric)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bowsNumeric)).EndInit();
@@ -1674,10 +1732,8 @@ namespace ValheimPlusManager
             ((System.ComponentModel.ISupportInitialize)(this.wardRangeNumeric)).EndInit();
             this.workbenchTab.ResumeLayout(false);
             this.workbenchTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.jumpNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sneakNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.swimNumeric)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.runNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fermenterItemsProducedNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fermenterDurationNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1806,5 +1862,9 @@ namespace ValheimPlusManager
         private System.Windows.Forms.NumericUpDown jumpNumeric;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.NumericUpDown runNumeric;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.NumericUpDown fermenterItemsProducedNumeric;
+        private System.Windows.Forms.NumericUpDown fermenterDurationNumeric;
     }
 }

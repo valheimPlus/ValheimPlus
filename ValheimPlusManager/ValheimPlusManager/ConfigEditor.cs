@@ -75,6 +75,10 @@ namespace ValheimPlusManager
             runNumeric.Value = (decimal)ValheimPlusConf.experienceRun;
             swimNumeric.Value = (decimal)ValheimPlusConf.experienceSwim;
 
+            // Fermenter
+            fermenterDurationNumeric.Value = (decimal)ValheimPlusConf.fermenterDuration;
+            fermenterItemsProducedNumeric.Value = ValheimPlusConf.fermenterItemsProduced;
+
             // Ward
             wardRangeNumeric.Value = (decimal)ValheimPlusConf.wardRange;
 
@@ -124,6 +128,10 @@ namespace ValheimPlusManager
             ValheimPlusConf.experienceSneak = (float)sneakNumeric.Value;
             ValheimPlusConf.experienceRun = (float)runNumeric.Value;
             ValheimPlusConf.experienceSwim = (float)swimNumeric.Value;
+
+            // Fermenter
+            ValheimPlusConf.fermenterDuration = (float)fermenterDurationNumeric.Value;
+            ValheimPlusConf.fermenterItemsProduced = (int)fermenterItemsProducedNumeric.Value;
 
             // Ward
             ValheimPlusConf.wardRange = (float)wardRangeNumeric.Value;
