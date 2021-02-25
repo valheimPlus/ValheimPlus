@@ -49,7 +49,7 @@ function Create-BepInEx{
     
     # create \BepInEx\plugins and copy plugin dlls from build
     $plug = $bepinex.CreateSubdirectory('plugins');
-    Write-Host "$TargetAssembly"
+    Write-Host "Plugins: $TargetAssembly"
     Copy-Item -Path "$TargetPath\*" -Include $TargetAssembly.Split(',') -Destination "$plug" -Force
 
     # return basepath as DirectoryInfo

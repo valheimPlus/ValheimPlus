@@ -28,6 +28,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{C825
 		resources\Windows\winhttp.dll = resources\Windows\winhttp.dll
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dnspy-unity-mono-2019.4.20", "dnspy-unity-mono-2019.4.20", "{53688CBF-4909-49E1-9E49-F125F3705324}"
+	ProjectSection(SolutionItems) = preProject
+		resources\mono-2.0-bdwgc.dll = resources\mono-2.0-bdwgc.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +51,7 @@ Global
 		{F008016E-2845-42DA-8471-924A20835234} = {39F54A13-F762-43B8-A561-E42BB2468A75}
 		{72578288-BFEE-4364-8BEC-64D201ECF87B} = {F008016E-2845-42DA-8471-924A20835234}
 		{C8258B60-0F3D-4E79-882E-FA3EEEB17681} = {F008016E-2845-42DA-8471-924A20835234}
+		{53688CBF-4909-49E1-9E49-F125F3705324} = {F008016E-2845-42DA-8471-924A20835234}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8BB54996-FC8D-4569-B330-0DE5062FE2D4}
