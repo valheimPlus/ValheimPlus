@@ -347,6 +347,7 @@
     <Compile Include="Configurations\Sections\ItemsConfiguration.cs" />
     <Compile Include="Configurations\Sections\KilnConfiguration.cs" />
     <Compile Include="Configurations\Sections\MapConfiguration.cs" />
+    <Compile Include="Configurations\Sections\PlantConfiguration.cs" />
     <Compile Include="Configurations\Sections\PlayerConfiguration.cs" />
     <Compile Include="Configurations\Sections\ServerConfiguration.cs" />
     <Compile Include="Configurations\Sections\FireplaceConfiguration.cs" />
@@ -369,6 +370,7 @@
     <Compile Include="Fermenter.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Items.cs" />
+    <Compile Include="Plant.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerDodgeRoll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
