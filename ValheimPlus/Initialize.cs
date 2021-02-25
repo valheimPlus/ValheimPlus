@@ -3,6 +3,7 @@ using HarmonyLib;
 using System;
 using System.IO;
 using ValheimPlus.Configurations;
+using ValheimPlus.UI;
 
 namespace ValheimPlus
 {
@@ -10,19 +11,17 @@ namespace ValheimPlus
     // GITHUB REPOSITORY https://github.com/nxPublic/ValheimPlus
     
 
-    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.8.6")]
+    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.9.0")]
     class ValheimPlusPlugin : BaseUnityPlugin
     {
         
-        public static string version = "0.8.6";
+        public static string version = "0.9.0";
         public static string newestVersion = "";
         public static Boolean isUpToDate = false;
 
-        string ConfigPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";
-
         // Project Repository Info
-        public static string Repository = "https://github.com/nxPublic/ValheimPlus";
-        public static string ApiRepository = "https://api.github.com/repos/nxPublic/valheimPlus/tags";
+        public static string Repository = "https://github.com/valheimPlus/ValheimPlus";
+        public static string ApiRepository = "https://api.github.com/repos/valheimPlus/valheimPlus/tags";
 
         // Awake is called once when both the game and the plug-in are loaded
         void Awake()
@@ -50,6 +49,9 @@ namespace ValheimPlus
                 {
                     Logger.LogInfo("ValheimPlus [" + version + "] is up to date.");
                 }
+
+                //Logo
+                VPlusMainMenu.Load();
 
             }
 

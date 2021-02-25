@@ -29,7 +29,7 @@ namespace ValheimPlus.Configurations
             return Settings.CreateMD5(serialized);
         }
 
-        static string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";
+        public static string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";
 
         public static bool LoadSettings()
         {
@@ -53,8 +53,6 @@ namespace ValheimPlus.Configurations
 
         public static Configuration LoadFromIni(string filename)
         {
-
-
             var parser = new FileIniDataParser();
             IniData configdata = parser.ReadFile(filename);
 
@@ -72,6 +70,31 @@ namespace ValheimPlus.Configurations
                 }
             }
             return conf;
+        }
+
+        public static Configuration LoadFromIni(Stream iniStream)
+        {
+            using (StreamReader iniReader = new StreamReader(iniStream))
+            {
+                var parser = new FileIniDataParser();
+                IniData configdata = parser.ReadData(iniReader);
+
+                var conf = new Configuration();
+                foreach (var prop in typeof(Configuration).GetProperties())
+                {
+                    var keyName = prop.Name;
+                    var method = prop.PropertyType.GetMethod("LoadIni",
+                        BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+
+                    if (method != null)
+                    {
+                        var result = method.Invoke(null, new object[] {configdata, keyName});
+                        prop.SetValue(conf, result, null);
+                    }
+                }
+
+                return conf;
+            }
         }
     }
 
