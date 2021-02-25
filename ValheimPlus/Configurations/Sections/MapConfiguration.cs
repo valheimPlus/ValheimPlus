@@ -7,5 +7,6 @@
         public bool playerPositionPublicOnJoin { get; internal set; } = false;
         public bool preventPlayerFromTurningOffPublicPosition { get; internal set; } = false;
         public bool removeDeathPinOnTombstoneEmpty { get; internal set; } = false;
+        public bool showPortalsOnMap { get; internal set; } = false;
     }
 }

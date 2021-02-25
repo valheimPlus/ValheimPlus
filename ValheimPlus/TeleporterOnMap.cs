@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using HarmonyLib;
 using UnityEngine;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -24,6 +25,7 @@ namespace ValheimPlus
         // Holder for our pins
         public static List<Minimap.PinData> addedPins = new List<Minimap.PinData>();
 
+        // Helper to create PinData objects without adding them to the map
         public static Minimap.PinData AddPinHelper(
             Vector3 pos,
             Minimap.PinType type,
@@ -139,7 +141,6 @@ namespace ValheimPlus
                                 if (foundPin.m_name != portalName)
                                 {
                                     // Remove pin at location and readd with new name
-                                    Minimap.instance.RemovePin(foundPin);
                                     addedPins.Remove(foundPin);
                                     addedPins.Add(AddPinHelper(portalPosition, Minimap.PinType.Icon4, portalName, false, false));
                                 }
@@ -243,10 +244,12 @@ namespace ValheimPlus
                 return;
             }
 
-            ZLog.Log("Sending message to server to trigger delivery of map icons");
-            ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), nameof(VPlusTeleporterSync.RPC_VPlusTeleporterSync).Substring(4),
-                new object[] { new ZPackage() });
-
+            if (Configuration.Current.Map.showPortalsOnMap)
+            {
+                ZLog.Log("Sending message to server to trigger delivery of map icons");
+                ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), nameof(VPlusTeleporterSync.RPC_VPlusTeleporterSync).Substring(4),
+                    new object[] {new ZPackage()});
+            }
         }
     }
 
@@ -261,42 +264,45 @@ namespace ValheimPlus
                 return;
             }
 
-            List<Minimap.PinData> copy;
-
-            lock (VPlusTeleporterSync.addedPins)
+            if (Configuration.Current.Map.showPortalsOnMap)
             {
-                copy = VPlusTeleporterSync.addedPins.ToList();
-            }
+                List<Minimap.PinData> copy;
 
-            foreach (var pin in copy)
-            {
-                Minimap.PinData foundPin = Minimap.instance.m_pins.FirstOrDefault(x => x.m_pos == pin.m_pos);
-
-                if (foundPin == null)
+                lock (VPlusTeleporterSync.addedPins)
                 {
-                    // Pin not on map, add
-                    Minimap.instance.AddPin(pin.m_pos, pin.m_type, pin.m_name, pin.m_save, pin.m_checked);
-                }
-                else if (foundPin.m_name != pin.m_name)
-                {
-                    // Pin name change, remove and add new
-                    Minimap.instance.RemovePin(foundPin);
-                    Minimap.instance.AddPin(pin.m_pos, pin.m_type, pin.m_name, pin.m_save, pin.m_checked);
-                }
-            }
-
-
-            foreach (var pin in Minimap.instance.m_pins.Where(x => !x.m_save).ToList())
-            {
-                // Do nothing if it is a location pin
-                if (Minimap.instance.m_locationPins.Values.Any(x => x.m_pos == pin.m_pos))
-                {
-                    continue;
+                    copy = VPlusTeleporterSync.addedPins.ToList();
                 }
 
-                if (copy.All(x => x.m_pos != pin.m_pos))
+                foreach (var pin in copy)
                 {
-                    Minimap.instance.RemovePin(pin);
+                    Minimap.PinData foundPin = Minimap.instance.m_pins.FirstOrDefault(x => x.m_pos == pin.m_pos);
+
+                    if (foundPin == null)
+                    {
+                        // Pin not on map, add
+                        Minimap.instance.AddPin(pin.m_pos, pin.m_type, pin.m_name, pin.m_save, pin.m_checked);
+                    }
+                    else if (foundPin.m_name != pin.m_name)
+                    {
+                        // Pin name change, remove and add new
+                        Minimap.instance.RemovePin(foundPin);
+                        Minimap.instance.AddPin(pin.m_pos, pin.m_type, pin.m_name, pin.m_save, pin.m_checked);
+                    }
+                }
+
+
+                foreach (var pin in Minimap.instance.m_pins.Where(x => !x.m_save).ToList())
+                {
+                    // Do nothing if it is a location pin
+                    if (Minimap.instance.m_locationPins.Values.Any(x => x.m_pos == pin.m_pos))
+                    {
+                        continue;
+                    }
+
+                    if (copy.All(x => x.m_pos != pin.m_pos))
+                    {
+                        Minimap.instance.RemovePin(pin);
+                    }
                 }
             }
         }
