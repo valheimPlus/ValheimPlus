@@ -42,6 +42,8 @@ namespace ValheimPlus
         private static void Prefix(ref Player __instance, ref float v)
         {
 
+            // TODO add a check for the origin of the call of this function to restrict it to not reduce stamina drain of running/jumping/swimming etc.
+
             if (Configuration.Current.StaminaUsage.IsEnabled)
             {
                 string weaponType = "";
