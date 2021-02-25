@@ -19,6 +19,24 @@ namespace ValheimPlus
         }
     }
 
+    [HarmonyPatch(typeof(Inventory), "TopFirst", new Type[] { typeof(ItemDrop.ItemData) })]
+    public static class changeInventoryFillOrder
+    {
+        public static bool Prefix(ref Boolean __result)
+        {
+            if (Configuration.Current.Inventory.IsEnabled &&
+                Configuration.Current.Inventory.inventoryFillTopToBottom)
+            {
+                __result = true;
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(Inventory), MethodType.Constructor)]
     [HarmonyPatch(new Type[] { typeof(string), typeof(Sprite), typeof(int), typeof(int) })]
     public static class changeInventorySlotCount
@@ -64,7 +82,7 @@ namespace ValheimPlus
     }
 
     [HarmonyPatch(typeof(InventoryGui), "Show")]
-    public class InventoryGuiAwake
+    public class changeInventorySize
     {
         public static void Postfix(ref InventoryGui __instance)
         {
