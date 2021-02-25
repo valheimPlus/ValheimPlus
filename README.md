@@ -192,9 +192,9 @@ We will not explain how you create a dedicated server. This will only explain ho
 2. Locate your server folder
 3. Unpack all the contents into your root server folder.
 
-*Make sure to execute 'chmod u+x run_bepinex.sh'*
+*Make sure to execute 'chmod u+x start_server_bepinex.sh'*
 
-*Make sure to run the run_bepinex.sh*
+*Make sure to run start_server_bepinex.sh*
 
 **Uses libc6-dev**
 
