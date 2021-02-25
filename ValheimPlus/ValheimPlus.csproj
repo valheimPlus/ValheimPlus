@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Costura.Fody.5.0.2\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.5.0.2\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -373,6 +376,7 @@
     <Compile Include="Configurations\Sections\StaminaUsageConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
     <Compile Include="Experience.cs" />
+    <Compile Include="FejdStartup.cs" />
     <Compile Include="Fireplace.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Humanoid.cs" />
@@ -384,11 +388,14 @@
     <Compile Include="PlayerDodgeRoll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="RPC\VPlusConfigSync.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="SharedMapSystem.cs" />
     <Compile Include="Smelter.cs" />
     <Compile Include="PlayerStats.cs" />
+    <Compile Include="UI\VPlusMainMenu.cs" />
+    <Compile Include="Utility\EmbeddedAsset.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="Vagon.cs" />
     <Compile Include="WearNTear.cs" />
@@ -400,9 +407,23 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="valheim_plus.cfg" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\logo.png" />
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>powershell.exe -ExecutionPolicy RemoteSigned -File $(SolutionDir)publish.ps1 -Target $(ConfigurationName) -TargetPath $(TargetDir) -TargetAssembly $(TargetFileName),INIFileParser.dll -ValheimPath $(ValheimDir) -SolutionPath $(SolutionDir)</PostBuildEvent>
+	<PostBuildEvent>powershell.exe -ExecutionPolicy RemoteSigned -File $(SolutionDir)publish.ps1 -Target $(ConfigurationName) -TargetPath $(TargetDir) -TargetAssembly $(TargetFileName),INIFileParser.dll -ValheimPath $(ValheimDir) -SolutionPath $(SolutionDir)</PostBuildEvent>
   </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Costura.Fody.5.0.2\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.5.0.2\build\Costura.Fody.props'))" />
+    <Error Condition="!Exists('..\packages\Fody.6.3.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.3.0\build\Fody.targets'))" />
+  </Target>
+  <Import Project="..\packages\Fody.6.3.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.3.0\build\Fody.targets')" />
 </Project>

@@ -26,8 +26,11 @@ namespace ValheimPlus
             }
 
             Player.m_localPlayer.ShowTutorial("vplus");
+
         }
     }
+
+
     
 
     [HarmonyPatch(typeof(Player), "GetMaxCarryWeight")]
