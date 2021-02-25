@@ -62,7 +62,16 @@ namespace ValheimPlus {
 					__instance.m_player.Message(MessageHud.MessageType.TopLeft, skill.m_info.m_skill + " [" + Helper.tFloat(skill.m_accumulator, 2) + "/" + Helper.tFloat(skill.GetNextLevelRequirement(), 2) + "] (" + Helper.tFloat(percent, 0) + "%)", 0, skill.m_info.m_icon);
 				}
 			}
+		}
 
+		[HarmonyPatch(typeof(Hud), "DamageFlash")]
+		public static class RemoveDamageFlash
+		{
+			private static void Prefix(Hud __instance)
+			{
+				if (Configuration.Current.Hud.IsEnabled && Configuration.Current.Hud.removeDamageFlash)
+					__instance.m_damageScreen.enabled = false;
+			}
 		}
 	}
 }
