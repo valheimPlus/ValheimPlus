@@ -116,7 +116,7 @@ namespace ValheimPlusManager.SupportClasses
             valheimPlusConfiguration.serverSettingsEnabled = bool.Parse(data["Server"]["enabled"]);
             valheimPlusConfiguration.maxPlayers = int.Parse(data["Server"]["maxPlayers"]);
             valheimPlusConfiguration.disableServerPassword = bool.Parse(data["Server"]["disableServerPassword"]);
-            valheimPlusConfiguration.enforceConfiguration = bool.Parse(data["Server"]["enforceConfiguration"]);
+            //valheimPlusConfiguration.enforceConfiguration = bool.Parse(data["Server"]["enforceConfiguration"]);
             valheimPlusConfiguration.enforceMod = bool.Parse(data["Server"]["enforceMod"]);
             valheimPlusConfiguration.dataRate = int.Parse(data["Server"]["dataRate"]);
             valheimPlusConfiguration.autoSaveInterval = int.Parse(data["Server"]["autoSaveInterval"]);

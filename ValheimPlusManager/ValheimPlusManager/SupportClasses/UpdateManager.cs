@@ -59,39 +59,54 @@ namespace ValheimPlusManager.SupportClasses
             if(manageClient)
             {
                 wc.DownloadFile(valheimPlusUpdate.WindowsGameClientDownloadURL, @"Data/ValheimPlusGameClient/WindowsClient.zip");
+                await InstallValheimPlusUpdateAsync(true, valheimPlusUpdate.Version);
                 return true;
             }
             else
             {
                 wc.DownloadFile(valheimPlusUpdate.WindowsServerClientDownloadURL, @"Data/ValheimPlusServerClient/WindowsServer.zip");
+                await InstallValheimPlusUpdateAsync(false, valheimPlusUpdate.Version);
                 return true;
             }
         }
 
-        public static async Task<bool> InstallValheimPlusUpdateAsync(bool manageClient)
+        public static async Task<bool> InstallValheimPlusUpdateAsync(bool manageClient, string valheimPlusVersion)
         {
-            var Settings = SettingsDAL.GetSettings();
+            var settings = SettingsDAL.GetSettings();
             if (manageClient)
             {
                 string zipPath = @"Data/ValheimPlusGameClient/WindowsClient.zip";
                 string extractPath = @"Data/ValheimPlusGameClient/Extracted";
 
-                await Task.Run(() => ZipFile.ExtractToDirectory(zipPath, extractPath));
+                await Task.Run(() => ZipFile.ExtractToDirectory(zipPath, extractPath, true));
+
+                try
+                {
+                    FileManager.InstallValheimPlus(settings.ClientPath, settings.ClientInstallationPath);
+                    settings.ValheimPlusGameClientVersion = valheimPlusVersion;
+                    SettingsDAL.UpdateSettings(settings, false);
+                }
+                catch (Exception)
+                {
+                    return false; // ToDo - handling of errors
+                }
             }
             else
             {
                 string zipPath = @"Data/ValheimPlusServerClient/WindowsServer.zip";
                 string extractPath = @"Data/ValheimPlusServerClient/Extracted";
 
-                await Task.Run(() => ZipFile.ExtractToDirectory(zipPath, extractPath));
+                await Task.Run(() => ZipFile.ExtractToDirectory(zipPath, extractPath, true));
 
                 try
                 {
-                    FileManager.InstallValheimPlus(Settings.ServerPath, Settings.ServerInstallationPath);
+                    FileManager.InstallValheimPlus(settings.ServerPath, settings.ServerInstallationPath);
+                    settings.ValheimPlusServerClientVersion = valheimPlusVersion;
+                    SettingsDAL.UpdateSettings(settings, false);
                 }
                 catch (Exception)
                 {
-                    throw new Exception(); // ToDo - handling of errors
+                    return false; // ToDo - handling of errors
                 }
             }
 

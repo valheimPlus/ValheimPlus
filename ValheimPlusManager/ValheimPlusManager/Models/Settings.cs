@@ -9,6 +9,7 @@ namespace ValheimPlusManager.Models
         public string ServerInstallationPath { get; set; }
         public string ClientPath { get; set; }
         public string ServerPath { get; set; }
-        public string ValheimPlusVersion { get; set; }
+        public string ValheimPlusGameClientVersion { get; set; }
+        public string ValheimPlusServerClientVersion { get; set; }
     }
 }

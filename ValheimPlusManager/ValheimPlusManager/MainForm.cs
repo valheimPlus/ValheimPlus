@@ -29,7 +29,7 @@ namespace ValheimPlusManager
 
                 if (ValheimPlusInstalledClient)
                 {
-                    clientInstalledLabel.Text = String.Format("ValheimPlus {0} installed on client", Settings.ValheimPlusVersion);
+                    clientInstalledLabel.Text = String.Format("ValheimPlus {0} installed on client", Settings.ValheimPlusGameClientVersion);
                     clientInstalledLabel.ForeColor = Color.Green;
                     installClientButton.Text = "Reinstall ValheimPlus on client";
                 }
@@ -41,7 +41,7 @@ namespace ValheimPlusManager
 
                 if (ValheimPlusInstalledServer)
                 {
-                    serverInstalledLabel.Text = String.Format("ValheimPlus {0} installed on server", Settings.ValheimPlusVersion);
+                    serverInstalledLabel.Text = String.Format("ValheimPlus {0} installed on server", Settings.ValheimPlusServerClientVersion);
                     serverInstalledLabel.ForeColor = Color.Green;
                     installServerButton.Text = "Reinstall ValheimPlus on server";
                 }
@@ -86,7 +86,7 @@ namespace ValheimPlusManager
                     ValheimPlusInstalledServer = Validation.CheckInstallationStatus(Settings.ServerInstallationPath);
                     if (ValheimPlusInstalledServer)
                     {
-                        serverInstalledLabel.Text = String.Format("ValheimPlus {0} installed on server", Settings.ValheimPlusVersion);
+                        serverInstalledLabel.Text = String.Format("ValheimPlus {0} installed on server", Settings.ValheimPlusServerClientVersion);
                         serverInstalledLabel.ForeColor = Color.Green;
                         installServerButton.Text = "Reinstall ValheimPlus on server";
                     }
@@ -116,52 +116,74 @@ namespace ValheimPlusManager
 
         private async void checkCLientUpdatesIconButton_ClickAsync(object sender, EventArgs e)
         {
-            ValheimPlusUpdate valheimPlusUpdate = await UpdateManager.CheckForValheimPlusUpdatesAsync(Settings.ValheimPlusVersion);
+            ValheimPlusUpdate valheimPlusUpdate = await UpdateManager.CheckForValheimPlusUpdatesAsync(Settings.ValheimPlusGameClientVersion);
 
             if (valheimPlusUpdate.NewVersion)
             {
                 installClientUpdateIconButton.Text = String.Format("Install update {0}", valheimPlusUpdate.Version);
                 installClientUpdateIconButton.Show();
             }
+            else
+            {
+                statusLabel.ForeColor = Color.Red;
+                statusLabel.Text = "No new client updates available";
+            }
         }
 
         private async void checkServerUpdatesIconButton_Click_1Async(object sender, EventArgs e)
         {
-            ValheimPlusUpdate valheimPlusUpdate = await UpdateManager.CheckForValheimPlusUpdatesAsync(Settings.ValheimPlusVersion);
+            ValheimPlusUpdate valheimPlusUpdate = await UpdateManager.CheckForValheimPlusUpdatesAsync(Settings.ValheimPlusServerClientVersion);
 
             if (valheimPlusUpdate.NewVersion)
             {
                 installServerUpdateIconButton.Text = String.Format("Install update {0}", valheimPlusUpdate.Version);
                 installServerUpdateIconButton.Show();
             }
+            else
+            {
+                statusLabel.ForeColor = Color.Red;
+                statusLabel.Text = "No new server updates available";
+            }
         }
 
         private async void installServerUpdateIconButton_ClickAsync(object sender, EventArgs e)
         {
-            ValheimPlusUpdate valheimPlusUpdate = await UpdateManager.CheckForValheimPlusUpdatesAsync(Settings.ValheimPlusVersion);
+            installServerUpdateIconButton.Enabled = false;
+
+            ValheimPlusUpdate valheimPlusUpdate = await UpdateManager.CheckForValheimPlusUpdatesAsync(Settings.ValheimPlusServerClientVersion);
 
             if (valheimPlusUpdate.NewVersion)
             {
-                bool success = await UpdateManager.DownloadValheimPlusUpdateAsync(Settings.ValheimPlusVersion, false);
+                bool success = await UpdateManager.DownloadValheimPlusUpdateAsync(Settings.ValheimPlusServerClientVersion, false);
 
                 if (success)
                 {
-                    await UpdateManager.InstallValheimPlusUpdateAsync(false);
+                    Settings = SettingsDAL.GetSettings();
+                    serverInstalledLabel.Text = String.Format("ValheimPlus {0} installed on server", Settings.ValheimPlusServerClientVersion);
+                    statusLabel.ForeColor = Color.Green;
+                    statusLabel.Text = "Success! Server updated to latest version.";
+                    installServerUpdateIconButton.Hide();
                 }
             }
         }
 
         private async void installClientUpdateIconButton_Click(object sender, EventArgs e)
         {
-            ValheimPlusUpdate valheimPlusUpdate = await UpdateManager.CheckForValheimPlusUpdatesAsync(Settings.ValheimPlusVersion);
+            installClientUpdateIconButton.Enabled = false;
+
+            ValheimPlusUpdate valheimPlusUpdate = await UpdateManager.CheckForValheimPlusUpdatesAsync(Settings.ValheimPlusGameClientVersion);
 
             if (valheimPlusUpdate.NewVersion)
             {
-                bool success = await UpdateManager.DownloadValheimPlusUpdateAsync(Settings.ValheimPlusVersion, true);
+                bool success = await UpdateManager.DownloadValheimPlusUpdateAsync(Settings.ValheimPlusGameClientVersion, true);
 
                 if(success)
                 {
-                    await UpdateManager.InstallValheimPlusUpdateAsync(true);
+                    Settings = SettingsDAL.GetSettings();
+                    clientInstalledLabel.Text = String.Format("ValheimPlus {0} installed on client", Settings.ValheimPlusGameClientVersion);
+                    statusLabel.ForeColor = Color.Green;
+                    statusLabel.Text = "Success! Client updated to latest version.";
+                    installClientUpdateIconButton.Hide();
                 }
             }
         }
