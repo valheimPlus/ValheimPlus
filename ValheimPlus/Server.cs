@@ -31,6 +31,20 @@ namespace ValheimPlus
         }
     }
 
+    [HarmonyPatch(typeof(ZNet), "RPC_PeerInfo")]
+    public static class ConfigServerSync
+    {
+        private static void Postfix(ref ZNet __instance)
+        {
+            if (!ZNet.m_isServer)
+            {
+                ZLog.Log("-------------------- SENDING VPLUGCONFIGSYNC REQUEST");
+                ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusConfigSync", new object[] { new ZPackage() });
+            }
+        }
+    }
+
+
     [HarmonyPatch(typeof(ZNet), "SetPublicReferencePosition")]
     public static class PreventPublicPositionToggle
     {
@@ -71,16 +85,37 @@ namespace ValheimPlus
         }
     }
 
+    
+
+    [HarmonyPatch(typeof(ZNet), "Shutdown")]
+    public static class OnErrorLoadOwnIni
+    {
+        private static void Prefix(ref ZNet __instance)
+        {
+            if (!__instance.IsServer())
+            {
+                // Load the client config file on server ZNet instance exit (server disconnect)
+                if (ConfigurationExtra.LoadSettings() != true)
+                {
+                    Debug.LogError("Error while loading configuration file.");
+                }
+            }
+        }
+    }
+
+
     [HarmonyPatch(typeof(FejdStartup), "IsPublicPasswordValid")]
     public static class ChangeServerPasswordBehavior
     {
-        private static Boolean Prefix(ref Boolean __result) // Set after awake function
+        private static Boolean Prefix(ref Boolean __result)
         {
             if (Configuration.Current.Server.IsEnabled && Configuration.Current.Server.disableServerPassword)
             {
+                // return always true
                 __result = true;
                 return false;
             }
+            // continue with default function
             return true;
         }
     }

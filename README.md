@@ -89,6 +89,7 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify maximum Players on a server
 * Modify auto save interval
 * Modify server data rate in kilobyte
+* Automatic server configuration sync when a user joins the server to sync the configuration of V+
 
 ## Map
 * Activate shared position on map automatically
@@ -453,16 +454,13 @@ baseUnarmedDamage=10
 [Server]
 
 ; Change false to true to enable this section
-enabled=false
+enabled=true
 
 ; Modify the amount of players on your Server
 maxPlayers=10
 
 ; Removes the requirement to have a server password
 disableServerPassword=false
-
-; This setting adds a version control check to verifiy that the server and yourself have the same configuration file installed.
-enforceConfiguration=false
 
 ; This settings add a version control check to make sure that people that try to join your game or the server you try to join has V+ installed
 enforceMod=true
@@ -497,7 +495,7 @@ sneakStaminaDrain=10
 staminaRegen=5
 
 ; Changes the delay until stamina regeneration sets in
-staminaRegenDelay=0.5
+staminaRegenDelay=1
 
 ; Changes the stamina drain of swimming
 swimStaminaDrain=5
