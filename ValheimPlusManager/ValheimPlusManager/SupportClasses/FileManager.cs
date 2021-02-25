@@ -1,6 +1,6 @@
 ﻿namespace ValheimPlusManager.SupportClasses
 {
-    public static class FileManager
+    public sealed class FileManager
     {
         public static bool InstallValheimPlus(string fromPath, string toPath)
         {
@@ -17,6 +17,22 @@
             }
 
             return true;
+        }
+
+        private FileManager()
+        {
+        }
+        private static FileManager instance = null;
+        public static FileManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new FileManager();
+                }
+                return instance;
+            }
         }
     }
 }

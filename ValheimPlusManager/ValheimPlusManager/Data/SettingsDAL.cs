@@ -5,7 +5,7 @@ using ValheimPlusManager.Models;
 
 namespace ValheimPlusManager.Data
 {
-    public static class SettingsDAL
+    public sealed class SettingsDAL
     {
         public static Settings GetSettings()
         {
@@ -33,6 +33,22 @@ namespace ValheimPlusManager.Data
             }
 
             xml.Save("Data/Settings.xml");
+        }
+
+        private SettingsDAL()
+        {
+        }
+        private static SettingsDAL instance = null;
+        public static SettingsDAL Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new SettingsDAL();
+                }
+                return instance;
+            }
         }
     }
 }

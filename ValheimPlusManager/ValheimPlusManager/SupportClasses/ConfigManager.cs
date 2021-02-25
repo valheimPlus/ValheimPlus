@@ -6,7 +6,7 @@ using ValheimPlusManager.Models;
 
 namespace ValheimPlusManager.SupportClasses
 {
-    public class ConfigManager
+    public sealed class ConfigManager
     {
         public static ValheimPlusConf ReadConfigFile(bool manageClient)
         {
@@ -341,6 +341,22 @@ namespace ValheimPlusManager.SupportClasses
                 return false;
             }
 
+        }
+
+        private ConfigManager()
+        {
+        }
+        private static ConfigManager instance = null;
+        public static ConfigManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new ConfigManager();
+                }
+                return instance;
+            }
         }
     }
 }

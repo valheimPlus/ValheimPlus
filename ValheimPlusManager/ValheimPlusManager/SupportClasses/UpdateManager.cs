@@ -8,7 +8,7 @@ using ValheimPlusManager.Models;
 
 namespace ValheimPlusManager.SupportClasses
 {
-    public class UpdateManager
+    public sealed class UpdateManager
     {
         public static async Task<ValheimPlusUpdate> CheckForValheimPlusUpdatesAsync(string valheimPlusVersion)
         {
@@ -107,6 +107,22 @@ namespace ValheimPlusManager.SupportClasses
             }
 
             return true;
+        }
+
+        private UpdateManager()
+        {
+        }
+        private static UpdateManager instance = null;
+        public static UpdateManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new UpdateManager();
+                }
+                return instance;
+            }
         }
     }
 }
