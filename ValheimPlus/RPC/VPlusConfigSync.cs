@@ -13,6 +13,8 @@ namespace ValheimPlus.RPC
         {
             if (ZNet.m_isServer) //Server
             {
+                if (!Configuration.Current.Server.serverSyncsConfig) return;
+
                 ZPackage pkg = new ZPackage();
 
                 string[] rawConfigData = File.ReadAllLines(ConfigurationExtra.ConfigIniPath);
