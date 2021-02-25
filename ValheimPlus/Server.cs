@@ -36,7 +36,6 @@ namespace ValheimPlus
     {
         private static void Postfix(ref ZNet __instance)
         {
-            //TODO: Move the initial request somewhere that makes more sense. Moved here as a test because we can't do it prior to client auth.
             if (!ZNet.m_isServer)
             {
                 ZLog.Log("-------------------- SENDING VPLUGCONFIGSYNC REQUEST");
