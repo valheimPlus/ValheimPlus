@@ -2,7 +2,7 @@
 <Settings>
   <ClientInstallationPath>C:/Program Files (x86)/Steam/steamapps/common/Valheim/</ClientInstallationPath>
   <ServerInstallationPath>C:/Program Files (x86)/Steam/steamapps/common/Valheim dedicated server/</ServerInstallationPath>
-  <ClientPath>C:/Users/msn/Downloads/WindowsServer</ClientPath>
-  <ServerPath>C:/Users/msn/Downloads/WindowsServer</ServerPath>
+  <ClientPath>Data/ValheimPlusGameClient/Extracted</ClientPath>
+  <ServerPath>Data/ValheimPlusServerClient/Extracted</ServerPath>
   <ValheimPlusVersion>0.8.5</ValheimPlusVersion>
 </Settings>

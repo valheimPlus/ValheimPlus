@@ -75,7 +75,7 @@ namespace ValheimPlusManager
             else
             {
                 dialogResult = MessageBox
-                    .Show("Are you sure you wish to update/reinstall ValheimPlus on your server? This will overwrite your current configurations!", "Confirm", MessageBoxButtons.YesNo);
+                    .Show("Are you sure you wish to reinstall ValheimPlus on your server? This will overwrite your current configurations!", "Confirm", MessageBoxButtons.YesNo);
             }
 
             if (dialogResult == DialogResult.Yes)
@@ -143,6 +143,11 @@ namespace ValheimPlusManager
             if (valheimPlusUpdate.NewVersion)
             {
                 bool success = await UpdateManager.DownloadValheimPlusUpdateAsync(Settings.ValheimPlusVersion, false);
+
+                if (success)
+                {
+                    await UpdateManager.InstallValheimPlusUpdateAsync(false);
+                }
             }
         }
 
@@ -153,6 +158,11 @@ namespace ValheimPlusManager
             if (valheimPlusUpdate.NewVersion)
             {
                 bool success = await UpdateManager.DownloadValheimPlusUpdateAsync(Settings.ValheimPlusVersion, true);
+
+                if(success)
+                {
+                    await UpdateManager.InstallValheimPlusUpdateAsync(true);
+                }
             }
         }
     }

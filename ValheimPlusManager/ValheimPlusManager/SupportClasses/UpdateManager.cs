@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ValheimPlusManager.Models;
+using System.IO.Compression;
+using ValheimPlusManager.Data;
 
 namespace ValheimPlusManager.SupportClasses
 {
@@ -57,10 +59,40 @@ namespace ValheimPlusManager.SupportClasses
             if(manageClient)
             {
                 wc.DownloadFile(valheimPlusUpdate.WindowsGameClientDownloadURL, @"Data/ValheimPlusGameClient/WindowsClient.zip");
+                return true;
             }
             else
             {
                 wc.DownloadFile(valheimPlusUpdate.WindowsServerClientDownloadURL, @"Data/ValheimPlusServerClient/WindowsServer.zip");
+                return true;
+            }
+        }
+
+        public static async Task<bool> InstallValheimPlusUpdateAsync(bool manageClient)
+        {
+            var Settings = SettingsDAL.GetSettings();
+            if (manageClient)
+            {
+                string zipPath = @"Data/ValheimPlusGameClient/WindowsClient.zip";
+                string extractPath = @"Data/ValheimPlusGameClient/Extracted";
+
+                await Task.Run(() => ZipFile.ExtractToDirectory(zipPath, extractPath));
+            }
+            else
+            {
+                string zipPath = @"Data/ValheimPlusServerClient/WindowsServer.zip";
+                string extractPath = @"Data/ValheimPlusServerClient/Extracted";
+
+                await Task.Run(() => ZipFile.ExtractToDirectory(zipPath, extractPath));
+
+                try
+                {
+                    FileManager.InstallValheimPlus(Settings.ServerPath, Settings.ServerInstallationPath);
+                }
+                catch (Exception)
+                {
+                    throw new Exception(); // ToDo - handling of errors
+                }
             }
 
             return true;
