@@ -147,8 +147,15 @@ namespace ValheimPlusManager
             this.rollForwardsTextBox = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.hudTab = new System.Windows.Forms.TabPage();
+            this.showRequiredItemsCheckBox = new System.Windows.Forms.CheckBox();
+            this.experienceGainedNotificationsCheckBox = new System.Windows.Forms.CheckBox();
             this.label22 = new System.Windows.Forms.Label();
             this.itemsTab = new System.Windows.Forms.TabPage();
+            this.label74 = new System.Windows.Forms.Label();
+            this.label75 = new System.Windows.Forms.Label();
+            this.itemStackMultiplierNumeric = new System.Windows.Forms.NumericUpDown();
+            this.baseItemWeightReductionNumeric = new System.Windows.Forms.NumericUpDown();
+            this.noTeleportPreventionCheckBox = new System.Windows.Forms.CheckBox();
             this.label23 = new System.Windows.Forms.Label();
             this.kilnTab = new System.Windows.Forms.TabPage();
             this.label24 = new System.Windows.Forms.Label();
@@ -179,8 +186,6 @@ namespace ValheimPlusManager
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.saveChangesLabel = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.experienceGainedNotificationsCheckBox = new System.Windows.Forms.CheckBox();
-            this.showRequiredItemsCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.advancedBuildingModeTab.SuspendLayout();
             this.advancedEditingTab.SuspendLayout();
@@ -231,6 +236,8 @@ namespace ValheimPlusManager
             this.hotkeysTab.SuspendLayout();
             this.hudTab.SuspendLayout();
             this.itemsTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.itemStackMultiplierNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.baseItemWeightReductionNumeric)).BeginInit();
             this.kilnTab.SuspendLayout();
             this.mapTab.SuspendLayout();
             this.playerTab.SuspendLayout();
@@ -1680,6 +1687,30 @@ namespace ValheimPlusManager
             this.hudTab.Text = "Hud";
             this.hudTab.UseVisualStyleBackColor = true;
             // 
+            // showRequiredItemsCheckBox
+            // 
+            this.showRequiredItemsCheckBox.AutoSize = true;
+            this.showRequiredItemsCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.showRequiredItemsCheckBox.Location = new System.Drawing.Point(9, 50);
+            this.showRequiredItemsCheckBox.Name = "showRequiredItemsCheckBox";
+            this.showRequiredItemsCheckBox.Size = new System.Drawing.Size(678, 21);
+            this.showRequiredItemsCheckBox.TabIndex = 14;
+            this.showRequiredItemsCheckBox.Text = "Show the required amount of items AND the amount of items in your inventory in bu" +
+    "ild mode and while crafting";
+            this.showRequiredItemsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // experienceGainedNotificationsCheckBox
+            // 
+            this.experienceGainedNotificationsCheckBox.AutoSize = true;
+            this.experienceGainedNotificationsCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.experienceGainedNotificationsCheckBox.Location = new System.Drawing.Point(9, 86);
+            this.experienceGainedNotificationsCheckBox.Name = "experienceGainedNotificationsCheckBox";
+            this.experienceGainedNotificationsCheckBox.Size = new System.Drawing.Size(489, 21);
+            this.experienceGainedNotificationsCheckBox.TabIndex = 13;
+            this.experienceGainedNotificationsCheckBox.Text = "Show small notifications about all skill experienced gained in the top left corne" +
+    "r";
+            this.experienceGainedNotificationsCheckBox.UseVisualStyleBackColor = true;
+            // 
             // label22
             // 
             this.label22.AutoSize = true;
@@ -1692,6 +1723,11 @@ namespace ValheimPlusManager
             // 
             // itemsTab
             // 
+            this.itemsTab.Controls.Add(this.label74);
+            this.itemsTab.Controls.Add(this.label75);
+            this.itemsTab.Controls.Add(this.itemStackMultiplierNumeric);
+            this.itemsTab.Controls.Add(this.baseItemWeightReductionNumeric);
+            this.itemsTab.Controls.Add(this.noTeleportPreventionCheckBox);
             this.itemsTab.Controls.Add(this.label23);
             this.itemsTab.Location = new System.Drawing.Point(4, 44);
             this.itemsTab.Name = "itemsTab";
@@ -1699,6 +1735,63 @@ namespace ValheimPlusManager
             this.itemsTab.TabIndex = 13;
             this.itemsTab.Text = "Items";
             this.itemsTab.UseVisualStyleBackColor = true;
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label74.Location = new System.Drawing.Point(5, 106);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(586, 17);
+            this.label74.TabIndex = 19;
+            this.label74.Text = "Increase the size of all item stacks by %. The value 50 would set a usual item st" +
+    "ack of 100 to be 150";
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label75.Location = new System.Drawing.Point(5, 50);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(629, 17);
+            this.label75.TabIndex = 20;
+            this.label75.Text = "Increase or reduce item weight by % percent. The value -50 will reduce item weigh" +
+    "t of every object by 50%";
+            // 
+            // itemStackMultiplierNumeric
+            // 
+            this.itemStackMultiplierNumeric.Location = new System.Drawing.Point(7, 126);
+            this.itemStackMultiplierNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.itemStackMultiplierNumeric.Name = "itemStackMultiplierNumeric";
+            this.itemStackMultiplierNumeric.Size = new System.Drawing.Size(630, 23);
+            this.itemStackMultiplierNumeric.TabIndex = 17;
+            // 
+            // baseItemWeightReductionNumeric
+            // 
+            this.baseItemWeightReductionNumeric.Location = new System.Drawing.Point(7, 70);
+            this.baseItemWeightReductionNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.baseItemWeightReductionNumeric.Name = "baseItemWeightReductionNumeric";
+            this.baseItemWeightReductionNumeric.Size = new System.Drawing.Size(630, 23);
+            this.baseItemWeightReductionNumeric.TabIndex = 18;
+            // 
+            // noTeleportPreventionCheckBox
+            // 
+            this.noTeleportPreventionCheckBox.AutoSize = true;
+            this.noTeleportPreventionCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.noTeleportPreventionCheckBox.Location = new System.Drawing.Point(7, 167);
+            this.noTeleportPreventionCheckBox.Name = "noTeleportPreventionCheckBox";
+            this.noTeleportPreventionCheckBox.Size = new System.Drawing.Size(382, 21);
+            this.noTeleportPreventionCheckBox.TabIndex = 15;
+            this.noTeleportPreventionCheckBox.Text = "Enable teleport with ores and other usually restricted objects";
+            this.noTeleportPreventionCheckBox.UseVisualStyleBackColor = true;
             // 
             // label23
             // 
@@ -1724,11 +1817,11 @@ namespace ValheimPlusManager
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label24.Location = new System.Drawing.Point(381, 253);
+            this.label24.Location = new System.Drawing.Point(4, 4);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(92, 30);
+            this.label24.Size = new System.Drawing.Size(51, 30);
             this.label24.TabIndex = 7;
-            this.label24.Text = "Beehive";
+            this.label24.Text = "Kiln";
             // 
             // mapTab
             // 
@@ -1744,11 +1837,11 @@ namespace ValheimPlusManager
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label25.Location = new System.Drawing.Point(381, 253);
+            this.label25.Location = new System.Drawing.Point(4, 4);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(92, 30);
+            this.label25.Size = new System.Drawing.Size(57, 30);
             this.label25.TabIndex = 7;
-            this.label25.Text = "Beehive";
+            this.label25.Text = "Map";
             // 
             // playerTab
             // 
@@ -1764,11 +1857,11 @@ namespace ValheimPlusManager
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label26.Location = new System.Drawing.Point(381, 253);
+            this.label26.Location = new System.Drawing.Point(4, 4);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(92, 30);
+            this.label26.Size = new System.Drawing.Size(74, 30);
             this.label26.TabIndex = 7;
-            this.label26.Text = "Beehive";
+            this.label26.Text = "Player";
             // 
             // serverTab
             // 
@@ -1784,11 +1877,11 @@ namespace ValheimPlusManager
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label28.Location = new System.Drawing.Point(381, 253);
+            this.label28.Location = new System.Drawing.Point(4, 4);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(92, 30);
+            this.label28.Size = new System.Drawing.Size(77, 30);
             this.label28.TabIndex = 7;
-            this.label28.Text = "Beehive";
+            this.label28.Text = "Server";
             // 
             // staminaTab
             // 
@@ -1804,11 +1897,11 @@ namespace ValheimPlusManager
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label29.Location = new System.Drawing.Point(381, 253);
+            this.label29.Location = new System.Drawing.Point(4, 4);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(92, 30);
             this.label29.TabIndex = 7;
-            this.label29.Text = "Beehive";
+            this.label29.Text = "Stamina";
             // 
             // staminaUsageTab
             // 
@@ -1824,11 +1917,11 @@ namespace ValheimPlusManager
             // 
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label30.Location = new System.Drawing.Point(381, 253);
+            this.label30.Location = new System.Drawing.Point(4, 4);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(92, 30);
+            this.label30.Size = new System.Drawing.Size(156, 30);
             this.label30.TabIndex = 7;
-            this.label30.Text = "Beehive";
+            this.label30.Text = "Stamina usage";
             // 
             // structuralIntegrityTab
             // 
@@ -1844,11 +1937,11 @@ namespace ValheimPlusManager
             // 
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label31.Location = new System.Drawing.Point(381, 253);
+            this.label31.Location = new System.Drawing.Point(4, 4);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(92, 30);
+            this.label31.Size = new System.Drawing.Size(200, 30);
             this.label31.TabIndex = 7;
-            this.label31.Text = "Beehive";
+            this.label31.Text = "Structural integrity";
             // 
             // timeTab
             // 
@@ -1864,11 +1957,11 @@ namespace ValheimPlusManager
             // 
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label32.Location = new System.Drawing.Point(381, 253);
+            this.label32.Location = new System.Drawing.Point(4, 4);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(92, 30);
+            this.label32.Size = new System.Drawing.Size(62, 30);
             this.label32.TabIndex = 7;
-            this.label32.Text = "Beehive";
+            this.label32.Text = "Time";
             // 
             // wagonTab
             // 
@@ -1884,11 +1977,11 @@ namespace ValheimPlusManager
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label33.Location = new System.Drawing.Point(381, 253);
+            this.label33.Location = new System.Drawing.Point(4, 4);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(92, 30);
+            this.label33.Size = new System.Drawing.Size(83, 30);
             this.label33.TabIndex = 7;
-            this.label33.Text = "Beehive";
+            this.label33.Text = "Wagon";
             // 
             // wardTab
             // 
@@ -1948,11 +2041,11 @@ namespace ValheimPlusManager
             // 
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("Segoe UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label35.Location = new System.Drawing.Point(381, 253);
+            this.label35.Location = new System.Drawing.Point(4, 4);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(92, 30);
+            this.label35.Size = new System.Drawing.Size(127, 30);
             this.label35.TabIndex = 7;
-            this.label35.Text = "Beehive";
+            this.label35.Text = "Workbench";
             // 
             // saveConfigButton
             // 
@@ -2007,30 +2100,6 @@ namespace ValheimPlusManager
             this.label27.Size = new System.Drawing.Size(92, 30);
             this.label27.TabIndex = 7;
             this.label27.Text = "Beehive";
-            // 
-            // experienceGainedNotificationsCheckBox
-            // 
-            this.experienceGainedNotificationsCheckBox.AutoSize = true;
-            this.experienceGainedNotificationsCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.experienceGainedNotificationsCheckBox.Location = new System.Drawing.Point(9, 86);
-            this.experienceGainedNotificationsCheckBox.Name = "experienceGainedNotificationsCheckBox";
-            this.experienceGainedNotificationsCheckBox.Size = new System.Drawing.Size(489, 21);
-            this.experienceGainedNotificationsCheckBox.TabIndex = 13;
-            this.experienceGainedNotificationsCheckBox.Text = "Show small notifications about all skill experienced gained in the top left corne" +
-    "r";
-            this.experienceGainedNotificationsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // showRequiredItemsCheckBox
-            // 
-            this.showRequiredItemsCheckBox.AutoSize = true;
-            this.showRequiredItemsCheckBox.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.showRequiredItemsCheckBox.Location = new System.Drawing.Point(9, 50);
-            this.showRequiredItemsCheckBox.Name = "showRequiredItemsCheckBox";
-            this.showRequiredItemsCheckBox.Size = new System.Drawing.Size(678, 21);
-            this.showRequiredItemsCheckBox.TabIndex = 14;
-            this.showRequiredItemsCheckBox.Text = "Show the required amount of items AND the amount of items in your inventory in bu" +
-    "ild mode and while crafting";
-            this.showRequiredItemsCheckBox.UseVisualStyleBackColor = true;
             // 
             // ConfigEditor
             // 
@@ -2109,6 +2178,8 @@ namespace ValheimPlusManager
             this.hudTab.PerformLayout();
             this.itemsTab.ResumeLayout(false);
             this.itemsTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.itemStackMultiplierNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.baseItemWeightReductionNumeric)).EndInit();
             this.kilnTab.ResumeLayout(false);
             this.kilnTab.PerformLayout();
             this.mapTab.ResumeLayout(false);
@@ -2292,5 +2363,10 @@ namespace ValheimPlusManager
         private System.Windows.Forms.TextBox rollForwardsTextBox;
         private System.Windows.Forms.CheckBox showRequiredItemsCheckBox;
         private System.Windows.Forms.CheckBox experienceGainedNotificationsCheckBox;
+        private System.Windows.Forms.Label label74;
+        private System.Windows.Forms.Label label75;
+        private System.Windows.Forms.NumericUpDown itemStackMultiplierNumeric;
+        private System.Windows.Forms.NumericUpDown baseItemWeightReductionNumeric;
+        private System.Windows.Forms.CheckBox noTeleportPreventionCheckBox;
     }
 }

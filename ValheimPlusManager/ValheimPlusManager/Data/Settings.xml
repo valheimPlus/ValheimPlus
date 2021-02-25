@@ -5,5 +5,5 @@
   <ClientPath>Data/ValheimPlusGameClient/Extracted</ClientPath>
   <ServerPath>Data/ValheimPlusServerClient/Extracted</ServerPath>
   <ValheimPlusGameClientVersion>0.8.5</ValheimPlusGameClientVersion>
-  <ValheimPlusServerClientVersion>0.8.5</ValheimPlusServerClientVersion>
+  <ValheimPlusServerClientVersion>0.9</ValheimPlusServerClientVersion>
 </Settings>

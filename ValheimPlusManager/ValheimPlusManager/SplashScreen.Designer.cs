@@ -49,37 +49,38 @@ namespace ValheimPlusManager
             this.progressBar1.Location = new System.Drawing.Point(0, 517);
             this.progressBar1.MarqueeAnimationSpeed = 50;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(657, 23);
+            this.progressBar1.Size = new System.Drawing.Size(635, 23);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 0;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(633, 257);
+            this.pictureBox1.Size = new System.Drawing.Size(635, 257);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // label1
             // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("Segoe UI Black", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(0, 270);
+            this.label1.Location = new System.Drawing.Point(0, 257);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(657, 51);
+            this.label1.Size = new System.Drawing.Size(635, 49);
             this.label1.TabIndex = 2;
             this.label1.Text = "Manager";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(0, 320);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(657, 35);
+            this.label2.Size = new System.Drawing.Size(635, 35);
             this.label2.TabIndex = 3;
             this.label2.Text = "ValheimPlus";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -89,7 +90,7 @@ namespace ValheimPlusManager
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.Location = new System.Drawing.Point(0, 350);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(657, 55);
+            this.label3.Size = new System.Drawing.Size(635, 55);
             this.label3.TabIndex = 4;
             this.label3.Text = "Kevin \'nx#8830\' J, Greg \'Zedle\' G, Bruno Vasconcelos, GaelicGamer, TheTerrasque, " +
     "\r\nPaige \'radmint\' N, MrPurple6411#0415";
@@ -100,7 +101,7 @@ namespace ValheimPlusManager
             this.label4.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.Location = new System.Drawing.Point(0, 411);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(657, 30);
+            this.label4.Size = new System.Drawing.Size(635, 30);
             this.label4.TabIndex = 5;
             this.label4.Text = "ValheimPlus Manager";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -110,7 +111,7 @@ namespace ValheimPlusManager
             this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.Location = new System.Drawing.Point(0, 440);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(657, 21);
+            this.label5.Size = new System.Drawing.Size(635, 21);
             this.label5.TabIndex = 6;
             this.label5.Text = "Robert \'rr222cy\' Roos";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -123,17 +124,17 @@ namespace ValheimPlusManager
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(591, 496);
+            this.label6.Location = new System.Drawing.Point(563, 499);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 15);
+            this.label6.Size = new System.Drawing.Size(72, 15);
             this.label6.TabIndex = 7;
-            this.label6.Text = "v0.1-alpha";
+            this.label6.Text = "Version 0.1.0";
             // 
             // SplashScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(657, 540);
+            this.ClientSize = new System.Drawing.Size(635, 540);
             this.ControlBox = false;
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);

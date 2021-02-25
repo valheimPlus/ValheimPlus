@@ -106,6 +106,9 @@ namespace ValheimPlusManager
             showRequiredItemsCheckBox.Checked = ValheimPlusConf.showRequiredItems;
             experienceGainedNotificationsCheckBox.Checked = ValheimPlusConf.experienceGainedNotifications;
 
+            // Items
+
+
             // Ward
             wardRangeNumeric.Value = (decimal)ValheimPlusConf.wardRange;
         }
