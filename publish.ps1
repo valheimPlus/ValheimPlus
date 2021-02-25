@@ -5,12 +5,18 @@ param(
     
     [Parameter(Mandatory)]
     [System.String]$TargetPath,
+    
+    [Parameter(Mandatory)]
+    [System.String]$TargetAssembly,
 
     [Parameter(Mandatory)]
     [System.String]$ValheimPath,
 
     [Parameter(Mandatory)]
-    [System.String]$SolutionPath
+    [System.String]$SolutionPath,
+
+    [Parameter()]
+    [switch]$DebugScript
 )
 
 function Create-BepInEx{
@@ -43,7 +49,8 @@ function Create-BepInEx{
     
     # create \BepInEx\plugins and copy plugin dlls from build
     $plug = $bepinex.CreateSubdirectory('plugins');
-    Copy-Item -Path "$TargetPath\*" -Include 'ValheimPlus.dll','YamlDotNet.dll','INIFileParser.dll' -Destination "$plug" -Force
+    Write-Host "$TargetAssembly"
+    Copy-Item -Path "$TargetPath\*" -Include $TargetAssembly.Split(',') -Destination "$plug" -Force
 
     # return basepath as DirectoryInfo
     return $base
@@ -61,7 +68,6 @@ function Copy-Corlib{
 
     $rel = $DistPath.CreateSubdirectory('unstripped_corlib')
     Copy-Item -Path "$LibPath\*" -Filter '*.dll' -Destination "$rel" -Force
-
 }
 
 function Copy-Config{
@@ -72,7 +78,6 @@ function Copy-Config{
     Write-Host "Copying V+ config to $DistPath\BepInEx\config"
 
     Copy-Item -Path "$SolutionPath\*" -Include 'valheim_plus.cfg' -Destination "$DistPath\BepInEx\config" -Force
-
 }
 
 function Make-Archive{
@@ -90,6 +95,11 @@ function Make-Archive{
 }
 
 Write-Host "Publishing V+ for $Target from $TargetPath"
+
+if ($DebugScript) {
+    Write-Host "Just kidding, debugging myself"
+    Write-Host ""
+}
 
 if ($Target.Equals("Debug")) {
     Write-Host "Copying dlls to Valheim installation $ValheimPath"
