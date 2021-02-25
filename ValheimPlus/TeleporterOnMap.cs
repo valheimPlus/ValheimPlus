@@ -244,7 +244,7 @@ namespace ValheimPlus
                 return;
             }
 
-            if (Configuration.Current.Map.showPortalsOnMap)
+            if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.showPortalsOnMap)
             {
                 ZLog.Log("Sending message to server to trigger delivery of map icons");
                 ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), nameof(VPlusTeleporterSync.RPC_VPlusTeleporterSync).Substring(4),
@@ -264,7 +264,7 @@ namespace ValheimPlus
                 return;
             }
 
-            if (Configuration.Current.Map.showPortalsOnMap)
+            if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.showPortalsOnMap)
             {
                 List<Minimap.PinData> copy;
 
