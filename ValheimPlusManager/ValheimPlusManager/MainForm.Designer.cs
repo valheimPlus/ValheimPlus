@@ -149,7 +149,7 @@ namespace ValheimPlusManager
             this.checkCLientUpdatesIconButton.TabIndex = 9;
             this.checkCLientUpdatesIconButton.Text = "Check for updates";
             this.checkCLientUpdatesIconButton.UseVisualStyleBackColor = true;
-            this.checkCLientUpdatesIconButton.Click += new System.EventHandler(this.checkCLientUpdatesIconButton_Click);
+            this.checkCLientUpdatesIconButton.Click += new System.EventHandler(this.checkCLientUpdatesIconButton_ClickAsync);
             // 
             // checkServerUpdatesIconButton
             // 
@@ -164,7 +164,7 @@ namespace ValheimPlusManager
             this.checkServerUpdatesIconButton.TabIndex = 9;
             this.checkServerUpdatesIconButton.Text = "Check for updates";
             this.checkServerUpdatesIconButton.UseVisualStyleBackColor = true;
-            this.checkServerUpdatesIconButton.Click += new System.EventHandler(this.checkServerUpdatesIconButton_Click_1);
+            this.checkServerUpdatesIconButton.Click += new System.EventHandler(this.checkServerUpdatesIconButton_Click_1Async);
             // 
             // installServerUpdateIconButton
             // 
@@ -180,6 +180,7 @@ namespace ValheimPlusManager
             this.installServerUpdateIconButton.TabIndex = 10;
             this.installServerUpdateIconButton.Text = "Install update";
             this.installServerUpdateIconButton.UseVisualStyleBackColor = false;
+            this.installServerUpdateIconButton.Click += new System.EventHandler(this.installServerUpdateIconButton_ClickAsync);
             // 
             // statusLabel
             // 
@@ -220,6 +221,7 @@ namespace ValheimPlusManager
             this.installClientUpdateIconButton.TabIndex = 11;
             this.installClientUpdateIconButton.Text = "Install update";
             this.installClientUpdateIconButton.UseVisualStyleBackColor = false;
+            this.installClientUpdateIconButton.Click += new System.EventHandler(this.installClientUpdateIconButton_Click);
             // 
             // serverPanel
             // 

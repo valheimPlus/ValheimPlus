@@ -114,9 +114,9 @@ namespace ValheimPlusManager
             Application.Exit();
         }
 
-        private void checkCLientUpdatesIconButton_Click(object sender, EventArgs e)
+        private async void checkCLientUpdatesIconButton_ClickAsync(object sender, EventArgs e)
         {
-            ValheimPlusUpdate valheimPlusUpdate = UpdateManager.CheckForValheimPlusUpdates(Settings.ValheimPlusVersion);
+            ValheimPlusUpdate valheimPlusUpdate = await UpdateManager.CheckForValheimPlusUpdatesAsync(Settings.ValheimPlusVersion);
 
             if (valheimPlusUpdate.NewVersion)
             {
@@ -125,14 +125,34 @@ namespace ValheimPlusManager
             }
         }
 
-        private void checkServerUpdatesIconButton_Click_1(object sender, EventArgs e)
+        private async void checkServerUpdatesIconButton_Click_1Async(object sender, EventArgs e)
         {
-            ValheimPlusUpdate valheimPlusUpdate = UpdateManager.CheckForValheimPlusUpdates(Settings.ValheimPlusVersion);
+            ValheimPlusUpdate valheimPlusUpdate = await UpdateManager.CheckForValheimPlusUpdatesAsync(Settings.ValheimPlusVersion);
 
             if (valheimPlusUpdate.NewVersion)
             {
                 installServerUpdateIconButton.Text = String.Format("Install update {0}", valheimPlusUpdate.Version);
                 installServerUpdateIconButton.Show();
+            }
+        }
+
+        private async void installServerUpdateIconButton_ClickAsync(object sender, EventArgs e)
+        {
+            ValheimPlusUpdate valheimPlusUpdate = await UpdateManager.CheckForValheimPlusUpdatesAsync(Settings.ValheimPlusVersion);
+
+            if (valheimPlusUpdate.NewVersion)
+            {
+                bool success = await UpdateManager.DownloadValheimPlusUpdateAsync(Settings.ValheimPlusVersion, false);
+            }
+        }
+
+        private async void installClientUpdateIconButton_Click(object sender, EventArgs e)
+        {
+            ValheimPlusUpdate valheimPlusUpdate = await UpdateManager.CheckForValheimPlusUpdatesAsync(Settings.ValheimPlusVersion);
+
+            if (valheimPlusUpdate.NewVersion)
+            {
+                bool success = await UpdateManager.DownloadValheimPlusUpdateAsync(Settings.ValheimPlusVersion, true);
             }
         }
     }

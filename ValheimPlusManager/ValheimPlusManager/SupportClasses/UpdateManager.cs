@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Octokit;
+using RestSharp;
 using RestSharp.Serialization.Json;
 using System;
 using System.Collections.Generic;
@@ -11,43 +12,58 @@ namespace ValheimPlusManager.SupportClasses
 {
     public class UpdateManager
     {
-        public static ValheimPlusUpdate CheckForValheimPlusUpdates(string valheimPlusVersion)
+        public static async Task<ValheimPlusUpdate> CheckForValheimPlusUpdatesAsync(string valheimPlusVersion)
         {
             ValheimPlusUpdate valheimPlusUpdate = new ValheimPlusUpdate();
 
             // Calling Github API to fetch versions of ValheimPlus
-            var client = new RestClient("https://api.github.com/");
-            client.UseSerializer(() => new JsonSerializer { DateFormat = "yyyy-MM-ddTHH:mm:ss.FFFFFFFZ" });
-            var request = new RestRequest("repos/valheimPlus/ValheimPlus/releases", DataFormat.Json);
-            var response = client.Get(request);
-
-            // Picking out all current versions released
-            var versions = client.Execute<List<dynamic>>(request).Data.Select(
-              item => item["tag_name"]).ToList(); // list of names
+            var github = new GitHubClient(new ProductHeaderValue("ValheimPlusManager"));
+            var releases = await github.Repository.Release.GetAll("valheimPlus", "ValheimPlus");
+            var latest = releases[0];
 
             // Comparing latest release on ValheimPlus Github to currently installed locally
-            var latestVersion = new Version(versions[0]);
+            var latestVersion = new Version(latest.TagName);
             var currentVersion = new Version(valheimPlusVersion);
             var result = latestVersion.CompareTo(currentVersion);
 
-            if (result > 0)
+            if (result > 0) // If a new version is available
             {
                 valheimPlusUpdate.NewVersion = true;
-                valheimPlusUpdate.Version = versions[0];
+                valheimPlusUpdate.Version = latest.TagName;
+                valheimPlusUpdate.WindowsServerClientDownloadURL = latest.Assets.Single(x => x.Name == "WindowsServer.zip").BrowserDownloadUrl;
+                valheimPlusUpdate.WindowsGameClientDownloadURL = latest.Assets.Single(x => x.Name == "WindowsClient.zip").BrowserDownloadUrl;
                 return valheimPlusUpdate;
             }
             else if (result < 0)
             {
                 valheimPlusUpdate.NewVersion = false;
-                valheimPlusUpdate.Version = versions[0];
+                valheimPlusUpdate.Version = latest.TagName;
                 return valheimPlusUpdate;
             }
             else
             {
                 valheimPlusUpdate.NewVersion = false;
-                valheimPlusUpdate.Version = versions[0];
+                valheimPlusUpdate.Version = latest.TagName;
                 return valheimPlusUpdate;
             }
+        }
+
+        public static async Task<bool> DownloadValheimPlusUpdateAsync(string valheimPlusVersion, bool manageClient)
+        {
+            ValheimPlusUpdate valheimPlusUpdate = await CheckForValheimPlusUpdatesAsync(valheimPlusVersion);
+
+            var wc = new System.Net.WebClient();
+
+            if(manageClient)
+            {
+                wc.DownloadFile(valheimPlusUpdate.WindowsGameClientDownloadURL, @"Data/ValheimPlusGameClient/WindowsClient.zip");
+            }
+            else
+            {
+                wc.DownloadFile(valheimPlusUpdate.WindowsServerClientDownloadURL, @"Data/ValheimPlusServerClient/WindowsServer.zip");
+            }
+
+            return true;
         }
     }
 }
