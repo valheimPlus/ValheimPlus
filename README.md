@@ -10,9 +10,6 @@ Below you can find a list of hosting companies that are supporting ValehimPlus w
 [![ZapHosting](http://valheimplus.com/zap/692x127.jpg)](https://zap-hosting.com/valheimplus)
 [![GFXHosting](https://www.gtxgaming.co.uk/wp-content/uploads/2021/02/valheim_plus_banner-3.png)](https://www.gtxgaming.co.uk/clientarea/aff.php?aff=2096)
 
-If you are interested in being in this list, please contact us via Discord, GitHub, Nexus or via e-mail at "contact@valheim.plus".
-
-*(We do not agree to exclusive deals.)*
 
 # Features
 All of these features can be adjusted by a configuration file. This also allows you to only enable very specific featues.
