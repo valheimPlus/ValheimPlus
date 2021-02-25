@@ -202,7 +202,7 @@ namespace ValheimPlusManager.SupportClasses
             return valheimPlusConfiguration;
         }
 
-        public static bool WriteConfigFile(ValheimPlusConf valheimPlusConf, bool manageClient)
+        public static bool WriteConfigFile(ValheimPlusConf valheimPlusConfiguration, bool manageClient)
         {
             Settings settings = SettingsDAL.GetSettings();
             IniData data;
@@ -220,88 +220,105 @@ namespace ValheimPlusManager.SupportClasses
             }
 
             // Advanced building mode settings
-            data["AdvancedBuildingMode"]["enabled"] = valheimPlusConf.advancedBuildingModeEnabled.ToString().ToLower();
+            data["AdvancedBuildingMode"]["enabled"] = valheimPlusConfiguration.advancedBuildingModeEnabled.ToString().ToLower();
 
             // Advanced editing mode settings
-            data["AdvancedEditingMode"]["enabled"] = valheimPlusConf.advancedEditingModeEnabled.ToString().ToLower();
+            data["AdvancedEditingMode"]["enabled"] = valheimPlusConfiguration.advancedEditingModeEnabled.ToString().ToLower();
 
             // Beehive
-            data["Beehive"]["enabled"] = valheimPlusConf.beehiveSettingsEnabled.ToString().ToLower();
-            data["Beehive"]["honeyProductionSpeed"] = valheimPlusConf.honeyProductionSpeed.ToString();
-            data["Beehive"]["maximumHoneyPerBeehive"] = valheimPlusConf.maximumHoneyPerBeehive.ToString();
+            data["Beehive"]["enabled"] = valheimPlusConfiguration.beehiveSettingsEnabled.ToString().ToLower();
+            data["Beehive"]["honeyProductionSpeed"] = valheimPlusConfiguration.honeyProductionSpeed.ToString();
+            data["Beehive"]["maximumHoneyPerBeehive"] = valheimPlusConfiguration.maximumHoneyPerBeehive.ToString();
 
             // Building
-            data["Building"]["enabled"] = valheimPlusConf.buildingSettingsEnabled.ToString().ToLower();
-            data["Building"]["maximumPlacementDistance"] = valheimPlusConf.maximumPlacementDistance.ToString().ToLower();
-            data["Building"]["noWeatherDamage"] = valheimPlusConf.noWeatherDamage.ToString();
-            data["Building"]["noInvalidPlacementRestriction"] = valheimPlusConf.noInvalidPlacementRestriction.ToString();
+            data["Building"]["enabled"] = valheimPlusConfiguration.buildingSettingsEnabled.ToString().ToLower();
+            data["Building"]["maximumPlacementDistance"] = valheimPlusConfiguration.maximumPlacementDistance.ToString().ToLower();
+            data["Building"]["noWeatherDamage"] = valheimPlusConfiguration.noWeatherDamage.ToString();
+            data["Building"]["noInvalidPlacementRestriction"] = valheimPlusConfiguration.noInvalidPlacementRestriction.ToString();
 
             // Items
-            data["Items"]["enabled"] = valheimPlusConf.itemsSettingsEnabled.ToString().ToLower();
+            data["Items"]["enabled"] = valheimPlusConfiguration.itemsSettingsEnabled.ToString().ToLower();
 
             // Fermenter
-            data["Fermenter"]["enabled"] = valheimPlusConf.fermenterSettingsEnabled.ToString().ToLower();
+            data["Fermenter"]["enabled"] = valheimPlusConfiguration.fermenterSettingsEnabled.ToString().ToLower();
 
             // Fireplace
-            data["Fireplace"]["enabled"] = valheimPlusConf.fireplaceSettingsEnabled.ToString().ToLower();
+            data["Fireplace"]["enabled"] = valheimPlusConfiguration.fireplaceSettingsEnabled.ToString().ToLower();
 
             // Food
-            data["Food"]["enabled"] = valheimPlusConf.foodSettingsEnabled.ToString().ToLower();
+            data["Food"]["enabled"] = valheimPlusConfiguration.foodSettingsEnabled.ToString().ToLower();
 
             // Furnace
-            data["Furnace"]["enabled"] = valheimPlusConf.furnaceSettingsEnabled.ToString().ToLower();
+            data["Furnace"]["enabled"] = valheimPlusConfiguration.furnaceSettingsEnabled.ToString().ToLower();
 
             // Game
-            data["Game"]["enabled"] = valheimPlusConf.gameSettingsEnabled.ToString().ToLower();
+            data["Game"]["enabled"] = valheimPlusConfiguration.gameSettingsEnabled.ToString().ToLower();
 
             // Hotkeys
-            data["Hotkeys"]["enabled"] = valheimPlusConf.hotkeysSettingsEnabled.ToString().ToLower();
+            data["Hotkeys"]["enabled"] = valheimPlusConfiguration.hotkeysSettingsEnabled.ToString().ToLower();
 
             // Hud
-            data["Hud"]["enabled"] = valheimPlusConf.hudSettingsEnabled.ToString().ToLower();
+            data["Hud"]["enabled"] = valheimPlusConfiguration.hudSettingsEnabled.ToString().ToLower();
 
             // Kiln
-            data["Kiln"]["enabled"] = valheimPlusConf.kilnSettingsEnabled.ToString().ToLower();
+            data["Kiln"]["enabled"] = valheimPlusConfiguration.kilnSettingsEnabled.ToString().ToLower();
 
             // Map
-            data["Map"]["enabled"] = valheimPlusConf.mapSettingsEnabled.ToString().ToLower();
+            data["Map"]["enabled"] = valheimPlusConfiguration.mapSettingsEnabled.ToString().ToLower();
 
             // Player
-            data["Player"]["enabled"] = valheimPlusConf.playerSettingsEnabled.ToString().ToLower();
+            data["Player"]["enabled"] = valheimPlusConfiguration.playerSettingsEnabled.ToString().ToLower();
 
             // Server
-            data["Server"]["enabled"] = valheimPlusConf.serverSettingsEnabled.ToString().ToLower();
+            data["Server"]["enabled"] = valheimPlusConfiguration.serverSettingsEnabled.ToString().ToLower();
 
             // Stamina
-            data["Stamina"]["enabled"] = valheimPlusConf.staminaSettingsEnabled.ToString().ToLower();
+            data["Stamina"]["enabled"] = valheimPlusConfiguration.staminaSettingsEnabled.ToString().ToLower();
 
             // StaminaUsage
-            data["StaminaUsage"]["enabled"] = valheimPlusConf.staminaUsageSettingsEnabled.ToString().ToLower();
+            data["StaminaUsage"]["enabled"] = valheimPlusConfiguration.staminaUsageSettingsEnabled.ToString().ToLower();
 
             // Workbench
-            data["Workbench"]["enabled"] = valheimPlusConf.workbenchSettingsEnabled.ToString().ToLower();
+            data["Workbench"]["enabled"] = valheimPlusConfiguration.workbenchSettingsEnabled.ToString().ToLower();
 
             // Time
-            data["Time"]["enabled"] = valheimPlusConf.timeSettingsEnabled.ToString().ToLower();
+            data["Time"]["enabled"] = valheimPlusConfiguration.timeSettingsEnabled.ToString().ToLower();
 
             // Ward
-            data["Ward"]["enabled"] = valheimPlusConf.wardSettingsEnabled.ToString().ToLower();
-            data["Ward"]["wardRange"] = valheimPlusConf.wardRange.ToString().ToLower();
+            data["Ward"]["enabled"] = valheimPlusConfiguration.wardSettingsEnabled.ToString().ToLower();
+            data["Ward"]["wardRange"] = valheimPlusConfiguration.wardRange.ToString().ToLower();
 
             // StructuralIntegrity
-            data["StructuralIntegrity"]["enabled"] = valheimPlusConf.structuralIntegritySettingsEnabled.ToString().ToLower();
+            data["StructuralIntegrity"]["enabled"] = valheimPlusConfiguration.structuralIntegritySettingsEnabled.ToString().ToLower();
 
             // Experience
-            data["Experience"]["enabled"] = valheimPlusConf.experienceSettingsEnabled.ToString().ToLower();
+            data["Experience"]["enabled"] = valheimPlusConfiguration.experienceSettingsEnabled.ToString().ToLower();
+            data["Experience"]["swords"] = valheimPlusConfiguration.experienceSwords.ToString();
+            data["Experience"]["knives"] = valheimPlusConfiguration.experienceKnives.ToString();
+            data["Experience"]["clubs"] = valheimPlusConfiguration.experienceClubs.ToString();
+            data["Experience"]["polearms"] = valheimPlusConfiguration.experiencePolearms.ToString();
+            data["Experience"]["spears"] = valheimPlusConfiguration.experienceSpears.ToString();
+            data["Experience"]["blocking"] = valheimPlusConfiguration.experienceBlocking.ToString();
+            data["Experience"]["axes"] = valheimPlusConfiguration.experienceAxes.ToString();
+            data["Experience"]["bows"] = valheimPlusConfiguration.experienceBows.ToString();
+            data["Experience"]["fireMagic"] = valheimPlusConfiguration.experienceFireMagic.ToString();
+            data["Experience"]["frostMagic"] = valheimPlusConfiguration.experienceFrostMagic.ToString();
+            data["Experience"]["unarmed"] = valheimPlusConfiguration.experienceUnarmed.ToString();
+            data["Experience"]["pickaxes"] = valheimPlusConfiguration.experiencePickaxes.ToString();
+            data["Experience"]["woodCutting"] = valheimPlusConfiguration.experienceWoodCutting.ToString();
+            data["Experience"]["jump"] = valheimPlusConfiguration.experienceJump.ToString();
+            data["Experience"]["sneak"] = valheimPlusConfiguration.experienceSneak.ToString();
+            data["Experience"]["run"] = valheimPlusConfiguration.experienceRun.ToString();
+            data["Experience"]["swim"] = valheimPlusConfiguration.experienceSwim.ToString();
 
             // Camera
-            data["Camera"]["enabled"] = valheimPlusConf.cameraSettingsEnabled.ToString().ToLower();
-            data["Camera"]["cameraMaximumZoomDistance"] = valheimPlusConf.cameraMaximumZoomDistance.ToString().ToLower();
-            data["Camera"]["cameraBoatMaximumZoomDistance"] = valheimPlusConf.cameraBoatMaximumZoomDistance.ToString().ToLower();
-            data["Camera"]["cameraFOV"] = valheimPlusConf.cameraFOV.ToString().ToLower();
+            data["Camera"]["enabled"] = valheimPlusConfiguration.cameraSettingsEnabled.ToString().ToLower();
+            data["Camera"]["cameraMaximumZoomDistance"] = valheimPlusConfiguration.cameraMaximumZoomDistance.ToString().ToLower();
+            data["Camera"]["cameraBoatMaximumZoomDistance"] = valheimPlusConfiguration.cameraBoatMaximumZoomDistance.ToString().ToLower();
+            data["Camera"]["cameraFOV"] = valheimPlusConfiguration.cameraFOV.ToString().ToLower();
 
             // Wagon
-            data["Wagon"]["enabled"] = valheimPlusConf.wagonSettingsEnabled.ToString().ToLower();
+            data["Wagon"]["enabled"] = valheimPlusConfiguration.wagonSettingsEnabled.ToString().ToLower();
 
             // Writing the new settings to configuration file
             try

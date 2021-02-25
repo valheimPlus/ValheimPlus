@@ -68,6 +68,33 @@ namespace ValheimPlusManager
             this.cameraMaximumZoomDistanceNumeric = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.experienceTab = new System.Windows.Forms.TabPage();
+            this.label54 = new System.Windows.Forms.Label();
+            this.pickaxesNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label53 = new System.Windows.Forms.Label();
+            this.frostMagicNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label52 = new System.Windows.Forms.Label();
+            this.bowsNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label51 = new System.Windows.Forms.Label();
+            this.blockingNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label50 = new System.Windows.Forms.Label();
+            this.woodCuttingNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label49 = new System.Windows.Forms.Label();
+            this.unarmedNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label48 = new System.Windows.Forms.Label();
+            this.fireMagicNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label47 = new System.Windows.Forms.Label();
+            this.axesNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label46 = new System.Windows.Forms.Label();
+            this.spearsNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label45 = new System.Windows.Forms.Label();
+            this.clubsNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label44 = new System.Windows.Forms.Label();
+            this.polearmsNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label43 = new System.Windows.Forms.Label();
+            this.knivesNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label42 = new System.Windows.Forms.Label();
+            this.swordsNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label41 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.fermenterTab = new System.Windows.Forms.TabPage();
             this.label16 = new System.Windows.Forms.Label();
@@ -114,6 +141,14 @@ namespace ValheimPlusManager
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.saveChangesLabel = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
+            this.jumpNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label56 = new System.Windows.Forms.Label();
+            this.sneakNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label57 = new System.Windows.Forms.Label();
+            this.swimNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label58 = new System.Windows.Forms.Label();
+            this.runNumeric = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.advancedBuildingModeTab.SuspendLayout();
             this.advancedEditingTab.SuspendLayout();
@@ -127,6 +162,19 @@ namespace ValheimPlusManager
             ((System.ComponentModel.ISupportInitialize)(this.cameraBoatMaximumZoomDistanceNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cameraMaximumZoomDistanceNumeric)).BeginInit();
             this.experienceTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pickaxesNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.frostMagicNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bowsNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blockingNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.woodCuttingNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unarmedNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fireMagicNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axesNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spearsNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clubsNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.polearmsNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.knivesNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.swordsNumeric)).BeginInit();
             this.fermenterTab.SuspendLayout();
             this.fireplaceTab.SuspendLayout();
             this.foodTab.SuspendLayout();
@@ -147,6 +195,10 @@ namespace ValheimPlusManager
             this.wardTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wardRangeNumeric)).BeginInit();
             this.workbenchTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.jumpNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sneakNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.swimNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.runNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // configCheckedListBox
@@ -183,7 +235,7 @@ namespace ValheimPlusManager
             "Enable workbench settings"});
             this.configCheckedListBox.Location = new System.Drawing.Point(0, 0);
             this.configCheckedListBox.Name = "configCheckedListBox";
-            this.configCheckedListBox.Size = new System.Drawing.Size(259, 647);
+            this.configCheckedListBox.Size = new System.Drawing.Size(259, 782);
             this.configCheckedListBox.Sorted = true;
             this.configCheckedListBox.TabIndex = 0;
             this.configCheckedListBox.ThreeDCheckBoxes = true;
@@ -222,7 +274,7 @@ namespace ValheimPlusManager
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(862, 585);
+            this.tabControl1.Size = new System.Drawing.Size(862, 720);
             this.tabControl1.TabIndex = 1;
             // 
             // advancedBuildingModeTab
@@ -641,13 +693,346 @@ namespace ValheimPlusManager
             // 
             // experienceTab
             // 
+            this.experienceTab.AutoScroll = true;
+            this.experienceTab.Controls.Add(this.label58);
+            this.experienceTab.Controls.Add(this.runNumeric);
+            this.experienceTab.Controls.Add(this.label57);
+            this.experienceTab.Controls.Add(this.swimNumeric);
+            this.experienceTab.Controls.Add(this.label56);
+            this.experienceTab.Controls.Add(this.sneakNumeric);
+            this.experienceTab.Controls.Add(this.label55);
+            this.experienceTab.Controls.Add(this.jumpNumeric);
+            this.experienceTab.Controls.Add(this.label54);
+            this.experienceTab.Controls.Add(this.pickaxesNumeric);
+            this.experienceTab.Controls.Add(this.label53);
+            this.experienceTab.Controls.Add(this.frostMagicNumeric);
+            this.experienceTab.Controls.Add(this.label52);
+            this.experienceTab.Controls.Add(this.bowsNumeric);
+            this.experienceTab.Controls.Add(this.label51);
+            this.experienceTab.Controls.Add(this.blockingNumeric);
+            this.experienceTab.Controls.Add(this.label50);
+            this.experienceTab.Controls.Add(this.woodCuttingNumeric);
+            this.experienceTab.Controls.Add(this.label49);
+            this.experienceTab.Controls.Add(this.unarmedNumeric);
+            this.experienceTab.Controls.Add(this.label48);
+            this.experienceTab.Controls.Add(this.fireMagicNumeric);
+            this.experienceTab.Controls.Add(this.label47);
+            this.experienceTab.Controls.Add(this.axesNumeric);
+            this.experienceTab.Controls.Add(this.label46);
+            this.experienceTab.Controls.Add(this.spearsNumeric);
+            this.experienceTab.Controls.Add(this.label45);
+            this.experienceTab.Controls.Add(this.clubsNumeric);
+            this.experienceTab.Controls.Add(this.label44);
+            this.experienceTab.Controls.Add(this.polearmsNumeric);
+            this.experienceTab.Controls.Add(this.label43);
+            this.experienceTab.Controls.Add(this.knivesNumeric);
+            this.experienceTab.Controls.Add(this.label42);
+            this.experienceTab.Controls.Add(this.swordsNumeric);
+            this.experienceTab.Controls.Add(this.label41);
             this.experienceTab.Controls.Add(this.label15);
             this.experienceTab.Location = new System.Drawing.Point(4, 44);
             this.experienceTab.Name = "experienceTab";
-            this.experienceTab.Size = new System.Drawing.Size(854, 537);
+            this.experienceTab.Size = new System.Drawing.Size(854, 672);
             this.experienceTab.TabIndex = 5;
             this.experienceTab.Text = "Experience";
             this.experienceTab.UseVisualStyleBackColor = true;
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label54.Location = new System.Drawing.Point(432, 403);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(56, 17);
+            this.label54.TabIndex = 37;
+            this.label54.Text = "Pickaxes";
+            // 
+            // pickaxesNumeric
+            // 
+            this.pickaxesNumeric.Location = new System.Drawing.Point(432, 423);
+            this.pickaxesNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.pickaxesNumeric.Name = "pickaxesNumeric";
+            this.pickaxesNumeric.Size = new System.Drawing.Size(348, 23);
+            this.pickaxesNumeric.TabIndex = 36;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label53.Location = new System.Drawing.Point(432, 340);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(76, 17);
+            this.label53.TabIndex = 35;
+            this.label53.Text = "Frost magic";
+            // 
+            // frostMagicNumeric
+            // 
+            this.frostMagicNumeric.Location = new System.Drawing.Point(432, 360);
+            this.frostMagicNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.frostMagicNumeric.Name = "frostMagicNumeric";
+            this.frostMagicNumeric.Size = new System.Drawing.Size(348, 23);
+            this.frostMagicNumeric.TabIndex = 34;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label52.Location = new System.Drawing.Point(432, 277);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(38, 17);
+            this.label52.TabIndex = 33;
+            this.label52.Text = "Bows";
+            // 
+            // bowsNumeric
+            // 
+            this.bowsNumeric.Location = new System.Drawing.Point(432, 297);
+            this.bowsNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.bowsNumeric.Name = "bowsNumeric";
+            this.bowsNumeric.Size = new System.Drawing.Size(348, 23);
+            this.bowsNumeric.TabIndex = 32;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label51.Location = new System.Drawing.Point(432, 214);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(56, 17);
+            this.label51.TabIndex = 31;
+            this.label51.Text = "Blocking";
+            // 
+            // blockingNumeric
+            // 
+            this.blockingNumeric.Location = new System.Drawing.Point(432, 234);
+            this.blockingNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.blockingNumeric.Name = "blockingNumeric";
+            this.blockingNumeric.Size = new System.Drawing.Size(348, 23);
+            this.blockingNumeric.TabIndex = 30;
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label50.Location = new System.Drawing.Point(4, 467);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(82, 17);
+            this.label50.TabIndex = 29;
+            this.label50.Text = "Woodcutting";
+            // 
+            // woodCuttingNumeric
+            // 
+            this.woodCuttingNumeric.Location = new System.Drawing.Point(6, 487);
+            this.woodCuttingNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.woodCuttingNumeric.Name = "woodCuttingNumeric";
+            this.woodCuttingNumeric.Size = new System.Drawing.Size(348, 23);
+            this.woodCuttingNumeric.TabIndex = 28;
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label49.Location = new System.Drawing.Point(4, 403);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(62, 17);
+            this.label49.TabIndex = 27;
+            this.label49.Text = "Unarmed";
+            // 
+            // unarmedNumeric
+            // 
+            this.unarmedNumeric.Location = new System.Drawing.Point(6, 423);
+            this.unarmedNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.unarmedNumeric.Name = "unarmedNumeric";
+            this.unarmedNumeric.Size = new System.Drawing.Size(348, 23);
+            this.unarmedNumeric.TabIndex = 26;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label48.Location = new System.Drawing.Point(4, 340);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(68, 17);
+            this.label48.TabIndex = 25;
+            this.label48.Text = "Fire magic";
+            // 
+            // fireMagicNumeric
+            // 
+            this.fireMagicNumeric.Location = new System.Drawing.Point(6, 360);
+            this.fireMagicNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.fireMagicNumeric.Name = "fireMagicNumeric";
+            this.fireMagicNumeric.Size = new System.Drawing.Size(348, 23);
+            this.fireMagicNumeric.TabIndex = 24;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label47.Location = new System.Drawing.Point(4, 277);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(35, 17);
+            this.label47.TabIndex = 23;
+            this.label47.Text = "Axes";
+            // 
+            // axesNumeric
+            // 
+            this.axesNumeric.Location = new System.Drawing.Point(6, 297);
+            this.axesNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.axesNumeric.Name = "axesNumeric";
+            this.axesNumeric.Size = new System.Drawing.Size(348, 23);
+            this.axesNumeric.TabIndex = 22;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label46.Location = new System.Drawing.Point(4, 214);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(48, 17);
+            this.label46.TabIndex = 21;
+            this.label46.Text = "Spears";
+            // 
+            // spearsNumeric
+            // 
+            this.spearsNumeric.Location = new System.Drawing.Point(6, 234);
+            this.spearsNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.spearsNumeric.Name = "spearsNumeric";
+            this.spearsNumeric.Size = new System.Drawing.Size(348, 23);
+            this.spearsNumeric.TabIndex = 20;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label45.Location = new System.Drawing.Point(4, 151);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(40, 17);
+            this.label45.TabIndex = 19;
+            this.label45.Text = "Clubs";
+            // 
+            // clubsNumeric
+            // 
+            this.clubsNumeric.Location = new System.Drawing.Point(6, 171);
+            this.clubsNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.clubsNumeric.Name = "clubsNumeric";
+            this.clubsNumeric.Size = new System.Drawing.Size(348, 23);
+            this.clubsNumeric.TabIndex = 18;
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label44.Location = new System.Drawing.Point(432, 149);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(62, 17);
+            this.label44.TabIndex = 17;
+            this.label44.Text = "Polearms";
+            // 
+            // polearmsNumeric
+            // 
+            this.polearmsNumeric.Location = new System.Drawing.Point(434, 169);
+            this.polearmsNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.polearmsNumeric.Name = "polearmsNumeric";
+            this.polearmsNumeric.Size = new System.Drawing.Size(346, 23);
+            this.polearmsNumeric.TabIndex = 16;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label43.Location = new System.Drawing.Point(432, 88);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(45, 17);
+            this.label43.TabIndex = 15;
+            this.label43.Text = "Knives";
+            // 
+            // knivesNumeric
+            // 
+            this.knivesNumeric.Location = new System.Drawing.Point(434, 108);
+            this.knivesNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.knivesNumeric.Name = "knivesNumeric";
+            this.knivesNumeric.Size = new System.Drawing.Size(346, 23);
+            this.knivesNumeric.TabIndex = 14;
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label42.Location = new System.Drawing.Point(4, 88);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(51, 17);
+            this.label42.TabIndex = 13;
+            this.label42.Text = "Swords";
+            // 
+            // swordsNumeric
+            // 
+            this.swordsNumeric.Location = new System.Drawing.Point(6, 108);
+            this.swordsNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.swordsNumeric.Name = "swordsNumeric";
+            this.swordsNumeric.Size = new System.Drawing.Size(348, 23);
+            this.swordsNumeric.TabIndex = 12;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(6, 38);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(499, 30);
+            this.label41.TabIndex = 8;
+            this.label41.Text = "Each of these values represent the increase to experience gained by % increased. " +
+    "\r\nThe value 50 would result in 50% increased experience gained for the respectiv" +
+    "e skill by name.";
             // 
             // label15
             // 
@@ -1065,12 +1450,10 @@ namespace ValheimPlusManager
             // 
             // saveConfigButton
             // 
-            this.saveConfigButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveConfigButton.Location = new System.Drawing.Point(269, 592);
+            this.saveConfigButton.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.saveConfigButton.Location = new System.Drawing.Point(259, 726);
             this.saveConfigButton.Name = "saveConfigButton";
-            this.saveConfigButton.Size = new System.Drawing.Size(151, 45);
+            this.saveConfigButton.Size = new System.Drawing.Size(862, 56);
             this.saveConfigButton.TabIndex = 2;
             this.saveConfigButton.Text = "Save all changes";
             this.saveConfigButton.UseVisualStyleBackColor = true;
@@ -1119,11 +1502,99 @@ namespace ValheimPlusManager
             this.label27.TabIndex = 7;
             this.label27.Text = "Beehive";
             // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label55.Location = new System.Drawing.Point(432, 467);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(39, 17);
+            this.label55.TabIndex = 39;
+            this.label55.Text = "Jump";
+            // 
+            // jumpNumeric
+            // 
+            this.jumpNumeric.Location = new System.Drawing.Point(432, 487);
+            this.jumpNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.jumpNumeric.Name = "jumpNumeric";
+            this.jumpNumeric.Size = new System.Drawing.Size(348, 23);
+            this.jumpNumeric.TabIndex = 38;
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label56.Location = new System.Drawing.Point(4, 530);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(42, 17);
+            this.label56.TabIndex = 41;
+            this.label56.Text = "Sneak";
+            // 
+            // sneakNumeric
+            // 
+            this.sneakNumeric.Location = new System.Drawing.Point(6, 550);
+            this.sneakNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.sneakNumeric.Name = "sneakNumeric";
+            this.sneakNumeric.Size = new System.Drawing.Size(348, 23);
+            this.sneakNumeric.TabIndex = 40;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label57.Location = new System.Drawing.Point(4, 596);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(38, 17);
+            this.label57.TabIndex = 43;
+            this.label57.Text = "Swim";
+            // 
+            // swimNumeric
+            // 
+            this.swimNumeric.Location = new System.Drawing.Point(6, 616);
+            this.swimNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.swimNumeric.Name = "swimNumeric";
+            this.swimNumeric.Size = new System.Drawing.Size(348, 23);
+            this.swimNumeric.TabIndex = 42;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label58.Location = new System.Drawing.Point(432, 530);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(30, 17);
+            this.label58.TabIndex = 45;
+            this.label58.Text = "Run";
+            // 
+            // runNumeric
+            // 
+            this.runNumeric.Location = new System.Drawing.Point(432, 550);
+            this.runNumeric.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.runNumeric.Name = "runNumeric";
+            this.runNumeric.Size = new System.Drawing.Size(348, 23);
+            this.runNumeric.TabIndex = 44;
+            // 
             // ConfigEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1121, 647);
+            this.ClientSize = new System.Drawing.Size(1121, 782);
             this.Controls.Add(this.saveChangesLabel);
             this.Controls.Add(this.saveConfigButton);
             this.Controls.Add(this.tabControl1);
@@ -1151,6 +1622,19 @@ namespace ValheimPlusManager
             ((System.ComponentModel.ISupportInitialize)(this.cameraMaximumZoomDistanceNumeric)).EndInit();
             this.experienceTab.ResumeLayout(false);
             this.experienceTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pickaxesNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.frostMagicNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bowsNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blockingNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.woodCuttingNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.unarmedNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fireMagicNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.axesNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.spearsNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clubsNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.polearmsNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.knivesNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.swordsNumeric)).EndInit();
             this.fermenterTab.ResumeLayout(false);
             this.fermenterTab.PerformLayout();
             this.fireplaceTab.ResumeLayout(false);
@@ -1190,6 +1674,10 @@ namespace ValheimPlusManager
             ((System.ComponentModel.ISupportInitialize)(this.wardRangeNumeric)).EndInit();
             this.workbenchTab.ResumeLayout(false);
             this.workbenchTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.jumpNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sneakNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.swimNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.runNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1283,5 +1771,40 @@ namespace ValheimPlusManager
         private System.Windows.Forms.NumericUpDown cameraMaximumZoomDistanceNumeric;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.NumericUpDown wardRangeNumeric;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.NumericUpDown spearsNumeric;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.NumericUpDown clubsNumeric;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.NumericUpDown polearmsNumeric;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.NumericUpDown knivesNumeric;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.NumericUpDown swordsNumeric;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.NumericUpDown unarmedNumeric;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.NumericUpDown fireMagicNumeric;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.NumericUpDown axesNumeric;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.NumericUpDown bowsNumeric;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.NumericUpDown blockingNumeric;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.NumericUpDown woodCuttingNumeric;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.NumericUpDown pickaxesNumeric;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.NumericUpDown frostMagicNumeric;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.NumericUpDown swimNumeric;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.NumericUpDown sneakNumeric;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.NumericUpDown jumpNumeric;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.NumericUpDown runNumeric;
     }
 }

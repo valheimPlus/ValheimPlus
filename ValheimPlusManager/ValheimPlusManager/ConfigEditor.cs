@@ -57,6 +57,23 @@ namespace ValheimPlusManager
             cameraFOVNumeric.Value = (decimal)ValheimPlusConf.cameraFOV;
 
             // Experience
+            swordsNumeric.Value = (decimal)ValheimPlusConf.experienceSwords;
+            knivesNumeric.Value = (decimal)ValheimPlusConf.experienceKnives;
+            clubsNumeric.Value = (decimal)ValheimPlusConf.experienceKnives;
+            polearmsNumeric.Value = (decimal)ValheimPlusConf.experiencePolearms;
+            spearsNumeric.Value = (decimal)ValheimPlusConf.experienceSpears;
+            blockingNumeric.Value = (decimal)ValheimPlusConf.experienceBlocking;
+            axesNumeric.Value = (decimal)ValheimPlusConf.experienceAxes;
+            bowsNumeric.Value = (decimal)ValheimPlusConf.experienceBows;
+            fireMagicNumeric.Value = (decimal)ValheimPlusConf.experienceFireMagic;
+            frostMagicNumeric.Value = (decimal)ValheimPlusConf.experienceFrostMagic;
+            unarmedNumeric.Value = (decimal)ValheimPlusConf.experienceUnarmed;
+            pickaxesNumeric.Value = (decimal)ValheimPlusConf.experiencePickaxes;
+            woodCuttingNumeric.Value = (decimal)ValheimPlusConf.experienceWoodCutting;
+            jumpNumeric.Value = (decimal)ValheimPlusConf.experienceJump;
+            sneakNumeric.Value = (decimal)ValheimPlusConf.experienceSneak;
+            runNumeric.Value = (decimal)ValheimPlusConf.experienceRun;
+            swimNumeric.Value = (decimal)ValheimPlusConf.experienceSwim;
 
             // Ward
             wardRangeNumeric.Value = (decimal)ValheimPlusConf.wardRange;
@@ -88,6 +105,25 @@ namespace ValheimPlusManager
             ValheimPlusConf.cameraMaximumZoomDistance = (float)cameraMaximumZoomDistanceNumeric.Value;
             ValheimPlusConf.cameraBoatMaximumZoomDistance = (float)cameraBoatMaximumZoomDistanceNumeric.Value;
             ValheimPlusConf.cameraFOV = (float)cameraFOVNumeric.Value;
+
+            // Experience
+            ValheimPlusConf.experienceSwords = (float)swordsNumeric.Value;
+            ValheimPlusConf.experienceKnives = (float)knivesNumeric.Value;
+            ValheimPlusConf.experienceKnives = (float)clubsNumeric.Value;
+            ValheimPlusConf.experiencePolearms = (float)polearmsNumeric.Value;
+            ValheimPlusConf.experienceSpears = (float)spearsNumeric.Value;
+            ValheimPlusConf.experienceBlocking = (float)blockingNumeric.Value;
+            ValheimPlusConf.experienceAxes = (float)axesNumeric.Value;
+            ValheimPlusConf.experienceBows = (float)bowsNumeric.Value;
+            ValheimPlusConf.experienceFireMagic = (float)fireMagicNumeric.Value;
+            ValheimPlusConf.experienceFrostMagic = (float)frostMagicNumeric.Value;
+            ValheimPlusConf.experienceUnarmed = (float)unarmedNumeric.Value;
+            ValheimPlusConf.experiencePickaxes = (float)pickaxesNumeric.Value;
+            ValheimPlusConf.experienceWoodCutting = (float)woodCuttingNumeric.Value;
+            ValheimPlusConf.experienceJump = (float)jumpNumeric.Value;
+            ValheimPlusConf.experienceSneak = (float)sneakNumeric.Value;
+            ValheimPlusConf.experienceRun = (float)runNumeric.Value;
+            ValheimPlusConf.experienceSwim = (float)swimNumeric.Value;
 
             // Ward
             ValheimPlusConf.wardRange = (float)wardRangeNumeric.Value;
