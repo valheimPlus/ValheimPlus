@@ -79,6 +79,18 @@ namespace ValheimPlusManager
             fermenterDurationNumeric.Value = (decimal)ValheimPlusConf.fermenterDuration;
             fermenterItemsProducedNumeric.Value = ValheimPlusConf.fermenterItemsProduced;
 
+            // Fireplace
+            onlyTorchesCheckBox.Checked = ValheimPlusConf.onlyTorches;
+
+            // Food
+            foodDurationMultiplierNumeric.Value = (decimal)ValheimPlusConf.foodDurationMultiplier;
+
+            // Furnace
+            maximumOreNumeric.Value = (int)ValheimPlusConf.maximumOre;
+            maximumCoalNumeric.Value = (int)ValheimPlusConf.maximumCoal;
+            coalUsedPerProductNumeric.Value = (int)ValheimPlusConf.coalUsedPerProduct;
+            productionSpeedFurnaceNumeric.Value = (decimal)ValheimPlusConf.furnaceProductionSpeed;
+
             // Ward
             wardRangeNumeric.Value = (decimal)ValheimPlusConf.wardRange;
 
@@ -132,6 +144,18 @@ namespace ValheimPlusManager
             // Fermenter
             ValheimPlusConf.fermenterDuration = (float)fermenterDurationNumeric.Value;
             ValheimPlusConf.fermenterItemsProduced = (int)fermenterItemsProducedNumeric.Value;
+
+            // Fireplace
+            ValheimPlusConf.onlyTorches = (bool)onlyTorchesCheckBox.Checked;
+
+            // Food
+            ValheimPlusConf.foodDurationMultiplier = (float)foodDurationMultiplierNumeric.Value;
+
+            // Furnace
+            ValheimPlusConf.maximumOre = (int)maximumOreNumeric.Value;
+            ValheimPlusConf.maximumCoal = (int)maximumCoalNumeric.Value;
+            ValheimPlusConf.coalUsedPerProduct = (int)coalUsedPerProductNumeric.Value;
+            ValheimPlusConf.furnaceProductionSpeed = (float)productionSpeedFurnaceNumeric.Value;
 
             // Ward
             ValheimPlusConf.wardRange = (float)wardRangeNumeric.Value;
