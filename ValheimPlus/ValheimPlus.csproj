@@ -379,6 +379,7 @@
     <Compile Include="SharedMapSystem.cs" />
     <Compile Include="Smelter.cs" />
     <Compile Include="PlayerStats.cs" />
+    <Compile Include="TeleporterOnMap.cs" />
     <Compile Include="UI\VPlusMainMenu.cs" />
     <Compile Include="Utility\EmbeddedAsset.cs" />
     <Compile Include="Version.cs" />
