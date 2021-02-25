@@ -167,6 +167,7 @@ We supply 4 different versions of V+ with every release since version 0.8. You c
    1. Right click the valheim game in your steam library
    2. "Go to Manage" -> "Browse local files"
    2. Steam should open your game folder for you when clicked
+3. Unzip the contents of WindowsClient.zip into the Valheim root folder.
    
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
