@@ -21,7 +21,7 @@ namespace ValheimPlusManager
 
             this.ManageClient = manageClient;
 
-            if(manageClient)
+            if (manageClient)
             {
                 ValheimPlusConf = ConfigManager.ReadConfigFile(true);
             }
@@ -29,7 +29,7 @@ namespace ValheimPlusManager
             {
                 ValheimPlusConf = ConfigManager.ReadConfigFile(false);
             }
-            
+
             TabSetup = tabControl1.TabPages;
 
             // Advanced building mode settings
@@ -137,8 +137,8 @@ namespace ValheimPlusManager
             ValheimPlusConf.wardRange = (float)wardRangeNumeric.Value;
 
             bool success = ConfigManager.WriteConfigFile(ValheimPlusConf, ManageClient);
-            
-            if(success)
+
+            if (success)
             {
                 saveChangesLabel.Text = String.Format("Changes saved!");
                 saveChangesLabel.ForeColor = Color.Green;

@@ -21,7 +21,7 @@ namespace ValheimPlusManager.Data
             XmlDocument xml = new XmlDocument();
             xml.Load("Data/Settings.xml");
 
-            if(manageClient)
+            if (manageClient)
             {
                 XmlNode node = xml.SelectSingleNode("Settings/ValheimPlusGameClientVersion");
                 node.InnerText = settings.ValheimPlusGameClientVersion;

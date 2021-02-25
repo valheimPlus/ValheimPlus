@@ -1,14 +1,10 @@
 ﻿using Octokit;
-using RestSharp;
-using RestSharp.Serialization.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ValheimPlusManager.Models;
 using System.IO.Compression;
+using System.Linq;
+using System.Threading.Tasks;
 using ValheimPlusManager.Data;
+using ValheimPlusManager.Models;
 
 namespace ValheimPlusManager.SupportClasses
 {
@@ -56,7 +52,7 @@ namespace ValheimPlusManager.SupportClasses
 
             var wc = new System.Net.WebClient();
 
-            if(manageClient)
+            if (manageClient)
             {
                 wc.DownloadFile(valheimPlusUpdate.WindowsGameClientDownloadURL, @"Data/ValheimPlusGameClient/WindowsClient.zip");
                 await InstallValheimPlusUpdateAsync(true, valheimPlusUpdate.Version);

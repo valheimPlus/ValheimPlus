@@ -103,7 +103,6 @@ namespace ValheimPlusManager
             new ConfigEditor(false).Show(); // Bool determines if user will manage conf. for server or game client
         }
 
-
         private void manageClientButton_Click(object sender, EventArgs e)
         {
             new ConfigEditor(true).Show(); // Bool determines if user will manage conf. for server or game client
@@ -177,7 +176,7 @@ namespace ValheimPlusManager
             {
                 bool success = await UpdateManager.DownloadValheimPlusUpdateAsync(Settings.ValheimPlusGameClientVersion, true);
 
-                if(success)
+                if (success)
                 {
                     Settings = SettingsDAL.GetSettings();
                     clientInstalledLabel.Text = String.Format("ValheimPlus {0} installed on client", Settings.ValheimPlusGameClientVersion);

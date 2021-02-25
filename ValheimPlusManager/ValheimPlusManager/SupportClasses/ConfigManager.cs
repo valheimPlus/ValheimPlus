@@ -15,7 +15,7 @@ namespace ValheimPlusManager.SupportClasses
             IniData data;
 
             var parser = new FileIniDataParser();
-            if(manageClient)
+            if (manageClient)
             {
                 data = parser.ReadFile(string.Format("{0}BepInEx/config/valheim_plus.cfg", settings.ClientInstallationPath));
             }
@@ -23,7 +23,7 @@ namespace ValheimPlusManager.SupportClasses
             {
                 data = parser.ReadFile(string.Format("{0}BepInEx/config/valheim_plus.cfg", settings.ServerInstallationPath));
             }
-            
+
             // Advanced building mode settings
             valheimPlusConfiguration.advancedBuildingModeEnabled = bool.Parse(data["AdvancedBuildingMode"]["enabled"]);
             valheimPlusConfiguration.enterAdvancedBuildingMode = data["AdvancedBuildingMode"]["enterAdvancedBuildingMode"];
@@ -340,7 +340,7 @@ namespace ValheimPlusManager.SupportClasses
             {
                 return false;
             }
-            
+
         }
     }
 }

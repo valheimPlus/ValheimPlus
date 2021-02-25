@@ -3,12 +3,14 @@ ValheimPlus Manager makes the installation and configuration of ValheimPlus on W
 ## Features
 - Automatically install ValheimPlus to your game client or server client directory
 - Manage the configuration of ValheimPlus through a GUI
+- Update ValheimPlus directly through ValheimPlus Manager
 - (Coming) backup your configuration files
 - (Coming) backup your game client and server client data
-- (Coming) update ValheimPlus directly through ValheimPlus Manager
 - (Coming) support for Linux
 ## Requirements
 .NET 5 available for download at: https://dotnet.microsoft.com/download/dotnet/5.0/runtime
+## Known issues
+- If using a VPN where your assigned IP has been polling the Github API over 60 times in the last hour when checking for updates, will cause a timeout error. Try changing your VPN IP-address or disabling your VPN when checking for updates.
 ### Donations
 Wanna buy me a cup of coffee?
 Ethereum (ETH): 0xAC7E1beC00A3a26C623a73A3974e91f7b8A463b9
