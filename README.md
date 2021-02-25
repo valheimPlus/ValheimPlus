@@ -323,6 +323,9 @@ ironChestColumns=8
 ; min 3, max 20
 ironChestRows=3
 
+; By default tools and weapons go into inventories top to bottom and other materials bottom to top. Set to true to make all items go into the inventory top to bottom.
+inventoryFillTopToBottom=true
+
 [Items]
 
 ; Change false to true to enable this section
