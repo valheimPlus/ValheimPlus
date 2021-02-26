@@ -414,7 +414,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>powershell.exe -ExecutionPolicy RemoteSigned -File $(SolutionDir)publish.ps1 -Target $(ConfigurationName) -TargetPath $(TargetDir) -TargetAssembly $(TargetFileName) -ValheimPath $(ValheimDir) -SolutionPath $(SolutionDir)</PostBuildEvent>
+    <PostBuildEvent>powershell.exe -ExecutionPolicy RemoteSigned -File "$(SolutionDir)publish.ps1" -Target "$(ConfigurationName)" -TargetPath "$(TargetDir) " -TargetAssembly "$(TargetFileName)" -ValheimPath "$(ValheimDir) " -SolutionPath "$(SolutionDir) "</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

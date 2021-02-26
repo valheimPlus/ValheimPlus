@@ -52,6 +52,14 @@ function Create-BepInEx{
     Write-Host "Plugins: $TargetAssembly"
     Copy-Item -Path "$TargetPath\*" -Include $TargetAssembly.Split(',') -Destination "$plug" -Force
 
+    # copy debug files when target = Debug
+    if ($Target.Equals("Debug")) {
+        foreach($asm in $TargetAssembly.Split(',')){
+            Write-Host "Copy Debug files for plugin $asm"
+            Copy-Item -Path "$TargetPath\*" -Filter ($asm.Replace('.dll','') + ".*") -Destination "$plug" -Force
+        }
+    }
+
     # return basepath as DirectoryInfo
     return $base
 }
@@ -93,6 +101,10 @@ function Make-Archive{
 
     Compress-Archive -Path "$DistPath\*" -DestinationPath "$rel\$zip" -Force
 }
+
+$TargetPath = $TargetPath.Trim();
+$ValheimPath = $ValheimPath.Trim();
+$SolutionPath = $SolutionPath.Trim();
 
 Write-Host "Publishing V+ for $Target from $TargetPath"
 
