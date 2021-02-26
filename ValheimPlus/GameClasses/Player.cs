@@ -136,7 +136,7 @@ namespace ValheimPlus
     {
         private static bool Prefix(ref Player __instance, ref float dt, ref bool forceUpdate)
         {
-            if (Configuration.Current.Food.IsEnabled) return true;
+            if (!Configuration.Current.Food.IsEnabled) return true;
 
             __instance.m_foodUpdateTimer += dt;
             if (__instance.m_foodUpdateTimer >= getModifiedDeltaTime(ref __instance, ref dt) || forceUpdate)
