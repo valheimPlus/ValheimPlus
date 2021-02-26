@@ -1,14 +1,21 @@
-﻿using System;
+﻿using MaterialSkin2DotNet;
+using MaterialSkin2DotNet.Controls;
+using System;
 using System.Windows.Forms;
 
 namespace ValheimPlusManager
 {
-    public partial class SplashScreen : Form
+    public partial class SplashScreen : MaterialForm
     {
-        int timeLeft = 100;
+        int timeLeft = 10;
         public SplashScreen()
         {
             InitializeComponent();
+
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
             this.Icon = Properties.Resources.valheim_plus;
         }
 
