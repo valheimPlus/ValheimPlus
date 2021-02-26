@@ -1,0 +1,25 @@
+﻿<Window x:Class="ValheimPlusManagerWPF.ConfigurationManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ValheimPlusManagerWPF"
+        mc:Ignorable="d"
+        Title="ConfigurationManagerWindow" Height="450" Width="800"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}" Icon="/valheim-plus.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Height="200" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <materialDesign:Card Padding="32" Margin="16">
+                <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}" Text="ValheimPlus Manager" FontWeight="Normal" FontSize="26"/>
+            </materialDesign:Card>
+        </StackPanel>
+        <ListBox/>
+    </Grid>
+</Window>

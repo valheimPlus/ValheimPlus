@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <ClientInstallationPath>C:/Program Files (x86)/Steam/steamapps/common/Valheim/</ClientInstallationPath>
+  <ServerInstallationPath>C:/Program Files (x86)/Steam/steamapps/common/Valheim dedicated server/</ServerInstallationPath>
+  <ClientPath>Data/ValheimPlusGameClient/Extracted</ClientPath>
+  <ServerPath>Data/ValheimPlusServerClient/Extracted</ServerPath>
+  <ValheimPlusGameClientVersion>0.8.5</ValheimPlusGameClientVersion>
+  <ValheimPlusServerClientVersion>0.9</ValheimPlusServerClientVersion>
+</Settings>
