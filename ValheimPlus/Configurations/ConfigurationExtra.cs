@@ -163,6 +163,10 @@ namespace ValheimPlus.Configurations
 
                 var value = configProperty.GetValue(section, null);
                 string valueAsString = value.ToString();
+                if (value is float)
+                {
+                    valueAsString = ((float) value).ToString(CultureInfo.InvariantCulture.NumberFormat);
+                }
 
                 // Special case 'IsEnabled'
                 if (configProperty.Name == "IsEnabled")

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using HarmonyLib;
 using UnityEngine;
@@ -50,7 +51,7 @@ namespace ValheimPlus.ConsoleCommands
 
         protected static float GetFloat(string input)
         {
-            if (!float.TryParse(input, out var val))
+            if (!float.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out var val))
             {
                 return float.NaN;
             }
@@ -90,7 +91,7 @@ namespace ValheimPlus.ConsoleCommands
         public static bool Prefix()
         {
             string temp = Console.instance.m_input.text;
-            if (BaseConsoleCommand.TryExecuteCommand(ref temp)) 
+            if (BaseConsoleCommand.TryExecuteCommand(ref temp))
             {
                 return false;
             }

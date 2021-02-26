@@ -52,7 +52,7 @@ namespace ValheimPlus.ConsoleCommands
                 if (!silent)
                 {
                     Console.instance.AddString("Usage: SetValue <SectionName>.<ValueName> <value>");
-                    Console.instance.AddString("Example to set a value: SetValue Kiln.productionSpeed " + 15.7f);
+                    Console.instance.AddString("Example to set a value: SetValue Kiln.productionSpeed 15.7");
                     Console.instance.AddString("To get a list of sections: SetValue");
                     Console.instance.AddString("To get a list of values of a section: SetValue <SectionName>");
                     Console.instance.AddString("Info about a value: SetValue <SectionName>.<ValueName>");
@@ -67,7 +67,7 @@ namespace ValheimPlus.ConsoleCommands
                 foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance))
                 {
                     bool syncable = typeof(ISyncableSection).IsAssignableFrom(property.PropertyType);
-                    Console.instance.AddString($"{property.Name} {(syncable ? "Admin only" : "")}");
+                    Console.instance.AddString($"{property.Name} \t\t{(syncable ? "Admin only" : "")}");
                 }
             }
 
