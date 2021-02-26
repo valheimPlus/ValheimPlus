@@ -49,6 +49,7 @@ namespace ValheimPlus
                 string weaponType = "";
                 bool isHoe = false;
                 bool isHammer = false;
+                bool isCultivator = false;
 
                 if (__instance.GetRightItem() == null)
                     weaponType = "Unarmed";
@@ -64,6 +65,7 @@ namespace ValheimPlus
 
                     isHoe = (__instance.GetRightItem().m_shared.m_name == "$item_hoe" ? true : false);
                     isHammer = (__instance.GetRightItem().m_shared.m_name == "$item_hammer" ? true : false);
+                    isCultivator = (__instance.GetRightItem().m_shared.m_name == "$item_cultivator" ? true : false);
                 }
                 
                 if(weaponType != "")
@@ -107,6 +109,10 @@ namespace ValheimPlus
                 if (isHoe)
                 {
                     v = v - (v * (Configuration.Current.StaminaUsage.hoe) / 100);
+                }
+                if (isCultivator)
+                {
+                    v = v - (v * (Configuration.Current.StaminaUsage.cultivator) / 100);
                 }
             }
 

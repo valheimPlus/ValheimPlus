@@ -13,5 +13,6 @@
         public float unarmed { get; internal set; } = 0;
         public float hammer { get; internal set; } = 0;
         public float hoe { get; internal set; } = 0;
+        public float cultivator { get; internal set; } = 0;
     }
 }
