@@ -222,14 +222,14 @@ namespace ValheimPlus
         {
             if (Configuration.Current.Stamina.IsEnabled)
             {
-                __instance.m_dodgeStaminaUsage = Configuration.Current.Stamina.dodgeStaminaUsage; ;
-                __instance.m_encumberedStaminaDrain = Configuration.Current.Stamina.encumberedStaminaDrain;
-                __instance.m_sneakStaminaDrain = Configuration.Current.Stamina.sneakStaminaDrain;
-                __instance.m_runStaminaDrain = Configuration.Current.Stamina.runStaminaDrain;
-                __instance.m_staminaRegenDelay = Configuration.Current.Stamina.staminaRegenDelay;
-                __instance.m_staminaRegen = Configuration.Current.Stamina.staminaRegen;
-                __instance.m_swimStaminaDrainMinSkill = Configuration.Current.Stamina.swimStaminaDrain;
-                __instance.m_jumpStaminaUsage = Configuration.Current.Stamina.jumpStaminaDrain;
+                __instance.m_dodgeStaminaUsage = Helper.applyModifierValue(__instance.m_dodgeStaminaUsage, Configuration.Current.Stamina.dodgeStaminaUsage);
+                __instance.m_encumberedStaminaDrain = Helper.applyModifierValue(__instance.m_encumberedStaminaDrain, Configuration.Current.Stamina.encumberedStaminaDrain);
+                __instance.m_sneakStaminaDrain = Helper.applyModifierValue(__instance.m_sneakStaminaDrain, Configuration.Current.Stamina.sneakStaminaDrain);
+                __instance.m_runStaminaDrain = Helper.applyModifierValue(__instance.m_runStaminaDrain,Configuration.Current.Stamina.runStaminaDrain);
+                __instance.m_staminaRegenDelay = Helper.applyModifierValue(__instance.m_staminaRegenDelay, Configuration.Current.Stamina.staminaRegenDelay);
+                __instance.m_staminaRegen = Helper.applyModifierValue(__instance.m_staminaRegen, Configuration.Current.Stamina.staminaRegen);
+                __instance.m_swimStaminaDrainMinSkill = Helper.applyModifierValue(__instance.m_swimStaminaDrainMinSkill, Configuration.Current.Stamina.swimStaminaDrain);
+                __instance.m_jumpStaminaUsage = Helper.applyModifierValue(__instance.m_jumpStaminaUsage, Configuration.Current.Stamina.jumpStaminaDrain);
             }
             if (Configuration.Current.Player.IsEnabled)
             {
