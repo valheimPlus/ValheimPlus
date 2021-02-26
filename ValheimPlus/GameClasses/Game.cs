@@ -18,35 +18,6 @@ namespace ValheimPlus
         }
     }
 
-    /// <summary>
-    /// Saves if new autosave interval is enabled
-    /// </summary>
-    [HarmonyPatch(typeof(Game), "UpdateSaving")]
-    public static class ChangeClientAndServerSaveInterval
-    {
-        private static bool Prefix(ref Game __instance, ref float dt)
-        {
-            if (Configuration.Current.Server.IsEnabled && Configuration.Current.Server.autoSaveInterval >= 10 && ZNet.instance.IsServer())
-            {
-                __instance.m_saveTimer += dt;
-                if (__instance.m_saveTimer > Configuration.Current.Server.autoSaveInterval)
-                {
-                    __instance.m_saveTimer = 0f;
-                    __instance.SavePlayerProfile(false);
-                    if (ZNet.instance)
-                    {
-                        ZNet.instance.Save(false);
-                    }
-
-                    Debug.Log("Saving world data.");
-                }
-
-                return false;
-            }
-
-            return true;
-        }
-    }
 
     /// <summary>
     /// Alter game difficulty damage scale
