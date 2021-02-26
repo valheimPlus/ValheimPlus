@@ -1,9 +1,9 @@
 ﻿using System;
 using HarmonyLib;
 using ValheimPlus.RPC;
-using Steamworks;
 using ValheimPlus.Configurations;
 using UnityEngine;
+using ValheimPlus.ConsoleCommands;
 
 namespace ValheimPlus
 {
@@ -14,6 +14,12 @@ namespace ValheimPlus
         {
             //Config Sync
             ZRoutedRpc.instance.Register("VPlusConfigSync", new Action<long, ZPackage>(VPlusConfigSync.RPC_VPlusConfigSync));
+
+            // Configuration console command RPC
+            ZRoutedRpc.instance.Register("SetConfigurationValue", new Action<long, ZPackage>(RPC.SetConfigurationValueRPC.RPC_SetConfigurationValue));
+
+            // register all console commands
+            BaseConsoleCommand.InitializeCommand<SetConfigurationValue>();
         }
     }
 

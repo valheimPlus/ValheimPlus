@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HarmonyLib;
 using UnityEngine;
 
 namespace ValheimPlus.ConsoleCommands
@@ -12,13 +13,13 @@ namespace ValheimPlus.ConsoleCommands
         public string HelpText { get; internal set; }
         public string CommandName { get; internal set; }
 
-        public virtual bool ParseCommand(string input)
+        private static bool isAdmin = false;
+
+        public virtual bool ParseCommand(string input, bool silent = false)
         {
             return false;
         }
 
-        public bool AdminOnly { get; internal set; }
-        
         private static List<BaseConsoleCommand> consoleCommandInstances = new List<BaseConsoleCommand>();
 
         public static void InitializeCommand<T>() where T : BaseConsoleCommand, new()
@@ -29,8 +30,7 @@ namespace ValheimPlus.ConsoleCommands
             }
         }
 
-
-        public static bool TryExecuteCommand(string input)
+        public static bool TryExecuteCommand(string input, bool silent = false)
         {
             if (string.IsNullOrEmpty(input))
             {
@@ -39,10 +39,10 @@ namespace ValheimPlus.ConsoleCommands
 
             string[] split = input.Split(' ');
             BaseConsoleCommand command = consoleCommandInstances.FirstOrDefault(x => String.Equals(x.CommandName, split[0], StringComparison.CurrentCultureIgnoreCase));
-            
+
             if (command != null)
             {
-                return command.ParseCommand(input);
+                return command.ParseCommand(input, silent);
             }
 
             return false;
@@ -68,6 +68,11 @@ namespace ValheimPlus.ConsoleCommands
             return val;
         }
 
+        protected static bool GetBool(string input)
+        {
+            return new[] { "true", "y", "yes" }.Contains(input.ToLower());
+        }
+
         protected static KeyCode GetKeyCode(string input)
         {
             if (System.Enum.TryParse<KeyCode>(input, out var result))
@@ -78,4 +83,20 @@ namespace ValheimPlus.ConsoleCommands
             return KeyCode.None;
         }
     }
+
+    [HarmonyPatch(typeof(Console), "InputText")]
+    public static class HookConsoleInput
+    {
+        public static bool Prefix()
+        {
+            Console.instance.AddString("Hook in place!");
+            if (BaseConsoleCommand.TryExecuteCommand(Console.instance.m_input.text))
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
 }

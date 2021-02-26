@@ -3,6 +3,7 @@ using HarmonyLib;
 using System;
 using System.IO;
 using ValheimPlus.Configurations;
+using ValheimPlus.ConsoleCommands;
 using ValheimPlus.UI;
 
 namespace ValheimPlus
@@ -31,6 +32,7 @@ namespace ValheimPlus
             bool isClient = !Path.GetFileName(Environment.GetCommandLineArgs()[0]).ToLower().Contains("server");
             string msg = isClient ? "Loading client configuration" : "Loading server configuration";
             Logger.LogInfo(msg);
+
             // NEED PROPER DETECTION IF IT IS SERVER HERE
             if (!Configuration.LoadConfiguration(isClient))
             {
