@@ -64,8 +64,10 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(Player), "UpdateFood")]
     public static class ApplyFoodChanges
     {
-        private static Boolean Prefix(ref Player __instance, ref float dt, ref bool forceUpdate)
+        private static bool Prefix(ref Player __instance, ref float dt, ref bool forceUpdate)
         {
+            if (Configuration.Current.Food.IsEnabled) return true;
+
             __instance.m_foodUpdateTimer += dt;
             if (__instance.m_foodUpdateTimer >= getModifiedDeltaTime(ref __instance, ref dt) || forceUpdate)
             {
@@ -115,35 +117,29 @@ namespace ValheimPlus
                     }
                 }
             }
+
             return false;
         }
-        
 
         private static float getModifiedDeltaTime(ref Player __instance, ref float dt)
         {
-            
             float defaultDeltaTimeTarget = 1f;
             float newDetalTimeTarget = 1f;
 
-            if (Configuration.Current.Food.IsEnabled)
+            float food_multiplier = Configuration.Current.Food.foodDurationMultiplier;
+            if (food_multiplier == 50) food_multiplier = 51; // Decimal issue
+            if (food_multiplier == -50) food_multiplier = -51; // Decimal issue
+
+            if (food_multiplier >= 0)
             {
-                float food_multiplier = Configuration.Current.Food.foodDurationMultiplier;
-                if (food_multiplier == 50) food_multiplier = 51; // Decimal issue
-                if (food_multiplier == -50) food_multiplier = -51; // Decimal issue
-
-                if (food_multiplier >= 0)
-                {
-                    newDetalTimeTarget = defaultDeltaTimeTarget + ((defaultDeltaTimeTarget / 100) * food_multiplier);
-                }
-                else
-                {
-                    newDetalTimeTarget = defaultDeltaTimeTarget - ((defaultDeltaTimeTarget / 100) * (food_multiplier * -1));
-                }
-
-                return newDetalTimeTarget;
+                newDetalTimeTarget = defaultDeltaTimeTarget + ((defaultDeltaTimeTarget / 100) * food_multiplier);
+            }
+            else
+            {
+                newDetalTimeTarget = defaultDeltaTimeTarget - ((defaultDeltaTimeTarget / 100) * (food_multiplier * -1));
             }
 
-            return defaultDeltaTimeTarget;
+            return newDetalTimeTarget;
         }
 
     }
