@@ -7,7 +7,7 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(Inventory), "IsTeleportable")]
     public static class noItemTeleportPrevention
     {
-        private static void Prefix(ref Boolean __result)
+        private static bool Prefix(ref Boolean __result)
         {
             if (Configuration.Current.Items.IsEnabled)
             {
