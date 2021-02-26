@@ -1,25 +1,22 @@
 ﻿using HarmonyLib;
-using BepInEx;
 using ValheimPlus.Configurations;
-using UnityEngine;
-using System;
-using System.Collections.Generic;
 
 namespace ValheimPlus
 {
+    /// <summary>
+    /// Item weight reduction and teleport prevention changes
+    /// </summary>
     [HarmonyPatch(typeof(ItemDrop), "Awake")]
     public static class ChangeItemData
     {
         private static void Prefix(ref ItemDrop __instance)
         {
-
             if (Configuration.Current.Items.IsEnabled && Configuration.Current.Items.noTeleportPrevention)
             {
                 __instance.m_itemData.m_shared.m_teleportable = true;
             }
 
             // Disabled for now. Need to hook the Item ToolTip function properly instead due to the way the game handles food durations.
-
 
             if (Configuration.Current.Items.IsEnabled)
             {
@@ -43,12 +40,8 @@ namespace ValheimPlus
                     {
                         __instance.m_itemData.m_shared.m_maxStackSize = __instance.m_itemData.m_shared.m_maxStackSize + (int)(((float)(__instance.m_itemData.m_shared.m_maxStackSize) / 100) * itemStackMultiplier);
                     }
-
                 }
             }
-
         }
     }
-
-
 }

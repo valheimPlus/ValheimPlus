@@ -1,13 +1,15 @@
 ﻿using HarmonyLib;
-using System;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
+	/// <summary>
+	/// Disable weather damage
+	/// </summary>
     [HarmonyPatch(typeof(WearNTear), "HaveRoof")]
     public static class RemoveWearNTear
     {
-        private static void Postfix(ref Boolean __result)
+        private static void Postfix(ref bool __result)
         {
             if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noWeatherDamage)
             {
@@ -15,14 +17,15 @@ namespace ValheimPlus
             }
         }
     }
-
 	
+	/// <summary>
+	/// Disable structural integrity
+	/// </summary>
     [HarmonyPatch(typeof(WearNTear), "GetMaterialProperties")]
     public static class RemoveStructualIntegrity
     {
-        private static Boolean Prefix(ref WearNTear __instance, out float maxSupport, out float minSupport, out float horizontalLoss, out float verticalLoss)
+        private static bool Prefix(ref WearNTear __instance, out float maxSupport, out float minSupport, out float horizontalLoss, out float verticalLoss)
         {
-
 			if (Configuration.Current.StructuralIntegrity.IsEnabled && Configuration.Current.StructuralIntegrity.disableStructuralIntegrity)
 			{
 				maxSupport = 1500f;
@@ -108,10 +111,6 @@ namespace ValheimPlus
 						return false;
 				}
 			}
-
-			
         }
     }
-
-	
 }
