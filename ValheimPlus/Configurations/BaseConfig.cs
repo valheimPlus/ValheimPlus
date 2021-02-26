@@ -13,10 +13,25 @@ namespace ValheimPlus.Configurations
 
     public abstract class BaseConfig<T> : IConfig where T : IConfig, new()
     {
-        public bool IsEnabled { get; set; } = false;
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                if (value != _isEnabled)
+                {
+                    SectionStatusChangedEvent?.Invoke(this, new SectionStatusChangeEventArgs(value));
+                }
+                _isEnabled = value;
+            }
+        }
+
+        public EventHandler<SectionStatusChangeEventArgs> SectionStatusChangedEvent;
+
         public virtual bool NeedsServerSync { get; set; } = false;
 
         public static IniData iniUpdated = null;
+        private bool _isEnabled = false;
 
         public static T LoadIni(IniData data, string section)
         {
@@ -89,7 +104,7 @@ namespace ValheimPlus.Configurations
 
     }
 
-    public abstract class ServerSyncConfig<T> : BaseConfig<T>, ISyncableSection where T : IConfig,  new() 
+    public abstract class ServerSyncConfig<T> : BaseConfig<T>, ISyncableSection where T : IConfig, new()
     {
         public override bool NeedsServerSync { get; set; } = true;
     }
