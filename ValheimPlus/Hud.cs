@@ -71,7 +71,7 @@ namespace ValheimPlus {
 			private static GameObject stamina;
 			private static void Postfix(Hud __instance, Player player)
 			{
-				if (Configuration.Current.Hud.IsEnabled && Configuration.Current.Hud.staminaText)
+				if (Configuration.Current.Hud.IsEnabled && Configuration.Current.Hud.displayStaminaValue)
 				{
 					Text staminaText;
 					if (stamina == null)
