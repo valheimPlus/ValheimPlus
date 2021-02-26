@@ -18,6 +18,25 @@ namespace ValheimPlus
                 AEM.PlayerInstance = __instance;
                 AEM.run();
             }
+
+            if (Input.GetKeyDown(KeyCode.Keypad1)){
+
+                AdvancedBlueprintMode.PlayerInstance = __instance;
+                AdvancedBlueprintMode.ExecuteRayCast();
+                AdvancedBlueprintMode.SelectObject();
+
+            }
+
+            if (Input.GetKeyDown(KeyCode.Keypad2))
+            {
+
+                AdvancedBlueprintMode.PlayerInstance = __instance;
+                AdvancedBlueprintMode.ExecuteRayCast();
+                AdvancedBlueprintMode.DeselectObject();
+
+            }
+
+
         }
     }
 

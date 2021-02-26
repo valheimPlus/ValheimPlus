@@ -27,6 +27,8 @@ namespace ValheimPlus
     {
         private static void Prefix(ref float dt, ref Player player, ref Minimap __instance, ref float ___m_exploreTimer, ref float ___m_exploreInterval, ref List<ZNet.PlayerInfo> ___m_tempPlayerInfo) // Set after awake function
         {
+            if (Configuration.Current.Map.exploreRadius > 10000) Configuration.Current.Map.exploreRadius = 10000;
+
             if (!Configuration.Current.Map.IsEnabled) return;
 
             if (Configuration.Current.Map.shareMapProgression)
