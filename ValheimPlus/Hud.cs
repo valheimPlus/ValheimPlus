@@ -64,5 +64,38 @@ namespace ValheimPlus {
 			}
 
 		}
+
+		[HarmonyPatch(typeof(Hud), "UpdateStamina")]
+		public static class AddStaminaDisplay
+		{
+			private static GameObject stamina;
+			private static void Postfix(Hud __instance, Player player)
+			{
+				if (Configuration.Current.Hud.IsEnabled && Configuration.Current.Hud.staminaText)
+				{
+					Text staminaText;
+					if (stamina == null)
+					{
+						var healthText = __instance.m_healthText;
+						stamina = new GameObject();
+						stamina.transform.SetParent(__instance.m_staminaBar.transform.parent);
+						var rec = stamina.AddComponent<RectTransform>();
+						var oldRec = __instance.m_staminaBar.GetComponent<RectTransform>();
+						rec.position = new Vector3(Screen.width / 2, __instance.m_staminaBar2Root.transform.position.y, 0);
+
+						staminaText = stamina.AddComponent<Text>();
+						staminaText.color = healthText.color;
+						staminaText.font = healthText.font;
+						staminaText.fontSize = healthText.fontSize;
+						staminaText.alignment = healthText.alignment;
+						staminaText.enabled = true;
+						staminaText.alignment = TextAnchor.MiddleCenter;
+					}
+					else staminaText = stamina.GetComponent<Text>();
+					staminaText.text = Mathf.CeilToInt(player.m_stamina).ToString() + "/" + Mathf.CeilToInt(player.m_maxStamina).ToString();
+					stamina.SetActive(__instance.m_staminaAnimator.GetBool("Visible"));
+				}
+			}
+		}
 	}
 }
