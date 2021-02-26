@@ -3,7 +3,7 @@
 namespace ValheimPlus.Configurations.Sections
 {
     [ConfigurationSection("Server settings")]
-    public class ServerConfiguration : BaseConfig<ServerConfiguration>
+    public class ServerConfiguration : ServerSyncConfig<ServerConfiguration>
     {
         [Configuration("Modify the amount of players on your Server")]
         public int maxPlayers { get; set; } = 10;
