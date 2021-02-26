@@ -1,12 +1,14 @@
-﻿using BepInEx;
-using IniParser;
-using IniParser.Model;
+﻿// ValheimPlus
+
 using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using BepInEx;
+using IniParser;
+using IniParser.Model;
 using IniParser.Parser;
 using UnityEngine;
 
@@ -17,28 +19,37 @@ namespace ValheimPlus.Configurations
     {
         public static string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath);
 
+        public Configuration()
+        {
+            // Create all configuration entries with default values
+            foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            {
+                property.SetValue(this, Activator.CreateInstance(property.PropertyType, true), null);
+            }
+        }
+
         // Loaded configuration
         public static Configuration Current { get; private set; }
 
         /// <summary>
-        /// Load configuration from it's ini files
+        ///     Load configuration from it's ini files
         /// </summary>
         /// <param name="isClient"></param>
         /// <returns>true if successful</returns>
         public static bool LoadConfiguration(bool isClient = false)
         {
-            bool errorWhileLoadingIni = false;
+            var errorWhileLoadingIni = false;
             Current = new Configuration();
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             try
             {
                 foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance))
                 {
-                    string iniPath = Path.Combine(ConfigIniPath, property.Name + ".ini");
+                    var iniPath = Path.Combine(ConfigIniPath, property.Name + ".ini");
 
-                    bool needsSync = typeof(ISyncableSection).IsAssignableFrom(property.PropertyType);
+                    var needsSync = typeof(ISyncableSection).IsAssignableFrom(property.PropertyType);
 
-                    if ((isClient && !needsSync) || (!isClient && needsSync))
+                    if (isClient && !needsSync || !isClient && needsSync)
                     {
                         if (File.Exists(iniPath))
                         {
@@ -68,21 +79,16 @@ namespace ValheimPlus.Configurations
             return !errorWhileLoadingIni;
         }
 
-        public Configuration()
-        {
-            // Create all configuration entries with default values
-            foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance))
-            {
-                property.SetValue(this, Activator.CreateInstance(property.PropertyType, true), null);
-            }
-        }
-
+        /// <summary>
+        /// Get all section which need to synced with clients
+        /// </summary>
+        /// <returns></returns>
         public string GetSyncableSections()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
-                sb.AppendLine(GenerateSection(property, property.GetValue(this, null), false));
+                sb.AppendLine(GenerateSection(property, property.GetValue(this, null)));
             }
 
             return sb.ToString();
@@ -90,29 +96,34 @@ namespace ValheimPlus.Configurations
 
 
         /// <summary>
-        /// Save full config
-        /// Do not call this from startup, ZNet isn't initialized yet
+        ///     Save full config
+        ///     Do not call this from startup, ZNet isn't initialized yet
         /// </summary>
         public void SaveConfiguration()
         {
-            bool isClient = !ZNet.instance.IsServer();
+            var isClient = !ZNet.instance.IsServer();
             foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList())
             {
                 SaveConfiguration(property, isClient);
             }
         }
 
+        /// <summary>
+        /// Save configuration section to its ini file
+        /// </summary>
+        /// <param name="property">Configuration property</param>
+        /// <param name="isClient"></param>
         private void SaveConfiguration(PropertyInfo property, bool isClient)
         {
-            string configName = property.Name + ".ini";
+            var configName = property.Name + ".ini";
 
-            Type sectionType = property.PropertyType;
+            var sectionType = property.PropertyType;
 
             // For clients only save client values, for servers only server values
-            object section = property.GetValue(Configuration.Current, null);
-            bool needsSync = section is ISyncableSection;
+            var section = property.GetValue(Current, null);
+            var needsSync = section is ISyncableSection;
 
-            if ((isClient && !needsSync) || (!isClient && needsSync))
+            if (isClient && !needsSync || !isClient && needsSync)
             {
                 using (TextWriter tw = new StreamWriter(Path.Combine(ConfigIniPath, configName)))
                 {
@@ -121,10 +132,17 @@ namespace ValheimPlus.Configurations
             }
         }
 
+        /// <summary>
+        /// Generate ini section as string
+        /// </summary>
+        /// <param name="property">Configuration property</param>
+        /// <param name="section">section object</param>
+        /// <param name="withComments">add comments?</param>
+        /// <returns></returns>
         private static string GenerateSection(PropertyInfo property, object section, bool withComments = false)
         {
-            StringBuilder sb = new StringBuilder();
-            Type sectionType = property.PropertyType;
+            var sb = new StringBuilder();
+            var sectionType = property.PropertyType;
             var sectionAttribute = sectionType.GetCustomAttributes(false).OfType<ConfigurationSectionAttribute>().FirstOrDefault();
 
             if (sectionAttribute != null && withComments)
@@ -139,12 +157,13 @@ namespace ValheimPlus.Configurations
 
             var enabledProperty = typeof(IConfig).GetProperty("IsEnabled", BindingFlags.Public | BindingFlags.Instance);
             var enabledValue = enabledProperty.GetValue(section, null);
-            string enabledAsString = enabledValue.ToString();
+            var enabledAsString = enabledValue.ToString();
 
             if (withComments)
             {
                 sb.AppendLine("; Change false to true to enable this section");
             }
+
             sb.AppendLine($"{enabledProperty.Name}={enabledAsString}");
 
             if (withComments)
@@ -162,7 +181,7 @@ namespace ValheimPlus.Configurations
                 }
 
                 var value = configProperty.GetValue(section, null);
-                string valueAsString = value.ToString();
+                var valueAsString = value.ToString();
                 if (value is float)
                 {
                     valueAsString = ((float) value).ToString(CultureInfo.InvariantCulture.NumberFormat);
@@ -174,7 +193,7 @@ namespace ValheimPlus.Configurations
                     continue;
                 }
 
-                ConfigurationAttribute ca = configProperty.GetCustomAttributes(false).OfType<ConfigurationAttribute>().FirstOrDefault();
+                var ca = configProperty.GetCustomAttributes(false).OfType<ConfigurationAttribute>().FirstOrDefault();
 
                 if (ca != null && withComments)
                 {
@@ -199,7 +218,7 @@ namespace ValheimPlus.Configurations
             {
                 var parser = new FileIniDataParser();
 
-                IniData configdata = new IniData();
+                var configdata = new IniData();
                 if (File.Exists(filename))
                 {
                     configdata = parser.ReadFile(filename);
@@ -210,7 +229,7 @@ namespace ValheimPlus.Configurations
 
                 if (method != null)
                 {
-                    var result = method.Invoke(null, new object[] { configdata, keyName });
+                    var result = method.Invoke(null, new object[] {configdata, keyName});
                     property.SetValue(config, result, null);
                 }
             }
@@ -227,12 +246,13 @@ namespace ValheimPlus.Configurations
         }
 
         /// <summary>
-        /// Only set values which should be synced to current configuration
+        ///     Only set values which should be synced to current configuration
         /// </summary>
         /// <param name="receivedConfig"></param>
         public static void SetSyncableValues(Configuration receivedConfig)
         {
-            foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(x => typeof(ISyncableSection).IsAssignableFrom(x.PropertyType)))
+            foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(x => typeof(ISyncableSection).IsAssignableFrom(x.PropertyType)))
             {
                 property.SetValue(Current, property.GetValue(receivedConfig, null), null);
             }
@@ -249,12 +269,13 @@ namespace ValheimPlus.Configurations
                 {
                     if (ini.Sections.ContainsSection(property.Name))
                     {
-                        var result = property.PropertyType.GetMethod("LoadIni", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)?
-                            .Invoke(null, new object[] { ini, property.Name });
+                        var result = property.PropertyType.GetMethod("LoadIni", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+                            ?.Invoke(null, new object[] {ini, property.Name});
                         if (result == null)
                         {
                             throw new Exception($"LoadIni method not found on Type {property.PropertyType.Name}");
                         }
+
                         property.SetValue(receivedConfig, result, null);
                     }
                 }
@@ -266,15 +287,14 @@ namespace ValheimPlus.Configurations
                 Debug.LogError($"while parsing {Environment.NewLine}{inputString}");
             }
         }
-
     }
 
     public static class StringExtensions
     {
         public static string ToIniComment(this string comment)
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (string line in comment.Split('\n'))
+            var sb = new StringBuilder();
+            foreach (var line in comment.Split('\n'))
             {
                 sb.AppendLine("; " + line);
             }
@@ -292,40 +312,37 @@ namespace ValheimPlus.Configurations
             {
                 return result;
             }
+
             Debug.LogWarning($" [Float] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
+
         public static bool GetBool(this KeyDataCollection data, string key)
         {
-            var truevals = new[] { "y", "yes", "true" };
+            var truevals = new[] {"y", "yes", "true"};
             return truevals.Contains(data[key].ToLower());
         }
+
         public static int GetInt(this KeyDataCollection data, string key, int defaultVal)
         {
             if (int.TryParse(data[key], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out var result))
             {
                 return result;
             }
+
             Debug.LogWarning($" [Int] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
 
         public static KeyCode GetKeyCode(this KeyDataCollection data, string key, KeyCode defaultVal)
         {
-            if (System.Enum.TryParse<KeyCode>(data[key], out var result))
+            if (Enum.TryParse<KeyCode>(data[key], out var result))
             {
                 return result;
             }
+
             Debug.LogWarning($" [KeyCode] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
-
-        public static T LoadConfiguration<T>(this IniData data, string key) where T : BaseConfig<T>, new()
-        {
-            // this function gives null reference error
-            var idata = data[key];
-            return (T)typeof(T).GetMethod("LoadIni").Invoke(null, new[] { idata });
-        }
-
     }
 }

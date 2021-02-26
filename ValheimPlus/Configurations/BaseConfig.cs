@@ -13,19 +13,6 @@ namespace ValheimPlus.Configurations
 
     public abstract class BaseConfig<T> : IConfig where T : IConfig, new()
     {
-        public string ServerSerializeSection()
-        {
-            if (!IsEnabled || !NeedsServerSync) return "";
-
-            var r = "";
-
-            foreach (var prop in typeof(T).GetProperties())
-            {
-                r += $"{prop.Name}={prop.GetValue(this, null)}|";
-            }
-            return r;
-        }
-
         public bool IsEnabled { get; set; } = false;
         public virtual bool NeedsServerSync { get; set; } = false;
 

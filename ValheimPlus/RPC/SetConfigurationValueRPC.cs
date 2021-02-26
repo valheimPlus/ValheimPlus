@@ -24,12 +24,13 @@ namespace ValheimPlus.RPC
                 if (ZNet.instance.m_adminList.Contains(steamId))
                 {
                     var input = inputString.ReadString();
-                    string inputCopy = input;
+                    string inputCopy = (input+" ").Trim();
                     BaseConsoleCommand.TryExecuteCommand(ref input, true);
                     foreach (var peerEntry in ZNet.instance.m_peers)
                     {
+                        Debug.Log($"SENDING {inputCopy}");
                         // Send same back to all clients to actually also set the value on the client
-                        ZRoutedRpc.instance.InvokeRoutedRPC(peerEntry.m_uid, "SetConfigurationValue", inputCopy);
+                        ZRoutedRpc.instance.InvokeRoutedRPC(peerEntry.m_uid, "SetConfigurationValue", inputString);
                     }
                 }
             }
@@ -37,7 +38,7 @@ namespace ValheimPlus.RPC
             {
                 Debug.Log("RPC_SetConfigurationValue CLIENT");
                 var input = inputString.ReadString();
-                string inputCopy = input;
+                string inputCopy = (input+" ").Trim();
                 BaseConsoleCommand.TryExecuteCommand(ref input, true);
                 Console.instance.AddString($"Command '{inputCopy}' executed");
             }

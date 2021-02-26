@@ -128,7 +128,7 @@ namespace ValheimPlus.ConsoleCommands
                 if (!silent)
                 {
                     Console.instance.AddString("Usage: SetValue <SectionName>.<ValueName> <value>");
-                    Console.instance.AddString("Example: SetValue Kiln.productionSpeed " + 15.7f);
+                    Console.instance.AddString("Example: SetValue Kiln.productionSpeed 15.7");
                 }
 
                 return false;
@@ -163,7 +163,6 @@ namespace ValheimPlus.ConsoleCommands
             }
 
             // Switch for value type
-
             if (valueProperty.PropertyType == typeof(float))
             {
                 var newValue = GetFloat(valuePart);
