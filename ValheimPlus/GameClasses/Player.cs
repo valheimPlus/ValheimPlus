@@ -253,6 +253,8 @@ namespace ValheimPlus
         {
             // TODO add a check for the origin of the call of this function to restrict it to not reduce stamina drain of running/jumping/swimming etc.
 
+
+
             if (Configuration.Current.StaminaUsage.IsEnabled)
             {
                 string weaponType = "";
@@ -281,31 +283,31 @@ namespace ValheimPlus
                     switch (weaponType)
                     {
                         case "Swords":
-                            v = v - (v * (Configuration.Current.StaminaUsage.swords) / 100);
+                            v = Helper.applyModifierValue(v,Configuration.Current.StaminaUsage.swords);
                             break;
                         case "Knives":
-                            v = v - (v * (Configuration.Current.StaminaUsage.knives) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.knives);
                             break;
                         case "Clubs":
-                            v = v - (v * (Configuration.Current.StaminaUsage.clubs) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.clubs);
                             break;
                         case "Polearms":
-                            v = v - (v * (Configuration.Current.StaminaUsage.polearms) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.polearms);
                             break;
                         case "Spears":
-                            v = v - (v * (Configuration.Current.StaminaUsage.spears) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.spears);
                             break;
                         case "Axes":
-                            v = v - (v * (Configuration.Current.StaminaUsage.axes) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.axes);
                             break;
                         case "Bows":
-                            v = v - (v * (Configuration.Current.StaminaUsage.bows) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.bows);
                             break;
                         case "Unarmed":
-                            v = v - (v * (Configuration.Current.StaminaUsage.unarmed) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.unarmed);
                             break;
                         case "Pickaxes":
-                            v = v - (v * (Configuration.Current.StaminaUsage.pickaxes) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.pickaxes);
                             break;
                         default:
                             break;
@@ -314,11 +316,11 @@ namespace ValheimPlus
 
                 if (isHammer)
                 {
-                    v = v - (v * (Configuration.Current.StaminaUsage.hammer) / 100);
+                    v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.hammer);
                 }
                 if (isHoe)
                 {
-                    v = v - (v * (Configuration.Current.StaminaUsage.hoe) / 100);
+                    v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.hoe);
                 }
             }
         }
