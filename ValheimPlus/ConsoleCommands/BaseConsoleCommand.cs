@@ -15,7 +15,7 @@ namespace ValheimPlus.ConsoleCommands
 
         private static bool isAdmin = false;
 
-        public virtual bool ParseCommand(string input, bool silent = false)
+        public virtual bool ParseCommand(ref string input, bool silent = false)
         {
             return false;
         }
@@ -30,7 +30,7 @@ namespace ValheimPlus.ConsoleCommands
             }
         }
 
-        public static bool TryExecuteCommand(string input, bool silent = false)
+        public static bool TryExecuteCommand(ref string input, bool silent = false)
         {
             if (string.IsNullOrEmpty(input))
             {
@@ -42,7 +42,7 @@ namespace ValheimPlus.ConsoleCommands
 
             if (command != null)
             {
-                return command.ParseCommand(input, silent);
+                return command.ParseCommand(ref input, silent);
             }
 
             return false;
@@ -89,12 +89,13 @@ namespace ValheimPlus.ConsoleCommands
     {
         public static bool Prefix()
         {
-            Console.instance.AddString("Hook in place!");
-            if (BaseConsoleCommand.TryExecuteCommand(Console.instance.m_input.text))
+            string temp = Console.instance.m_input.text;
+            if (BaseConsoleCommand.TryExecuteCommand(ref temp)) 
             {
                 return false;
             }
 
+            Console.instance.m_input.text = temp;
             return true;
         }
     }

@@ -35,15 +35,16 @@ namespace ValheimPlus.Configurations
         {
             var n = new T();
 
-
             Debug.Log($"Loading config section {section}");
+            if (data[section] != null)
+            {
+                n.LoadIniData(data[section]);
+            }
             if (data[section] == null || data[section][nameof(IsEnabled)] == null || !data[section].GetBool(nameof(IsEnabled)))
             {
+                n.IsEnabled = false;
                 Debug.Log(" Section not enabled");
-                return n;
             }
-
-            n.LoadIniData(data[section]);
 
             return n;
         }

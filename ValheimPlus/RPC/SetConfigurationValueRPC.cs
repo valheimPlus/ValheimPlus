@@ -9,26 +9,27 @@ namespace ValheimPlus.RPC
     {
         public static void RPC_SetConfigurationValue(long sender, ZPackage inputString)
         {
-            if (ZNet.m_isServer) //Server
+            if (ZNet.m_isServer) // Server
             {
-                Debug.Log("RPC_SetConfigurationValue SERVER");
-
                 var peer = ZNet.instance.GetPeer(sender);
                 if (peer == null)
                 {
                     return;
                 }
 
+                Debug.Log("RPC_SetConfigurationValue SERVER");
+                
+                // Check if peer is in admin list
                 var steamId = peer.m_socket.GetHostName();
                 if (ZNet.instance.m_adminList.Contains(steamId))
                 {
                     var input = inputString.ReadString();
-                    BaseConsoleCommand.TryExecuteCommand(input, true);
-
+                    string inputCopy = input;
+                    BaseConsoleCommand.TryExecuteCommand(ref input, true);
                     foreach (var peerEntry in ZNet.instance.m_peers)
                     {
                         // Send same back to all clients to actually also set the value on the client
-                        ZRoutedRpc.instance.InvokeRoutedRPC(peerEntry.m_uid, "SetConfigurationValue", inputString);
+                        ZRoutedRpc.instance.InvokeRoutedRPC(peerEntry.m_uid, "SetConfigurationValue", inputCopy);
                     }
                 }
             }
@@ -36,8 +37,9 @@ namespace ValheimPlus.RPC
             {
                 Debug.Log("RPC_SetConfigurationValue CLIENT");
                 var input = inputString.ReadString();
-                BaseConsoleCommand.TryExecuteCommand(input, true);
-                Console.instance.AddString($"Command '{input}' executed");
+                string inputCopy = input;
+                BaseConsoleCommand.TryExecuteCommand(ref input, true);
+                Console.instance.AddString($"Command '{inputCopy}' executed");
             }
         }
     }
