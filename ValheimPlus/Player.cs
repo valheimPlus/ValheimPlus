@@ -66,61 +66,60 @@ namespace ValheimPlus
     {
         private static bool Prefix(ref Player __instance, ref float dt, ref bool forceUpdate)
         {
-            if(Configuration.Current.Food.IsEnabled)
+            if (Configuration.Current.Food.IsEnabled) return true;
+
+            __instance.m_foodUpdateTimer += dt;
+            if (__instance.m_foodUpdateTimer >= getModifiedDeltaTime(ref __instance, ref dt) || forceUpdate)
             {
-                __instance.m_foodUpdateTimer += dt;
-                if (__instance.m_foodUpdateTimer >= getModifiedDeltaTime(ref __instance, ref dt) || forceUpdate)
+                __instance.m_foodUpdateTimer = 0f;
+                foreach (Player.Food food in __instance.m_foods)
                 {
-                    __instance.m_foodUpdateTimer = 0f;
-                    foreach (Player.Food food in __instance.m_foods)
+                    food.m_health -= food.m_item.m_shared.m_food / food.m_item.m_shared.m_foodBurnTime;
+                    food.m_stamina -= food.m_item.m_shared.m_foodStamina / food.m_item.m_shared.m_foodBurnTime;
+                    if (food.m_health < 0f)
                     {
-                        food.m_health -= food.m_item.m_shared.m_food / food.m_item.m_shared.m_foodBurnTime;
-                        food.m_stamina -= food.m_item.m_shared.m_foodStamina / food.m_item.m_shared.m_foodBurnTime;
-                        if (food.m_health < 0f)
-                        {
-                            food.m_health = 0f;
-                        }
-                        if (food.m_stamina < 0f)
-                        {
-                            food.m_stamina = 0f;
-                        }
-                        if (food.m_health <= 0f)
-                        {
-                            __instance.Message(MessageHud.MessageType.Center, "$msg_food_done", 0, null);
-                            __instance.m_foods.Remove(food);
-                            break;
-                        }
+                        food.m_health = 0f;
                     }
-                    float health;
-                    float stamina;
-                    __instance.GetTotalFoodValue(out health, out stamina);
-                    __instance.SetMaxHealth(health, true);
-                    __instance.SetMaxStamina(stamina, true);
-                }
-                if (!forceUpdate)
-                {
-                    __instance.m_foodRegenTimer += dt;
-                    if (__instance.m_foodRegenTimer >= 10f)
+                    if (food.m_stamina < 0f)
                     {
-                        __instance.m_foodRegenTimer = 0f;
-                        float num = 0f;
-                        foreach (Player.Food food2 in __instance.m_foods)
-                        {
-                            num += food2.m_item.m_shared.m_foodRegen;
-                        }
-                        if (num > 0f)
-                        {
-                            float num2 = 1f;
-                            __instance.m_seman.ModifyHealthRegen(ref num2);
-                            num *= num2;
-                            Helper.getPlayerCharacter(__instance).Heal(num, true);
-                        }
+                        food.m_stamina = 0f;
+                    }
+                    if (food.m_health <= 0f)
+                    {
+                        __instance.Message(MessageHud.MessageType.Center, "$msg_food_done", 0, null);
+                        __instance.m_foods.Remove(food);
+                        break;
+                    }
+                }
+                float health;
+                float stamina;
+                __instance.GetTotalFoodValue(out health, out stamina);
+                __instance.SetMaxHealth(health, true);
+                __instance.SetMaxStamina(stamina, true);
+            }
+            if (!forceUpdate)
+            {
+                __instance.m_foodRegenTimer += dt;
+                if (__instance.m_foodRegenTimer >= 10f)
+                {
+                    __instance.m_foodRegenTimer = 0f;
+                    float num = 0f;
+                    foreach (Player.Food food2 in __instance.m_foods)
+                    {
+                        num += food2.m_item.m_shared.m_foodRegen;
+                    }
+                    if (num > 0f)
+                    {
+                        float num2 = 1f;
+                        __instance.m_seman.ModifyHealthRegen(ref num2);
+                        num *= num2;
+                        Helper.getPlayerCharacter(__instance).Heal(num, true);
                     }
                 }
             }
-            return true;
+
+            return false;
         }
-        
 
         private static float getModifiedDeltaTime(ref Player __instance, ref float dt)
         {
