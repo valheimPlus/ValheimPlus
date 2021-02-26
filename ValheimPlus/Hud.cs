@@ -70,7 +70,7 @@ namespace ValheimPlus {
 			private static void Postfix(Hud __instance)
 			{
 				if (Configuration.Current.Hud.IsEnabled && Configuration.Current.Hud.removeDamageFlash)
-					__instance.m_damageScreen.enabled = false;
+					__instance.m_damageScreen.gameObject.SetActive(false);
 			}
 		}
 	}
