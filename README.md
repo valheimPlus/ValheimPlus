@@ -194,8 +194,11 @@ We will not explain how you create a dedicated server. This will only explain ho
 1. Download the [latest package called Unix.zip over this link](https://github.com/valheimPlus/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
 2. Extract the contents of the archive into your root server folder
 3. *Make sure to execute 'chmod u+x start_server_bepinex.sh' to make the start script executable*
-4. *Make sure to start the server via start_server_bepinex.sh or the mod will not be loaded*
-5. If you are using [LGSM](https://linuxgsm.com) go inside your instance config file and change executable to "./start_server_bepinex.sh" to load the mod and your server arguments
+4. Configure your server startup parameters:
+    * If you intend to run the script directly, open it and edit the variables at the top (description included in the file).
+    * If you want to define the parameters elsewhere, you can pass them to start_server_bepinex.sh as you would to the valheim server executable (description included in the file). This is recommended over the first approach, as updates will overwrite the start script and you would have to configure it again.
+    * If you are using [LGSM](https://linuxgsm.com), go inside your instance config file and change executable to "./start_server_bepinex.sh" to load the mod and your server arguments. More on LGSM config files can be found on [their homepage](https://docs.linuxgsm.com/configuration/linuxgsm-config).
+5. *Make sure to start the server via start_server_bepinex.sh or the mod will not be loaded*
 
 **Uses libc6-dev or distro equivalent**
 
