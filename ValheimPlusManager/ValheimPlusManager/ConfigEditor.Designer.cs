@@ -186,6 +186,28 @@ namespace ValheimPlusManager
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.saveChangesLabel = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
+            this.materialCheckbox1 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox2 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox3 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox4 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox5 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox6 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox7 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox8 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox9 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox10 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox11 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox12 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox13 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox14 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox15 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox16 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialCheckbox17 = new MaterialSkin2DotNet.Controls.MaterialCheckbox();
+            this.materialSwitch1 = new MaterialSkin2DotNet.Controls.MaterialSwitch();
+            this.materialSwitch2 = new MaterialSkin2DotNet.Controls.MaterialSwitch();
+            this.materialSwitch3 = new MaterialSkin2DotNet.Controls.MaterialSwitch();
+            this.materialSwitch4 = new MaterialSkin2DotNet.Controls.MaterialSwitch();
+            this.materialSwitch5 = new MaterialSkin2DotNet.Controls.MaterialSwitch();
             this.tabControl1.SuspendLayout();
             this.advancedBuildingModeTab.SuspendLayout();
             this.advancedEditingTab.SuspendLayout();
@@ -255,7 +277,6 @@ namespace ValheimPlusManager
             // configCheckedListBox
             // 
             this.configCheckedListBox.CheckOnClick = true;
-            this.configCheckedListBox.Dock = System.Windows.Forms.DockStyle.Left;
             this.configCheckedListBox.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.configCheckedListBox.FormattingEnabled = true;
             this.configCheckedListBox.Items.AddRange(new object[] {
@@ -284,9 +305,9 @@ namespace ValheimPlusManager
             "Enable wagon settings",
             "Enable ward settings",
             "Enable workbench settings"});
-            this.configCheckedListBox.Location = new System.Drawing.Point(0, 0);
+            this.configCheckedListBox.Location = new System.Drawing.Point(0, 64);
             this.configCheckedListBox.Name = "configCheckedListBox";
-            this.configCheckedListBox.Size = new System.Drawing.Size(259, 782);
+            this.configCheckedListBox.Size = new System.Drawing.Size(260, 124);
             this.configCheckedListBox.Sorted = true;
             this.configCheckedListBox.TabIndex = 0;
             this.configCheckedListBox.ThreeDCheckBoxes = true;
@@ -319,13 +340,12 @@ namespace ValheimPlusManager
             this.tabControl1.Controls.Add(this.wagonTab);
             this.tabControl1.Controls.Add(this.wardTab);
             this.tabControl1.Controls.Add(this.workbenchTab);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tabControl1.ImeMode = System.Windows.Forms.ImeMode.Katakana;
-            this.tabControl1.Location = new System.Drawing.Point(259, 0);
+            this.tabControl1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.tabControl1.Location = new System.Drawing.Point(259, 63);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(862, 720);
+            this.tabControl1.Size = new System.Drawing.Size(988, 764);
             this.tabControl1.TabIndex = 1;
             // 
             // advancedBuildingModeTab
@@ -338,7 +358,7 @@ namespace ValheimPlusManager
             this.advancedBuildingModeTab.Location = new System.Drawing.Point(4, 44);
             this.advancedBuildingModeTab.Name = "advancedBuildingModeTab";
             this.advancedBuildingModeTab.Padding = new System.Windows.Forms.Padding(3);
-            this.advancedBuildingModeTab.Size = new System.Drawing.Size(854, 672);
+            this.advancedBuildingModeTab.Size = new System.Drawing.Size(980, 716);
             this.advancedBuildingModeTab.TabIndex = 0;
             this.advancedBuildingModeTab.Text = "Advanced building mode";
             this.advancedBuildingModeTab.UseVisualStyleBackColor = true;
@@ -350,7 +370,7 @@ namespace ValheimPlusManager
             | System.Windows.Forms.AnchorStyles.Right)));
             this.exitAdvancedBuildingModeTextBox.Location = new System.Drawing.Point(7, 127);
             this.exitAdvancedBuildingModeTextBox.Name = "exitAdvancedBuildingModeTextBox";
-            this.exitAdvancedBuildingModeTextBox.Size = new System.Drawing.Size(367, 23);
+            this.exitAdvancedBuildingModeTextBox.Size = new System.Drawing.Size(493, 23);
             this.exitAdvancedBuildingModeTextBox.TabIndex = 4;
             // 
             // label3
@@ -383,7 +403,7 @@ namespace ValheimPlusManager
             | System.Windows.Forms.AnchorStyles.Right)));
             this.enterAdvancedBuildingModeTextBox.Location = new System.Drawing.Point(7, 70);
             this.enterAdvancedBuildingModeTextBox.Name = "enterAdvancedBuildingModeTextBox";
-            this.enterAdvancedBuildingModeTextBox.Size = new System.Drawing.Size(367, 23);
+            this.enterAdvancedBuildingModeTextBox.Size = new System.Drawing.Size(493, 23);
             this.enterAdvancedBuildingModeTextBox.TabIndex = 1;
             // 
             // label1
@@ -410,7 +430,7 @@ namespace ValheimPlusManager
             this.advancedEditingTab.Location = new System.Drawing.Point(4, 44);
             this.advancedEditingTab.Name = "advancedEditingTab";
             this.advancedEditingTab.Padding = new System.Windows.Forms.Padding(3);
-            this.advancedEditingTab.Size = new System.Drawing.Size(854, 672);
+            this.advancedEditingTab.Size = new System.Drawing.Size(980, 716);
             this.advancedEditingTab.TabIndex = 1;
             this.advancedEditingTab.Text = "Advanced editing mode";
             this.advancedEditingTab.UseVisualStyleBackColor = true;
@@ -523,7 +543,7 @@ namespace ValheimPlusManager
             this.beehiveTab.Controls.Add(this.label7);
             this.beehiveTab.Location = new System.Drawing.Point(4, 44);
             this.beehiveTab.Name = "beehiveTab";
-            this.beehiveTab.Size = new System.Drawing.Size(854, 672);
+            this.beehiveTab.Size = new System.Drawing.Size(980, 716);
             this.beehiveTab.TabIndex = 2;
             this.beehiveTab.Text = "Beehive";
             this.beehiveTab.UseVisualStyleBackColor = true;
@@ -591,7 +611,7 @@ namespace ValheimPlusManager
             this.buildingTab.Controls.Add(this.label13);
             this.buildingTab.Location = new System.Drawing.Point(4, 44);
             this.buildingTab.Name = "buildingTab";
-            this.buildingTab.Size = new System.Drawing.Size(854, 672);
+            this.buildingTab.Size = new System.Drawing.Size(980, 716);
             this.buildingTab.TabIndex = 3;
             this.buildingTab.Text = "Building";
             this.buildingTab.UseVisualStyleBackColor = true;
@@ -661,7 +681,7 @@ namespace ValheimPlusManager
             this.cameraTab.Controls.Add(this.label14);
             this.cameraTab.Location = new System.Drawing.Point(4, 44);
             this.cameraTab.Name = "cameraTab";
-            this.cameraTab.Size = new System.Drawing.Size(854, 672);
+            this.cameraTab.Size = new System.Drawing.Size(980, 716);
             this.cameraTab.TabIndex = 4;
             this.cameraTab.Text = "Camera";
             this.cameraTab.UseVisualStyleBackColor = true;
@@ -783,7 +803,7 @@ namespace ValheimPlusManager
             this.experienceTab.Controls.Add(this.label15);
             this.experienceTab.Location = new System.Drawing.Point(4, 44);
             this.experienceTab.Name = "experienceTab";
-            this.experienceTab.Size = new System.Drawing.Size(854, 672);
+            this.experienceTab.Size = new System.Drawing.Size(980, 716);
             this.experienceTab.TabIndex = 5;
             this.experienceTab.Text = "Experience";
             this.experienceTab.UseVisualStyleBackColor = true;
@@ -1192,7 +1212,7 @@ namespace ValheimPlusManager
             this.fermenterTab.Controls.Add(this.label16);
             this.fermenterTab.Location = new System.Drawing.Point(4, 44);
             this.fermenterTab.Name = "fermenterTab";
-            this.fermenterTab.Size = new System.Drawing.Size(854, 672);
+            this.fermenterTab.Size = new System.Drawing.Size(980, 716);
             this.fermenterTab.TabIndex = 6;
             this.fermenterTab.Text = "Fermenter";
             this.fermenterTab.UseVisualStyleBackColor = true;
@@ -1257,7 +1277,7 @@ namespace ValheimPlusManager
             this.fireplaceTab.Controls.Add(this.label17);
             this.fireplaceTab.Location = new System.Drawing.Point(4, 44);
             this.fireplaceTab.Name = "fireplaceTab";
-            this.fireplaceTab.Size = new System.Drawing.Size(854, 672);
+            this.fireplaceTab.Size = new System.Drawing.Size(980, 716);
             this.fireplaceTab.TabIndex = 7;
             this.fireplaceTab.Text = "Fireplace";
             this.fireplaceTab.UseVisualStyleBackColor = true;
@@ -1291,7 +1311,7 @@ namespace ValheimPlusManager
             this.foodTab.Controls.Add(this.label18);
             this.foodTab.Location = new System.Drawing.Point(4, 44);
             this.foodTab.Name = "foodTab";
-            this.foodTab.Size = new System.Drawing.Size(854, 672);
+            this.foodTab.Size = new System.Drawing.Size(980, 716);
             this.foodTab.TabIndex = 8;
             this.foodTab.Text = "Food";
             this.foodTab.UseVisualStyleBackColor = true;
@@ -1351,7 +1371,7 @@ namespace ValheimPlusManager
             this.furnaceTab.Controls.Add(this.label19);
             this.furnaceTab.Location = new System.Drawing.Point(4, 44);
             this.furnaceTab.Name = "furnaceTab";
-            this.furnaceTab.Size = new System.Drawing.Size(854, 672);
+            this.furnaceTab.Size = new System.Drawing.Size(980, 716);
             this.furnaceTab.TabIndex = 9;
             this.furnaceTab.Text = "Furnace";
             this.furnaceTab.UseVisualStyleBackColor = true;
@@ -1469,7 +1489,7 @@ namespace ValheimPlusManager
             this.gameTab.Controls.Add(this.label20);
             this.gameTab.Location = new System.Drawing.Point(4, 44);
             this.gameTab.Name = "gameTab";
-            this.gameTab.Size = new System.Drawing.Size(854, 672);
+            this.gameTab.Size = new System.Drawing.Size(980, 716);
             this.gameTab.TabIndex = 10;
             this.gameTab.Text = "Game";
             this.gameTab.UseVisualStyleBackColor = true;
@@ -1617,7 +1637,7 @@ namespace ValheimPlusManager
             this.hotkeysTab.Controls.Add(this.label21);
             this.hotkeysTab.Location = new System.Drawing.Point(4, 44);
             this.hotkeysTab.Name = "hotkeysTab";
-            this.hotkeysTab.Size = new System.Drawing.Size(854, 672);
+            this.hotkeysTab.Size = new System.Drawing.Size(980, 716);
             this.hotkeysTab.TabIndex = 11;
             this.hotkeysTab.Text = "Hotkeys";
             this.hotkeysTab.UseVisualStyleBackColor = true;
@@ -1682,7 +1702,7 @@ namespace ValheimPlusManager
             this.hudTab.Controls.Add(this.label22);
             this.hudTab.Location = new System.Drawing.Point(4, 44);
             this.hudTab.Name = "hudTab";
-            this.hudTab.Size = new System.Drawing.Size(854, 672);
+            this.hudTab.Size = new System.Drawing.Size(980, 716);
             this.hudTab.TabIndex = 12;
             this.hudTab.Text = "Hud";
             this.hudTab.UseVisualStyleBackColor = true;
@@ -1731,7 +1751,7 @@ namespace ValheimPlusManager
             this.itemsTab.Controls.Add(this.label23);
             this.itemsTab.Location = new System.Drawing.Point(4, 44);
             this.itemsTab.Name = "itemsTab";
-            this.itemsTab.Size = new System.Drawing.Size(854, 672);
+            this.itemsTab.Size = new System.Drawing.Size(980, 716);
             this.itemsTab.TabIndex = 13;
             this.itemsTab.Text = "Items";
             this.itemsTab.UseVisualStyleBackColor = true;
@@ -1808,7 +1828,7 @@ namespace ValheimPlusManager
             this.kilnTab.Controls.Add(this.label24);
             this.kilnTab.Location = new System.Drawing.Point(4, 44);
             this.kilnTab.Name = "kilnTab";
-            this.kilnTab.Size = new System.Drawing.Size(854, 672);
+            this.kilnTab.Size = new System.Drawing.Size(980, 716);
             this.kilnTab.TabIndex = 14;
             this.kilnTab.Text = "Kiln";
             this.kilnTab.UseVisualStyleBackColor = true;
@@ -1828,7 +1848,7 @@ namespace ValheimPlusManager
             this.mapTab.Controls.Add(this.label25);
             this.mapTab.Location = new System.Drawing.Point(4, 44);
             this.mapTab.Name = "mapTab";
-            this.mapTab.Size = new System.Drawing.Size(854, 672);
+            this.mapTab.Size = new System.Drawing.Size(980, 716);
             this.mapTab.TabIndex = 15;
             this.mapTab.Text = "Map";
             this.mapTab.UseVisualStyleBackColor = true;
@@ -1848,7 +1868,7 @@ namespace ValheimPlusManager
             this.playerTab.Controls.Add(this.label26);
             this.playerTab.Location = new System.Drawing.Point(4, 44);
             this.playerTab.Name = "playerTab";
-            this.playerTab.Size = new System.Drawing.Size(854, 672);
+            this.playerTab.Size = new System.Drawing.Size(980, 716);
             this.playerTab.TabIndex = 16;
             this.playerTab.Text = "Player";
             this.playerTab.UseVisualStyleBackColor = true;
@@ -1868,7 +1888,7 @@ namespace ValheimPlusManager
             this.serverTab.Controls.Add(this.label28);
             this.serverTab.Location = new System.Drawing.Point(4, 44);
             this.serverTab.Name = "serverTab";
-            this.serverTab.Size = new System.Drawing.Size(854, 672);
+            this.serverTab.Size = new System.Drawing.Size(980, 716);
             this.serverTab.TabIndex = 17;
             this.serverTab.Text = "Server";
             this.serverTab.UseVisualStyleBackColor = true;
@@ -1888,7 +1908,7 @@ namespace ValheimPlusManager
             this.staminaTab.Controls.Add(this.label29);
             this.staminaTab.Location = new System.Drawing.Point(4, 44);
             this.staminaTab.Name = "staminaTab";
-            this.staminaTab.Size = new System.Drawing.Size(854, 672);
+            this.staminaTab.Size = new System.Drawing.Size(980, 716);
             this.staminaTab.TabIndex = 18;
             this.staminaTab.Text = "Stamina";
             this.staminaTab.UseVisualStyleBackColor = true;
@@ -1908,7 +1928,7 @@ namespace ValheimPlusManager
             this.staminaUsageTab.Controls.Add(this.label30);
             this.staminaUsageTab.Location = new System.Drawing.Point(4, 44);
             this.staminaUsageTab.Name = "staminaUsageTab";
-            this.staminaUsageTab.Size = new System.Drawing.Size(854, 672);
+            this.staminaUsageTab.Size = new System.Drawing.Size(980, 716);
             this.staminaUsageTab.TabIndex = 19;
             this.staminaUsageTab.Text = "Stamina usage";
             this.staminaUsageTab.UseVisualStyleBackColor = true;
@@ -1928,7 +1948,7 @@ namespace ValheimPlusManager
             this.structuralIntegrityTab.Controls.Add(this.label31);
             this.structuralIntegrityTab.Location = new System.Drawing.Point(4, 44);
             this.structuralIntegrityTab.Name = "structuralIntegrityTab";
-            this.structuralIntegrityTab.Size = new System.Drawing.Size(854, 672);
+            this.structuralIntegrityTab.Size = new System.Drawing.Size(980, 716);
             this.structuralIntegrityTab.TabIndex = 20;
             this.structuralIntegrityTab.Text = "Structural integrity";
             this.structuralIntegrityTab.UseVisualStyleBackColor = true;
@@ -1948,7 +1968,7 @@ namespace ValheimPlusManager
             this.timeTab.Controls.Add(this.label32);
             this.timeTab.Location = new System.Drawing.Point(4, 44);
             this.timeTab.Name = "timeTab";
-            this.timeTab.Size = new System.Drawing.Size(854, 672);
+            this.timeTab.Size = new System.Drawing.Size(980, 716);
             this.timeTab.TabIndex = 21;
             this.timeTab.Text = "Time";
             this.timeTab.UseVisualStyleBackColor = true;
@@ -1968,7 +1988,7 @@ namespace ValheimPlusManager
             this.wagonTab.Controls.Add(this.label33);
             this.wagonTab.Location = new System.Drawing.Point(4, 44);
             this.wagonTab.Name = "wagonTab";
-            this.wagonTab.Size = new System.Drawing.Size(854, 672);
+            this.wagonTab.Size = new System.Drawing.Size(980, 716);
             this.wagonTab.TabIndex = 22;
             this.wagonTab.Text = "Wagon";
             this.wagonTab.UseVisualStyleBackColor = true;
@@ -1990,7 +2010,7 @@ namespace ValheimPlusManager
             this.wardTab.Controls.Add(this.label34);
             this.wardTab.Location = new System.Drawing.Point(4, 44);
             this.wardTab.Name = "wardTab";
-            this.wardTab.Size = new System.Drawing.Size(854, 672);
+            this.wardTab.Size = new System.Drawing.Size(980, 716);
             this.wardTab.TabIndex = 23;
             this.wardTab.Text = "Ward";
             this.wardTab.UseVisualStyleBackColor = true;
@@ -2032,7 +2052,7 @@ namespace ValheimPlusManager
             this.workbenchTab.Controls.Add(this.label35);
             this.workbenchTab.Location = new System.Drawing.Point(4, 44);
             this.workbenchTab.Name = "workbenchTab";
-            this.workbenchTab.Size = new System.Drawing.Size(854, 672);
+            this.workbenchTab.Size = new System.Drawing.Size(980, 716);
             this.workbenchTab.TabIndex = 24;
             this.workbenchTab.Text = "Workbench";
             this.workbenchTab.UseVisualStyleBackColor = true;
@@ -2050,9 +2070,9 @@ namespace ValheimPlusManager
             // saveConfigButton
             // 
             this.saveConfigButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.saveConfigButton.Location = new System.Drawing.Point(259, 726);
+            this.saveConfigButton.Location = new System.Drawing.Point(0, 819);
             this.saveConfigButton.Name = "saveConfigButton";
-            this.saveConfigButton.Size = new System.Drawing.Size(862, 56);
+            this.saveConfigButton.Size = new System.Drawing.Size(1247, 56);
             this.saveConfigButton.TabIndex = 2;
             this.saveConfigButton.Text = "Save all changes";
             this.saveConfigButton.UseVisualStyleBackColor = true;
@@ -2086,7 +2106,7 @@ namespace ValheimPlusManager
             this.saveChangesLabel.AutoSize = true;
             this.saveChangesLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.saveChangesLabel.ForeColor = System.Drawing.Color.Green;
-            this.saveChangesLabel.Location = new System.Drawing.Point(427, 604);
+            this.saveChangesLabel.Location = new System.Drawing.Point(-148, 677);
             this.saveChangesLabel.Name = "saveChangesLabel";
             this.saveChangesLabel.Size = new System.Drawing.Size(0, 20);
             this.saveChangesLabel.TabIndex = 3;
@@ -2101,11 +2121,346 @@ namespace ValheimPlusManager
             this.label27.TabIndex = 7;
             this.label27.Text = "Beehive";
             // 
+            // materialCheckbox1
+            // 
+            this.materialCheckbox1.AutoSize = true;
+            this.materialCheckbox1.Depth = 0;
+            this.materialCheckbox1.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox1.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox1.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox1.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox1.Name = "materialCheckbox1";
+            this.materialCheckbox1.Ripple = true;
+            this.materialCheckbox1.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox1.TabIndex = 0;
+            this.materialCheckbox1.Text = "materialCheckbox1";
+            this.materialCheckbox1.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox2
+            // 
+            this.materialCheckbox2.AutoSize = true;
+            this.materialCheckbox2.Depth = 0;
+            this.materialCheckbox2.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox2.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox2.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox2.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox2.Name = "materialCheckbox2";
+            this.materialCheckbox2.Ripple = true;
+            this.materialCheckbox2.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox2.TabIndex = 0;
+            this.materialCheckbox2.Text = "materialCheckbox2";
+            this.materialCheckbox2.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox3
+            // 
+            this.materialCheckbox3.AutoSize = true;
+            this.materialCheckbox3.Depth = 0;
+            this.materialCheckbox3.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox3.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox3.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox3.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox3.Name = "materialCheckbox3";
+            this.materialCheckbox3.Ripple = true;
+            this.materialCheckbox3.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox3.TabIndex = 0;
+            this.materialCheckbox3.Text = "materialCheckbox3";
+            this.materialCheckbox3.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox4
+            // 
+            this.materialCheckbox4.AutoSize = true;
+            this.materialCheckbox4.Depth = 0;
+            this.materialCheckbox4.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox4.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox4.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox4.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox4.Name = "materialCheckbox4";
+            this.materialCheckbox4.Ripple = true;
+            this.materialCheckbox4.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox4.TabIndex = 0;
+            this.materialCheckbox4.Text = "materialCheckbox4";
+            this.materialCheckbox4.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox5
+            // 
+            this.materialCheckbox5.AutoSize = true;
+            this.materialCheckbox5.Depth = 0;
+            this.materialCheckbox5.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox5.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox5.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox5.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox5.Name = "materialCheckbox5";
+            this.materialCheckbox5.Ripple = true;
+            this.materialCheckbox5.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox5.TabIndex = 0;
+            this.materialCheckbox5.Text = "materialCheckbox5";
+            this.materialCheckbox5.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox6
+            // 
+            this.materialCheckbox6.AutoSize = true;
+            this.materialCheckbox6.Depth = 0;
+            this.materialCheckbox6.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox6.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox6.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox6.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox6.Name = "materialCheckbox6";
+            this.materialCheckbox6.Ripple = true;
+            this.materialCheckbox6.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox6.TabIndex = 0;
+            this.materialCheckbox6.Text = "materialCheckbox6";
+            this.materialCheckbox6.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox7
+            // 
+            this.materialCheckbox7.AutoSize = true;
+            this.materialCheckbox7.Depth = 0;
+            this.materialCheckbox7.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox7.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox7.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox7.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox7.Name = "materialCheckbox7";
+            this.materialCheckbox7.Ripple = true;
+            this.materialCheckbox7.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox7.TabIndex = 0;
+            this.materialCheckbox7.Text = "materialCheckbox7";
+            this.materialCheckbox7.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox8
+            // 
+            this.materialCheckbox8.AutoSize = true;
+            this.materialCheckbox8.Depth = 0;
+            this.materialCheckbox8.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox8.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox8.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox8.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox8.Name = "materialCheckbox8";
+            this.materialCheckbox8.Ripple = true;
+            this.materialCheckbox8.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox8.TabIndex = 0;
+            this.materialCheckbox8.Text = "materialCheckbox8";
+            this.materialCheckbox8.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox9
+            // 
+            this.materialCheckbox9.AutoSize = true;
+            this.materialCheckbox9.Depth = 0;
+            this.materialCheckbox9.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox9.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox9.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox9.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox9.Name = "materialCheckbox9";
+            this.materialCheckbox9.Ripple = true;
+            this.materialCheckbox9.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox9.TabIndex = 0;
+            this.materialCheckbox9.Text = "materialCheckbox9";
+            this.materialCheckbox9.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox10
+            // 
+            this.materialCheckbox10.AutoSize = true;
+            this.materialCheckbox10.Depth = 0;
+            this.materialCheckbox10.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox10.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox10.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox10.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox10.Name = "materialCheckbox10";
+            this.materialCheckbox10.Ripple = true;
+            this.materialCheckbox10.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox10.TabIndex = 0;
+            this.materialCheckbox10.Text = "materialCheckbox10";
+            this.materialCheckbox10.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox11
+            // 
+            this.materialCheckbox11.AutoSize = true;
+            this.materialCheckbox11.Depth = 0;
+            this.materialCheckbox11.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox11.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox11.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox11.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox11.Name = "materialCheckbox11";
+            this.materialCheckbox11.Ripple = true;
+            this.materialCheckbox11.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox11.TabIndex = 0;
+            this.materialCheckbox11.Text = "materialCheckbox11";
+            this.materialCheckbox11.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox12
+            // 
+            this.materialCheckbox12.AutoSize = true;
+            this.materialCheckbox12.Depth = 0;
+            this.materialCheckbox12.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox12.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox12.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox12.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox12.Name = "materialCheckbox12";
+            this.materialCheckbox12.Ripple = true;
+            this.materialCheckbox12.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox12.TabIndex = 0;
+            this.materialCheckbox12.Text = "materialCheckbox12";
+            this.materialCheckbox12.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox13
+            // 
+            this.materialCheckbox13.AutoSize = true;
+            this.materialCheckbox13.Depth = 0;
+            this.materialCheckbox13.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox13.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox13.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox13.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox13.Name = "materialCheckbox13";
+            this.materialCheckbox13.Ripple = true;
+            this.materialCheckbox13.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox13.TabIndex = 0;
+            this.materialCheckbox13.Text = "materialCheckbox13";
+            this.materialCheckbox13.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox14
+            // 
+            this.materialCheckbox14.AutoSize = true;
+            this.materialCheckbox14.Depth = 0;
+            this.materialCheckbox14.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox14.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox14.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox14.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox14.Name = "materialCheckbox14";
+            this.materialCheckbox14.Ripple = true;
+            this.materialCheckbox14.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox14.TabIndex = 0;
+            this.materialCheckbox14.Text = "materialCheckbox14";
+            this.materialCheckbox14.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox15
+            // 
+            this.materialCheckbox15.AutoSize = true;
+            this.materialCheckbox15.Depth = 0;
+            this.materialCheckbox15.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox15.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox15.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox15.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox15.Name = "materialCheckbox15";
+            this.materialCheckbox15.Ripple = true;
+            this.materialCheckbox15.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox15.TabIndex = 0;
+            this.materialCheckbox15.Text = "materialCheckbox15";
+            this.materialCheckbox15.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox16
+            // 
+            this.materialCheckbox16.AutoSize = true;
+            this.materialCheckbox16.Depth = 0;
+            this.materialCheckbox16.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox16.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox16.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox16.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox16.Name = "materialCheckbox16";
+            this.materialCheckbox16.Ripple = true;
+            this.materialCheckbox16.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox16.TabIndex = 0;
+            this.materialCheckbox16.Text = "materialCheckbox16";
+            this.materialCheckbox16.UseVisualStyleBackColor = true;
+            // 
+            // materialCheckbox17
+            // 
+            this.materialCheckbox17.AutoSize = true;
+            this.materialCheckbox17.Depth = 0;
+            this.materialCheckbox17.Location = new System.Drawing.Point(0, 0);
+            this.materialCheckbox17.Margin = new System.Windows.Forms.Padding(0);
+            this.materialCheckbox17.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialCheckbox17.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialCheckbox17.Name = "materialCheckbox17";
+            this.materialCheckbox17.Ripple = true;
+            this.materialCheckbox17.Size = new System.Drawing.Size(10, 10);
+            this.materialCheckbox17.TabIndex = 0;
+            this.materialCheckbox17.Text = "materialCheckbox17";
+            this.materialCheckbox17.UseVisualStyleBackColor = true;
+            // 
+            // materialSwitch1
+            // 
+            this.materialSwitch1.Depth = 0;
+            this.materialSwitch1.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.materialSwitch1.Location = new System.Drawing.Point(6, 191);
+            this.materialSwitch1.Margin = new System.Windows.Forms.Padding(0);
+            this.materialSwitch1.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialSwitch1.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialSwitch1.Name = "materialSwitch1";
+            this.materialSwitch1.Ripple = true;
+            this.materialSwitch1.Size = new System.Drawing.Size(247, 29);
+            this.materialSwitch1.TabIndex = 4;
+            this.materialSwitch1.Text = "materialSwitch1";
+            this.materialSwitch1.UseVisualStyleBackColor = true;
+            // 
+            // materialSwitch2
+            // 
+            this.materialSwitch2.Depth = 0;
+            this.materialSwitch2.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.materialSwitch2.Location = new System.Drawing.Point(6, 220);
+            this.materialSwitch2.Margin = new System.Windows.Forms.Padding(0);
+            this.materialSwitch2.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialSwitch2.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialSwitch2.Name = "materialSwitch2";
+            this.materialSwitch2.Ripple = true;
+            this.materialSwitch2.Size = new System.Drawing.Size(247, 29);
+            this.materialSwitch2.TabIndex = 5;
+            this.materialSwitch2.Text = "materialSwitch2";
+            this.materialSwitch2.UseVisualStyleBackColor = true;
+            // 
+            // materialSwitch3
+            // 
+            this.materialSwitch3.Depth = 0;
+            this.materialSwitch3.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.materialSwitch3.Location = new System.Drawing.Point(6, 249);
+            this.materialSwitch3.Margin = new System.Windows.Forms.Padding(0);
+            this.materialSwitch3.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialSwitch3.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialSwitch3.Name = "materialSwitch3";
+            this.materialSwitch3.Ripple = true;
+            this.materialSwitch3.Size = new System.Drawing.Size(247, 29);
+            this.materialSwitch3.TabIndex = 6;
+            this.materialSwitch3.Text = "materialSwitch3";
+            this.materialSwitch3.UseVisualStyleBackColor = true;
+            // 
+            // materialSwitch4
+            // 
+            this.materialSwitch4.Depth = 0;
+            this.materialSwitch4.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.materialSwitch4.Location = new System.Drawing.Point(6, 278);
+            this.materialSwitch4.Margin = new System.Windows.Forms.Padding(0);
+            this.materialSwitch4.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialSwitch4.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialSwitch4.Name = "materialSwitch4";
+            this.materialSwitch4.Ripple = true;
+            this.materialSwitch4.Size = new System.Drawing.Size(247, 29);
+            this.materialSwitch4.TabIndex = 7;
+            this.materialSwitch4.Text = "materialSwitch4";
+            this.materialSwitch4.UseVisualStyleBackColor = true;
+            // 
+            // materialSwitch5
+            // 
+            this.materialSwitch5.Depth = 0;
+            this.materialSwitch5.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.materialSwitch5.Location = new System.Drawing.Point(6, 307);
+            this.materialSwitch5.Margin = new System.Windows.Forms.Padding(0);
+            this.materialSwitch5.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.materialSwitch5.MouseState = MaterialSkin2DotNet.MouseState.HOVER;
+            this.materialSwitch5.Name = "materialSwitch5";
+            this.materialSwitch5.Ripple = true;
+            this.materialSwitch5.Size = new System.Drawing.Size(247, 29);
+            this.materialSwitch5.TabIndex = 8;
+            this.materialSwitch5.Text = "materialSwitch5";
+            this.materialSwitch5.UseVisualStyleBackColor = true;
+            // 
             // ConfigEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1121, 782);
+            this.ClientSize = new System.Drawing.Size(1247, 875);
+            this.Controls.Add(this.materialSwitch5);
+            this.Controls.Add(this.materialSwitch4);
+            this.Controls.Add(this.materialSwitch3);
+            this.Controls.Add(this.materialSwitch2);
+            this.Controls.Add(this.materialSwitch1);
             this.Controls.Add(this.saveChangesLabel);
             this.Controls.Add(this.saveConfigButton);
             this.Controls.Add(this.tabControl1);
@@ -2368,5 +2723,27 @@ namespace ValheimPlusManager
         private System.Windows.Forms.NumericUpDown itemStackMultiplierNumeric;
         private System.Windows.Forms.NumericUpDown baseItemWeightReductionNumeric;
         private System.Windows.Forms.CheckBox noTeleportPreventionCheckBox;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox1;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox2;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox3;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox4;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox5;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox6;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox7;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox8;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox9;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox10;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox11;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox12;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox13;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox14;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox15;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox16;
+        private MaterialSkin2DotNet.Controls.MaterialCheckbox materialCheckbox17;
+        private MaterialSkin2DotNet.Controls.MaterialSwitch materialSwitch1;
+        private MaterialSkin2DotNet.Controls.MaterialSwitch materialSwitch2;
+        private MaterialSkin2DotNet.Controls.MaterialSwitch materialSwitch3;
+        private MaterialSkin2DotNet.Controls.MaterialSwitch materialSwitch4;
+        private MaterialSkin2DotNet.Controls.MaterialSwitch materialSwitch5;
     }
 }

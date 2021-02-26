@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MaterialSkin2DotNet;
+using MaterialSkin2DotNet.Controls;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using ValheimPlusManager.Models;
@@ -6,7 +8,7 @@ using ValheimPlusManager.SupportClasses;
 
 namespace ValheimPlusManager
 {
-    public partial class ConfigEditor : Form
+    public partial class ConfigEditor : MaterialForm
     {
         private ValheimPlusConf ValheimPlusConf { get; set; }
 
@@ -17,6 +19,11 @@ namespace ValheimPlusManager
         public ConfigEditor(bool manageClient)
         {
             InitializeComponent();
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue400, TextShade.WHITE);
+            this.Icon = Properties.Resources.valheim_plus;
             this.Icon = Properties.Resources.valheim_plus;
 
             this.ManageClient = manageClient;
