@@ -24,30 +24,30 @@ namespace ValheimPlus.Configurations
         /// Load configuration from it's ini files
         /// </summary>
         /// <param name="isClient"></param>
-        /// <returns></returns>
+        /// <returns>true if successful</returns>
         public static bool LoadConfiguration(bool isClient = false)
         {
             bool errorWhileLoadingIni = false;
             Current = new Configuration();
+            StringBuilder sb = new StringBuilder();
             try
             {
                 foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance))
                 {
                     string iniPath = Path.Combine(ConfigIniPath, property.Name + ".ini");
-                
+
                     bool needsSync = typeof(ISyncableSection).IsAssignableFrom(property.PropertyType);
 
                     if ((isClient && !needsSync) || (!isClient && needsSync))
                     {
                         if (File.Exists(iniPath))
                         {
-                            errorWhileLoadingIni |= !LoadFromIni(Current, property, iniPath);
+                            errorWhileLoadingIni |= !LoadFromIni(Current, property, iniPath, sb);
                         }
                         else
                         {
-                           Debug.Log($"Saving missing default config for {property.Name}");
+                            Debug.Log($"Saving missing default config for {property.Name}");
                             Current.SaveConfiguration(property, isClient);
-                            errorWhileLoadingIni = true;
                         }
                     }
                 }
@@ -55,8 +55,8 @@ namespace ValheimPlus.Configurations
                 // If there were errors while loading the ini files, try to write missing ones
                 if (errorWhileLoadingIni)
                 {
-                    Debug.Log("Trying to write missing ini files");
-                    Configuration.Current.SaveConfiguration();
+                    Debug.Log("Error(s) occured loading configuration files");
+                    Debug.Log(sb.ToString());
                 }
             }
             catch (Exception e)
@@ -89,10 +89,13 @@ namespace ValheimPlus.Configurations
         }
 
 
-        private void SaveConfiguration()
+        /// <summary>
+        /// Save full config
+        /// Do not call this from startup, ZNet isn't initialized yet
+        /// </summary>
+        public void SaveConfiguration()
         {
-            bool isClient = true;
-            isClient = ServerCtrl.m_instance == null;
+            bool isClient = !ZNet.instance.IsServer();
             foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList())
             {
                 SaveConfiguration(property, isClient);
@@ -186,7 +189,7 @@ namespace ValheimPlus.Configurations
             return sb.ToString();
         }
 
-        public static bool LoadFromIni(Configuration config, PropertyInfo property, string filename)
+        public static bool LoadFromIni(Configuration config, PropertyInfo property, string filename, StringBuilder sb)
         {
             try
             {
@@ -211,6 +214,8 @@ namespace ValheimPlus.Configurations
             {
                 Debug.Log($"Error loading ini file {filename}");
                 Debug.Log(e.Message);
+                sb.AppendLine($"Error loading ini file {filename}");
+                sb.AppendLine($"{e.Message}");
                 return false;
             }
 
@@ -253,7 +258,7 @@ namespace ValheimPlus.Configurations
             catch (Exception e)
             {
                 Debug.LogError($"Error {e.Message} occured while parsing synced config");
-                
+
                 Debug.LogError($"while parsing {Environment.NewLine}{inputString}");
             }
         }
