@@ -16,8 +16,6 @@ namespace ValheimPlus
                 __instance.m_itemData.m_shared.m_teleportable = true;
             }
 
-            // Disabled for now. Need to hook the Item ToolTip function properly instead due to the way the game handles food durations.
-
             if (Configuration.Current.Items.IsEnabled)
             {
                 
@@ -32,5 +30,8 @@ namespace ValheimPlus
                 }
             }
         }
+
     }
+
+
 }

@@ -193,20 +193,9 @@ namespace ValheimPlus
         private static float getModifiedDeltaTime(ref Player __instance, ref float dt)
         {
             float defaultDeltaTimeTarget = 1f;
-            float newDetalTimeTarget = 1f;
+            float newDetalTimeTarget;
 
-            float food_multiplier = Configuration.Current.Food.foodDurationMultiplier;
-            if (food_multiplier == 50) food_multiplier = 51; // Decimal issue
-            if (food_multiplier == -50) food_multiplier = -51; // Decimal issue
-
-            if (food_multiplier >= 0)
-            {
-                newDetalTimeTarget = defaultDeltaTimeTarget + ((defaultDeltaTimeTarget / 100) * food_multiplier);
-            }
-            else
-            {
-                newDetalTimeTarget = defaultDeltaTimeTarget - ((defaultDeltaTimeTarget / 100) * (food_multiplier * -1));
-            }
+            newDetalTimeTarget = Helper.applyModifierValue(defaultDeltaTimeTarget, Configuration.Current.Food.foodDurationMultiplier);
 
             return newDetalTimeTarget;
         }
