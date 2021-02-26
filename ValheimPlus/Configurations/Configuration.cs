@@ -1,11 +1,18 @@
-﻿using ValheimPlus.Configurations.Sections;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using BepInEx;
+using IniParser;
+using IniParser.Model;
+using UnityEngine;
+using ValheimPlus.Configurations.Sections;
 
 namespace ValheimPlus.Configurations
 {
-    public class Configuration
+    public partial class Configuration
     {
-        public static Configuration Current { get; set; }
-
         public AdvancedBuildingModeConfiguration AdvancedBuildingMode { get; set; }
         public AdvancedEditingModeConfiguration AdvancedEditingMode { get; set; }
         public BeehiveConfiguration Beehive { get; set; }
@@ -31,5 +38,6 @@ namespace ValheimPlus.Configurations
         public CameraConfiguration Camera { get; set; }
         public GameConfiguration Game { get; set; }
         public VagonConfiguration Wagon { get; set; }
+
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using IniParser.Model;
 using System.Linq;
 using UnityEngine;
@@ -7,11 +8,11 @@ namespace ValheimPlus.Configurations
     public interface IConfig
     {
         void LoadIniData(KeyDataCollection data);
+        bool IsEnabled { get; set; }
     }
 
     public abstract class BaseConfig<T> : IConfig where T : IConfig, new()
     {
-
         public string ServerSerializeSection()
         {
             if (!IsEnabled || !NeedsServerSync) return "";
@@ -25,8 +26,8 @@ namespace ValheimPlus.Configurations
             return r;
         }
 
-        public bool IsEnabled = false;
-        public virtual bool NeedsServerSync { get; set;} = false;
+        public bool IsEnabled { get; set; } = false;
+        public virtual bool NeedsServerSync { get; set; } = false;
 
         public static IniData iniUpdated = null;
 
@@ -34,9 +35,9 @@ namespace ValheimPlus.Configurations
         {
             var n = new T();
 
-            
+
             Debug.Log($"Loading config section {section}");
-            if (data[section] == null || data[section]["enabled"] == null || !data[section].GetBool("enabled"))
+            if (data[section] == null || data[section][nameof(IsEnabled)] == null || !data[section].GetBool(nameof(IsEnabled)))
             {
                 Debug.Log(" Section not enabled");
                 return n;
@@ -61,7 +62,8 @@ namespace ValheimPlus.Configurations
                     keyName = char.ToLower(keyName[0]) + keyName.Substring(1);
                 }
 
-                if (!data.ContainsKey(keyName)) {
+                if (!data.ContainsKey(keyName))
+                {
                     Debug.Log($" Key {keyName} not defined, using default value");
                     continue;
                 }
@@ -99,7 +101,8 @@ namespace ValheimPlus.Configurations
 
     }
 
-    public abstract class ServerSyncConfig<T>: BaseConfig<T> where T : IConfig, new() {
-        public override bool NeedsServerSync { get; set;} = true;
+    public abstract class ServerSyncConfig<T> : BaseConfig<T>, ISyncableSection where T : IConfig,  new() 
+    {
+        public override bool NeedsServerSync { get; set; } = true;
     }
 }

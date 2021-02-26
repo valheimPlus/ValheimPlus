@@ -94,10 +94,11 @@ namespace ValheimPlus
         {
             if (!__instance.IsServer())
             {
-                // Load the client config file on server ZNet instance exit (server disconnect)
-                if (ConfigurationExtra.LoadSettings() != true)
+                // Load the client config file on client ZNet instance exit (server disconnect)
+                // Why? Only time it's called is on Game.Shutdown, we won't need the config anymore
+                if (Configuration.LoadConfiguration(true))
                 {
-                    Debug.LogError("Error while loading configuration file.");
+                    Debug.LogError("Error while loading server configuration files.");
                 }
             }
         }

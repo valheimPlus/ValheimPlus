@@ -9,12 +9,12 @@ namespace ValheimPlus
 {
     // COPYRIGHT 2021 KEVIN "nx#8830" J. // http://n-x.xyz
     // GITHUB REPOSITORY https://github.com/nxPublic/ValheimPlus
-    
+
 
     [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.9.0")]
     class ValheimPlusPlugin : BaseUnityPlugin
     {
-        
+
         public static string version = "0.9.0";
         public static string newestVersion = "";
         public static Boolean isUpToDate = false;
@@ -28,12 +28,16 @@ namespace ValheimPlus
         {
             Logger.LogInfo("Trying to load the configuration file");
 
-
-            if (ConfigurationExtra.LoadSettings() != true)
+            bool isClient = !Path.GetFileName(Environment.GetCommandLineArgs()[0]).ToLower().Contains("server");
+            string msg = isClient ? "Loading client configuration" : "Loading server configuration";
+            Logger.LogInfo(msg);
+            // NEED PROPER DETECTION IF IT IS SERVER HERE
+            if (!Configuration.LoadConfiguration(isClient))
             {
                 Logger.LogError("Error while loading configuration file.");
-            }else{
-
+            }
+            else
+            {
                 Logger.LogInfo("Configuration file loaded succesfully.");
 
                 var harmony = new Harmony("mod.valheim_plus");
@@ -52,10 +56,7 @@ namespace ValheimPlus
 
                 //Logo
                 VPlusMainMenu.Load();
-
             }
-
-            
         }
     }
 }
