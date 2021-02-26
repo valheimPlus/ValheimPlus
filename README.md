@@ -630,12 +630,13 @@ wagonExtraMassFromItems=0
 
 How to setup the development enviroment to compile ValheimPlus yourself.
 
-1. Download this package: ''to be defined''
-2. Unpack into your Valheim root folder. You should now see a new folder called .\Valheim\unstripped_corlib.
-3. [Compile](https://github.com/MrPurple6411/Bepinex-Tools) or [Download](https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA) Publicizers executable version.
-4. Drag and drop all assembly_.dll files from .\Valheim\valheim_Data\Managed onto "AssemblyPublicizer.exe". You should get a new folder .\Valheim\valheim_Data\Managed\publicized_assemblies with all dragged dll files in it.
-5. Create a user project file (ValheimPlus.csproj.user) to define some properties local to your own coding machine.
-
+1. Install [Visual Studio 2019](https://visualstudio.microsoft.com) and add the C# workload.
+2. Download this package: https://mega.nz/file/hBM0BDBS#eAY26LfmSSVlIz2MZn0ox8WKspfKmeIssz7durp5SfM
+3. Unpack into your Valheim root folder. You should now see a new folder called .\Valheim\unstripped_corlib.
+4. [Compile](https://github.com/MrPurple6411/Bepinex-Tools) or [Download](https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA) Publicizers executable version.
+5. Drag and drop all assembly_.dll files from .\Valheim\valheim_Data\Managed onto "AssemblyPublicizer.exe". You should get a new folder .\Valheim\valheim_Data\Managed\publicized_assemblies with all dragged dll files in it.
+6. Checkout this repository using git. That should create a new folder ValheimPlus.
+7. Create a new user project file "ValheimPlus.csproj.user" alongside the project file within .\ValheimPlus\ValheimPlus to define some properties local to you. Paste this snippet and configure the paths as they are present on your computer.
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -651,6 +652,7 @@ How to setup the development enviroment to compile ValheimPlus yourself.
   </PropertyGroup>
 </Project>
 ```
+8. Open the Solution file .\ValheimPlus\ValheimPlus.sln. It should prompt you a message at the top that some NuGet-Packages are missing. Click "Restore" and restart Visual Studio when finished.
 
 # Valheim Plus Debugging
 
