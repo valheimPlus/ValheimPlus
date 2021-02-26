@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using BepInEx;
+using UnityEngine;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus.RPC
@@ -13,32 +14,16 @@ namespace ValheimPlus.RPC
         {
             if (ZNet.m_isServer) //Server
             {
-                ZPackage pkg = new ZPackage();
-
-                string[] rawConfigData = File.ReadAllLines(ConfigurationExtra.ConfigIniPath);
-                List<string> cleanConfigData = new List<string>();
-
-                for (int i = 0; i < rawConfigData.Length; i++)
+                if (Configuration.Current == null)
                 {
-                    if (rawConfigData[i].Trim().StartsWith(";") ||
-                        rawConfigData[i].Trim().StartsWith("#")) continue; //Skip comments
-
-                    if (rawConfigData[i].Trim().IsNullOrWhiteSpace()) continue; //Skip blank lines
-
-                    //Add to clean data
-                    cleanConfigData.Add(rawConfigData[i]);
+                    Configuration.LoadConfiguration();
                 }
+
+                ZPackage pkg = new ZPackage();
+                string data = Configuration.Current.GetSyncableSections();
 
                 //Add number of clean lines to package
-                pkg.Write(cleanConfigData.Count);
-
-                //Add each line to the package
-                foreach (string line in cleanConfigData)
-                {
-                    pkg.Write(line);
-
-                    ZLog.Log("SENTCONFIG: " + line);
-                }
+                pkg.Write(data);
 
                 ZRoutedRpc.instance.InvokeRoutedRPC(sender, "VPlusConfigSync", new object[]
                 {
@@ -49,43 +34,19 @@ namespace ValheimPlus.RPC
             }
             else //Client
             {
-                if (configPkg != null && 
-                    configPkg.Size() > 0 && 
+                if (configPkg != null &&
+                    configPkg.Size() > 0 &&
                     sender == ZRoutedRpc.instance.GetServerPeerID()) //Validate the message is from the server and not another client.
                 {
-                    int numLines = configPkg.ReadInt();
 
-                    if (numLines == 0)
-                    {
-                        ZLog.LogWarning("Got zero line config file from server. Cannot load.");
-                        return;
-                    }
+                    Configuration receivedConfig = new Configuration();
+                    Configuration.LoadFromIniString(receivedConfig, configPkg.ReadString());
 
-                    using (MemoryStream memStream = new MemoryStream())
-                    {
-                        using (StreamWriter tmpWriter = new StreamWriter(memStream))
-                        {
-                            for (int i = 0; i < numLines; i++)
-                            {
-                                string line = configPkg.ReadString();
+                    Configuration.SetSyncableValues(receivedConfig);
 
-                                tmpWriter.WriteLine(line);
-
-                                ZLog.Log("CONFIGDATA: " + line);
-                            }
-
-                            tmpWriter.Flush(); //Flush to memStream
-                            memStream.Position = 0; //Rewind stream
-
-                            Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
-
-                            ZLog.Log("Successfully synced VPlus configuration from server.");
-                        }
-                    }
+                    ZLog.Log("Successfully synced VPlus configuration from server.");
                 }
             }
         }
-
-
     }
 }
