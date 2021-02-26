@@ -27,17 +27,7 @@ namespace ValheimPlus
                     }
                     else
                     {
-                        // original method
-                        float num1 = __instance.m_nview.GetZDO().GetFloat("fuel");
-                        double timeSinceLastUpdate = __instance.GetTimeSinceLastUpdate();
-                        if (__instance.IsBurning())
-                        {
-                            float num2 = (float)timeSinceLastUpdate / __instance.m_secPerFuel;
-                            float num3 = num1 - num2;
-                            if ((double)num3 <= 0.0)
-                                num3 = 0.0f;
-                            __instance.m_nview.GetZDO().Set("fuel", num3);
-                        }
+                        return true;
                     }
                 }
                 __instance.UpdateState();
