@@ -17,7 +17,7 @@ namespace ValheimPlus.Configurations
     // Configuration implementation part
     public partial class Configuration
     {
-        public static string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath);
+        public static string ConfigIniPath = Path.Combine(Path.GetDirectoryName(Paths.BepInExConfigPath), "ValheimPlus");
 
         public Configuration()
         {
@@ -43,6 +43,11 @@ namespace ValheimPlus.Configurations
             var sb = new StringBuilder();
             try
             {
+                if (!Directory.Exists(ConfigIniPath))
+                {
+                    Directory.CreateDirectory(ConfigIniPath);
+                }
+
                 foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance))
                 {
                     var iniPath = Path.Combine(ConfigIniPath, property.Name + ".ini");
