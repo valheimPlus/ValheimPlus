@@ -67,7 +67,7 @@ namespace ValheimPlus {
 		[HarmonyPatch(typeof(Hud), "DamageFlash")]
 		public static class RemoveDamageFlash
 		{
-			private static void Prefix(Hud __instance)
+			private static void Postfix(Hud __instance)
 			{
 				if (Configuration.Current.Hud.IsEnabled && Configuration.Current.Hud.removeDamageFlash)
 					__instance.m_damageScreen.enabled = false;
