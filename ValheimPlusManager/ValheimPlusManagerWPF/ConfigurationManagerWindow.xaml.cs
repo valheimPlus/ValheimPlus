@@ -41,5 +41,32 @@ namespace ValheimPlusManagerWPF
                 DataContext = ValheimPlusConf;
             }
         }
+
+        private void saveChangesButton_Click(object sender, RoutedEventArgs e)
+        {
+            bool success = ConfigManager.WriteConfigFile(ValheimPlusConf, ManageClient);
+
+            if (success)
+            {
+                //saveChangesLabel.Text = String.Format("Changes saved!");
+                //saveChangesLabel.ForeColor = Color.Green;
+            }
+            else
+            {
+                //saveChangesLabel.Text = String.Format("Error, changes not saved!");
+                //saveChangesLabel.ForeColor = Color.Red;
+            }
+
+            //var t = new Timer
+            //{
+            //    Interval = 3000 // it will Tick in 3 seconds
+            //};
+            //t.Tick += (s, e) =>
+            //{
+            //    saveChangesLabel.Hide();
+            //    t.Stop();
+            //};
+            //t.Start();
+        }
     }
 }

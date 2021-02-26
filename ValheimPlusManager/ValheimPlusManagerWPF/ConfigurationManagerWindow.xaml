@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ValheimPlusManagerWPF"
+        xmlns:local="clr-namespace:ValheimPlusManagerWPF.Models"
         mc:Ignorable="d"
-        Title="ConfigurationManagerWindow" Height="450" Width="800"
+        Title="ValheimPlus Manager | Configuration manager" Height="600" Width="1100"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -15,11 +15,48 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}" Icon="/valheim-plus.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <StackPanel Height="200" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2">
-            <materialDesign:Card Padding="32" Margin="16">
-                <TextBlock Style="{DynamicResource MaterialDesignHeadline6TextBlock}" Text="ValheimPlus Manager" FontWeight="Normal" FontSize="26"/>
-            </materialDesign:Card>
-        </StackPanel>
-        <ListBox/>
+        <Label Content="Settings to enable" FontSize="24" Margin="10,1,0,0"/>
+        <ListView Margin="0,0,786,0">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Margin" Value="6,3,2,2"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn />
+                </GridView>
+            </ListView.View>
+            <CheckBox IsChecked="{Binding advancedBuildingModeEnabled}" Content="Enable advanced building mode" />
+            <CheckBox IsChecked="{Binding advancedEditingModeEnabled}" Content="Enable advanced editing mode settings" />
+            <CheckBox IsChecked="{Binding beehiveSettingsEnabled}" Content="Enable beehive settings" />
+            <CheckBox IsChecked="{Binding buildingSettingsEnabled}" Content="Enable building settings" />
+            <CheckBox IsChecked="{Binding itemsSettingsEnabled}" Content="Enable item settings" />
+            <CheckBox IsChecked="{Binding fermenterSettingsEnabled}" Content="Enable fermenter settings" />
+            <CheckBox IsChecked="{Binding fireplaceSettingsEnabled}" Content="Enable fireplace settings" />
+            <CheckBox IsChecked="{Binding foodSettingsEnabled}" Content="Enable food settings" />
+            <CheckBox IsChecked="{Binding furnaceSettingsEnabled}" Content="Enable furnace settings" />
+            <CheckBox IsChecked="{Binding gameSettingsEnabled}" Content="Enable game settings" />
+            <CheckBox IsChecked="{Binding hotkeysSettingsEnabled}" Content="Enable hotkeys settings" />
+            <CheckBox IsChecked="{Binding hudSettingsEnabled}" Content="Enable HUD settings" />
+            <CheckBox IsChecked="{Binding kilnSettingsEnabled}" Content="Enable kiln settings" />
+            <CheckBox IsChecked="{Binding mapSettingsEnabled}" Content="Enable map settings" />
+            <CheckBox IsChecked="{Binding playerSettingsEnabled}" Content="Enable player settings" />
+            <CheckBox IsChecked="{Binding serverSettingsEnabled}" Content="Enable server settings" />
+            <CheckBox IsChecked="{Binding staminaSettingsEnabled}" Content="Enable stamina settings" />
+            <CheckBox IsChecked="{Binding staminaUsageSettingsEnabled}" Content="Enable stamina usage settings" />
+            <CheckBox IsChecked="{Binding workbenchSettingsEnabled}" Content="Enable workbench settings" />
+            <CheckBox IsChecked="{Binding timeSettingsEnabled}" Content="Enable time settings" />
+            <CheckBox IsChecked="{Binding wardSettingsEnabled}" Content="Enable ward settings" />
+            <CheckBox IsChecked="{Binding structuralIntegritySettingsEnabled}" Content="Enable structural integrity settings" />
+            <CheckBox IsChecked="{Binding experienceSettingsEnabled}" Content="Enable experience settings" />
+            <CheckBox IsChecked="{Binding cameraSettingsEnabled}" Content="Enable camera settings" />
+            <CheckBox IsChecked="{Binding wagonSettingsEnabled}" Content="Enable wagon settings" />
+            
+        </ListView>
+        <Button x:Name="saveChangesButton" Content="Save all changes" HorizontalAlignment="Left" Margin="925,511,0,0" VerticalAlignment="Top" Click="saveChangesButton_Click"/>
     </Grid>
 </Window>
