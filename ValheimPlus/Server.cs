@@ -20,14 +20,6 @@ namespace ValheimPlus
                     __instance.m_serverPlayerLimit = maxPlayers;
                 }
             }
-
-            if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.playerPositionPublicOnJoin)
-            {
-                // Set player position visibility to public by default on server join
-                __instance.m_publicReferencePosition = true;
-            }
-
-
         }
     }
 
