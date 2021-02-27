@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ValheimPlus.Configurations;
+using ValheimPlus.Utility;
 
 namespace ValheimPlus
 {

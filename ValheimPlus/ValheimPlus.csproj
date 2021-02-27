@@ -363,9 +363,9 @@
     <Compile Include="GameClasses\FejdStartup.cs" />
     <Compile Include="GameClasses\Fireplace.cs" />
     <Compile Include="GameClasses\GameCamera.cs" />
-    <Compile Include="Helper.cs" />
+    <Compile Include="Utility\Helper.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
-    <Compile Include="Initialize.cs" />
+    <Compile Include="ValheimPlus.cs" />
     <Compile Include="GameClasses\Fermenter.cs" />
     <Compile Include="GameClasses\Inventory.cs" />
     <Compile Include="GameClasses\Console.cs" />
@@ -378,7 +378,7 @@
     <Compile Include="GameClasses\Game.cs" />
     <Compile Include="RPC\VPlusConfigSync.cs" />
     <Compile Include="GameClasses\SteamGameServer.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="RPC\VPlusMapSync.cs" />
     <Compile Include="GameClasses\Minimap.cs" />
     <Compile Include="GameClasses\Smelter.cs" />
     <Compile Include="UI\VPlusMainMenu.cs" />

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
 	/// <summary>
 	/// Inventory HUD setup

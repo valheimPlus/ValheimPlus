@@ -1,9 +1,12 @@
 ﻿using HarmonyLib;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using ValheimPlus.Configurations;
+using ValheimPlus.RPC;
+using ValheimPlus.Utility;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Advanced Editing hook
@@ -70,6 +73,7 @@ namespace ValheimPlus
     {
         private static void Prefix()
         {
+            //Show VPlus tutorial raven if not yet seen by the player's character.
             Tutorial.TutorialText introTutorial = new Tutorial.TutorialText()
             {
                 m_label = "ValheimPlus Intro",
@@ -84,6 +88,9 @@ namespace ValheimPlus
             }
 
             Player.m_localPlayer.ShowTutorial("vplus");
+
+            //Send map data to the server
+            VPlusMapSync.SendMapToServer();
         }
     }
 

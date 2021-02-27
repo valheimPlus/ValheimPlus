@@ -4,7 +4,7 @@ using ValheimPlus.RPC;
 using ValheimPlus.Configurations;
 using UnityEngine;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Sync server config to clients
@@ -14,7 +14,8 @@ namespace ValheimPlus
     {
         private static void Prefix()
         {
-            ZRoutedRpc.instance.Register("VPlusConfigSync", new Action<long, ZPackage>(VPlusConfigSync.RPC_VPlusConfigSync));
+            ZRoutedRpc.instance.Register("VPlusConfigSync", new Action<long, ZPackage>(VPlusConfigSync.RPC_VPlusConfigSync)); //Config Sync
+            ZRoutedRpc.instance.Register("VPlusMapSync", new Action<long, ZPackage>(VPlusMapSync.RPC_VPlusMapSync)); //Map Sync
         }
     }
 

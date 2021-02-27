@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     [HarmonyPatch(typeof(Beehive), "Awake")]
     public static class ApplyBeehiveChanges

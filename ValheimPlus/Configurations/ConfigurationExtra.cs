@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using ValheimPlus.Utility;
 
 namespace ValheimPlus.Configurations
 {
@@ -28,7 +29,7 @@ namespace ValheimPlus.Configurations
                 }
             }
 
-            return Settings.CreateMD5(serialized);
+            return Helper.CreateMD5(serialized);
         }
 
         public static string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";

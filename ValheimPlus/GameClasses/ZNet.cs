@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ValheimPlus.Configurations;
+using ValheimPlus.RPC;
 
 // ToDo add packet system to convey map markers
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     [HarmonyPatch(typeof(ZNet))]
     public class HookZNet
@@ -70,6 +71,11 @@ namespace ValheimPlus
                     Debug.LogError("Error while loading configuration file.");
                 }
             }
+            else
+            {
+                //Save map data to disk
+                VPlusMapSync.SaveMapDataToDisk();
+            }
         }
     }
 
@@ -84,6 +90,31 @@ namespace ValheimPlus
             if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.preventPlayerFromTurningOffPublicPosition)
             {
                 ___m_publicReferencePosition = true;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(ZNet), "RPC_RefPos")]
+    public static class PlayerPositionWatcher
+    {
+        private static void Postfix(ref ZNet __instance, ZRpc rpc, Vector3 pos, bool publicRefPos)
+        {
+            if (!__instance.IsServer()) return;
+
+            Minimap.instance.WorldToPixel(pos, out int pixelX, out int pixelY);
+
+            int radiusPixels = (int)Mathf.Ceil(Configuration.Current.Map.exploreRadius / Minimap.instance.m_pixelSize);
+
+            for (int y = pixelY - radiusPixels; y <= pixelY + radiusPixels; ++y)
+            {
+                for (int x = pixelX - radiusPixels; x <= pixelX + radiusPixels; ++x)
+                {
+                    if (x >= 0 && y >= 0 && (x < Minimap.instance.m_textureSize && y < Minimap.instance.m_textureSize) &&
+                        ((double)new Vector2((float)(x - pixelX), (float)(y - pixelY)).magnitude <= (double)radiusPixels))
+                    {
+                        VPlusMapSync.ServerMapData[y * Minimap.instance.m_textureSize + x] = true;
+                    }
+                }
             }
         }
     }

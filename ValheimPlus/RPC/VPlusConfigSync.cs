@@ -36,8 +36,6 @@ namespace ValheimPlus.RPC
                 foreach (string line in cleanConfigData)
                 {
                     pkg.Write(line);
-
-                    ZLog.Log("SENTCONFIG: " + line);
                 }
 
                 ZRoutedRpc.instance.InvokeRoutedRPC(sender, "VPlusConfigSync", new object[]
@@ -70,8 +68,6 @@ namespace ValheimPlus.RPC
                                 string line = configPkg.ReadString();
 
                                 tmpWriter.WriteLine(line);
-
-                                ZLog.Log("CONFIGDATA: " + line);
                             }
 
                             tmpWriter.Flush(); //Flush to memStream
