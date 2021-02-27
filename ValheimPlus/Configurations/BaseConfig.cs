@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using IniParser.Model;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 namespace ValheimPlus.Configurations
@@ -11,7 +13,12 @@ namespace ValheimPlus.Configurations
         bool IsEnabled { get; set; }
     }
 
-    public abstract class BaseConfig<T> : IConfig where T : IConfig, new()
+    public abstract class BaseConfig
+    {
+        public static readonly Dictionary<Type, List<PropertyInfo>> propertyCache = new Dictionary<Type, List<PropertyInfo>>();
+    }
+
+    public abstract class BaseConfig<T> : BaseConfig, IConfig where T : IConfig, new()
     {
         public bool IsEnabled
         {
@@ -26,9 +33,8 @@ namespace ValheimPlus.Configurations
             }
         }
 
-        public EventHandler<SectionStatusChangeEventArgs> SectionStatusChangedEvent;
 
-        public virtual bool NeedsServerSync { get; set; } = false;
+        public EventHandler<SectionStatusChangeEventArgs> SectionStatusChangedEvent;
 
         public static IniData iniUpdated = null;
         private bool _isEnabled = false;
@@ -51,14 +57,29 @@ namespace ValheimPlus.Configurations
             return n;
         }
 
+
+        private static IEnumerable<PropertyInfo> GetProps<T>()
+        {
+            if (!propertyCache.ContainsKey(typeof(T)))
+            {
+                // If not cached already, cache it
+                propertyCache.Add(typeof(T), typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToList());
+            }
+
+            foreach (var property in propertyCache[typeof(T)])
+            {
+                yield return property;
+            }
+        }
+
         public void LoadIniData(KeyDataCollection data)
         {
             IsEnabled = true;
 
-            foreach (var prop in typeof(T).GetProperties())
+            foreach (var prop in GetProps<T>())
             {
                 var keyName = prop.Name;
-                if (new[] { "NeedsServerSync", "IsEnabled" }.Contains(keyName)) continue;
+
                 // Set first char of keyName to lowercase
                 if (keyName != string.Empty && char.IsUpper(keyName[0]))
                 {
@@ -106,6 +127,6 @@ namespace ValheimPlus.Configurations
 
     public abstract class ServerSyncConfig<T> : BaseConfig<T>, ISyncableSection where T : IConfig, new()
     {
-        public override bool NeedsServerSync { get; set; } = true;
+
     }
 }

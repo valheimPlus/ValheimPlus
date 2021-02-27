@@ -3,8 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using HarmonyLib;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
@@ -21,13 +19,13 @@ namespace ValheimPlus.ConsoleCommands
 
         public override bool ParseCommand(ref string input, bool silent)
         {
-            string inputCopy = input;
-            List<string> parts = input.Replace("  "," ").Split(' ').ToList();
-            string command = parts.Count >= 1 ? parts[0] : null;
-            string sectionPropPart = parts.Count >= 2 ? parts[1] : null;
-            string valuePart = parts.Count == 3 ? parts[2] : null;
+            var inputCopy = input;
+            var parts = input.Replace("  ", " ").Split(' ').ToList();
+            var command = parts.Count >= 1 ? parts[0] : null;
+            var sectionPropPart = parts.Count >= 2 ? parts[1] : null;
+            var valuePart = parts.Count == 3 ? parts[2] : null;
 
-            List<string> configParts = new List<string>();
+            var configParts = new List<string>();
             string sectionName = null;
             string valueName = null;
             if (!string.IsNullOrEmpty(sectionPropPart))
@@ -56,9 +54,9 @@ namespace ValheimPlus.ConsoleCommands
             if (string.IsNullOrEmpty(sectionName))
             {
                 Console.instance.AddString("List of configuration sections:");
-                foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                foreach (var property in Configuration.propertyCache)
                 {
-                    bool syncable = typeof(ISyncableSection).IsAssignableFrom(property.PropertyType);
+                    var syncable = typeof(ISyncableSection).IsAssignableFrom(property.PropertyType);
                     Console.instance.AddString($"{property.Name} \t\t{(syncable ? "Admin only" : "")}");
                 }
             }
@@ -66,48 +64,48 @@ namespace ValheimPlus.ConsoleCommands
 
             if (!string.IsNullOrEmpty(sectionName) && string.IsNullOrEmpty(valuePart))
             {
-
                 if (string.IsNullOrEmpty(valueName))
                 {
                     // write info about section
 
-                    var sectProperty = typeof(Configuration).GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                        .FirstOrDefault(x => string.Equals(x.Name, sectionName, StringComparison.CurrentCultureIgnoreCase));
+                    var sectProperty =
+                        Configuration.propertyCache.FirstOrDefault(x => string.Equals(x.Name, sectionName, StringComparison.CurrentCultureIgnoreCase));
                     if (sectProperty == null)
                     {
                         Console.instance.AddString($"No section {sectionName} available.");
                         return false;
                     }
+
                     Console.instance.AddString($"Section {sectProperty.Name}");
                     Console.instance.AddString("Properties:");
 
                     var sectValue = sectProperty.GetValue(Configuration.Current, null);
 
-                    foreach (var prop in sectProperty.PropertyType.GetProperties(BindingFlags.Instance | BindingFlags.Public).Where(x => x.Name != "NeedsServerSync"))
+                    foreach (var prop in BaseConfig.propertyCache[sectProperty.PropertyType])
                     {
                         var val = prop.GetValue(sectValue, null);
                         Console.instance.AddString($"{prop.Name} {prop.PropertyType.Name} ({val})");
                     }
                 }
-                else 
+                else
                 {
-                    var sectProperty = typeof(Configuration).GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                        .FirstOrDefault(x => string.Equals(x.Name, sectionName, StringComparison.CurrentCultureIgnoreCase));
-                    var valueProp = sectProperty.PropertyType.GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                    var sectProperty =
+                        Configuration.propertyCache.FirstOrDefault(x => string.Equals(x.Name, sectionName, StringComparison.CurrentCultureIgnoreCase));
+                    var valueProp = BaseConfig.propertyCache[sectProperty.PropertyType]
                         .FirstOrDefault(x => string.Equals(x.Name, valueName, StringComparison.CurrentCultureIgnoreCase));
-                    ConfigurationAttribute ca = (ConfigurationAttribute)valueProp.GetCustomAttributes(false).FirstOrDefault(x => x is ConfigurationAttribute);
-                    string valueComment = "";
+                    var ca = (ConfigurationAttribute) valueProp.GetCustomAttributes(false).FirstOrDefault(x => x is ConfigurationAttribute);
+                    var valueComment = "";
                     if (ca != null)
                     {
                         valueComment = ca.Comment;
                     }
+
                     Console.instance.AddString($"Section {sectProperty.Name} value {valueProp.Name}, type {valueProp.PropertyType.Name}");
 
                     if (!string.IsNullOrEmpty(valueComment))
                     {
                         Console.instance.AddString(valueComment);
                     }
-
                 }
 
                 return false;
@@ -125,14 +123,15 @@ namespace ValheimPlus.ConsoleCommands
             }
 
 
-            var sectionProperty = typeof(Configuration).GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .FirstOrDefault(x => string.Equals(x.Name, sectionName, StringComparison.CurrentCultureIgnoreCase));
+            var sectionProperty =
+                Configuration.propertyCache.FirstOrDefault(x => string.Equals(x.Name, sectionName, StringComparison.CurrentCultureIgnoreCase));
             if (sectionProperty == null)
             {
                 if (!silent)
                 {
                     Console.instance.AddString($"Section '{sectionName}' does not exist.");
                 }
+
                 return false;
             }
 
@@ -140,7 +139,7 @@ namespace ValheimPlus.ConsoleCommands
 
             var needsSync = typeof(ISyncableSection).IsAssignableFrom(sectionProperty.PropertyType);
 
-            var valueProperty = sectionProperty.PropertyType.GetProperties(BindingFlags.Instance | BindingFlags.Public)
+            var valueProperty = BaseConfig.propertyCache[sectionProperty.PropertyType]
                 .FirstOrDefault(x => string.Equals(x.Name, valueName, StringComparison.CurrentCultureIgnoreCase));
 
             if (valueProperty == null)
@@ -149,6 +148,7 @@ namespace ValheimPlus.ConsoleCommands
                 {
                     Console.instance.AddString($"Value '{valueName}' does not exist in section '{sectionName}'");
                 }
+
                 return false;
             }
 
@@ -156,7 +156,7 @@ namespace ValheimPlus.ConsoleCommands
             if (valueProperty.PropertyType == typeof(float))
             {
                 var newValue = GetFloat(valuePart);
-                var oldValue = (float)valueProperty.GetValue(section, null);
+                var oldValue = (float) valueProperty.GetValue(section, null);
 
 
                 if (!silent)
@@ -168,7 +168,7 @@ namespace ValheimPlus.ConsoleCommands
                 {
                     SyncToClients(inputCopy);
                 }
-                else if ((needsSync && silent) || (!silent && !needsSync))
+                else if (needsSync && silent || !silent && !needsSync)
                 {
                     valueProperty.SetValue(section, newValue, null);
                 }
@@ -179,7 +179,7 @@ namespace ValheimPlus.ConsoleCommands
             if (valueProperty.PropertyType == typeof(int))
             {
                 var newValue = GetInt(valuePart);
-                var oldValue = (int)valueProperty.GetValue(section, null);
+                var oldValue = (int) valueProperty.GetValue(section, null);
 
                 if (!silent)
                 {
@@ -190,7 +190,7 @@ namespace ValheimPlus.ConsoleCommands
                 {
                     SyncToClients(inputCopy);
                 }
-                else if ((needsSync && silent) || (!silent && !needsSync))
+                else if (needsSync && silent || !silent && !needsSync)
                 {
                     valueProperty.SetValue(section, newValue, null);
                 }
@@ -201,7 +201,7 @@ namespace ValheimPlus.ConsoleCommands
             if (valueProperty.PropertyType == typeof(KeyCode))
             {
                 var newValue = GetKeyCode(valuePart);
-                var oldValue = (KeyCode)valueProperty.GetValue(section, null);
+                var oldValue = (KeyCode) valueProperty.GetValue(section, null);
 
                 if (!silent)
                 {
@@ -212,7 +212,7 @@ namespace ValheimPlus.ConsoleCommands
                 {
                     SyncToClients(inputCopy);
                 }
-                else if ((needsSync && silent) || (!silent && !needsSync))
+                else if (needsSync && silent || !silent && !needsSync)
                 {
                     valueProperty.SetValue(section, newValue, null);
                 }
@@ -222,8 +222,8 @@ namespace ValheimPlus.ConsoleCommands
 
             if (valueProperty.PropertyType == typeof(bool))
             {
-                var newValue = BaseConsoleCommand.GetBool(valuePart);
-                var oldValue = (bool)valueProperty.GetValue(section, null);
+                var newValue = GetBool(valuePart);
+                var oldValue = (bool) valueProperty.GetValue(section, null);
                 if (!silent)
                 {
                     Console.instance.AddString($"Setting {sectionName}.{valueName} to {newValue} (old: {oldValue})");
@@ -233,7 +233,7 @@ namespace ValheimPlus.ConsoleCommands
                 {
                     SyncToClients(inputCopy);
                 }
-                else if ((needsSync && silent) || (!silent && !needsSync))
+                else if (needsSync && silent || !silent && !needsSync)
                 {
                     valueProperty.SetValue(section, newValue, null);
                 }
@@ -249,7 +249,7 @@ namespace ValheimPlus.ConsoleCommands
 
         private static void SyncToClients(string inputCopy)
         {
-            ZPackage zPgk = new ZPackage();
+            var zPgk = new ZPackage();
             zPgk.Write(inputCopy);
             ZRoutedRpc.instance.InvokeRoutedRPC("SetConfigurationValue", zPgk);
         }

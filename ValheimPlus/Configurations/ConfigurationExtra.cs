@@ -1,6 +1,7 @@
 ﻿// ValheimPlus
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -19,10 +20,18 @@ namespace ValheimPlus.Configurations
     {
         public static string ConfigIniPath = Path.Combine(Path.GetDirectoryName(Paths.BepInExConfigPath), "ValheimPlus");
 
+        internal static readonly List<PropertyInfo> propertyCache;
+
+        static Configuration()
+        {
+            // Fill property cache
+            propertyCache = typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList();
+        }
+
         public Configuration()
         {
             // Create all configuration entries with default values
-            foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            foreach (var property in propertyCache)
             {
                 property.SetValue(this, Activator.CreateInstance(property.PropertyType, true), null);
             }
@@ -48,7 +57,7 @@ namespace ValheimPlus.Configurations
                     Directory.CreateDirectory(ConfigIniPath);
                 }
 
-                foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                foreach (var property in propertyCache)
                 {
                     var iniPath = Path.Combine(ConfigIniPath, property.Name + ".ini");
 
@@ -85,13 +94,13 @@ namespace ValheimPlus.Configurations
         }
 
         /// <summary>
-        /// Get all section which need to synced with clients
+        ///     Get all section which need to synced with clients
         /// </summary>
         /// <returns></returns>
         public string GetSyncableSections()
         {
             var sb = new StringBuilder();
-            foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            foreach (var property in propertyCache)
             {
                 sb.AppendLine(GenerateSection(property, property.GetValue(this, null)));
             }
@@ -107,14 +116,14 @@ namespace ValheimPlus.Configurations
         public void SaveConfiguration()
         {
             var isClient = !ZNet.instance.IsServer();
-            foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance).ToList())
+            foreach (var property in propertyCache)
             {
                 SaveConfiguration(property, isClient);
             }
         }
 
         /// <summary>
-        /// Save configuration section to its ini file
+        ///     Save configuration section to its ini file
         /// </summary>
         /// <param name="property">Configuration property</param>
         /// <param name="isClient"></param>
@@ -138,7 +147,7 @@ namespace ValheimPlus.Configurations
         }
 
         /// <summary>
-        /// Generate ini section as string
+        ///     Generate ini section as string
         /// </summary>
         /// <param name="property">Configuration property</param>
         /// <param name="section">section object</param>
@@ -160,7 +169,7 @@ namespace ValheimPlus.Configurations
 
             // IsEnabled first
 
-            var enabledProperty = typeof(IConfig).GetProperty("IsEnabled", BindingFlags.Public | BindingFlags.Instance);
+            var enabledProperty = typeof(IConfig).GetProperty(nameof(IConfig.IsEnabled), BindingFlags.Public | BindingFlags.Instance);
             var enabledValue = enabledProperty.GetValue(section, null);
             var enabledAsString = enabledValue.ToString();
 
@@ -176,24 +185,17 @@ namespace ValheimPlus.Configurations
                 sb.AppendLine();
             }
 
-            foreach (var configProperty in sectionType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToList())
+            foreach (var configProperty in BaseConfig.propertyCache[sectionType])
             {
-                // Dont need to write NeedsServerSync
-
-                if (configProperty.Name == "NeedsServerSync")
-                {
-                    continue;
-                }
-
                 var value = configProperty.GetValue(section, null);
                 var valueAsString = value.ToString();
                 if (value is float)
                 {
-                    valueAsString = ((float) value).ToString(CultureInfo.InvariantCulture.NumberFormat);
+                    valueAsString = ((float)value).ToString(CultureInfo.InvariantCulture.NumberFormat);
                 }
 
-                // Special case 'IsEnabled'
-                if (configProperty.Name == "IsEnabled")
+                // Special case 'IsEnabled' is already handled above
+                if (configProperty.Name == nameof(IConfig.IsEnabled))
                 {
                     continue;
                 }
@@ -234,7 +236,7 @@ namespace ValheimPlus.Configurations
 
                 if (method != null)
                 {
-                    var result = method.Invoke(null, new object[] {configdata, keyName});
+                    var result = method.Invoke(null, new object[] { configdata, keyName });
                     property.SetValue(config, result, null);
                 }
             }
@@ -256,8 +258,7 @@ namespace ValheimPlus.Configurations
         /// <param name="receivedConfig"></param>
         public static void SetSyncableValues(Configuration receivedConfig)
         {
-            foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(x => typeof(ISyncableSection).IsAssignableFrom(x.PropertyType)))
+            foreach (var property in propertyCache.Where(x => typeof(ISyncableSection).IsAssignableFrom(x.PropertyType)))
             {
                 property.SetValue(Current, property.GetValue(receivedConfig, null), null);
             }
@@ -270,12 +271,12 @@ namespace ValheimPlus.Configurations
                 var parser = new IniDataParser();
                 var ini = parser.Parse(inputString);
 
-                foreach (var property in typeof(Configuration).GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                foreach (var property in propertyCache)
                 {
                     if (ini.Sections.ContainsSection(property.Name))
                     {
                         var result = property.PropertyType.GetMethod("LoadIni", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
-                            ?.Invoke(null, new object[] {ini, property.Name});
+                            ?.Invoke(null, new object[] { ini, property.Name });
                         if (result == null)
                         {
                             throw new Exception($"LoadIni method not found on Type {property.PropertyType.Name}");
@@ -324,7 +325,7 @@ namespace ValheimPlus.Configurations
 
         public static bool GetBool(this KeyDataCollection data, string key)
         {
-            var truevals = new[] {"y", "yes", "true"};
+            var truevals = new[] { "y", "yes", "true" };
             return truevals.Contains(data[key].ToLower());
         }
 
