@@ -29,11 +29,13 @@ namespace ValheimPlus {
         {
             if (!ZNet.instance.IsServer())
             {
-                Debug.Log("Is not server.");
+                // Debug.Log("Is not server.");
                 return;
             }
             double num = ZNet.instance.GetTimeSeconds();
-            num += (double)deltaTime *  (((double)deltaTime / 100) * amount);
+            // We target math to be aligned with the config: Increase the speed at which time passes at night by %. The value 50 would result in a 50% reduced amount of night time.
+            // If 50% tends to reduce night by 2, we need to make 50% reach the tick rate which is 0.02 (deltaTime)
+            num += (((double)deltaTime / 50) * amount);
             ZNet.instance.SetNetTime(num);
         }
         
