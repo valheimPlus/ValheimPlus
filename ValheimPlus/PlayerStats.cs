@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
-using UnityEngine;
+using System.Diagnostics;
 
 namespace ValheimPlus
 {
@@ -29,95 +29,107 @@ namespace ValheimPlus
             {
                 __instance.m_maxPlaceDistance = Configuration.Current.Building.maximumPlacementDistance;
             }
-
         }
-
-
     }
 
+    [HarmonyPatch(typeof(Attack), "GetStaminaUsage")]
+    public static class ChangeStaminaUsageOfWeapons
+    {
+        private static void Postfix(ref Attack __instance, ref float __result)
+        {
+            if (Configuration.Current.StaminaUsage.IsEnabled)
+            {
+                if (__instance.m_character.IsPlayer())
+                {
+                    ItemDrop.ItemData item = __instance.m_character.GetRightItem();
+                    string weaponType = "";
+
+                    if (item == null)
+                    {
+                        weaponType = "Unarmed";
+                    }
+                    else if (item.IsWeapon())
+                    {
+                        try
+                        {
+                            weaponType = item.m_shared.m_skillType.ToString();
+                        }
+                        catch (System.Exception e) { }
+                    }
+
+                    if (weaponType != "")
+                    {
+                        switch (weaponType)
+                        {
+                            case "Swords":
+                                __result -= __result * Configuration.Current.StaminaUsage.swords / 100;
+                                break;
+                            case "Knives":
+                                __result -= __result * Configuration.Current.StaminaUsage.knives / 100;
+                                break;
+                            case "Clubs":
+                                __result -= __result * Configuration.Current.StaminaUsage.clubs / 100;
+                                break;
+                            case "Polearms":
+                                __result -= __result * Configuration.Current.StaminaUsage.polearms / 100;
+                                break;
+                            case "Spears":
+                                __result -= __result * Configuration.Current.StaminaUsage.spears / 100;
+                                break;
+                            case "Axes":
+                                __result -= __result * Configuration.Current.StaminaUsage.axes / 100;
+                                break;
+                            case "Bows":
+                                __result -= __result * Configuration.Current.StaminaUsage.bows / 100;
+                                break;
+                            case "Unarmed":
+                                __result -= __result * Configuration.Current.StaminaUsage.unarmed / 100;
+                                break;
+                            case "Pickaxes":
+                                __result -= __result * Configuration.Current.StaminaUsage.pickaxes / 100;
+                                break;
+                            default:
+                                break;
+                        }
+                    }       
+                }
+            }
+        }
+    }
 
     [HarmonyPatch(typeof(Player), "UseStamina")]
-    public static class ChangeStaminaUsageOfToolsAndWeapons
+    public static class ChangeStaminaUsageOfTools
     {
         private static void Prefix(ref Player __instance, ref float v)
         {
-
-            // TODO add a check for the origin of the call of this function to restrict it to not reduce stamina drain of running/jumping/swimming etc.
-
             if (Configuration.Current.StaminaUsage.IsEnabled)
             {
-                string weaponType = "";
-                bool isHoe = false;
-                bool isHammer = false;
-                bool isCultivator = false;
-
-                if (__instance.GetRightItem() == null)
-                    weaponType = "Unarmed";
-
-                if(weaponType != "Unarmed") 
+                string methodName = new StackTrace().GetFrame(2).GetMethod().Name;
+                if (methodName == "UpdatePlacement" || methodName == "Repair")
                 {
-                    try
+                    ItemDrop.ItemData item = __instance.GetRightItem();
+                    if (item != null)
                     {
-                        weaponType = __instance.GetRightItem().m_shared.m_skillType.ToString();
+                        string itemName = item.m_shared.m_name;
+                        bool isHoe = itemName == "$item_hoe";
+                        bool isHammer = itemName == "$item_hammer";
+                        bool isCultivator = itemName == "$item_cultivator";
+
+                        if (isHammer)
+                        {
+                            v -= v * Configuration.Current.StaminaUsage.hammer / 100;
+                        }
+                        else if (isHoe)
+                        {
+                            v -= v * Configuration.Current.StaminaUsage.hoe / 100;
+                        }
+                        else if (isCultivator)
+                        {
+                            v -= v * Configuration.Current.StaminaUsage.cultivator / 100;
+                        }
                     }
-                    catch (System.Exception e)
-                    { }
-
-                    isHoe = (__instance.GetRightItem().m_shared.m_name == "$item_hoe" ? true : false);
-                    isHammer = (__instance.GetRightItem().m_shared.m_name == "$item_hammer" ? true : false);
-                    isCultivator = (__instance.GetRightItem().m_shared.m_name == "$item_cultivator" ? true : false);
-                }
-                
-                if(weaponType != "")
-                switch (weaponType)
-                {
-                    case "Swords":
-                        v = v - (v * (Configuration.Current.StaminaUsage.swords) / 100);
-                        break;
-                    case "Knives":
-                        v = v - (v * (Configuration.Current.StaminaUsage.knives) / 100);
-                        break;
-                    case "Clubs":
-                        v = v - (v * (Configuration.Current.StaminaUsage.clubs) / 100);
-                        break;
-                    case "Polearms":
-                        v = v - (v * (Configuration.Current.StaminaUsage.polearms) / 100);
-                        break;
-                    case "Spears":
-                        v = v - (v * (Configuration.Current.StaminaUsage.spears) / 100);
-                        break;
-                    case "Axes":
-                        v = v - (v * (Configuration.Current.StaminaUsage.axes) / 100);
-                            break;
-                    case "Bows":
-                        v = v - (v * (Configuration.Current.StaminaUsage.bows) / 100);
-                        break;
-                    case "Unarmed":
-                        v = v - (v * (Configuration.Current.StaminaUsage.unarmed) / 100);
-                        break;
-                    case "Pickaxes":
-                        v = v - (v * (Configuration.Current.StaminaUsage.pickaxes) / 100);
-                        break;
-                    default:
-                        break;
-                }
-
-                if (isHammer)
-                {
-                    v = v - (v * (Configuration.Current.StaminaUsage.hammer) / 100);
-                }
-                if (isHoe)
-                {
-                    v = v - (v * (Configuration.Current.StaminaUsage.hoe) / 100);
-                }
-                if (isCultivator)
-                {
-                    v = v - (v * (Configuration.Current.StaminaUsage.cultivator) / 100);
                 }
             }
-
         }
     }
-
-
 }
