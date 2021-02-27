@@ -1,7 +1,6 @@
 ﻿using IniParser;
 using IniParser.Model;
 using IniParser.Model.Configuration;
-using IniParser.Parser;
 using System;
 using System.Globalization;
 using ValheimPlusManagerWPF.Data;
@@ -36,15 +35,15 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.advancedBuildingModeEnabled = advancedBuildingModeEnabled;
             }
-            if(data["AdvancedBuildingMode"]["enterAdvancedBuildingMode"] != null)
+            if (data["AdvancedBuildingMode"]["enterAdvancedBuildingMode"] != null)
             {
                 valheimPlusConfiguration.enterAdvancedBuildingMode = data["AdvancedBuildingMode"]["enterAdvancedBuildingMode"];
             }
-            if(data["AdvancedBuildingMode"]["exitAdvancedBuildingMode"] != null)
+            if (data["AdvancedBuildingMode"]["exitAdvancedBuildingMode"] != null)
             {
                 valheimPlusConfiguration.exitAdvancedBuildingMode = data["AdvancedBuildingMode"]["exitAdvancedBuildingMode"];
             }
-            
+
             #endregion Advanced building mode
 
             #region Advanced editing mode
@@ -52,11 +51,11 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.advancedEditingModeEnabled = advancedEditingModeEnabled;
             }
-            if(data["AdvancedEditingMode"]["enterAdvancedEditingMode"] != null)
+            if (data["AdvancedEditingMode"]["enterAdvancedEditingMode"] != null)
             {
                 valheimPlusConfiguration.enterAdvancedEditingMode = data["AdvancedEditingMode"]["enterAdvancedEditingMode"];
             }
-            if(data["AdvancedEditingMode"]["resetAdvancedEditingMode"] != null)
+            if (data["AdvancedEditingMode"]["resetAdvancedEditingMode"] != null)
             {
                 valheimPlusConfiguration.resetAdvancedEditingMode = data["AdvancedEditingMode"]["resetAdvancedEditingMode"];
             }
@@ -215,7 +214,7 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.hotkeysSettingsEnabled = hotkeysSettingsEnabled;
             }
-            if(data["Hotkeys"]["rollForwards"] != null)
+            if (data["Hotkeys"]["rollForwards"] != null)
             {
                 valheimPlusConfiguration.rollForwards = data["Hotkeys"]["rollForwards"];
             }
@@ -568,7 +567,7 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.experienceSwim = experienceSwim;
             }
-            if(Int32.TryParse(data["Experience"]["hammer"], out int experienceHammer)) // Added in case Iron Gate adds XP for hammers
+            if (Int32.TryParse(data["Experience"]["hammer"], out int experienceHammer)) // Added in case Iron Gate adds XP for hammers
             {
                 valheimPlusConfiguration.experienceHammer = experienceHammer;
             }

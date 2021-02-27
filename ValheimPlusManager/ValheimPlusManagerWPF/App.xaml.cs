@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using ValheimPlusManagerWPF.Data;
-using ValheimPlusManagerWPF.Models;
+﻿using System.Windows;
 
 namespace ValheimPlusManagerWPF
 {
@@ -15,6 +7,6 @@ namespace ValheimPlusManagerWPF
     /// </summary>
     public partial class App : Application
     {
-        
+
     }
 }
