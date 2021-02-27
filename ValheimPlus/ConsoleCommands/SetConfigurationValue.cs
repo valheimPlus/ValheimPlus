@@ -84,7 +84,8 @@ namespace ValheimPlus.ConsoleCommands
                     foreach (var prop in BaseConfig.GetProps(sectProperty.PropertyType))
                     {
                         var val = prop.GetValue(sectValue, null);
-                        Console.instance.AddString($"{prop.Name} {prop.PropertyType.Name} ({val})");
+                        var valDefault = ((BaseConfig)sectValue).GetDefault(sectProperty.PropertyType, prop.Name);
+                        Console.instance.AddString($"{prop.Name} {prop.PropertyType.Name} ({val}, default:{valDefault}");
                     }
                 }
                 else

@@ -38,6 +38,6 @@ namespace ValheimPlus.Configurations
         public CameraConfiguration Camera { get; set; }
         public GameConfiguration Game { get; set; }
         public VagonConfiguration Wagon { get; set; }
-
+        public PlantConfiguration Plant { get; set; }
     }
 }

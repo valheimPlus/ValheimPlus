@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
 using UnityEngine;
+using ValheimPlus.Configurations.Sections;
 
 namespace ValheimPlus
 {
@@ -11,7 +12,7 @@ namespace ValheimPlus
         {
             if (Configuration.Current.Stamina.IsEnabled)
             {
-                __instance.m_dodgeStaminaUsage = Configuration.Current.Stamina.dodgeStaminaUsage;;
+                __instance.m_dodgeStaminaUsage = Configuration.Current.Stamina.dodgeStaminaUsage;
                 __instance.m_encumberedStaminaDrain = Configuration.Current.Stamina.encumberedStaminaDrain;
                 __instance.m_sneakStaminaDrain = Configuration.Current.Stamina.sneakStaminaDrain;
                 __instance.m_runStaminaDrain = Configuration.Current.Stamina.runStaminaDrain;
@@ -20,21 +21,31 @@ namespace ValheimPlus
                 __instance.m_swimStaminaDrainMinSkill = Configuration.Current.Stamina.swimStaminaDrain;
                 __instance.m_jumpStaminaUsage = Configuration.Current.Stamina.jumpStaminaDrain;
             }
+
+            __instance.m_autoPickupRange = Configuration.Current.Player.GetDefault<float>(nameof(Configuration.Player.baseAutoPickUpRange));
+            __instance.m_baseCameraShake = Configuration.Current.Player.GetDefault<bool>(nameof(Configuration.Player.disableCameraShake)) ? 0f : 4f;
+
             if (Configuration.Current.Player.IsEnabled)
             {
                 __instance.m_autoPickupRange = Configuration.Current.Player.baseAutoPickUpRange;
                 __instance.m_baseCameraShake = Configuration.Current.Player.disableCameraShake ? 0f : 4f;
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(Player), "UpdatePlacementGhost")]
+    public static class BuildingMaximumPlacementDistance
+    {
+        public static void Prefix(Player __instance)
+        {
+            __instance.m_maxPlaceDistance = Configuration.Current.Building.GetDefault<float>(nameof(BuildingConfiguration.maximumPlacementDistance));
+
             if (Configuration.Current.Building.IsEnabled)
             {
                 __instance.m_maxPlaceDistance = Configuration.Current.Building.maximumPlacementDistance;
             }
-
         }
-
-
     }
-
 
     [HarmonyPatch(typeof(Player), "UseStamina")]
     public static class ChangeStaminaUsageOfToolsAndWeapons
@@ -53,7 +64,7 @@ namespace ValheimPlus
                 if (__instance.GetRightItem() == null)
                     weaponType = "Unarmed";
 
-                if(weaponType != "Unarmed") 
+                if (weaponType != "Unarmed")
                 {
                     try
                     {
@@ -65,40 +76,40 @@ namespace ValheimPlus
                     isHoe = (__instance.GetRightItem().m_shared.m_name == "$item_hoe" ? true : false);
                     isHammer = (__instance.GetRightItem().m_shared.m_name == "$item_hammer" ? true : false);
                 }
-                
-                if(weaponType != "")
-                switch (weaponType)
-                {
-                    case "Swords":
-                        v = v - (v * (Configuration.Current.StaminaUsage.swords) / 100);
-                        break;
-                    case "Knives":
-                        v = v - (v * (Configuration.Current.StaminaUsage.knives) / 100);
-                        break;
-                    case "Clubs":
-                        v = v - (v * (Configuration.Current.StaminaUsage.clubs) / 100);
-                        break;
-                    case "Polearms":
-                        v = v - (v * (Configuration.Current.StaminaUsage.polearms) / 100);
-                        break;
-                    case "Spears":
-                        v = v - (v * (Configuration.Current.StaminaUsage.spears) / 100);
-                        break;
-                    case "Axes":
-                        v = v - (v * (Configuration.Current.StaminaUsage.axes) / 100);
+
+                if (weaponType != "")
+                    switch (weaponType)
+                    {
+                        case "Swords":
+                            v = v - (v * (Configuration.Current.StaminaUsage.swords) / 100);
                             break;
-                    case "Bows":
-                        v = v - (v * (Configuration.Current.StaminaUsage.bows) / 100);
-                        break;
-                    case "Unarmed":
-                        v = v - (v * (Configuration.Current.StaminaUsage.unarmed) / 100);
-                        break;
-                    case "Pickaxes":
-                        v = v - (v * (Configuration.Current.StaminaUsage.pickaxes) / 100);
-                        break;
-                    default:
-                        break;
-                }
+                        case "Knives":
+                            v = v - (v * (Configuration.Current.StaminaUsage.knives) / 100);
+                            break;
+                        case "Clubs":
+                            v = v - (v * (Configuration.Current.StaminaUsage.clubs) / 100);
+                            break;
+                        case "Polearms":
+                            v = v - (v * (Configuration.Current.StaminaUsage.polearms) / 100);
+                            break;
+                        case "Spears":
+                            v = v - (v * (Configuration.Current.StaminaUsage.spears) / 100);
+                            break;
+                        case "Axes":
+                            v = v - (v * (Configuration.Current.StaminaUsage.axes) / 100);
+                            break;
+                        case "Bows":
+                            v = v - (v * (Configuration.Current.StaminaUsage.bows) / 100);
+                            break;
+                        case "Unarmed":
+                            v = v - (v * (Configuration.Current.StaminaUsage.unarmed) / 100);
+                            break;
+                        case "Pickaxes":
+                            v = v - (v * (Configuration.Current.StaminaUsage.pickaxes) / 100);
+                            break;
+                        default:
+                            break;
+                    }
 
                 if (isHammer)
                 {

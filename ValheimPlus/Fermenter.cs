@@ -8,6 +8,9 @@ namespace ValheimPlus
     {
         private static bool Prefix(ref float ___m_fermentationDuration, ref Fermenter __instance)
         {
+            // Set default value first
+            ___m_fermentationDuration = Configuration.Current.Fermenter.GetDefault<float>(nameof(Configuration.Fermenter.fermenterDuration));
+
             if (Configuration.Current.Fermenter.IsEnabled)
             {
                 float fermenterDuration = Configuration.Current.Fermenter.fermenterDuration;

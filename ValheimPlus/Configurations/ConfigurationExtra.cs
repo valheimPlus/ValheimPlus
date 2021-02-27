@@ -34,7 +34,11 @@ namespace ValheimPlus.Configurations
             foreach (var property in propertyCache)
             {
                 ZLog.Log($"Initializing configuration section {property.Name}");
-                property.SetValue(this, Activator.CreateInstance(property.PropertyType, true), null);
+                var section = Activator.CreateInstance(property.PropertyType, true);
+                property.SetValue(this, section, null);
+
+                // and finally cache the default values
+                ((BaseConfig) section).CacheDefaults();
             }
         }
 

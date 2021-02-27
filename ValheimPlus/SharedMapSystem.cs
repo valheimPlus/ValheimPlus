@@ -29,7 +29,6 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(Minimap), "UpdateExplore")]
     public static class ChangeMapBehavior
     {
-
         private static void Prefix(ref float dt, ref Player player, ref Minimap __instance, ref float ___m_exploreTimer, ref float ___m_exploreInterval, ref List<ZNet.PlayerInfo> ___m_tempPlayerInfo) // Set after awake function
         {
             if (!Configuration.Current.Map.IsEnabled) return;

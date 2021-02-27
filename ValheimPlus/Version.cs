@@ -76,9 +76,6 @@ namespace ValheimPlus
                 Debug.Log($"Version generated : {__result}");
                 return false;
             }
-
         }
-
-
     }
 }
