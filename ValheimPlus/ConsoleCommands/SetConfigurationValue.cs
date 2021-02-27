@@ -168,7 +168,7 @@ namespace ValheimPlus.ConsoleCommands
                 {
                     SyncToClients(inputCopy);
                 }
-                else if (needsSync && silent || !silent && !needsSync)
+                else if (needsSync == silent)
                 {
                     valueProperty.SetValue(section, newValue, null);
                 }
@@ -190,8 +190,9 @@ namespace ValheimPlus.ConsoleCommands
                 {
                     SyncToClients(inputCopy);
                 }
-                else if (needsSync && silent || !silent && !needsSync)
+                else if (needsSync == silent)
                 {
+                    valueProperty.GetSetMethod().Invoke(section, new object[] {newValue});
                     valueProperty.SetValue(section, newValue, null);
                 }
 
@@ -212,7 +213,7 @@ namespace ValheimPlus.ConsoleCommands
                 {
                     SyncToClients(inputCopy);
                 }
-                else if (needsSync && silent || !silent && !needsSync)
+                else if (needsSync == silent)
                 {
                     valueProperty.SetValue(section, newValue, null);
                 }
@@ -233,7 +234,7 @@ namespace ValheimPlus.ConsoleCommands
                 {
                     SyncToClients(inputCopy);
                 }
-                else if (needsSync && silent || !silent && !needsSync)
+                else if (needsSync == silent)
                 {
                     valueProperty.SetValue(section, newValue, null);
                 }
