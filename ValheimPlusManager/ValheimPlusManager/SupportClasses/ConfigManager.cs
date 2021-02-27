@@ -311,9 +311,28 @@ namespace ValheimPlusManager.SupportClasses
 
             // Stamina
             data["Stamina"]["enabled"] = valheimPlusConfiguration.staminaSettingsEnabled.ToString().ToLower();
+            data["Stamina"]["dodgeStaminaUsage"] = valheimPlusConfiguration.dodgeStaminaUsage.ToString();
+            data["Stamina"]["encumberedStaminaDrain"] = valheimPlusConfiguration.encumberedStaminaDrain.ToString();
+            data["Stamina"]["jumpStaminaDrain"] = valheimPlusConfiguration.jumpStaminaDrain.ToString();
+            data["Stamina"]["runStaminaDrain"] = valheimPlusConfiguration.runStaminaDrain.ToString();
+            data["Stamina"]["sneakStaminaDrain"] = valheimPlusConfiguration.sneakStaminaDrain.ToString();
+            data["Stamina"]["staminaRegen"] = valheimPlusConfiguration.staminaRegen.ToString();
+            data["Stamina"]["staminaRegenDelay"] = valheimPlusConfiguration.staminaRegenDelay.ToString();
+            data["Stamina"]["swimStaminaDrain"] = valheimPlusConfiguration.swimStaminaDrain.ToString();
 
             // StaminaUsage
             data["StaminaUsage"]["enabled"] = valheimPlusConfiguration.staminaUsageSettingsEnabled.ToString().ToLower();
+            data["StaminaUsage"]["axes"] = valheimPlusConfiguration.axes.ToString();
+            data["StaminaUsage"]["bows"] = valheimPlusConfiguration.bows.ToString();
+            data["StaminaUsage"]["clubs"] = valheimPlusConfiguration.clubs.ToString();
+            data["StaminaUsage"]["knives"] = valheimPlusConfiguration.knives.ToString();
+            data["StaminaUsage"]["pickaxes"] = valheimPlusConfiguration.pickaxes.ToString();
+            data["StaminaUsage"]["polearms"] = valheimPlusConfiguration.polearms.ToString();
+            data["StaminaUsage"]["spears"] = valheimPlusConfiguration.spears.ToString();
+            data["StaminaUsage"]["swords"] = valheimPlusConfiguration.swords.ToString();
+            data["StaminaUsage"]["unarmed"] = valheimPlusConfiguration.unarmed.ToString();
+            data["StaminaUsage"]["hammer"] = valheimPlusConfiguration.hammer.ToString();
+            data["StaminaUsage"]["hoe"] = valheimPlusConfiguration.hoe.ToString();
 
             // Workbench
             data["Workbench"]["enabled"] = valheimPlusConfiguration.workbenchSettingsEnabled.ToString().ToLower();

@@ -97,7 +97,7 @@
         public bool disableServerPassword { get; set; } = false;
         public bool enforceConfiguration { get; set; } = true;
         public bool enforceMod { get; set; } = true;
-        public int dataRate { get; set; } = (60 * 1024); // 614440 == 60kbs
+        public int dataRate { get; set; } = 60; // 60*1024 = 614440 == 60kbs
 
         // Stamina
         public bool staminaSettingsEnabled { get; set; } = false;
@@ -156,6 +156,8 @@
         public float experienceBlocking { get; set; } = 0;
         public float experienceAxes { get; set; } = 0;
         public float experienceBows { get; set; } = 0;
+        public float experienceHammer { get; set; } = 0;
+        public float experienceHoe { get; set; } = 0;
         public float experienceFireMagic { get; set; } = 0;
         public float experienceFrostMagic { get; set; } = 0;
         public float experienceUnarmed { get; set; } = 0;

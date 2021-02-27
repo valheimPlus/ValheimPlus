@@ -175,73 +175,130 @@
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Map" TextWrapping="Wrap" VerticalAlignment="Top" />
                     <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding exploreRadius}" materialDesign:HintAssist.Hint="The radius of the map that you explore when moving" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
-
+                    <CheckBox Content="Automatically turn on the Map option to share your position when joining or starting a game" IsChecked="{Binding playerPositionPublicOnJoin}" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Prevents you and other people on the server to turn off their map sharing option" IsChecked="{Binding preventPlayerFromTurningOffPublicPosition}" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Remove the Map marker of your death when you have picked up your tombstone items" IsChecked="{Binding removeDeathPinOnTombstoneEmpty}" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="With this enabled you will receive the same exploration progression as other players on the server" IsChecked="{Binding shareMapProgression}" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding playerSettingsEnabled}" Header="Player">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Player" TextWrapping="Wrap" VerticalAlignment="Top" />
-
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding baseMaximumWeight}" materialDesign:HintAssist.Hint="The base amount of carry weight of your character" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding baseMegingjordBuff}" materialDesign:HintAssist.Hint="Increase the buff you receive to your carry weight from Megingjord's girdle" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding baseAutoPickUpRange}" materialDesign:HintAssist.Hint="Increase auto pickup range of all items" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,170,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding baseUnarmedDamage}" materialDesign:HintAssist.Hint="The base unarmed damage multiplied by your skill level" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,220,0,0" />
+                    <CheckBox Content="With this enabled you will receive the same exploration progression as other players on the server" IsChecked="{Binding disableCameraShake}" HorizontalAlignment="Left" Margin="10,280,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding serverSettingsEnabled}" Header="Server">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Server" TextWrapping="Wrap" VerticalAlignment="Top" />
-
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding maxPlayers}" materialDesign:HintAssist.Hint="Modify the amount of players on your server" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding dataRate}" materialDesign:HintAssist.Hint="The total amount of data that the server and client can send per second in kilobytes" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding autoSaveInterval}" materialDesign:HintAssist.Hint="The interval in seconds that the game auto saves at (client only)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,170,0,0" />
+                    <CheckBox Content="Removes the requirement to have a server password" IsChecked="{Binding disableServerPassword}" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Add version control to make sure that people that try to join your game or the server you try to join has V+ installed" IsChecked="{Binding enforceMod}" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding staminaSettingsEnabled}" Header="Stamina">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Stamina" TextWrapping="Wrap" VerticalAlignment="Top" />
-
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding dodgeStaminaUsage}" materialDesign:HintAssist.Hint="The flat amount of stamina cost of using the dodge roll" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding encumberedStaminaDrain}" materialDesign:HintAssist.Hint="The stamina drain of being over encumbered" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding jumpStaminaDrain}" materialDesign:HintAssist.Hint="The stamina cost of jumping" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,170,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding runStaminaDrain}" materialDesign:HintAssist.Hint="The stamina cost of running" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,220,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding sneakStaminaDrain}" materialDesign:HintAssist.Hint="The stamina drain by sneaking" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,270,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding staminaRegen}" materialDesign:HintAssist.Hint="The total amount of stamina recovered per second" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,320,0,0" />
+                    <TextBox Width="450" Text="{Binding staminaRegenDelay, StringFormat={}{0:#.#.0}}" materialDesign:HintAssist.Hint="The delay until stamina regeneration sets in" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,370,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding swimStaminaDrain}" materialDesign:HintAssist.Hint="The stamina drain of swimming" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,420,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding staminaUsageSettingsEnabled}" Header="Stamina usage">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Stamina usage" TextWrapping="Wrap" VerticalAlignment="Top" />
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,40,0,0" Style="{StaticResource MaterialDesignCaptionTextBlock}" Text="Each of these values reduces the stamina drain by %. The value 50 would result in 50% less stamina cost" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding axes}" materialDesign:HintAssist.Hint="Axes" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding bows}" materialDesign:HintAssist.Hint="Bows" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding clubs}" materialDesign:HintAssist.Hint="Clubs" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,170,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding knives}" materialDesign:HintAssist.Hint="Knives" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,220,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding pickaxes}" materialDesign:HintAssist.Hint="Pickaxes" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,270,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding polearms}" materialDesign:HintAssist.Hint="Polearms" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,320,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding spears}" materialDesign:HintAssist.Hint="Spears" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,370,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding swords}" materialDesign:HintAssist.Hint="Swords" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,420,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding unarmed}" materialDesign:HintAssist.Hint="Unarmed" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,470,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding hammer}" materialDesign:HintAssist.Hint="Hammer" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,520,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding hoe}" materialDesign:HintAssist.Hint="Hoe" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,570,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding workbenchSettingsEnabled}" Header="Workbench">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Workbench" TextWrapping="Wrap" VerticalAlignment="Top" />
-
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding workbenchRange}" materialDesign:HintAssist.Hint="Set the workbench radius in meters" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <CheckBox Content="Disables the roof and exposure requirement to use a workbench" IsChecked="{Binding disableRoofCheck}" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding timeSettingsEnabled}" Header="Time">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Time" TextWrapping="Wrap" VerticalAlignment="Top" />
-
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="635" Text="{Binding totalDayTimeInSeconds}" materialDesign:HintAssist.Hint="Total amount of time one complete day and night circle takes to complete" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="635" Text="{Binding nightTimeSpeedMultiplier}" materialDesign:HintAssist.Hint="Increase the speed at which time passes at night by %. The value 50 would result in a 50% reduced amount of night time" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding wardSettingsEnabled}" Header="Ward">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Ward" TextWrapping="Wrap" VerticalAlignment="Top" />
-
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding wardRange}" materialDesign:HintAssist.Hint="The range of wards by meters" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding structuralIntegritySettingsEnabled}" Header="Structural integrity">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Structural integrity" TextWrapping="Wrap" VerticalAlignment="Top" />
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,40,0,0" Style="{StaticResource MaterialDesignCaptionTextBlock}" Text="Each of these values reduce the loss of structural integrity by % less. The value 100 would result in disabled structural integrity and allow placement in free air." TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding wood}" materialDesign:HintAssist.Hint="Wood" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,90,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding stone}" materialDesign:HintAssist.Hint="Stone" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,140,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding iron}" materialDesign:HintAssist.Hint="Iron" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,190,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding hardWood}" materialDesign:HintAssist.Hint="Hardwood" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,240,0,0" />
+                    <CheckBox Content="Disables the entire structural integrity system and allows for placement in free air, does not prevent building damage." IsChecked="{Binding disableStructuralIntegrity}" HorizontalAlignment="Left" Margin="10,300,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding experienceSettingsEnabled}" Header="Experience">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Experience" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBlock HorizontalAlignment="Left" Margin="10,40,0,0" Style="{StaticResource MaterialDesignCaptionTextBlock}" Text="Each of these values represent the increase to experience gained by % increased, e.g. 50 = 50% increase in XP" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceAxes}" materialDesign:HintAssist.Hint="Axes" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceFireMagic}" materialDesign:HintAssist.Hint="Fire magic" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,70,100,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceFrostMagic}" materialDesign:HintAssist.Hint="Frost magic" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,120,100,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceJump}" materialDesign:HintAssist.Hint="Jumping" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,170,100,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceSneak}" materialDesign:HintAssist.Hint="Sneaking" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,220,100,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceRun}" materialDesign:HintAssist.Hint="Running" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,270,100,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceSwim}" materialDesign:HintAssist.Hint="Swimming" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10,320,100,0" />
 
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceBows}" materialDesign:HintAssist.Hint="Bows" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceClubs}" materialDesign:HintAssist.Hint="Clubs" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,170,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceKnives}" materialDesign:HintAssist.Hint="Knives" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,220,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experiencePickaxes}" materialDesign:HintAssist.Hint="Pickaxes" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,270,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experiencePolearms}" materialDesign:HintAssist.Hint="Polearms" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,320,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceSpears}" materialDesign:HintAssist.Hint="Spears" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,370,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceSwords}" materialDesign:HintAssist.Hint="Swords" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,420,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceUnarmed}" materialDesign:HintAssist.Hint="Unarmed" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,470,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceBlocking}" materialDesign:HintAssist.Hint="Blocking" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,520,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="300" Text="{Binding experienceWoodCutting}" materialDesign:HintAssist.Hint="Wood cutting" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,570,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding cameraSettingsEnabled}" Header="Camera">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Camera" TextWrapping="Wrap" VerticalAlignment="Top" />
-
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding cameraMaximumZoomDistance}" materialDesign:HintAssist.Hint="The maximum zoom distance to your character" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding cameraBoatMaximumZoomDistance}" materialDesign:HintAssist.Hint="The maximum zoom distance to your character when in a boat" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding cameraFOV}" materialDesign:HintAssist.Hint="The game camera FOV" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,170,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding wagonSettingsEnabled}" Header="Wagon">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Wagon" TextWrapping="Wrap" VerticalAlignment="Top" />
-
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="665" Text="{Binding wagonBaseMass}" materialDesign:HintAssist.Hint="Change the base vagon physical mass of the vagon object" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="665" Text="{Binding wagonExtraMassFromItems}" materialDesign:HintAssist.Hint="This value changes the game physical weight of Vagons by +/- more/less from item weight inside. E.g 50 = 50% more weight" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
                 </Grid>
             </TabItem>
         </TabControl>
