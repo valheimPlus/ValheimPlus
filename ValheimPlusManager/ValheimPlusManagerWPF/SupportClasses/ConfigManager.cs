@@ -29,15 +29,16 @@ namespace ValheimPlusManagerWPF.SupportClasses
                 data = parser.ReadFile(string.Format("{0}BepInEx/config/valheim_plus.cfg", settings.ServerInstallationPath));
             }
 
-            // Advanced building mode settings
+            #region Advanced building mode
             if (bool.TryParse(data["AdvancedBuildingMode"]["enabled"], out bool advancedBuildingModeEnabled))
             {
                 valheimPlusConfiguration.advancedBuildingModeEnabled = advancedBuildingModeEnabled;
             }
             valheimPlusConfiguration.enterAdvancedBuildingMode = data["AdvancedBuildingMode"]["enterAdvancedBuildingMode"];
             valheimPlusConfiguration.exitAdvancedBuildingMode = data["AdvancedBuildingMode"]["exitAdvancedBuildingMode"];
+            #endregion Advanced building mode
 
-            // Advanced editing mode settings
+            #region Advanced editing mode
             if (bool.TryParse(data["AdvancedEditingMode"]["enabled"], out bool advancedEditingModeEnabled))
             {
                 valheimPlusConfiguration.advancedEditingModeEnabled = advancedEditingModeEnabled;
@@ -46,8 +47,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             valheimPlusConfiguration.resetAdvancedEditingMode = data["AdvancedEditingMode"]["resetAdvancedEditingMode"];
             valheimPlusConfiguration.abortAndExitAdvancedEditingMode = data["AdvancedEditingMode"]["abortAndExitAdvancedEditingMode"];
             valheimPlusConfiguration.confirmPlacementOfAdvancedEditingMode = data["AdvancedEditingMode"]["confirmPlacementOfAdvancedEditingMode"];
+            #endregion Advanced editing mode
 
-            // Beehive
+            #region Beehive
             if (bool.TryParse(data["Beehive"]["enabled"], out bool beehiveSettingsEnabled))
             {
                 valheimPlusConfiguration.beehiveSettingsEnabled = beehiveSettingsEnabled;
@@ -60,8 +62,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.maximumHoneyPerBeehive = maximumHoneyPerBeehive;
             }
+            #endregion Beehive
 
-            // Building
+            #region Building
             if (bool.TryParse(data["Building"]["enabled"], out bool buildingSettingsEnabled))
             {
                 valheimPlusConfiguration.buildingSettingsEnabled = buildingSettingsEnabled;
@@ -78,8 +81,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.maximumPlacementDistance = maximumPlacementDistance;
             }
+            #endregion Building
 
-            // Items
+            #region Items
             if (bool.TryParse(data["Items"]["enabled"], out bool itemsSettingsEnabled))
             {
                 valheimPlusConfiguration.itemsSettingsEnabled = itemsSettingsEnabled;
@@ -96,8 +100,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.itemStackMultiplier = itemStackMultiplier;
             }
+            #endregion Items
 
-            // Fermenter
+            #region Fermenter
             if (bool.TryParse(data["Fermenter"]["enabled"], out bool fermenterSettingsEnabled))
             {
                 valheimPlusConfiguration.fermenterSettingsEnabled = fermenterSettingsEnabled;
@@ -110,8 +115,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.fermenterItemsProduced = fermenterItemsProduced;
             }
+            #endregion Fermenter
 
-            // Fireplace
+            #region Fireplace
             if (bool.TryParse(data["Fireplace"]["enabled"], out bool fireplaceSettingsEnabled))
             {
                 valheimPlusConfiguration.fireplaceSettingsEnabled = fireplaceSettingsEnabled;
@@ -120,8 +126,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.onlyTorches = onlyTorches;
             }
+            #endregion Fireplace
 
-            // Food
+            #region Food
             if (bool.TryParse(data["Food"]["enabled"], out bool foodSettingsEnabled))
             {
                 valheimPlusConfiguration.foodSettingsEnabled = foodSettingsEnabled;
@@ -130,18 +137,32 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.foodDurationMultiplier = foodDurationMultiplier;
             }
+            #endregion Food
 
-            // Furnace
+            #region Furnace
             if (bool.TryParse(data["Furnace"]["enabled"], out bool furnaceSettingsEnabled))
             {
                 valheimPlusConfiguration.furnaceSettingsEnabled = furnaceSettingsEnabled;
             }
-            valheimPlusConfiguration.maximumOre = int.Parse(data["Furnace"]["maximumOre"]);
-            valheimPlusConfiguration.maximumCoal = int.Parse(data["Furnace"]["maximumCoal"]);
-            valheimPlusConfiguration.coalUsedPerProduct = int.Parse(data["Furnace"]["coalUsedPerProduct"]);
-            valheimPlusConfiguration.furnaceProductionSpeed = int.Parse(data["Furnace"]["productionSpeed"]);
+            if (int.TryParse(data["Furnace"]["maximumOre"], out int maximumOre))
+            {
+                valheimPlusConfiguration.maximumOre = maximumOre;
+            }
+            if (int.TryParse(data["Furnace"]["maximumCoal"], out int maximumCoal))
+            {
+                valheimPlusConfiguration.maximumCoal = maximumCoal;
+            }
+            if (int.TryParse(data["Furnace"]["coalUsedPerProduct"], out int coalUsedPerProduct))
+            {
+                valheimPlusConfiguration.coalUsedPerProduct = coalUsedPerProduct;
+            }
+            if (int.TryParse(data["Furnace"]["productionSpeed"], out int furnaceProductionSpeed))
+            {
+                valheimPlusConfiguration.furnaceProductionSpeed = furnaceProductionSpeed;
+            }
+            #endregion Furnace
 
-            // Game
+            #region Game
             if (bool.TryParse(data["Game"]["enabled"], out bool gameSettingsEnabled))
             {
                 valheimPlusConfiguration.gameSettingsEnabled = gameSettingsEnabled;
@@ -166,16 +187,18 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.difficultyScaleRange = difficultyScaleRange;
             }
+            #endregion Game
 
-            // Hotkeys
+            #region Hotkeys
             if (bool.TryParse(data["Hotkeys"]["enabled"], out bool hotkeysSettingsEnabled))
             {
                 valheimPlusConfiguration.hotkeysSettingsEnabled = hotkeysSettingsEnabled;
             }
             valheimPlusConfiguration.rollForwards = data["Hotkeys"]["rollForwards"];
             valheimPlusConfiguration.rollBackwards = data["Hotkeys"]["rollBackwards"];
+            #endregion Hotkeys
 
-            // Hud
+            #region HUD
             if (bool.TryParse(data["Hud"]["enabled"], out bool hudSettingsEnabled))
             {
                 valheimPlusConfiguration.hudSettingsEnabled = hudSettingsEnabled;
@@ -188,16 +211,36 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.experienceGainedNotifications = experienceGainedNotifications;
             }
+            #endregion HUD
 
-            // Kiln
-            valheimPlusConfiguration.kilnSettingsEnabled = bool.Parse(data["Kiln"]["enabled"]);
-            valheimPlusConfiguration.maximumWood = int.Parse(data["Kiln"]["maximumWood"]);
-            valheimPlusConfiguration.kilnProductionSpeed = int.Parse(data["Kiln"]["productionSpeed"]);
+            #region Kiln
+            if (bool.TryParse(data["Kiln"]["enabled"], out bool kilnSettingsEnabled))
+            {
+                valheimPlusConfiguration.kilnSettingsEnabled = kilnSettingsEnabled;
+            }
+            if (int.TryParse(data["Kiln"]["maximumWood"], out int maximumWood))
+            {
+                valheimPlusConfiguration.maximumWood = maximumWood;
+            }
+            if (int.TryParse(data["Kiln"]["productionSpeed"], out int kilnProductionSpeed))
+            {
+                valheimPlusConfiguration.kilnProductionSpeed = kilnProductionSpeed;
+            }
+            #endregion Kiln
 
-            // Map
-            valheimPlusConfiguration.mapSettingsEnabled = bool.Parse(data["Map"]["enabled"]);
-            valheimPlusConfiguration.shareMapProgression = bool.Parse(data["Map"]["shareMapProgression"]);
-            valheimPlusConfiguration.exploreRadius = int.Parse(data["Map"]["exploreRadius"]);
+            #region Map
+            if (bool.TryParse(data["Map"]["enabled"], out bool mapSettingsEnabled))
+            {
+                valheimPlusConfiguration.mapSettingsEnabled = mapSettingsEnabled;
+            }
+            if (bool.TryParse(data["Map"]["shareMapProgression"], out bool shareMapProgression))
+            {
+                valheimPlusConfiguration.shareMapProgression = shareMapProgression;
+            }
+            if (int.TryParse(data["Map"]["maximumWood"], out int exploreRadius))
+            {
+                valheimPlusConfiguration.exploreRadius = exploreRadius;
+            }
             if (bool.TryParse(data["Map"]["playerPositionPublicOnJoin"], out bool playerPositionPublicOnJoin))
             {
                 valheimPlusConfiguration.playerPositionPublicOnJoin = playerPositionPublicOnJoin;
@@ -210,24 +253,53 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.removeDeathPinOnTombstoneEmpty = removeDeathPinOnTombstoneEmpty;
             }
+            #endregion Map
 
-            // Player
-            valheimPlusConfiguration.playerSettingsEnabled = bool.Parse(data["Player"]["enabled"]);
-            valheimPlusConfiguration.baseMaximumWeight = float.Parse(data["Player"]["baseMaximumWeight"], CultureInfo.InvariantCulture.NumberFormat);
-            valheimPlusConfiguration.baseMegingjordBuff = float.Parse(data["Player"]["baseMegingjordBuff"], CultureInfo.InvariantCulture.NumberFormat);
-            valheimPlusConfiguration.baseAutoPickUpRange = float.Parse(data["Player"]["baseAutoPickUpRange"], CultureInfo.InvariantCulture.NumberFormat);
-            valheimPlusConfiguration.disableCameraShake = bool.Parse(data["Player"]["disableCameraShake"]);
+            #region Player
+            if (bool.TryParse(data["Player"]["enabled"], out bool playerSettingsEnabled))
+            {
+                valheimPlusConfiguration.playerSettingsEnabled = playerSettingsEnabled;
+            }
+            if (int.TryParse(data["Player"]["baseMaximumWeight"], out int baseMaximumWeight))
+            {
+                valheimPlusConfiguration.baseMaximumWeight = baseMaximumWeight;
+            }
+            if (int.TryParse(data["Player"]["baseMegingjordBuff"], out int baseMegingjordBuff))
+            {
+                valheimPlusConfiguration.baseMegingjordBuff = baseMegingjordBuff;
+            }
+            if (int.TryParse(data["Player"]["baseAutoPickUpRange"], out int baseAutoPickUpRange))
+            {
+                valheimPlusConfiguration.baseAutoPickUpRange = baseAutoPickUpRange;
+            }
+            if (bool.TryParse(data["Player"]["disableCameraShake"], out bool disableCameraShake))
+            {
+                valheimPlusConfiguration.disableCameraShake = disableCameraShake;
+            }
             if (float.TryParse(data["Player"]["baseUnarmedDamage"], NumberStyles.Any, ci, out float baseUnarmedDamage))
             {
                 valheimPlusConfiguration.baseUnarmedDamage = baseUnarmedDamage;
             }
+            #endregion Player
 
-            // Server
-            valheimPlusConfiguration.serverSettingsEnabled = bool.Parse(data["Server"]["enabled"]);
-            valheimPlusConfiguration.maxPlayers = int.Parse(data["Server"]["maxPlayers"]);
-            valheimPlusConfiguration.disableServerPassword = bool.Parse(data["Server"]["disableServerPassword"]);
-            //valheimPlusConfiguration.enforceConfiguration = bool.Parse(data["Server"]["enforceConfiguration"]);
-            valheimPlusConfiguration.enforceMod = bool.Parse(data["Server"]["enforceMod"]);
+            #region Server
+            if (bool.TryParse(data["Server"]["enabled"], out bool serverSettingsEnabled))
+            {
+                valheimPlusConfiguration.serverSettingsEnabled = serverSettingsEnabled;
+            }
+            if (int.TryParse(data["Server"]["maxPlayers"], out int maxPlayers))
+            {
+                valheimPlusConfiguration.maxPlayers = maxPlayers;
+            }
+            if (bool.TryParse(data["Server"]["disableServerPassword"], out bool disableServerPassword))
+            {
+                valheimPlusConfiguration.disableServerPassword = disableServerPassword;
+            }
+            //valheimPlusConfiguration.enforceConfiguration = bool.Parse(data["Server"]["enforceConfiguration"]); // Won't add backwards compatibility
+            if (bool.TryParse(data["Server"]["enforceMod"], out bool enforceMod))
+            {
+                valheimPlusConfiguration.enforceMod = enforceMod;
+            }
             if (int.TryParse(data["Server"]["dataRate"], out int dataRate))
             {
                 valheimPlusConfiguration.dataRate = dataRate;
@@ -236,11 +308,21 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.autoSaveInterval = autoSaveInterval;
             }
+            #endregion Server
 
-            // Stamina
-            valheimPlusConfiguration.staminaSettingsEnabled = bool.Parse(data["Stamina"]["enabled"]);
-            valheimPlusConfiguration.dodgeStaminaUsage = int.Parse(data["Stamina"]["dodgeStaminaUsage"]);
-            valheimPlusConfiguration.encumberedStaminaDrain = int.Parse(data["Stamina"]["encumberedStaminaDrain"]);
+            #region Stamina
+            if (bool.TryParse(data["Stamina"]["enabled"], out bool staminaSettingsEnabled))
+            {
+                valheimPlusConfiguration.staminaSettingsEnabled = staminaSettingsEnabled;
+            }
+            if (int.TryParse(data["Stamina"]["dodgeStaminaUsage"], out int dodgeStaminaUsage))
+            {
+                valheimPlusConfiguration.dodgeStaminaUsage = dodgeStaminaUsage;
+            }
+            if (int.TryParse(data["Stamina"]["encumberedStaminaDrain"], out int encumberedStaminaDrain))
+            {
+                valheimPlusConfiguration.encumberedStaminaDrain = encumberedStaminaDrain;
+            }
             if (int.TryParse(data["Stamina"]["jumpStaminaDrain"], out int jumpStaminaDrain))
             {
                 valheimPlusConfiguration.jumpStaminaDrain = jumpStaminaDrain;
@@ -249,12 +331,25 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.runStaminaDrain = runStaminaDrain;
             }
-            valheimPlusConfiguration.sneakStaminaDrain = int.Parse(data["Stamina"]["sneakStaminaDrain"]);
-            valheimPlusConfiguration.staminaRegen = int.Parse(data["Stamina"]["staminaRegen"]);
-            valheimPlusConfiguration.staminaRegenDelay = float.Parse(data["Stamina"]["staminaRegenDelay"], CultureInfo.InvariantCulture.NumberFormat);
-            valheimPlusConfiguration.swimStaminaDrain = int.Parse(data["Stamina"]["swimStaminaDrain"]);
+            if (int.TryParse(data["Stamina"]["sneakStaminaDrain"], out int sneakStaminaDrain))
+            {
+                valheimPlusConfiguration.sneakStaminaDrain = sneakStaminaDrain;
+            }
+            if (int.TryParse(data["Stamina"]["staminaRegen"], out int staminaRegen))
+            {
+                valheimPlusConfiguration.staminaRegen = staminaRegen;
+            }
+            if (float.TryParse(data["Stamina"]["staminaRegenDelay"], NumberStyles.Any, ci, out float staminaRegenDelay))
+            {
+                valheimPlusConfiguration.staminaRegenDelay = staminaRegenDelay;
+            }
+            if (int.TryParse(data["Stamina"]["swimStaminaDrain"], out int swimStaminaDrain))
+            {
+                valheimPlusConfiguration.swimStaminaDrain = swimStaminaDrain;
+            }
+            #endregion Stamina
 
-            // StaminaUsage
+            #region StaminaUsage
             if (bool.TryParse(data["StaminaUsage"]["enabled"], out bool staminaUsageSettingsEnabled))
             {
                 valheimPlusConfiguration.staminaUsageSettingsEnabled = staminaUsageSettingsEnabled;
@@ -303,8 +398,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.hoe = hoe;
             }
+            #endregion StaminaUsage
 
-            // Workbench
+            #region Workbench
             if (bool.TryParse(data["Workbench"]["enabled"], out bool workbenchSettingsEnabled))
             {
                 valheimPlusConfiguration.workbenchSettingsEnabled = workbenchSettingsEnabled;
@@ -317,8 +413,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.disableRoofCheck = disableRoofCheck;
             }
+            #endregion Workbench
 
-            // Time
+            #region Time
             if (bool.TryParse(data["Time"]["enabled"], out bool timeSettingsEnabled))
             {
                 valheimPlusConfiguration.timeSettingsEnabled = timeSettingsEnabled;
@@ -331,8 +428,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.nightTimeSpeedMultiplier = nightTimeSpeedMultiplier;
             }
+            #endregion Time
 
-            // Ward
+            #region Ward
             if (bool.TryParse(data["Ward"]["enabled"], out bool wardSettingsEnabled))
             {
                 valheimPlusConfiguration.wardSettingsEnabled = wardSettingsEnabled;
@@ -341,8 +439,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.wardRange = wardRange;
             }
+            #endregion Ward
 
-            // StructuralIntegrity
+            #region StructuralIntegrity
             if (bool.TryParse(data["StructuralIntegrity"]["enabled"], out bool structuralIntegritySettingsEnabled))
             {
                 valheimPlusConfiguration.structuralIntegritySettingsEnabled = structuralIntegritySettingsEnabled;
@@ -367,8 +466,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.hardWood = hardWood;
             }
+            #endregion StructuralIntegrity
 
-            // Experience
+            #region Experience
             if (bool.TryParse(data["Experience"]["enabled"], out bool experienceSettingsEnabled))
             {
                 valheimPlusConfiguration.experienceSettingsEnabled = experienceSettingsEnabled;
@@ -449,8 +549,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.experienceHoe = experienceHoe;
             }
+            #endregion Experience
 
-            // Camera
+            #region Camera
             if (bool.TryParse(data["Camera"]["enabled"], out bool cameraSettingsEnabled))
             {
                 valheimPlusConfiguration.cameraSettingsEnabled = cameraSettingsEnabled;
@@ -467,8 +568,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.cameraFOV = cameraFOV;
             }
+            #endregion Camera
 
-            // Wagon
+            #region Wagon
             if (bool.TryParse(data["Wagon"]["enabled"], out bool wagonSettingsEnabled))
             {
                 valheimPlusConfiguration.wagonSettingsEnabled = wagonSettingsEnabled;
@@ -481,6 +583,7 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.wagonExtraMassFromItems = wagonExtraMassFromItems;
             }
+            #endregion Wagon
 
             return valheimPlusConfiguration;
         }
@@ -695,7 +798,6 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 return false;
             }
-
         }
 
         private ConfigManager()
