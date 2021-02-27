@@ -205,79 +205,232 @@ namespace ValheimPlusManagerWPF.SupportClasses
             valheimPlusConfiguration.swimStaminaDrain = int.Parse(data["Stamina"]["swimStaminaDrain"]);
 
             // StaminaUsage
-            valheimPlusConfiguration.staminaUsageSettingsEnabled = bool.Parse(data["StaminaUsage"]["enabled"]);
-            valheimPlusConfiguration.axes = int.Parse(data["StaminaUsage"]["axes"]);
-            valheimPlusConfiguration.bows = int.Parse(data["StaminaUsage"]["bows"]);
-            valheimPlusConfiguration.clubs = int.Parse(data["StaminaUsage"]["clubs"]);
-            valheimPlusConfiguration.knives = int.Parse(data["StaminaUsage"]["knives"]);
-            valheimPlusConfiguration.pickaxes = int.Parse(data["StaminaUsage"]["pickaxes"]);
-            valheimPlusConfiguration.polearms = int.Parse(data["StaminaUsage"]["polearms"]);
-            valheimPlusConfiguration.spears = int.Parse(data["StaminaUsage"]["spears"]);
-            valheimPlusConfiguration.swords = int.Parse(data["StaminaUsage"]["swords"]);
-            valheimPlusConfiguration.unarmed = int.Parse(data["StaminaUsage"]["unarmed"]);
-            valheimPlusConfiguration.hammer = int.Parse(data["StaminaUsage"]["hammer"]);
-            valheimPlusConfiguration.hoe = int.Parse(data["StaminaUsage"]["hoe"]);
+            if (bool.TryParse(data["StaminaUsage"]["enabled"], out bool staminaUsageSettingsEnabled))
+            {
+                valheimPlusConfiguration.staminaUsageSettingsEnabled = staminaUsageSettingsEnabled;
+            }
+            if (int.TryParse(data["StaminaUsage"]["axes"], out int axes))
+            {
+                valheimPlusConfiguration.axes = axes;
+            }
+            if (int.TryParse(data["StaminaUsage"]["bows"], out int bows))
+            {
+                valheimPlusConfiguration.bows = bows;
+            }
+            if (int.TryParse(data["StaminaUsage"]["clubs"], out int clubs))
+            {
+                valheimPlusConfiguration.clubs = clubs;
+            }
+            if (int.TryParse(data["StaminaUsage"]["knives"], out int knives))
+            {
+                valheimPlusConfiguration.knives = knives;
+            }
+            if (int.TryParse(data["StaminaUsage"]["pickaxes"], out int pickaxes))
+            {
+                valheimPlusConfiguration.pickaxes = pickaxes;
+            }
+            if (int.TryParse(data["StaminaUsage"]["polearms"], out int polearms))
+            {
+                valheimPlusConfiguration.polearms = polearms;
+            }
+            if (int.TryParse(data["StaminaUsage"]["spears"], out int spears))
+            {
+                valheimPlusConfiguration.spears = spears;
+            }
+            if (int.TryParse(data["StaminaUsage"]["swords"], out int swords))
+            {
+                valheimPlusConfiguration.swords = swords;
+            }
+            if (int.TryParse(data["StaminaUsage"]["unarmed"], out int unarmed))
+            {
+                valheimPlusConfiguration.unarmed = unarmed;
+            }
+            if (int.TryParse(data["StaminaUsage"]["hammer"], out int hammer))
+            {
+                valheimPlusConfiguration.hammer = hammer;
+            }
+            if (int.TryParse(data["StaminaUsage"]["hoe"], out int hoe))
+            {
+                valheimPlusConfiguration.hoe = hoe;
+            }
 
             // Workbench
-            valheimPlusConfiguration.workbenchSettingsEnabled = bool.Parse(data["Workbench"]["enabled"]);
-            valheimPlusConfiguration.workbenchRange = int.Parse(data["Workbench"]["workbenchRange"]);
-            valheimPlusConfiguration.disableRoofCheck = bool.Parse(data["Workbench"]["disableRoofCheck"]);
+            if (bool.TryParse(data["Workbench"]["enabled"], out bool workbenchSettingsEnabled))
+            {
+                valheimPlusConfiguration.workbenchSettingsEnabled = workbenchSettingsEnabled;
+            }
+            if (int.TryParse(data["Workbench"]["workbenchRange"], out int workbenchRange))
+            {
+                valheimPlusConfiguration.workbenchRange = workbenchRange;
+            }
+            if (bool.TryParse(data["Workbench"]["disableRoofCheck"], out bool disableRoofCheck))
+            {
+                valheimPlusConfiguration.disableRoofCheck = disableRoofCheck;
+            }
 
             // Time
-            valheimPlusConfiguration.timeSettingsEnabled = bool.Parse(data["Time"]["enabled"]);
-            valheimPlusConfiguration.totalDayTimeInSeconds = int.Parse(data["Time"]["totalDayTimeInSeconds"]);
-            valheimPlusConfiguration.nightTimeSpeedMultiplier = int.Parse(data["Time"]["nightTimeSpeedMultiplier"]);
+            if (bool.TryParse(data["Time"]["enabled"], out bool timeSettingsEnabled))
+            {
+                valheimPlusConfiguration.timeSettingsEnabled = timeSettingsEnabled;
+            }
+            if (int.TryParse(data["Time"]["totalDayTimeInSeconds"], out int totalDayTimeInSeconds))
+            {
+                valheimPlusConfiguration.totalDayTimeInSeconds = totalDayTimeInSeconds;
+            }
+            if (int.TryParse(data["Time"]["nightTimeSpeedMultiplier"], out int nightTimeSpeedMultiplier))
+            {
+                valheimPlusConfiguration.nightTimeSpeedMultiplier = nightTimeSpeedMultiplier;
+            }
 
             // Ward
-            valheimPlusConfiguration.wardSettingsEnabled = bool.Parse(data["Ward"]["enabled"]);
-            valheimPlusConfiguration.wardRange = int.Parse(data["Ward"]["wardRange"]);
+            if (bool.TryParse(data["Ward"]["enabled"], out bool wardSettingsEnabled))
+            {
+                valheimPlusConfiguration.wardSettingsEnabled = wardSettingsEnabled;
+            }
+            if (int.TryParse(data["Ward"]["wardRange"], out int wardRange))
+            {
+                valheimPlusConfiguration.wardRange = wardRange;
+            }
 
             // StructuralIntegrity
-            valheimPlusConfiguration.structuralIntegritySettingsEnabled = bool.Parse(data["StructuralIntegrity"]["enabled"]);
-            valheimPlusConfiguration.disableStructuralIntegrity = bool.Parse(data["StructuralIntegrity"]["disableStructuralIntegrity"]);
-            valheimPlusConfiguration.wood = int.Parse(data["StructuralIntegrity"]["wood"]);
-            valheimPlusConfiguration.stone = int.Parse(data["StructuralIntegrity"]["stone"]);
-            valheimPlusConfiguration.iron = int.Parse(data["StructuralIntegrity"]["iron"]);
-            valheimPlusConfiguration.hardWood = int.Parse(data["StructuralIntegrity"]["hardWood"]);
+            if (bool.TryParse(data["StructuralIntegrity"]["enabled"], out bool structuralIntegritySettingsEnabled))
+            {
+                valheimPlusConfiguration.structuralIntegritySettingsEnabled = structuralIntegritySettingsEnabled;
+            }
+            if (bool.TryParse(data["StructuralIntegrity"]["disableStructuralIntegrity"], out bool disableStructuralIntegrity))
+            {
+                valheimPlusConfiguration.disableStructuralIntegrity = disableStructuralIntegrity;
+            }
+            if (int.TryParse(data["StructuralIntegrity"]["wood"], out int wood))
+            {
+                valheimPlusConfiguration.wood = wood;
+            }
+            if (int.TryParse(data["StructuralIntegrity"]["stone"], out int stone))
+            {
+                valheimPlusConfiguration.stone = stone;
+            }
+            if (int.TryParse(data["StructuralIntegrity"]["iron"], out int iron))
+            {
+                valheimPlusConfiguration.iron = iron;
+            }
+            if (int.TryParse(data["StructuralIntegrity"]["hardWood"], out int hardWood))
+            {
+                valheimPlusConfiguration.hardWood = hardWood;
+            }
 
             // Experience
-            valheimPlusConfiguration.experienceSettingsEnabled = bool.Parse(data["Experience"]["enabled"]);
-            valheimPlusConfiguration.experienceSwords = int.Parse(data["Experience"]["swords"]);
-            valheimPlusConfiguration.experienceKnives = int.Parse(data["Experience"]["knives"]);
-            valheimPlusConfiguration.experienceClubs = int.Parse(data["Experience"]["clubs"]);
-            valheimPlusConfiguration.experiencePolearms = int.Parse(data["Experience"]["polearms"]);
-            valheimPlusConfiguration.experienceSpears = int.Parse(data["Experience"]["spears"]);
-            valheimPlusConfiguration.experienceBlocking = int.Parse(data["Experience"]["blocking"]);
-            valheimPlusConfiguration.experienceAxes = int.Parse(data["Experience"]["axes"]);
-            valheimPlusConfiguration.experienceBows = int.Parse(data["Experience"]["bows"]);
-            valheimPlusConfiguration.experienceFireMagic = int.Parse(data["Experience"]["fireMagic"]);
-            valheimPlusConfiguration.experienceFrostMagic = int.Parse(data["Experience"]["frostMagic"]);
-            valheimPlusConfiguration.experienceUnarmed = int.Parse(data["Experience"]["unarmed"]);
-            valheimPlusConfiguration.experiencePickaxes = int.Parse(data["Experience"]["pickaxes"]);
-            valheimPlusConfiguration.experienceWoodCutting = int.Parse(data["Experience"]["woodCutting"]);
-            valheimPlusConfiguration.experienceJump = int.Parse(data["Experience"]["jump"]);
-            valheimPlusConfiguration.experienceSneak = int.Parse(data["Experience"]["sneak"]);
-            valheimPlusConfiguration.experienceRun = int.Parse(data["Experience"]["run"]);
-            valheimPlusConfiguration.experienceSwim = int.Parse(data["Experience"]["swim"]);
-            if(Int32.TryParse(data["Experience"]["hammer"], out int hammerInt))
+            if (bool.TryParse(data["Experience"]["enabled"], out bool experienceSettingsEnabled))
             {
-                valheimPlusConfiguration.experienceHammer = hammerInt;
+                valheimPlusConfiguration.experienceSettingsEnabled = experienceSettingsEnabled;
             }
-            if (Int32.TryParse(data["Experience"]["hoe"], out int hoeInt))
+            if (int.TryParse(data["Experience"]["swords"], out int experienceSwords))
             {
-                valheimPlusConfiguration.experienceHoe = hoeInt;
+                valheimPlusConfiguration.experienceSwords = experienceSwords;
+            }
+            if (int.TryParse(data["Experience"]["knives"], out int experienceKnives))
+            {
+                valheimPlusConfiguration.experienceKnives = experienceKnives;
+            }
+            if (int.TryParse(data["Experience"]["clubs"], out int experienceClubs))
+            {
+                valheimPlusConfiguration.experienceClubs = experienceClubs;
+            }
+            if (int.TryParse(data["Experience"]["polearms"], out int experiencePolearms))
+            {
+                valheimPlusConfiguration.experiencePolearms = experiencePolearms;
+            }
+            if (int.TryParse(data["Experience"]["spears"], out int experienceSpears))
+            {
+                valheimPlusConfiguration.experienceSpears = experienceSpears;
+            }
+            if (int.TryParse(data["Experience"]["blocking"], out int experienceBlocking))
+            {
+                valheimPlusConfiguration.experienceBlocking = experienceBlocking;
+            }
+            if (int.TryParse(data["Experience"]["axes"], out int experienceAxes))
+            {
+                valheimPlusConfiguration.experienceAxes = experienceAxes;
+            }
+            if (int.TryParse(data["Experience"]["bows"], out int experienceBows))
+            {
+                valheimPlusConfiguration.experienceBows = experienceBows;
+            }
+            if (int.TryParse(data["Experience"]["fireMagic"], out int experienceFireMagic))
+            {
+                valheimPlusConfiguration.experienceFireMagic = experienceFireMagic;
+            }
+            if (int.TryParse(data["Experience"]["frostMagic"], out int experienceFrostMagic))
+            {
+                valheimPlusConfiguration.experienceFrostMagic = experienceFrostMagic;
+            }
+            if (int.TryParse(data["Experience"]["unarmed"], out int experienceUnarmed))
+            {
+                valheimPlusConfiguration.experienceUnarmed = experienceUnarmed;
+            }
+            if (int.TryParse(data["Experience"]["pickaxes"], out int experiencePickaxes))
+            {
+                valheimPlusConfiguration.experiencePickaxes = experiencePickaxes;
+            }
+            if (int.TryParse(data["Experience"]["woodCutting"], out int experienceWoodCutting))
+            {
+                valheimPlusConfiguration.experienceWoodCutting = experienceWoodCutting;
+            }
+            if (int.TryParse(data["Experience"]["jump"], out int experienceJump))
+            {
+                valheimPlusConfiguration.experienceJump = experienceJump;
+            }
+            if (int.TryParse(data["Experience"]["sneak"], out int experienceSneak))
+            {
+                valheimPlusConfiguration.experienceSneak = experienceSneak;
+            }
+            if (int.TryParse(data["Experience"]["run"], out int experienceRun))
+            {
+                valheimPlusConfiguration.experienceRun = experienceRun;
+            }
+            if (int.TryParse(data["Experience"]["swim"], out int experienceSwim))
+            {
+                valheimPlusConfiguration.experienceSwim = experienceSwim;
+            }
+            if(Int32.TryParse(data["Experience"]["hammer"], out int experienceHammer)) // Added in case Iron Gate adds XP for hammers
+            {
+                valheimPlusConfiguration.experienceHammer = experienceHammer;
+            }
+            if (Int32.TryParse(data["Experience"]["hoe"], out int experienceHoe)) // Added in case Iron Gate adds XP for hoes
+            {
+                valheimPlusConfiguration.experienceHoe = experienceHoe;
             }
 
             // Camera
-            valheimPlusConfiguration.cameraSettingsEnabled = bool.Parse(data["Camera"]["enabled"]);
-            valheimPlusConfiguration.cameraMaximumZoomDistance = int.Parse(data["Camera"]["cameraMaximumZoomDistance"]);
-            valheimPlusConfiguration.cameraBoatMaximumZoomDistance = int.Parse(data["Camera"]["cameraBoatMaximumZoomDistance"]);
-            valheimPlusConfiguration.cameraFOV = int.Parse(data["Camera"]["cameraFOV"]);
+            if (bool.TryParse(data["Camera"]["enabled"], out bool cameraSettingsEnabled))
+            {
+                valheimPlusConfiguration.cameraSettingsEnabled = cameraSettingsEnabled;
+            }
+            if (Int32.TryParse(data["Camera"]["cameraMaximumZoomDistance"], out int cameraMaximumZoomDistance)) // Added in case Iron Gate adds XP for hoes
+            {
+                valheimPlusConfiguration.cameraMaximumZoomDistance = cameraMaximumZoomDistance;
+            }
+            if (Int32.TryParse(data["Camera"]["cameraBoatMaximumZoomDistance"], out int cameraBoatMaximumZoomDistance)) // Added in case Iron Gate adds XP for hoes
+            {
+                valheimPlusConfiguration.cameraBoatMaximumZoomDistance = cameraBoatMaximumZoomDistance;
+            }
+            if (Int32.TryParse(data["Camera"]["cameraFOV"], out int cameraFOV)) // Added in case Iron Gate adds XP for hoes
+            {
+                valheimPlusConfiguration.cameraFOV = cameraFOV;
+            }
 
             // Wagon
-            valheimPlusConfiguration.wagonSettingsEnabled = bool.Parse(data["Wagon"]["enabled"]);
-            valheimPlusConfiguration.wagonBaseMass = int.Parse(data["Wagon"]["wagonBaseMass"]);
-            valheimPlusConfiguration.wagonExtraMassFromItems = int.Parse(data["Wagon"]["wagonExtraMassFromItems"]);
+            if (bool.TryParse(data["Wagon"]["enabled"], out bool wagonSettingsEnabled))
+            {
+                valheimPlusConfiguration.wagonSettingsEnabled = wagonSettingsEnabled;
+            }
+            if (Int32.TryParse(data["Wagon"]["wagonBaseMass"], out int wagonBaseMass))
+            {
+                valheimPlusConfiguration.wagonBaseMass = wagonBaseMass;
+            }
+            if (Int32.TryParse(data["Wagon"]["wagonExtraMassFromItems"], out int wagonExtraMassFromItems))
+            {
+                valheimPlusConfiguration.wagonExtraMassFromItems = wagonExtraMassFromItems;
+            }
 
             return valheimPlusConfiguration;
         }
