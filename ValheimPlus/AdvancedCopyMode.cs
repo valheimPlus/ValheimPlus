@@ -45,7 +45,7 @@ namespace ValheimPlus
 
 		public static void run()
         {
-			Debug.Log("run");
+			//Debug.Log("run");
 			if (Input.GetKeyDown(KeyCode.Keypad1))
 			{
 				SelectObject();
@@ -59,6 +59,13 @@ namespace ValheimPlus
 				createPlacementGhost();
 			}
 
+			if (Input.GetKeyDown(KeyCode.Keypad6))
+			{
+
+				if (isPlacedForAdjustment)
+					Debug.Log(Vector3.Distance(groupAnchor.transform.position, PlayerInstance.transform.position));
+			}
+
 			if (isPlacedForAdjustment)
 			{
 				runlistenToHotKeysAndDoWork();
@@ -70,7 +77,6 @@ namespace ValheimPlus
 			float rX = 0;
 			float rZ = 0;
 			float rY = 0;
-
 
 			// CONTROL PRESSED
 			if (Input.GetKeyDown(KeyCode.LeftControl)) { controlFlag = true; }
@@ -89,6 +95,7 @@ namespace ValheimPlus
 			if (Input.GetKeyDown(KeyCode.LeftAlt)) { altFlag = true; }
 			if (Input.GetKeyUp(KeyCode.LeftAlt)) { altFlag = false; }
 
+			
 			// SCROLL CONTROLS
 			if (Input.GetAxis("Mouse ScrollWheel") > 0f)
 			{
@@ -226,6 +233,7 @@ namespace ValheimPlus
 
 		}
 
+
 		public static void createPlacementGhost()
         {
 			Vector3 vector;
@@ -236,15 +244,14 @@ namespace ValheimPlus
 
 			RemoveAllHighlights();
 			groupAnchor = GameObject.Instantiate(new GameObject("groupAnchor"));
-
+			Piece anchorPiece = null;
 			if (PieceRayTest(out vector, out up, out piece, out heightmap, out x, true))
             {
-				Piece anchorPiece = null;
 				foreach (KeyValuePair<GameObject, Piece> piecesToPlace in selectedPieces)
 				{
-					if (anchorPiece == null)
+					if (anchorPiece == null) { 
 						anchorPiece = piecesToPlace.Value;
-
+					}
 					GameObject m_placementMarkerInstance = UnityEngine.Object.Instantiate<GameObject>(piecesToPlace.Value.gameObject, piecesToPlace.Value.transform.position, piecesToPlace.Value.transform.rotation);
 
 					Vector3 distanceToAnchor = anchorPiece.transform.position - piecesToPlace.Value.transform.position;
@@ -252,11 +259,12 @@ namespace ValheimPlus
 					m_placementMarkerInstance.SetActive(true);
 					m_placementMarkerInstance.transform.position = vector - distanceToAnchor;
 					m_placementMarkerInstance.gameObject.transform.SetParent(groupAnchor.transform);
+		
+					groupAnchor.transform.position = HitPoint;
 
 					isPlacedForAdjustment = true;
 
 				}
-
 			}
 
 
