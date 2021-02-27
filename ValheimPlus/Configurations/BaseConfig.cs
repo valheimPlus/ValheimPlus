@@ -16,6 +16,25 @@ namespace ValheimPlus.Configurations
     public abstract class BaseConfig
     {
         public static readonly Dictionary<Type, List<PropertyInfo>> propertyCache = new Dictionary<Type, List<PropertyInfo>>();
+
+        internal static IEnumerable<PropertyInfo> GetProps<T>()
+        {
+            return GetProps(typeof(T));
+        }
+
+        internal static IEnumerable<PropertyInfo> GetProps(Type t)
+        {
+            if (!propertyCache.ContainsKey(t))
+            {
+                propertyCache.Add(t,t.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToList());
+            }
+
+            foreach (var property in propertyCache[t])
+            {
+                yield return property;
+            }
+        }
+
     }
 
     public abstract class BaseConfig<T> : BaseConfig, IConfig where T : IConfig, new()
@@ -58,19 +77,6 @@ namespace ValheimPlus.Configurations
         }
 
 
-        private static IEnumerable<PropertyInfo> GetProps<T>()
-        {
-            if (!propertyCache.ContainsKey(typeof(T)))
-            {
-                // If not cached already, cache it
-                propertyCache.Add(typeof(T), typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).ToList());
-            }
-
-            foreach (var property in propertyCache[typeof(T)])
-            {
-                yield return property;
-            }
-        }
 
         public void LoadIniData(KeyDataCollection data)
         {

@@ -81,7 +81,7 @@ namespace ValheimPlus.ConsoleCommands
 
                     var sectValue = sectProperty.GetValue(Configuration.Current, null);
 
-                    foreach (var prop in BaseConfig.propertyCache[sectProperty.PropertyType])
+                    foreach (var prop in BaseConfig.GetProps(sectProperty.PropertyType))
                     {
                         var val = prop.GetValue(sectValue, null);
                         Console.instance.AddString($"{prop.Name} {prop.PropertyType.Name} ({val})");
@@ -91,7 +91,7 @@ namespace ValheimPlus.ConsoleCommands
                 {
                     var sectProperty =
                         Configuration.propertyCache.FirstOrDefault(x => string.Equals(x.Name, sectionName, StringComparison.CurrentCultureIgnoreCase));
-                    var valueProp = BaseConfig.propertyCache[sectProperty.PropertyType]
+                    var valueProp = BaseConfig.GetProps(sectProperty.PropertyType)
                         .FirstOrDefault(x => string.Equals(x.Name, valueName, StringComparison.CurrentCultureIgnoreCase));
                     var ca = (ConfigurationAttribute) valueProp.GetCustomAttributes(false).FirstOrDefault(x => x is ConfigurationAttribute);
                     var valueComment = "";
@@ -139,7 +139,7 @@ namespace ValheimPlus.ConsoleCommands
 
             var needsSync = typeof(ISyncableSection).IsAssignableFrom(sectionProperty.PropertyType);
 
-            var valueProperty = BaseConfig.propertyCache[sectionProperty.PropertyType]
+            var valueProperty = BaseConfig.GetProps(sectionProperty.PropertyType)
                 .FirstOrDefault(x => string.Equals(x.Name, valueName, StringComparison.CurrentCultureIgnoreCase));
 
             if (valueProperty == null)

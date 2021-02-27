@@ -33,6 +33,7 @@ namespace ValheimPlus.Configurations
             // Create all configuration entries with default values
             foreach (var property in propertyCache)
             {
+                ZLog.Log($"Initializing configuration section {property.Name}");
                 property.SetValue(this, Activator.CreateInstance(property.PropertyType, true), null);
             }
         }
@@ -137,7 +138,7 @@ namespace ValheimPlus.Configurations
             var section = property.GetValue(Current, null);
             var needsSync = section is ISyncableSection;
 
-            if (isClient && !needsSync || !isClient && needsSync)
+            if (isClient != needsSync)
             {
                 using (TextWriter tw = new StreamWriter(Path.Combine(ConfigIniPath, configName)))
                 {
@@ -185,7 +186,7 @@ namespace ValheimPlus.Configurations
                 sb.AppendLine();
             }
 
-            foreach (var configProperty in BaseConfig.propertyCache[sectionType])
+            foreach (var configProperty in BaseConfig.GetProps(sectionType))
             {
                 var value = configProperty.GetValue(section, null);
                 var valueAsString = value.ToString();

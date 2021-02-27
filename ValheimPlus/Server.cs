@@ -85,18 +85,6 @@ namespace ValheimPlus
         }
     }
 
-    
-
-    [HarmonyPatch(typeof(ZNet), "Shutdown")]
-    public static class OnErrorLoadOwnIni
-    {
-        private static void Prefix(ref ZNet __instance)
-        {
-            Configuration.Current.SaveConfiguration();
-        }
-    }
-
-
     [HarmonyPatch(typeof(FejdStartup), "IsPublicPasswordValid")]
     public static class ChangeServerPasswordBehavior
     {
