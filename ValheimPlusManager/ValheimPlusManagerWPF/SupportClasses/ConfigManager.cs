@@ -191,8 +191,14 @@ namespace ValheimPlusManagerWPF.SupportClasses
             valheimPlusConfiguration.staminaSettingsEnabled = bool.Parse(data["Stamina"]["enabled"]);
             valheimPlusConfiguration.dodgeStaminaUsage = int.Parse(data["Stamina"]["dodgeStaminaUsage"]);
             valheimPlusConfiguration.encumberedStaminaDrain = int.Parse(data["Stamina"]["encumberedStaminaDrain"]);
-            valheimPlusConfiguration.jumpStaminaDrain = int.Parse(data["Stamina"]["jumpStaminaDrain"]);
-            valheimPlusConfiguration.runStaminaDrain = int.Parse(data["Stamina"]["runStaminaDrain"]);
+            if (int.TryParse(data["Stamina"]["jumpStaminaDrain"], out int jumpStaminaDrain))
+            {
+                valheimPlusConfiguration.jumpStaminaDrain = jumpStaminaDrain;
+            }
+            if (int.TryParse(data["Stamina"]["runStaminaDrain"], out int runStaminaDrain))
+            {
+                valheimPlusConfiguration.runStaminaDrain = runStaminaDrain;
+            }
             valheimPlusConfiguration.sneakStaminaDrain = int.Parse(data["Stamina"]["sneakStaminaDrain"]);
             valheimPlusConfiguration.staminaRegen = int.Parse(data["Stamina"]["staminaRegen"]);
             valheimPlusConfiguration.staminaRegenDelay = float.Parse(data["Stamina"]["staminaRegenDelay"], CultureInfo.InvariantCulture.NumberFormat);
