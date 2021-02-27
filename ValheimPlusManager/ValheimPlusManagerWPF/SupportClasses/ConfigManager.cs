@@ -221,9 +221,15 @@ namespace ValheimPlusManagerWPF.SupportClasses
 
             // Advanced building mode settings
             data["AdvancedBuildingMode"]["enabled"] = valheimPlusConfiguration.advancedBuildingModeEnabled.ToString().ToLower();
+            data["AdvancedBuildingMode"]["enterAdvancedBuildingMode"] = valheimPlusConfiguration.enterAdvancedBuildingMode.ToString();
+            data["AdvancedBuildingMode"]["exitAdvancedBuildingMode"] = valheimPlusConfiguration.exitAdvancedBuildingMode.ToString();
 
             // Advanced editing mode settings
             data["AdvancedEditingMode"]["enabled"] = valheimPlusConfiguration.advancedEditingModeEnabled.ToString().ToLower();
+            data["AdvancedEditingMode"]["enterAdvancedEditingMode"] = valheimPlusConfiguration.enterAdvancedEditingMode.ToString();
+            data["AdvancedEditingMode"]["resetAdvancedEditingMode"] = valheimPlusConfiguration.resetAdvancedEditingMode.ToString();
+            data["AdvancedEditingMode"]["abortAndExitAdvancedEditingMode"] = valheimPlusConfiguration.abortAndExitAdvancedEditingMode.ToString();
+            data["AdvancedEditingMode"]["confirmPlacementOfAdvancedEditingMode"] = valheimPlusConfiguration.confirmPlacementOfAdvancedEditingMode.ToString();
 
             // Beehive
             data["Beehive"]["enabled"] = valheimPlusConfiguration.beehiveSettingsEnabled.ToString().ToLower();
@@ -238,6 +244,9 @@ namespace ValheimPlusManagerWPF.SupportClasses
 
             // Items
             data["Items"]["enabled"] = valheimPlusConfiguration.itemsSettingsEnabled.ToString().ToLower();
+            data["Items"]["noTeleportPrevention"] = valheimPlusConfiguration.noTeleportPrevention.ToString().ToLower();
+            data["Items"]["baseItemWeightReduction"] = valheimPlusConfiguration.baseItemWeightReduction.ToString();
+            data["Items"]["itemStackMultiplier"] = valheimPlusConfiguration.itemStackMultiplier.ToString();
 
             // Fermenter
             data["Fermenter"]["enabled"] = valheimPlusConfiguration.fermenterSettingsEnabled.ToString().ToLower();
@@ -269,8 +278,8 @@ namespace ValheimPlusManagerWPF.SupportClasses
 
             // Hotkeys
             data["Hotkeys"]["enabled"] = valheimPlusConfiguration.hotkeysSettingsEnabled.ToString().ToLower();
-            data["Hotkeys"]["rollForwards"] = valheimPlusConfiguration.rollForwards.ToString().ToLower();
-            data["Hotkeys"]["rollBackwards"] = valheimPlusConfiguration.rollBackwards.ToString().ToLower();
+            data["Hotkeys"]["rollForwards"] = valheimPlusConfiguration.rollForwards.ToString();
+            data["Hotkeys"]["rollBackwards"] = valheimPlusConfiguration.rollBackwards.ToString();
 
             // Hud
             data["Hud"]["enabled"] = valheimPlusConfiguration.hudSettingsEnabled.ToString().ToLower();

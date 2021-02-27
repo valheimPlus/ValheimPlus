@@ -15,11 +15,11 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}" Icon="/valheim-plus.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
 
-        <Window.DataContext>
-            <local:ValheimPlusConf/>
-        </Window.DataContext>
+    <Window.DataContext>
+        <local:ValheimPlusConf/>
+    </Window.DataContext>
 
-            <Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.75*"/>
             <RowDefinition Height="50"/>
@@ -84,120 +84,163 @@
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Advanced editing mode" TextWrapping="Wrap" VerticalAlignment="Top" />
                     <TextBox Width="382" Text="{Binding enterAdvancedEditingMode}" materialDesign:HintAssist.Hint="Enter the advanced editing mode with this key" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
                     <TextBox Width="382" Text="{Binding resetAdvancedEditingMode}" materialDesign:HintAssist.Hint="Reset the object to its original position and rotation" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
+                    <TextBox Width="382" Text="{Binding abortAndExitAdvancedEditingMode}" materialDesign:HintAssist.Hint="Exit the advanced editing mode with this key and reset the object" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,170,0,0" />
+                    <TextBox Width="382" Text="{Binding confirmPlacementOfAdvancedEditingMode}" materialDesign:HintAssist.Hint="Confirm the placement of the object and place it" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,220,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding beehiveSettingsEnabled}" Header="Beehive">
                 <Grid Background="#FFE5E5E5">
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Beehive" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding honeyProductionSpeed}" materialDesign:HintAssist.Hint="Speed at which the bees produce honey in seconds" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding maximumHoneyPerBeehive}" materialDesign:HintAssist.Hint="Maximum amount of honey in beehives" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding buildingSettingsEnabled}" Header="Building">
                 <Grid Background="#FFE5E5E5">
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Building" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding maximumPlacementDistance}" materialDesign:HintAssist.Hint="The maximum range that you can place build objects at" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <CheckBox Content="No invalid placement restrictions" IsChecked="{Binding noInvalidPlacementRestriction}" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="No weather damage" IsChecked="{Binding noWeatherDamage}" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding itemsSettingsEnabled}" Header="Items">
                 <Grid Background="#FFE5E5E5">
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Items" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="563" Text="{Binding baseItemWeightReduction}" materialDesign:HintAssist.Hint="Increase or reduce item weight by % percent. The value -50 will reduce item weight of every object by 50%" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="563" Text="{Binding itemStackMultiplier}" materialDesign:HintAssist.Hint="Increase the size of all item stacks by %. The value 50 would set a usual item stack of 100 to be 150" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
+                    <CheckBox Content="Enable teleport with ores and other usually restricted objects" IsChecked="{Binding noTeleportPrevention}" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding fermenterSettingsEnabled}" Header="Fermenter">
                 <Grid Background="#FFE5E5E5">
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Fermenter" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding fermenterDuration}" materialDesign:HintAssist.Hint="Speed at which the fermenter produce product in seconds" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding fermenterItemsProduced}" materialDesign:HintAssist.Hint="Amount produced items" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding fireplaceSettingsEnabled}" Header="Fireplace">
                 <Grid Background="#FFE5E5E5">
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Fireplace" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <CheckBox Content="ONLY placed torches don't need refilling" IsChecked="{Binding onlyTorches}" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding foodSettingsEnabled}" Header="Food">
                 <Grid Background="#FFE5E5E5">
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Food" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBlock HorizontalAlignment="Left" Margin="10,40,0,0" Style="{StaticResource MaterialDesignCaptionTextBlock}" Text="Increase or reduce the time that food lasts by %. The value 50 would cause food to run out 50% slower." TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding foodDurationMultiplier}" materialDesign:HintAssist.Hint="Food duration multiplier" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,80,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding furnaceSettingsEnabled}" Header="Furnace">
                 <Grid Background="#FFE5E5E5">
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Furnace" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding maximumOre}" materialDesign:HintAssist.Hint="Maximum amount of ore in a furnace" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding maximumCoal}" materialDesign:HintAssist.Hint="Maximum amount of coal in a furnace" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding coalUsedPerProduct}" materialDesign:HintAssist.Hint="The total amount of coal used to produce a single smelted ingot" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,170,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding furnaceProductionSpeed}" materialDesign:HintAssist.Hint="The time it takes for the furnace to produce a single ingot in seconds" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,220,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding gameSettingsEnabled}" Header="Game">
                 <Grid Background="#FFE5E5E5">
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Game" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox Width="450" Text="{Binding gameDifficultyDamageScale, StringFormat={}{0:#.#.0}}" materialDesign:HintAssist.Hint="The games damage multiplier per person nearby in difficultyScaleRange(m) radius" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox Width="450" Text="{Binding gameDifficultyHealthScale, StringFormat={}{0:#.#.0}}" materialDesign:HintAssist.Hint="The games health multiplier per person nearby in difficultyScaleRange(m) radius" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding extraPlayerCountNearby}" materialDesign:HintAssist.Hint="Adds additional players to the difficulty calculation in multiplayer unrelated to the actual amount" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,170,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding setFixedPlayerCountTo}" materialDesign:HintAssist.Hint="Sets the nearby player count always to this value + extraPlayerCountNearby" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,220,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="450" Text="{Binding difficultyScaleRange}" materialDesign:HintAssist.Hint="The range in meters at which other players count towards nearby players for the difficulty scale" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,270,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding hotkeysSettingsEnabled}" Header="Hotkeys">
                 <Grid Background="#FFE5E5E5">
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Hotkeys" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox Width="382" Text="{Binding rollForwards}" materialDesign:HintAssist.Hint="Roll forwards on key pressed" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox Width="382" Text="{Binding rollBackwards}" materialDesign:HintAssist.Hint="Roll backwards on key pressed" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding hudSettingsEnabled}" Header="HUD">
                 <Grid Background="#FFE5E5E5">
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="HUD" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <CheckBox Content="Show the required amount of items AND the amount of items in your inventory in build mode and while crafting" IsChecked="{Binding showRequiredItems}" HorizontalAlignment="Left" Margin="10,60,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Content="Show small notifications about all skill experienced gained in the top left corner" IsChecked="{Binding experienceGainedNotifications}" HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding kilnSettingsEnabled}" Header="Kiln">
                 <Grid Background="#FFE5E5E5">
-
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Kiln" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding maximumWood}" materialDesign:HintAssist.Hint="Maximum amount of wood in a Kiln" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding kilnProductionSpeed}" materialDesign:HintAssist.Hint="The time it takes for the Kiln to produce a single piece of coal in seconds" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding mapSettingsEnabled}" Header="Map">
                 <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Map" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox PreviewTextInput="IntValidationTextBox" Width="382" Text="{Binding exploreRadius}" materialDesign:HintAssist.Hint="The radius of the map that you explore when moving" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
 
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding playerSettingsEnabled}" Header="Player">
                 <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Player" TextWrapping="Wrap" VerticalAlignment="Top" />
 
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding serverSettingsEnabled}" Header="Server">
                 <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Server" TextWrapping="Wrap" VerticalAlignment="Top" />
 
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding staminaSettingsEnabled}" Header="Stamina">
                 <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Stamina" TextWrapping="Wrap" VerticalAlignment="Top" />
 
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding staminaUsageSettingsEnabled}" Header="Stamina usage">
                 <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Stamina usage" TextWrapping="Wrap" VerticalAlignment="Top" />
 
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding workbenchSettingsEnabled}" Header="Workbench">
                 <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Workbench" TextWrapping="Wrap" VerticalAlignment="Top" />
 
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding timeSettingsEnabled}" Header="Time">
                 <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Time" TextWrapping="Wrap" VerticalAlignment="Top" />
 
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding wardSettingsEnabled}" Header="Ward">
                 <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Ward" TextWrapping="Wrap" VerticalAlignment="Top" />
 
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding structuralIntegritySettingsEnabled}" Header="Structural integrity">
                 <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Structural integrity" TextWrapping="Wrap" VerticalAlignment="Top" />
 
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding experienceSettingsEnabled}" Header="Experience">
                 <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Experience" TextWrapping="Wrap" VerticalAlignment="Top" />
 
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding cameraSettingsEnabled}" Header="Camera">
                 <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Camera" TextWrapping="Wrap" VerticalAlignment="Top" />
 
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding wagonSettingsEnabled}" Header="Wagon">
                 <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Wagon" TextWrapping="Wrap" VerticalAlignment="Top" />
 
                 </Grid>
             </TabItem>
@@ -205,6 +248,5 @@
 
         <Border BorderThickness="0,1,0,0" BorderBrush="#FFE5E5E5" Grid.Row="1" Grid.ColumnSpan="2" />
         <Button x:Name="saveChangesButton" Grid.Row="1" Grid.Column="1" Content="Save all changes" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="saveChangesButton_Click"/>
-
     </Grid>
 </Window>
