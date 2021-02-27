@@ -21,11 +21,10 @@ namespace ValheimPlus
 		private static Quaternion InitialRotation;
 		private static Vector3 InitialPosition;
 
-		private static List<KeyValuePair<Piece, List<KeyValuePair<Renderer, Material[]>>>> placementMaterialArray = new List<KeyValuePair<Piece, List<KeyValuePair<Renderer, Material[]>>>>();
+		private static List<KeyValuePair<GameObject, List<KeyValuePair<Renderer, Material[]>>>> objectAndMaterialArray = new List<KeyValuePair<GameObject, List<KeyValuePair<Renderer, Material[]>>>>();
+		private static List<KeyValuePair<GameObject, Piece>> selectedPieces = new List<KeyValuePair<GameObject, Piece>>();
 
 		private static Color highlightColor = new Color(178/255, 102/255, 255/255, 0.8f);
-
-		private static List<Piece> selectedObjects = new List<Piece>();
 
 		private static Piece anchor;
 
@@ -33,35 +32,32 @@ namespace ValheimPlus
         {
             if (ExecuteRayCast())
             {
-				if (!isSelected())
-					SetHighlight(true);
-				else
+				
+				if (!isSelected()) {
+					AddHighlight();
+				}
+                else
+				{
 					RemoveHighlight();
+				}
+				
 			}
 
 		}
 
-		public static void setAnchor()
-		{
-			if (ExecuteRayCast())
-			{
-				if (isSelected())
-					anchor = HitPiece;
-			}
-		}
 
 		public static void DeselectObject()
 		{
 			if (ExecuteRayCast())
-				if (isSelected())
-					return;
+				Debug.Log(isSelected());
 		}
 
 		private static Boolean isSelected()
         {
-			foreach (KeyValuePair<Piece, List<KeyValuePair<Renderer, Material[]>>> pieceEntry in placementMaterialArray)
+			foreach (KeyValuePair<GameObject, Piece> objectInArray in selectedPieces)
 			{
-				if (pieceEntry.Key == HitPiece)
+				Piece targetPiece = objectInArray.Value;
+				if (targetPiece == HitPiece)
 				{
 					return true;
 				}
@@ -69,47 +65,52 @@ namespace ValheimPlus
 			return false;
 		}
 
-		public static void SetHighlight(bool enabled)
+		public static void AddHighlight()
 		{
 			List<KeyValuePair<Renderer, Material[]>> placementMaterials = new List<KeyValuePair<Renderer, Material[]>>();
 			Renderer[] componentsInChildren = HitPiece.GetComponentsInChildren<Renderer>();
 
-			if (enabled)
+			placementMaterials = new List<KeyValuePair<Renderer, Material[]>>();
+			foreach (Renderer renderer in componentsInChildren)
 			{
-				placementMaterials = new List<KeyValuePair<Renderer, Material[]>>();
-				foreach (Renderer renderer in componentsInChildren)
-				{
-					Material[] sharedMaterials = renderer.sharedMaterials;
-					placementMaterials.Add(new KeyValuePair<Renderer, Material[]>(renderer, sharedMaterials));
-				}
-
-				// Add to render info arra
-				placementMaterialArray.Add(new KeyValuePair<Piece, List<KeyValuePair<Renderer, Material[]>>>(HitPiece, placementMaterials));
-				Debug.Log(placementMaterialArray.Count());
-
-				Renderer[] array = componentsInChildren;
-				for (int i = 0; i < array.Length; i++)
-				{
-					foreach (Material material in array[i].materials)
-					{
-						if (material.HasProperty("_EmissionColor")){
-							material.SetColor("_EmissionColor", highlightColor * 0.7f);
-						}
-						//material.color = highlightColor;
-					}
-				}
-				return;
+				Material[] sharedMaterials = renderer.sharedMaterials;
+				placementMaterials.Add(new KeyValuePair<Renderer, Material[]>(renderer, sharedMaterials));
 			}
-			
+
+			// Add to render info arra
+			objectAndMaterialArray.Add(new KeyValuePair<GameObject, List<KeyValuePair<Renderer, Material[]>>>(HitObject, placementMaterials));
+			selectedPieces.Add(new KeyValuePair<GameObject, Piece>(HitObject, HitPiece));
+			Debug.Log(objectAndMaterialArray.Count());
+			Debug.Log(selectedPieces.Count());
+
+			Renderer[] array = componentsInChildren;
+			for (int i = 0; i < array.Length; i++)
+			{
+				foreach (Material material in array[i].materials)
+				{
+					if (material.HasProperty("_EmissionColor"))
+					{
+						material.SetColor("_EmissionColor", highlightColor * 0.7f);
+					}
+					//material.color = highlightColor;
+				}
+			}
+			return;
 		}
 
 		public static void RemoveHighlight()
         {
-			foreach (KeyValuePair<Piece, List<KeyValuePair<Renderer, Material[]>>> pieceEntry in placementMaterialArray)
+			foreach (KeyValuePair<GameObject, List<KeyValuePair<Renderer, Material[]>>> objectEntry in objectAndMaterialArray)
 			{
-				if (pieceEntry.Key == HitPiece)
+				// is the correct object in array
+				if (HitObject == objectEntry.Key)
 				{
-					foreach (KeyValuePair<Renderer, Material[]> keyValuePair in pieceEntry.Value)
+
+					// remove from object array
+					objectAndMaterialArray.Remove(objectEntry);
+
+					// reset to the original material
+					foreach (KeyValuePair<Renderer, Material[]> keyValuePair in objectEntry.Value)
 					{
 						if (keyValuePair.Key)
 						{
@@ -117,14 +118,22 @@ namespace ValheimPlus
 						}
 					}
 
-					// remove from anchor if anchor
-					if (anchor == HitPiece)
-						anchor = null;
+					//Remove from piece array
+					foreach (KeyValuePair<GameObject, Piece> objectInArray in selectedPieces)
+					{
+						if (HitObject == objectInArray.Key)
+						{
+							selectedPieces.Remove(objectInArray);
+							return;
+						}
+					}
 
-					placementMaterialArray.Remove(pieceEntry);
 					return;
 				}
 			}
+		}
+
+		private static void removeObjectFromSelection(GameObject target) { 
 		}
 
 		private static bool isValidRayCastTarget()
