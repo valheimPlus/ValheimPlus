@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
@@ -9,6 +10,8 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(ItemDrop), "Awake")]
     public static class ChangeItemData
     {
+        private const float defaultSpawnTimeSeconds = 3600.00f;
+
         private static void Prefix(ref ItemDrop __instance)
         {
             if (Configuration.Current.Items.IsEnabled && Configuration.Current.Items.noTeleportPrevention)
@@ -42,6 +45,20 @@ namespace ValheimPlus.GameClasses
                     }
                 }
             }
+        }
+
+        private static void Postfix(ref ItemDrop __instance)
+        {
+            if (!Configuration.Current.Items.IsEnabled) return; // if items config not enabled, continue with original method
+            if (Configuration.Current.Items.droppedItemOnGroundDurationInSeconds == 0) return; // if set to default, continue with original method
+            if (!(bool)(UnityEngine.Object)__instance.m_nview || !__instance.m_nview.IsValid()) return;
+            if (!__instance.m_nview.IsOwner()) return;
+
+            // Get a DateTime value that is the current server time + item drop duration modifier
+            DateTime serverTimeWithTimeChange = ZNet.instance.GetTime().AddSeconds(Configuration.Current.Items.droppedItemOnGroundDurationInSeconds - defaultSpawnTimeSeconds);
+
+            // Re-set spawn time of item to the configured percentage of the original duration
+            __instance.m_nview.GetZDO().Set("SpawnTime", serverTimeWithTimeChange.Ticks);
         }
     }
 }
