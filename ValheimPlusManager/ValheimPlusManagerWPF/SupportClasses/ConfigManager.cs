@@ -14,6 +14,8 @@ namespace ValheimPlusManagerWPF.SupportClasses
             ValheimPlusConf valheimPlusConfiguration = new ValheimPlusConf();
             Settings settings = SettingsDAL.GetSettings();
             IniData data;
+
+            // Settings to make sure floats are using dots as separators and not commas
             CultureInfo ci = (CultureInfo)CultureInfo.CurrentCulture.Clone();
             ci.NumberFormat.CurrencyDecimalSeparator = ".";
 
@@ -28,41 +30,86 @@ namespace ValheimPlusManagerWPF.SupportClasses
             }
 
             // Advanced building mode settings
-            valheimPlusConfiguration.advancedBuildingModeEnabled = bool.Parse(data["AdvancedBuildingMode"]["enabled"]);
+            if (bool.TryParse(data["AdvancedBuildingMode"]["enabled"], out bool advancedBuildingModeEnabled))
+            {
+                valheimPlusConfiguration.advancedBuildingModeEnabled = advancedBuildingModeEnabled;
+            }
             valheimPlusConfiguration.enterAdvancedBuildingMode = data["AdvancedBuildingMode"]["enterAdvancedBuildingMode"];
             valheimPlusConfiguration.exitAdvancedBuildingMode = data["AdvancedBuildingMode"]["exitAdvancedBuildingMode"];
 
             // Advanced editing mode settings
-            valheimPlusConfiguration.advancedEditingModeEnabled = bool.Parse(data["AdvancedEditingMode"]["enabled"]);
+            if (bool.TryParse(data["AdvancedEditingMode"]["enabled"], out bool advancedEditingModeEnabled))
+            {
+                valheimPlusConfiguration.advancedEditingModeEnabled = advancedEditingModeEnabled;
+            }
             valheimPlusConfiguration.enterAdvancedEditingMode = data["AdvancedEditingMode"]["enterAdvancedEditingMode"];
             valheimPlusConfiguration.resetAdvancedEditingMode = data["AdvancedEditingMode"]["resetAdvancedEditingMode"];
             valheimPlusConfiguration.abortAndExitAdvancedEditingMode = data["AdvancedEditingMode"]["abortAndExitAdvancedEditingMode"];
             valheimPlusConfiguration.confirmPlacementOfAdvancedEditingMode = data["AdvancedEditingMode"]["confirmPlacementOfAdvancedEditingMode"];
 
             // Beehive
-            valheimPlusConfiguration.beehiveSettingsEnabled = bool.Parse(data["Beehive"]["enabled"]);
-            valheimPlusConfiguration.honeyProductionSpeed = float.Parse(data["Beehive"]["honeyProductionSpeed"], CultureInfo.InvariantCulture.NumberFormat);
-            valheimPlusConfiguration.maximumHoneyPerBeehive = int.Parse(data["Beehive"]["maximumHoneyPerBeehive"]);
+            if (bool.TryParse(data["Beehive"]["enabled"], out bool beehiveSettingsEnabled))
+            {
+                valheimPlusConfiguration.beehiveSettingsEnabled = beehiveSettingsEnabled;
+            }
+            if (float.TryParse(data["Beehive"]["honeyProductionSpeed"], NumberStyles.Any, ci, out float honeyProductionSpeed))
+            {
+                valheimPlusConfiguration.honeyProductionSpeed = honeyProductionSpeed;
+            }
+            if (int.TryParse(data["Beehive"]["maximumHoneyPerBeehive"], out int maximumHoneyPerBeehive))
+            {
+                valheimPlusConfiguration.maximumHoneyPerBeehive = maximumHoneyPerBeehive;
+            }
 
             // Building
-            valheimPlusConfiguration.buildingSettingsEnabled = bool.Parse(data["Building"]["enabled"]);
-            valheimPlusConfiguration.noInvalidPlacementRestriction = bool.Parse(data["Building"]["noInvalidPlacementRestriction"]);
-            valheimPlusConfiguration.noWeatherDamage = bool.Parse(data["Building"]["noWeatherDamage"]);
-            valheimPlusConfiguration.maximumPlacementDistance = float.Parse(data["Building"]["maximumPlacementDistance"], CultureInfo.InvariantCulture.NumberFormat);
+            if (bool.TryParse(data["Building"]["enabled"], out bool buildingSettingsEnabled))
+            {
+                valheimPlusConfiguration.buildingSettingsEnabled = buildingSettingsEnabled;
+            }
+            if (bool.TryParse(data["Building"]["noInvalidPlacementRestriction"], out bool noInvalidPlacementRestriction))
+            {
+                valheimPlusConfiguration.noInvalidPlacementRestriction = noInvalidPlacementRestriction;
+            }
+            if (bool.TryParse(data["Building"]["noWeatherDamage"], out bool noWeatherDamage))
+            {
+                valheimPlusConfiguration.noWeatherDamage = noWeatherDamage;
+            }
+            if (float.TryParse(data["Building"]["maximumPlacementDistance"], NumberStyles.Any, ci, out float maximumPlacementDistance))
+            {
+                valheimPlusConfiguration.maximumPlacementDistance = maximumPlacementDistance;
+            }
 
             // Items
-            valheimPlusConfiguration.itemsSettingsEnabled = bool.Parse(data["Items"]["enabled"]);
-            valheimPlusConfiguration.noTeleportPrevention = bool.Parse(data["Items"]["noTeleportPrevention"]);
+            if (bool.TryParse(data["Items"]["enabled"], out bool itemsSettingsEnabled))
+            {
+                valheimPlusConfiguration.itemsSettingsEnabled = itemsSettingsEnabled;
+            }
+            if (bool.TryParse(data["Items"]["noTeleportPrevention"], out bool noTeleportPrevention))
+            {
+                valheimPlusConfiguration.noTeleportPrevention = noTeleportPrevention;
+            }
             if (float.TryParse(data["Items"]["baseItemWeightReduction"], NumberStyles.Any, ci, out float baseItemWeightReduction))
             {
                 valheimPlusConfiguration.baseItemWeightReduction = baseItemWeightReduction;
             }
-            valheimPlusConfiguration.itemStackMultiplier = float.Parse(data["Items"]["itemStackMultiplier"], CultureInfo.InvariantCulture.NumberFormat);
+            if (float.TryParse(data["Items"]["itemStackMultiplier"], NumberStyles.Any, ci, out float itemStackMultiplier))
+            {
+                valheimPlusConfiguration.itemStackMultiplier = itemStackMultiplier;
+            }
 
             // Fermenter
-            valheimPlusConfiguration.fermenterSettingsEnabled = bool.Parse(data["Fermenter"]["enabled"]);
-            valheimPlusConfiguration.fermenterDuration = float.Parse(data["Fermenter"]["fermenterDuration"], CultureInfo.InvariantCulture.NumberFormat);
-            valheimPlusConfiguration.fermenterItemsProduced = int.Parse(data["Fermenter"]["fermenterItemsProduced"]);
+            if (bool.TryParse(data["Fermenter"]["enabled"], out bool fermenterSettingsEnabled))
+            {
+                valheimPlusConfiguration.fermenterSettingsEnabled = fermenterSettingsEnabled;
+            }
+            if (float.TryParse(data["Fermenter"]["fermenterDuration"], NumberStyles.Any, ci, out float fermenterDuration))
+            {
+                valheimPlusConfiguration.fermenterDuration = fermenterDuration;
+            }
+            if (int.TryParse(data["Fermenter"]["fermenterItemsProduced"], out int fermenterItemsProduced))
+            {
+                valheimPlusConfiguration.fermenterItemsProduced = fermenterItemsProduced;
+            }
 
             // Fireplace
             if (bool.TryParse(data["Fireplace"]["enabled"], out bool fireplaceSettingsEnabled))
@@ -85,7 +132,10 @@ namespace ValheimPlusManagerWPF.SupportClasses
             }
 
             // Furnace
-            valheimPlusConfiguration.furnaceSettingsEnabled = bool.Parse(data["Furnace"]["enabled"]);
+            if (bool.TryParse(data["Furnace"]["enabled"], out bool furnaceSettingsEnabled))
+            {
+                valheimPlusConfiguration.furnaceSettingsEnabled = furnaceSettingsEnabled;
+            }
             valheimPlusConfiguration.maximumOre = int.Parse(data["Furnace"]["maximumOre"]);
             valheimPlusConfiguration.maximumCoal = int.Parse(data["Furnace"]["maximumCoal"]);
             valheimPlusConfiguration.coalUsedPerProduct = int.Parse(data["Furnace"]["coalUsedPerProduct"]);

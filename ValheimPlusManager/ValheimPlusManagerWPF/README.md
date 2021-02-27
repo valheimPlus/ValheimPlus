@@ -4,6 +4,7 @@ ValheimPlus Manager makes the installation and configuration of ValheimPlus on W
 - Automatically install ValheimPlus to your game client or server client directory
 - Manage the configuration of ValheimPlus through a GUI
 - Update ValheimPlus directly through ValheimPlus Manager
+- (Coming) Keep settings from previous versions and just add/activate new settings automagically
 - (Coming) backup your configuration files
 - (Coming) backup your game client and server client data
 - (Coming) management of server admins

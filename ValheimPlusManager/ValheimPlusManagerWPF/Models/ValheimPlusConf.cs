@@ -131,7 +131,7 @@
 
         // Time
         public bool timeSettingsEnabled { get; set; } = false;
-        public float totalDayTimeInSeconds { get; set; } = 1200;
+        public float totalDayTimeInSeconds { get; set; } = 1800;
         public float nightTimeSpeedMultiplier { get; set; } = 0;
 
         // Ward
