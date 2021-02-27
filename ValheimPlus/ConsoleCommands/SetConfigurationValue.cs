@@ -15,10 +15,7 @@ namespace ValheimPlus.ConsoleCommands
         public SetConfigurationValue()
         {
             CommandName = "SetValue";
-            HelpText = "Set configuration values - SetValue";
-
-            // TODO: Get all section names (syncables) and show list of options
-
+            HelpText = "SetValue - Set configuration values, see SetValue help for more information";
         }
 
 
@@ -118,8 +115,6 @@ namespace ValheimPlus.ConsoleCommands
 
             if (parts.Count != 3)
             {
-                // TODO: Write error message to console
-                // Explanation   Setvalue Section.Property value
                 if (!silent)
                 {
                     Console.instance.AddString("Usage: SetValue <SectionName>.<ValueName> <value>");

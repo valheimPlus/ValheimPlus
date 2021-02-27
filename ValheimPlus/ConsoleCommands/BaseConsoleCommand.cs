@@ -19,7 +19,7 @@ namespace ValheimPlus.ConsoleCommands
             return false;
         }
 
-        private static List<BaseConsoleCommand> consoleCommandInstances = new List<BaseConsoleCommand>();
+        internal static List<BaseConsoleCommand> consoleCommandInstances = new List<BaseConsoleCommand>();
 
         public static void InitializeCommand<T>() where T : BaseConsoleCommand, new()
         {
@@ -89,9 +89,21 @@ namespace ValheimPlus.ConsoleCommands
         public static void Postfix()
         {
             string temp = Console.instance.m_input.text;
+
+            // if help is issued, add list of our commands here
+            if (string.Equals(temp.Trim(), "help", StringComparison.InvariantCultureIgnoreCase))
+            {
+                Console.instance.AddString("");
+                Console.instance.AddString("Valheim+ console commands:");
+                foreach (var cmd in BaseConsoleCommand.consoleCommandInstances)
+                {
+                    Console.instance.AddString(cmd.HelpText);
+                }
+            }
+
             if (!BaseConsoleCommand.TryExecuteCommand(ref temp))
             {
-                // Output something?
+                // Output something if command could not execute? not at this time.
             }
         }
     }
