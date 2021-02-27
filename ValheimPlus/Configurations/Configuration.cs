@@ -25,6 +25,7 @@ namespace ValheimPlus.Configurations
         public HotkeyConfiguration Hotkeys { get; set; }
         public KilnConfiguration Kiln { get; set; }
         public MapConfiguration Map { get; set; }
+        public MapServerConfiguration MapServer { get; set; }
         public PlayerConfiguration Player { get; set; }
         public ServerConfiguration Server { get; set; }
         public StaminaConfiguration Stamina { get; set; }

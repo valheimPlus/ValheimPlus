@@ -21,7 +21,7 @@ namespace ValheimPlus
                 }
             }
 
-            if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.playerPositionPublicOnJoin)
+            if (Configuration.Current.Map.IsEnabled && Configuration.Current.MapServer.playerPositionPublicOnJoin)
             {
                 // Set player position visibility to public by default on server join
                 __instance.m_publicReferencePosition = true;
@@ -50,7 +50,7 @@ namespace ValheimPlus
     {
         private static void Postfix(ref bool pub, ref bool ___m_publicReferencePosition)
         {
-            if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.preventPlayerFromTurningOffPublicPosition)
+            if (Configuration.Current.Map.IsEnabled && Configuration.Current.MapServer.preventPlayerFromTurningOffPublicPosition)
             {
                 ___m_publicReferencePosition = true;
             }
