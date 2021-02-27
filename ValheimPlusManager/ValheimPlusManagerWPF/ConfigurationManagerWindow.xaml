@@ -14,7 +14,12 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}" Icon="/valheim-plus.png" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
-    <Grid>
+
+        <Window.DataContext>
+            <local:ValheimPlusConf/>
+        </Window.DataContext>
+
+            <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.75*"/>
             <RowDefinition Height="50"/>
@@ -77,8 +82,8 @@
             <TabItem IsEnabled="{Binding advancedEditingModeEnabled}" Header="Advanced editing mode">
                 <Grid Background="#FFE5E5E5">
                     <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Advanced editing mode" TextWrapping="Wrap" VerticalAlignment="Top" />
-                    <TextBox Width="382" Text="{Binding enterAdvancedBuildingMode}" materialDesign:HintAssist.Hint="Enter the advanced building mode with this key when building" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
-                    <TextBox Width="382" Text="{Binding exitAdvancedBuildingMode}" materialDesign:HintAssist.Hint="Exit the advanced building mode with this key when building" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
+                    <TextBox Width="382" Text="{Binding enterAdvancedEditingMode}" materialDesign:HintAssist.Hint="Enter the advanced editing mode with this key" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox Width="382" Text="{Binding resetAdvancedEditingMode}" materialDesign:HintAssist.Hint="Reset the object to its original position and rotation" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding beehiveSettingsEnabled}" Header="Beehive">
