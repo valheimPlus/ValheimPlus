@@ -34,11 +34,12 @@ namespace ValheimPlus
                 }
                 else
                 {
+                    /*  Disabled for now, the max zoom default values are not correct
                     // Set default values first
                     __instance.m_maxDistance = Configuration.Current.Camera.GetDefault<float>(nameof(Configuration.Current.Camera.cameraMaximumZoomDistance));
                     __instance.m_maxDistanceBoat=Configuration.Current.Camera.GetDefault<float>(nameof(Configuration.Current.Camera.cameraBoatMaximumZoomDistance));
                     __instance.m_fov = Configuration.Current.Camera.GetDefault<float>(nameof(Configuration.Current.Camera.cameraFOV));
-
+                    */
                     if(Configuration.Current.Camera.IsEnabled)
                     {
                         if(Configuration.Current.Camera.cameraMaximumZoomDistance >= 1 && Configuration.Current.Camera.cameraMaximumZoomDistance <= 100)

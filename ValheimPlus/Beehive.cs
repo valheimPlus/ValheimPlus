@@ -10,7 +10,7 @@ namespace ValheimPlus
         {
             // Set default values first
             ___m_maxHoney = Configuration.Current.Beehive.GetDefault<int>(nameof(Configuration.Current.Beehive.maximumHoneyPerBeehive));
-            ___m_secPerUnit = Configuration.Current.Beehive.GetDefault<int>(nameof(Configuration.Current.Beehive.honeyProductionSpeed));
+            ___m_secPerUnit = Configuration.Current.Beehive.GetDefault<float>(nameof(Configuration.Current.Beehive.honeyProductionSpeed));
 
             if (Configuration.Current.Beehive.IsEnabled)
             {
