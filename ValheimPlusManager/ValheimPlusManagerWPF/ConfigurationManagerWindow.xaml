@@ -24,7 +24,7 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Label Content="Settings to enable" FontSize="24" Margin="10,1,0,0"/>
+        <Label Content="Settings to enable" Style="{StaticResource MaterialDesignLabel}" FontSize="24" Margin="10,1,0,0"/>
         <ListView Margin="0,0,786,0" Grid.Column="0" Grid.ColumnSpan="2">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -65,85 +65,136 @@
             <CheckBox IsChecked="{Binding cameraSettingsEnabled}" Content="Enable camera settings" />
             <CheckBox IsChecked="{Binding wagonSettingsEnabled}" Content="Enable wagon settings" />
         </ListView>
-        
-        <TabControl Grid.ColumnSpan="2" Margin="-240,0,0,0" Grid.Column="1">
-            <TabItem IsEnabled="{Binding advancedBuildingModeEnabled}" Header="Advanced building mode" Visibility="Visible">
-                <Grid Background="#FFE5E5E5">
-                    <TextBox HorizontalAlignment="Left" Margin="57,78,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
+        <TabControl Grid.ColumnSpan="2" Margin="-240,0,0,0" Grid.Column="1">
+            <TabItem IsEnabled="{Binding advancedBuildingModeEnabled}" Header="Advanced building mode">
+                <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Advanced building mode" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox Width="382" Text="{Binding enterAdvancedBuildingMode}" materialDesign:HintAssist.Hint="Enter the advanced building mode with this key when building" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox Width="382" Text="{Binding exitAdvancedBuildingMode}" materialDesign:HintAssist.Hint="Exit the advanced building mode with this key when building" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
                 </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding advancedEditingModeEnabled}" Header="Advanced editing mode">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="Advanced editing mode" TextWrapping="Wrap" VerticalAlignment="Top" />
+                    <TextBox Width="382" Text="{Binding enterAdvancedBuildingMode}" materialDesign:HintAssist.Hint="Enter the advanced building mode with this key when building" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,70,0,0" />
+                    <TextBox Width="382" Text="{Binding exitAdvancedBuildingMode}" materialDesign:HintAssist.Hint="Exit the advanced building mode with this key when building" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,120,0,0" />
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding beehiveSettingsEnabled}" Header="Beehive">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding buildingSettingsEnabled}" Header="Building">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding itemsSettingsEnabled}" Header="Items">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding fermenterSettingsEnabled}" Header="Fermenter">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding fireplaceSettingsEnabled}" Header="Fireplace">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding foodSettingsEnabled}" Header="Food">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding furnaceSettingsEnabled}" Header="Furnace">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding gameSettingsEnabled}" Header="Game">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding hotkeysSettingsEnabled}" Header="Hotkeys">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding hudSettingsEnabled}" Header="HUD">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding kilnSettingsEnabled}" Header="Kiln">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding mapSettingsEnabled}" Header="Map">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding playerSettingsEnabled}" Header="Player">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding serverSettingsEnabled}" Header="Server">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding staminaSettingsEnabled}" Header="Stamina">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding staminaUsageSettingsEnabled}" Header="Stamina usage">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding workbenchSettingsEnabled}" Header="Workbench">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding timeSettingsEnabled}" Header="Time">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding wardSettingsEnabled}" Header="Ward">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding structuralIntegritySettingsEnabled}" Header="Structural integrity">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding experienceSettingsEnabled}" Header="Experience">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding cameraSettingsEnabled}" Header="Camera">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
             <TabItem IsEnabled="{Binding wagonSettingsEnabled}" Header="Wagon">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+
+                </Grid>
             </TabItem>
         </TabControl>
 
