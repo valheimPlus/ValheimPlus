@@ -1,5 +1,7 @@
 ﻿using IniParser;
 using IniParser.Model;
+using IniParser.Model.Configuration;
+using IniParser.Parser;
 using System;
 using System.Globalization;
 using ValheimPlusManagerWPF.Data;
@@ -34,8 +36,15 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.advancedBuildingModeEnabled = advancedBuildingModeEnabled;
             }
-            valheimPlusConfiguration.enterAdvancedBuildingMode = data["AdvancedBuildingMode"]["enterAdvancedBuildingMode"];
-            valheimPlusConfiguration.exitAdvancedBuildingMode = data["AdvancedBuildingMode"]["exitAdvancedBuildingMode"];
+            if(data["AdvancedBuildingMode"]["enterAdvancedBuildingMode"] != null)
+            {
+                valheimPlusConfiguration.enterAdvancedBuildingMode = data["AdvancedBuildingMode"]["enterAdvancedBuildingMode"];
+            }
+            if(data["AdvancedBuildingMode"]["exitAdvancedBuildingMode"] != null)
+            {
+                valheimPlusConfiguration.exitAdvancedBuildingMode = data["AdvancedBuildingMode"]["exitAdvancedBuildingMode"];
+            }
+            
             #endregion Advanced building mode
 
             #region Advanced editing mode
@@ -43,10 +52,22 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.advancedEditingModeEnabled = advancedEditingModeEnabled;
             }
-            valheimPlusConfiguration.enterAdvancedEditingMode = data["AdvancedEditingMode"]["enterAdvancedEditingMode"];
-            valheimPlusConfiguration.resetAdvancedEditingMode = data["AdvancedEditingMode"]["resetAdvancedEditingMode"];
-            valheimPlusConfiguration.abortAndExitAdvancedEditingMode = data["AdvancedEditingMode"]["abortAndExitAdvancedEditingMode"];
-            valheimPlusConfiguration.confirmPlacementOfAdvancedEditingMode = data["AdvancedEditingMode"]["confirmPlacementOfAdvancedEditingMode"];
+            if(data["AdvancedEditingMode"]["enterAdvancedEditingMode"] != null)
+            {
+                valheimPlusConfiguration.enterAdvancedEditingMode = data["AdvancedEditingMode"]["enterAdvancedEditingMode"];
+            }
+            if(data["AdvancedEditingMode"]["resetAdvancedEditingMode"] != null)
+            {
+                valheimPlusConfiguration.resetAdvancedEditingMode = data["AdvancedEditingMode"]["resetAdvancedEditingMode"];
+            }
+            if (data["AdvancedEditingMode"]["abortAndExitAdvancedEditingMode"] != null)
+            {
+                valheimPlusConfiguration.abortAndExitAdvancedEditingMode = data["AdvancedEditingMode"]["abortAndExitAdvancedEditingMode"];
+            }
+            if (data["AdvancedEditingMode"]["confirmPlacementOfAdvancedEditingMode"] != null)
+            {
+                valheimPlusConfiguration.confirmPlacementOfAdvancedEditingMode = data["AdvancedEditingMode"]["confirmPlacementOfAdvancedEditingMode"];
+            }
             #endregion Advanced editing mode
 
             #region Beehive
@@ -194,8 +215,14 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.hotkeysSettingsEnabled = hotkeysSettingsEnabled;
             }
-            valheimPlusConfiguration.rollForwards = data["Hotkeys"]["rollForwards"];
-            valheimPlusConfiguration.rollBackwards = data["Hotkeys"]["rollBackwards"];
+            if(data["Hotkeys"]["rollForwards"] != null)
+            {
+                valheimPlusConfiguration.rollForwards = data["Hotkeys"]["rollForwards"];
+            }
+            if (data["Hotkeys"]["rollBackwards"] != null)
+            {
+                valheimPlusConfiguration.rollBackwards = data["Hotkeys"]["rollBackwards"];
+            }
             #endregion Hotkeys
 
             #region HUD
@@ -594,6 +621,8 @@ namespace ValheimPlusManagerWPF.SupportClasses
             IniData data;
 
             var parser = new FileIniDataParser();
+            IniParserConfiguration config2 = parser.Parser.Configuration;
+            config2.AllowCreateSectionsOnFly = true;
 
             // Reading the current configuration file
             if (manageClient)
