@@ -20,20 +20,14 @@ namespace ValheimPlus
             }
 
             if (Input.GetKeyDown(KeyCode.Keypad1)){
-
                 AdvancedBlueprintMode.PlayerInstance = __instance;
-                AdvancedBlueprintMode.ExecuteRayCast();
                 AdvancedBlueprintMode.SelectObject();
-
             }
 
             if (Input.GetKeyDown(KeyCode.Keypad2))
             {
-
                 AdvancedBlueprintMode.PlayerInstance = __instance;
-                AdvancedBlueprintMode.ExecuteRayCast();
                 AdvancedBlueprintMode.DeselectObject();
-
             }
 
 

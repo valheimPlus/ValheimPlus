@@ -21,7 +21,7 @@ namespace ValheimPlus
 		private static Quaternion InitialRotation;
 		private static Vector3 InitialPosition;
 
-		private static List<KeyValuePair<Renderer, Material[]>> placementMaterials;
+		private static List<KeyValuePair<Piece, List<KeyValuePair<Renderer, Material[]>>>> placementMaterialArray = new List<KeyValuePair<Piece, List<KeyValuePair<Renderer, Material[]>>>>();
 
 		private static Color highlightColor = new Color(178/255, 102/255, 255/255, 0.8f);
 
@@ -29,18 +29,41 @@ namespace ValheimPlus
 
 		public static void SelectObject()
         {
-			SetHighlight(true);
+            if (ExecuteRayCast())
+            {
+				if (!isSelected())
+					SetHighlight(true);
+				else
+					RemoveHighlight();
+			}
+
 		}
 
 		public static void DeselectObject()
 		{
-			SetHighlight(false);
-			
+			if (ExecuteRayCast())
+				if (isSelected())
+					return;
+				
+		}
+
+		private static Boolean isSelected()
+        {
+			foreach (KeyValuePair<Piece, List<KeyValuePair<Renderer, Material[]>>> pieceEntry in placementMaterialArray)
+			{
+				if (pieceEntry.Key == HitPiece)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		public static void SetHighlight(bool enabled)
 		{
+			List<KeyValuePair<Renderer, Material[]>> placementMaterials = new List<KeyValuePair<Renderer, Material[]>>();
 			Renderer[] componentsInChildren = HitPiece.GetComponentsInChildren<Renderer>();
+
 			if (enabled)
 			{
 				placementMaterials = new List<KeyValuePair<Renderer, Material[]>>();
@@ -49,28 +72,43 @@ namespace ValheimPlus
 					Material[] sharedMaterials = renderer.sharedMaterials;
 					placementMaterials.Add(new KeyValuePair<Renderer, Material[]>(renderer, sharedMaterials));
 				}
+
+				// Add to render info arra
+				placementMaterialArray.Add(new KeyValuePair<Piece, List<KeyValuePair<Renderer, Material[]>>>(HitPiece, placementMaterials));
+				Debug.Log(placementMaterialArray.Count());
+
 				Renderer[] array = componentsInChildren;
 				for (int i = 0; i < array.Length; i++)
 				{
 					foreach (Material material in array[i].materials)
 					{
-						if (material.HasProperty("_EmissionColor"))
-						{
+						if (material.HasProperty("_EmissionColor")){
 							material.SetColor("_EmissionColor", highlightColor * 0.7f);
 						}
-						material.color = highlightColor;
+						//material.color = highlightColor;
 					}
 				}
 				return;
 			}
-			foreach (KeyValuePair<Renderer, Material[]> keyValuePair in placementMaterials)
+			
+		}
+
+		public static void RemoveHighlight()
+        {
+			foreach (KeyValuePair<Piece, List<KeyValuePair<Renderer, Material[]>>> pieceEntry in placementMaterialArray)
 			{
-				if (keyValuePair.Key)
+				if (pieceEntry.Key == HitPiece)
 				{
-					keyValuePair.Key.materials = keyValuePair.Value;
+					foreach (KeyValuePair<Renderer, Material[]> keyValuePair in pieceEntry.Value)
+					{
+						if (keyValuePair.Key)
+						{
+							keyValuePair.Key.materials = keyValuePair.Value;
+						}
+					}
+
 				}
 			}
-			placementMaterials = null;
 		}
 
 		private static bool isValidRayCastTarget()
@@ -123,8 +161,7 @@ namespace ValheimPlus
 				HitHeightmap = raycastHit.collider.GetComponent<Heightmap>();
 				InitialRotation = HitPiece.transform.rotation;
 				InitialPosition = HitPiece.transform.position;
-				Debug.Log(HitPiece.m_name);
-				return true;
+				return isValidRayCastTarget();
 			}
 			else
 			{
