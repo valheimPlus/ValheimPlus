@@ -18,11 +18,10 @@ namespace ValheimPlus.Configurations
     [HarmonyPatch(typeof(ZNet), "OnDestroy")]
     public static class ConfigurationHooks2
     {
-        private static void Prefix(ref ZNet __instance)
+        private static void Prefix()
         {
             ZLog.Log("Saving local configuration");
             Configuration.Current.SaveConfiguration();
         }
     }
-
 }
