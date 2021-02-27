@@ -19,16 +19,9 @@ namespace ValheimPlus
                 AEM.run();
             }
 
-            if (Input.GetKeyDown(KeyCode.Keypad1)){
-                AdvancedBlueprintMode.PlayerInstance = __instance;
-                AdvancedBlueprintMode.SelectObject();
-            }
-            if (Input.GetKeyDown(KeyCode.Keypad2))
-            {
-                AdvancedBlueprintMode.PlayerInstance = __instance;
-                AdvancedBlueprintMode.DeselectObject();
-            }
-
+            ACM.PlayerInstance = __instance;
+            if (!AEM.isActive && !ABM.isActive)
+                ACM.run();
 
         }
     }
