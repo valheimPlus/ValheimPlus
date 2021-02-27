@@ -58,11 +58,11 @@ namespace ValheimPlus
                 //Logo
                 VPlusMainMenu.Load();
 
+                //Map Sync Save Timer
                 if (ZNet.m_isServer)
                 {
-                    //Map Sync Timer
                     mapSyncSaveTimer.AutoReset = true;
-                    mapSyncSaveTimer.Elapsed += VPlusMapSync.MapSyncSaveTimer_Elapsed;
+                    mapSyncSaveTimer.Elapsed += (sender, args) => VPlusMapSync.SaveMapDataToDisk();
                 }
             }
         }

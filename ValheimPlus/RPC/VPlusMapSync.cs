@@ -184,10 +184,5 @@ namespace ValheimPlus.RPC
                 ZLog.Log($"Saved {mapDataToDisk.Count} map points to disk.");
             }
         }
-
-        public static void MapSyncSaveTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            SaveMapDataToDisk();
-        }
     }
 }
