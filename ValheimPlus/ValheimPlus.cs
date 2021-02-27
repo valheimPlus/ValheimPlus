@@ -24,6 +24,9 @@ namespace ValheimPlus
         public static System.Timers.Timer mapSyncSaveTimer =
             new System.Timers.Timer(TimeSpan.FromMinutes(5).TotalMilliseconds);
 
+        public static readonly string VPlusDataDirectoryPath =
+            Paths.BepInExRootPath + Path.DirectorySeparatorChar + "vplus-data";
+
         // Project Repository Info
         public static string Repository = "https://github.com/valheimPlus/ValheimPlus";
         public static string ApiRepository = "https://api.github.com/repos/valheimPlus/valheimPlus/tags";
@@ -54,6 +57,9 @@ namespace ValheimPlus
                 {
                     Logger.LogInfo("ValheimPlus [" + version + "] is up to date.");
                 }
+
+                //Create VPlus dir if it does not exist.
+                if (!Directory.Exists(VPlusDataDirectoryPath)) Directory.CreateDirectory(VPlusDataDirectoryPath);
 
                 //Logo
                 VPlusMainMenu.Load();

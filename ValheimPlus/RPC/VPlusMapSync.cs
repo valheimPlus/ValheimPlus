@@ -10,7 +10,7 @@ namespace ValheimPlus.RPC
     {
         public static bool[] ServerMapData;
 
-        public static readonly string mapSyncFilePath = Paths.BepInExRootPath + Path.DirectorySeparatorChar + "mapSync.dat";
+        public static readonly string mapSyncFilePath = ValheimPlusPlugin.VPlusDataDirectoryPath + Path.DirectorySeparatorChar + "mapSync.dat";
 
         public static void RPC_VPlusMapSync(long sender, ZPackage mapPkg)
         {
