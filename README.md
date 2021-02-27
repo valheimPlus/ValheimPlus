@@ -620,7 +620,7 @@ https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY
 
 2. Unpack into your Valheim root folder and overwrite every file when asked.
 
-3. Download this repositories executable version.
+3. Download these repositories executable version.
 Repo: https://github.com/MrPurple6411/Bepinex-Tools/releases/tag/1.0.0-Publicizer
 Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 
