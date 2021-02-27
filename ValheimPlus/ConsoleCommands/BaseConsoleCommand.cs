@@ -14,8 +14,6 @@ namespace ValheimPlus.ConsoleCommands
         public string HelpText { get; internal set; }
         public string CommandName { get; internal set; }
 
-        private static bool isAdmin = false;
-
         public virtual bool ParseCommand(ref string input, bool silent = false)
         {
             return false;
@@ -88,17 +86,13 @@ namespace ValheimPlus.ConsoleCommands
     [HarmonyPatch(typeof(Console), "InputText")]
     public static class HookConsoleInput
     {
-        public static bool Prefix()
+        public static void Postfix()
         {
             string temp = Console.instance.m_input.text;
-            if (BaseConsoleCommand.TryExecuteCommand(ref temp))
+            if (!BaseConsoleCommand.TryExecuteCommand(ref temp))
             {
-                return false;
+                // Output something?
             }
-
-            Console.instance.m_input.text = temp;
-            return true;
         }
     }
-
 }

@@ -24,11 +24,6 @@ namespace ValheimPlus.ConsoleCommands
 
         public override bool ParseCommand(ref string input, bool silent)
         {
-            if (!silent)
-            {
-                Console.instance.AddString(input);
-            }
-
             string inputCopy = input;
             List<string> parts = input.Replace("  "," ").Split(' ').ToList();
             string command = parts.Count >= 1 ? parts[0] : null;
