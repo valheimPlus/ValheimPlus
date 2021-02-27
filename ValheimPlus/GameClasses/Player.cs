@@ -27,7 +27,7 @@ namespace ValheimPlus
             if (Input.GetKeyDown(KeyCode.Keypad2))
             {
                 AdvancedBlueprintMode.PlayerInstance = __instance;
-                AdvancedBlueprintMode.DeselectObject();
+                AdvancedBlueprintMode.setAnchor();
             }
 
 

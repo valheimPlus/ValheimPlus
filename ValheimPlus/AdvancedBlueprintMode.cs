@@ -27,6 +27,8 @@ namespace ValheimPlus
 
 		private static List<Piece> selectedObjects = new List<Piece>();
 
+		private static Piece anchor;
+
 		public static void SelectObject()
         {
             if (ExecuteRayCast())
@@ -39,12 +41,20 @@ namespace ValheimPlus
 
 		}
 
+		public static void setAnchor()
+		{
+			if (ExecuteRayCast())
+			{
+				if (isSelected())
+					anchor = HitPiece;
+			}
+		}
+
 		public static void DeselectObject()
 		{
 			if (ExecuteRayCast())
 				if (isSelected())
 					return;
-				
 		}
 
 		private static Boolean isSelected()
@@ -107,6 +117,12 @@ namespace ValheimPlus
 						}
 					}
 
+					// remove from anchor if anchor
+					if (anchor == HitPiece)
+						anchor = null;
+
+					placementMaterialArray.Remove(pieceEntry);
+					return;
 				}
 			}
 		}
