@@ -344,6 +344,7 @@
     <Compile Include="Configurations\Sections\FurnaceConfiguration.cs" />
     <Compile Include="Configurations\Sections\GameConfiguration.cs" />
     <Compile Include="Configurations\Sections\HotkeyConfiguration.cs" />
+    <Compile Include="Configurations\Sections\DropsConfiguration.cs" />
     <Compile Include="Configurations\Sections\ItemsConfiguration.cs" />
     <Compile Include="Configurations\Sections\KilnConfiguration.cs" />
     <Compile Include="Configurations\Sections\MapConfiguration.cs" />
@@ -370,6 +371,7 @@
     <Compile Include="GameClasses\Console.cs" />
     <Compile Include="GameClasses\ZDOMan.cs" />
     <Compile Include="GameClasses\ZNet.cs" />
+    <Compile Include="Drops.cs" />
     <Compile Include="GameClasses\Skills.cs" />
     <Compile Include="GameClasses\ItemDrop.cs" />
     <Compile Include="GameClasses\Player.cs" />
