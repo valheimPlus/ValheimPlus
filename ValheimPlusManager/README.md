@@ -4,10 +4,12 @@ ValheimPlus Manager makes the installation and configuration of ValheimPlus on W
 - Automatically install ValheimPlus to your game client or server client directory
 - Manage the configuration of ValheimPlus through a GUI
 - Update ValheimPlus directly through ValheimPlus Manager
+- Keep settings from previous versions and just add/activate new settings automagically
 - (Coming) backup your configuration files
 - (Coming) backup your game client and server client data
 - (Coming) management of server admins
 - (Coming) in-app settings of installation paths
+- (Coming) uninstall ValheimPlus from game client/server client
 ## Requirements
 .NET 5 available for download at: https://dotnet.microsoft.com/download/dotnet/5.0/runtime
 ## Installation
@@ -21,4 +23,5 @@ ValheimPlus Manager makes the installation and configuration of ValheimPlus on W
 Just download the source code, open in Visual Studio 2019 and restore the NuGet packages. Hit F5 to start running/debugging the project.
 ### Donations
 Wanna buy me a cup of coffee?
+
 Ethereum (ETH): 0xAC7E1beC00A3a26C623a73A3974e91f7b8A463b9

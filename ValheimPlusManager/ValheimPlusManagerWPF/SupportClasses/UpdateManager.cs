@@ -3,10 +3,10 @@ using System;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
-using ValheimPlusManagerWPF.Data;
-using ValheimPlusManagerWPF.Models;
+using ValheimPlusManager.Data;
+using ValheimPlusManager.Models;
 
-namespace ValheimPlusManagerWPF.SupportClasses
+namespace ValheimPlusManager.SupportClasses
 {
     public sealed class UpdateManager
     {

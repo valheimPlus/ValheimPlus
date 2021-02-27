@@ -1,10 +1,10 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using ValheimPlusManagerWPF.Models;
-using ValheimPlusManagerWPF.SupportClasses;
+using ValheimPlusManager.Models;
+using ValheimPlusManager.SupportClasses;
 
-namespace ValheimPlusManagerWPF
+namespace ValheimPlusManager
 {
     /// <summary>
     /// Interaction logic for ConfigurationManagerWindow.xaml

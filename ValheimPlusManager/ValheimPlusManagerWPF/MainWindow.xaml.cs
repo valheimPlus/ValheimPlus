@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
-using ValheimPlusManagerWPF.Data;
-using ValheimPlusManagerWPF.Models;
-using ValheimPlusManagerWPF.SupportClasses;
+using ValheimPlusManager.Data;
+using ValheimPlusManager.Models;
+using ValheimPlusManager.SupportClasses;
 
-namespace ValheimPlusManagerWPF
+namespace ValheimPlusManager
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

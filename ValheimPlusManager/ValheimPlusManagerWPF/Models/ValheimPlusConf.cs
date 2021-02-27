@@ -1,4 +1,4 @@
-﻿namespace ValheimPlusManagerWPF.Models
+﻿namespace ValheimPlusManager.Models
 {
     public class ValheimPlusConf
     {

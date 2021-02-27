@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ValheimPlusManagerWPF.SupportClasses
+namespace ValheimPlusManager.SupportClasses
 {
     public sealed class ValidationManager
     {

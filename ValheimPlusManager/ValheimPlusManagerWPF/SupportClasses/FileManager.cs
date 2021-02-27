@@ -1,4 +1,4 @@
-﻿namespace ValheimPlusManagerWPF.SupportClasses
+﻿namespace ValheimPlusManager.SupportClasses
 {
     public sealed class FileManager
     {

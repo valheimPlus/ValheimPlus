@@ -3,10 +3,10 @@ using IniParser.Model;
 using IniParser.Model.Configuration;
 using System;
 using System.Globalization;
-using ValheimPlusManagerWPF.Data;
-using ValheimPlusManagerWPF.Models;
+using ValheimPlusManager.Data;
+using ValheimPlusManager.Models;
 
-namespace ValheimPlusManagerWPF.SupportClasses
+namespace ValheimPlusManager.SupportClasses
 {
     public sealed class ConfigManager
     {
@@ -263,7 +263,7 @@ namespace ValheimPlusManagerWPF.SupportClasses
             {
                 valheimPlusConfiguration.shareMapProgression = shareMapProgression;
             }
-            if (int.TryParse(data["Map"]["maximumWood"], out int exploreRadius))
+            if (int.TryParse(data["Map"]["exploreRadius"], out int exploreRadius))
             {
                 valheimPlusConfiguration.exploreRadius = exploreRadius;
             }

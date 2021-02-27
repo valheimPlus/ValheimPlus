@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace ValheimPlusManagerWPF.Models
+namespace ValheimPlusManager.Models
 {
     [XmlRoot("Settings")]
     public class Settings

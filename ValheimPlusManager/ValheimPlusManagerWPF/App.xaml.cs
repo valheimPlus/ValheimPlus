@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ValheimPlusManagerWPF
+namespace ValheimPlusManager
 {
     /// <summary>
     /// Interaction logic for App.xaml

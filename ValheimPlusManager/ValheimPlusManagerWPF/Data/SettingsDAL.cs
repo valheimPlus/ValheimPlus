@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using ValheimPlusManagerWPF.Models;
+using ValheimPlusManager.Models;
 
-namespace ValheimPlusManagerWPF.Data
+namespace ValheimPlusManager.Data
 {
     public sealed class SettingsDAL
     {
