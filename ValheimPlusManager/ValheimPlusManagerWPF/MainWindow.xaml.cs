@@ -18,11 +18,9 @@ namespace ValheimPlusManager
         private bool ValheimPlusInstalledServer { get; set; } = false;
         private Settings Settings { get; set; }
 
-        private SettingsDAL SettingsDAL { get; set; }
-
         public void UISettingsInit(bool clientPathCorrect, bool serverPathCorrect)
         {
-            if(clientPathCorrect)
+            if (clientPathCorrect)
             {
                 if (ValheimPlusInstalledClient)
                 {
@@ -73,7 +71,7 @@ namespace ValheimPlusManager
                 installClientButton.Visibility = Visibility.Hidden;
                 setClientPath.Margin = new Thickness(16, 78, 0, 0);
             }
-            if(serverPathCorrect)
+            if (serverPathCorrect)
             {
                 if (ValheimPlusInstalledServer)
                 {
@@ -222,9 +220,10 @@ namespace ValheimPlusManager
 
         private void setClientPath_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new Microsoft.Win32.OpenFileDialog();
-            var newDestination = Environment.CurrentDirectory;
-            dialog.Filter = "Executeable|valheim.exe";
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Executeable|valheim.exe"
+            };
 
             if (dialog.ShowDialog() == true)
             {
