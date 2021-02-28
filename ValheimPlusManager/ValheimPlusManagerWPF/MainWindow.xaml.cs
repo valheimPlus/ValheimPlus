@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using ValheimPlusManager.Data;
@@ -33,6 +34,16 @@ namespace ValheimPlusManager
                     clientInstalledLabel.Content = String.Format("ValheimPlus {0} installed on client", Settings.ValheimPlusGameClientVersion);
                     clientInstalledLabel.Foreground = Brushes.Green;
                     installClientButton.Content = "Reinstall ValheimPlus on client";
+
+                    var modActive = File.Exists(String.Format("{0}winhttp.dll", Settings.ClientInstallationPath));
+                    if (modActive)
+                    {
+                        enableDisableValheimPlusGameClientButton.Content = "Disable ValheimPlus";
+                    }
+                    else
+                    {
+                        enableDisableValheimPlusGameClientButton.Content = "Enable ValheimPlus";
+                    }
                 }
                 else
                 {
@@ -122,6 +133,29 @@ namespace ValheimPlusManager
         private void manageClientButton_Click(object sender, RoutedEventArgs e)
         {
             new ConfigurationManagerWindow(true).Show(); // Bool determines if user will manage conf. for server or game client
+        }
+
+
+        private void enableDisableValheimPlusGameClientButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var modActive = File.Exists(String.Format("{0}winhttp.dll", Settings.ClientInstallationPath));
+                if (modActive)
+                {
+                    System.IO.File.Move(String.Format("{0}winhttp.dll", Settings.ClientInstallationPath), String.Format("{0}winhttp_.dll", Settings.ClientInstallationPath));
+                    enableDisableValheimPlusGameClientButton.Content = "Enable ValheimPlus";
+                }
+                else
+                {
+                    System.IO.File.Move(String.Format("{0}winhttp_.dll", Settings.ClientInstallationPath), String.Format("{0}winhttp.dll", Settings.ClientInstallationPath));
+                    enableDisableValheimPlusGameClientButton.Content = "Disable ValheimPlus";
+                }
+            }
+            catch (Exception)
+            {
+                //
+            }
         }
 
         private void installServerButton_Click(object sender, RoutedEventArgs e)

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValheimPlusManager"
         mc:Ignorable="d"
-        Title="ValheimPlus Manager" Height="675" Width="368"
+        Title="ValheimPlus Manager" Height="675" Width="690"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -25,15 +25,16 @@
             <Label x:Name="clientInstalledLabel" Content="Valheim plus installed on client" HorizontalAlignment="Left" Margin="16,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.568,-1.817"/>
             <Label Content="Game client" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Normal"/>
             <Button x:Name="manageClientButton" Content="Manage configuration settings" HorizontalAlignment="Left" Margin="16,115,0,0" VerticalAlignment="Top" Width="319" Click="manageClientButton_Click"/>
-            <Button x:Name="checkClientUpdatesButtons" Content="Check for updates" HorizontalAlignment="Left" Margin="16,152,0,0" VerticalAlignment="Top" Width="319" Click="checkClientUpdatesButtons_Click"/>
-            <Button x:Name="installClientUpdateButton" Content="Install update" HorizontalAlignment="Left" Margin="16,189,0,0" VerticalAlignment="Top" Width="319" IsEnabled="False" Click="installClientUpdateButton_Click"/>
+            <Button x:Name="checkClientUpdatesButtons" Content="Check for updates" HorizontalAlignment="Left" Margin="340,78,0,0" VerticalAlignment="Top" Width="319" Click="checkClientUpdatesButtons_Click"/>
+            <Button x:Name="installClientUpdateButton" Content="Install update" HorizontalAlignment="Left" Margin="340,115,0,0" VerticalAlignment="Top" Width="319" IsEnabled="False" Click="installClientUpdateButton_Click"/>
             <Button x:Name="installServerButton" Content="Install ValheimPlus on server" HorizontalAlignment="Left" Margin="16,305,0,0" VerticalAlignment="Top" Click="installServerButton_Click" Width="319"/>
             <Label x:Name="serverInstalledLabel" Content="Valheim plus installed on server" HorizontalAlignment="Left" Margin="16,274,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.568,-1.817"/>
             <Label Content="Server client" HorizontalAlignment="Left" Margin="16,237,0,0" VerticalAlignment="Top" FontSize="24" FontWeight="Normal"/>
             <Button x:Name="manageServerButton" Content="Manage configuration settings" HorizontalAlignment="Left" Margin="16,342,0,0" VerticalAlignment="Top" Width="319" Click="manageServerButton_Click"/>
-            <Button x:Name="checkServerUpdatesButton" Content="Check for updates" HorizontalAlignment="Left" Margin="16,379,0,0" VerticalAlignment="Top" Width="319" Click="checkServerUpdatesButton_Click"/>
-            <Button x:Name="installServerUpdateButton" Content="Install update" HorizontalAlignment="Left" Margin="16,416,0,0" VerticalAlignment="Top" Width="319" IsEnabled="False" Click="installServerUpdateButton_Click"/>
+            <Button x:Name="checkServerUpdatesButton" Content="Check for updates" HorizontalAlignment="Left" Margin="340,305,0,0" VerticalAlignment="Top" Width="319" Click="checkServerUpdatesButton_Click"/>
+            <Button x:Name="installServerUpdateButton" Content="Install update" HorizontalAlignment="Left" Margin="340,342,0,0" VerticalAlignment="Top" Width="319" IsEnabled="False" Click="installServerUpdateButton_Click"/>
             <Label x:Name="statusLabel" Content="" HorizontalAlignment="Left" Margin="16,480,0,0" VerticalAlignment="Top" FontSize="14"/>
+            <Button x:Name="enableDisableValheimPlusGameClientButton" Content="Disable ValheimPlus" HorizontalAlignment="Left" Margin="16,152,0,0" VerticalAlignment="Top" Width="319" Click="enableDisableValheimPlusGameClientButton_Click" />
 
         </Grid>
         <Grid.RowDefinitions>

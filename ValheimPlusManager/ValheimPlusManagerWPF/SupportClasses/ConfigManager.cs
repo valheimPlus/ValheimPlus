@@ -620,8 +620,8 @@ namespace ValheimPlusManager.SupportClasses
             IniData data;
 
             var parser = new FileIniDataParser();
-            IniParserConfiguration config2 = parser.Parser.Configuration;
-            config2.AllowCreateSectionsOnFly = true;
+            IniParserConfiguration iniParserConfiguration = parser.Parser.Configuration;
+            iniParserConfiguration.AllowCreateSectionsOnFly = true;
 
             // Reading the current configuration file
             if (manageClient)
