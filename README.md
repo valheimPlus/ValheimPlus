@@ -6,12 +6,10 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim. The mod inclu
 # ValheimPlus Server Hosting
 Below you can find a list of hosting companies that are supporting ValehimPlus with good prices and easy installation.
 
+[![GPortal](http://valheim.plus/gportal/banner.jpg)](https://www.g-portal.com/valheim)
 [![ZapHosting](http://valheimplus.com/zap/692x127.jpg)](https://zap-hosting.com/valheimplus)
 [![GFXHosting](https://www.gtxgaming.co.uk/wp-content/uploads/2021/02/valheim_plus_banner-3.png)](https://www.gtxgaming.co.uk/clientarea/aff.php?aff=2096)
 
-If you are interested in being in this list, please contact us via Discord, GitHub, Nexus or via e-mail at "contact@valheim.plus".
-
-*(We do not agree to exclusive deals.)*
 
 # Features
 All of these features can be adjusted by a configuration file. This also allows you to only enable very specific featues.
@@ -169,6 +167,7 @@ We supply 4 different versions of V+ with every release since version 0.8. You c
    1. Right click the valheim game in your steam library
    2. "Go to Manage" -> "Browse local files"
    2. Steam should open your game folder for you when clicked
+3. Unzip the contents of WindowsClient.zip into the Valheim root folder.
    
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
@@ -194,9 +193,9 @@ We will not explain how you create a dedicated server. This will only explain ho
 2. Locate your server folder
 3. Unpack all the contents into your root server folder.
 
-*Make sure to execute 'chmod u+x run_bepinex.sh'*
+*Make sure to execute 'chmod u+x start_server_bepinex.sh'*
 
-*Make sure to run the run_bepinex.sh*
+*Make sure to run start_server_bepinex.sh*
 
 **Uses libc6-dev**
 
