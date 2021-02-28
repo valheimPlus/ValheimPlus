@@ -13,22 +13,16 @@ namespace ValheimPlusManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool ValheimPlusInstalledClient { get; set; }
-        private bool ValheimPlusInstalledServer { get; set; }
+        private bool ValheimPlusInstalledClient { get; set; } = false;
+        private bool ValheimPlusInstalledServer { get; set; } = false;
         private Settings Settings { get; set; }
 
-        public MainWindow()
+        private SettingsDAL SettingsDAL { get; set; }
+
+        public void UISettingsInit(bool clientPathCorrect, bool serverPathCorrect)
         {
-            InitializeComponent();
-            // Fetching path settings
-            try
+            if(clientPathCorrect)
             {
-                Settings = SettingsDAL.GetSettings();
-
-                // Checking installation status
-                ValheimPlusInstalledClient = ValidationManager.CheckInstallationStatus(Settings.ClientInstallationPath);
-                ValheimPlusInstalledServer = ValidationManager.CheckInstallationStatus(Settings.ServerInstallationPath);
-
                 if (ValheimPlusInstalledClient)
                 {
                     clientInstalledLabel.Content = String.Format("ValheimPlus {0} installed on client", Settings.ValheimPlusGameClientVersion);
@@ -39,18 +33,47 @@ namespace ValheimPlusManager
                     if (modActive)
                     {
                         enableDisableValheimPlusGameClientButton.Content = "Disable ValheimPlus";
+                        enableDisableValheimPlusGameClientButton.Style = Application.Current.TryFindResource("MaterialDesignOutlinedButton") as Style;
                     }
                     else
                     {
                         enableDisableValheimPlusGameClientButton.Content = "Enable ValheimPlus";
+                        enableDisableValheimPlusGameClientButton.Style = Application.Current.TryFindResource("MaterialDesignRaisedButton") as Style;
                     }
+
+                    installClientButton.Visibility = Visibility.Visible;
+                    manageClientButton.Visibility = Visibility.Visible;
+                    installClientUpdateButton.Visibility = Visibility.Visible;
+                    checkClientUpdatesButtons.Visibility = Visibility.Visible;
+                    enableDisableValheimPlusGameClientButton.Visibility = Visibility.Visible;
+                    setClientPath.Visibility = Visibility.Hidden;
                 }
                 else
                 {
                     clientInstalledLabel.Content = "ValheimPlus not installed on client";
                     clientInstalledLabel.Foreground = Brushes.Red;
-                }
 
+                    manageClientButton.Visibility = Visibility.Hidden;
+                    installClientUpdateButton.Visibility = Visibility.Hidden;
+                    checkClientUpdatesButtons.Visibility = Visibility.Hidden;
+                    enableDisableValheimPlusGameClientButton.Visibility = Visibility.Hidden;
+                    setClientPath.Visibility = Visibility.Hidden;
+                }
+            }
+            else
+            {
+                clientInstalledLabel.Content = "Valheim installation not found, please select installation path by locating and choosing 'valheim.exe'";
+                clientInstalledLabel.Foreground = Brushes.Red;
+
+                manageClientButton.Visibility = Visibility.Hidden;
+                installClientUpdateButton.Visibility = Visibility.Hidden;
+                checkClientUpdatesButtons.Visibility = Visibility.Hidden;
+                enableDisableValheimPlusGameClientButton.Visibility = Visibility.Hidden;
+                installClientButton.Visibility = Visibility.Hidden;
+                setClientPath.Margin = new Thickness(16, 78, 0, 0);
+            }
+            if(serverPathCorrect)
+            {
                 if (ValheimPlusInstalledServer)
                 {
                     serverInstalledLabel.Content = String.Format("ValheimPlus {0} installed on server", Settings.ValheimPlusServerClientVersion);
@@ -63,11 +86,47 @@ namespace ValheimPlusManager
                     serverInstalledLabel.Foreground = Brushes.Red;
                 }
             }
+            else
+            {
+
+            }
+        }
+
+        public void FetchSettings()
+        {
+            // Fetching path settings
+            try
+            {
+                Settings = SettingsDAL.GetSettings();
+
+                // Checking installation status
+                if (ValidationManager.CheckClientInstallationPath(Settings.ClientInstallationPath))
+                {
+                    ValheimPlusInstalledClient = ValidationManager.CheckInstallationStatus(Settings.ClientInstallationPath);
+                    ValheimPlusInstalledServer = ValidationManager.CheckInstallationStatus(Settings.ServerInstallationPath);
+
+                    UISettingsInit(true, true);
+                }
+                else
+                {
+                    ValheimPlusInstalledClient = ValidationManager.CheckInstallationStatus(Settings.ClientInstallationPath);
+                    ValheimPlusInstalledServer = ValidationManager.CheckInstallationStatus(Settings.ServerInstallationPath);
+
+                    UISettingsInit(false, true);
+                }
+            }
             catch (Exception)
             {
                 statusLabel.Foreground = Brushes.Red;
                 statusLabel.Content = "Error! Settings file not found, reinstall manager.";
             }
+        }
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            FetchSettings();
         }
 
         private async void installClientButton_Click(object sender, RoutedEventArgs e)
@@ -145,16 +204,38 @@ namespace ValheimPlusManager
                 {
                     System.IO.File.Move(String.Format("{0}winhttp.dll", Settings.ClientInstallationPath), String.Format("{0}winhttp_.dll", Settings.ClientInstallationPath));
                     enableDisableValheimPlusGameClientButton.Content = "Enable ValheimPlus";
+                    enableDisableValheimPlusGameClientButton.Style = Application.Current.TryFindResource("MaterialDesignRaisedButton") as Style;
                 }
                 else
                 {
                     System.IO.File.Move(String.Format("{0}winhttp_.dll", Settings.ClientInstallationPath), String.Format("{0}winhttp.dll", Settings.ClientInstallationPath));
                     enableDisableValheimPlusGameClientButton.Content = "Disable ValheimPlus";
+                    enableDisableValheimPlusGameClientButton.Style = Application.Current.TryFindResource("MaterialDesignOutlinedButton") as Style;
                 }
             }
             catch (Exception)
             {
                 //
+            }
+        }
+
+        private void setClientPath_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog();
+            var newDestination = Environment.CurrentDirectory;
+            dialog.Filter = "Executeable|valheim.exe";
+
+            if (dialog.ShowDialog() == true)
+            {
+                var fullPath = dialog.FileName;
+                string formattedPath = String.Format("{0}\\", Path.GetDirectoryName(fullPath));
+                string uriPath = new Uri(formattedPath).AbsolutePath.ToString();
+                uriPath = Uri.UnescapeDataString(uriPath);
+                Settings.ClientInstallationPath = uriPath;
+
+                SettingsDAL.UpdateSettings(Settings, true);
+
+                FetchSettings();
             }
         }
 
@@ -237,5 +318,7 @@ namespace ValheimPlusManager
         {
             new ConfigurationManagerWindow(false).Show(); // Bool determines if user will manage conf. for server or game client
         }
+
+        
     }
 }

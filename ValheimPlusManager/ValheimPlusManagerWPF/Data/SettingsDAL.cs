@@ -25,6 +25,9 @@ namespace ValheimPlusManager.Data
             {
                 XmlNode node = xml.SelectSingleNode("Settings/ValheimPlusGameClientVersion");
                 node.InnerText = settings.ValheimPlusGameClientVersion;
+
+                XmlNode node2 = xml.SelectSingleNode("Settings/ClientInstallationPath");
+                node2.InnerText = settings.ClientInstallationPath;
             }
             else
             {

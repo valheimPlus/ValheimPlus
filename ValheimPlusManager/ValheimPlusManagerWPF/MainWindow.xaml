@@ -35,6 +35,7 @@
             <Button x:Name="installServerUpdateButton" Content="Install update" HorizontalAlignment="Left" Margin="340,342,0,0" VerticalAlignment="Top" Width="319" IsEnabled="False" Click="installServerUpdateButton_Click"/>
             <Label x:Name="statusLabel" Content="" HorizontalAlignment="Left" Margin="16,480,0,0" VerticalAlignment="Top" FontSize="14"/>
             <Button x:Name="enableDisableValheimPlusGameClientButton" Content="Disable ValheimPlus" HorizontalAlignment="Left" Margin="16,152,0,0" VerticalAlignment="Top" Width="319" Click="enableDisableValheimPlusGameClientButton_Click" />
+            <Button x:Name="setClientPath" Content="Find and set installation path" HorizontalAlignment="Left" Margin="16,189,0,0" VerticalAlignment="Top" Width="319" Click="setClientPath_Click"/>
 
         </Grid>
         <Grid.RowDefinitions>
