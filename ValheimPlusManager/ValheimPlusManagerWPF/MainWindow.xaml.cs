@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
@@ -170,23 +171,23 @@ namespace ValheimPlusManager
 
         private void installClientUpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    FileManager.InstallValheimPlus(Settings.ClientPath, Settings.ClientInstallationPath);
-            //    ValheimPlusInstalledClient = ValidationManager.CheckInstallationStatus(Settings.ClientInstallationPath);
-            //    if (ValheimPlusInstalledClient)
-            //    {
-            //        clientInstalledLabel.Content = String.Format("ValheimPlus {0} installed on game client", Settings.ValheimPlusGameClientVersion);
-            //        clientInstalledLabel.Foreground = Brushes.Green;
-            //        installClientButton.Content = "Reinstall ValheimPlus on game client";
-            //        statusLabel.Foreground = Brushes.Green;
-            //        statusLabel.Content = "Success! Game client has been installed.";
-            //    }
-            //}
-            //catch (Exception)
-            //{
-            //    throw new Exception(); // ToDo - handling of errors
-            //}
+            try
+            {
+                FileManager.InstallValheimPlus(Settings.ClientPath, Settings.ClientInstallationPath);
+                ValheimPlusInstalledClient = ValidationManager.CheckInstallationStatus(Settings.ClientInstallationPath);
+                if (ValheimPlusInstalledClient)
+                {
+                    clientInstalledLabel.Content = String.Format("ValheimPlus {0} installed on game client", Settings.ValheimPlusGameClientVersion);
+                    clientInstalledLabel.Foreground = Brushes.Green;
+                    installClientButton.Content = "Reinstall ValheimPlus on game client";
+                    statusLabel.Foreground = Brushes.Green;
+                    statusLabel.Content = "Success! Game client has been installed.";
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception(); // ToDo - handling of errors
+            }
         }
 
         private void manageClientButton_Click(object sender, RoutedEventArgs e)
@@ -319,6 +320,10 @@ namespace ValheimPlusManager
             new ConfigurationManagerWindow(false).Show(); // Bool determines if user will manage conf. for server or game client
         }
 
-        
+        private void launchGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(@"C:\Program Files (x86)\Steam\steam.exe", "steam://rungameid/892970");
+            //Process.Start(String.Format("{0}valheim.exe", Settings.ClientInstallationPath));
+        }
     }
 }

@@ -6,10 +6,12 @@ ValheimPlus Manager makes the installation and configuration of ValheimPlus on W
 - Update ValheimPlus directly through ValheimPlus Manager
 - Keep settings from previous versions and just add/activate new settings automagically
 - Enable/disable ValheimPlus on game client, so you can join non-modded servers on the fly
+- Launch Valheim(Plus) from the Manager
+- In-app settings of installation paths (ToDo: server paths)
+- (Coming) Server list manager, join servers from the Manager
 - (Coming) backup your configuration files
 - (Coming) backup your game client and server client data
 - (Coming) management of server admins
-- (Coming) in-app settings of installation paths
 - (Coming) uninstall ValheimPlus from game client/server client
 ## Requirements
 .NET 5 available for download at: https://dotnet.microsoft.com/download/dotnet/5.0/runtime
