@@ -79,9 +79,11 @@ namespace ValheimPlus
                             case "Axes":
                                 __result -= __result * Configuration.Current.StaminaUsage.axes / 100;
                                 break;
+                                /*
                             case "Bows":
                                 __result -= __result * Configuration.Current.StaminaUsage.bows / 100;
                                 break;
+                                */
                             case "Unarmed":
                                 __result -= __result * Configuration.Current.StaminaUsage.unarmed / 100;
                                 break;
@@ -107,27 +109,23 @@ namespace ValheimPlus
                 string methodName = new StackTrace().GetFrame(2).GetMethod().Name;
                 if (methodName == "UpdatePlacement" || methodName == "Repair")
                 {
-                    ItemDrop.ItemData item = __instance.GetRightItem();
-                    if (item != null)
+                    string itemName = __instance.GetRightItem()?.m_shared.m_name;
+                    if (itemName == "$item_hammer")
                     {
-                        string itemName = item.m_shared.m_name;
-                        bool isHoe = itemName == "$item_hoe";
-                        bool isHammer = itemName == "$item_hammer";
-                        bool isCultivator = itemName == "$item_cultivator";
-
-                        if (isHammer)
-                        {
-                            v -= v * Configuration.Current.StaminaUsage.hammer / 100;
-                        }
-                        else if (isHoe)
-                        {
-                            v -= v * Configuration.Current.StaminaUsage.hoe / 100;
-                        }
-                        else if (isCultivator)
-                        {
-                            v -= v * Configuration.Current.StaminaUsage.cultivator / 100;
-                        }
+                        v -= v * Configuration.Current.StaminaUsage.hammer / 100;
                     }
+                    else if (itemName == "$item_hoe")
+                    {
+                        v -= v * Configuration.Current.StaminaUsage.hoe / 100;
+                    }
+                    else if (itemName == "$item_cultivator")
+                    {
+                        v -= v * Configuration.Current.StaminaUsage.cultivator / 100;
+                    }
+                }
+                else if (methodName == "PlayerAttackInput" && __instance.GetLeftItem()?.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
+                {
+                    v -= v * Configuration.Current.StaminaUsage.bows / 100;
                 }
             }
         }
