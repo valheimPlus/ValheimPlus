@@ -79,11 +79,9 @@ namespace ValheimPlus
                             case "Axes":
                                 __result -= __result * Configuration.Current.StaminaUsage.axes / 100;
                                 break;
-                                /*
                             case "Bows":
                                 __result -= __result * Configuration.Current.StaminaUsage.bows / 100;
                                 break;
-                                */
                             case "Unarmed":
                                 __result -= __result * Configuration.Current.StaminaUsage.unarmed / 100;
                                 break;
@@ -123,9 +121,17 @@ namespace ValheimPlus
                         v -= v * Configuration.Current.StaminaUsage.cultivator / 100;
                     }
                 }
-                else if (methodName == "PlayerAttackInput" && __instance.GetLeftItem()?.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
+                else if (methodName == "PlayerAttackInput" || methodName == "BlockAttack")
                 {
-                    v -= v * Configuration.Current.StaminaUsage.bows / 100;
+                    var itemType = __instance.GetLeftItem()?.m_shared.m_itemType;
+                    if (itemType == ItemDrop.ItemData.ItemType.Bow)
+                    {
+                        v -= v * Configuration.Current.StaminaUsage.bows / 100;
+                    }
+                    else if (itemType == ItemDrop.ItemData.ItemType.Shield)
+                    {
+                        v -= v * Configuration.Current.StaminaUsage.shields / 100;
+                    }
                 }
             }
         }
