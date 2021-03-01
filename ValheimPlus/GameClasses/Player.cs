@@ -18,6 +18,13 @@ namespace ValheimPlus
                 AEM.PlayerInstance = __instance;
                 AEM.run();
             }
+
+            if (Configuration.Current.AdvancedBuildingMode.IsEnabled)
+            {
+                ABM.PlayerInstance = __instance;
+                ABM.run();
+            }
+
         }
     }
 
@@ -193,20 +200,9 @@ namespace ValheimPlus
         private static float getModifiedDeltaTime(ref Player __instance, ref float dt)
         {
             float defaultDeltaTimeTarget = 1f;
-            float newDetalTimeTarget = 1f;
+            float newDetalTimeTarget;
 
-            float food_multiplier = Configuration.Current.Food.foodDurationMultiplier;
-            if (food_multiplier == 50) food_multiplier = 51; // Decimal issue
-            if (food_multiplier == -50) food_multiplier = -51; // Decimal issue
-
-            if (food_multiplier >= 0)
-            {
-                newDetalTimeTarget = defaultDeltaTimeTarget + ((defaultDeltaTimeTarget / 100) * food_multiplier);
-            }
-            else
-            {
-                newDetalTimeTarget = defaultDeltaTimeTarget - ((defaultDeltaTimeTarget / 100) * (food_multiplier * -1));
-            }
+            newDetalTimeTarget = Helper.applyModifierValue(defaultDeltaTimeTarget, Configuration.Current.Food.foodDurationMultiplier);
 
             return newDetalTimeTarget;
         }
@@ -222,14 +218,14 @@ namespace ValheimPlus
         {
             if (Configuration.Current.Stamina.IsEnabled)
             {
-                __instance.m_dodgeStaminaUsage = Configuration.Current.Stamina.dodgeStaminaUsage; ;
-                __instance.m_encumberedStaminaDrain = Configuration.Current.Stamina.encumberedStaminaDrain;
-                __instance.m_sneakStaminaDrain = Configuration.Current.Stamina.sneakStaminaDrain;
-                __instance.m_runStaminaDrain = Configuration.Current.Stamina.runStaminaDrain;
-                __instance.m_staminaRegenDelay = Configuration.Current.Stamina.staminaRegenDelay;
-                __instance.m_staminaRegen = Configuration.Current.Stamina.staminaRegen;
-                __instance.m_swimStaminaDrainMinSkill = Configuration.Current.Stamina.swimStaminaDrain;
-                __instance.m_jumpStaminaUsage = Configuration.Current.Stamina.jumpStaminaDrain;
+                __instance.m_dodgeStaminaUsage = Helper.applyModifierValue(__instance.m_dodgeStaminaUsage, Configuration.Current.Stamina.dodgeStaminaUsage);
+                __instance.m_encumberedStaminaDrain = Helper.applyModifierValue(__instance.m_encumberedStaminaDrain, Configuration.Current.Stamina.encumberedStaminaDrain);
+                __instance.m_sneakStaminaDrain = Helper.applyModifierValue(__instance.m_sneakStaminaDrain, Configuration.Current.Stamina.sneakStaminaDrain);
+                __instance.m_runStaminaDrain = Helper.applyModifierValue(__instance.m_runStaminaDrain,Configuration.Current.Stamina.runStaminaDrain);
+                __instance.m_staminaRegenDelay = Helper.applyModifierValue(__instance.m_staminaRegenDelay, Configuration.Current.Stamina.staminaRegenDelay);
+                __instance.m_staminaRegen = Helper.applyModifierValue(__instance.m_staminaRegen, Configuration.Current.Stamina.staminaRegen);
+                __instance.m_swimStaminaDrainMinSkill = Helper.applyModifierValue(__instance.m_swimStaminaDrainMinSkill, Configuration.Current.Stamina.swimStaminaDrain);
+                __instance.m_jumpStaminaUsage = Helper.applyModifierValue(__instance.m_jumpStaminaUsage, Configuration.Current.Stamina.jumpStaminaDrain);
             }
             if (Configuration.Current.Player.IsEnabled)
             {
@@ -252,6 +248,8 @@ namespace ValheimPlus
         private static void Prefix(ref Player __instance, ref float v)
         {
             // TODO add a check for the origin of the call of this function to restrict it to not reduce stamina drain of running/jumping/swimming etc.
+
+
 
             if (Configuration.Current.StaminaUsage.IsEnabled)
             {
@@ -281,31 +279,31 @@ namespace ValheimPlus
                     switch (weaponType)
                     {
                         case "Swords":
-                            v = v - (v * (Configuration.Current.StaminaUsage.swords) / 100);
+                            v = Helper.applyModifierValue(v,Configuration.Current.StaminaUsage.swords);
                             break;
                         case "Knives":
-                            v = v - (v * (Configuration.Current.StaminaUsage.knives) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.knives);
                             break;
                         case "Clubs":
-                            v = v - (v * (Configuration.Current.StaminaUsage.clubs) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.clubs);
                             break;
                         case "Polearms":
-                            v = v - (v * (Configuration.Current.StaminaUsage.polearms) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.polearms);
                             break;
                         case "Spears":
-                            v = v - (v * (Configuration.Current.StaminaUsage.spears) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.spears);
                             break;
                         case "Axes":
-                            v = v - (v * (Configuration.Current.StaminaUsage.axes) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.axes);
                             break;
                         case "Bows":
-                            v = v - (v * (Configuration.Current.StaminaUsage.bows) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.bows);
                             break;
                         case "Unarmed":
-                            v = v - (v * (Configuration.Current.StaminaUsage.unarmed) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.unarmed);
                             break;
                         case "Pickaxes":
-                            v = v - (v * (Configuration.Current.StaminaUsage.pickaxes) / 100);
+                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.pickaxes);
                             break;
                         default:
                             break;
@@ -314,11 +312,11 @@ namespace ValheimPlus
 
                 if (isHammer)
                 {
-                    v = v - (v * (Configuration.Current.StaminaUsage.hammer) / 100);
+                    v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.hammer);
                 }
                 if (isHoe)
                 {
-                    v = v - (v * (Configuration.Current.StaminaUsage.hoe) / 100);
+                    v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.hoe);
                 }
             }
         }

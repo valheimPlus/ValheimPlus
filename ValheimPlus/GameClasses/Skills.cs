@@ -16,55 +16,55 @@ namespace ValheimPlus
 				switch ((SkillType)skillType)
 				{
 					case SkillType.Swords:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.swords);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.swords);
 						break;
 					case SkillType.Knives:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.knives);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.knives);
 						break;
 					case SkillType.Clubs:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.clubs);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.clubs);
 						break;
 					case SkillType.Polearms:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.polearms);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.polearms);
 						break;
 					case SkillType.Spears:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.spears);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.spears);
 						break;
 					case SkillType.Blocking:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.blocking);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.blocking);
 						break;
 					case SkillType.Axes:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.axes);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.axes);
 						break;
 					case SkillType.Bows:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.bows);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.bows);
 						break;
 					case SkillType.FireMagic:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.fireMagic);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.fireMagic);
 						break;
 					case SkillType.FrostMagic:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.frostMagic);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.frostMagic);
 						break;
 					case SkillType.Unarmed:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.unarmed);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.unarmed);
 						break;
 					case SkillType.Pickaxes:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.pickaxes);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.pickaxes);
 						break;
 					case SkillType.WoodCutting:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.woodCutting);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.woodCutting);
 						break;
 					case SkillType.Jump:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.jump);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.jump);
 						break;
 					case SkillType.Sneak:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.sneak);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.sneak);
 						break;
 					case SkillType.Run:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.run);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.run);
 						break;
 					case SkillType.Swim:
-						factor = factor + ((factor / 100) * Configuration.Current.Experience.swim);
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.swim);
 						break;
 					default:
 						break;
