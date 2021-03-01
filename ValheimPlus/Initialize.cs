@@ -1,23 +1,21 @@
 ﻿using BepInEx;
 using HarmonyLib;
-using System;
-using System.IO;
 using ValheimPlus.Configurations;
 using ValheimPlus.UI;
 
 namespace ValheimPlus
 {
     // COPYRIGHT 2021 KEVIN "nx#8830" J. // http://n-x.xyz
-    // GITHUB REPOSITORY https://github.com/nxPublic/ValheimPlus
+    // GITHUB REPOSITORY https://github.com/valheimPlus/ValheimPlus
     
 
-    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.9.0")]
+    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.9.2")]
     class ValheimPlusPlugin : BaseUnityPlugin
     {
         
-        public static string version = "0.9.0";
+        public static string version = "0.9.2";
         public static string newestVersion = "";
-        public static Boolean isUpToDate = false;
+        public static bool isUpToDate = false;
 
         // Project Repository Info
         public static string Repository = "https://github.com/valheimPlus/ValheimPlus";
@@ -28,15 +26,15 @@ namespace ValheimPlus
         {
             Logger.LogInfo("Trying to load the configuration file");
 
-
             if (ConfigurationExtra.LoadSettings() != true)
             {
                 Logger.LogError("Error while loading configuration file.");
-            }else{
-
+            }
+            else
+            {
                 Logger.LogInfo("Configuration file loaded succesfully.");
 
-                var harmony = new Harmony("mod.valheim_plus");
+                Harmony harmony = new Harmony("mod.valheim_plus");
                 harmony.PatchAll();
 
                 isUpToDate = !Settings.isNewVersionAvailable();
@@ -52,10 +50,7 @@ namespace ValheimPlus
 
                 //Logo
                 VPlusMainMenu.Load();
-
             }
-
-            
         }
     }
 }

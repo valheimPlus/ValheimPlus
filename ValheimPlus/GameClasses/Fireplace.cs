@@ -12,9 +12,6 @@ namespace ValheimPlus
             /// Prefix which returns false every time to skip the original method and other prefixes so that we're not
             /// needlessly setting fuel value twice
             /// </summary>
-            /// <param name="__instance"></param>
-            /// <param name="___m_nview"></param>
-            /// <returns>false</returns>
             private static bool Prefix(ref Fireplace __instance, ref ZNetView ___m_nview)
             {
                 if (!__instance.m_nview.IsValid())
