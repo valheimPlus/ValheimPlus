@@ -331,7 +331,7 @@
   <ItemGroup>
     <Compile Include="AdvancedBuildingMode.cs" />
     <Compile Include="AdvancedEditingMode.cs" />
-    <Compile Include="Beehive.cs" />
+    <Compile Include="GameClasses\Beehive.cs" />
     <Compile Include="Configurations\BaseConfig.cs" />
     <Compile Include="Configurations\Configuration.cs" />
     <Compile Include="Configurations\ConfigurationExtra.cs" />
@@ -351,7 +351,7 @@
     <Compile Include="Configurations\Sections\ServerConfiguration.cs" />
     <Compile Include="Configurations\Sections\FireplaceConfiguration.cs" />
     <Compile Include="Configurations\Sections\TimeConfiguration.cs" />
-    <Compile Include="Configurations\Sections\VagonConfiguration.cs" />
+    <Compile Include="Configurations\Sections\WagonConfiguration.cs" />
     <Compile Include="Configurations\Sections\WardConfiguration.cs" />
     <Compile Include="Configurations\Sections\StructuralIntegrityConfiguration.cs" />
     <Compile Include="Configurations\Sections\HudConfiguration.cs" />
@@ -360,39 +360,40 @@
     <Compile Include="Configurations\Sections\WorkbenchConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaUsageConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
-    <Compile Include="Experience.cs" />
-    <Compile Include="FejdStartup.cs" />
-    <Compile Include="Fireplace.cs" />
-    <Compile Include="Helper.cs" />
-    <Compile Include="Humanoid.cs" />
+    <Compile Include="GameClasses\FejdStartup.cs" />
+    <Compile Include="GameClasses\Fireplace.cs" />
+    <Compile Include="GameClasses\GameCamera.cs" />
+    <Compile Include="GameClasses\Humanoid.cs" />
     <Compile Include="Initialize.cs" />
-    <Compile Include="Fermenter.cs" />
-    <Compile Include="Inventory.cs" />
-    <Compile Include="Items.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="PlayerDodgeRoll.cs" />
+    <Compile Include="GameClasses\Fermenter.cs" />
+    <Compile Include="GameClasses\Inventory.cs" />
+    <Compile Include="GameClasses\Console.cs" />
+    <Compile Include="GameClasses\ZDOMan.cs" />
+    <Compile Include="GameClasses\ZNet.cs" />
+    <Compile Include="GameClasses\Skills.cs" />
+    <Compile Include="GameClasses\ItemDrop.cs" />
+    <Compile Include="GameClasses\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="GameClasses\Game.cs" />
     <Compile Include="RPC\VPlusConfigSync.cs" />
-    <Compile Include="Server.cs" />
+    <Compile Include="GameClasses\SteamGameServer.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="SharedMapSystem.cs" />
-    <Compile Include="Smelter.cs" />
-    <Compile Include="PlayerStats.cs" />
+    <Compile Include="GameClasses\Minimap.cs" />
+    <Compile Include="GameClasses\Smelter.cs" />
     <Compile Include="UI\VPlusMainMenu.cs" />
     <Compile Include="Utility\EmbeddedAsset.cs" />
-    <Compile Include="Version.cs" />
-    <Compile Include="Vagon.cs" />
-    <Compile Include="WearNTear.cs" />
-    <Compile Include="Time.cs" />
-    <Compile Include="Ward.cs" />
-    <Compile Include="Hud.cs" />
-    <Compile Include="Workbench.cs" />
+    <Compile Include="GameClasses\Version.cs" />
+    <Compile Include="GameClasses\Vagon.cs" />
+    <Compile Include="GameClasses\WearNTear.cs" />
+    <Compile Include="GameClasses\EnvMan.cs" />
+    <Compile Include="GameClasses\Ward.cs" />
+    <Compile Include="GameClasses\InventoryGUI.cs" />
+    <Compile Include="GameClasses\CraftingStation.cs" />
+    <Compile Include="Utility\Helper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="valheim_plus.cfg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\logo.png" />

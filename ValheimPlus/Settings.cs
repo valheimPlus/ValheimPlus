@@ -1,7 +1,4 @@
-﻿using IniParser.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net;
 using System.Text;
 using UnityEngine;
@@ -12,7 +9,7 @@ namespace ValheimPlus
 {
     class Settings
     {
-        public static Boolean isNewVersionAvailable ()
+        public static bool isNewVersionAvailable ()
         {
             WebClient client = new WebClient();
             client.Headers.Add("User-Agent: V+ Server");
@@ -22,7 +19,7 @@ namespace ValheimPlus
                 reply = client.DownloadString(ValheimPlusPlugin.ApiRepository);
                 ValheimPlusPlugin.newestVersion = reply.Split(new[] { "," }, StringSplitOptions.None)[0].Trim().Replace("\"", "").Replace("[{name:", "");
             }
-            catch (Exception e)
+            catch
             {
                 Debug.Log("The newest version could not be determined.");
                 ValheimPlusPlugin.newestVersion = "Unknown";
@@ -32,9 +29,9 @@ namespace ValheimPlus
             {
                 return true;
             }
+
             return false;
         }
-
 
         public static string CreateMD5(string input)
         {
@@ -50,6 +47,7 @@ namespace ValheimPlus
                 {
                     sb.Append(hashBytes[i].ToString("X2"));
                 }
+
                 return sb.ToString();
             }
         }

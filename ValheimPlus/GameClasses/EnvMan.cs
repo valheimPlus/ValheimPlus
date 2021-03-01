@@ -1,7 +1,5 @@
 ﻿using HarmonyLib;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using UnityEngine;
 using ValheimPlus.Configurations;
@@ -10,6 +8,9 @@ namespace ValheimPlus
 {
     public class TimeManipulation
     {
+        /// <summary>
+        /// Alter the total day length in seconds base on configuration file
+        /// </summary>
         public static void SetupDayLength()
         {
             if (Configuration.Current.Time.IsEnabled)
@@ -21,6 +22,21 @@ namespace ValheimPlus
             }
         }
 
+        /// <summary>
+        /// Hook on EnvMan init to alter total day length
+        /// </summary>
+        [HarmonyPatch(typeof(EnvMan), "Awake")]
+        public static class TimeInitHook
+        {
+            private static void Prefix(ref EnvMan __instance)
+            {
+                SetupDayLength();
+            }
+        }
+
+        /// <summary>
+        /// Hook on EnvMan to alter night speed
+        /// </summary>
         [HarmonyPatch(typeof(EnvMan), "FixedUpdate")]
         public static class TimeUpdateHook
         {
@@ -42,15 +58,6 @@ namespace ValheimPlus
                         }
                     }
                 }
-            }
-        }
-        
-        [HarmonyPatch(typeof(EnvMan), "Awake")]
-        public static class TimeInitHook
-        {
-            private static void Prefix(ref EnvMan __instance)
-            {
-                SetupDayLength();
             }
         }
     }
