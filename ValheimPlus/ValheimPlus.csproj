@@ -331,6 +331,7 @@
   <ItemGroup>
     <Compile Include="AdvancedBuildingMode.cs" />
     <Compile Include="AdvancedEditingMode.cs" />
+    <Compile Include="Configurations\Sections\EffectsConfiguration.cs" />
     <Compile Include="GameClasses\Beehive.cs" />
     <Compile Include="Configurations\BaseConfig.cs" />
     <Compile Include="Configurations\Configuration.cs" />
@@ -364,6 +365,7 @@
     <Compile Include="GameClasses\Fireplace.cs" />
     <Compile Include="GameClasses\GameCamera.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
+    <Compile Include="GameClasses\ObjectDB.cs" />
     <Compile Include="Initialize.cs" />
     <Compile Include="GameClasses\Fermenter.cs" />
     <Compile Include="GameClasses\Inventory.cs" />
