@@ -329,7 +329,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdvancedCopyMode.cs" />
     <Compile Include="AdvancedBuildingMode.cs" />
     <Compile Include="AdvancedEditingMode.cs" />
     <Compile Include="GameClasses\Beehive.cs" />

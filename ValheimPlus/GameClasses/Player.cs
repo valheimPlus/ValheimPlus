@@ -19,9 +19,11 @@ namespace ValheimPlus
                 AEM.run();
             }
 
-            ACM.PlayerInstance = __instance;
-            if (!AEM.isActive && !ABM.isActive)
-                ACM.run();
+            if (Configuration.Current.AdvancedBuildingMode.IsEnabled)
+            {
+                ABM.PlayerInstance = __instance;
+                ABM.run();
+            }
 
         }
     }
