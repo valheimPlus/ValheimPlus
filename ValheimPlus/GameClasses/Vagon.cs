@@ -1,16 +1,16 @@
 ﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus {
-    class VagonModifications {
+namespace ValheimPlus
+{
+    class WagonModifications
+	{
         [HarmonyPatch(typeof(Vagon), "UpdateMass")]
-        public static class ModifyVagonMass {
-            private static Boolean Prefix(ref Vagon __instance) {
+        public static class ModifyWagonMass
+		{
+			// "Vagon" is from base game
+            private static bool Prefix(ref Vagon __instance)
+			{
 				if (!__instance.m_nview.IsOwner())
 				{
 					return false;
@@ -19,8 +19,6 @@ namespace ValheimPlus {
 				{
 					return false;
 				}
-
-
 
 				float totalWeight = 0;
 
