@@ -16,7 +16,6 @@ namespace ValheimPlus
             return (float)result;
         }
 
-
         public static float applyModifierValue(float targetValue, float value)
         {
             if (value == 50) value = 51; // Decimal issue
