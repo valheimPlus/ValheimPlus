@@ -28,10 +28,11 @@ namespace ValheimPlus
 
 		private static List<KeyValuePair<GameObject, Piece>> placementGhosts = new List<KeyValuePair<GameObject, Piece>>();
 
-		public static GameObject groupAnchor;
+		public static GameObject groupAnchor; 
 
 		// States
 		public static Boolean isPlacedForAdjustment = false;
+
 
 
 		// Hotkey Flags
