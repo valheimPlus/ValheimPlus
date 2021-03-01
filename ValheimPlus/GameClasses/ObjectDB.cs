@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus
-{ 
+{
     class Effects
     {
         const string EikthyrBuff = "$se_eikthyr_name";
