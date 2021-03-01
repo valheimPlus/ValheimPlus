@@ -27,7 +27,7 @@ namespace ValheimPlus
                         int day = __instance.GetDay(time);
                         double morningStartSec = __instance.GetMorningStartSec(day + 1);
                         // Make sure we don't go over the morning time
-                        if (num < morningStartSec)
+                        if (num > morningStartSec)
                         {
                            num = morningStartSec;
                         }
