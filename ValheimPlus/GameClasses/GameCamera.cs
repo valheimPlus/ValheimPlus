@@ -11,7 +11,7 @@ namespace ValheimPlus
     {
         private static void Prefix(GameCamera __instance)
         {
-            if (AEM.isActive || ACM.isPlacedForAdjustment)
+            if (AEM.isActive)
             {
                 __instance.m_maxDistance = __instance.m_distance;
                 __instance.m_minDistance = __instance.m_distance;
