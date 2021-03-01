@@ -60,12 +60,14 @@ namespace ValheimPlus
                         __instance.m_piece.m_name.Equals(brazierName) ||
                         __instance.m_piece.m_name.Equals(greenTorchName))
                     {
-                        ___m_nview.GetZDO().Set("fuel", __instance.m_maxFuel); // setting to max won't waste rss on fill attempts
+                        //___m_nview.GetZDO().Set("fuel", __instance.m_maxFuel); // setting to max won't waste rss on fill attempts
+                        ___m_nview.InvokeRPC("AddFuel", new object[] { });
                     }
                 }
                 else
                 {
-                    ___m_nview.GetZDO().Set("fuel", __instance.m_maxFuel); // setting to max won't waste rss on fill attempts
+                    //___m_nview.GetZDO().Set("fuel", __instance.m_maxFuel); // setting to max won't waste rss on fill attempts
+                    ___m_nview.InvokeRPC("AddFuel", new object[] { });
                 }
             }
         }
