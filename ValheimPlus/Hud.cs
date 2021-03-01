@@ -46,7 +46,7 @@ namespace ValheimPlus {
 					}
 					component3.fontSize = 14;
 					if (component3.text.Length > 5)
-                    {
+					{
 						component3.fontSize -= component3.text.Length - 5;
 					}					
 				}
