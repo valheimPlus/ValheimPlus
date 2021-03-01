@@ -19,22 +19,24 @@ namespace ValheimPlus
             {
                 if (Configuration.Current.Time.IsEnabled)
                 {
-                    if (__instance.IsNight() && !__instance.IsTimeSkipping())
+                    if (ZNet.instance.IsServer() && __instance.IsNight() && !__instance.IsTimeSkipping())
                     {
-                        addToTime((long)Configuration.Current.Time.nightTimeSpeedMultiplier, Time.deltaTime);
+                        double timeSeconds = ZNet.instance.GetTimeSeconds();
+                        double num = timeSeconds + (((double)Time.deltaTime / 50) * Configuration.Current.Time.nightTimeSpeedMultiplier);
+                        double time = timeSeconds - (double)((float)__instance.m_dayLengthSec * 0.25f);
+                        int day = __instance.GetDay(time);
+                        double morningStartSec = __instance.GetMorningStartSec(day + 1);
+                        // Make sure we don't go over the morning time
+                        if (num < morningStartSec)
+                        {
+                           num = morningStartSec;
+                        }
+                        ZNet.instance.SetNetTime(num);
                     }
                 }
 
             }
-            private static void addToTime(float amount, float deltaTime)
-            {
-                double timeSeconds = ZNet.instance.GetTimeSeconds();
-                timeSeconds += (((double)deltaTime / 50) * amount);
-                ZNet.instance.SetNetTime(timeSeconds);
-            }
-
         }
-
 
         [HarmonyPatch(typeof(EnvMan), "Awake")]
         public static class TimeInitHook
@@ -47,6 +49,5 @@ namespace ValheimPlus
                 }
             }
         }
-
     }
 }
