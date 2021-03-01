@@ -8,9 +8,18 @@ using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
-    class TimeManipulation
+    public class TimeManipulation
     {
-
+        public static void SetupDayLength()
+        {
+            if (Configuration.Current.Time.IsEnabled)
+            {
+                if (EnvMan.instance)
+                {
+                    EnvMan.instance.m_dayLengthSec = (long)Configuration.Current.Time.totalDayTimeInSeconds;
+                }
+            }
+        }
 
         [HarmonyPatch(typeof(EnvMan), "FixedUpdate")]
         public static class TimeUpdateHook
@@ -32,21 +41,16 @@ namespace ValheimPlus
                             ZNet.instance.SetNetTime(num);
                         }
                     }
-                    }
                 }
-
             }
         }
-
+        
         [HarmonyPatch(typeof(EnvMan), "Awake")]
         public static class TimeInitHook
         {
             private static void Prefix(ref EnvMan __instance)
             {
-                if (Configuration.Current.Time.IsEnabled)
-                {
-                    __instance.m_dayLengthSec = (long)Configuration.Current.Time.totalDayTimeInSeconds;
-                }
+                SetupDayLength();
             }
         }
     }
