@@ -41,71 +41,60 @@ namespace ValheimPlus
             {
                 if (__instance.m_character.IsPlayer())
                 {
-                    ItemDrop.ItemData item = __instance.m_character.GetRightItem();
-                    string weaponType = "";
-
+                    ItemDrop.ItemData item = __instance.m_character.GetCurrentWeapon();
+                    Skills.SkillType skillType;
                     if (item == null)
                     {
-                        weaponType = "Unarmed";
+                        skillType = Skills.SkillType.Unarmed;
                     }
-                    else if (item.IsWeapon())
-                    {
-                        try
-                        {
-                            weaponType = item.m_shared.m_skillType.ToString();
-                        }
-                        catch (System.Exception e) { }
+                    else 
+                    { 
+                        skillType = item.m_shared.m_skillType; 
                     }
 
-                    if (weaponType != "")
+                    switch (skillType)
                     {
-                        switch (weaponType)
-                        {
-                            case "Swords":
-                                __result -= __result * Configuration.Current.StaminaUsage.swords / 100;
-                                break;
-                            case "Knives":
-                                __result -= __result * Configuration.Current.StaminaUsage.knives / 100;
-                                break;
-                            case "Clubs":
-                                __result -= __result * Configuration.Current.StaminaUsage.clubs / 100;
-                                break;
-                            case "Polearms":
-                                __result -= __result * Configuration.Current.StaminaUsage.polearms / 100;
-                                break;
-                            case "Spears":
-                                __result -= __result * Configuration.Current.StaminaUsage.spears / 100;
-                                break;
-                            case "Axes":
-                                __result -= __result * Configuration.Current.StaminaUsage.axes / 100;
-                                break;
-                            case "Bows":
-                                __result -= __result * Configuration.Current.StaminaUsage.bows / 100;
-                                break;
-                            case "Unarmed":
-                                __result -= __result * Configuration.Current.StaminaUsage.unarmed / 100;
-                                break;
-                            case "Pickaxes":
-                                __result -= __result * Configuration.Current.StaminaUsage.pickaxes / 100;
-                                break;
-                            default:
-                                break;
-                        }
-                    }       
+                        case Skills.SkillType.Swords:
+                            __result -= __result * Configuration.Current.StaminaUsage.swords / 100;
+                            break;
+                        case Skills.SkillType.Knives:
+                            __result -= __result * Configuration.Current.StaminaUsage.knives / 100;
+                            break;
+                        case Skills.SkillType.Clubs:
+                            __result -= __result * Configuration.Current.StaminaUsage.clubs / 100;
+                            break;
+                        case Skills.SkillType.Polearms:
+                            __result -= __result * Configuration.Current.StaminaUsage.polearms / 100;
+                            break;
+                        case Skills.SkillType.Spears:
+                            __result -= __result * Configuration.Current.StaminaUsage.spears / 100;
+                            break;
+                        case Skills.SkillType.Axes:
+                            __result -= __result * Configuration.Current.StaminaUsage.axes / 100;
+                            break;
+                        case Skills.SkillType.Unarmed:
+                            __result -= __result * Configuration.Current.StaminaUsage.unarmed / 100;
+                            break;
+                        case Skills.SkillType.Pickaxes:
+                            __result -= __result * Configuration.Current.StaminaUsage.pickaxes / 100;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
     }
 
     [HarmonyPatch(typeof(Player), "UseStamina")]
-    public static class ChangeStaminaUsageOfTools
+    public static class ChangeStaminaUsageOfToolsBowsAndBlocking
     {
         private static void Prefix(ref Player __instance, ref float v)
         {
             if (Configuration.Current.StaminaUsage.IsEnabled)
             {
                 string methodName = new StackTrace().GetFrame(2).GetMethod().Name;
-                if (methodName == "UpdatePlacement" || methodName == "Repair")
+                if (methodName.Equals(nameof(Player.UpdatePlacement)) || methodName.Equals(nameof(Player.Repair)))
                 {
                     string itemName = __instance.GetRightItem()?.m_shared.m_name;
                     if (itemName == "$item_hammer")
@@ -121,17 +110,17 @@ namespace ValheimPlus
                         v -= v * Configuration.Current.StaminaUsage.cultivator / 100;
                     }
                 }
-                else if (methodName == "PlayerAttackInput" || methodName == "BlockAttack")
+                else if (methodName.Equals(nameof(Player.PlayerAttackInput)))
                 {
-                    var itemType = __instance.GetLeftItem()?.m_shared.m_itemType;
-                    if (itemType == ItemDrop.ItemData.ItemType.Bow)
+                    ItemDrop.ItemData item = __instance.GetCurrentWeapon();
+                    if (item?.m_shared.m_skillType == Skills.SkillType.Bows)
                     {
                         v -= v * Configuration.Current.StaminaUsage.bows / 100;
                     }
-                    else if (itemType == ItemDrop.ItemData.ItemType.Shield)
-                    {
-                        v -= v * Configuration.Current.StaminaUsage.shields / 100;
-                    }
+                }
+                else if (methodName.Equals(nameof(Player.BlockAttack)))
+                {
+                    v -= v * Configuration.Current.StaminaUsage.blocking / 100;
                 }
             }
         }

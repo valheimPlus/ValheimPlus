@@ -645,3 +645,4 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 * Bruno Vasconcelos - https://github.com/Drakeny
 * GaelicGamer - https://github.com/GaelicGamer
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
+* Mehdi 'AccretionCD' E. - https://github.com/AccretionCD
