@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace ValheimPlus.Utility
+namespace ValheimPlus
 {
     static class Helper
     {

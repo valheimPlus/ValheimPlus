@@ -36,6 +36,7 @@ namespace ValheimPlus.GameClasses
 			}
 			if (Configuration.Current.StructuralIntegrity.IsEnabled)
 			{
+				// This handling is choosen because we subtract from a value thats reduced by distance from ground contact.
 				Configuration.Current.StructuralIntegrity.wood = (Configuration.Current.StructuralIntegrity.wood >= 100 ? 100 : Configuration.Current.StructuralIntegrity.wood);
 				Configuration.Current.StructuralIntegrity.stone = (Configuration.Current.StructuralIntegrity.wood >= 100 ? 100 : Configuration.Current.StructuralIntegrity.stone);
 				Configuration.Current.StructuralIntegrity.iron = (Configuration.Current.StructuralIntegrity.wood >= 100 ? 100 : Configuration.Current.StructuralIntegrity.iron);

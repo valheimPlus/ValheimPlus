@@ -35,6 +35,7 @@ namespace ValheimPlus.GameClasses
         }
 
     }
+
     // This functionality needs further testing before we can release it. 
     // nx
     /*
@@ -113,4 +114,5 @@ namespace ValheimPlus.GameClasses
 
     }
     */
+
 }
