@@ -46,12 +46,11 @@ namespace ValheimPlus
         {
             if (!ZNet.instance.IsServer())
             {
-                Debug.Log("Is not server.");
                 return;
             }
 
             double num = ZNet.instance.GetTimeSeconds();
-            num += (double)deltaTime *  (((double)deltaTime / 100) * amount);
+            num += (double)deltaTime *  amount;
             ZNet.instance.SetNetTime(num);
         }
     }
