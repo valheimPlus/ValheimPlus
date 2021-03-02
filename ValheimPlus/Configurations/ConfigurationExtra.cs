@@ -58,16 +58,14 @@ namespace ValheimPlus.Configurations
         {
             FileIniDataParser parser = new FileIniDataParser();
             IniData configdata = parser.ReadFile(filename);
-
             Configuration conf = new Configuration();
             foreach (var prop in typeof(Configuration).GetProperties())
             {
                 string keyName = prop.Name;
                 MethodInfo method = prop.PropertyType.GetMethod("LoadIni", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-
                 if (method != null)
                 {
-                    var result = method.Invoke(null, new object[] { configdata, keyName });
+                    var result = method.Invoke(null, new object[] { configdata, keyName, false });
                     prop.SetValue(conf, result, null);
                 }
             }
@@ -125,6 +123,18 @@ namespace ValheimPlus.Configurations
             }
 
             Debug.LogWarning($" [Int] Could not read {key}, using default value of {defaultVal}");
+            return defaultVal;
+        }
+
+
+        public static string GetString(this KeyDataCollection data, string key, string defaultVal)
+        {
+            string value = $"{data[key]}";
+            if (value.Length > 1)
+            {
+                return value;
+            }
+            Debug.LogWarning($" [String] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
 

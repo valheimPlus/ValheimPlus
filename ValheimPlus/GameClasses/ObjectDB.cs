@@ -1,26 +1,27 @@
 ﻿using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using ValheimPlus.Configurations;
+using ValheimPlus.Configurations.Sections;
 
 namespace ValheimPlus
 {
     class Effects
     {
-        const string EikthyrBuff = "$se_eikthyr_name";
-        const string TheElderBuff = "$se_theelder_name";
-        const string BonemassBuff = "$se_bonemass_name";
-        const string YagluthBuff = "$se_yagluth_name";
-        const string ModerBuff = "$se_moder_name";
+        const string Eikthyr = "$se_eikthyr_name";
+        const string TheElder = "$se_theelder_name";
+        const string Bonemass = "$se_bonemass_name";
+        const string Yagluth = "$se_yagluth_name";
+        const string Moder = "$se_moder_name";
 
-        const string RestedBuff = "$se_rested_name";
-        const string RestingBuff = "$se_resting_name";
-        const string WarmBuff = "$se_warm_name";
-        const string CorpseRunBuff = "$se_corpserun_name";
-
-        const string FreezingDebuff = "$se_freezing_name";
-        const string ColdDebuff = "$se_cold_name";
-        const string WetDebuff = "$se_wet_name";
+        const string Cold = "$se_cold_name";
+        const string CorpseRun = "$se_corpserun_name";
+        const string Freezing = "$se_freezing_name";
+        const string Rested = "$se_rested_name";
+        const string Resting = "$se_resting_name";
+        const string Warm = "$se_warm_name";
+        const string Wet = "$se_wet_name";
 
         [HarmonyPatch(typeof(ObjectDB), "Awake")]
         public static class ModifyEffects
@@ -30,7 +31,7 @@ namespace ValheimPlus
                 if (Configuration.Current.Effects.IsEnabled)
                 {
                     ConfigureEffects(__instance);
-                }                
+                }
             }
         }
         private static Skills.SkillType ParseAttackSkill(string attackSkill)
@@ -56,7 +57,7 @@ namespace ValheimPlus
                 return HitData.DamageType.Physical;
             }
         }
-        
+
         private static HitData.DamageModifier ParseDamageModifier(string damageModifier)
         {
             try
@@ -72,12 +73,12 @@ namespace ValheimPlus
         private static List<HitData.DamageModPair> ParseDamageTypesModifiers(string damageTypesModifiers)
         {
             string[] damageTypeModifiers;
-            List <HitData.DamageModPair> damageTypesModifiersListing = new List<HitData.DamageModPair>();
+            List<HitData.DamageModPair> damageTypesModifiersListing = new List<HitData.DamageModPair>();
             damageTypeModifiers = damageTypesModifiers.Split('|');
             foreach (string damageTypeModifier in damageTypeModifiers)
             {
                 string[] damageTypeModifierConfiguration = damageTypeModifier.Split(':');
-                if (damageTypeModifiers.Length == 2)
+                if (damageTypeModifierConfiguration.Length == 2)
                 {
                     HitData.DamageModPair damageModPair;
                     damageModPair.m_type = ParseDamageType(damageTypeModifierConfiguration[0]);
@@ -87,28 +88,51 @@ namespace ValheimPlus
             }
             return damageTypesModifiersListing;
         }
-
-        private static void ConfigureBossBuff (
-            SE_Stats currentStatus, 
-            float healthRegenMultiplier, float staminaRegenMultiplier, float jumpStaminaModifier, float runStaminaModifier, float cooldown, 
-            float duration, string damageTypesModifiers, string modifyAttackSkill, float damageModifier, string description
-        )
+        private static void ConfigureEffect(SE_Stats currentStatus, EffectsConfigurationItem configuration)
         {
-            currentStatus.m_healthRegenMultiplier = 1 + healthRegenMultiplier / 100;
-            currentStatus.m_staminaRegenMultiplier = 1 + staminaRegenMultiplier / 100;
-            currentStatus.m_jumpStaminaUseModifier = jumpStaminaModifier / 100;
-            currentStatus.m_runStaminaDrainModifier = runStaminaModifier / 100;
-            currentStatus.m_cooldown = cooldown;
-            currentStatus.m_ttl = duration;
-            currentStatus.m_mods = ParseDamageTypesModifiers(damageTypesModifiers);
-            if (modifyAttackSkill.Length > 0)
+            if (!float.IsNaN(configuration.cooldown))
             {
-                currentStatus.m_modifyAttackSkill = ParseAttackSkill(modifyAttackSkill);
+                currentStatus.m_cooldown = configuration.cooldown;
             }
-            currentStatus.m_damageModifier = 1 + damageModifier / 100;
-            if (description.Length > 0)
+            if (!float.IsNaN(configuration.damageModifier))
             {
-                currentStatus.m_tooltip = description;
+                currentStatus.m_damageModifier = 1 + configuration.damageModifier / 100;
+            }
+            if (!float.IsNaN(configuration.duration))
+            {
+                currentStatus.m_ttl = configuration.duration;
+            }
+            if (!float.IsNaN(configuration.healthPerTick))
+            {
+                currentStatus.m_healthPerTick = configuration.healthPerTick;
+            }
+            if (!float.IsNaN(configuration.healthRegenMultiplier))
+            {
+                currentStatus.m_healthRegenMultiplier = 1 + configuration.healthRegenMultiplier / 100;
+            }
+            if (!float.IsNaN(configuration.jumpStaminaModifier))
+            {
+                currentStatus.m_jumpStaminaUseModifier = configuration.jumpStaminaModifier / 100;
+            }
+            if (!float.IsNaN(configuration.runStaminaModifier))
+            {
+                currentStatus.m_runStaminaDrainModifier = configuration.runStaminaModifier / 100;
+            }
+            if (!float.IsNaN(configuration.staminaRegenMultiplier))
+            {
+                currentStatus.m_staminaRegenMultiplier = 1 + configuration.staminaRegenMultiplier / 100;
+            }
+            if (!string.IsNullOrEmpty(configuration.damageTypesModifiers))
+            {
+                currentStatus.m_mods = ParseDamageTypesModifiers(configuration.damageTypesModifiers);
+            }
+            if (!string.IsNullOrEmpty(configuration.description))
+            {
+                currentStatus.m_tooltip = configuration.description;
+            }
+            if (!string.IsNullOrEmpty(configuration.modifyAttackSkill))
+            {
+                currentStatus.m_modifyAttackSkill = ParseAttackSkill(configuration.modifyAttackSkill);
             }
         }
 
@@ -120,120 +144,43 @@ namespace ValheimPlus
                 {
                     switch (statusEffect.m_name)
                     {
-                        case EikthyrBuff:
-                            ConfigureBossBuff(
-                                currentStatus, 
-                                Configuration.Current.Effects.eikthyrBuffHealthRegenMultiplier, 
-                                Configuration.Current.Effects.eikthyrBuffStaminaRegenMultiplier,
-                                Configuration.Current.Effects.eikthyrBuffJumpStaminaModifier,
-                                Configuration.Current.Effects.eikthyrBuffRunStaminaModifier,
-                                Configuration.Current.Effects.eikthyrBuffCooldown,
-                                Configuration.Current.Effects.eikthyrBuffDuration,
-                                Configuration.Current.Effects.eikthyrBuffDamageTypesModifiers,
-                                Configuration.Current.Effects.eikthyrBuffModifyAttackSkill,
-                                Configuration.Current.Effects.eikthyrBuffDamageModifier,
-                                Configuration.Current.Effects.eikthyrBuffDescription
-                            );
+                        case Eikthyr:
+                            ConfigureEffect(currentStatus, Configuration.Current.Effects.eikthyr);
                             break;
-                        case TheElderBuff:
-                            ConfigureBossBuff(
-                                currentStatus,
-                                Configuration.Current.Effects.theElderBuffHealthRegenMultiplier,
-                                Configuration.Current.Effects.theElderBuffStaminaRegenMultiplier,
-                                Configuration.Current.Effects.theElderBuffJumpStaminaModifier,
-                                Configuration.Current.Effects.theElderBuffRunStaminaModifier,
-                                Configuration.Current.Effects.theElderBuffCooldown,
-                                Configuration.Current.Effects.theElderBuffDuration,
-                                Configuration.Current.Effects.theElderBuffDamageTypesModifiers,
-                                Configuration.Current.Effects.theElderBuffModifyAttackSkill,
-                                Configuration.Current.Effects.theElderBuffDamageModifier,
-                                Configuration.Current.Effects.theElderBuffDescription
-                            );
+                        case TheElder:
+                            ConfigureEffect(currentStatus, Configuration.Current.Effects.theElder);
                             break;
-                        case BonemassBuff:
-                            ConfigureBossBuff(
-                                currentStatus,
-                                Configuration.Current.Effects.bonemassBuffHealthRegenMultiplier,
-                                Configuration.Current.Effects.bonemassBuffStaminaRegenMultiplier,
-                                Configuration.Current.Effects.bonemassBuffJumpStaminaModifier,
-                                Configuration.Current.Effects.bonemassBuffRunStaminaModifier,
-                                Configuration.Current.Effects.bonemassBuffCooldown,
-                                Configuration.Current.Effects.bonemassBuffDuration,
-                                Configuration.Current.Effects.bonemassBuffDamageTypesModifiers,
-                                Configuration.Current.Effects.bonemassBuffModifyAttackSkill,
-                                Configuration.Current.Effects.bonemassBuffDamageModifier,
-                                Configuration.Current.Effects.bonemassBuffDescription
-                            );
+                        case Bonemass:
+                            ConfigureEffect(currentStatus, Configuration.Current.Effects.bonemass);
                             break;
-                        case YagluthBuff:
-                            ConfigureBossBuff(
-                                currentStatus,
-                                Configuration.Current.Effects.yagluthBuffHealthRegenMultiplier,
-                                Configuration.Current.Effects.yagluthBuffStaminaRegenMultiplier,
-                                Configuration.Current.Effects.yagluthBuffJumpStaminaModifier,
-                                Configuration.Current.Effects.yagluthBuffRunStaminaModifier,
-                                Configuration.Current.Effects.yagluthBuffCooldown,
-                                Configuration.Current.Effects.yagluthBuffDuration,
-                                Configuration.Current.Effects.yagluthBuffDamageTypesModifiers,
-                                Configuration.Current.Effects.yagluthBuffModifyAttackSkill,
-                                Configuration.Current.Effects.yagluthBuffDamageModifier,
-                                Configuration.Current.Effects.yagluthBuffDescription
-                            );
+                        case Yagluth:
+                            ConfigureEffect(currentStatus, Configuration.Current.Effects.yagluth);
                             break;
-                        case ModerBuff:
-                            ConfigureBossBuff(
-                                currentStatus, 
-                                Configuration.Current.Effects.moderBuffHealthRegenMultiplier,
-                                Configuration.Current.Effects.moderBuffStaminaRegenMultiplier,
-                                Configuration.Current.Effects.moderBuffJumpStaminaModifier,
-                                Configuration.Current.Effects.moderBuffRunStaminaModifier,
-                                Configuration.Current.Effects.moderBuffCooldown,
-                                Configuration.Current.Effects.moderBuffDuration,
-                                Configuration.Current.Effects.moderBuffDamageTypesModifiers,
-                                Configuration.Current.Effects.moderBuffModifyAttackSkill,
-                                Configuration.Current.Effects.moderBuffDamageModifier,
-                                Configuration.Current.Effects.moderBuffDescription
-                            );
-                            break;
-                        case RestedBuff:
-                            currentStatus.m_healthRegenMultiplier = 1 + Configuration.Current.Effects.restedBuffHealthRegenMultiplier / 100;
-                            currentStatus.m_staminaRegenMultiplier = 1 + Configuration.Current.Effects.restedBuffStaminaRegenMultiplier / 100;
-                            currentStatus.m_jumpStaminaUseModifier = Configuration.Current.Effects.restedBuffJumpStaminaModifier / 100;
-                            currentStatus.m_runStaminaDrainModifier = Configuration.Current.Effects.restedBuffRunStaminaModifier / 100;
+                        case Moder:
+                            ConfigureEffect(currentStatus, Configuration.Current.Effects.moder);
                             break;
 
-                        case RestingBuff:
-                            currentStatus.m_healthRegenMultiplier = 1 + Configuration.Current.Effects.restingBuffHealthRegenMultiplier / 100;
-                            currentStatus.m_staminaRegenMultiplier = 1 + Configuration.Current.Effects.restingBuffStaminaRegenMultiplier / 100;
-                            break;
 
-                        case WarmBuff:
-                            currentStatus.m_healthRegenMultiplier = 1 + Configuration.Current.Effects.warmBuffBuffHealthRegenMultiplier / 100;
-                            currentStatus.m_staminaRegenMultiplier = 1 + Configuration.Current.Effects.warmBuffBuffStaminaRegenMultiplier / 100;
+                        case Cold:
+                            ConfigureEffect(currentStatus, Configuration.Current.Effects.cold);
                             break;
-
-                        case CorpseRunBuff:
-                            currentStatus.m_healthRegenMultiplier = 1 + Configuration.Current.Effects.corpseRunBuffHealthRegenMultiplier / 100;
-                            currentStatus.m_staminaRegenMultiplier = 1 + Configuration.Current.Effects.corpseRunBuffStaminaRegenMultiplier / 100;
-                            currentStatus.m_jumpStaminaUseModifier = Configuration.Current.Effects.corpseRunBuffJumpStaminaModifier / 100;
-                            currentStatus.m_runStaminaDrainModifier = Configuration.Current.Effects.corpseRunBuffRunStaminaModifier / 100;
+                        case CorpseRun:
+                            ConfigureEffect(currentStatus, Configuration.Current.Effects.corpseRun);
                             break;
-
-                        case FreezingDebuff:
-                            currentStatus.m_healthRegenMultiplier = 1 + Configuration.Current.Effects.freezingDebuffHealthRegenMultiplier / 100;
-                            currentStatus.m_staminaRegenMultiplier = 1 + Configuration.Current.Effects.freezingDebuffStaminaRegenMultiplier / 100;
-                            currentStatus.m_healthPerTick = Configuration.Current.Effects.freezingDebuffDamagePerTick;
+                        case Freezing:
+                            ConfigureEffect(currentStatus, Configuration.Current.Effects.freezing);
                             break;
-
-                        case ColdDebuff:
-                            currentStatus.m_healthRegenMultiplier = Configuration.Current.Effects.coldDebuffHealthRegenMultiplier / 100;
-                            currentStatus.m_staminaRegenMultiplier = Configuration.Current.Effects.coldDebuffStaminaRegenMultiplier / 100;
+                        case Rested:
+                            ConfigureEffect(currentStatus, Configuration.Current.Effects.rested);
                             break;
-
-                        case WetDebuff:
-                            currentStatus.m_healthRegenMultiplier = Configuration.Current.Effects.wetDebuffHealthRegenMultiplier / 100;
-                            currentStatus.m_staminaRegenMultiplier = Configuration.Current.Effects.wetDebuffStaminaRegenMultiplier / 100;
-                            currentStatus.m_ttl = Configuration.Current.Effects.wetDebuffDuration;
+                        case Resting:
+                            ConfigureEffect(currentStatus, Configuration.Current.Effects.resting);
+                            break;
+                        case Warm:
+                            ConfigureEffect(currentStatus, Configuration.Current.Effects.warm);
+                            break;
+                        case Wet:
+                            ConfigureEffect(currentStatus, Configuration.Current.Effects.wet);
                             break;
                     }
                 }
