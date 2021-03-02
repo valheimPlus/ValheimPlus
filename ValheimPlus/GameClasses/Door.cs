@@ -9,9 +9,9 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(Door), "Interact")]
     public static class DoorAutoClose
     {
-        private static void Postfix(ZNetView ___m_nview)
+        private static void Postfix(ZNetView ___m_nview, ref ItemDrop ___m_keyItem)
         {
-            if (!Configuration.Current.Door.IsEnabled)
+            if (!Configuration.Current.Door.IsEnabled || ___m_keyItem != null)
             {
                 return;
             }
