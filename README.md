@@ -245,30 +245,9 @@ You only need to setup your server configuration file (located in the server fil
 If you are hosting for your friends over steam, your friends will need v+ and they will receive your local settings from your game folder.
 
 
-# Valheim Plus Compiler Requirements
+# Contributing to ValheimPlus
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
 
-How to setup the development enviroment to compile ValheimPlus yourself.
-
-1. Download this package:
-https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY
-
-2. Unpack into your Valheim root folder and overwrite every file when asked.
-
-3. Download this repository or the executable version of the Publicizer.
-Repo: https://github.com/MrPurple6411/Bepinex-Tools/releases/tag/1.0.0-Publicizer
-Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
-
-4. Drag and drop all assembly_.dll files onto "AssemblyPublicizer.exe"
-
-5. Add all dll's of "\Valheim\valheim_Data\Managed" and "publicized_assemblies" folder as references to the project.
-
-(Except : "mscorlib.dll", "System.Configuration.dll", "System.Core.dll", "System.dll", "System.Xml.dll")
-
-6. Add all BepInEx dll's ("Valheim\BepInEx\core") as refernces to the project.
-
-(Except : "0Harmony.dll", "0Harmony20.dll")
-
-7. Add Ini-parser and HarmonyX via nu-get
 
 # Credits
 
