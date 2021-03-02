@@ -10,9 +10,10 @@ namespace ValheimPlus
         {
             if (Configuration.Current.Beehive.IsEnabled)
             {
-                ___m_secPerUnit = Configuration.Current.Beehive.HoneyProductionSpeed;
-                ___m_maxHoney = Configuration.Current.Beehive.MaximumHoneyPerBeehive;
+                ___m_secPerUnit = Configuration.Current.Beehive.honeyProductionSpeed;
+                ___m_maxHoney = Configuration.Current.Beehive.maximumHoneyPerBeehive;
             }
+
             return true;
         }
 

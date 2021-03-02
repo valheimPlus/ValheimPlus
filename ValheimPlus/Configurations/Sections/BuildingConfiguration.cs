@@ -2,11 +2,10 @@
 {
     public class BuildingConfiguration : ServerSyncConfig<BuildingConfiguration>
     {
-        public bool NoInvalidPlacementRestriction { get; set; } = false;
-        public bool NoWeatherDamage { get; set; } = false;
-        public float MaximumPlacementDistance { get; internal set; } = 5;
+        public bool noInvalidPlacementRestriction { get; set; } = false;
+        public bool noWeatherDamage { get; set; } = false;
+        public float maximumPlacementDistance { get; internal set; } = 5;
 
-        public bool DisableStructualIntegrity { get; set; } = false;
     }
 
 }

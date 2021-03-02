@@ -1,49 +1,12 @@
-﻿using HarmonyLib;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
-    class AdvancedEditingMode
-    {
-        [HarmonyPatch(typeof(Player), "Update")]
-        public static class AdvancedEditingModeHook
-        {
-            private static void Postfix(Player __instance)
-            {
-                if (Configuration.Current.AdvancedEditingMode.IsEnabled)
-                {
-                    AEM.PlayerInstance = __instance;
-                    AEM.run();
-                }
-            }
-        }
-
-        [HarmonyPatch(typeof(GameCamera), "UpdateCamera")]
-        public static class BlockCameraScrollInAEM
-        {
-
-            private static void Prefix(GameCamera __instance)
-            {
-                if (AEM.isActive)
-                {
-                    __instance.m_maxDistance = __instance.m_distance;
-                    __instance.m_minDistance = __instance.m_distance;
-                }
-                else
-                {
-                    __instance.m_maxDistance = 6;
-                    __instance.m_minDistance = 1;
-                }
-            }
-        }
-    }
-
     class AEM
     {
         // Status
-        public static Boolean isActive = false;
+        public static bool isActive = false;
 
         // Player Instance
         public static Player PlayerInstance;
@@ -58,19 +21,19 @@ namespace ValheimPlus
         private static Quaternion InitialRotation;
         private static Vector3 InitialPosition;
 
-        private static Boolean isInExsistence;
+        private static bool isInExsistence;
 
         // Hotkey Flags
-        private static Boolean controlFlag = false;
-        private static Boolean shiftFlag = false;
-        private static Boolean altFlag = false;
+        private static bool controlFlag = false;
+        private static bool shiftFlag = false;
+        private static bool altFlag = false;
 
         // Modification Strenghts
         private static float gDistance = 2;
         private static float gScrollDistance = 2;
 
         // Executing the raycast to find the object
-        public static Boolean ExecuteRayCast(Player playerInstance)
+        public static bool ExecuteRayCast(Player playerInstance)
         {
             int layerMask = playerInstance.m_placeRayMask;
             RaycastHit raycastHit;
@@ -102,11 +65,11 @@ namespace ValheimPlus
         }
 
         // Exiting variables
-        public static Boolean forceExitNextIteration = false;
+        public static bool forceExitNextIteration = false;
 
 
         // Initializing class
-        public static Boolean checkForObject()
+        public static bool checkForObject()
         {
             if (PlayerInstance == null)
                 return false;
@@ -156,7 +119,7 @@ namespace ValheimPlus
 
             if (!isActive)
             {
-                if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.EnterAdvancedEditingMode))
+                if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.enterAdvancedEditingMode))
                 {
                     if (checkForObject())
                         startMode();
@@ -164,7 +127,7 @@ namespace ValheimPlus
                 }
             }
 
-            if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.AbortAndExitAdvancedEditingMode))
+            if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.abortAndExitAdvancedEditingMode))
             {
                 exitMode();
                 resetObjectTransform();
@@ -175,7 +138,6 @@ namespace ValheimPlus
                 // If object is not in exsistence anymore
                 if (hitPieceStillExsists())
                 {
-
                     // Try to prevent znet error, relatively untested yet if this is any solution.
                     // ghetto solution, will be improved in future version if it proofs to be effective.
                     try
@@ -188,7 +150,8 @@ namespace ValheimPlus
                             return;
                         }
                     }
-                    catch (Exception e) {
+                    catch
+                    {
                         Debug.Log("AEM: Error, network object empty. Code: 3.");
                         exitMode();
                     }
@@ -209,14 +172,13 @@ namespace ValheimPlus
             float rX = 0;
             float rZ = 0;
             float rY = 0;
-            
 
-            if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.ResetAdvancedEditingMode))
+            if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.resetAdvancedEditingMode))
             {
                 resetObjectTransform();
             }
 
-            if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.ConfirmPlacementOfAdvancedEditingMode))
+            if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.confirmPlacementOfAdvancedEditingMode))
             {
                 if (isContainer())
                     dropContainerContents();
@@ -239,14 +201,9 @@ namespace ValheimPlus
                 ZNetScene.instance.Destroy(HitPiece.gameObject);
                 Debug.Log("AEM: Executed.");
 
-
                 exitMode();
                 return;
             }
-
-
-
-
 
             // CONTROL PRESSED
             if (Input.GetKeyDown(KeyCode.LeftControl)) { controlFlag = true; }
@@ -255,15 +212,26 @@ namespace ValheimPlus
             // SHIFT PRESSED
             float distance = gDistance;
             float scrollDistance = gScrollDistance;
+
             if (Input.GetKeyDown(KeyCode.LeftShift)) { shiftFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftShift)) { shiftFlag = false; }
+
             changeModificationSpeeds(shiftFlag);
-            if (shiftFlag) { distance = gDistance * 3; scrollDistance = gScrollDistance * 3; } else { distance = gDistance; scrollDistance = gScrollDistance; }
+
+            if (shiftFlag) 
+            { 
+                distance = gDistance * 3;
+                scrollDistance = gScrollDistance * 3;
+            } 
+            else 
+            { 
+                distance = gDistance; 
+                scrollDistance = gScrollDistance;
+            }
 
             // LEFT ALT PRESSED
             if (Input.GetKeyDown(KeyCode.LeftAlt)) { altFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftAlt)) { altFlag = false; }
-
 
             // Maximum distance between player and placed piece
             if (Vector3.Distance(PlayerInstance.transform.position, HitPiece.transform.position) > PlayerInstance.m_maxPlaceDistance)
@@ -355,7 +323,7 @@ namespace ValheimPlus
         }
 
         // Hit Piece still is a valid target
-        private static Boolean hitPieceStillExsists()
+        private static bool hitPieceStillExsists()
         {
             try
             { // check to see if the hit object still exsists
@@ -365,17 +333,18 @@ namespace ValheimPlus
                     isInExsistence = true;
                 }
             }
-            catch (Exception e)
+            catch
             {
                 isInExsistence = false;
             }
+
             return isInExsistence;
         }
 
         // Check for access to object
-        private static Boolean isValidRayCastTarget()
+        private static bool isValidRayCastTarget()
         {
-            Boolean hitValid = true;
+            bool hitValid = true;
 
             if (HitPiece.m_onlyInTeleportArea && !EffectArea.IsPointInsideArea(HitPiece.transform.position, EffectArea.Type.Teleport, 0f))
             {
@@ -403,7 +372,7 @@ namespace ValheimPlus
         }
 
         // Check if user is in build mode
-        private static Boolean isInBuildMode()
+        private static bool isInBuildMode()
         {
             return PlayerInstance.InPlaceMode();
         }
@@ -451,7 +420,7 @@ namespace ValheimPlus
             }
         }
 
-        private static Boolean isContainer()
+        private static bool isContainer()
         {
             Container ContainerInstance = HitPiece.GetComponent<Container>();
 
@@ -462,14 +431,14 @@ namespace ValheimPlus
             return false;
         }
 
-        private static Boolean dropContainerContents()
+        private static bool dropContainerContents()
         {
             Container ContainerInstance = HitPiece.GetComponent<Container>();
             ContainerInstance.DropAllItems();
             return true;
         }
 
-        private static void changeModificationSpeeds(Boolean isShiftPressed)
+        private static void changeModificationSpeeds(bool isShiftPressed)
         {
             float incValue = 1;
             if (shiftFlag)

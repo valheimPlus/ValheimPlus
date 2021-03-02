@@ -3,17 +3,28 @@
 # ValheimPlus
 A HarmonyX Mod aimed at improving the gameplay quality of Valheim. The mod includes several different main features including modifiers to ingame stats of players, buildings and entities and a sophisticated system to build and place objects with high precision and a system to modify already placed objects with high precision. The general goal is to provide V+ as a base modification for your gameplay to increase quality of life, change difficulty or have a better experience in general. The mod also comes with a version and configuration control system for servers and users, allowing servers to make sure that only people with the same configuration are able to join their servers.
 
+# ValheimPlus Server Hosting
+Below you can find a list of hosting companies that are supporting ValehimPlus with good prices and easy installation.
+
+[![GPortal](http://valheim.plus/gportal/banner.jpg)](https://www.g-portal.com/valheim)
+[![ZapHosting](http://valheimplus.com/zap/692x127.jpg)](https://zap-hosting.com/valheimplus)
+[![GFXHosting](https://www.gtxgaming.co.uk/wp-content/uploads/2021/02/valheim_plus_banner-3.png)](https://www.gtxgaming.co.uk/clientarea/aff.php?aff=2096)
+
+
 # Features
 All of these features can be adjusted by a configuration file. This also allows you to only enable very specific featues.
 
+
 ## Player
 
-* Modification of Stamina usage and regeneration
-* Modification of Stamina by tools and weaponry
+* Modification of stamina usage and regeneration
+* Modification of stamina usage of all tools and weaponry
 * Modification of carry weight
-* Mofification of Food duration
-* Mofification of Unarmed Damage
-* Option to force all remove screen shake
+* Modification of food duration
+* Modification of Unarmed Damage
+* Modification of auto pickup range
+* Option to force remove all screen shakes
+* Modify the base amount of Unarmed damage multiplied by your unarmed skill level
 
 ## Fermenter, Beehive, Kiln and Furnace
 * Modify Fermenter speed
@@ -25,6 +36,48 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify Kiln processing speed
 * Modify Kiln maximum wood
 
+## Workbench and Ward
+* Modify Workbench radius
+* Modify Ward radius
+
+## Torches and Fireplaces
+* Disable torches running out of fuel
+* Disable fireplaces running out of fuel
+
+## Time and Day Manipulation
+* Modify total time of a day and night cycle
+* Modify the speed of the time passing at night
+
+## Structural Integrity
+* Modify the structural integrity of the following materials by a modifier
+  * Wood
+  * Stone
+  * Iron
+  * Hardwood
+* Disable structural integrity entirely, allowing you to place objects in free air.
+
+## Player Hud
+* Show the experience you gained for a skill in the top left corner
+* Show the amount of items you have in your inventory when crafting or building a object. 
+
+## Game Difficulty
+* Modify the game difficulty multipliers applied to health and damage of enemies based on the amount of connected players.
+* Change the range of where the game considers other players to be nearby.
+* Add a additional amount of Players to the player count for the difficulty calculation.
+* Set the difficulty calculation to a specific player count.
+
+## Skill Experience
+* Modify each skill's experience gain seperately by percent.
+
+## Camera
+* Change your FOV
+* Change the maximum zoom out distance
+* Change the maximum zoom out distance when in a boat
+
+## Wagon
+* Modify the physical weight of the Wagon received by items inside
+* Modify the base physical weight
+
 ## Items
 * Remove Item teleport prevention from all items
 * Reduce Item weight of all items by %
@@ -33,8 +86,14 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Server
 * Remove Password requirement for server
 * Modify maximum Players on a server
+* Modify auto save interval
+* Modify server data rate in kilobyte
+* Automatic server configuration sync when a user joins the server to sync the configuration of V+
 
 ## Map
+* Activate shared position on map automatically
+* Setting to force other people to share their position with you
+* Remove death marker on the map on collecting your tombstone
 
 ### Shared map system
 Allows you to see the explored areas on the map of other players on the server if they have their position on the map shared ingame.
@@ -54,12 +113,11 @@ Prevents players on the server from making themselves invisible on the map.
 * Remove Building Object deterioration by weather.
 * Advanced Building Mode
 * Advanced Editing Mode
-* Disable the need to refuel torches and fireplaces
-* Modify the work bench ranges
+* Structural Integrity modification system
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
-1. You freeze the item by pressing the configurated key (F1 is default).
+1. You freeze the item by pressing the configured key (F1 is default).
 2. You can modify the item position and rotation with the following key combinations:
   * Arrow Up/Down/Left/Right = moves the building object in the respective direction.
   * Arrow Up/Down + Control = moves the building object up and down
@@ -77,7 +135,7 @@ Prevents players on the server from making themselves invisible on the map.
 ### Advanced Editing Mode | Video : https://imgur.com/DMb4ZUv.mp4
 How it works.
 *You cannot be in Build mode (hammer, hoe or terrain tool).*
-1. You select the item with the configurated key (Numpad0 is default).
+1. You select the item with the configured key (Numpad0 is default).
 2. You can modify the item position and rotation with the following key combinations:
 * Arrow Up/Down/Left/Right = moves the building object in the respective direction.
 * Arrow Up/Down + Control = moves the building object up and down
@@ -109,13 +167,17 @@ We supply 4 different versions of V+ with every release since version 0.8. You c
    1. Right click the valheim game in your steam library
    2. "Go to Manage" -> "Browse local files"
    2. Steam should open your game folder for you when clicked
+3. Unzip the contents of WindowsClient.zip into the Valheim root folder.
    
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
 
 ## **[Server] Windows**
 
+[Easy to setup and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com !](https://zap-hosting.com/valheimplus)
+
 We will not explain how you create a dedicated server. This will only explain how you install the mod.
+
 1. Download the [latest package called WindowsServer.zip over this link](https://github.com/nxPublic/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
 2. Unpack the downloaded zip file it into your root server folder.
 
@@ -124,14 +186,16 @@ We will not explain how you create a dedicated server. This will only explain ho
 
 ## **[Server] Unix**
 
+[Easy to setup and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com !](https://zap-hosting.com/valheimplus)
+
 We will not explain how you create a dedicated server. This will only explain how you install the mod.
 1. Download the [latest package called UnixServer.zip over this link](https://github.com/nxPublic/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
 2. Locate your server folder
 3. Unpack all the contents into your root server folder.
 
-*Make sure to execute 'chmod u+x run_bepinex.sh'*
+*Make sure to execute 'chmod u+x start_server_bepinex.sh'*
 
-*Make sure to run the run_bepinex.sh*
+*Make sure to run start_server_bepinex.sh*
 
 **Uses libc6-dev**
 
@@ -172,254 +236,14 @@ https://www.patreon.com/valheimPlus
 
 The Config files name is supposed to be "valheim_plus.cfg" it needs to be placed in "BepInEx\config"
 
-You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder (its supplied by default within the release versions)
+You can turn off and on every feature of V+ via the config file, by default all settings are turned off.
 
-# Currently Supported Configuration (0.8.5)
-```INI
-[Player]
-enabled=false
-; enable/disable Player changes
+When you are hosting a server, your server configuration file overwrites the clients configuration file on connect. 
 
-baseMegingjordBuff=150
-; default is 150 (float)
-; Ingame Tooltip is not affected
+You only need to setup your server configuration file (located in the server files) when hosting a server with V+.
 
-baseMaximumWeight=300
-; default is 300 (float)
+If you are hosting for your friends over steam, your friends will need v+ and they will receive your local settings from your game folder.
 
-baseAutoPickUpRange=2
-; default is 2 (float)
-
-disableCameraShake=false
-; enable/disable screen shake
-
-experienceGainedNotifications=true
-; enabled/disable EXP gained notification for skills in the top left corner
-
-[UnarmedScaling]
-enabled=false
-; enable/disable changes to the Unarmed weapons scaling
-
-baseDamage=100
-; default is 100, this is the value it will approach in damage as you gain skill until capped.
-
-
-[Food]
-enabled=false
-; enable/disable Food changes
-
-foodDuration=0
-; default is 0, this is a percent value. (default + foodDuration%)
-; 100 is 100% increased food duration.
-; currently does not properly show in item tooltips
-
-
-[Fermenter]
-enabled=false
-; enable/disable Fermenter changes
-
-fermenterDuration=2400
-; default is 2400 (float) (48 ingame hours)
-; lower is faster
-
-fermenterItemsProduced=6
-; default is 6 (integer) items per fermenter process
-
-[Fireplace]
-enabled=false
-; enable/disable Fireplace changes
-; "disables" fuel consumption of all "fireplace" type objects (Torches/campfires/braziers), fuel can still be added, but will always stay at 1
-
-onlyTorches=false 
-; applies the effect only to torches(Torches/Scounce/Brazier)
-; (boolean) default false
-
-[Furnace]
-enabled=false
-; enable/disable Furnace changes
-
-maximumOre=10
-; default is 10 (int)
-
-maximumCoal=20
-; default is 20 (int)
-
-productionSpeed=30
-; default it 30 (float)
-; lower is faster
-
-coalUsedPerProduct=2
-; default is 2 (int)
-
-
-[Kiln]
-; Responsible for changing Charcoal Kiln stats
-
-enabled=false
-; enable/disable Kiln changes
-
-productionSpeed=15
-; default it 15 (float)
-; lower is faster
-
-maximumWood=25
-; default 25
-
-
-[Items]
-enabled=false
-; enable/disable item changes
-
-noTeleportPrevention=false
-; default is false (boolean)
-
-baseItemWeight=0
-; default is 0(float), this is a percent value.
-; -50 is -50% item weight, 50 is +50% item weight.
-
-itemStackMultiplier=0
-; default is 0(float), this is a percent value.
-; Only positive values are allowed.
-; 50 would be 50% increased maximum stack size.
-; !CAUTION! -> If you reduce the stack size, items above the limit are lost.
-
-[Building]
-enabled=false
-; enable/disable Building changes
-
-noInvalidPlacementRestriction=false
-; (boolean) Removes the "Invalid Placement" restriction
-
-noWeatherDamage=false
-; Removes weather/rain damage on building objects
-
-maximumPlacementDistance=5
-; default 5(float)
-
-
-[Beehive]
-enabled=false
-; enable/disable Beehive changes
-
-maximumHoneyPerBeehive=4
-; (integer) default is 4.
-
-honeyProductionSpeed=1200
-; (float), default is 1200. (24 ingame hours)
-; lower is faster
-
-
-[Server]
-enabled=false
-; enable/disable Server changes
-
-maxPlayers=10
-; (int) default is 10
-
-disableServerPassword=false
-; (boolean) default is false
-
-enforceConfiguration=true
-; enforce every user trying to join your game or server to have the same mod configuration.
-; NOTE: if people want to join your server with a custom configuration, they need to set this setting to false as well as the server.
-
-enforceMod=true
-; enforce every user to atleast have the mod installed when connecting to the server
-; turn this off to remove version restrictions from your client and from your server
-
-
-[Map]
-enabled=false
-; enable/disable Map changes
-
-exploreRadius=100
-; default 100 (float), the radius around each player that get explored
-
-shareMapProgression=false
-; default false (boolean), shares the map progress (reveal) across all players
-; players need to be online to receive map progression
-; only shares the map progression of people that have selected to be visible on the map
-
-[Hotkeys]
-; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
-rollForwards=F9
-; roll forward on button press
-
-rollBackwards=F10
-; roll backwards on button press
-
-enterAdvancedBuildingMode=F1
-; Freeze Object and allow advanced controls
-
-exitAdvancedBuildingMode=F3
-; Unfreeze Object and use default place mode
-
-enterAdvancedEditingMode=Keypad0
-; the object you are looking at will be selected to be modified using AEM
-
-confirmPlacementOfAdvancedEditingMode=KeypadEnter
-; Confirms Placement of selected and modified object
-
-resetAdvancedEditingMode=F7
-; Resets the position and rotation of the object selected with AEM
-
-abortAndExitAdvancedEditingMode=F8
-; Resets the position and rotation of the object selected with AEM and stops AEM mode
-
-[AdvancedBuildingMode]
-enabled=false
-; enable/disable advanced building mode, more info on the github page
-[AdvancedEditingMode]
-enabled=false
-; enable/disable advanced editing mode, more info on the github page
-
-[Stamina]
-enabled=false
-; Each of these values reduce the stamina cost by percent
-dodgeStaminaUsage=10
-; default 10(float)
-encumberedStaminaDrain=10
-; default 10(float)
-sneakStaminaDrain=10
-; default 5(float)
-runStaminaDrain=10
-; default 10(float)
-staminaRegenDelay=0.5
-; default 1(float)
-staminaRegen=10
-; default 5(float)
-swimStaminaDrain=5
-; default 5(float)
-jumpStaminaUsage=10
-; default 10(float)
-
-[WeaponsStamina]
-enabled=false
-Swords=0
-; default 0(float)
-Knives=0
-; default 0(float)
-Clubs=0
-; default 0(float)
-Polearms=0
-; default 0(float)
-Spears=0
-; default 0(float)
-Axes=0
-; default 0(float)
-Bows=0
-; default 0(float)
-Unarmed=0
-; default 0(float)
-Pickaxes=0
-; default 0(float)
-
-[Workbench]
-enabled=false
-workbenchRange=20
-; default 20(float)
-
-```
 
 # Valheim Plus Compiler Requirements
 
@@ -430,7 +254,7 @@ https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY
 
 2. Unpack into your Valheim root folder and overwrite every file when asked.
 
-3. Download this this repositories executable version.
+3. Download this repository or the executable version of the Publicizer.
 Repo: https://github.com/MrPurple6411/Bepinex-Tools/releases/tag/1.0.0-Publicizer
 Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 
@@ -443,8 +267,10 @@ example: `setx VALHEIM_INSTALL "C:\Program Files\Steam\steamapps\common\Valheim"
 
 * Kevin 'nx#8830' J.- https://github.com/nxPublic
 * Greg 'Zedle' G. - https://github.com/zedle
+* Paige 'radmint' N. - https://github.com/radmint
+* TheTerrasque - https://github.com/TheTerrasque
 * Bruno Vasconcelos - https://github.com/Drakeny
 * GaelicGamer - https://github.com/GaelicGamer
-* TheTerrasque - https://github.com/TheTerrasque
-* Paige 'radmint' N. - https://github.com/radmint
+* Doudou 'xiaodoudou' - https://github.com/xiaodoudou
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
+* Mehdi 'AccretionCD' E. - https://github.com/AccretionCD

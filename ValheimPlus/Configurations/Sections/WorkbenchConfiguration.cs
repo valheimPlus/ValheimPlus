@@ -2,6 +2,7 @@
 {
     public class WorkbenchConfiguration : BaseConfig<WorkbenchConfiguration>
     {
-        public float WorkbenchRange { get; internal set; } = 20;
+        public float workbenchRange { get; internal set; } = 20;
+        public bool disableRoofCheck { get; internal set; } = false;
     }
 }
