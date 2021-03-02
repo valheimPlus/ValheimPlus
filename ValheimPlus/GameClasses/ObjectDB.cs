@@ -147,7 +147,7 @@ namespace ValheimPlus
 
         private static void ConfigureEffect(SE_Stats currentStatus, EffectsConfigurationItem configuration)
         {
-            //DisplayEffectStats(currentStatus, true);
+            DisplayEffectStats(currentStatus, true);
            
             bool isModified = false;
             if (!float.IsNaN(configuration.cooldown))
@@ -223,7 +223,6 @@ namespace ValheimPlus
             {
                 if (statusEffect is SE_Stats currentStatus)
                 {
-                    DisplayEffectStats(currentStatus, true);
                     PropertyInfo[] configurationsPropertyInfo = typeof(EffectsConfiguration).GetProperties();
                     Dictionary<string, PropertyInfo> properties = new Dictionary<string, PropertyInfo>();
                     foreach(PropertyInfo configurationPropertyInfo in configurationsPropertyInfo)
