@@ -363,7 +363,7 @@
     <Compile Include="GameClasses\FejdStartup.cs" />
     <Compile Include="GameClasses\Fireplace.cs" />
     <Compile Include="GameClasses\GameCamera.cs" />
-    <Compile Include="Utility\Helper.cs" />
+    <Compile Include="GameClasses\Hud.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
     <Compile Include="ValheimPlus.cs" />
     <Compile Include="GameClasses\Fermenter.cs" />
@@ -390,6 +390,7 @@
     <Compile Include="GameClasses\Ward.cs" />
     <Compile Include="GameClasses\InventoryGUI.cs" />
     <Compile Include="GameClasses\CraftingStation.cs" />
+    <Compile Include="Utility\Helper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
