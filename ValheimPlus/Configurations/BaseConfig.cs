@@ -58,7 +58,6 @@ namespace ValheimPlus.Configurations
             while (iterator.MoveNext())
             {
                 KeyData keyData = iterator.Current;
-                Debug.Log($" >> Key {keyData.KeyName}: {keyData.Value}");
                 string[] nestedData = keyData.KeyName.Split('.');
                 if (nestedData.Length > 1)
                 {
