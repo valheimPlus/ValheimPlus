@@ -3,6 +3,9 @@ using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
+    /// <summary>
+    /// Altering fermenter production speed
+    /// </summary>
     [HarmonyPatch(typeof(Fermenter), "Awake")]
     public static class ApplyFermenterChanges
     {
@@ -16,10 +19,14 @@ namespace ValheimPlus
                     ___m_fermentationDuration = fermenterDuration;
                 }
             }
+
             return true;
         }
-
     }
+
+    /// <summary>
+    /// Altering fermeter items produced
+    /// </summary>
     [HarmonyPatch(typeof(Fermenter), "GetItemConversion")]
     public static class ApplyFermenterItemCountChanges
     {
@@ -33,8 +40,6 @@ namespace ValheimPlus
                     __result.m_producedItems = fermenterItemCount;
                 }
             }
-
         }
-
     }
 }
