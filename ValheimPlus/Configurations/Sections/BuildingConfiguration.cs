@@ -4,6 +4,7 @@
     {
         public bool noInvalidPlacementRestriction { get; set; } = false;
         public bool noWeatherDamage { get; set; } = false;
+        public bool noUnderWaterDamage { get; set; } = false;
         public float maximumPlacementDistance { get; internal set; } = 5;
 
     }

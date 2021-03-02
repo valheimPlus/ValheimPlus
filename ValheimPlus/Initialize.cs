@@ -9,11 +9,11 @@ namespace ValheimPlus
     // GITHUB REPOSITORY https://github.com/valheimPlus/ValheimPlus
     
 
-    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.9.2")]
+    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.9.2.1")]
     class ValheimPlusPlugin : BaseUnityPlugin
     {
         
-        public static string version = "0.9.2";
+        public static string version = "0.9.2.1";
         public static string newestVersion = "";
         public static bool isUpToDate = false;
 
@@ -36,17 +36,19 @@ namespace ValheimPlus
 
                 Harmony harmony = new Harmony("mod.valheim_plus");
                 harmony.PatchAll();
-
-                isUpToDate = !Settings.isNewVersionAvailable();
-                if (!isUpToDate)
-                {
-                    Logger.LogError("There is a newer version available of ValheimPlus.");
-                    Logger.LogWarning("Please visit " + ValheimPlusPlugin.Repository + ".");
-                }
-                else
-                {
-                    Logger.LogInfo("ValheimPlus [" + version + "] is up to date.");
-                }
+                /*
+                                isUpToDate = !Settings.isNewVersionAvailable();
+                                if (!isUpToDate)
+                                {
+                                    Logger.LogError("There is a newer version available of ValheimPlus.");
+                                    Logger.LogWarning("Please visit " + ValheimPlusPlugin.Repository + ".");
+                                }
+                                else
+                                {
+                                    Logger.LogInfo("ValheimPlus [" + version + "] is up to date.");
+                                }
+                */
+                Logger.LogInfo("ValheimPlus [" + version + "] is up to date.");
 
                 //Logo
                 VPlusMainMenu.Load();

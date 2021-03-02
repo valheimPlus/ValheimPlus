@@ -17,6 +17,21 @@ namespace ValheimPlus
             }
         }
     }
+
+	/// <summary>
+	/// Disable underwater damage
+	/// </summary>
+	[HarmonyPatch(typeof(WearNTear), "IsUnderWater")]
+	public static class RemoveWaterDamage
+    {
+		private static void Postfix(ref bool __result)
+        {
+			if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noUnderWaterDamage)
+            {
+				__result = false;
+            }
+        }
+    }
 	
 	/// <summary>
 	/// Disable structural integrity
