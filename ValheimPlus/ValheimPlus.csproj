@@ -363,6 +363,7 @@
     <Compile Include="GameClasses\FejdStartup.cs" />
     <Compile Include="GameClasses\Fireplace.cs" />
     <Compile Include="GameClasses\GameCamera.cs" />
+    <Compile Include="GameClasses\Hud.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
     <Compile Include="Initialize.cs" />
     <Compile Include="GameClasses\Fermenter.cs" />
