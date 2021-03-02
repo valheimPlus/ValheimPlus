@@ -80,13 +80,8 @@ namespace ValheimPlus.RPC
                 {
                     Vector2i exploredArea = mapPkg.ReadVector2i();
 
-                    Minimap.instance.m_explored[exploredArea.y * Minimap.instance.m_textureSize + exploredArea.x] = true;
-
-                    Minimap.instance.m_fogTexture.SetPixel(exploredArea.x, exploredArea.y, (Color)new Color32((byte)0, (byte)0, (byte)0, (byte)0));
+                    Minimap.instance.Explore(exploredArea.x, exploredArea.y);
                 }
-
-                //Update map fog texture
-                Minimap.instance.m_fogTexture.Apply();
 
                 ZLog.Log($"I got {exploredAreaCount} map points from the server!");
             }
