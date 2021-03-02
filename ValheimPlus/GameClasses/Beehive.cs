@@ -13,6 +13,7 @@ namespace ValheimPlus
                 ___m_secPerUnit = Configuration.Current.Beehive.honeyProductionSpeed;
                 ___m_maxHoney = Configuration.Current.Beehive.maximumHoneyPerBeehive;
             }
+
             return true;
         }
 
