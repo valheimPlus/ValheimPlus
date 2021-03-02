@@ -35,7 +35,7 @@ namespace ValheimPlus
 					__result = false;
 					return false;
 				}
-				component3.text = num + " / " + amount.ToString() ;
+				component3.text = num + "/" + amount.ToString() ;
 
 				if (num < amount)
 				{
@@ -44,6 +44,12 @@ namespace ValheimPlus
 				else
 				{
 					component3.color = Color.white;
+				}
+
+				component3.fontSize = 14;
+				if (component3.text.Length > 5)
+				{
+					component3.fontSize -= component3.text.Length - 5;
 				}
 			}
 
