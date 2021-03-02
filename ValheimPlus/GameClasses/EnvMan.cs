@@ -47,7 +47,7 @@ namespace ValheimPlus
                     if (ZNet.instance.IsServer() && __instance.IsNight() && !__instance.IsTimeSkipping())
                     {
                         double timeSeconds = ZNet.instance.GetTimeSeconds();
-                        double num = timeSeconds + (((double)Time.deltaTime / 50) * Configuration.Current.Time.nightTimeSpeedMultiplier);
+                        double num = timeSeconds + Helper.applyModifierValue(Configuration.Current.Time.nightTimeSpeedMultiplier, Time.deltaTime);
                         double time = timeSeconds - (double)((float)__instance.m_dayLengthSec * 0.25f);
                         int day = __instance.GetDay(time);
                         double morningStartSec = __instance.GetMorningStartSec(day + 1);
