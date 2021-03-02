@@ -9,11 +9,11 @@ namespace ValheimPlus
     // GITHUB REPOSITORY https://github.com/valheimPlus/ValheimPlus
     
 
-    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.9.2.1")]
+    [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", "0.9.2.3")]
     class ValheimPlusPlugin : BaseUnityPlugin
     {
         
-        public static string version = "0.9.2.1";
+        public static string version = "0.9.2.2";
         public static string newestVersion = "";
         public static bool isUpToDate = false;
 

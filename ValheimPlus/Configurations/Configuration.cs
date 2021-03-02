@@ -32,5 +32,6 @@ namespace ValheimPlus.Configurations
         public GameConfiguration Game { get; set; }
         public WagonConfiguration Wagon { get; set; }
         public DoorConfiguration Door { get; set; }
+        public ModerEffectConfiguration ModerEffect { get; set; }
     }
 }
