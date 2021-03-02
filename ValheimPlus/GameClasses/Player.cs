@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using System;
+using System.Diagnostics;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
@@ -240,83 +241,101 @@ namespace ValheimPlus
     }
 
     /// <summary>
-    /// Alters stamina of tools and weapons
+    /// Alters stamina of weapons
     /// </summary>
-    [HarmonyPatch(typeof(Player), "UseStamina")]
-    public static class ChangeStaminaUsageOfToolsAndWeapons
+    [HarmonyPatch(typeof(Attack), "GetStaminaUsage")]
+    public static class ChangeStaminaUsageOfWeapons
     {
-        private static void Prefix(ref Player __instance, ref float v)
+        private static void Postfix(ref Attack __instance, ref float __result)
         {
-            // TODO add a check for the origin of the call of this function to restrict it to not reduce stamina drain of running/jumping/swimming etc.
-
-
-
             if (Configuration.Current.StaminaUsage.IsEnabled)
             {
-                string weaponType = "";
-                bool isHoe = false;
-                bool isHammer = false;
-
-                if (__instance.GetRightItem() == null)
-                    weaponType = "Unarmed";
-
-                if (weaponType != "Unarmed")
+                if (__instance.m_character.IsPlayer())
                 {
-                    try
+                    ItemDrop.ItemData item = __instance.m_character.GetCurrentWeapon();
+                    Skills.SkillType skillType;
+                    if (item == null)
                     {
-                        weaponType = __instance.GetRightItem().m_shared.m_skillType.ToString();
+                        skillType = Skills.SkillType.Unarmed;
                     }
-                    catch
+                    else
                     {
+                        skillType = item.m_shared.m_skillType;
                     }
 
-                    isHoe = (__instance.GetRightItem().m_shared.m_name == "$item_hoe" ? true : false);
-                    isHammer = (__instance.GetRightItem().m_shared.m_name == "$item_hammer" ? true : false);
-                }
-
-                if (weaponType != "")
-                {
-                    switch (weaponType)
+                    UnityEngine.Debug.Log(skillType.ToString());
+                    switch (skillType)
                     {
-                        case "Swords":
-                            v = Helper.applyModifierValue(v,Configuration.Current.StaminaUsage.swords);
+                        case Skills.SkillType.Swords:
+                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.swords);
                             break;
-                        case "Knives":
-                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.knives);
+                        case Skills.SkillType.Knives:
+                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.knives);
                             break;
-                        case "Clubs":
-                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.clubs);
+                        case Skills.SkillType.Clubs:
+                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.clubs);
                             break;
-                        case "Polearms":
-                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.polearms);
+                        case Skills.SkillType.Polearms:
+                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.polearms);
                             break;
-                        case "Spears":
-                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.spears);
+                        case Skills.SkillType.Spears:
+                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.spears);
                             break;
-                        case "Axes":
-                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.axes);
+                        case Skills.SkillType.Axes:
+                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.axes);
                             break;
-                        case "Bows":
-                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.bows);
+                        case Skills.SkillType.Unarmed:
+                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.unarmed);
                             break;
-                        case "Unarmed":
-                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.unarmed);
-                            break;
-                        case "Pickaxes":
-                            v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.pickaxes);
+                        case Skills.SkillType.Pickaxes:
+                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.pickaxes);
                             break;
                         default:
                             break;
                     }
                 }
+            }
+        }
+    }
 
-                if (isHammer)
+    /// <summary>
+    /// Alters stamina of tools, bows and blocking
+    /// </summary>
+    [HarmonyPatch(typeof(Player), "UseStamina")]
+    public static class ChangeStaminaUsageOfToolsBowsAndBlocking
+    {
+        private static void Prefix(ref Player __instance, ref float v)
+        {
+            if (Configuration.Current.StaminaUsage.IsEnabled)
+            {
+                string methodName = new StackTrace().GetFrame(2).GetMethod().Name;
+                if (methodName.Equals(nameof(Player.UpdatePlacement)) || methodName.Equals(nameof(Player.Repair)))
                 {
-                    v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.hammer);
+                    string itemName = __instance.GetRightItem()?.m_shared.m_name;
+                    if (itemName == "$item_hammer")
+                    {
+                        v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.hammer);
+                    }
+                    else if (itemName == "$item_hoe")
+                    {
+                        v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.hoe);
+                    }
+                    else if (itemName == "$item_cultivator")
+                    {
+                        v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.cultivator);
+                    }
                 }
-                if (isHoe)
+                else if (methodName.Equals(nameof(Player.PlayerAttackInput)))
                 {
-                    v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.hoe);
+                    ItemDrop.ItemData item = __instance.GetCurrentWeapon();
+                    if (item?.m_shared.m_skillType == Skills.SkillType.Bows)
+                    {
+                        v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.bows);
+                    }
+                }
+                else if (methodName.Equals(nameof(Player.BlockAttack)))
+                {
+                    v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.blocking);
                 }
             }
         }
