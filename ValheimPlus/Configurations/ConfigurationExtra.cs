@@ -115,7 +115,7 @@ namespace ValheimPlus.Configurations
         public static bool GetBool(this KeyDataCollection data, string key)
         {
             var truevals = new[] { "y", "yes", "true" };
-            return truevals.Contains(data[key].ToLower());
+            return truevals.Contains($"{data[key]}".ToLower());
         }
 
         public static int GetInt(this KeyDataCollection data, string key, int defaultVal)
