@@ -7,7 +7,7 @@ How to setup the development enviroment to compile ValheimPlus yourself.
    - Unpack into your Valheim root folder and overwrite every file when asked.
    - This package sets up your Valheim game with BepInEx configurations specifically for mod devs. Created by [MrPurple6411](https://github.com/MrPurple6411).
 1. Download the [AssemblyPublicizer package](https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA).
-   - This package will create new, publicized versions of the 1assembly_*.dll` files.
+   - This package will create new, publicized versions of the `assembly_*.dll` files.
    - Repo: https://github.com/MrPurple6411/Bepinex-Tools/releases/tag/1.0.0-Publicizer by [MrPurple6411](https://github.com/MrPurple6411).
 1. Drag and drop all `assembly_*.dll` files from "\Valheim\valheim_Data\Managed\" folder onto "AssemblyPublicizer.exe". This will created a new folder called "/publicized_assemblies/".
 1. Add all `.dll`s (Except `mscorlib.dll`, `System.Configuration.dll`, `System.Core.dll`, `System.dll`, and `System.Xml.dll`) of "\Valheim\valheim_Data\Managed\" and "publicized_assemblies" folder as references to the project.
