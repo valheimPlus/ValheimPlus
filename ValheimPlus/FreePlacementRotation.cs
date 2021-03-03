@@ -17,7 +17,7 @@ using ValheimPlus.Configurations;
 namespace ValheimPlus
 {
     /// <summary>
-    /// Rotates placementGhost by 1 angle, if pressed key, or reset to x22.5f degrees usual rotation.
+    /// Rotates placementGhost by 1 degree, if pressed key, or reset to x22.5f degrees usual rotation.
     /// Attaches to nearly placed objects as usual placement
     /// </summary>
     public class FreePlacementRotation
