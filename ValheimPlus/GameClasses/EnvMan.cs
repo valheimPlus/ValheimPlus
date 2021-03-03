@@ -18,8 +18,16 @@ namespace ValheimPlus
                 if (EnvMan.instance)
                 {
                     EnvMan.instance.m_dayLengthSec = (long)Configuration.Current.Time.totalDayTimeInSeconds;
+                    Debug.Log($"Setup m_dayLengthSec: {EnvMan.instance.m_dayLengthSec}");
                 }
             }
+        }
+
+        public static double GetDayProgression()
+        {
+            double timeSecondsFromStart = ZNet.instance.GetTimeSeconds();
+            double timeSecondsFromDay = timeSecondsFromStart % Configuration.Current.Time.totalDayTimeInSeconds;
+            return timeSecondsFromDay / Configuration.Current.Time.totalDayTimeInSeconds;
         }
 
         /// <summary>
@@ -34,6 +42,48 @@ namespace ValheimPlus
             }
         }
 
+        [HarmonyPatch(typeof(EnvMan), "IsDay")]
+        class EnvMan_IsDay_Patch
+        {
+            static bool Postfix(bool result)
+            {
+                if (ZNet.instance.IsServer())
+                {
+                    double progression = GetDayProgression();
+                    result = progression >= 0.25f && progression <= 0.75f;
+                }
+                return result;
+            }
+        }
+
+        [HarmonyPatch(typeof(EnvMan), "IsNight")]
+        class EnvMan_IsNight_Patch
+        {
+            static bool Postfix(bool result)
+            {
+                if (ZNet.instance.IsServer())
+                {
+                    double progression = GetDayProgression();
+                    result = progression <= 0.25f || progression >= 0.75f;
+                }
+                return result;
+            }
+        }
+
+        [HarmonyPatch(typeof(EnvMan), "IsAfternoon")]
+        class EnvMan_IsAfternoon_Patch
+        {
+            static bool Postfix(bool result)
+            {
+                if (ZNet.instance.IsServer())
+                {
+                    double progression = GetDayProgression();
+                    result = progression >= 0.5f && progression <= 0.75f;
+                }
+                return result;
+            }
+        }
+
         /// <summary>
         /// Hook on EnvMan to alter night speed
         /// </summary>
@@ -42,20 +92,17 @@ namespace ValheimPlus
         {
             private static void Prefix(ref EnvMan __instance)
             {
-                if (Configuration.Current.Time.IsEnabled)
+                if (!Configuration.Current.Time.IsEnabled)
                 {
-                    if (ZNet.instance.IsServer() && __instance.IsNight() && !__instance.IsTimeSkipping())
+                    return;
+                }
+                if (!__instance.IsTimeSkipping() && __instance.IsNight())
+                {
+                    if (ZNet.instance.IsServer() && ZNet.instance.GetNrOfPlayers() > 0)
                     {
                         double timeSeconds = ZNet.instance.GetTimeSeconds();
-                        double num = timeSeconds + Helper.applyModifierValue(Configuration.Current.Time.nightTimeSpeedMultiplier, Time.deltaTime);
-                        double time = timeSeconds - (double)((float)__instance.m_dayLengthSec * 0.25f);
-                        int day = __instance.GetDay(time);
-                        double morningStartSec = __instance.GetMorningStartSec(day + 1);
-                        // Make sure we don't go over the morning time
-                        if (num < morningStartSec)
-                        {
-                            ZNet.instance.SetNetTime(num);
-                        }
+                        double num = timeSeconds + Helper.applyModifierValue(Time.deltaTime, Configuration.Current.Time.nightTimeSpeedMultiplier);
+                        ZNet.instance.SetNetTime(num);
                     }
                 }
             }
