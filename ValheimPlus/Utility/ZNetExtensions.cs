@@ -1,5 +1,12 @@
 ﻿public static class ZNetExtensions
 {
+    public enum ZNetInstanceType
+    {
+        Local,
+        Client,
+        Server
+    }
+     
     public static bool IsLocalInstance(this ZNet znet)
     {
         return !znet.IsDedicated() && znet.IsServer() && (znet.GetNrOfPlayers() > znet.GetPeers().Count);
@@ -15,19 +22,19 @@
         return !znet.IsLocalInstance() && !znet.IsClientInstance();
     }
 
-    public static string GetInstanceType(this ZNet znet)
+    public static ZNetInstanceType GetInstanceType(this ZNet znet)
     {
         if (znet.IsLocalInstance())
         {
-            return "Local";
+            return ZNetInstanceType.Local;
         } 
         else if (znet.IsClientInstance())
         {
-            return "Client";
+            return ZNetInstanceType.Client;
         }
         else
         {
-            return "Server";
+            return ZNetInstanceType.Server;
         }
     }
 }
