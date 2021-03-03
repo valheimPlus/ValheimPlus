@@ -3,9 +3,9 @@
 ## How to setup your environment for V+ development
 How to setup the development enviroment to compile ValheimPlus yourself.
 
-1. Download the [BepInEx for Valheim package](https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY).
+1. Download the [BepInEx for Valheim package](https://valheim.thunderstore.io/package/download/denikson/BepInExPack_Valheim/5.4.701/).
    - Unpack into your Valheim root folder and overwrite every file when asked.
-   - This package sets up your Valheim game with BepInEx configurations specifically for mod devs. Created by [MrPurple6411](https://github.com/MrPurple6411).
+   - This package sets up your Valheim game with BepInEx configurations specifically for mod devs. Created by [BepInEx](https://github.com/BepInEx).
 1. Download the [AssemblyPublicizer package](https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA).
    - This package has a tool that you'll use to create publicized versions of the `assembly_*.dll` files for your local development.
    - Repo: https://github.com/MrPurple6411/Bepinex-Tools/releases/tag/1.0.0-Publicizer by [MrPurple6411](https://github.com/MrPurple6411).
