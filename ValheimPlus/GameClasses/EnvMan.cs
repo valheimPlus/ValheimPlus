@@ -96,14 +96,11 @@ namespace ValheimPlus
                 {
                     return;
                 }
-                if (!__instance.IsTimeSkipping() && __instance.IsNight())
+                if (ZNet.instance.IsServer() && ZNet.instance.GetNrOfPlayers() > 0 && !__instance.IsTimeSkipping() && __instance.IsNight())
                 {
-                    if (ZNet.instance.IsServer() && ZNet.instance.GetNrOfPlayers() > 0)
-                    {
-                        double timeSeconds = ZNet.instance.GetTimeSeconds();
-                        double num = timeSeconds + Helper.applyModifierValue(Time.deltaTime, Configuration.Current.Time.nightTimeSpeedMultiplier);
-                        ZNet.instance.SetNetTime(num);
-                    }
+                    double timeSeconds = ZNet.instance.GetTimeSeconds();
+                    double num = timeSeconds + Helper.applyModifierValue(Time.deltaTime, Configuration.Current.Time.nightTimeSpeedMultiplier);
+                    ZNet.instance.SetNetTime(num);
                 }
             }
         }
