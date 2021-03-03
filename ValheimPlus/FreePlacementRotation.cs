@@ -29,6 +29,9 @@ namespace ValheimPlus
         {
             private static void Postfix(Player __instance, bool takeInput, float dt)
             {
+                if (!Configuration.Current.FreePlacementRotation.IsEnabled)
+                    return;
+                
                 if (ABM.isActive)
                     return;
 
@@ -51,6 +54,9 @@ namespace ValheimPlus
 
             private static void RotateWithWheel(Player __instance)
             {
+                if (!Configuration.Current.FreePlacementRotation.IsEnabled)
+                    return;
+                
                 var wheel = Input.GetAxis("Mouse ScrollWheel");
 
                 if (!wheel.Equals(0f))
