@@ -163,6 +163,8 @@ namespace ValheimPlus
                 UpdatePlacementGhost(__instance, flashGuardStone);
             }
 
+            // almost copy of original UpdatePlacementGhost with modified calculation of Quaternion quaternion = Quaternion.Euler(rotation);
+            // need to be re-calculated in Postfix for correct work of auto-attachment of placementGhost after change rotation
             private static void UpdatePlacementGhost(Player __instance, bool flashGuardStone)
             {
                 if ((UnityEngine.Object) __instance.m_placementGhost == (UnityEngine.Object) null)
