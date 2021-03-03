@@ -108,7 +108,7 @@ namespace ValheimPlus.RPC
                             tmpWriter.Flush(); //Flush to memStream
                             memStream.Position = 0; //Rewind stream
 
-                            ConfigurationExtra.LoadFromIniToConfiguration(memStream, Configuration.Current);
+                            ConfigurationExtra.LoadConfigurationFromStream(memStream);
 
                             // Needed to make sure client is using server configuration as dayLength is setup before
                             TimeManipulation.SetupDayLength();

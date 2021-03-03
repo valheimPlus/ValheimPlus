@@ -75,7 +75,7 @@ namespace ValheimPlus.Configurations
             return conf;
         }
 
-        public static void LoadFromIniToConfiguration(Stream iniStream, Configuration config)
+        public static void LoadConfigurationFromStream(Stream iniStream)
         {
             using (StreamReader iniReader = new StreamReader(iniStream))
             {
@@ -93,7 +93,7 @@ namespace ValheimPlus.Configurations
                         {
                             object result = method.Invoke(null, new object[] { configdata, keyName });
                             // Apply change to current configuration
-                            prop.SetValue(config, result, null);
+                            prop.SetValue(Configuration.Current, result, null);
                         }
                     }
 
