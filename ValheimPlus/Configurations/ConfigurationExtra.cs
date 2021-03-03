@@ -75,28 +75,30 @@ namespace ValheimPlus.Configurations
             return conf;
         }
 
-        public static Configuration LoadFromIni(Stream iniStream)
+        public static void LoadFromIni(Stream iniStream)
         {
             using (StreamReader iniReader = new StreamReader(iniStream))
             {
                 FileIniDataParser parser = new FileIniDataParser();
                 IniData configdata = parser.ReadData(iniReader);
 
-                Configuration conf = new Configuration();
                 foreach (var prop in typeof(Configuration).GetProperties())
                 {
                     string keyName = prop.Name;
-                    MethodInfo method = prop.PropertyType.GetMethod("LoadIni",
-                        BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-
-                    if (method != null)
+                    MethodInfo method = prop.PropertyType.GetMethod("LoadIni", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+                    // Only try to load syncConfig (which are the only sent), it will avoid some local configuration revert to default values
+                    if (configdata[keyName] != null && configdata[keyName]["enabled"] != null && configdata[keyName].GetBool("enabled"))
                     {
-                        object result = method.Invoke(null, new object[] {configdata, keyName});
-                        prop.SetValue(conf, result, null);
+                        if (method != null)
+                        {
+                            Debug.LogWarning($"Has {keyName} from remote");
+                            object result = method.Invoke(null, new object[] { configdata, keyName, false });
+                            // Apply change to current configuration
+                            prop.SetValue(Configuration.Current, result, null);
+                        }
                     }
-                }
 
-                return conf;
+                }
             }
         }
     }
@@ -125,6 +127,17 @@ namespace ValheimPlus.Configurations
             }
 
             Debug.LogWarning($" [Int] Could not read {key}, using default value of {defaultVal}");
+            return defaultVal;
+        }
+
+        public static string GetString(this KeyDataCollection data, string key, string defaultVal)
+        {
+            string value = $"{data[key]}";
+            if (value.Length > 1)
+            {
+                return value;
+            }
+            Debug.LogWarning($" [String] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
 
