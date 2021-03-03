@@ -38,7 +38,7 @@ How to setup the development enviroment to compile ValheimPlus yourself.
 1. Please add a `///<summary>` above every patched method and add comments to parts of code that is more that just a simple assignment
 1. Try to avoid using "magic strings/numbers" if possible, use class-defined `const`s especially if using the value more than once
 1. Always try avoid returning `false` in a `Prefix()` method if possible. This will not only skip the original method but also other `Prefix`s and breaks compatibility with other mods. If you need to return `false` please include your reasoning as a comment in the code.
-   
+
 ### Configuration .cfg
 1. Always add new configurations to the .cfg file as well as the configuration class and set the value to the default value from the game.
    - It is easy to forget test values in your code when you make a PR. Please double check your default values when creating a PR
@@ -49,7 +49,7 @@ How to setup the development enviroment to compile ValheimPlus yourself.
 
 ## Making a Pull Request
 1. Only make a pull request for finished work. Otherwise, if we pull the work down to test it and it doesn't work, we don't know if it's because it's unfinished or if there's an unintentional bug.
-   - If you'd like a review on your work before something is finished, send us a link to a compare via Discord.
+   - If you'd like a review on your work before something it's finished, send us a link to a compare via Discord or make a "Draft" PR.
 1. If you want credit, add your credit to the `README.md` in your pull request if the work is more than a documentation update. We will not be able to track this ourselves and rely on you to add your preferred way of being credited.
 1. After you have made a GitHub contribution, reach out to one of the V+ devs on Discord if you'd like the "GitHub contributor" role.
 
