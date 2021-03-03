@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using BepInEx;
+using IniParser;
+using IniParser.Model;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus.RPC
@@ -18,15 +21,43 @@ namespace ValheimPlus.RPC
                 string[] rawConfigData = File.ReadAllLines(ConfigurationExtra.ConfigIniPath);
                 List<string> cleanConfigData = new List<string>();
 
-                for (int i = 0; i < rawConfigData.Length; i++)
+                FileIniDataParser parser = new FileIniDataParser();
+                IniData configdata = parser.ReadFile(ConfigurationExtra.ConfigIniPath);
+
+
+                foreach (var prop in typeof(Configuration).GetProperties())
                 {
-                    if (rawConfigData[i].Trim().StartsWith(";") ||
-                        rawConfigData[i].Trim().StartsWith("#")) continue; //Skip comments
+                    var keyName = prop.Name;
+                    var method = prop.PropertyType.GetMethod("HasNeedsServerSync", BindingFlags.Public | BindingFlags.FlattenHierarchy | BindingFlags.Instance);
 
-                    if (rawConfigData[i].Trim().IsNullOrWhiteSpace()) continue; //Skip blank lines
-
-                    //Add to clean data
-                    cleanConfigData.Add(rawConfigData[i]);
+                    if (method != null)
+                    {
+                        var instance = prop.GetValue(Configuration.Current, null);
+                        bool HasNeedsServerSync = (bool)method.Invoke(instance, new object[] { });
+                        if (HasNeedsServerSync)
+                        {
+                            cleanConfigData.Add($"[{keyName}]");
+                            bool hasEnableProperty = false;
+                            if (configdata[keyName] != null)
+                            {
+                                configdata[keyName].ClearComments();
+                                IEnumerator<KeyData> iterator = configdata[keyName].GetEnumerator();
+                                while (iterator.MoveNext())
+                                {
+                                    KeyData keyData = iterator.Current;
+                                    if (keyData.KeyName.Equals("enabled"))
+                                    {
+                                        hasEnableProperty = true;
+                                    }
+                                    cleanConfigData.Add($"{keyData.KeyName}={keyData.Value}");
+                                }
+                            } 
+                            if (!hasEnableProperty)
+                            {
+                                cleanConfigData.Add("enabled = false");
+                            }
+                        }
+                    }
                 }
 
                 //Add number of clean lines to package
@@ -77,7 +108,7 @@ namespace ValheimPlus.RPC
                             tmpWriter.Flush(); //Flush to memStream
                             memStream.Position = 0; //Rewind stream
 
-                            ConfigurationExtra.LoadFromIni(memStream);
+                            ConfigurationExtra.LoadFromIniToConfiguration(memStream, Configuration.Current);
 
                             // Needed to make sure client is using server configuration as dayLength is setup before
                             TimeManipulation.SetupDayLength();
