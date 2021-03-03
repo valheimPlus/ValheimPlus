@@ -1,6 +1,4 @@
 ﻿using HarmonyLib;
-using System;
-using System.Text;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
@@ -15,9 +13,14 @@ namespace ValheimPlus
         {
             if (Configuration.Current.Time.IsEnabled)
             {
-                if (EnvMan.instance)
+                EnvMan instance = EnvMan.m_instance;
+                if (instance)
                 {
-                    EnvMan.instance.m_dayLengthSec = (long)Configuration.Current.Time.totalDayTimeInSeconds;
+                    instance.m_dayLengthSec = (long)Configuration.Current.Time.totalDayTimeInSeconds;
+                }
+                else
+                {
+                    Debug.LogWarning("EnvMan instance not loaded");
                 }
             }
         }
