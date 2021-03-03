@@ -10,10 +10,10 @@ using ValheimPlus.Utility;
 namespace ValheimPlus.GameClasses
 {
     /// <summary>
-    /// Advanced Editing hook
+    /// Hooks for ABM and AEM
     /// </summary>
     [HarmonyPatch(typeof(Player), "Update")]
-    public static class AdvancedEditingModeHook
+    public static class AdvancedBuildingAndEditingModeHook
     {
         private static void Postfix(Player __instance)
         {
@@ -41,6 +41,53 @@ namespace ValheimPlus.GameClasses
         [HarmonyReversePatch]
         [HarmonyPatch(typeof(Player), "Dodge", new Type[] { typeof(Vector3) })]
         public static void Dodge(object instance, Vector3 dodgeDir) => throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Starts ABM if not already started
+    /// </summary>
+    [HarmonyPatch(typeof(Player), "UpdatePlacementGhost")]
+    public static class ModifyPlacingRestrictionOfGhost
+    {
+        private static bool Prefix(Player __instance, bool flashGuardStone)
+        {
+            if (Configuration.Current.AdvancedBuildingMode.IsEnabled)
+            {
+                ABM.PlayerInstance = __instance;
+                ABM.run();
+            }
+
+            if (ABM.isActive)
+                return false;
+
+            return true;
+        }
+
+        private static void Postfix(ref Player __instance)
+        {
+            if (ABM.exitOnNextIteration)
+            {
+                try
+                {
+                    if (__instance.m_placementMarkerInstance)
+                    {
+                        __instance.m_placementMarkerInstance.SetActive(false);
+                    }
+                }
+                catch
+                {
+                }
+            }
+
+            if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noInvalidPlacementRestriction)
+            {
+                if (__instance.m_placementStatus == Player.PlacementStatus.Invalid)
+                {
+                    __instance.m_placementStatus = Player.PlacementStatus.Valid;
+                    __instance.m_placementGhost.GetComponent<Piece>().SetInvalidPlacementHeightlight(false);
+                }
+            }
+        }
     }
 
     /// <summary>
