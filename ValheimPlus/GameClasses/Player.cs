@@ -76,7 +76,7 @@ namespace ValheimPlus
                 }
             }
 
-            if (Configuration.Current.AdvancedBuildingMode.IsEnabled && Configuration.Current.Building.noInvalidPlacementRestriction)
+            if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noInvalidPlacementRestriction)
             {
                 if (__instance.m_placementStatus == Player.PlacementStatus.Invalid)
                 {
