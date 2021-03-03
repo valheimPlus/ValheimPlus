@@ -60,6 +60,9 @@ namespace ValheimPlus.Configurations
             IniData configdata = parser.ReadFile(filename);
 
             Configuration conf = new Configuration();
+            conf.ConfigData = configdata;
+            conf.ConfigData.ClearAllComments();
+
             foreach (var prop in typeof(Configuration).GetProperties())
             {
                 string keyName = prop.Name;

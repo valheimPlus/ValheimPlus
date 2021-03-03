@@ -17,12 +17,9 @@ namespace ValheimPlus.RPC
                 if (!Configuration.Current.Server.serverSyncsConfig) return;
 
                 ZPackage pkg = new ZPackage();
-
-                string[] rawConfigData = File.ReadAllLines(ConfigurationExtra.ConfigIniPath);
                 List<string> cleanConfigData = new List<string>();
 
-                FileIniDataParser parser = new FileIniDataParser();
-                IniData configdata = parser.ReadFile(ConfigurationExtra.ConfigIniPath);
+                IniData configdata = Configuration.Current.ConfigData;
 
 
                 foreach (var prop in typeof(Configuration).GetProperties())
