@@ -13,6 +13,8 @@ How to setup the development enviroment to compile ValheimPlus yourself.
 1. Add all `.dll`s (Except `mscorlib.dll`, `System.Configuration.dll`, `System.Core.dll`, `System.dll`, and `System.Xml.dll`) of "\Valheim\valheim_Data\Managed\" and "publicized_assemblies" folder as references to the project.
 1. Add all BepInEx `.dll`s (Except `0Harmony.dll` and `0Harmony20.dll`) as references to the project.
 1. Use Nuget to add "Ini-parser" and "HarmonyX" references.
+1. Define Enviroment Variable `VALHEIM_INSTALL` with path to Valheim Install Directory  
+   - example: `setx VALHEIM_INSTALL "C:\Program Files\Steam\steamapps\common\Valheim" /M`
 
 ## V+ Conventions
 ### C#
