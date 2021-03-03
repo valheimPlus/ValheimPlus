@@ -83,6 +83,9 @@ namespace ValheimPlus.RPC
                     Minimap.instance.Explore(exploredArea.x, exploredArea.y);
                 }
 
+                //Update fog texture
+                Minimap.instance.m_fogTexture.Apply();
+
                 ZLog.Log($"I got {exploredAreaCount} map points from the server!");
             }
         }
