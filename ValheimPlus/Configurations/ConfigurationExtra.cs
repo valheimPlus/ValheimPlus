@@ -92,7 +92,7 @@ namespace ValheimPlus.Configurations
                         if (method != null)
                         {
                             Debug.LogWarning($"Has {keyName} from remote");
-                            object result = method.Invoke(null, new object[] { configdata, keyName, false });
+                            object result = method.Invoke(null, new object[] { configdata, keyName });
                             // Apply change to current configuration
                             prop.SetValue(Configuration.Current, result, null);
                         }
