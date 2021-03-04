@@ -393,6 +393,7 @@
     <Compile Include="GameClasses\InventoryGUI.cs" />
     <Compile Include="GameClasses\CraftingStation.cs" />
     <Compile Include="Utility\Helper.cs" />
+    <Compile Include="Utility\ZNetExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
