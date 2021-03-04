@@ -370,7 +370,7 @@
     <Compile Include="GameClasses\GameCamera.cs" />
     <Compile Include="GameClasses\Hud.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
-    <Compile Include="Initialize.cs" />
+    <Compile Include="ValheimPlus.cs" />
     <Compile Include="GameClasses\Fermenter.cs" />
     <Compile Include="GameClasses\Inventory.cs" />
     <Compile Include="GameClasses\Console.cs" />
