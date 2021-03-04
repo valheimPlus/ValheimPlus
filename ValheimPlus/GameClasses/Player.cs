@@ -340,4 +340,51 @@ namespace ValheimPlus
             }
         }
     }
+
+    [HarmonyPatch(typeof(Player), "UpdatePlacementGhost")]
+    public static class ModifyPlacingRestrictionOfGhost
+    {
+        private static Boolean Prefix(Player __instance, bool flashGuardStone)
+        {
+            if (Configuration.Current.AdvancedBuildingMode.IsEnabled)
+            {
+                ABM.PlayerInstance = __instance;
+                ABM.run();
+            }
+            if (ABM.isActive)
+                return false;
+            return true;
+        }
+
+
+        private static void Postfix(ref Player __instance)
+        {
+            if (ABM.exitOnNextIteration)
+            {
+                try
+                {
+                    if (__instance.m_placementMarkerInstance)
+                    {
+                        __instance.m_placementMarkerInstance.SetActive(false);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+            if (Configuration.Current.AdvancedBuildingMode.IsEnabled && Configuration.Current.Building.noInvalidPlacementRestriction)
+            {
+                if (__instance.m_placementStatus == Player.PlacementStatus.Invalid)
+                {
+                    __instance.m_placementStatus = Player.PlacementStatus.Valid;
+                    __instance.m_placementGhost.GetComponent<Piece>().SetInvalidPlacementHeightlight(false);
+                }
+            }
+        }
+
+
+    }
+
+
 }
