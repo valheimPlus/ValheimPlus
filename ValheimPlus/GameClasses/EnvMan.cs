@@ -101,7 +101,7 @@ namespace ValheimPlus
                 if (ZNet.instance.IsServer() && ZNet.instance.GetNrOfPlayers() > 0 && !__instance.IsTimeSkipping() && __instance.IsNight())
                 {
                     double timeSeconds = ZNet.instance.GetTimeSeconds();
-                    double num = timeSeconds + Helper.applyModifierValue(Time.deltaTime, Configuration.Current.Time.nightTimeSpeedMultiplier);
+                    double num = timeSeconds + Helper.applyModifierValue(Time.fixedDeltaTime, Configuration.Current.Time.nightTimeSpeedMultiplier);
                     ZNet.instance.SetNetTime(num);
                 }
             }
