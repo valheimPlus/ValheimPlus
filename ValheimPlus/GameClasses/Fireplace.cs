@@ -12,9 +12,6 @@ namespace ValheimPlus
             /// Prefix which returns false every time to skip the original method and other prefixes so that we're not
             /// needlessly setting fuel value twice
             /// </summary>
-            /// <param name="__instance"></param>
-            /// <param name="___m_nview"></param>
-            /// <returns>false</returns>
             private static bool Prefix(ref Fireplace __instance, ref ZNetView ___m_nview)
             {
                 if (!__instance.m_nview.IsValid())
@@ -63,12 +60,14 @@ namespace ValheimPlus
                         __instance.m_piece.m_name.Equals(brazierName) ||
                         __instance.m_piece.m_name.Equals(greenTorchName))
                     {
-                        ___m_nview.GetZDO().Set("fuel", __instance.m_maxFuel); // setting to max won't waste rss on fill attempts
+                        //___m_nview.GetZDO().Set("fuel", __instance.m_maxFuel); // setting to max won't waste rss on fill attempts
+                        ___m_nview.InvokeRPC("AddFuel", new object[] { });
                     }
                 }
                 else
                 {
-                    ___m_nview.GetZDO().Set("fuel", __instance.m_maxFuel); // setting to max won't waste rss on fill attempts
+                    //___m_nview.GetZDO().Set("fuel", __instance.m_maxFuel); // setting to max won't waste rss on fill attempts
+                    ___m_nview.InvokeRPC("AddFuel", new object[] { });
                 }
             }
         }

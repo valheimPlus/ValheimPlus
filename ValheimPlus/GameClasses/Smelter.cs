@@ -4,10 +4,12 @@ using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
+    /// <summary>
+    /// Alters smelter input, output, and production speed configurations
+    /// </summary>
     [HarmonyPatch(typeof(Smelter), "Awake")]
     public static class ApplyFurnaceChanges
     {
-        
         private static void Prefix(ref Smelter __instance)
         {
             if (!__instance.m_addWoodSwitch)
@@ -33,6 +35,7 @@ namespace ValheimPlus
         }
 
     }
+
     // This functionality needs further testing before we can release it. 
     // nx
     /*
@@ -111,4 +114,5 @@ namespace ValheimPlus
 
     }
     */
+
 }

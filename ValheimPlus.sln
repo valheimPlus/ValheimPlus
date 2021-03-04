@@ -8,6 +8,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{39F54A13-F762-43B8-A561-E42BB2468A75}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "resources", "resources", "{6B412C7E-75C4-437E-8ECF-38E5539A3A5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unix", "unix", "{7FBDF646-CBC1-4946-AF7E-ABE32C85AF8E}"
+	ProjectSection(SolutionItems) = preProject
+		resources\unix\start_game_bepinex.sh = resources\unix\start_game_bepinex.sh
+		resources\unix\start_server_bepinex.sh = resources\unix\start_server_bepinex.sh
 	EndProjectSection
 EndProject
 Global
@@ -23,6 +32,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6B412C7E-75C4-437E-8ECF-38E5539A3A5A} = {39F54A13-F762-43B8-A561-E42BB2468A75}
+		{7FBDF646-CBC1-4946-AF7E-ABE32C85AF8E} = {6B412C7E-75C4-437E-8ECF-38E5539A3A5A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8BB54996-FC8D-4569-B330-0DE5062FE2D4}

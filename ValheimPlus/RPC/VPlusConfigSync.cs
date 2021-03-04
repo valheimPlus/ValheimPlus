@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using BepInEx;
 using ValheimPlus.Configurations;
 
@@ -13,6 +11,8 @@ namespace ValheimPlus.RPC
         {
             if (ZNet.m_isServer) //Server
             {
+                if (!Configuration.Current.Server.serverSyncsConfig) return;
+
                 ZPackage pkg = new ZPackage();
 
                 string[] rawConfigData = File.ReadAllLines(ConfigurationExtra.ConfigIniPath);
@@ -79,13 +79,14 @@ namespace ValheimPlus.RPC
 
                             Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
 
+                            // Needed to make sure client is using server configuration as dayLength is setup before
+                            TimeManipulation.SetupDayLength();
+
                             ZLog.Log("Successfully synced VPlus configuration from server.");
                         }
                     }
                 }
             }
         }
-
-
     }
 }

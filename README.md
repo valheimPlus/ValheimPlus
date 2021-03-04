@@ -163,11 +163,14 @@ We supply 4 different versions of V+ with every release since version 0.8. You c
 ## **[Game] Windows (Steam)**
 
 1. Download the [latest package called WindowsClient.zip over this link](https://github.com/nxPublic/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
-2. Locate your game folder, go into steam and :
-   1. Right click the valheim game in your steam library
+2. Locate your game folder manually or start Steam client and :
+   1. Right click the Valheim game in your steam library
    2. "Go to Manage" -> "Browse local files"
-   2. Steam should open your game folder for you when clicked
-3. Unzip the contents of WindowsClient.zip into the Valheim root folder.
+   3. Steam should open your game folder
+3. Extract the contents of the archive into the game folder
+4. Locate valheim_plus.cfg under BepInEx\config and configure the mod to your needs
+   
+**Please read the section about Server Config & Version Control (About Version Enforcement) below.**
    
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
@@ -178,8 +181,9 @@ We supply 4 different versions of V+ with every release since version 0.8. You c
 
 We will not explain how you create a dedicated server. This will only explain how you install the mod.
 
-1. Download the [latest package called WindowsServer.zip over this link](https://github.com/nxPublic/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
-2. Unpack the downloaded zip file it into your root server folder.
+1. Download the [latest package called WindowsServer.zip over this link](https://github.com/valheimPlus/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
+2. Extract the contents of the archive into your root server folder
+3. Locate valheim_plus.cfg under BepInEx\config and configure the mod to your needs
 
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
@@ -189,17 +193,34 @@ We will not explain how you create a dedicated server. This will only explain ho
 [Easy to setup and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com !](https://zap-hosting.com/valheimplus)
 
 We will not explain how you create a dedicated server. This will only explain how you install the mod.
-1. Download the [latest package called UnixServer.zip over this link](https://github.com/nxPublic/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
-2. Locate your server folder
-3. Unpack all the contents into your root server folder.
-
-*Make sure to execute 'chmod u+x start_server_bepinex.sh'*
-
-*Make sure to run start_server_bepinex.sh*
+1. Download the [latest package called UnixServer.zip over this link](https://github.com/valheimPlus/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
+2. Extract the contents of the archive into your root server folder
+3. *Make sure to execute 'chmod u+x start_server_bepinex.sh' to make the start script executable*
+4. *Make sure that all your uploaded files belong to the owner and group, who owns and starts the Valheim server, e.g 'chown -R steam:steam ./valheim/*'*
+5. Configure your server startup parameters:
+    * If you intend to run the script directly, open it and edit the variables at the top (description included in the file).
+    * If you want to define the parameters elsewhere, you can pass them to start_server_bepinex.sh as you would to the valheim server executable (description included in the file). This is recommended over the first approach, as updates will overwrite the start script and you would have to configure it again.
+    * If you are using [LGSM](https://linuxgsm.com), go inside your instance config file and change executable to "./start_server_bepinex.sh" to load the mod and your server arguments. More on LGSM config files can be found on [their homepage](https://docs.linuxgsm.com/configuration/linuxgsm-config).
+6. *Make sure to start the server via start_server_bepinex.sh or the mod will not be loaded*
 
 **Uses libc6-dev**
 
+**Most server hoster do not allow you to upload script files or make your own scripts executable (for very good reasons). You will have to wait until your hoster adapts V+ for his servers.**
+
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
+
+
+## **[Game] Unix**
+
+1. Download the [latest package called UnixServer.zip over this link](https://github.com/valheimPlus/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
+2. Locate your game folder manually or start Steam client and :
+   1. Right click the Valheim game in your steam library
+   2. Go to "Manage" -> "Browse local files"
+   3. Steam should open your game folder
+3. Extract the contents of the archive into the game folder
+4. *Make sure to execute 'chmod u+x start_game_bepinex.sh' to make the start script executable*
+5. Right click the Valheim game in your steam library
+6. Go to "Properties..." -> "Launch options" and input "./start_game_bepinex.sh %command%"
 
 # What if the game updates?
 Game updates are unlikely to do more than partially break ValheimPlus at worst. In case you encounter any issues, use Steam's verify integrity feature- wait for it to download/update all files.
@@ -236,405 +257,18 @@ https://www.patreon.com/valheimPlus
 
 The Config files name is supposed to be "valheim_plus.cfg" it needs to be placed in "BepInEx\config"
 
-You will also need to place the "INIFileParser.dll" into the "BepInEx\plugins" folder (its supplied by default within the release versions)
+You can turn off and on every feature of V+ via the config file, by default all settings are turned off.
 
-# Currently Supported Configuration (0.8.5)
-```INI
-[AdvancedBuildingMode]
-; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
+When you are hosting a server, your server configuration file overwrites the clients configuration file on connect. 
 
-; Change false to true to enable this section, if you set this to false the mode will not be accesible
-enabled=false
+You only need to setup your server configuration file (located in the server files) when hosting a server with V+.
 
-; Enter the advanced building mode with this key when building
-enterAdvancedBuildingMode=F1
+If you are hosting for your friends over steam, your friends will need v+ and they will receive your local settings from your game folder.
 
-; Exit the advanced building mode with this key when building
-exitAdvancedBuildingMode=F3
 
-[AdvancedEditingMode]
+# Contributing to ValheimPlus
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
 
-; Change false to true to enable this section, if you set this to false the mode will not be accesible
-enabled=false
-
-; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
-
-; Enter the advanced editing mode with this key
-enterAdvancedEditingMode=Keypad0
-
-; Reset the object to its original position and rotation
-resetAdvancedEditingMode=F7
-
-; Exit the advanced editing mode with this key and reset the object
-abortAndExitAdvancedEditingMode=F8
-
-; Confirm the placement of the object and place it
-confirmPlacementOfAdvancedEditingMode=KeypadEnter
-
-[Beehive]
-
-; Change false to true to enable this section
-enabled=false
-
-; configure the speed at which the bees produce honey in seconds, 1200 seconds are 24 ingame hours
-honeyProductionSpeed=1200
-
-; configure the maximum amount of honey in beehives
-maximumHoneyPerBeehive=4
-
-[Building]
-
-; Change false to true to enable this section
-enabled=false
-
-; Remove some of the Invalid placement messages, most notably provides the ability to place objects into other objects
-noInvalidPlacementRestriction=false
-
-; Removes the weather damage from rain
-noWeatherDamage=false
-
-; The maximum range that you can place build objects at
-maximumPlacementDistance=5
-
-[Items]
-
-; Change false to true to enable this section
-enabled=false
-
-; Enables you to teleport with ores and other usually restricted objects
-noTeleportPrevention=false
-
-; Increase or reduce item weight by % percent. The value -50 will reduce item weight of every object by 50%.
-baseItemWeightReduction=0
-
-; Increase the size of all item stacks by %. The value 50 would set a usual item stack of 100 to be 150.
-itemStackMultiplier=0
-
-[Fermenter]
-
-; Change false to true to enable this section
-enabled=false
-
-; configure the time that the fermenter takes to produce its product, 2400 seconds are 48 ingame hours
-fermenterDuration=2400
-
-; configure the total amount of produced items from a fermenter
-fermenterItemsProduced=6
-
-[Fireplace]
-
-; If changed to enabled all fireplaces do not need to be refilled.
-enabled=false
-
-; If you enable this option only placed torches do not need to be refilled.
-onlyTorches=false
-
-[Food]
-
-; Change false to true to enable this section
-enabled=false
-
-; Increase or reduce the time that food lasts by %. The value 50 would cause food to run out 50% slower.
-foodDurationMultiplier=0
-
-
-[Furnace]
-
-; Change false to true to enable this section
-enabled=false
-
-; Maximum amount of ore in a furnace
-maximumOre=10
-
-; Maximum amount of coal in a furnace
-maximumCoal=20
-
-; The total amount of coal used to produce a single smelted ingot.
-coalUsedPerProduct=2
-
-; The time it takes for the furnace to produce a single ingot in seconds.
-productionSpeed=30
-
-[Game]
-
-; Change false to true to enable this section
-enabled=false
-
-; The games damage multiplier per person nearby in difficultyScaleRange(m) radius.
-gameDifficultyDamageScale=0.4
-
-; The games health multiplier per person nearby in difficultyScaleRange(m) radius.
-gameDifficultyHealthScale=0.4 
-
-; Adds additional players to the difficulty calculation in multiplayer unrelated to the actual amount
-extraPlayerCountNearby=0
-
-; Sets the nearby player count always to this value + extraPlayerCountNearby
-setFixedPlayerCountTo=0
-
-; The range in meters at which other players count towards nearby players for the difficulty scale
-difficultyScaleRange=200
-
-
-[Hotkeys]
-; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes
-
-; Change false to true to enable this section
-enabled=false
-
-; Roll forwards on key pressed
-rollForwards=F9
-
-; Roll backwards on key pressed
-rollBackwards=F10
-
-
-[Hud]
-
-; Change false to true to enable this section
-enabled=false
-
-; Shows the required amount of items AND the amount of items in your inventory in build mode and while crafting.
-showRequiredItems=false
-
-; Shows small notifications about all skill experienced gained in the top left corner.
-experienceGainedNotifications=false
-
-[Kiln]
-
-; Change false to true to enable this section
-enabled=false
-
-; Maximum amount of wood in a Kiln
-maximumWood=20
-
-; The time it takes for the Kiln to produce a single piece of coal in seconds.
-productionSpeed=30
-
-[Map]
-
-; Change false to true to enable this section
-enabled=false
-
-; With this enabled you will receive the same exploration progression as other players on the server
-shareMapProgression=false
-
-; The radius of the map that you explore when moving
-exploreRadius=100
-
-; Automatically turn on the Map option to share your position when joining or starting a game
-playerPositionPublicOnJoin=false
-
-; Prevents you and other people on the server to turn off their map sharing option
-preventPlayerFromTurningOffPublicPosition=false
-
-; Remove the Map marker of your death when you have picked up your tombstone items
-removeDeathPinOnTombstoneEmpty=false
-
-[Player]
-
-; Change false to true to enable this section
-enabled=false
-
-; The base amount of carry weight of your character
-baseMaximumWeight=300
-
-; Increase the buff you receive to your carry weight from Megingjord's girdle
-baseMegingjordBuff=150
-
-; Increase auto pickup range of all items
-baseAutoPickUpRange=2
-
-; Disable all types of camera shake
-disableCameraShake=false
-
-; The base unarmed damage multiplied by your skill level
-baseUnarmedDamage=10
-
-[Server]
-
-; Change false to true to enable this section
-enabled=true
-
-; Modify the amount of players on your Server
-maxPlayers=10
-
-; Removes the requirement to have a server password
-disableServerPassword=false
-
-; This settings add a version control check to make sure that people that try to join your game or the server you try to join has V+ installed
-enforceMod=true
-
-; The total amount of data that the server and client can send per second in kilobyte
-dataRate=60
-
-; The interval in seconds that the game auto saves at (client only)
-autoSaveInterval=1200
-
-[Stamina]
-
-; Change false to true to enable this section
-enabled=false
-
-; Changes the flat amount of stamina cost of using the dodge roll
-dodgeStaminaUsage=10
-
-; Changes the stamina drain of being overweight
-encumberedStaminaDrain=10
-
-; Changes the stamina cost of jumping
-jumpStaminaDrain=10
-
-; Changes the stamina cost of running
-runStaminaDrain=10
-
-; Changes the stamina drain by sneaking
-sneakStaminaDrain=10
-
-; Changes the total amount of stamina recovered per second
-staminaRegen=5
-
-; Changes the delay until stamina regeneration sets in
-staminaRegenDelay=1
-
-; Changes the stamina drain of swimming
-swimStaminaDrain=5
-
-
-[StaminaUsage]
-; Change false to true to enable this section
-enabled=false
-; Each of these values reduces the stamina drain by %. The value 50 would result in 50% less stamina cost.
-axes=0
-bows=0
-clubs=0
-knives=0
-pickaxes=0
-polearms=0
-spears=0
-swords=0
-unarmed=0
-hammer=0
-hoe=0
-
-[Workbench]
-; Change false to true to enable this section
-enabled=false
-
-; Set the workbench radius in meters
-workbenchRange=20
-
-; Disables the roof and exposure requirement to use a workbench
-disableRoofCheck=false
-
-[Time]
-
-; Change false to true to enable this section
-enabled=false
-
-; Total amount of time one complete day and night circle takes to complete
-totalDayTimeInSeconds=1200
-
-; Increase the speed at which time passes at night by %. The value 50 would result in a 50% reduced amount of night time.
-nightTimeSpeedMultiplier=0
-
-[Ward]
-
-; Change false to true to enable this section
-enabled=false
-
-; The range of wards by meters
-wardRange=20
-
-[StructuralIntegrity]
-
-; Change false to true to enable this section
-enabled=false
-
-; Disables the entire structural integrity system and allows for placement in free air, does not prevent building damage.
-disableStructuralIntegrity=false
-
-; Each of these values reduce the loss of structural integrity by % less. The value 100 would result in disabled structural integrity and allow placement in free air.
-wood=0
-stone=0
-iron=0
-hardWood=0
-
-[Experience]
-
-; Change false to true to enable this section
-enabled=false
-
-; Each of these values represent the increase to experience gained by % increased. The value 50 would result in 50% increased experience gained for the respective skill by name.
-swords=0
-knives=0
-clubs=0
-polearms=0
-spears=0
-blocking=0
-axes=0
-bows=0
-fireMagic=0
-frostMagic=0
-unarmed=0
-pickaxes=0
-woodCutting=0
-jump=0
-sneak=0
-run=0
-swim=0
-
-
-[Camera]
-
-; Change false to true to enable this section
-enabled=false
-
-; The maximum zoom distance to your character
-cameraMaximumZoomDistance=6
-
-; The maximum zoom distance to your character when in a boat
-cameraBoatMaximumZoomDistance=6
-
-; The game camera FOV
-cameraFOV=65
-
-[Wagon]
-
-; Change false to true to enable this section
-enabled=false
-
-; Change the base vagon physical mass of the vagon object
-wagonBaseMass=20
-
-; This value changes the game physical weight of Vagons by +/- more/less from item weight inside. The value 50 would increase the weight by 50% more. The value -100 would remove the entire extra weight.
-wagonExtraMassFromItems=0
-```
-
-# Valheim Plus Compiler Requirements
-
-How to setup the development enviroment to compile ValheimPlus yourself.
-
-1. Download this package:
-https://mega.nz/file/0UAlxQwK#47InGOb8ViI6GyBDArpbhkbMTBklXdyRSmAc4-BZpJY
-
-2. Unpack into your Valheim root folder and overwrite every file when asked.
-
-3. Download this this repositories executable version.
-Repo: https://github.com/MrPurple6411/Bepinex-Tools/releases/tag/1.0.0-Publicizer
-Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
-
-4. Drag and drop all assembly_.dll files onto "AssemblyPublicizer.exe"
-
-5. Add all dll's of "\Valheim\valheim_Data\Managed" and "publicized_assemblies" folder as references to the project.
-
-(Except : "mscorlib.dll", "System.Configuration.dll", "System.Core.dll", "System.dll", "System.Xml.dll")
-
-6. Add all BepInEx dll's ("Valheim\BepInEx\core") as refernces to the project.
-
-(Except : "0Harmony.dll", "0Harmony20.dll")
-
-7. Add Ini-parser and HarmonyX via nu-get
 
 # Credits
 
@@ -644,4 +278,6 @@ Exec: https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA
 * TheTerrasque - https://github.com/TheTerrasque
 * Bruno Vasconcelos - https://github.com/Drakeny
 * GaelicGamer - https://github.com/GaelicGamer
+* Doudou 'xiaodoudou' - https://github.com/xiaodoudou
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
+* Mehdi 'AccretionCD' E. - https://github.com/AccretionCD
