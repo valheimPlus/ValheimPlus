@@ -22,7 +22,16 @@ namespace ValheimPlus
     /// </summary>
     public class FreePlacementRotation
     {
-        private static readonly Dictionary<Player, Vector3> m_placeRotationAngle = new Dictionary<Player, Vector3>();
+        private class PlayerData
+        {
+            public Vector3 PlaceRotation = Vector3.zero;
+            public bool Opposite;
+            public Piece LastPiece;
+            public KeyCode LastKeyCode;
+            
+        }
+        
+        private static readonly Dictionary<Player, PlayerData> PlayersData = new Dictionary<Player, PlayerData>();
 
         [HarmonyPatch(typeof(Player), "UpdatePlacement")]
         public static class ModifyPUpdatePlacement
@@ -44,8 +53,8 @@ namespace ValheimPlus
                 if (Hud.IsPieceSelectionVisible())
                     return;
 
-                if (!m_placeRotationAngle.ContainsKey(__instance))
-                    m_placeRotationAngle[__instance] = new Vector3(0, __instance.m_placeRotation, 0);
+                if (!PlayersData.ContainsKey(__instance))
+                    PlayersData[__instance] = new PlayerData();
 
                 RotateWithWheel(__instance);
                 SyncRotationWithTargetInFront(__instance, Configuration.Current.FreePlacementRotation.copyRotationParallel, false);
@@ -54,42 +63,37 @@ namespace ValheimPlus
 
             private static void RotateWithWheel(Player __instance)
             {
-                if (!Configuration.Current.FreePlacementRotation.IsEnabled)
-                    return;
-                
                 var wheel = Input.GetAxis("Mouse ScrollWheel");
 
+                var playerData = PlayersData[__instance];
+                
                 if (!wheel.Equals(0f))
                 {
                     if (Input.GetKey(Configuration.Current.FreePlacementRotation.rotateY))
                     {
-                        m_placeRotationAngle[__instance] += Vector3.up * Mathf.Sign(wheel);
-                        __instance.m_placeRotation = (int) (m_placeRotationAngle[__instance].y / 22.5f);
+                        playerData.PlaceRotation += Vector3.up * Mathf.Sign(wheel);
+                        __instance.m_placeRotation = (int) (playerData.PlaceRotation.y / 22.5f);
                     }
                     else if (Input.GetKey(Configuration.Current.FreePlacementRotation.rotateX))
                     {
-                        m_placeRotationAngle[__instance] += Vector3.right * Mathf.Sign(wheel);
+                        playerData.PlaceRotation += Vector3.right * Mathf.Sign(wheel);
                     }
                     else if (Input.GetKey(Configuration.Current.FreePlacementRotation.rotateZ))
                     {
-                        m_placeRotationAngle[__instance] += Vector3.forward * Mathf.Sign(wheel);
+                        playerData.PlaceRotation += Vector3.forward * Mathf.Sign(wheel);
                     }
                     else
                     {
                         __instance.m_placeRotation = ClampPlaceRotation(__instance.m_placeRotation);
-                        m_placeRotationAngle[__instance] = new Vector3(0, __instance.m_placeRotation * 22.5f, 0);
+                        playerData.PlaceRotation = new Vector3(0, __instance.m_placeRotation * 22.5f, 0);
                     }
 
-                    m_placeRotationAngle[__instance] = ClampAngles(m_placeRotationAngle[__instance]);
+                    playerData.PlaceRotation = ClampAngles(playerData.PlaceRotation);
 
-                    Debug.Log("Angle " + m_placeRotationAngle[__instance]);
+                    Debug.Log("Angle " + playerData.PlaceRotation);
                 }
             }
             
-            private static bool _opposite;
-            private static Piece _lastPiece;
-            private static KeyCode _lastKeyCode;
-
             private static void SyncRotationWithTargetInFront(Player __instance, KeyCode keyCode, bool perpendicular)
             {
                 if (__instance.m_placementGhost == null)
@@ -105,23 +109,25 @@ namespace ValheimPlus
                     if (__instance.PieceRayTest(out point, out normal, out piece, out heightmap, out waterSurface,
                         false) && piece != null)
                     {
+                        var playerData = PlayersData[__instance];
+                        
                         var rotation = piece.transform.rotation;
                         if (perpendicular)
                             rotation *= Quaternion.Euler(0, 90, 0);
 
-                        if (_lastKeyCode != keyCode || _lastPiece != piece)
-                            _opposite = false;
+                        if (playerData.LastKeyCode != keyCode || playerData.LastPiece != piece)
+                            playerData.Opposite = false;
                         
-                        _lastKeyCode = keyCode;
-                        _lastPiece = piece;
+                        playerData.LastKeyCode = keyCode;
+                        playerData.LastPiece = piece;
                         
-                        if (_opposite)
+                        if (playerData.Opposite)
                             rotation *= Quaternion.Euler(0, 180, 0);
                         
-                        _opposite = !_opposite;
+                        playerData.Opposite = !playerData.Opposite;
                         
-                        m_placeRotationAngle[__instance] = rotation.eulerAngles;
-                        Debug.Log("Sync Angle " + m_placeRotationAngle[__instance]);
+                        playerData.PlaceRotation = rotation.eulerAngles;
+                        Debug.Log("Sync Angle " + playerData.PlaceRotation);
                     }
                 }
             }
@@ -157,6 +163,9 @@ namespace ValheimPlus
         {
             private static void Postfix(Player __instance, bool flashGuardStone)
             {
+                if (!Configuration.Current.FreePlacementRotation.IsEnabled)
+                    return;
+                
                 if (ABM.isActive)
                     return;
                 
@@ -257,8 +266,8 @@ namespace ValheimPlus
                             normal = Vector3.up;
                         __instance.m_placementGhost.SetActive(true);
 
-                        var rotation = m_placeRotationAngle.ContainsKey(__instance)
-                            ? m_placeRotationAngle[__instance]
+                        var rotation = PlayersData.ContainsKey(__instance)
+                            ? PlayersData[__instance].PlaceRotation
                             : __instance.m_placeRotation * 22.5f * Vector3.up;
 
                         Quaternion quaternion = Quaternion.Euler(rotation);
