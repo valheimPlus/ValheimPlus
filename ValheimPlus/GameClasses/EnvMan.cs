@@ -20,6 +20,7 @@ namespace ValheimPlus
             }
         }
 
+        // Refer to assembly_valheim/EnvMan IsDay/IsAfternoon/IsNight
         private const float startOfADay = 0.25f;
         private const float startOfNight = 0.75f;
         private const float startOfAfternoon = 0.5f;
@@ -43,30 +44,39 @@ namespace ValheimPlus
             }
         }
 
+        /// <summary>
+        /// Hook on EnvMan IsDay to avoid fraction methods on the server side
+        /// </summary>
         [HarmonyPatch(typeof(EnvMan), "IsDay")]
         class EnvMan_IsDay_Patch {
             static void Postfix(ref bool __result) {
-                if (ZNet.instance.IsServer()) {
+                if (Configuration.Current.Time.IsEnabled && ZNet.instance != null && ZNet.instance.IsServer()) {
                     double progression = GetDayProgression();
                     __result = progression >= startOfADay && progression <= startOfNight;
                 }
             }
         }
 
+        /// <summary>
+        /// Hook on EnvMan IsNight to avoid fraction methods on the server side
+        /// </summary>
         [HarmonyPatch(typeof(EnvMan), "IsNight")]
         class EnvMan_IsNight_Patch {
             static void Postfix(ref bool __result) {
-                if (ZNet.instance.IsServer()) {
+                if (Configuration.Current.Time.IsEnabled && ZNet.instance != null && ZNet.instance.IsServer()) {
                     double progression = GetDayProgression();
                     __result = progression <= startOfADay || progression >= startOfNight;
                 }
             }
         }
 
+        /// <summary>
+        /// Hook on EnvMan IsAfternoon to avoid fraction methods on the server side
+        /// </summary>
         [HarmonyPatch(typeof(EnvMan), "IsAfternoon")]
         class EnvMan_IsAfternoon_Patch {
             static void Postfix(ref bool __result) {
-                if (ZNet.instance.IsServer()) {
+                if (Configuration.Current.Time.IsEnabled && ZNet.instance != null && ZNet.instance.IsServer()) {
                     double progression = GetDayProgression();
                     __result = progression >= startOfAfternoon && progression <= startOfNight;
                 }
