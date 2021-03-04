@@ -1,15 +1,19 @@
 using HarmonyLib;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
+{
 	/// <summary>
 	/// Inventory HUD setup
 	/// </summary>
 	[HarmonyPatch(typeof(InventoryGui), "SetupRequirement")]
-	public static class AddCurrentItemsAvailable {
-		private static bool Prefix(Transform elementRoot, Piece.Requirement req, Player player, bool craft, int quality, ref bool __result) {
+	public static class AddCurrentItemsAvailable 
+	{
+		private static bool Prefix(Transform elementRoot, Piece.Requirement req, Player player, bool craft, int quality, ref bool __result)
+		{
 			Image component = elementRoot.transform.Find("res_icon").GetComponent < Image > ();
 			Text component2 = elementRoot.transform.Find("res_name").GetComponent < Text > ();
 			Text component3 = elementRoot.transform.Find("res_amount").GetComponent < Text > ();
@@ -52,13 +56,15 @@ namespace ValheimPlus.GameClasses
 	}
 
 	[HarmonyPatch(typeof(InventoryGui), "Show")]
-	public class InventoryGUI_Show_Patch {
+	public class InventoryGUI_Show_Patch 
+	{
 		private const float oneRowSize = 70.5f;
 		private const float containerOriginalY = -90.0f;
 		private const float containerHeight = -340.0f;
 		private static float lastValue = 0;
 
-		public static void Postfix(ref InventoryGui __instance) {
+		public static void Postfix(ref InventoryGui __instance) 
+		{
 			if (Configuration.Current.Inventory.IsEnabled) {
 				RectTransform container = __instance.m_container;
 				RectTransform player = __instance.m_player;
@@ -74,7 +80,8 @@ namespace ValheimPlus.GameClasses
 				container.offsetMin = new Vector2(40, containerNewY + containerHeight);
 
 				// Add player inventory scroll bar if it does not exist
-				if (!playerGrid.GetComponent < InventoryGrid > ().m_scrollbar) {
+				if (!playerGrid.GetComponent < InventoryGrid > ().m_scrollbar) 
+				{
 					GameObject playerGridScroll = GameObject.Instantiate(InventoryGui.instance.m_containerGrid.m_scrollbar.gameObject, playerGrid.transform.parent);
 					playerGridScroll.name = "PlayerScroll";
 					playerGrid.GetComponent < RectMask2D > ().enabled = true;
