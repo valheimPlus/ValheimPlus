@@ -32,5 +32,8 @@ namespace ValheimPlus.Configurations
         public CameraConfiguration Camera { get; set; }
         public GameConfiguration Game { get; set; }
         public WagonConfiguration Wagon { get; set; }
+        public GatherConfiguration Gathering { get; set; }
+        public DurabilityConfiguration Durability { get; set; }
+        public ArmorConfiguration Armor { get; set; }
     }
 }

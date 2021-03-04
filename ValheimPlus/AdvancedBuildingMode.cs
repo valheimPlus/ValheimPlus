@@ -27,6 +27,9 @@ namespace ValheimPlus
         static float gDistance = 2;
         static float gScrollDistance = 2;
 
+        // Save and Load object rotation
+        static Quaternion savedRotation = new Quaternion();
+
         public static void run()
         {
             if (AEM.isActive)
@@ -113,7 +116,7 @@ namespace ValheimPlus
             float scrollDistance;
 
             if (shiftFlag)
-            { 
+            {  
                 distance = gDistance * 3;
                 scrollDistance = gScrollDistance * 3;
             } 
@@ -126,6 +129,15 @@ namespace ValheimPlus
             // LEFT ALT PRESSED
             if (Input.GetKeyDown(KeyCode.LeftAlt)) { altFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftAlt)) { altFlag = false; }
+
+            if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.copyObjectRotation)) {
+                savedRotation = component.transform.rotation;
+            }
+            if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.pasteObjectRotation))
+            {
+                component.transform.rotation = savedRotation;
+            }
+
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {

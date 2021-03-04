@@ -6,6 +6,7 @@ namespace ValheimPlus
 {
     public class TimeManipulation
     {
+        /*
         /// <summary>
         /// Alter the total day length in seconds base on configuration file
         /// </summary>
@@ -63,5 +64,6 @@ namespace ValheimPlus
                 }
             }
         }
+        */
     }
 }
