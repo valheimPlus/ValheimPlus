@@ -36,9 +36,6 @@ namespace ValheimPlus
 
     }
 
-    // This functionality needs further testing before we can release it. 
-    // nx
-    /*
     [HarmonyPatch(typeof(Smelter), "Spawn")]
     public static class AutoFurnaceDrop
     {
@@ -70,6 +67,12 @@ namespace ValheimPlus
             }
 
             bool spawn(bool isKiln) {
+
+                if (Configuration.Current.Kiln.autoDepositRange >= 50)
+                    Configuration.Current.Kiln.autoDepositRange = 50;
+
+                if (Configuration.Current.Furnace.autoDepositRange >= 50)
+                    Configuration.Current.Furnace.autoDepositRange = 50;
 
                 //SphereCast grabbing all overlaps (didn't bother trying to find a mask, so this might be "heavy")
                 Collider[] hitColliders = Physics.OverlapSphere(smelter.gameObject.transform.localPosition, isKiln ? Configuration.Current.Kiln.autoDepositRange : Configuration.Current.Furnace.autoDepositRange);
@@ -113,6 +116,6 @@ namespace ValheimPlus
         }
 
     }
-    */
+    
 
 }

@@ -54,25 +54,28 @@ namespace ValheimPlus.Configurations
             return true;
         }
 
-        public static Configuration LoadFromIni(string filename)
+        public static Configuration LoadFromIni(IniData configdata, bool onlyLoadEnabled = false)
         {
-            FileIniDataParser parser = new FileIniDataParser();
-            IniData configdata = parser.ReadFile(filename);
-
             Configuration conf = new Configuration();
+            conf.ConfigData = configdata;
+            conf.ConfigData.ClearAllComments();
             foreach (var prop in typeof(Configuration).GetProperties())
             {
                 string keyName = prop.Name;
                 MethodInfo method = prop.PropertyType.GetMethod("LoadIni", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-
-                if (method != null)
+                if (method != null && (!onlyLoadEnabled || (configdata[keyName] != null && configdata[keyName]["enabled"] != null)))
                 {
                     var result = method.Invoke(null, new object[] { configdata, keyName });
                     prop.SetValue(conf, result, null);
                 }
             }
-
             return conf;
+        }
+
+        public static Configuration LoadFromIni(string filename)
+        {
+            FileIniDataParser parser = new FileIniDataParser();
+            return LoadFromIni(parser.ReadFile(filename));
         }
 
         public static Configuration LoadFromIni(Stream iniStream)
@@ -80,23 +83,15 @@ namespace ValheimPlus.Configurations
             using (StreamReader iniReader = new StreamReader(iniStream))
             {
                 FileIniDataParser parser = new FileIniDataParser();
-                IniData configdata = parser.ReadData(iniReader);
-
-                Configuration conf = new Configuration();
-                foreach (var prop in typeof(Configuration).GetProperties())
-                {
-                    string keyName = prop.Name;
-                    MethodInfo method = prop.PropertyType.GetMethod("LoadIni",
-                        BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-
-                    if (method != null)
-                    {
-                        object result = method.Invoke(null, new object[] {configdata, keyName});
-                        prop.SetValue(conf, result, null);
-                    }
-                }
-
-                return conf;
+                return LoadFromIni(parser.ReadData(iniReader));
+            }
+        }
+        public static void LoadConfigurationFromStream(Stream iniStream)
+        {
+            using (StreamReader iniReader = new StreamReader(iniStream))
+            {
+                FileIniDataParser parser = new FileIniDataParser();
+                LoadFromIni(parser.ReadData(iniReader), true);
             }
         }
     }
@@ -125,6 +120,17 @@ namespace ValheimPlus.Configurations
             }
 
             Debug.LogWarning($" [Int] Could not read {key}, using default value of {defaultVal}");
+            return defaultVal;
+        }
+
+        public static string GetString(this KeyDataCollection data, string key, string defaultVal)
+        {
+            string value = $"{data[key]}";
+            if (value.Length > 1)
+            {
+                return value;
+            }
+            Debug.LogWarning($" [String] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
 
