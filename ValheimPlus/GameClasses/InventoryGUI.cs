@@ -1,6 +1,7 @@
 using HarmonyLib;
 using UnityEngine;
 using UnityEngine.UI;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
 	/// <summary>
