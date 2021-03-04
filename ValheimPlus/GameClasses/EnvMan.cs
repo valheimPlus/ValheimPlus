@@ -25,6 +25,13 @@ namespace ValheimPlus
             }
         }
 
+        private const float startOfADay = 0.25f;
+        private const float startOfNight = 0.75f;
+        private const float startOfAfternoon = 0.5f;
+
+        /// <summary>
+        /// Return progression of the day on a range of 0 to 1
+        /// </summary>
         public static double GetDayProgression()
         {
             double timeSecondsFromStart = ZNet.instance.GetTimeSeconds();
@@ -36,7 +43,7 @@ namespace ValheimPlus
         /// Hook on EnvMan init to alter total day length
         /// </summary>
         [HarmonyPatch(typeof(EnvMan), "Awake")]
-        public static class TimeInitHook
+        public static class EnvMan_Awake_Patch
         {
             private static void Prefix(ref EnvMan __instance)
             {
@@ -52,7 +59,7 @@ namespace ValheimPlus
                 if (ZNet.instance.IsServer())
                 {
                     double progression = GetDayProgression();
-                    result = progression >= 0.25f && progression <= 0.75f;
+                    result = progression >= startOfADay && progression <= startOfNight;
                 }
                 return result;
             }
@@ -66,7 +73,7 @@ namespace ValheimPlus
                 if (ZNet.instance.IsServer())
                 {
                     double progression = GetDayProgression();
-                    result = progression <= 0.25f || progression >= 0.75f;
+                    result = progression <= startOfADay || progression >= startOfNight;
                 }
                 return result;
             }
@@ -80,7 +87,7 @@ namespace ValheimPlus
                 if (ZNet.instance.IsServer())
                 {
                     double progression = GetDayProgression();
-                    result = progression >= 0.5f && progression <= 0.75f;
+                    result = progression >= startOfAfternoon && progression <= startOfNight;
                 }
                 return result;
             }
@@ -90,7 +97,7 @@ namespace ValheimPlus
         /// Hook on EnvMan to alter night speed
         /// </summary>
         [HarmonyPatch(typeof(EnvMan), "FixedUpdate")]
-        public static class TimeUpdateHook
+        public static class EnvMan_FixedUpdate_Patch
         {
             private static void Prefix(ref EnvMan __instance)
             {
