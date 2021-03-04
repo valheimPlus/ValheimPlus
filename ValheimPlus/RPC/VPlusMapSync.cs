@@ -178,12 +178,12 @@ namespace ValheimPlus.RPC
             }
         }
 
-        private static List<ZPackage> ChunkMapData(List<Vector2i> mapData)
+        private static List<ZPackage> ChunkMapData(List<Vector2i> mapData, int chunkSize = 10000)
         {
             if (mapData == null || mapData.Count == 0) return null;
 
             //Chunk the map data into pieces based on the maximum possible map data
-            List<List<Vector2i>> chunkedData = mapData.ChunkBy(10000);
+            List<List<Vector2i>> chunkedData = mapData.ChunkBy(chunkSize);
 
             List<ZPackage> packageList = new List<ZPackage>();
 
