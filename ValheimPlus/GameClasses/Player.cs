@@ -84,6 +84,24 @@ namespace ValheimPlus
                     __instance.m_placementGhost.GetComponent<Piece>().SetInvalidPlacementHeightlight(false);
                 }
             }
+
+            if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.cropNotifier)
+            {
+                Plant plantComponent = __instance.m_placementGhost.GetComponent<Plant>();
+                if (plantComponent != null && __instance.m_placementStatus == Player.PlacementStatus.Valid)
+                {
+                    LayerMask mask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece", "piece_nonsolid");
+                    Collider[] array = Physics.OverlapSphere(__instance.m_placementGhost.transform.position, plantComponent.m_growRadius, mask);
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        Plant component = array[i].GetComponent<Plant>();
+                        if (component != null)
+                        {
+                            __instance.m_placementStatus = Player.PlacementStatus.MoreSpace;
+                        }
+                    }
+                }
+            }
         }
     }
 
