@@ -11,7 +11,7 @@ namespace ValheimPlus
     /// Alters teleportation prevention
     /// </summary>
     [HarmonyPatch(typeof(Inventory), "IsTeleportable")]
-    public static class Inventory_IsTeleportable_Patch
+    public static class noItemTeleportPrevention
     {
         private static void Postfix(ref bool __result)
         {
