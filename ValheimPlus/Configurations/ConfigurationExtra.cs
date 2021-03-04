@@ -54,53 +54,44 @@ namespace ValheimPlus.Configurations
             return true;
         }
 
-        public static Configuration LoadFromIni(string filename)
+        public static Configuration LoadFromIni(IniData configdata, bool onlyLoadEnabled = false)
         {
-            FileIniDataParser parser = new FileIniDataParser();
-            IniData configdata = parser.ReadFile(filename);
-
             Configuration conf = new Configuration();
             conf.ConfigData = configdata;
             conf.ConfigData.ClearAllComments();
-
             foreach (var prop in typeof(Configuration).GetProperties())
             {
                 string keyName = prop.Name;
                 MethodInfo method = prop.PropertyType.GetMethod("LoadIni", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-
-                if (method != null)
+                if (method != null && (!onlyLoadEnabled || (configdata[keyName] != null && configdata[keyName]["enabled"] != null)))
                 {
                     var result = method.Invoke(null, new object[] { configdata, keyName });
                     prop.SetValue(conf, result, null);
                 }
             }
-
             return conf;
         }
 
+        public static Configuration LoadFromIni(string filename)
+        {
+            FileIniDataParser parser = new FileIniDataParser();
+            return LoadFromIni(parser.ReadFile(filename));
+        }
+
+        public static Configuration LoadFromIni(Stream iniStream)
+        {
+            using (StreamReader iniReader = new StreamReader(iniStream))
+            {
+                FileIniDataParser parser = new FileIniDataParser();
+                return LoadFromIni(parser.ReadData(iniReader));
+            }
+        }
         public static void LoadConfigurationFromStream(Stream iniStream)
         {
             using (StreamReader iniReader = new StreamReader(iniStream))
             {
                 FileIniDataParser parser = new FileIniDataParser();
-                IniData configdata = parser.ReadData(iniReader);
-
-                foreach (var prop in typeof(Configuration).GetProperties())
-                {
-                    string keyName = prop.Name;
-                    MethodInfo method = prop.PropertyType.GetMethod("LoadIni", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-                    // Only try to load syncConfig (which are the only sent), it will avoid some local configuration revert to default values
-                    if (configdata[keyName] != null && configdata[keyName]["enabled"] != null)
-                    {
-                        if (method != null)
-                        {
-                            object result = method.Invoke(null, new object[] { configdata, keyName });
-                            // Apply change to current configuration
-                            prop.SetValue(Configuration.Current, result, null);
-                        }
-                    }
-
-                }
+                LoadFromIni(parser.ReadData(iniReader), true);
             }
         }
     }
