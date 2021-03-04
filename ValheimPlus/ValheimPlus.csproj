@@ -101,11 +101,11 @@
       <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\Mono.Security.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.RuntimeDetour, Version=20.11.26.2, Culture=neutral, processorArchitecture=MSIL">
-       <HintPath>..\packages\MonoMod.RuntimeDetour.20.11.26.2\lib\net40\MonoMod.RuntimeDetour.dll</HintPath>
-   </Reference>
+      <HintPath>..\packages\MonoMod.RuntimeDetour.20.11.26.2\lib\net40\MonoMod.RuntimeDetour.dll</HintPath>
+    </Reference>
     <Reference Include="MonoMod.Utils, Version=20.11.26.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoMod.Utils.20.11.26.2\lib\net40\MonoMod.Utils.dll</HintPath>
-  </Reference>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -364,6 +364,7 @@
     <Compile Include="GameClasses\GameCamera.cs" />
     <Compile Include="GameClasses\Hud.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
+    <Compile Include="Utility\ListExtensions.cs" />
     <Compile Include="ValheimPlus.cs" />
     <Compile Include="GameClasses\Fermenter.cs" />
     <Compile Include="GameClasses\Inventory.cs" />

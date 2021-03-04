@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using BepInEx;
 using UnityEngine;
+using ValheimPlus.Utility;
 
 namespace ValheimPlus.RPC
 {
@@ -33,8 +34,6 @@ namespace ValheimPlus.RPC
 
                 ZLog.Log($"Received {exploredAreaCount} map points from peer {sender}.");
 
-                ZPackage serverMapPkg = new ZPackage();
-
                 List<Vector2i> serverExploredAreas = new List<Vector2i>();
 
                 for (int y = 0; y < Minimap.instance.m_textureSize; ++y)
@@ -48,19 +47,16 @@ namespace ValheimPlus.RPC
                     }
                 }
 
-                //Write number of explored areas
-                serverMapPkg.Write(serverExploredAreas.Count);
-
-                //Iterate and write all explored areas to package.
-                foreach (Vector2i exploredArea in serverExploredAreas)
-                {
-                    serverMapPkg.Write(exploredArea);
-                }
+                //Chunk up the map data
+                List<ZPackage> packages = ChunkMapData(serverExploredAreas);
 
                 //Send the updated server map to all clients
-                ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "VPlusMapSync", new object[] { serverMapPkg });
+                foreach(ZPackage pkg in packages)
+                {
+                    ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "VPlusMapSync", new object[] { pkg });
+                }
 
-                ZLog.Log($"Sent map updates to all clients ({serverExploredAreas.Count} map points)");
+                ZLog.Log($"Sent map updates to all clients ({serverExploredAreas.Count} map points, {packages.Count} chunks)");
             }
             else //Client
             {
@@ -110,20 +106,17 @@ namespace ValheimPlus.RPC
 
             if (exploredAreas.Count == 0) return;
 
-            ZPackage mapPackage = new ZPackage();
+            //Chunk map data
+            List<ZPackage> packages = ChunkMapData(exploredAreas);
 
-            //Write number of explored areas
-            mapPackage.Write(exploredAreas.Count);
-
-            foreach (Vector2i exploredArea in exploredAreas)
+            //Route all chunks to the server
+            foreach (ZPackage pkg in packages)
             {
-                mapPackage.Write(exploredArea);
+                ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusMapSync",
+                    new object[] { pkg });
             }
 
-            ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusMapSync",
-                new object[] { mapPackage });
-
-            ZLog.Log($"Sent my map data to the server ({exploredAreas.Count} map points)");
+            ZLog.Log($"Sent my map data to the server ({exploredAreas.Count} map points, {packages.Count} chunks)");
         }
 
         public static void LoadMapDataFromDisk()
@@ -181,6 +174,36 @@ namespace ValheimPlus.RPC
 
                 ZLog.Log($"Saved {mapDataToDisk.Count} map points to disk.");
             }
+        }
+
+        private static List<ZPackage> ChunkMapData(List<Vector2i> mapData)
+        {
+            if (mapData == null || mapData.Count == 0) return null;
+
+            //Chunk the map data into pieces based on the maximum possible map data
+            List<List<Vector2i>> chunkedData = mapData.ChunkBy(Minimap.instance.m_textureSize * Minimap.instance.m_textureSize / 10);
+
+            List<ZPackage> packageList = new List<ZPackage>();
+
+            //Iterate the chunks
+            foreach(List<Vector2i> thisChunk in chunkedData)
+            {
+                ZPackage pkg = new ZPackage();
+
+                //Write number of vectors in this package
+                pkg.Write(thisChunk.Count);
+
+                //Write each vector in this chunk to this package.
+                foreach(Vector2i thisVector in thisChunk)
+                {
+                    pkg.Write(thisVector);
+                }
+
+                //Add the package to the package list
+                packageList.Add(pkg);
+            }
+
+            return packageList;
         }
     }
 }
