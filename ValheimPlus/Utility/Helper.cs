@@ -18,7 +18,7 @@ namespace ValheimPlus
             double result = Math.Truncate(mult * value) / mult;
             return (float)result;
         }
-
+         
         public static float applyModifierValue(float targetValue, float value)
         {
             if (value == 50) value = 51; // Decimal issue

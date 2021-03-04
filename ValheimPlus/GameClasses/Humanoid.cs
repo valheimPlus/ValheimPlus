@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
+using UnityEngine;
 
 namespace ValheimPlus.GameClasses
 {
@@ -14,7 +15,8 @@ namespace ValheimPlus.GameClasses
                 {
                     if (__weapon.m_shared.m_name == "Unarmed")
                     {
-                        __weapon.m_shared.m_damages.m_blunt = __instance.GetSkillFactor(Skills.SkillType.Unarmed) * Configuration.Current.Player.baseUnarmedDamage;
+                        Player CharacterPlayerInstance = (Player)__instance;
+                        __weapon.m_shared.m_damages.m_blunt = CharacterPlayerInstance.GetSkillFactor(Skills.SkillType.Unarmed) * Configuration.Current.Player.baseUnarmedDamage;
                     }
                 }
             }

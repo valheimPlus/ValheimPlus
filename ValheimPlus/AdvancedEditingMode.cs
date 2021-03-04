@@ -33,6 +33,10 @@ namespace ValheimPlus
         private static float gDistance = 2;
         private static float gScrollDistance = 2;
 
+
+        // Save and Load object rotation
+        static Quaternion savedRotation = new Quaternion();
+
         // Executing the raycast to find the object
         public static bool ExecuteRayCast(Player playerInstance)
         {
@@ -233,6 +237,16 @@ namespace ValheimPlus
             // LEFT ALT PRESSED
             if (Input.GetKeyDown(KeyCode.LeftAlt)) { altFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftAlt)) { altFlag = false; }
+
+
+            if (Input.GetKeyUp(Configuration.Current.AdvancedEditingMode.copyObjectRotation))
+            {
+                savedRotation = HitPiece.transform.rotation;
+            }
+            if (Input.GetKeyUp(Configuration.Current.AdvancedEditingMode.pasteObjectRotation))
+            {
+                HitPiece.transform.rotation = savedRotation;
+            }
 
             // Maximum distance between player and placed piece
             if (Vector3.Distance(PlayerInstance.transform.position, HitPiece.transform.position) > PlayerInstance.m_maxPlaceDistance)
