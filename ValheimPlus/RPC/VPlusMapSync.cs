@@ -51,12 +51,14 @@ namespace ValheimPlus.RPC
                 List<ZPackage> packages = ChunkMapData(serverExploredAreas);
 
                 //Send the updated server map to all clients
-                foreach(ZPackage pkg in packages)
+                /*foreach(ZPackage pkg in packages)
                 {
                     ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "VPlusMapSync", new object[] { pkg });
-                }
+                }*/
 
-                ZLog.Log($"Sent map updates to all clients ({serverExploredAreas.Count} map points, {packages.Count} chunks)");
+                ZLog.Log($"-------------------------- Packages: {packages.Count}");
+
+                //ZLog.Log($"Sent map updates to all clients ({serverExploredAreas.Count} map points, {packages.Count} chunks)");
             }
             else //Client
             {
