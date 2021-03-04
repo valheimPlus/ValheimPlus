@@ -78,6 +78,11 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify the physical weight of the Wagon received by items inside
 * Modify the base physical weight
 
+## Inventory
+* Extend player inventory up to 20 x 8
+* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8)
+* Change how inventory gets filled with materials (top to bottom or bottom to top)
+
 ## Items
 * Remove Item teleport prevention from all items
 * Reduce Item weight of all items by %
@@ -281,3 +286,4 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on compiling V+ for de
 * Doudou 'xiaodoudou' - https://github.com/xiaodoudou
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
 * Mehdi 'AccretionCD' E. - https://github.com/AccretionCD
+* Zogniton - https://github.com/Zogniton - Inventiry Overhaul initial creator
