@@ -98,7 +98,6 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Map
 * Activate shared position on map automatically
 * Setting to force other people to share their position with you
-* Remove death marker on the map on collecting your tombstone
 
 ### Shared map system
 Allows you to see the explored areas on the map of other players on the server if they have their position on the map shared ingame.
