@@ -116,7 +116,7 @@ namespace ValheimPlus
             float scrollDistance;
 
             if (shiftFlag)
-            { 
+            {  
                 distance = gDistance * 3;
                 scrollDistance = gScrollDistance * 3;
             } 

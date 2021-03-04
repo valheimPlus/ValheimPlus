@@ -22,8 +22,8 @@ namespace ValheimPlus
                 {
                     if (Configuration.Current.Server.enforceMod)
                     {
-                        Debug.Log($"Version generated with enforced mod : {__result}");
                         __result = gameVersion + "@" + ValheimPlusPlugin.version;
+                        Debug.Log($"Version generated with enforced mod : {__result}");
                         return false;
                     }
                 }

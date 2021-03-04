@@ -49,6 +49,9 @@ namespace ValheimPlus
     {
         private static bool Prefix(ref Fermenter __instance, ref string __result)
         {
+            if (!Configuration.Current.Fermenter.IsEnabled || !Configuration.Current.Fermenter.showFermenterDuration)
+                return true;
+
             if (!PrivateArea.CheckAccess(__instance.transform.position, 0f, false))
             {
                 __result = Localization.instance.Localize(__instance.m_name + "\n$piece_noaccess");
