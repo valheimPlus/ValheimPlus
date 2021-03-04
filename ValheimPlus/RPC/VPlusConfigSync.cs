@@ -104,7 +104,7 @@ namespace ValheimPlus.RPC
                             ConfigurationExtra.LoadConfigurationFromStream(memStream);
 
                             // Needed to make sure client is using server configuration as dayLength is setup before
-                            GameClasses.TimeManipulation.SetupDayLength();
+                            //GameClasses.TimeManipulation.SetupDayLength();
 
                             ZLog.Log("Successfully synced VPlus configuration from server.");
                         }
