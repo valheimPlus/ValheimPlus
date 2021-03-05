@@ -4,6 +4,7 @@ using System.IO;
 using BepInEx;
 using UnityEngine;
 using ValheimPlus.Utility;
+using static ValheimPlus.VPlusDataObjects;
 
 namespace ValheimPlus.RPC
 {
@@ -27,26 +28,50 @@ namespace ValheimPlus.RPC
                 //Iterate and add them to server's combined map data.
                 for (int i = 0; i < exploredAreaCount; i++)
                 {
-                    Vector2i exploredArea = mapPkg.ReadVector2i();
+                    MapRange exploredArea = mapPkg.ReadVPlusMapRange();
 
-                    ServerMapData[exploredArea.y * Minimap.instance.m_textureSize + exploredArea.x] = true;
+                    for (int x = exploredArea.StartingX; x < exploredArea.EndingX; x++)
+                    {
+                        ServerMapData[exploredArea.Y * Minimap.instance.m_textureSize + x] = true;
+                    }
                 }
 
                 ZLog.Log($"Received {exploredAreaCount} map points from peer {sender}.");
 
-                List<Vector2i> serverExploredAreas = new List<Vector2i>();
+                List<MapRange> serverExploredAreas = new List<MapRange>();
 
                 for (int y = 0; y < Minimap.instance.m_textureSize; ++y)
                 {
+                    int startX = -1, endX = -1;
+
                     for (int x = 0; x < Minimap.instance.m_textureSize; ++x)
                     {
-                        if (ServerMapData[y * Minimap.instance.m_textureSize + x])
+                        if (ServerMapData[y * Minimap.instance.m_textureSize + x] && startX == -1 && endX == -1)
                         {
-                            serverExploredAreas.Add(new Vector2i(x, y));
+                            startX = x;
+                            continue;
+                        }
+
+                        if (!ServerMapData[y * Minimap.instance.m_textureSize + x] && startX > -1 && endX == -1)
+                        {
+                            endX = x - 1;
+                            continue;
+                        }
+
+                        if (startX > -1 && endX > -1)
+                        {
+                            serverExploredAreas.Add(new MapRange()
+                            {
+                                StartingX = startX,
+                                EndingX = endX,
+                                Y = y
+                            });
+
+                            startX = -1;
+                            endX = -1;
                         }
                     }
                 }
-
                 //Chunk up the map data
                 List<ZPackage> packages = ChunkMapData(serverExploredAreas);
 
@@ -93,15 +118,37 @@ namespace ValheimPlus.RPC
             ZLog.Log("-------------------- SENDING VPLUSMAPSYNC DATA");
 
             //Iterate the explored map and prepare data for transmission
-            List<Vector2i> exploredAreas = new List<Vector2i>();
+            List<MapRange> exploredAreas = new List<MapRange>();
 
             for (int y = 0; y < Minimap.instance.m_textureSize; ++y)
             {
+                int startX = -1, endX = -1;
+
                 for (int x = 0; x < Minimap.instance.m_textureSize; ++x)
                 {
-                    if (Minimap.instance.m_explored[y * Minimap.instance.m_textureSize + x])
+                    if (Minimap.instance.m_explored[y * Minimap.instance.m_textureSize + x] && startX == -1 && endX == -1)
                     {
-                        exploredAreas.Add(new Vector2i(x, y));
+                        startX = x;
+                        continue;
+                    }
+
+                    if (!Minimap.instance.m_explored[y * Minimap.instance.m_textureSize + x] && startX > -1 && endX == -1)
+                    {
+                        endX = x - 1;
+                        continue;
+                    }
+
+                    if (startX > -1 && endX > -1)
+                    {
+                        exploredAreas.Add(new MapRange()
+                        {
+                            StartingX = startX,
+                            EndingX = endX,
+                            Y = y
+                        });
+
+                        startX = -1;
+                        endX = -1;
                     }
                 }
             }
@@ -178,27 +225,27 @@ namespace ValheimPlus.RPC
             }
         }
 
-        private static List<ZPackage> ChunkMapData(List<Vector2i> mapData, int chunkSize = 10000)
+        private static List<ZPackage> ChunkMapData(List<MapRange> mapData, int chunkSize = 10000)
         {
             if (mapData == null || mapData.Count == 0) return null;
 
             //Chunk the map data into pieces based on the maximum possible map data
-            List<List<Vector2i>> chunkedData = mapData.ChunkBy(chunkSize);
+            List<List<MapRange>> chunkedData = mapData.ChunkBy(chunkSize);
 
             List<ZPackage> packageList = new List<ZPackage>();
 
             //Iterate the chunks
-            foreach(List<Vector2i> thisChunk in chunkedData)
+            foreach(List<MapRange> thisChunk in chunkedData)
             {
                 ZPackage pkg = new ZPackage();
 
-                //Write number of vectors in this package
+                //Write number of MapRanges in this package
                 pkg.Write(thisChunk.Count);
 
-                //Write each vector in this chunk to this package.
-                foreach(Vector2i thisVector in thisChunk)
+                //Write each MapRange in this chunk to this package.
+                foreach(MapRange mapRange in thisChunk)
                 {
-                    pkg.Write(thisVector);
+                    pkg.WriteVPlusMapRange(mapRange);
                 }
 
                 //Add the package to the package list

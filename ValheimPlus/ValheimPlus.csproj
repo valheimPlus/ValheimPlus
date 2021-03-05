@@ -370,6 +370,7 @@
     <Compile Include="GameClasses\Hud.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
     <Compile Include="Utility\ListExtensions.cs" />
+    <Compile Include="Utility\ZPackageExtensions.cs" />
     <Compile Include="ValheimPlus.cs" />
     <Compile Include="GameClasses\Fermenter.cs" />
     <Compile Include="GameClasses\Inventory.cs" />
@@ -397,6 +398,7 @@
     <Compile Include="GameClasses\CraftingStation.cs" />
     <Compile Include="Utility\Helper.cs" />
     <Compile Include="Utility\ZNetExtensions.cs" />
+    <Compile Include="VPlusDataObjects.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
