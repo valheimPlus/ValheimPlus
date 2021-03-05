@@ -1,13 +1,10 @@
-﻿using IniParser.Model;
-using ValheimPlus.Configurations.Sections;
+﻿using ValheimPlus.Configurations.Sections;
 
 namespace ValheimPlus.Configurations
 {
     public class Configuration
     {
         public static Configuration Current { get; set; }
-
-        public IniData ConfigData { get; set; }
 
         public AdvancedBuildingModeConfiguration AdvancedBuildingMode { get; set; }
         public AdvancedEditingModeConfiguration AdvancedEditingMode { get; set; }
