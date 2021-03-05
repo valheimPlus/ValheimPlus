@@ -263,7 +263,6 @@ namespace ValheimPlus
                         skillType = item.m_shared.m_skillType;
                     }
 
-                    UnityEngine.Debug.Log(skillType.ToString());
                     switch (skillType)
                     {
                         case Skills.SkillType.Swords:

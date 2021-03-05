@@ -58,6 +58,7 @@ namespace ValheimPlus
 		{
 			if (Configuration.Current.Inventory.IsEnabled)
 			{
+
 				// Wood chest
 				if (h == 2 && w == 5)
 				{

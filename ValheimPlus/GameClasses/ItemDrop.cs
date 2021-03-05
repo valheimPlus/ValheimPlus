@@ -63,6 +63,8 @@ namespace ValheimPlus
             if (!Configuration.Current.Durability.IsEnabled)
                 return true;
 
+            
+
             // Tools: Axe, How, Cultivator, Hammer, Pickaxe
             string itemName = __instance.m_shared.m_name.Replace("$item_", "");
             string itemType = itemName.Split(new char[] { '_' })[0];
@@ -122,17 +124,24 @@ namespace ValheimPlus
                     if (!modified)
                         multiplierForItem = Helper.applyModifierValue(maxDurability, Configuration.Current.Durability.bows);
                     break;
+                case ItemDrop.ItemData.ItemType.Shield:
+                    // Shields
+                    if (!modified)
+                        multiplierForItem = Helper.applyModifierValue(maxDurability, Configuration.Current.Durability.shields);
+                    break;
                 case ItemDrop.ItemData.ItemType.Helmet:
                 case ItemDrop.ItemData.ItemType.Chest:
                 case ItemDrop.ItemData.ItemType.Legs:
                 case ItemDrop.ItemData.ItemType.Shoulder:
                     // ARMOR
-                    if (!modified)
+                    if (!modified && __instance.m_shared.m_itemType != ItemDrop.ItemData.ItemType.Shield)
                         multiplierForItem = Helper.applyModifierValue(maxDurability, Configuration.Current.Durability.armor);
                     break;
                 default:
                     break;
             }
+
+
 
             if (multiplierForItem != maxDurability)
                 __result = multiplierForItem;

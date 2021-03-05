@@ -21,6 +21,9 @@ namespace ValheimPlus
             if (value == 50) value = 51; // Decimal issue
             if (value == -50) value = -51; // Decimal issue
 
+            if (value <= -100)
+                value = -100;
+
             float newValue = targetValue;
 
             if (value >= 0)
