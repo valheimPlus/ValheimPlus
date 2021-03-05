@@ -68,12 +68,14 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Display a warning message when you try to place crops to close to another crop
 
 ## Inventory
-* Modify the amount of rows and colums in each inventory of the game
+* Modify the amount of rows and columns in each inventory of the game
+* Extend player inventory up to 20 x 8
+* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8)
 * Includes automatically added scrollbars when container sizes exceed a certain limit
 * Modify the inventory behavior so that items will be placed in the first slot rather than the last available slot
 
 ## Item Durability
-* Modify the item durability of each item type seperately
+* Modify the item durability of each item type separately
 
 ## Item Armor Rating
 * Modify the amount of armor received from armor pieces
@@ -99,11 +101,6 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Wagon
 * Modify the physical weight of the Wagon received by items inside
 * Modify the base physical weight
-
-## Inventory
-* Extend player inventory up to 20 x 8
-* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8)
-* Change how inventory gets filled with materials (top to bottom or bottom to top)
 
 ## Items
 * Remove Item teleport prevention from all items
