@@ -232,10 +232,7 @@ Then simply unpack the *valheim_Data* folder from the downloaded last available 
 This should resolve any issues related. If you continue to have issues, contact the help channel in our discord server.
 
 # Server Config & Version Control (About Version Enforcement)
-* If you have enforceConfiguration and enforceMod enabled, only people with the same configuration and mod version can join your server and you can only join servers with the same mod and configuration.
-* If you have enforceConfiguration and enforceMod disabled, you can join every server including vanilla ones as long as they allow you to. 
-*(Meaning they have either no v+ mod installed or enforceMod disabled)*
-* If you have enforceConfiguration disabled and enforceMod enabled, you will be able to join every server with v+ installed as long as its the same version.
+* If you have enforceMod enabled, only people with the same mod version can join your server and you can only join servers with the same mod version.
 
 **This system is working 100% reliable and is issue free.**
 
