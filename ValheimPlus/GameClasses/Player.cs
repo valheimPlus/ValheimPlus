@@ -43,8 +43,6 @@ namespace ValheimPlus.GameClasses
         public static void Dodge(object instance, Vector3 dodgeDir) => throw new NotImplementedException();
     }
 
-   
-
     /// <summary>
     /// Update maximum carry weight based on baseMaximumWeight and baseMegingjordBuff configurations.
     /// </summary>
@@ -272,7 +270,6 @@ namespace ValheimPlus.GameClasses
                         skillType = item.m_shared.m_skillType;
                     }
 
-                    UnityEngine.Debug.Log(skillType.ToString());
                     switch (skillType)
                     {
                         case Skills.SkillType.Swords:
@@ -350,6 +347,10 @@ namespace ValheimPlus.GameClasses
         }
     }
 
+	/// <summary>
+    /// Starts ABM if not already started
+    /// And checks if the player is trying to place a plant/crop too close to another plant/crop
+    /// </summary>
     [HarmonyPatch(typeof(Player), "UpdatePlacementGhost")]
     public static class ModifyPlacingRestrictionOfGhost
     {
@@ -398,7 +399,28 @@ namespace ValheimPlus.GameClasses
 
                 }
             }
-
+			
+			if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.cropNotifier)
+            {
+                // Check to see if the current placement ghost is has a plant component
+                Plant plantComponent = __instance.m_placementGhost.GetComponent<Plant>();
+                if (plantComponent != null && __instance.m_placementStatus == Player.PlacementStatus.Valid)
+                {
+                    LayerMask mask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece", "piece_nonsolid");
+                    // Create an array of objects that are within the grow radius of the current placement ghost plant/crop
+                    Collider[] array = Physics.OverlapSphere(__instance.m_placementGhost.transform.position, plantComponent.m_growRadius, mask);
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        // Check if the any of the objects within the array have a plant component
+                        // and set the placement status to Need More Space
+                        Plant component = array[i].GetComponent<Plant>();
+                        if (component != null)
+                        {
+                            __instance.m_placementStatus = Player.PlacementStatus.MoreSpace;
+                        }
+                    }
+                }
+            }
 
         }
 
