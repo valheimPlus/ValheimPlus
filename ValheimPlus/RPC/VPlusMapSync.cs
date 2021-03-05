@@ -71,6 +71,17 @@ namespace ValheimPlus.RPC
                             endX = -1;
                         }
                     }
+
+                    if (startX > -1 && endX == -1)
+                    {
+                        //The row is true til the end.
+                        serverExploredAreas.Add(new MapRange()
+                        {
+                            StartingX = startX,
+                            EndingX = Minimap.instance.m_textureSize,
+                            Y = y
+                        });
+                    }
                 }
                 //Chunk up the map data
                 List<ZPackage> packages = ChunkMapData(serverExploredAreas);
@@ -150,6 +161,17 @@ namespace ValheimPlus.RPC
                         startX = -1;
                         endX = -1;
                     }
+                }
+
+                if (startX > -1 && endX == -1)
+                {
+                    //The row is true til the end.
+                    exploredAreas.Add(new MapRange()
+                    {
+                        StartingX = startX,
+                        EndingX = Minimap.instance.m_textureSize,
+                        Y = y
+                    });
                 }
             }
 
