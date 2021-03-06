@@ -54,10 +54,11 @@ namespace ValheimPlus
 		private const int ironChestInventoryMaxCol = 20;
 		private const int ironChestInventoryMinCol = 4;
 
-		public static void Prefix(string name, int w, ref int h)
+		public static void Prefix(string name, ref int w, ref int h)
 		{
 			if (Configuration.Current.Inventory.IsEnabled)
 			{
+
 				// Wood chest
 				if (h == 2 && w == 5)
 				{

@@ -78,7 +78,6 @@ namespace ValheimPlus.RPC
                             memStream.Position = 0; //Rewind stream
 
                             Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
-
                             ZLog.Log("Successfully synced VPlus configuration from server.");
                         }
                     }

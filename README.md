@@ -6,9 +6,9 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim. The mod inclu
 # ValheimPlus Server Hosting
 Below you can find a list of hosting companies that are supporting ValehimPlus with good prices and easy installation.
 
-[![GPortal](http://valheim.plus/gportal/banner.jpg)](https://www.g-portal.com/valheim)
-[![ZapHosting](http://valheimplus.com/zap/692x127.jpg)](https://zap-hosting.com/valheimplus)
-[![GFXHosting](https://www.gtxgaming.co.uk/wp-content/uploads/2021/02/valheim_plus_banner-3.png)](https://www.gtxgaming.co.uk/clientarea/aff.php?aff=2096)
+[![GPortal](http://valheim.plus/gportal/banner.jpg)](http://gportal.valheim.plus/)
+[![ZapHosting](http://valheimplus.com/zap/692x127.jpg)](http://zap.valheim.plus/)
+[![GFXHosting](https://www.gtxgaming.co.uk/wp-content/uploads/2021/02/valheim_plus_banner-3.png)](http://gtxgaming.valheim.plus/)
 
 
 # Features
@@ -35,6 +35,8 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify Furnace maximum coal/ore
 * Modify Kiln processing speed
 * Modify Kiln maximum wood
+* Show the amount of time left until the Fermenter is done.
+* Auto Deposit system for Furnace and Kiln to deposit items to the closest nearby chest.
 
 ## Workbench and Ward
 * Modify Workbench radius
@@ -45,6 +47,7 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Disable fireplaces running out of fuel
 
 ## Time and Day Manipulation
+*FEATURE DISABLED DUE TO ISSUES*
 * Modify total time of a day and night cycle
 * Modify the speed of the time passing at night
 
@@ -55,16 +58,40 @@ All of these features can be adjusted by a configuration file. This also allows 
   * Iron
   * Hardwood
 * Disable structural integrity entirely, allowing you to place objects in free air.
+* Disable all damage to player built structures/objects.
 
 ## Player Hud
 * Show the experience you gained for a skill in the top left corner
 * Show the amount of items you have in your inventory when crafting or building a object. 
+* Show your actual stamina values below your stamina bar.
+* Modify your inventory sizes of player inventory, chests, boats and else.
+* Disable the red flash on screen when damage is received
+* Display a warning message when you try to place crops to close to another crop
+
+## Inventory
+* Modify the amount of rows and columns in each inventory of the game
+* Extend player inventory up to 20 x 8
+* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8)
+* Includes automatically added scrollbars when container sizes exceed a certain limit
+* Modify the inventory behavior so that items will be placed in the first slot rather than the last available slot
+
+## Item Durability
+* Modify the item durability of each item type separately
+
+## Item Armor Rating
+* Modify the amount of armor received from armor pieces
+
+## Gathering
+* Modify the amount of resources dropped on destruction of objects.
+*This includes all types of wood (inc. elderbark), stone, iron/bronze/tin/silver/copper and chitin.*
+* Modify the drop chance of resources from destroyed objects.
 
 ## Game Difficulty
 * Modify the game difficulty multipliers applied to health and damage of enemies based on the amount of connected players.
 * Change the range of where the game considers other players to be nearby.
 * Add a additional amount of Players to the player count for the difficulty calculation.
 * Set the difficulty calculation to a specific player count.
+* Option to disable the use of portals
 
 ## Skill Experience
 * Modify each skill's experience gain seperately by percent.
@@ -78,11 +105,6 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify the physical weight of the Wagon received by items inside
 * Modify the base physical weight
 
-## Inventory
-* Extend player inventory up to 20 x 8
-* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8)
-* Change how inventory gets filled with materials (top to bottom or bottom to top)
-
 ## Items
 * Remove Item teleport prevention from all items
 * Reduce Item weight of all items by %
@@ -91,14 +113,13 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Server
 * Remove Password requirement for server
 * Modify maximum Players on a server
-* Modify auto save interval
 * Modify server data rate in kilobyte
 * Automatic server configuration sync when a user joins the server to sync the configuration of V+
+* Change the default of 3600 seconds until items despawn on the server
 
 ## Map
 * Activate shared position on map automatically
 * Setting to force other people to share their position with you
-* Remove death marker on the map on collecting your tombstone
 
 ### Shared map system
 Allows you to see the explored areas on the map of other players on the server if they have their position on the map shared ingame.
@@ -116,9 +137,11 @@ Prevents players on the server from making themselves invisible on the map.
 # Building
 * Remove Building "Invalid Placement" restriction
 * Remove Building Object deterioration by weather.
+* Remove Building Object deterioration by water.
 * Advanced Building Mode
 * Advanced Editing Mode
 * Structural Integrity modification system
+* Modify the maximum distance you can place objects at
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
@@ -233,10 +256,7 @@ Then simply unpack the *valheim_Data* folder from the downloaded last available 
 This should resolve any issues related. If you continue to have issues, contact the help channel in our discord server.
 
 # Server Config & Version Control (About Version Enforcement)
-* If you have enforceConfiguration and enforceMod enabled, only people with the same configuration and mod version can join your server and you can only join servers with the same mod and configuration.
-* If you have enforceConfiguration and enforceMod disabled, you can join every server including vanilla ones as long as they allow you to. 
-*(Meaning they have either no v+ mod installed or enforceMod disabled)*
-* If you have enforceConfiguration disabled and enforceMod enabled, you will be able to join every server with v+ installed as long as its the same version.
+* If you have enforceMod enabled, only people with the same mod version can join your server and you can only join servers with the same mod version.
 
 **This system is working 100% reliable and is issue free.**
 
