@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using ValheimPlus.Configurations;
 using ValheimPlus.RPC;
+using Random = UnityEngine.Random;
 
 // ToDo add packet system to convey map markers
 namespace ValheimPlus.GameClasses
@@ -67,12 +68,12 @@ namespace ValheimPlus.GameClasses
                 //Load map data from disk
                 VPlusMapSync.LoadMapDataFromDisk();
 
-                for (int y = 0; y < Minimap.instance.m_textureSize; ++y)
+                for (int i = 0; i < 255; i++)
                 {
-                    for (int x = 0; x < Minimap.instance.m_textureSize; ++x)
-                    {
-                        VPlusMapSync.ServerMapData[y * Minimap.instance.m_textureSize + x] = true;
-                    }
+                    int x = Random.Range(0, Minimap.instance.m_textureSize);
+                    int y = Random.Range(0, Minimap.instance.m_textureSize);
+
+                    VPlusMapSync.ServerMapData[y * Minimap.instance.m_textureSize + x] = true;
                 }
 
                 //Start map data save timer

@@ -25,18 +25,21 @@ namespace ValheimPlus.RPC
                 //Get number of explored areas
                 int exploredAreaCount = mapPkg.ReadInt();
 
-                //Iterate and add them to server's combined map data.
-                for (int i = 0; i < exploredAreaCount; i++)
+                if (exploredAreaCount > 0)
                 {
-                    MapRange exploredArea = mapPkg.ReadVPlusMapRange();
-
-                    for (int x = exploredArea.StartingX; x < exploredArea.EndingX; x++)
+                    //Iterate and add them to server's combined map data.
+                    for (int i = 0; i < exploredAreaCount; i++)
                     {
-                        ServerMapData[exploredArea.Y * Minimap.instance.m_textureSize + x] = true;
-                    }
-                }
+                        MapRange exploredArea = mapPkg.ReadVPlusMapRange();
 
-                ZLog.Log($"Received {exploredAreaCount} map points from peer {sender}.");
+                        for (int x = exploredArea.StartingX; x < exploredArea.EndingX; x++)
+                        {
+                            ServerMapData[exploredArea.Y * Minimap.instance.m_textureSize + x] = true;
+                        }
+                    }
+
+                    ZLog.Log($"Received {exploredAreaCount} map points from peer {sender}.");
+                }
 
                 List<MapRange> serverExploredAreas = new List<MapRange>();
 
@@ -94,7 +97,7 @@ namespace ValheimPlus.RPC
 
                 ZLog.Log($"-------------------------- Packages: {packages.Count}");
 
-                ZLog.Log($"Sent map updates to all clients ({serverExploredAreas.Count} map points, {packages.Count} chunks)");
+                ZLog.Log($"Sent map updates to all clients ({serverExploredAreas.Count} map ranges, {packages.Count} chunks)");
             }
             else //Client
             {
@@ -109,21 +112,28 @@ namespace ValheimPlus.RPC
                 //Get number of explored areas
                 int exploredAreaCount = mapPkg.ReadInt();
 
-                //Iterate and add them to explored map
-                for (int i = 0; i < exploredAreaCount; i++)
+                if (exploredAreaCount > 0)
                 {
-                    MapRange exploredArea = mapPkg.ReadVPlusMapRange();
-
-                    for (int x = exploredArea.StartingX; x < exploredArea.EndingX; x++)
+                    //Iterate and add them to explored map
+                    for (int i = 0; i < exploredAreaCount; i++)
                     {
-                        Minimap.instance.Explore(x, exploredArea.Y);
+                        MapRange exploredArea = mapPkg.ReadVPlusMapRange();
+
+                        for (int x = exploredArea.StartingX; x < exploredArea.EndingX; x++)
+                        {
+                            Minimap.instance.Explore(x, exploredArea.Y);
+                        }
                     }
+
+                    //Update fog texture
+                    Minimap.instance.m_fogTexture.Apply();
+
+                    ZLog.Log($"I got {exploredAreaCount} map points from the server!");
                 }
-
-                //Update fog texture
-                Minimap.instance.m_fogTexture.Apply();
-
-                ZLog.Log($"I got {exploredAreaCount} map points from the server!");
+                else
+                {
+                    ZLog.Log("Server has no explored areas to sync, continuing.");
+                }
             }
         }
 
@@ -178,19 +188,29 @@ namespace ValheimPlus.RPC
                 }
             }
 
-            if (exploredAreas.Count == 0) return;
-
-            //Chunk map data
-            List<ZPackage> packages = ChunkMapData(exploredAreas);
-
-            //Route all chunks to the server
-            foreach (ZPackage pkg in packages)
+            if (exploredAreas.Count == 0)
             {
+                ZPackage pkg = new ZPackage();
+
+                pkg.Write(0); //No exploration data to send, so just send the RPC to trigger server sync.
+
                 ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusMapSync",
                     new object[] { pkg });
             }
+            else
+            {
+                //Chunk map data
+                List<ZPackage> packages = ChunkMapData(exploredAreas);
 
-            ZLog.Log($"Sent my map data to the server ({exploredAreas.Count} map points, {packages.Count} chunks)");
+                //Route all chunks to the server
+                foreach (ZPackage pkg in packages)
+                {
+                    ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusMapSync",
+                        new object[] {pkg});
+                }
+
+                ZLog.Log($"Sent my map data to the server ({exploredAreas.Count} map points, {packages.Count} chunks)");
+            }
         }
 
         public static void LoadMapDataFromDisk()
