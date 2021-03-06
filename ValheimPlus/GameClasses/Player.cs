@@ -399,9 +399,14 @@ namespace ValheimPlus.GameClasses
 
                 }
             }
-			
+
+
 			if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.cropNotifier)
             {
+
+                if (__instance.m_placementGhost == null)
+                    return;
+
                 // Check to see if the current placement ghost is has a plant component
                 Plant plantComponent = __instance.m_placementGhost.GetComponent<Plant>();
                 if (plantComponent != null && __instance.m_placementStatus == Player.PlacementStatus.Valid)

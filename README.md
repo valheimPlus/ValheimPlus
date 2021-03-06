@@ -58,6 +58,7 @@ All of these features can be adjusted by a configuration file. This also allows 
   * Iron
   * Hardwood
 * Disable structural integrity entirely, allowing you to place objects in free air.
+* Disable all damage to player built structures/objects.
 
 ## Player Hud
 * Show the experience you gained for a skill in the top left corner
@@ -83,12 +84,14 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Gathering
 * Modify the amount of resources dropped on destruction of objects.
 *This includes all types of wood (inc. elderbark), stone, iron/bronze/tin/silver/copper and chitin.*
+* Modify the drop chance of resources from destroyed objects.
 
 ## Game Difficulty
 * Modify the game difficulty multipliers applied to health and damage of enemies based on the amount of connected players.
 * Change the range of where the game considers other players to be nearby.
 * Add a additional amount of Players to the player count for the difficulty calculation.
 * Set the difficulty calculation to a specific player count.
+* Option to disable the use of portals
 
 ## Skill Experience
 * Modify each skill's experience gain seperately by percent.
@@ -134,6 +137,7 @@ Prevents players on the server from making themselves invisible on the map.
 # Building
 * Remove Building "Invalid Placement" restriction
 * Remove Building Object deterioration by weather.
+* Remove Building Object deterioration by water.
 * Advanced Building Mode
 * Advanced Editing Mode
 * Structural Integrity modification system

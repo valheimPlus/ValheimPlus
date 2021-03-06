@@ -63,9 +63,6 @@ namespace ValheimPlus.GameClasses
             if (!Configuration.Current.Durability.IsEnabled)
                 return true;
 
-            
-
-            // Tools: Axe, How, Cultivator, Hammer, Pickaxe
             string itemName = __instance.m_shared.m_name.Replace("$item_", "");
             string itemType = itemName.Split(new char[] { '_' })[0];
 
