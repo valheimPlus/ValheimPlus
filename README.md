@@ -69,9 +69,11 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Inventory
 * Modify the amount of rows and columns in each inventory of the game
 * Extend player inventory up to 20 x 8
-* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8)
+* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8 - iron configuration also affects boats (except small boat) and carts)
 * Includes automatically added scrollbars when container sizes exceed a certain limit
 * Modify the inventory behavior so that items will be placed in the first slot rather than the last available slot
+
+**Note: As of 0.9.4, player inventory slot configuration is not compatible with Equipment and Quick slots mod**
 
 ## Item Durability
 * Modify the item durability of each item type separately
@@ -296,7 +298,7 @@ If you are hosting for your friends over steam, your friends will need v+ and th
 
 
 # Contributing to ValheimPlus
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
+Please see [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
 
 
 # Credits
@@ -310,4 +312,4 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on compiling V+ for de
 * Doudou 'xiaodoudou' - https://github.com/xiaodoudou
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
 * Mehdi 'AccretionCD' E. - https://github.com/AccretionCD
-* Zogniton - https://github.com/Zogniton - Inventiry Overhaul initial creator
+* Zogniton - https://github.com/Zogniton - Inventory Overhaul initial creator
