@@ -15,7 +15,7 @@ namespace ValheimPlus
             /// </summary>
             private static void Prefix(ref Fireplace __instance)
             {
-                if (!Configuration.Current.FireSources.IsEnabled) return;
+                if (!Configuration.Current.FireSource.IsEnabled) return;
 
                 if (!__instance.m_nview.IsValid()) return;
 
@@ -41,7 +41,7 @@ namespace ValheimPlus
         internal static void ApplyFuel(ref Fireplace __instance)
         {
             Fireplace localFireplace = __instance;
-            if (Configuration.Current.FireSources.onlyTorches)
+            if (Configuration.Current.FireSource.onlyTorches)
             {
                 if (torchItemNames.Any(x => x.Equals(localFireplace.m_piece.m_name)))
                 {

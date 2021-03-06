@@ -13,7 +13,7 @@ namespace ValheimPlus.Configurations
         public InventoryConfiguration Inventory { get; set; }
         public ItemsConfiguration Items { get; set; }
         public FermenterConfiguration Fermenter { get; set; }
-        public FireSourceConfiguration FireSources { get; set; }
+        public FireSourceConfiguration FireSource { get; set; }
         public FoodConfiguration Food { get; set; }
         public FurnaceConfiguration Furnace { get; set; }
         public HotkeyConfiguration Hotkeys { get; set; }
