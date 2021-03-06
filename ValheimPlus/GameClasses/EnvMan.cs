@@ -6,7 +6,6 @@ namespace ValheimPlus
 {
     public class TimeManipulation
     {
-        /*
         /// <summary>
         /// Hook on EnvMan FixedUpdate to adjust dayLengthSec
         /// </summary>
@@ -44,6 +43,5 @@ namespace ValheimPlus
                 }
             }
         }
-        */
     }
 }
