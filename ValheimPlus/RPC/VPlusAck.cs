@@ -8,5 +8,10 @@ namespace ValheimPlus.RPC
         {
             RpcQueue.GotAck();
         }
+
+        public static void SendAck(long target)
+        {
+            ZRoutedRpc.instance.InvokeRoutedRPC(target, "VPlusAck");
+        }
     }
 }

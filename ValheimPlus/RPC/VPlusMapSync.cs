@@ -40,7 +40,7 @@ namespace ValheimPlus.RPC
                     ZLog.Log($"Received {exploredAreaCount} map ranges from peer #{sender}.");
 
                     //Send Ack
-                    ZRoutedRpc.instance.InvokeRoutedRPC(sender, "VPlusAck");
+                    VPlusAck.SendAck(sender);
                 }
 
                 //Check if this is the last chunk from the client.
@@ -103,7 +103,7 @@ namespace ValheimPlus.RPC
                     ZLog.Log($"I got {exploredAreaCount} map ranges from the server!");
 
                     //Send Ack
-                    ZRoutedRpc.instance.InvokeRoutedRPC(sender, "VPlusAck");
+                    VPlusAck.SendAck(sender);
                 }
                 else
                 {
