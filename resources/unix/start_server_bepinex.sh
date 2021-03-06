@@ -87,7 +87,7 @@ export LD_PRELOAD=$doorstop_libname:$LD_PRELOAD
 export DYLD_LIBRARY_PATH="${doorstop_libs}"
 export DYLD_INSERT_LIBRARIES="${doorstop_libs}/$doorstop_libname"
 
-export templdpath=$LD_LIBRARY_PATH
+export templdpath="$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH=./linux64:"$LD_LIBRARY_PATH"
 export SteamAppId=892970
 
