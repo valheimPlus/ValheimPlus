@@ -91,7 +91,7 @@ namespace ValheimPlus.Configurations
 
                 keyName = SanatizeKeyName(keyName);
 
-                Debug.Log($"  Loading Key {keyName}");
+                Debug.Log($"  Resetting Key {keyName}");
                 prop.SetValue(this, prop.PropertyType.ToDefault(), null);
                 Debug.Log($"   Key {keyName} set to default value");
             }
