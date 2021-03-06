@@ -70,10 +70,22 @@ namespace ValheimPlus.GameClasses
 
                 for (int i = 0; i < 255; i++)
                 {
-                    int x = Random.Range(0, Minimap.instance.m_textureSize);
-                    int y = Random.Range(0, Minimap.instance.m_textureSize);
+                    int pixelX = Random.Range(0, Minimap.instance.m_textureSize);
+                    int pixelY = Random.Range(0, Minimap.instance.m_textureSize);
 
-                    VPlusMapSync.ServerMapData[y * Minimap.instance.m_textureSize + x] = true;
+                    int radiusPixels = (int)Mathf.Ceil(Configuration.Current.Map.exploreRadius / Minimap.instance.m_pixelSize);
+
+                    for (int y = pixelY - radiusPixels; y <= pixelY + radiusPixels; ++y)
+                    {
+                        for (int x = pixelX - radiusPixels; x <= pixelX + radiusPixels; ++x)
+                        {
+                            if (x >= 0 && y >= 0 && (x < Minimap.instance.m_textureSize && y < Minimap.instance.m_textureSize) &&
+                                ((double)new Vector2((float)(x - pixelX), (float)(y - pixelY)).magnitude <= (double)radiusPixels))
+                            {
+                                VPlusMapSync.ServerMapData[y * Minimap.instance.m_textureSize + x] = true;
+                            }
+                        }
+                    }
                 }
 
                 //Start map data save timer
