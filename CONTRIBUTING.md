@@ -44,8 +44,9 @@ How to setup the development enviroment to compile ValheimPlus yourself.
    - It is easy to forget test values in your code when you make a PR. Please double check your default values when creating a PR
    - It is recommended when testing to test value inline with your code instead of altering the values on the .cfg/class to prevent this issue. If an inline hardcoded value gets pushed, it's easier to spot this mistake than a inaccurate cfg setting.
 1. Try to find an appropriate existing configuration section before adding a new one. Generally, if your configuration changes something related to the player, for example, then add it to the `[Player]` section. Look at it from the perspective of a user who's looking for a specific configuration instead of the perspective of someone who's coding and looking for a class.
-1. Check out our helpers in the /Utilities/ folder and use them where appropriate
-1. For configuration modifiers that add a modifcation to the base value, always use a percentage configuration and use the `applyModifier()` utility.
+1. Add any new configuration Sections (`[Section]`) to the bottom of the .cfg file so that we're less likely to break existing config.
+3. Check out our helpers in the /Utilities/ folder and use them where appropriate
+4. For configuration modifiers that add a modifcation to the base value, always use a percentage configuration and use the `applyModifier()` utility.
 
 ## Making a Pull Request
 1. Only make a pull request for finished work. Otherwise, if we pull the work down to test it and it doesn't work, we don't know if it's because it's unfinished or if there's an unintentional bug.
