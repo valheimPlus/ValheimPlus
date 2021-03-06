@@ -61,6 +61,7 @@ namespace ValheimPlus.Configurations
             {
                 Debug.Log(" Section not enabled");
                 IsEnabled = false;
+                LoadDefaultSettings();
             } 
             else
             {
@@ -76,6 +77,7 @@ namespace ValheimPlus.Configurations
             }
             return keyName;
         }
+
         public void LoadDefaultSettings()
         {
             Debug.Log(" Loading default settings");
@@ -93,7 +95,7 @@ namespace ValheimPlus.Configurations
                 prop.SetValue(this, prop.PropertyType.ToDefault(), null);
                 Debug.Log($"   Key {keyName} set to default value");
             }
-            }
+        }
 
             public void LoadSettings(KeyDataCollection data)
         {
