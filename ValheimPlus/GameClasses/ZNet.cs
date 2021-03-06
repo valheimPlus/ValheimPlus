@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ValheimPlus.Configurations;
 using ValheimPlus.RPC;
+using ValheimPlus.Utility;
 
 // ToDo add packet system to convey map markers
 namespace ValheimPlus.GameClasses
@@ -36,6 +37,18 @@ namespace ValheimPlus.GameClasses
                     __instance.m_serverPlayerLimit = maxPlayers;
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// Send queued RPCs
+    /// </summary>
+    [HarmonyPatch(typeof(ZNet), "SendPeriodicData")]
+    public static class PeriodicDataHandler
+    {
+        private static void Postfix()
+        {
+            RpcQueue.SendNextRpc();
         }
     }
 

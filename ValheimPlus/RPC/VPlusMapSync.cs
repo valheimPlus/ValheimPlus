@@ -13,8 +13,6 @@ namespace ValheimPlus.RPC
 
         public static bool ShouldSyncOnSpawn = true;
 
-        public static readonly string mapSyncFilePath = ValheimPlusPlugin.VPlusDataDirectoryPath + Path.DirectorySeparatorChar + "mapSync.dat";
-
         public static void RPC_VPlusMapSync(long sender, ZPackage mapPkg)
         {
             if (ZNet.m_isServer) //Server
@@ -40,6 +38,9 @@ namespace ValheimPlus.RPC
                     }
 
                     ZLog.Log($"Received {exploredAreaCount} map ranges from peer #{sender}.");
+
+                    //Send Ack
+                    ZRoutedRpc.instance.InvokeRoutedRPC(sender, "VPlusAck");
                 }
 
                 //Check if this is the last chunk from the client.
@@ -56,7 +57,14 @@ namespace ValheimPlus.RPC
                 //Send the updated server map to all clients
                 foreach(ZPackage pkg in packages)
                 {
-                    ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "VPlusMapSync", new object[] { pkg });
+                    //ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "VPlusMapSync", new object[] { pkg });
+
+                    RpcQueue.Enqueue(new RpcData()
+                    {
+                        Name = "VPlusMapSync",
+                        Payload = new object[] { pkg },
+                        Target = ZRoutedRpc.Everybody
+                    });
                 }
 
                 ZLog.Log($"-------------------------- Packages: {packages.Count}");
@@ -93,6 +101,9 @@ namespace ValheimPlus.RPC
                     Minimap.instance.m_fogTexture.Apply();
 
                     ZLog.Log($"I got {exploredAreaCount} map ranges from the server!");
+
+                    //Send Ack
+                    ZRoutedRpc.instance.InvokeRoutedRPC(sender, "VPlusAck");
                 }
                 else
                 {
@@ -127,8 +138,15 @@ namespace ValheimPlus.RPC
                 //Route all chunks to the server
                 foreach (ZPackage pkg in packages)
                 {
-                    ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusMapSync",
-                        new object[] {pkg});
+                    /*ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusMapSync",
+                        new object[] {pkg});*/
+
+                    RpcQueue.Enqueue(new RpcData()
+                    {
+                        Name = "VPlusMapSync",
+                        Payload = new object[] { pkg },
+                        Target = ZRoutedRpc.instance.GetServerPeerID()
+                    });
                 }
 
                 ZLog.Log($"Sent my map data to the server ({exploredAreas.Count} map ranges, {packages.Count} chunks)");
@@ -140,11 +158,15 @@ namespace ValheimPlus.RPC
             if (ServerMapData == null) return;
 
             //Load map data
-            if (File.Exists(mapSyncFilePath))
+            if (File.Exists(ValheimPlusPlugin.VPlusDataDirectoryPath +
+                            Path.DirectorySeparatorChar +
+                            ZNet.instance.GetWorldName() + "_mapSync.dat"))
             {
                 try
                 {
-                    string mapData = File.ReadAllText(mapSyncFilePath);
+                    string mapData = File.ReadAllText(ValheimPlusPlugin.VPlusDataDirectoryPath +
+                                                      Path.DirectorySeparatorChar +
+                                                      ZNet.instance.GetWorldName() + "_mapSync.dat");
 
                     string[] dataPoints = mapData.Split(',');
 
@@ -185,8 +207,12 @@ namespace ValheimPlus.RPC
 
             if (mapDataToDisk.Count > 0)
             {
-                File.Delete(mapSyncFilePath);
-                File.WriteAllText(mapSyncFilePath, string.Join(",", mapDataToDisk));
+                File.Delete(ValheimPlusPlugin.VPlusDataDirectoryPath +
+                            Path.DirectorySeparatorChar +
+                            ZNet.instance.GetWorldName() + "_mapSync.dat");
+                File.WriteAllText(ValheimPlusPlugin.VPlusDataDirectoryPath +
+                                  Path.DirectorySeparatorChar +
+                                  ZNet.instance.GetWorldName() + "_mapSync.dat", string.Join(",", mapDataToDisk));
 
                 ZLog.Log($"Saved {mapDataToDisk.Count} map points to disk.");
             }
