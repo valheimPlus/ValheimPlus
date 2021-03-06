@@ -54,7 +54,7 @@ namespace ValheimPlus.Configurations
             return true;
         }
 
-        public static Configuration LoadFromIni(IniData configdata, bool onlyLoadEnabled = false)
+        public static Configuration LoadFromIni(IniData configdata)
         {
             Configuration conf = new Configuration();
             conf.ConfigData = configdata;
@@ -63,7 +63,7 @@ namespace ValheimPlus.Configurations
             {
                 string keyName = prop.Name;
                 MethodInfo method = prop.PropertyType.GetMethod("LoadIni", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-                if (method != null && (!onlyLoadEnabled || (configdata[keyName] != null && configdata[keyName]["enabled"] != null)))
+                if (method != null)
                 {
                     var result = method.Invoke(null, new object[] { configdata, keyName });
                     prop.SetValue(conf, result, null);
@@ -91,7 +91,22 @@ namespace ValheimPlus.Configurations
             using (StreamReader iniReader = new StreamReader(iniStream))
             {
                 FileIniDataParser parser = new FileIniDataParser();
-                LoadFromIni(parser.ReadData(iniReader), true);
+                IniData configdata = parser.ReadData(iniReader);
+                configdata.ClearAllComments();
+                foreach (var prop in typeof(Configuration).GetProperties())
+                {
+                    string keyName = prop.Name;
+                    int hasNeedsServerSync = Helper.TryGetBoolMethod(prop, Configuration.Current, "HasNeedsServerSync");
+                    if (hasNeedsServerSync > 0)
+                    {
+                        MethodInfo method = prop.PropertyType.GetMethod("LoadIniFromRemote", BindingFlags.Public | BindingFlags.FlattenHierarchy | BindingFlags.Instance);
+                        var instance = prop.GetValue(Configuration.Current, null);
+                        if (method != null)
+                        {
+                            method.Invoke(instance, new object[] { configdata, keyName });
+                        }
+                    }
+                }
             }
         }
     }
@@ -103,7 +118,7 @@ namespace ValheimPlus.Configurations
                 return result;
             }
 
-            Debug.LogWarning($" [Float] Could not read {key}, using default value of {defaultVal}");
+            Debug.LogWarning($"   [Float] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
 
@@ -119,7 +134,7 @@ namespace ValheimPlus.Configurations
                 return result;
             }
 
-            Debug.LogWarning($" [Int] Could not read {key}, using default value of {defaultVal}");
+            Debug.LogWarning($"   [Int] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
 
@@ -130,7 +145,7 @@ namespace ValheimPlus.Configurations
             {
                 return value;
             }
-            Debug.LogWarning($" [String] Could not read {key}, using default value of {defaultVal}");
+            Debug.LogWarning($"   [String] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
 
@@ -140,7 +155,7 @@ namespace ValheimPlus.Configurations
                 return result;
             }
 
-            Debug.LogWarning($" [KeyCode] Could not read {key}, using default value of {defaultVal}");
+            Debug.LogWarning($"   [KeyCode] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
 

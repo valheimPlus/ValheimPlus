@@ -1,12 +1,15 @@
 using IniParser.Model;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
+using ValheimPlus.Utility;
 
 namespace ValheimPlus.Configurations
 {
     public interface IConfig
     {
-        void LoadIniData(KeyDataCollection data);
+        void LoadSettings(KeyDataCollection data);
+        void LoadKeycodes(KeyDataCollection data);
     }
 
     public abstract class BaseConfig<T> : IConfig where T : IConfig, new()
@@ -38,41 +41,84 @@ namespace ValheimPlus.Configurations
         public static T LoadIni(IniData data, string section)
         {
             var n = new T();
-
-            
-            Debug.Log($"Loading config section {section}");
+            Debug.Log($"Loading local config section {section}");
+            n.LoadKeycodes(data[section]);
             if (data[section] == null || data[section]["enabled"] == null || !data[section].GetBool("enabled"))
             {
                 Debug.Log(" Section not enabled");
                 return n;
             }
 
-            n.LoadIniData(data[section]);
+            n.LoadSettings(data[section]);
 
             return n;
         }
 
-        public void LoadIniData(KeyDataCollection data)
+        public void LoadIniFromRemote(IniData data, string section)
         {
+            Debug.Log($"Loading remote config section {section}");
+            if (data[section] == null || data[section]["enabled"] == null || !data[section].GetBool("enabled"))
+            {
+                Debug.Log(" Section not enabled");
+                IsEnabled = false;
+            } 
+            else
+            {
+                LoadSettings(data[section]);
+            }
+        }
+
+        private string SanatizeKeyName(string keyName)
+        {
+            if (keyName != string.Empty && char.IsUpper(keyName[0]))
+            {
+                return char.ToLower(keyName[0]) + keyName.Substring(1);
+            }
+            return keyName;
+        }
+        public void LoadDefaultSettings()
+        {
+            Debug.Log(" Loading default settings");
+            foreach (var prop in typeof(T).GetProperties())
+            {
+                if (prop.PropertyType.Equals(typeof(KeyCode))) continue;
+
+                var keyName = prop.Name;
+
+                if (new[] { "NeedsServerSync", "IsEnabled" }.Contains(keyName)) continue;
+
+                keyName = SanatizeKeyName(keyName);
+
+                Debug.Log($"  Loading Key {keyName}");
+                prop.SetValue(this, prop.PropertyType.ToDefault(), null);
+                Debug.Log($"   Key {keyName} set to default value");
+            }
+            }
+
+            public void LoadSettings(KeyDataCollection data)
+        {
+            Debug.Log(" Loading settings");
+            
             IsEnabled = true;
 
             foreach (var prop in typeof(T).GetProperties())
             {
-                var keyName = prop.Name;
-                if (new[] { "NeedsServerSync", "IsEnabled" }.Contains(keyName)) continue;
-                // Set first char of keyName to lowercase
-                if (keyName != string.Empty && char.IsUpper(keyName[0]))
-                {
-                    keyName = char.ToLower(keyName[0]) + keyName.Substring(1);
-                }
+                if (prop.PropertyType.Equals(typeof(KeyCode))) continue;
 
-                if (!data.ContainsKey(keyName)) {
-                    Debug.Log($" Key {keyName} not defined, using default value");
+                var keyName = prop.Name;
+
+                if (new[] { "NeedsServerSync", "IsEnabled" }.Contains(keyName)) continue;
+                
+                keyName = SanatizeKeyName(keyName);
+
+                var existingValue = prop.GetValue(this, null);
+                Debug.Log($"  Loading Key {keyName}");
+                if ((!data.ContainsKey(keyName) || existingValue == null) && !prop.PropertyType.Equals(typeof(KeyCode)))
+                {
+                    prop.SetValue(this, prop.PropertyType.ToDefault(), null);
+                    Debug.Log($"   Key {keyName} not defined, using default value");
                     continue;
                 }
-
-                Debug.Log($" Loading key {keyName}");
-                var existingValue = prop.GetValue(this, null);
 
                 if (prop.PropertyType == typeof(float))
                 {
@@ -91,6 +137,30 @@ namespace ValheimPlus.Configurations
                     prop.SetValue(this, data.GetBool(keyName), null);
                     continue;
                 }
+                Debug.LogWarning($"   Could not load data of type {prop.PropertyType} for Key {keyName}");
+            }
+        }
+
+        public void LoadKeycodes(KeyDataCollection data)
+        {
+            Debug.Log(" Loading Keycodes");
+
+            foreach (var prop in typeof(T).GetProperties())
+            {
+                if (!prop.PropertyType.Equals(typeof(KeyCode))) continue;
+
+                var keyName = prop.Name;
+                keyName = SanatizeKeyName(keyName);
+
+
+                var existingValue = prop.GetValue(this, null);
+                Debug.Log($"  Loading KeyCode {keyName}");
+                if (!data.ContainsKey(keyName) || existingValue == null)
+                {
+                    prop.SetValue(this, prop.PropertyType.ToDefault(), null);
+                    Debug.Log($"   KeyCode {keyName} not defined, using default value");
+                    continue;
+                }
 
                 if (prop.PropertyType == typeof(KeyCode))
                 {
@@ -98,7 +168,7 @@ namespace ValheimPlus.Configurations
                     continue;
                 }
 
-                Debug.LogWarning($" Could not load data of type {prop.PropertyType} for key {keyName}");
+                Debug.LogWarning($"   Could not load KeyCode for key {keyName}");
             }
         }
 

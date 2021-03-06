@@ -1,10 +1,27 @@
 using System;
+using System.Reflection;
 
 namespace ValheimPlus
 {
     static class Helper
     {
-		public static Character getPlayerCharacter(Player __instance)
+        public static int TryGetBoolMethod(PropertyInfo prop, object target, string name)
+        {
+            var method = prop.PropertyType.GetMethod(name, BindingFlags.Public | BindingFlags.FlattenHierarchy | BindingFlags.Instance);
+
+            if (method != null)
+            {
+                try
+                {
+                    var instance = prop.GetValue(target, null);
+                    bool result = (bool)method.Invoke(instance, new object[] { });
+                    return result ? 1 : 0;
+                } catch { }
+            }
+            return -1;
+        }
+
+        public static Character getPlayerCharacter(Player __instance)
 		{
 			return (Character)__instance;
 		}
