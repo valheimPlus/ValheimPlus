@@ -112,9 +112,12 @@ namespace ValheimPlus.RPC
                 //Iterate and add them to explored map
                 for (int i = 0; i < exploredAreaCount; i++)
                 {
-                    Vector2i exploredArea = mapPkg.ReadVector2i();
+                    MapRange exploredArea = mapPkg.ReadVPlusMapRange();
 
-                    Minimap.instance.Explore(exploredArea.x, exploredArea.y);
+                    for (int x = exploredArea.StartingX; x < exploredArea.EndingX; x++)
+                    {
+                        Minimap.instance.Explore(x, exploredArea.Y);
+                    }
                 }
 
                 //Update fog texture
