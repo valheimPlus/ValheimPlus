@@ -10,13 +10,11 @@ namespace ValheimPlus
         /// Alter the total day length in seconds base on configuration file
         /// </summary>
         public static void SetupDayLength() {
-            if (Configuration.Current.Time.IsEnabled) {
-                EnvMan instance = EnvMan.m_instance;
-                if (instance) {
-                    instance.m_dayLengthSec = (long)Configuration.Current.Time.totalDayTimeInSeconds;
-                } else {
-                    Debug.LogWarning("EnvMan instance not loaded");
-                }
+            EnvMan instance = EnvMan.m_instance;
+            if (instance) {
+                instance.m_dayLengthSec = (long)Configuration.Current.Time.totalDayTimeInSeconds;
+            } else {
+                Debug.LogWarning("EnvMan instance not loaded");
             }
         }
 
@@ -40,7 +38,10 @@ namespace ValheimPlus
         [HarmonyPatch(typeof(EnvMan), "Awake")]
         public static class EnvMan_Awake_Patch {
             private static void Prefix(ref EnvMan __instance) {
-                SetupDayLength();
+                if (Configuration.Current.Time.IsEnabled)
+                {
+                    SetupDayLength();
+                }
             }
         }
 
