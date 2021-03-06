@@ -97,8 +97,13 @@ namespace ValheimPlus.GameClasses
 
             Player.m_localPlayer.ShowTutorial("vplus");
 
-            //Send map data to the server
-            VPlusMapSync.SendMapToServer();
+            //Only sync on first spawn
+            if (VPlusMapSync.ShouldSyncOnSpawn)
+            {
+                //Send map data to the server
+                VPlusMapSync.SendMapToServer();
+                VPlusMapSync.ShouldSyncOnSpawn = false;
+            }
         }
     }
 

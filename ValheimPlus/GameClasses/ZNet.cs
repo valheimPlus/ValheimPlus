@@ -70,6 +70,9 @@ namespace ValheimPlus.GameClasses
                 {
                     Debug.LogError("Error while loading configuration file.");
                 }
+
+                //We left the server, so reset our map sync check.
+                VPlusMapSync.ShouldSyncOnSpawn = true;
             }
             else
             {

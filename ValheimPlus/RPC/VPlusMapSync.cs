@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using BepInEx;
-using UnityEngine;
 using ValheimPlus.Utility;
 using static ValheimPlus.VPlusDataObjects;
 
@@ -12,6 +10,8 @@ namespace ValheimPlus.RPC
     public class VPlusMapSync
     {
         public static bool[] ServerMapData;
+
+        public static bool ShouldSyncOnSpawn = true;
 
         public static readonly string mapSyncFilePath = ValheimPlusPlugin.VPlusDataDirectoryPath + Path.DirectorySeparatorChar + "mapSync.dat";
 
@@ -248,7 +248,7 @@ namespace ValheimPlus.RPC
             return exploredAreas;
         }
 
-        private static List<ZPackage> ChunkMapData(List<MapRange> mapData, int chunkSize = 4000)
+        private static List<ZPackage> ChunkMapData(List<MapRange> mapData, int chunkSize = 10000)
         {
             if (mapData == null || mapData.Count == 0) return null;
 
