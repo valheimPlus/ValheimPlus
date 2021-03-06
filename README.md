@@ -14,9 +14,7 @@ Below you can find a list of hosting companies that are supporting ValehimPlus w
 # Features
 All of these features can be adjusted by a configuration file. This also allows you to only enable very specific featues.
 
-
 ## Player
-
 * Modification of stamina usage and regeneration
 * Modification of stamina usage of all tools and weaponry
 * Modification of carry weight
@@ -71,9 +69,11 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Inventory
 * Modify the amount of rows and columns in each inventory of the game
 * Extend player inventory up to 20 x 8
-* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8)
+* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8 - iron configuration also affects boats (except small boat) and carts)
 * Includes automatically added scrollbars when container sizes exceed a certain limit
 * Modify the inventory behavior so that items will be placed in the first slot rather than the last available slot
+
+**Note: As of 0.9.4, player inventory slot configuration is not compatible with Equipment and Quick slots mod**
 
 ## Item Durability
 * Modify the item durability of each item type separately
@@ -125,16 +125,22 @@ All of these features can be adjusted by a configuration file. This also allows 
 Allows you to see the explored areas on the map of other players on the server if they have their position on the map shared ingame.
 *You currently only receive exploration when you are online.*
 
-### Player visibility
-Allows you to be visible on the server map by default when joining.
-
 ### Prevent player from turning off visibility
 Prevents players on the server from making themselves invisible on the map.
 
 ## Custom Keybinds
 * Hotkey options for fowards and backwards roll.
 
-# Building
+## Crafting
+### Deconstruct feature
+Adds a "deconstruct" tab on all crafting bench GUIs except the cauldron that allows you to turn a "craftable" item that you currently have in your inventory into its recipe ingredients. Adds an optional functionality to change percentage of resources returned.
+* Items require same level workbench to deconstruct as they would need to be crafted
+* Cannot deconstruct ammo, consumables, or materials, trophies, or ooze bombs
+* Cannot receive trophy heads or resin when deconstructing
+* Must have available inventory space for all resources that will be returned from deconstruction
+* If "percentageOfResourcesReturned" configuration is not set to default (100), resources returned are rounded down when percentage is calculated. Valid settings for this config is between 0-100.
+
+## Building
 * Remove Building "Invalid Placement" restriction
 * Remove Building Object deterioration by weather.
 * Remove Building Object deterioration by water.
@@ -292,7 +298,7 @@ If you are hosting for your friends over steam, your friends will need v+ and th
 
 
 # Contributing to ValheimPlus
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
+Please see [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
 
 
 # Credits
@@ -306,4 +312,4 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on compiling V+ for de
 * Doudou 'xiaodoudou' - https://github.com/xiaodoudou
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
 * Mehdi 'AccretionCD' E. - https://github.com/AccretionCD
-* Zogniton - https://github.com/Zogniton - Inventiry Overhaul initial creator
+* Zogniton - https://github.com/Zogniton - Inventory Overhaul initial creator
