@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using BepInEx;
-using IniParser;
 using IniParser.Model;
 using ValheimPlus.Configurations;
 
@@ -22,36 +21,29 @@ namespace ValheimPlus.RPC
                 IniData configdata = Configuration.Current.ConfigData;
 
 
-                foreach (var prop in typeof(Configuration).GetProperties())
+                foreach (PropertyInfo prop in typeof(Configuration).GetProperties())
                 {
                     var keyName = prop.Name;
-                    var method = prop.PropertyType.GetMethod("HasNeedsServerSync", BindingFlags.Public | BindingFlags.FlattenHierarchy | BindingFlags.Instance);
-
-                    if (method != null)
+                    int hasNeedsServerSync = Helper.TryGetBoolMethod(prop, Configuration.Current, "HasNeedsServerSync");
+                    Dictionary<string, Type> propertiesType = new Dictionary<string, Type>();
+                    if (hasNeedsServerSync > 0)
                     {
-                        var instance = prop.GetValue(Configuration.Current, null);
-                        bool HasNeedsServerSync = (bool)method.Invoke(instance, new object[] { });
-                        if (HasNeedsServerSync)
+                        cleanConfigData.Add($"[{keyName}]");
+                        if (configdata[keyName] != null)
                         {
-                            cleanConfigData.Add($"[{keyName}]");
-                            bool hasEnableProperty = false;
-                            if (configdata[keyName] != null)
+                            configdata[keyName].ClearComments();
+                            IEnumerator<KeyData> iterator = configdata[keyName].GetEnumerator();
+                            while (iterator.MoveNext())
                             {
-                                configdata[keyName].ClearComments();
-                                IEnumerator<KeyData> iterator = configdata[keyName].GetEnumerator();
-                                while (iterator.MoveNext())
+                                KeyData keyData = iterator.Current;
+                                if (keyData.KeyName.Equals("enabled"))
                                 {
-                                    KeyData keyData = iterator.Current;
-                                    if (keyData.KeyName.Equals("enabled"))
-                                    {
-                                        hasEnableProperty = true;
-                                    }
+                                    cleanConfigData.Add("enabled=true");
+                                }
+                                else if (prop.PropertyType.GetProperty(keyData.KeyName) != null && !prop.PropertyType.GetProperty(keyData.KeyName).PropertyType.Equals(typeof(UnityEngine.KeyCode)))
+                                { 
                                     cleanConfigData.Add($"{keyData.KeyName}={keyData.Value}");
                                 }
-                            } 
-                            if (!hasEnableProperty)
-                            {
-                                cleanConfigData.Add("enabled = false");
                             }
                         }
                     }
