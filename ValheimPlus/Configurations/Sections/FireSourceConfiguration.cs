@@ -1,6 +1,6 @@
 ﻿namespace ValheimPlus.Configurations.Sections
 {
-    public class FireplaceConfiguration : ServerSyncConfig<FireplaceConfiguration>
+    public class FireSourceConfiguration : ServerSyncConfig<FireSourceConfiguration>
     {
         public bool onlyTorches { get; internal set; } = false;
     }

@@ -352,7 +352,7 @@
     <Compile Include="Configurations\Sections\MapConfiguration.cs" />
     <Compile Include="Configurations\Sections\PlayerConfiguration.cs" />
     <Compile Include="Configurations\Sections\ServerConfiguration.cs" />
-    <Compile Include="Configurations\Sections\FireplaceConfiguration.cs" />
+    <Compile Include="Configurations\Sections\FireSourceConfiguration.cs" />
     <Compile Include="Configurations\Sections\TimeConfiguration.cs" />
     <Compile Include="Configurations\Sections\WagonConfiguration.cs" />
     <Compile Include="Configurations\Sections\WardConfiguration.cs" />

@@ -7,7 +7,7 @@ namespace ValheimPlus
     class FireplaceFuel
     {
         [HarmonyPatch(typeof(Fireplace), "UpdateFireplace")]
-        public static class TorchesNoFuel
+        public static class Fireplace_UpdateFireplace_Patch
         {
             /// <summary>
             /// Prefix which returns false every time to skip the original method and other prefixes so that we're not
@@ -15,7 +15,7 @@ namespace ValheimPlus
             /// </summary>
             private static void Prefix(ref Fireplace __instance)
             {
-                if (!Configuration.Current.Fireplace.IsEnabled) return;
+                if (!Configuration.Current.FireSources.IsEnabled) return;
 
                 if (!__instance.m_nview.IsValid()) return;
 
@@ -41,7 +41,7 @@ namespace ValheimPlus
         internal static void ApplyFuel(ref Fireplace __instance)
         {
             Fireplace localFireplace = __instance;
-            if (Configuration.Current.Fireplace.onlyTorches)
+            if (Configuration.Current.FireSources.onlyTorches)
             {
                 if (torchItemNames.Any(x => x.Equals(localFireplace.m_piece.m_name)))
                 {
