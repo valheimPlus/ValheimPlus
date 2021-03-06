@@ -113,7 +113,6 @@ namespace ValheimPlus.Configurations
                 
                 keyName = SanatizeKeyName(keyName);
 
-                var existingValue = prop.GetValue(this, null);
                 Debug.Log($"  Loading Key {keyName}");
                 if (!data.ContainsKey(keyName))
                 {
@@ -124,19 +123,25 @@ namespace ValheimPlus.Configurations
 
                 if (prop.PropertyType == typeof(float))
                 {
-                    prop.SetValue(this, data.GetFloat(keyName, (float)existingValue), null);
+                    prop.SetValue(this, data.GetFloat(keyName, (float)prop.PropertyType.ToDefault()), null);
                     continue;
                 }
 
                 if (prop.PropertyType == typeof(int))
                 {
-                    prop.SetValue(this, data.GetInt(keyName, (int)existingValue), null);
+                    prop.SetValue(this, data.GetInt(keyName, (int)prop.PropertyType.ToDefault()), null);
                     continue;
                 }
 
                 if (prop.PropertyType == typeof(bool))
                 {
                     prop.SetValue(this, data.GetBool(keyName), null);
+                    continue;
+                }
+
+                if (prop.PropertyType == typeof(string))
+                {
+                    prop.SetValue(this, data.GetString(keyName, (string)prop.PropertyType.ToDefault()), null);
                     continue;
                 }
                 Debug.LogWarning($"   Could not load data of type {prop.PropertyType} for Key {keyName}");
@@ -157,7 +162,7 @@ namespace ValheimPlus.Configurations
 
                 var existingValue = prop.GetValue(this, null);
                 Debug.Log($"  Loading KeyCode {keyName}");
-                if (!data.ContainsKey(keyName) || existingValue == null)
+                if (!data.ContainsKey(keyName))
                 {
                     prop.SetValue(this, prop.PropertyType.ToDefault(), null);
                     Debug.Log($"   KeyCode {keyName} not defined, using default value");
@@ -166,7 +171,7 @@ namespace ValheimPlus.Configurations
 
                 if (prop.PropertyType == typeof(KeyCode))
                 {
-                    prop.SetValue(this, data.GetKeyCode(keyName, (KeyCode)existingValue), null);
+                    prop.SetValue(this, data.GetKeyCode(keyName, (KeyCode)prop.PropertyType.ToDefault()), null);
                     continue;
                 }
 
