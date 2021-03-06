@@ -57,8 +57,6 @@ namespace ValheimPlus.RPC
                 //Send the updated server map to all clients
                 foreach(ZPackage pkg in packages)
                 {
-                    //ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.Everybody, "VPlusMapSync", new object[] { pkg });
-
                     RpcQueue.Enqueue(new RpcData()
                     {
                         Name = "VPlusMapSync",
@@ -138,9 +136,6 @@ namespace ValheimPlus.RPC
                 //Route all chunks to the server
                 foreach (ZPackage pkg in packages)
                 {
-                    /*ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusMapSync",
-                        new object[] {pkg});*/
-
                     RpcQueue.Enqueue(new RpcData()
                     {
                         Name = "VPlusMapSync",
@@ -155,6 +150,8 @@ namespace ValheimPlus.RPC
 
         public static void LoadMapDataFromDisk()
         {
+            //TODO: Optimize / Improve on disk format for exploration data. (JSON?)
+
             if (ServerMapData == null) return;
 
             //Load map data
@@ -190,6 +187,8 @@ namespace ValheimPlus.RPC
 
         public static void SaveMapDataToDisk()
         {
+            //TODO: Optimize / Improve on disk format for exploration data. (JSON?)
+
             if (ServerMapData == null) return;
 
             List<int> mapDataToDisk = new List<int>();
