@@ -115,7 +115,7 @@ namespace ValheimPlus.Configurations
 
                 var existingValue = prop.GetValue(this, null);
                 Debug.Log($"  Loading Key {keyName}");
-                if ((!data.ContainsKey(keyName) || existingValue == null) && !prop.PropertyType.Equals(typeof(KeyCode)))
+                if (!data.ContainsKey(keyName))
                 {
                     prop.SetValue(this, prop.PropertyType.ToDefault(), null);
                     Debug.Log($"   Key {keyName} not defined, using default value");
