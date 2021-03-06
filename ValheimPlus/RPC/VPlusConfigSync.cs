@@ -36,11 +36,7 @@ namespace ValheimPlus.RPC
                             while (iterator.MoveNext())
                             {
                                 KeyData keyData = iterator.Current;
-                                if (keyData.KeyName.Equals("enabled"))
-                                {
-                                    cleanConfigData.Add("enabled=true");
-                                }
-                                else if (prop.PropertyType.GetProperty(keyData.KeyName) != null && !prop.PropertyType.GetProperty(keyData.KeyName).PropertyType.Equals(typeof(UnityEngine.KeyCode)))
+                                if ((keyData.KeyName.Equals("enabled") && configdata[keyName].GetBool(keyData.KeyName)) || (prop.PropertyType.GetProperty(keyData.KeyName) != null && !prop.PropertyType.GetProperty(keyData.KeyName).PropertyType.Equals(typeof(UnityEngine.KeyCode))))
                                 { 
                                     cleanConfigData.Add($"{keyData.KeyName}={keyData.Value}");
                                 }
