@@ -35,6 +35,8 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify Furnace maximum coal/ore
 * Modify Kiln processing speed
 * Modify Kiln maximum wood
+* Show the amount of time left until the Fermenter is done.
+* Auto Deposit system for Furnace and Kiln to deposit items to the closest nearby chest.
 
 ## Workbench and Ward
 * Modify Workbench radius
@@ -45,6 +47,7 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Disable fireplaces running out of fuel
 
 ## Time and Day Manipulation
+*FEATURE DISABLED DUE TO ISSUES*
 * Modify total time of a day and night cycle
 * Modify the speed of the time passing at night
 
@@ -59,7 +62,28 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Player Hud
 * Show the experience you gained for a skill in the top left corner
 * Show the amount of items you have in your inventory when crafting or building a object. 
+* Show your actual stamina values below your stamina bar.
+* Modify your inventory sizes of player inventory, chests, boats and else.
+* Disable the red flash on screen when damage is received
+* Display a warning message when you try to place crops to close to another crop
 * Remember mouse position when it loses focus (Windows only)
+
+## Inventory
+* Modify the amount of rows and columns in each inventory of the game
+* Extend player inventory up to 20 x 8
+* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8)
+* Includes automatically added scrollbars when container sizes exceed a certain limit
+* Modify the inventory behavior so that items will be placed in the first slot rather than the last available slot
+
+## Item Durability
+* Modify the item durability of each item type separately
+
+## Item Armor Rating
+* Modify the amount of armor received from armor pieces
+
+## Gathering
+* Modify the amount of resources dropped on destruction of objects.
+*This includes all types of wood (inc. elderbark), stone, iron/bronze/tin/silver/copper and chitin.*
 
 ## Game Difficulty
 * Modify the game difficulty multipliers applied to health and damage of enemies based on the amount of connected players.
@@ -79,11 +103,6 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify the physical weight of the Wagon received by items inside
 * Modify the base physical weight
 
-## Inventory
-* Extend player inventory up to 20 x 8
-* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8)
-* Change how inventory gets filled with materials (top to bottom or bottom to top)
-
 ## Items
 * Remove Item teleport prevention from all items
 * Reduce Item weight of all items by %
@@ -92,9 +111,9 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Server
 * Remove Password requirement for server
 * Modify maximum Players on a server
-* Modify auto save interval
 * Modify server data rate in kilobyte
 * Automatic server configuration sync when a user joins the server to sync the configuration of V+
+* Change the default of 3600 seconds until items despawn on the server
 
 ## Map
 * Activate shared position on map automatically
@@ -119,6 +138,7 @@ Prevents players on the server from making themselves invisible on the map.
 * Advanced Building Mode
 * Advanced Editing Mode
 * Structural Integrity modification system
+* Modify the maximum distance you can place objects at
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
