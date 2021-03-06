@@ -66,9 +66,9 @@ namespace ValheimPlus.GameClasses
                 VPlusMapSync.ServerMapData = new bool[Minimap.instance.m_textureSize * Minimap.instance.m_textureSize];
 
                 //Load map data from disk
-                VPlusMapSync.LoadMapDataFromDisk();
+                //VPlusMapSync.LoadMapDataFromDisk();
 
-                for (int i = 0; i < 255; i++)
+                for (int i = 0; i < 10000; i++)
                 {
                     int pixelX = Random.Range(0, Minimap.instance.m_textureSize);
                     int pixelY = Random.Range(0, Minimap.instance.m_textureSize);
@@ -89,7 +89,7 @@ namespace ValheimPlus.GameClasses
                 }
 
                 //Start map data save timer
-                ValheimPlusPlugin.mapSyncSaveTimer.Start();
+                //ValheimPlusPlugin.mapSyncSaveTimer.Start();
             }
         }
     }

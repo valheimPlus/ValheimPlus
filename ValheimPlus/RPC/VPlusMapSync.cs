@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using BepInEx;
 using UnityEngine;
 using ValheimPlus.Utility;
@@ -38,54 +39,17 @@ namespace ValheimPlus.RPC
                         }
                     }
 
-                    ZLog.Log($"Received {exploredAreaCount} map points from peer {sender}.");
+                    ZLog.Log($"Received {exploredAreaCount} map ranges from peer #{sender}.");
                 }
 
-                List<MapRange> serverExploredAreas = new List<MapRange>();
+                //Check if this is the last chunk from the client.
+                bool lastMapPackage = mapPkg.ReadBool();
 
-                for (int y = 0; y < Minimap.instance.m_textureSize; ++y)
-                {
-                    int startX = -1, endX = -1;
+                if (!lastMapPackage) return; //This package is one of many chunks, so don't update clients until we get all of them.
+                
+                //Convert map data into ranges
+                List<MapRange> serverExploredAreas = ExplorationDataToMapRanges(ServerMapData);
 
-                    for (int x = 0; x < Minimap.instance.m_textureSize; ++x)
-                    {
-                        if (ServerMapData[y * Minimap.instance.m_textureSize + x] && startX == -1 && endX == -1)
-                        {
-                            startX = x;
-                            continue;
-                        }
-
-                        if (!ServerMapData[y * Minimap.instance.m_textureSize + x] && startX > -1 && endX == -1)
-                        {
-                            endX = x - 1;
-                            continue;
-                        }
-
-                        if (startX > -1 && endX > -1)
-                        {
-                            serverExploredAreas.Add(new MapRange()
-                            {
-                                StartingX = startX,
-                                EndingX = endX,
-                                Y = y
-                            });
-
-                            startX = -1;
-                            endX = -1;
-                        }
-                    }
-
-                    if (startX > -1 && endX == -1)
-                    {
-                        //The row is true til the end.
-                        serverExploredAreas.Add(new MapRange()
-                        {
-                            StartingX = startX,
-                            EndingX = Minimap.instance.m_textureSize,
-                            Y = y
-                        });
-                    }
-                }
                 //Chunk up the map data
                 List<ZPackage> packages = ChunkMapData(serverExploredAreas);
 
@@ -128,7 +92,7 @@ namespace ValheimPlus.RPC
                     //Update fog texture
                     Minimap.instance.m_fogTexture.Apply();
 
-                    ZLog.Log($"I got {exploredAreaCount} map points from the server!");
+                    ZLog.Log($"I got {exploredAreaCount} map ranges from the server!");
                 }
                 else
                 {
@@ -141,63 +105,21 @@ namespace ValheimPlus.RPC
         {
             ZLog.Log("-------------------- SENDING VPLUSMAPSYNC DATA");
 
-            //Iterate the explored map and prepare data for transmission
-            List<MapRange> exploredAreas = new List<MapRange>();
+            //Convert exploration data to ranges
+            List<MapRange> exploredAreas = ExplorationDataToMapRanges(Minimap.instance.m_explored);
 
-            for (int y = 0; y < Minimap.instance.m_textureSize; ++y)
-            {
-                int startX = -1, endX = -1;
-
-                for (int x = 0; x < Minimap.instance.m_textureSize; ++x)
-                {
-                    if (Minimap.instance.m_explored[y * Minimap.instance.m_textureSize + x] && startX == -1 && endX == -1)
-                    {
-                        startX = x;
-                        continue;
-                    }
-
-                    if (!Minimap.instance.m_explored[y * Minimap.instance.m_textureSize + x] && startX > -1 && endX == -1)
-                    {
-                        endX = x - 1;
-                        continue;
-                    }
-
-                    if (startX > -1 && endX > -1)
-                    {
-                        exploredAreas.Add(new MapRange()
-                        {
-                            StartingX = startX,
-                            EndingX = endX,
-                            Y = y
-                        });
-
-                        startX = -1;
-                        endX = -1;
-                    }
-                }
-
-                if (startX > -1 && endX == -1)
-                {
-                    //The row is true til the end.
-                    exploredAreas.Add(new MapRange()
-                    {
-                        StartingX = startX,
-                        EndingX = Minimap.instance.m_textureSize,
-                        Y = y
-                    });
-                }
-            }
-
+            //If we have no data to send, just send an empty RPC to trigger the server end to sync.
             if (exploredAreas.Count == 0)
             {
                 ZPackage pkg = new ZPackage();
 
-                pkg.Write(0); //No exploration data to send, so just send the RPC to trigger server sync.
+                pkg.Write(0); //Number of explored areas we're sending (zero in this case)
+                pkg.Write(true); //Trigger server sync by telling the server this is the last package we'll be sending.
 
                 ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusMapSync",
                     new object[] { pkg });
             }
-            else
+            else //We have data to send. Prep it and send it.
             {
                 //Chunk map data
                 List<ZPackage> packages = ChunkMapData(exploredAreas);
@@ -209,7 +131,7 @@ namespace ValheimPlus.RPC
                         new object[] {pkg});
                 }
 
-                ZLog.Log($"Sent my map data to the server ({exploredAreas.Count} map points, {packages.Count} chunks)");
+                ZLog.Log($"Sent my map data to the server ({exploredAreas.Count} map ranges, {packages.Count} chunks)");
             }
         }
 
@@ -270,7 +192,63 @@ namespace ValheimPlus.RPC
             }
         }
 
-        private static List<ZPackage> ChunkMapData(List<MapRange> mapData, int chunkSize = 10000)
+        private static List<MapRange> ExplorationDataToMapRanges(bool[] explorationData)
+        {
+            //Iterate the explored map and convert to ranges
+            List<MapRange> exploredAreas = new List<MapRange>();
+
+            for (int y = 0; y < Minimap.instance.m_textureSize; ++y)
+            {
+                int startX = -1, endX = -1;
+
+                for (int x = 0; x < Minimap.instance.m_textureSize; ++x)
+                {
+                    //Find the first X value that is true
+                    if (explorationData[y * Minimap.instance.m_textureSize + x] && startX == -1 && endX == -1)
+                    {
+                        startX = x;
+                        continue;
+                    }
+
+                    //Find the last X value that is true
+                    if (!explorationData[y * Minimap.instance.m_textureSize + x] && startX > -1 && endX == -1)
+                    {
+                        endX = x - 1;
+                        continue;
+                    }
+
+                    //If we have both X values in the range, save it for this Y value.
+                    if (startX > -1 && endX > -1)
+                    {
+                        exploredAreas.Add(new MapRange()
+                        {
+                            StartingX = startX,
+                            EndingX = endX,
+                            Y = y
+                        });
+
+                        startX = -1;
+                        endX = -1;
+                    }
+                }
+
+                //If we got a starting X coordinate but never got an end coordinate, this range is completely explored.
+                if (startX > -1 && endX == -1)
+                {
+                    //The row is true til the end, create a range for it.
+                    exploredAreas.Add(new MapRange()
+                    {
+                        StartingX = startX,
+                        EndingX = Minimap.instance.m_textureSize,
+                        Y = y
+                    });
+                }
+            }
+
+            return exploredAreas;
+        }
+
+        private static List<ZPackage> ChunkMapData(List<MapRange> mapData, int chunkSize = 4000)
         {
             if (mapData == null || mapData.Count == 0) return null;
 
@@ -291,6 +269,16 @@ namespace ValheimPlus.RPC
                 foreach(MapRange mapRange in thisChunk)
                 {
                     pkg.WriteVPlusMapRange(mapRange);
+                }
+
+                //Write boolean dictating if this is the last chunk in the ZPackage sequence
+                if (thisChunk == chunkedData.Last())
+                {
+                    pkg.Write(true);
+                }
+                else
+                {
+                    pkg.Write(false);
                 }
 
                 //Add the package to the package list
