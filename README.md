@@ -14,9 +14,7 @@ Below you can find a list of hosting companies that are supporting ValehimPlus w
 # Features
 All of these features can be adjusted by a configuration file. This also allows you to only enable very specific featues.
 
-
 ## Player
-
 * Modification of stamina usage and regeneration
 * Modification of stamina usage of all tools and weaponry
 * Modification of carry weight
@@ -125,16 +123,22 @@ All of these features can be adjusted by a configuration file. This also allows 
 Allows you to see the explored areas on the map of other players on the server if they have their position on the map shared ingame.
 *You currently only receive exploration when you are online.*
 
-### Player visibility
-Allows you to be visible on the server map by default when joining.
-
 ### Prevent player from turning off visibility
 Prevents players on the server from making themselves invisible on the map.
 
 ## Custom Keybinds
 * Hotkey options for fowards and backwards roll.
 
-# Building
+## Crafting
+### Deconstruct feature
+Adds a "deconstruct" tab on all crafting bench GUIs except the cauldron that allows you to turn a "craftable" item that you currently have in your inventory into its recipe ingredients. Adds an optional functionality to change percentage of resources returned.
+* Items require same level workbench to deconstruct as they would need to be crafted
+* Cannot deconstruct ammo, consumables, or materials, trophies, or ooze bombs
+* Cannot receive trophy heads or resin when deconstructing
+* Must have available inventory space for all resources that will be returned from deconstruction
+* If "percentageOfResourcesReturned" configuration is not set to default (100), resources returned are rounded down when percentage is calculated. Valid settings for this config is between 0-100.
+
+## Building
 * Remove Building "Invalid Placement" restriction
 * Remove Building Object deterioration by weather.
 * Remove Building Object deterioration by water.

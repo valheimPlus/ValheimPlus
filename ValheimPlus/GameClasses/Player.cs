@@ -12,7 +12,7 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(Player), "Update")]
     public static class AdvancedBuildingAndEditingModeHook
     {
-        private static void Postfix(Player __instance)
+        private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost, Transform ___m_eye)
         {
             if (Configuration.Current.AdvancedEditingMode.IsEnabled)
             {
@@ -26,6 +26,35 @@ namespace ValheimPlus
                 ABM.run();
             }
 
+            if (!Configuration.Current.Hotkeys.IsEnabled) return;
+
+            KeyCode rollKeyForward = Configuration.Current.Hotkeys.rollForwards;
+            KeyCode rollKeyBackwards = Configuration.Current.Hotkeys.rollBackwards;
+
+            if (Input.GetKeyDown(rollKeyBackwards))
+            {
+                Vector3 dodgeDir = ___m_moveDir;
+                if (dodgeDir.magnitude < 0.1f)
+                {
+                    dodgeDir = -___m_lookDir;
+                    dodgeDir.y = 0f;
+                    dodgeDir.Normalize();
+                }
+
+                HookDodgeRoll.call_Dodge(__instance, dodgeDir);
+            }
+            if (Input.GetKeyDown(rollKeyForward))
+            {
+                Vector3 dodgeDir = ___m_moveDir;
+                if (dodgeDir.magnitude < 0.1f)
+                {
+                    dodgeDir = ___m_lookDir;
+                    dodgeDir.y = 0f;
+                    dodgeDir.Normalize();
+                }
+
+                HookDodgeRoll.call_Dodge(__instance, dodgeDir);
+            }
         }
     }
 
@@ -37,7 +66,7 @@ namespace ValheimPlus
     {
         [HarmonyReversePatch]
         [HarmonyPatch(typeof(Player), "Dodge", new Type[] { typeof(Vector3) })]
-        public static void Dodge(object instance, Vector3 dodgeDir) => throw new NotImplementedException();
+        public static void call_Dodge(object instance, Vector3 dodgeDir) => throw new NotImplementedException();
     }
 
     /// <summary>
@@ -92,46 +121,6 @@ namespace ValheimPlus
             }
 
             Player.m_localPlayer.ShowTutorial("vplus");
-        }
-    }
-
-    /// <summary>
-    /// Apply Dodge hotkeys
-    /// </summary>
-    [HarmonyPatch(typeof(Player), "Update")]
-    public static class ApplyDodgeHotkeys
-    {
-        private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost, Transform ___m_eye)
-        {
-            if (!Configuration.Current.Hotkeys.IsEnabled) return;
-
-            KeyCode rollKeyForward = Configuration.Current.Hotkeys.rollForwards;
-            KeyCode rollKeyBackwards = Configuration.Current.Hotkeys.rollBackwards;
-
-            if (Input.GetKeyDown(rollKeyBackwards))
-            {
-                Vector3 dodgeDir = ___m_moveDir;
-                if (dodgeDir.magnitude < 0.1f)
-                {
-                    dodgeDir = -___m_lookDir;
-                    dodgeDir.y = 0f;
-                    dodgeDir.Normalize();
-                }
-
-                HookDodgeRoll.Dodge(__instance, dodgeDir);
-            }
-            if (Input.GetKeyDown(rollKeyForward))
-            {
-                Vector3 dodgeDir = ___m_moveDir;
-                if (dodgeDir.magnitude < 0.1f)
-                {
-                    dodgeDir = ___m_lookDir;
-                    dodgeDir.y = 0f;
-                    dodgeDir.Normalize();
-                }
-
-                HookDodgeRoll.Dodge(__instance, dodgeDir);
-            }
         }
     }
 
@@ -371,9 +360,8 @@ namespace ValheimPlus
                         __instance.m_placementMarkerInstance.SetActive(false);
                     }
                 }
-                catch (Exception e)
+                catch
                 {
-
                 }
             }
 
@@ -387,9 +375,8 @@ namespace ValheimPlus
                         __instance.m_placementGhost.GetComponent<Piece>().SetInvalidPlacementHeightlight(false);
                     }
                 }
-                catch(Exception e)
+                catch
                 {
-
                 }
             }
 
