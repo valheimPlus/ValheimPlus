@@ -59,6 +59,7 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Player Hud
 * Show the experience you gained for a skill in the top left corner
 * Show the amount of items you have in your inventory when crafting or building a object. 
+* Remember mouse position when it loses focus (Windows only)
 
 ## Game Difficulty
 * Modify the game difficulty multipliers applied to health and damage of enemies based on the amount of connected players.
