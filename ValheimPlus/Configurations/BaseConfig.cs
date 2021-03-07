@@ -123,7 +123,6 @@ namespace ValheimPlus.Configurations
             }
         }
 
-            public void LoadSettings(KeyDataCollection data)
         /// <summary>
         /// Set all values of all current Configuration properties (except KeyCodes) from given KeyDataCollection
         /// </summary>
