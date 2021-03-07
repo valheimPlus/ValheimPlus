@@ -209,13 +209,6 @@ namespace ValheimPlus.Configurations
                     continue;
                 }
 
-                if (prop.PropertyType == typeof(KeyCode))
-                {
-                    prop.SetValue(this, data.GetKeyCode(keyName, (KeyCode)prop.PropertyType.ToDefault()), null);
-                    continue;
-                }
-
-                Debug.LogWarning($"   Could not load KeyCode for key {keyName}");
                 // Will try to parse KeyCode, if it fails it will use the default value
                 prop.SetValue(this, data.GetKeyCode(keyName, (KeyCode)prop.PropertyType.ToDefault()), null);
             }
