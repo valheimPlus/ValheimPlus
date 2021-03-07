@@ -24,6 +24,7 @@ namespace ValheimPlus.RPC
                 foreach (PropertyInfo prop in typeof(Configuration).GetProperties())
                 {
                     var keyName = prop.Name;
+                    // If current Configuration properties is a ServerSyncConfig, HasNeedsServerSync through TryGetBoolMethod will return 1
                     int hasNeedsServerSync = Helper.TryGetBoolMethod(prop, Configuration.Current, "HasNeedsServerSync");
                     Dictionary<string, Type> propertiesType = new Dictionary<string, Type>();
                     if (hasNeedsServerSync > 0)
@@ -36,6 +37,8 @@ namespace ValheimPlus.RPC
                             while (iterator.MoveNext())
                             {
                                 KeyData keyData = iterator.Current;
+
+                                // If attr is "enabled" or not a KeyCode, we add it to the config to be sent
                                 if ((keyData.KeyName.Equals("enabled") && configdata[keyName].GetBool(keyData.KeyName)) || (prop.PropertyType.GetProperty(keyData.KeyName) != null && !prop.PropertyType.GetProperty(keyData.KeyName).PropertyType.Equals(typeof(UnityEngine.KeyCode))))
                                 { 
                                     cleanConfigData.Add($"{keyData.KeyName}={keyData.Value}");
@@ -93,6 +96,7 @@ namespace ValheimPlus.RPC
                             tmpWriter.Flush(); //Flush to memStream
                             memStream.Position = 0; //Rewind stream
 
+                            // Now we have the full config, we will load to the current config the received one
                             ConfigurationExtra.LoadConfigurationFromStream(memStream);
 
                             // Needed to make sure client is using server configuration as dayLength is setup before

@@ -4,6 +4,9 @@ namespace ValheimPlus.Utility
 {
     public static class TypedDefaultExtensions
     {
+        /// <summary>
+        /// Helper to return default value of a PropertyType
+        /// </summary>
         public static object ToDefault(this Type targetType)
         {
 

@@ -5,6 +5,9 @@ namespace ValheimPlus
 {
     static class Helper
     {
+        /// <summary>
+        /// Helper to return bool value of a method, will return 1 if true, 0 if false, -1 if method doesn't exist or exception triggered
+        /// </summary>
         public static int TryGetBoolMethod(PropertyInfo prop, object target, string name)
         {
             var method = prop.PropertyType.GetMethod(name, BindingFlags.Public | BindingFlags.FlattenHierarchy | BindingFlags.Instance);

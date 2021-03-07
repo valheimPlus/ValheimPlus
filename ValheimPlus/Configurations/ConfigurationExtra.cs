@@ -54,6 +54,9 @@ namespace ValheimPlus.Configurations
             return true;
         }
 
+        /// <summary>
+        /// Return a new local configuration fron an IniData
+        /// </summary>
         public static Configuration LoadFromIni(IniData configdata)
         {
             Configuration conf = new Configuration();
@@ -62,22 +65,32 @@ namespace ValheimPlus.Configurations
             foreach (var prop in typeof(Configuration).GetProperties())
             {
                 string keyName = prop.Name;
+                // Try to get Method LoadIni from current config property 
                 MethodInfo method = prop.PropertyType.GetMethod("LoadIni", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+                // Check if exist
                 if (method != null)
                 {
+                    // Invoke the property which will result by creating an object of the Type of current property
                     var result = method.Invoke(null, new object[] { configdata, keyName });
+                    // Assigned that new object into current config property
                     prop.SetValue(conf, result, null);
                 }
             }
             return conf;
         }
 
+        /// <summary>
+        /// Return a new local configuration given by a filepath
+        /// </summary>
         public static Configuration LoadFromIni(string filename)
         {
             FileIniDataParser parser = new FileIniDataParser();
             return LoadFromIni(parser.ReadFile(filename));
         }
 
+        /// <summary>
+        /// Return a new local configuration given by a stream
+        /// </summary>
         public static Configuration LoadFromIni(Stream iniStream)
         {
             using (StreamReader iniReader = new StreamReader(iniStream))
@@ -86,6 +99,10 @@ namespace ValheimPlus.Configurations
                 return LoadFromIni(parser.ReadData(iniReader));
             }
         }
+
+        /// <summary>
+        /// Load a remote configuration given by a stream into current configuration
+        /// </summary>
         public static void LoadConfigurationFromStream(Stream iniStream)
         {
             using (StreamReader iniReader = new StreamReader(iniStream))
@@ -96,13 +113,19 @@ namespace ValheimPlus.Configurations
                 foreach (var prop in typeof(Configuration).GetProperties())
                 {
                     string keyName = prop.Name;
+
+                    // If current Configuration properties is a ServerSyncConfig, HasNeedsServerSync through TryGetBoolMethod will return 1
                     int hasNeedsServerSync = Helper.TryGetBoolMethod(prop, Configuration.Current, "HasNeedsServerSync");
                     if (hasNeedsServerSync > 0)
                     {
+                        // Try to get Method LoadIniFromRemote from current config property assembly
                         MethodInfo method = prop.PropertyType.GetMethod("LoadIniFromRemote", BindingFlags.Public | BindingFlags.FlattenHierarchy | BindingFlags.Instance);
+                        // Get current instance of the current config property
                         var instance = prop.GetValue(Configuration.Current, null);
+                        // Check if Method exist on the current property
                         if (method != null)
                         {
+                            // Call instance method LoadIniFromRemote which will overload current config base on received data
                             method.Invoke(instance, new object[] { configdata, keyName });
                         }
                     }
