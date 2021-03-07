@@ -200,8 +200,6 @@ namespace ValheimPlus.Configurations
                 var keyName = prop.Name;
                 keyName = SanatizeKeyName(keyName);
 
-
-                var existingValue = prop.GetValue(this, null);
                 Debug.Log($"  Loading KeyCode {keyName}");
                 // If property KeyCode is not defined into the given KeyDataCollection we make sure to use the default value
                 if (!data.ContainsKey(keyName))
