@@ -60,6 +60,7 @@ namespace ValheimPlus.Configurations
         public static Configuration LoadFromIni(IniData configdata)
         {
             Configuration conf = new Configuration();
+            // Store the IniData; will be used in a case of a server down sync
             conf.ConfigData = configdata;
             conf.ConfigData.ClearAllComments();
             foreach (var prop in typeof(Configuration).GetProperties())

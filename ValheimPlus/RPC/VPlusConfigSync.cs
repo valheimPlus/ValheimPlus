@@ -13,13 +13,13 @@ namespace ValheimPlus.RPC
         {
             if (ZNet.m_isServer) //Server
             {
+                if (!Configuration.Current.Server.IsEnabled) return;
                 if (!Configuration.Current.Server.serverSyncsConfig) return;
 
                 ZPackage pkg = new ZPackage();
                 List<string> cleanConfigData = new List<string>();
-
+                // Get stored config
                 IniData configdata = Configuration.Current.ConfigData;
-
 
                 foreach (PropertyInfo prop in typeof(Configuration).GetProperties())
                 {
