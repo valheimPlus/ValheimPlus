@@ -21,7 +21,9 @@ namespace ValheimPlus
 
                 if (__instance.m_nview.IsOwner())
                 {
-                    FireplaceExtension.ApplyFuel(ref __instance);
+                    if (ZNet.instance == null) return;
+                    ZNet znet = ZNet.instance;
+                    FireplaceExtension.ApplyFuel(ref __instance, ref znet);
                 }
             }
         }
@@ -38,19 +40,22 @@ namespace ValheimPlus
             "$piece_brazierceiling01" // brazier
         };
 
-        internal static void ApplyFuel(ref Fireplace __instance)
+        internal static void ApplyFuel(ref Fireplace __instance, ref ZNet __znet)
         {
             Fireplace localFireplace = __instance;
+
             if (Configuration.Current.FireSource.onlyTorches)
             {
                 if (torchItemNames.Any(x => x.Equals(localFireplace.m_piece.m_name)))
                 {
                     __instance.m_nview.GetZDO().Set("fuel", __instance.m_maxFuel); // setting to max won't waste rss on fill attempts
+                    __instance.m_nview.GetZDO().Set("lastTime", __znet.GetTime().Ticks);
                 }
             }
             else
             {
                 __instance.m_nview.GetZDO().Set("fuel", __instance.m_maxFuel); // setting to max won't waste rss on fill attempts
+                __instance.m_nview.GetZDO().Set("lastTime", __znet.GetTime().Ticks);
             }
         }
     }
