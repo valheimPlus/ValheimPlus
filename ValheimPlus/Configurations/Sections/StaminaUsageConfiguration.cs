@@ -2,8 +2,9 @@
 {
     public class StaminaUsageConfiguration : ServerSyncConfig<StaminaUsageConfiguration>
     {
-        public float axes { get; internal set; } = 0; 
+        public float axes { get; internal set; } = 0;
         public float bows { get; internal set; } = 0;
+        public float blocking { get; internal set; } = 0;
         public float clubs { get; internal set; } = 0;
         public float knives { get; internal set; } = 0;
         public float pickaxes { get; internal set; } = 0;
@@ -13,5 +14,6 @@
         public float unarmed { get; internal set; } = 0;
         public float hammer { get; internal set; } = 0;
         public float hoe { get; internal set; } = 0;
+        public float cultivator { get; internal set; } = 0;
     }
 }

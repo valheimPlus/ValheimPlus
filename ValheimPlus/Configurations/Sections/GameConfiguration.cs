@@ -7,5 +7,6 @@
         public int extraPlayerCountNearby { get; internal set; } = 0;
         public int setFixedPlayerCountTo { get; internal set; } = 0;
         public int difficultyScaleRange { get; internal set; } = 200;
+        public bool disablePortals { get; set; } = false;
     }
 }

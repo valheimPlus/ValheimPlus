@@ -1,101 +1,25 @@
-﻿using HarmonyLib;
-using System;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
-using System.IO;
-using System.Reflection;
-using System.Runtime;
-using IniParser;
-using IniParser.Model;
-using System.Globalization;
-using Steamworks;
-using ValheimPlus;
-using UnityEngine.Rendering;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
-
-    class AdvancedBuildingMode
-    {
-        [HarmonyPatch(typeof(Player), "UpdatePlacementGhost")]
-        public static class ModifyPlacingRestrictionOfGhost
-        {
-            private static Boolean Prefix(Player __instance, bool flashGuardStone)
-            {
-                if (Configuration.Current.AdvancedBuildingMode.IsEnabled)
-                {
-                    ABM.PlayerInstance = __instance;
-                    ABM.run();
-                }
-                if (ABM.isActive)
-                    return false;
-                return true;
-            }
-
-
-            private static void Postfix(ref Player __instance)
-            {
-                if (ABM.exitOnNextIteration)
-                {
-                    try
-                    {
-                        if (__instance.m_placementMarkerInstance)
-                        {
-                            __instance.m_placementMarkerInstance.SetActive(false);
-                        }
-                    }catch(Exception e)
-                    {
-
-                    }
-                }
-                if (Configuration.Current.AdvancedBuildingMode.IsEnabled && Configuration.Current.Building.noInvalidPlacementRestriction)
-                {
-                    if (__instance.m_placementStatus == Player.PlacementStatus.Invalid)
-                    {
-                        __instance.m_placementStatus = Player.PlacementStatus.Valid;
-                        __instance.m_placementGhost.GetComponent<Piece>().SetInvalidPlacementHeightlight(false);
-                    }
-                }
-            }
-
-
-        }
-
-        public static bool IsHoeOrTerrainTool(GameObject selectedPrefab)
-        {
-            string[] HoePrefabs = { "paved_road", "mud_road", "raise", "path" };
-            string[] TerrainToolPrefabs = { "cultivate", "replant" };
-
-            if (selectedPrefab.name.ToLower().Contains("sapling"))
-            {
-                return true;
-            }
-            if (HoePrefabs.Contains(selectedPrefab.name) || TerrainToolPrefabs.Contains(selectedPrefab.name))
-            {
-                return true;
-            }
-            return false;
-        }
-    }
-
-
     class ABM
     {
         // Status
-        public static Boolean isActive = false;
+        public static bool isActive = false;
 
         // Player Instance
         public static Player PlayerInstance;
 
         // Control Flags
-        static Boolean controlFlag = false;
-        static Boolean shiftFlag = false;
-        static Boolean altFlag = false;
+        static bool controlFlag = false;
+        static bool shiftFlag = false;
+        static bool altFlag = false;
 
         // Exit flags
-        public static Boolean exitOnNextIteration = false;
-        static Boolean blockDefaultFunction = false;
+        public static bool exitOnNextIteration = false;
+        static bool blockDefaultFunction = false;
 
         static private Piece component;
 
@@ -103,10 +27,11 @@ namespace ValheimPlus
         static float gDistance = 2;
         static float gScrollDistance = 2;
 
+        // Save and Load object rotation
+        static Quaternion savedRotation = new Quaternion();
 
         public static void run()
         {
-
             if (AEM.isActive)
             {
                 if (isActive)
@@ -152,8 +77,6 @@ namespace ValheimPlus
                 return;
             }
 
-            
-
             if (isActive)
             {
                 // Maximum distance between player and placed piece
@@ -172,34 +95,48 @@ namespace ValheimPlus
                     startMode();
                 }
             }
-
         }
 
         private static void listenToHotKeysAndDoWork()
         {
-
             float rX = 0;
             float rZ = 0;
             float rY = 0;
-
 
             // CONTROL PRESSED
             if (Input.GetKeyDown(KeyCode.LeftControl)) { controlFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftControl)) { controlFlag = false; }
 
-
-            // SHIFT PRESSED
-            float distance = gDistance;
-            float scrollDistance = gScrollDistance;
             if (Input.GetKeyDown(KeyCode.LeftShift)) { shiftFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftShift)) { shiftFlag = false; }
             changeModificationSpeeds(shiftFlag);
-            if (shiftFlag) { distance = gDistance * 3; scrollDistance = gScrollDistance * 3; } else { distance = gDistance; scrollDistance = gScrollDistance; }
+
+            // SHIFT PRESSED
+            float distance;
+            float scrollDistance;
+
+            if (shiftFlag)
+            {  
+                distance = gDistance * 3;
+                scrollDistance = gScrollDistance * 3;
+            } 
+            else
+            { 
+                distance = gDistance; 
+                scrollDistance = gScrollDistance;
+            }
 
             // LEFT ALT PRESSED
             if (Input.GetKeyDown(KeyCode.LeftAlt)) { altFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftAlt)) { altFlag = false; }
 
+            if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.copyObjectRotation)) {
+                savedRotation = component.transform.rotation;
+            }
+            if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.pasteObjectRotation))
+            {
+                component.transform.rotation = savedRotation;
+            }
 
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
@@ -285,10 +222,13 @@ namespace ValheimPlus
             try
             {
                 isValidPlacement();
-            }catch(Exception e) { }
+            }
+            catch
+            {
+            }
         }
 
-        private static Boolean isValidPlacement()
+        private static bool isValidPlacement()
         {
             bool water = component.m_waterPiece || component.m_noInWater;
 
@@ -331,12 +271,13 @@ namespace ValheimPlus
             {
                 PlayerInstance.m_placementStatus = Player.PlacementStatus.NoBuildZone;
             }
+
             float radius = component.GetComponent<PrivateArea>() ? component.GetComponent<PrivateArea>().m_radius : 0f;
+
             if (!PrivateArea.CheckAccess(PlayerInstance.m_placementGhost.transform.position, radius, true))
             {
                 PlayerInstance.m_placementStatus = Player.PlacementStatus.PrivateZone;
             }
-
             if (PlayerInstance.m_placementStatus != 0)
             {
                 component.SetInvalidPlacementHeightlight(true);
@@ -345,6 +286,7 @@ namespace ValheimPlus
             {
                 component.SetInvalidPlacementHeightlight(false);
             }
+
             return true;
         }
 
@@ -364,7 +306,7 @@ namespace ValheimPlus
             component = null;
         }
 
-        private static Boolean isInBuildMode()
+        private static bool isInBuildMode()
         {
             return PlayerInstance.InPlaceMode();
         }
@@ -379,28 +321,30 @@ namespace ValheimPlus
                     selectedPrefab = PlayerInstance.m_buildPieces.GetSelectedPrefab();
                     return selectedPrefab;
                 }
-                catch(Exception e)
+                catch
                 {
                     return null;
                 }
             }
+
             return null;
         }
 
         // Is Hoe or Terrain Tool in build mode?
-        private static Boolean IsHoeOrTerrainTool(GameObject selectedPrefab)
+        private static bool IsHoeOrTerrainTool(GameObject selectedPrefab)
         {
-            string[] HoePrefabs = { "paved_road", "mud_road", "raise", "path" };
-            string[] TerrainToolPrefabs = { "cultivate", "replant" };
+            string[] hoePrefabs = { "paved_road", "mud_road", "raise", "path" };
+            string[] terrainToolPrefabs = { "cultivate", "replant" };
 
             if (selectedPrefab.name.ToLower().Contains("sapling"))
             {
                 return true;
             }
-            if (HoePrefabs.Contains(selectedPrefab.name) || TerrainToolPrefabs.Contains(selectedPrefab.name))
+            if (hoePrefabs.Contains(selectedPrefab.name) || terrainToolPrefabs.Contains(selectedPrefab.name))
             {
                 return true;
             }
+
             return false;
         }
 
@@ -417,25 +361,26 @@ namespace ValheimPlus
             }
         }
 
-        private static void changeModificationSpeeds(Boolean isShiftPressed)
+        private static void changeModificationSpeeds(bool isShiftPressed)
         {
             float incValue = 1;
             if (shiftFlag)
                 incValue = 10;
 
-            if (Input.GetKeyDown(KeyCode.KeypadPlus)) {
-
+            if (Input.GetKeyDown(KeyCode.KeypadPlus)) 
+            {
                 if ((gScrollDistance - incValue) < 360)
                     gScrollDistance += incValue;
 
                 if ((gDistance - incValue) < 360)
                     gDistance += incValue;
+
                 notifyUser("Modification Speed: " + gDistance);
                 Debug.Log("Modification Speed: " + gDistance);
             }
+
             if (Input.GetKeyDown(KeyCode.KeypadMinus))
             {
-
                 if((gScrollDistance-incValue) > 0)
                     gScrollDistance = gScrollDistance - incValue;
 
@@ -446,7 +391,5 @@ namespace ValheimPlus
                 Debug.Log("Modification Speed: " + gDistance);
             }
         }
-
-
     }
 }

@@ -10,6 +10,7 @@ namespace ValheimPlus.Configurations
         public AdvancedEditingModeConfiguration AdvancedEditingMode { get; set; }
         public BeehiveConfiguration Beehive { get; set; }
         public BuildingConfiguration Building { get; set; }
+        public InventoryConfiguration Inventory { get; set; }
         public ItemsConfiguration Items { get; set; }
         public FermenterConfiguration Fermenter { get; set; }
         public FireplaceConfiguration Fireplace { get; set; }
@@ -30,7 +31,10 @@ namespace ValheimPlus.Configurations
         public ExperienceConfiguration Experience { get; set; }
         public CameraConfiguration Camera { get; set; }
         public GameConfiguration Game { get; set; }
-        public VagonConfiguration Wagon { get; set; }
-        public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
+        public WagonConfiguration Wagon { get; set; }
+        public GatherConfiguration Gathering { get; set; }
+        public DurabilityConfiguration Durability { get; set; }
+        public ArmorConfiguration Armor { get; set; }
+		public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
     }
 }
