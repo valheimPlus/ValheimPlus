@@ -294,7 +294,7 @@ If you are hosting for your friends over steam, your friends will need v+ and th
 
 
 # Contributing to ValheimPlus
-Please see [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
+Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
 
 
 # Credits
