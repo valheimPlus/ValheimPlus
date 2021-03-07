@@ -6,30 +6,57 @@ namespace ValheimPlus
 {
     class FireplaceFuel
     {
-        [HarmonyPatch(typeof(Fireplace), "UpdateFireplace")]
-        public static class Fireplace_UpdateFireplace_Patch
+        [HarmonyPatch(typeof(Fireplace), "Awake")]
+        public static class Fireplace_Awake_Patch
         {
             /// <summary>
-            /// Prefix which returns false every time to skip the original method and other prefixes so that we're not
-            /// needlessly setting fuel value twice
+            /// When fire source is created, check for configurations and set its start fuel to max fuel
             /// </summary>
             private static void Prefix(ref Fireplace __instance)
             {
                 if (!Configuration.Current.FireSource.IsEnabled) return;
 
-                if (!__instance.m_nview.IsValid()) return;
-
-                if (__instance.m_nview.IsOwner())
+                if (Configuration.Current.FireSource.onlyTorches)
                 {
-                    if (ZNet.instance == null) return;
-                    ZNet znet = ZNet.instance;
-                    FireplaceExtension.ApplyFuel(ref __instance, ref znet);
+                    if (FireplaceExtensions.IsTorch(__instance.m_name))
+                    {
+                        __instance.m_startFuel = __instance.m_maxFuel;
+                    }
+                }
+                else
+                {
+                    __instance.m_startFuel = __instance.m_maxFuel;
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(Fireplace), "GetTimeSinceLastUpdate")]
+        public static class Fireplace_GetTimeSinceLastUpdate_Patch
+        {
+            /// <summary>
+            /// If fire source is configured to keep fire source lit, reset time since being lit to 0
+            /// </summary>
+            private static void Postfix(ref double __result, ref Fireplace __instance)
+            {
+                if (!Configuration.Current.FireSource.IsEnabled) return;
+
+                if (Configuration.Current.FireSource.onlyTorches)
+                {
+                    // if configuration is set to only keep torches lit, check that our current instance is a torch and only then intercept and overwrite result
+                    if (FireplaceExtensions.IsTorch(__instance.m_name))
+                    {
+                        __result = 0.0;
+                    }
+                }
+                else
+                {
+                    __result = 0.0;
                 }
             }
         }
     }
 
-    public static class FireplaceExtension
+    public static class FireplaceExtensions
     {
         static readonly string[] torchItemNames = new[]
         {
@@ -40,23 +67,9 @@ namespace ValheimPlus
             "$piece_brazierceiling01" // brazier
         };
 
-        internal static void ApplyFuel(ref Fireplace __instance, ref ZNet __znet)
+        internal static bool IsTorch(string itemName)
         {
-            Fireplace localFireplace = __instance;
-
-            if (Configuration.Current.FireSource.onlyTorches)
-            {
-                if (torchItemNames.Any(x => x.Equals(localFireplace.m_piece.m_name)))
-                {
-                    __instance.m_nview.GetZDO().Set("fuel", __instance.m_maxFuel); // setting to max won't waste rss on fill attempts
-                    __instance.m_nview.GetZDO().Set("lastTime", __znet.GetTime().Ticks);
-                }
-            }
-            else
-            {
-                __instance.m_nview.GetZDO().Set("fuel", __instance.m_maxFuel); // setting to max won't waste rss on fill attempts
-                __instance.m_nview.GetZDO().Set("lastTime", __znet.GetTime().Ticks);
-            }
+            return torchItemNames.Any(x => x.Equals(itemName));
         }
     }
 }
