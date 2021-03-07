@@ -17,11 +17,41 @@ namespace ValheimPlus
             }
         }
     }
-	
+
+	/// <summary>
+	/// Disable weather damage under water
+	/// </summary>
+	[HarmonyPatch(typeof(WearNTear), "IsUnderWater")]
+	public static class RemoveWearNTearFromUnderWater
+	{
+		private static void Postfix(ref bool __result)
+		{
+			if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noWeatherDamage)
+			{
+				__result = false;
+			}
+		}
+	}
+
+	/// <summary>
+	/// Disable damage to player structures
+	/// </summary>
+	[HarmonyPatch(typeof(WearNTear), "ApplyDamage")]
+	public static class WearNTear_ApplyDamage_Patch
+	{
+		private static bool Prefix(ref WearNTear __instance,ref float damage)
+		{
+			if (Configuration.Current.StructuralIntegrity.IsEnabled && Configuration.Current.StructuralIntegrity.disableDamageToPlayerStructures && __instance.m_piece && __instance.m_piece.IsPlacedByPlayer())
+				return false;
+
+			return true;
+		}
+	}
+
 	/// <summary>
 	/// Disable structural integrity
 	/// </summary>
-    [HarmonyPatch(typeof(WearNTear), "GetMaterialProperties")]
+	[HarmonyPatch(typeof(WearNTear), "GetMaterialProperties")]
     public static class RemoveStructualIntegrity
     {
         private static bool Prefix(ref WearNTear __instance, out float maxSupport, out float minSupport, out float horizontalLoss, out float verticalLoss)
