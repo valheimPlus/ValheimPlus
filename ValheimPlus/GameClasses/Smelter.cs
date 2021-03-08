@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System.Linq;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
@@ -74,10 +75,10 @@ namespace ValheimPlus
                 // SphereCast grabbing all overlaps (didn't bother trying to find a mask, so this might be "heavy")
                 Collider[] hitColliders = Physics.OverlapSphere(smelter.gameObject.transform.localPosition, autoDepositRange);
 
-                // Reverse the found objects to select the nearest first instead of the farthest inventory.
-                System.Array.Reverse(hitColliders);
+                // Order the found objects to select the nearest first instead of the farthest inventory.
+                IOrderedEnumerable<Collider> orderedColliders = hitColliders.OrderBy(x => Vector3.Distance(smelter.gameObject.transform.localPosition, x.transform.position));
 
-                foreach (Collider hitCollider in hitColliders)
+                foreach (Collider hitCollider in orderedColliders)
                 {
                     // Search for Containers components
                     if (hitCollider.gameObject.GetComponentInParent<Container>() != null)
