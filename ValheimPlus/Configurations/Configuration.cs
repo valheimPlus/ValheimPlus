@@ -16,7 +16,7 @@ namespace ValheimPlus.Configurations
         public InventoryConfiguration Inventory { get; set; }
         public ItemsConfiguration Items { get; set; }
         public FermenterConfiguration Fermenter { get; set; }
-        public FireplaceConfiguration Fireplace { get; set; }
+        public FireSourceConfiguration FireSource { get; set; }
         public FoodConfiguration Food { get; set; }
         public FurnaceConfiguration Furnace { get; set; }
         public HotkeyConfiguration Hotkeys { get; set; }
@@ -38,5 +38,6 @@ namespace ValheimPlus.Configurations
         public GatherConfiguration Gathering { get; set; }
         public DurabilityConfiguration Durability { get; set; }
         public ArmorConfiguration Armor { get; set; }
+		public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
     }
 }

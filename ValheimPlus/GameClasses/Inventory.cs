@@ -50,9 +50,9 @@ namespace ValheimPlus
 		private const int woodChestInventoryMinCol = 5;
 
 		private const int ironChestInventoryMaxRows = 20;
-		private const int ironChestInventoryMinRows = 4;
-		private const int ironChestInventoryMaxCol = 20;
-		private const int ironChestInventoryMinCol = 4;
+		private const int ironChestInventoryMinRows = 3;
+		private const int ironChestInventoryMaxCol = 8;
+		private const int ironChestInventoryMinCol = 6;
 
 		public static void Prefix(string name, ref int w, ref int h)
 		{

@@ -4,7 +4,7 @@
 How to setup the development enviroment to compile ValheimPlus yourself.
 
 1. Download the [BepInEx for Valheim package](https://valheim.thunderstore.io/package/download/denikson/BepInExPack_Valheim/5.4.701/).
-   - Unpack into your Valheim root folder and overwrite every file when asked.
+   - Extract zip contents and copy the contents inside `/BepInExPack_Valheim/` and paste them in your Valheim root folder and overwrite every file when asked.
    - This package sets up your Valheim game with BepInEx configurations specifically for mod devs. Created by [BepInEx](https://github.com/BepInEx).
 1. Download the [AssemblyPublicizer package](https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA).
    - This package has a tool that you'll use to create publicized versions of the `assembly_*.dll` files for your local development.
@@ -16,6 +16,18 @@ How to setup the development enviroment to compile ValheimPlus yourself.
 1. Define Enviroment Variable `VALHEIM_INSTALL` with path to Valheim Install Directory  
    - example: `setx VALHEIM_INSTALL "C:\Program Files\Steam\steamapps\common\Valheim" /M`
 
+## Debugging with dnSpy
+
+Thanks to mono and unity-mono being open source, we patched and compiled our own mono runtime and enabled actual live debugging of the game and the mod itself with dnSpy.
+
+1. Download [dnSpy-net-win64](https://github.com/dnSpy/dnSpy/releases) and extract the exe.
+2. Load all assemblies from \<Valheim>\unstripped_corlib into dnSpy (just drag&drop the folder onto it).
+3. Load all assembly_* from \<Valheim>\valheim_Data\Managed into dnSpy (*do not load the publicized ones, they will not be loaded into the process and therefore can not be debugged*).
+4. Load ValheimPlus.dll from \<Valheim>\BepInEx\plugins into dnSpy.
+5. Copy .\libraries\Debug\mono-2.0-bdwgc.dll from this repo to \<Valheim>\MonoBleedingEdge\EmbedRuntime and overwrite the existing file.
+6. Now go to `Debug` -> `Start Debugging` and select Unity debug engine. Select your valheim.exe as the executable and hit OK.
+7. If you did set some breakpoints, the game will halt when it hits the breakpoint in memory and dnSpy will show you the objects in memory and lets you do much more useful stuff.
+
 ## V+ Conventions
 ### C#
 1. Please add all `Patch`ed methods to the file named for the type being patched. So if we patch a class type named `Humanoid`, add that patch to the `GameClasses/Humanoid.cs` file.
@@ -23,10 +35,10 @@ How to setup the development enviroment to compile ValheimPlus yourself.
    - Any new classes for patches will follow the following naming convention. Please make sure future classes are named appropriately. The objective is to simplify and avoid clashes of method patching and a potential refactor in the future. 
 
    ```csharp
-   File of patch == GameClass.cs file
+   // File of patch == GameClass.cs file
  
    Class structure:
-   [HarmonayPatch(typeof(GameClass), "MethodName")]
+   [HarmonyPatch(typeof(GameClass), "MethodName")]
    {modifiers} class GameClass_MethodName_Patch
    {
      bool Prefix...
@@ -44,8 +56,9 @@ How to setup the development enviroment to compile ValheimPlus yourself.
    - It is easy to forget test values in your code when you make a PR. Please double check your default values when creating a PR
    - It is recommended when testing to test value inline with your code instead of altering the values on the .cfg/class to prevent this issue. If an inline hardcoded value gets pushed, it's easier to spot this mistake than a inaccurate cfg setting.
 1. Try to find an appropriate existing configuration section before adding a new one. Generally, if your configuration changes something related to the player, for example, then add it to the `[Player]` section. Look at it from the perspective of a user who's looking for a specific configuration instead of the perspective of someone who's coding and looking for a class.
-1. Check out our helpers in the /Utilities/ folder and use them where appropriate
-1. For configuration modifiers that add a modifcation to the base value, always use a percentage configuration and use the `applyModifier()` utility.
+1. Add any new configuration Sections (`[Section]`) to the bottom of the .cfg file so that we're less likely to break existing config.
+3. Check out our helpers in the /Utilities/ folder and use them where appropriate
+4. For configuration modifiers that add a modifcation to the base value, always use a percentage configuration and use the `applyModifier()` utility.
 
 ## Making a Pull Request
 1. Only make a pull request for finished work. Otherwise, if we pull the work down to test it and it doesn't work, we don't know if it's because it's unfinished or if there's an unintentional bug.

@@ -27,7 +27,7 @@ export DOORSTOP_CORLIB_OVERRIDE_PATH="$PWD/unstripped_corlib"
 
 tmplibpath=$LD_LIBRARY_PATH
 
-export LD_LIBRARY_PATH="$PWD/doorstop_libs":$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH="$PWD/doorstop_libs":"$LD_LIBRARY_PATH"
 export LD_PRELOAD=libdoorstop_x64.so:$LD_PRELOAD
 
 # Run the main executable

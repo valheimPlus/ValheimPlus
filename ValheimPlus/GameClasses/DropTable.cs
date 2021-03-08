@@ -13,8 +13,28 @@ namespace ValheimPlus.GameClasses
 	[HarmonyPatch(typeof(DropTable), "GetDropList", new Type[] { typeof(int) })]
 	public static class DropTable_GetDropList_Patch
 	{
-		private static void Postfix(ref DropTable __instance, ref List<GameObject> __result, int amount)
+
+		static float originalDropChance = 0;
+		private static void Prefix(ref DropTable __instance, ref List<GameObject> __result, int amount)
 		{
+			originalDropChance = __instance.m_dropChance; // we have to save the original to change it back after the function
+			if (Configuration.Current.Gathering.IsEnabled && Configuration.Current.Gathering.dropChance != 0)
+            {
+				float newDropChance = Helper.applyModifierValue(__instance.m_dropChance, Configuration.Current.Gathering.dropChance);
+				if (newDropChance >= 1)
+					newDropChance = 1;
+				if (newDropChance <= 0)
+					newDropChance = 0;
+
+				if (__instance.m_dropChance != 1)
+					__instance.m_dropChance = newDropChance;
+			}
+		}
+
+			private static void Postfix(ref DropTable __instance, ref List<GameObject> __result, int amount)
+		{
+			__instance.m_dropChance = originalDropChance; // Apply the original drop chance in case modified
+
 			if (!Configuration.Current.Gathering.IsEnabled)
 				return;
 
@@ -65,7 +85,7 @@ namespace ValheimPlus.GameClasses
 						stone += 1;
 						stoneObject = toDrop;
 						break;
-					case "ScrapIron": // Iron
+					case "IronScrap": // Iron
 						scrapIron += 1;
 						scrapIronObject = toDrop;
 						break;

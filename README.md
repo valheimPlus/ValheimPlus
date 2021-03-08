@@ -42,9 +42,9 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify Workbench radius
 * Modify Ward radius
 
-## Torches and Fireplaces
-* Disable torches running out of fuel
-* Disable fireplaces running out of fuel
+## Fire sources
+* Disable all fire sources from running out of fuel once fuel is added.
+* Disable just torches from running out of fuel once fuel is added.
 
 ## Time and Day Manipulation
 *FEATURE DISABLED DUE TO ISSUES*
@@ -58,6 +58,7 @@ All of these features can be adjusted by a configuration file. This also allows 
   * Iron
   * Hardwood
 * Disable structural integrity entirely, allowing you to place objects in free air.
+* Disable all damage to player built structures/objects.
 
 ## Player Hud
 * Show the experience you gained for a skill in the top left corner
@@ -66,13 +67,16 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify your inventory sizes of player inventory, chests, boats and else.
 * Disable the red flash on screen when damage is received
 * Display a warning message when you try to place crops to close to another crop
+* Remember mouse position when it loses focus (Windows only)
 
 ## Inventory
 * Modify the amount of rows and columns in each inventory of the game
 * Extend player inventory up to 20 x 8
-* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8)
+* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8 - iron configuration also affects boats (except small boat) and carts)
 * Includes automatically added scrollbars when container sizes exceed a certain limit
 * Modify the inventory behavior so that items will be placed in the first slot rather than the last available slot
+
+**Note: As of 0.9.4, player inventory slot configuration is not compatible with Equipment and Quick slots mod**
 
 ## Item Durability
 * Modify the item durability of each item type separately
@@ -83,12 +87,14 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Gathering
 * Modify the amount of resources dropped on destruction of objects.
 *This includes all types of wood (inc. elderbark), stone, iron/bronze/tin/silver/copper and chitin.*
+* Modify the drop chance of resources from destroyed objects.
 
 ## Game Difficulty
 * Modify the game difficulty multipliers applied to health and damage of enemies based on the amount of connected players.
 * Change the range of where the game considers other players to be nearby.
 * Add a additional amount of Players to the player count for the difficulty calculation.
 * Set the difficulty calculation to a specific player count.
+* Option to disable the use of portals
 
 ## Skill Experience
 * Modify each skill's experience gain seperately by percent.
@@ -134,6 +140,7 @@ Prevents players on the server from making themselves invisible on the map.
 # Building
 * Remove Building "Invalid Placement" restriction
 * Remove Building Object deterioration by weather.
+* Remove Building Object deterioration by water.
 * Advanced Building Mode
 * Advanced Editing Mode
 * Structural Integrity modification system
@@ -288,7 +295,7 @@ If you are hosting for your friends over steam, your friends will need v+ and th
 
 
 # Contributing to ValheimPlus
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
+Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
 
 
 # Credits
@@ -302,4 +309,4 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on compiling V+ for de
 * Doudou 'xiaodoudou' - https://github.com/xiaodoudou
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
 * Mehdi 'AccretionCD' E. - https://github.com/AccretionCD
-* Zogniton - https://github.com/Zogniton - Inventiry Overhaul initial creator
+* Zogniton - https://github.com/Zogniton - Inventory Overhaul initial creator
