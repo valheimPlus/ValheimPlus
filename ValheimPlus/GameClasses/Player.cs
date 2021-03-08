@@ -12,7 +12,7 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(Player), "Awake")]
     public static class Player_Awake_Patch
     {
-        private static void Postfix(Player __instance)
+        private static void Postfix(ref Player __instance)
         {
             if (Configuration.Current.Stamina.IsEnabled)
             {
