@@ -42,9 +42,9 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify Workbench radius
 * Modify Ward radius
 
-## Torches and Fireplaces
-* Disable torches running out of fuel
-* Disable fireplaces running out of fuel
+## Fire sources
+* Disable all fire sources from running out of fuel once fuel is added.
+* Disable just torches from running out of fuel once fuel is added.
 
 ## Time and Day Manipulation
 *FEATURE DISABLED DUE TO ISSUES*
