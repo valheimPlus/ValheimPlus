@@ -48,7 +48,7 @@ namespace ValheimPlus
                 {
                     if (Configuration.Current.Kiln.autoDeposit)
                     {
-                        bool result = spawn(Configuration.Current.Furnace.autoDepositRange);
+                        bool result = spawn(Configuration.Current.Kiln.autoDepositRange);
                         return result;
                     }
                 }
