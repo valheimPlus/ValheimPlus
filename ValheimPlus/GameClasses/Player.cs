@@ -7,12 +7,43 @@ using ValheimPlus.Configurations;
 namespace ValheimPlus
 {
     /// <summary>
+    /// Alter player stamina values
+    /// </summary>
+    [HarmonyPatch(typeof(Player), "Awake")]
+    public static class Player_Awake_Patch
+    {
+        private static void Postfix(Player __instance)
+        {
+            if (Configuration.Current.Stamina.IsEnabled)
+            {
+                __instance.m_dodgeStaminaUsage = Helper.applyModifierValue(__instance.m_dodgeStaminaUsage, Configuration.Current.Stamina.dodgeStaminaUsage);
+                __instance.m_encumberedStaminaDrain = Helper.applyModifierValue(__instance.m_encumberedStaminaDrain, Configuration.Current.Stamina.encumberedStaminaDrain);
+                __instance.m_sneakStaminaDrain = Helper.applyModifierValue(__instance.m_sneakStaminaDrain, Configuration.Current.Stamina.sneakStaminaDrain);
+                __instance.m_runStaminaDrain = Helper.applyModifierValue(__instance.m_runStaminaDrain, Configuration.Current.Stamina.runStaminaDrain);
+                __instance.m_staminaRegenDelay = Helper.applyModifierValue(__instance.m_staminaRegenDelay, Configuration.Current.Stamina.staminaRegenDelay);
+                __instance.m_staminaRegen = Helper.applyModifierValue(__instance.m_staminaRegen, Configuration.Current.Stamina.staminaRegen);
+                __instance.m_swimStaminaDrainMinSkill = Helper.applyModifierValue(__instance.m_swimStaminaDrainMinSkill, Configuration.Current.Stamina.swimStaminaDrain);
+                __instance.m_jumpStaminaUsage = Helper.applyModifierValue(__instance.m_jumpStaminaUsage, Configuration.Current.Stamina.jumpStaminaDrain);
+            }
+            if (Configuration.Current.Player.IsEnabled)
+            {
+                __instance.m_autoPickupRange = Configuration.Current.Player.baseAutoPickUpRange;
+                __instance.m_baseCameraShake = Configuration.Current.Player.disableCameraShake ? 0f : 4f;
+            }
+            if (Configuration.Current.Building.IsEnabled)
+            {
+                __instance.m_maxPlaceDistance = Configuration.Current.Building.maximumPlacementDistance;
+            }
+        }
+    }
+
+    /// <summary>
     /// Hooks for ABM and AEM
     /// </summary>
     [HarmonyPatch(typeof(Player), "Update")]
-    public static class AdvancedBuildingAndEditingModeHook
+    public static class Player_Update_Patch
     {
-        private static void Postfix(Player __instance)
+        private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir)
         {
             if (Configuration.Current.AdvancedEditingMode.IsEnabled)
             {
@@ -26,6 +57,42 @@ namespace ValheimPlus
                 ABM.run();
             }
 
+            if (Configuration.Current.Hotkeys.IsEnabled)
+            {
+                ApplyDodgeHotkeys(ref __instance, ref ___m_moveDir, ref ___m_lookDir);
+            }
+        }
+
+        private static void ApplyDodgeHotkeys(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir)
+        {
+            KeyCode rollKeyForward = Configuration.Current.Hotkeys.rollForwards;
+            KeyCode rollKeyBackwards = Configuration.Current.Hotkeys.rollBackwards;
+
+            if (Input.GetKeyDown(rollKeyBackwards))
+            {
+                Vector3 dodgeDir = ___m_moveDir;
+                if (dodgeDir.magnitude < 0.1f)
+                {
+                    dodgeDir = -___m_lookDir;
+                    dodgeDir.y = 0f;
+                    dodgeDir.Normalize();
+                }
+
+                Player_Dodge_ReversePatch.call_Dodge(__instance, dodgeDir);
+            }
+
+            if (Input.GetKeyDown(rollKeyForward))
+            {
+                Vector3 dodgeDir = ___m_moveDir;
+                if (dodgeDir.magnitude < 0.1f)
+                {
+                    dodgeDir = ___m_lookDir;
+                    dodgeDir.y = 0f;
+                    dodgeDir.Normalize();
+                }
+
+                Player_Dodge_ReversePatch.call_Dodge(__instance, dodgeDir);
+            }
         }
     }
 
@@ -33,18 +100,18 @@ namespace ValheimPlus
     /// Hook base Dodge method
     /// </summary>
     [HarmonyPatch(typeof(Player))]
-    public class HookDodgeRoll
+    public class Player_Dodge_ReversePatch
     {
         [HarmonyReversePatch]
         [HarmonyPatch(typeof(Player), "Dodge", new Type[] { typeof(Vector3) })]
-        public static void Dodge(object instance, Vector3 dodgeDir) => throw new NotImplementedException();
+        public static void call_Dodge(object instance, Vector3 dodgeDir) => throw new NotImplementedException();
     }
 
     /// <summary>
     /// Update maximum carry weight based on baseMaximumWeight and baseMegingjordBuff configurations.
     /// </summary>
     [HarmonyPatch(typeof(Player), "GetMaxCarryWeight")]
-    public static class ModifyMaximumCarryWeight
+    public static class Player_GetMaxCarryWeight_Patch
     {
         private static void Postfix(ref float __result)
         {
@@ -74,7 +141,7 @@ namespace ValheimPlus
     /// Add ValheimPlus intro to compendium.
     /// </summary>
     [HarmonyPatch(typeof(Player), "OnSpawned")]
-    public static class ModifyOnSpawned
+    public static class Player_OnSpawned_Patch
     {
         private static void Prefix()
         {
@@ -96,51 +163,11 @@ namespace ValheimPlus
     }
 
     /// <summary>
-    /// Apply Dodge hotkeys
-    /// </summary>
-    [HarmonyPatch(typeof(Player), "Update")]
-    public static class ApplyDodgeHotkeys
-    {
-        private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost, Transform ___m_eye)
-        {
-            if (!Configuration.Current.Hotkeys.IsEnabled) return;
-
-            KeyCode rollKeyForward = Configuration.Current.Hotkeys.rollForwards;
-            KeyCode rollKeyBackwards = Configuration.Current.Hotkeys.rollBackwards;
-
-            if (Input.GetKeyDown(rollKeyBackwards))
-            {
-                Vector3 dodgeDir = ___m_moveDir;
-                if (dodgeDir.magnitude < 0.1f)
-                {
-                    dodgeDir = -___m_lookDir;
-                    dodgeDir.y = 0f;
-                    dodgeDir.Normalize();
-                }
-
-                HookDodgeRoll.Dodge(__instance, dodgeDir);
-            }
-            if (Input.GetKeyDown(rollKeyForward))
-            {
-                Vector3 dodgeDir = ___m_moveDir;
-                if (dodgeDir.magnitude < 0.1f)
-                {
-                    dodgeDir = ___m_lookDir;
-                    dodgeDir.y = 0f;
-                    dodgeDir.Normalize();
-                }
-
-                HookDodgeRoll.Dodge(__instance, dodgeDir);
-            }
-        }
-    }
-
-    /// <summary>
     /// Updates food duration.
     /// </summary>
     // ToDo have item tooltips be affected.
     [HarmonyPatch(typeof(Player), "UpdateFood")]
-    public static class ApplyFoodChanges
+    public static class Player_UpdateFood_Patch
     {
         private static bool Prefix(ref Player __instance, ref float dt, ref bool forceUpdate)
         {
@@ -210,98 +237,10 @@ namespace ValheimPlus
     }
 
     /// <summary>
-    /// Alter player stamina values
-    /// </summary>
-    [HarmonyPatch(typeof(Player), "Awake")]
-    public static class ModifyPlayerValues
-    {
-        private static void Postfix(Player __instance)
-        {
-            if (Configuration.Current.Stamina.IsEnabled)
-            {
-                __instance.m_dodgeStaminaUsage = Helper.applyModifierValue(__instance.m_dodgeStaminaUsage, Configuration.Current.Stamina.dodgeStaminaUsage);
-                __instance.m_encumberedStaminaDrain = Helper.applyModifierValue(__instance.m_encumberedStaminaDrain, Configuration.Current.Stamina.encumberedStaminaDrain);
-                __instance.m_sneakStaminaDrain = Helper.applyModifierValue(__instance.m_sneakStaminaDrain, Configuration.Current.Stamina.sneakStaminaDrain);
-                __instance.m_runStaminaDrain = Helper.applyModifierValue(__instance.m_runStaminaDrain,Configuration.Current.Stamina.runStaminaDrain);
-                __instance.m_staminaRegenDelay = Helper.applyModifierValue(__instance.m_staminaRegenDelay, Configuration.Current.Stamina.staminaRegenDelay);
-                __instance.m_staminaRegen = Helper.applyModifierValue(__instance.m_staminaRegen, Configuration.Current.Stamina.staminaRegen);
-                __instance.m_swimStaminaDrainMinSkill = Helper.applyModifierValue(__instance.m_swimStaminaDrainMinSkill, Configuration.Current.Stamina.swimStaminaDrain);
-                __instance.m_jumpStaminaUsage = Helper.applyModifierValue(__instance.m_jumpStaminaUsage, Configuration.Current.Stamina.jumpStaminaDrain);
-            }
-            if (Configuration.Current.Player.IsEnabled)
-            {
-                __instance.m_autoPickupRange = Configuration.Current.Player.baseAutoPickUpRange;
-                __instance.m_baseCameraShake = Configuration.Current.Player.disableCameraShake ? 0f : 4f;
-            }
-            if (Configuration.Current.Building.IsEnabled)
-            {
-                __instance.m_maxPlaceDistance = Configuration.Current.Building.maximumPlacementDistance;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Alters stamina of weapons
-    /// </summary>
-    [HarmonyPatch(typeof(Attack), "GetStaminaUsage")]
-    public static class ChangeStaminaUsageOfWeapons
-    {
-        private static void Postfix(ref Attack __instance, ref float __result)
-        {
-            if (Configuration.Current.StaminaUsage.IsEnabled)
-            {
-                if (__instance.m_character.IsPlayer())
-                {
-                    ItemDrop.ItemData item = __instance.m_character.GetCurrentWeapon();
-                    Skills.SkillType skillType;
-                    if (item == null)
-                    {
-                        skillType = Skills.SkillType.Unarmed;
-                    }
-                    else
-                    {
-                        skillType = item.m_shared.m_skillType;
-                    }
-
-                    switch (skillType)
-                    {
-                        case Skills.SkillType.Swords:
-                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.swords);
-                            break;
-                        case Skills.SkillType.Knives:
-                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.knives);
-                            break;
-                        case Skills.SkillType.Clubs:
-                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.clubs);
-                            break;
-                        case Skills.SkillType.Polearms:
-                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.polearms);
-                            break;
-                        case Skills.SkillType.Spears:
-                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.spears);
-                            break;
-                        case Skills.SkillType.Axes:
-                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.axes);
-                            break;
-                        case Skills.SkillType.Unarmed:
-                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.unarmed);
-                            break;
-                        case Skills.SkillType.Pickaxes:
-                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.pickaxes);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
-    }
-
-    /// <summary>
     /// Alters stamina of tools, bows and blocking
     /// </summary>
     [HarmonyPatch(typeof(Player), "UseStamina")]
-    public static class ChangeStaminaUsageOfToolsBowsAndBlocking
+    public static class Player_UseStamina_Patch
     {
         private static void Prefix(ref Player __instance, ref float v)
         {
@@ -345,9 +284,9 @@ namespace ValheimPlus
     /// And checks if the player is trying to place a plant/crop too close to another plant/crop
     /// </summary>
     [HarmonyPatch(typeof(Player), "UpdatePlacementGhost")]
-    public static class ModifyPlacingRestrictionOfGhost
+    public static class Player_UpdatePlacementGhost_Patch
     {
-        private static Boolean Prefix(Player __instance, bool flashGuardStone)
+        private static bool Prefix(ref Player __instance, bool flashGuardStone)
         {
             if (Configuration.Current.AdvancedBuildingMode.IsEnabled)
             {
@@ -394,7 +333,6 @@ namespace ValheimPlus
 
 			if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.cropNotifier)
             {
-
                 if (__instance.m_placementGhost == null)
                     return;
 
@@ -417,11 +355,6 @@ namespace ValheimPlus
                     }
                 }
             }
-
         }
-
-
     }
-
-
 }
