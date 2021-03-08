@@ -371,9 +371,8 @@ namespace ValheimPlus
                         __instance.m_placementMarkerInstance.SetActive(false);
                     }
                 }
-                catch (Exception e)
+                catch
                 {
-
                 }
             }
 
@@ -387,9 +386,8 @@ namespace ValheimPlus
                         __instance.m_placementGhost.GetComponent<Piece>().SetInvalidPlacementHeightlight(false);
                     }
                 }
-                catch(Exception e)
+                catch
                 {
-
                 }
             }
 
