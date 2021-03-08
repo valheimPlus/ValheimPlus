@@ -6,6 +6,9 @@ namespace ValheimPlus.GameClasses
 {
     public class BepInExPlugin : BaseUnityPlugin
     {
+        /// <summary>
+        /// Altering time for loot appear
+        /// </summary>
         [HarmonyPatch(typeof(Ragdoll), "Awake")]
         static class Ragdoll_Awake_Patch
         {
