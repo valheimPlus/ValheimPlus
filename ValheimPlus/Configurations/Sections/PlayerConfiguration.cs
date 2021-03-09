@@ -8,7 +8,7 @@
         public bool disableCameraShake { get; internal set; } = false;
         public float baseUnarmedDamage { get; internal set; } = 0;
         public bool cropNotifier { get; internal set; } = false;
-        public float restSecondsPerComfortLevel { get; internal set; } = 0;
+        public float restSecondsPerComfortLevel { get; internal set; } = 60;
         public float deathPenaltyMultiplier { get; internal set; } = 0;
     }
 }

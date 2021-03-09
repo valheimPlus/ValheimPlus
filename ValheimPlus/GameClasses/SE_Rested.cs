@@ -18,8 +18,7 @@ namespace ValheimPlus
         {
             if (Configuration.Current.Player.IsEnabled)
             {
-                const float ORIGINAL = 60;
-                ___m_TTLPerComfortLevel = Helper.applyModifierValue(ORIGINAL, Configuration.Current.Player.restSecondsPerComfortLevel);
+                ___m_TTLPerComfortLevel = Configuration.Current.Player.restSecondsPerComfortLevel;
             }
         }
     }
@@ -55,8 +54,7 @@ namespace ValheimPlus
         public static List<Piece> GetNearbyPieces(Vector3 point)
         {
             List<Piece> pieces = new List<Piece>();
-            const float ORIGINAL = 10;
-            Piece.GetAllPiecesInRadius(point, Helper.applyModifierValue(ORIGINAL, Configuration.Current.Building.pieceComfortRadius), pieces);
+            Piece.GetAllPiecesInRadius(point, Configuration.Current.Building.pieceComfortRadius, pieces);
             return pieces;
         }
     }

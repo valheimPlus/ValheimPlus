@@ -5,7 +5,7 @@
         public bool noInvalidPlacementRestriction { get; set; } = false;
         public bool noWeatherDamage { get; set; } = false;
         public float maximumPlacementDistance { get; internal set; } = 5;
-        public float pieceComfortRadius { get; internal set; } = 0;
+        public float pieceComfortRadius { get; internal set; } = 10;
     }
 
 }
