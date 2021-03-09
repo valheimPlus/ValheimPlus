@@ -36,6 +36,7 @@ namespace ValheimPlus.Configurations
         public DurabilityConfiguration Durability { get; set; }
         public ArmorConfiguration Armor { get; set; }
 		public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
+        public ShieldConfiguration Shields { get; set; }
         public MonsterConfiguration Monster { get; set; }
     }
 }
