@@ -199,7 +199,7 @@ namespace ValheimPlus
 
             List<CodeInstruction> il = instructions.ToList();
 
-            if (!Configuration.Current.Food.foodDegradesOverTime)
+            if (Configuration.Current.Food.disableFoodDegradation)
             {
                 for (int i = 0; i < il.Count; ++i)
                 {

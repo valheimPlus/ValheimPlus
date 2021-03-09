@@ -3,7 +3,7 @@
     public class FoodConfiguration : ServerSyncConfig<FoodConfiguration>
     {
         public float foodDurationMultiplier { get; set; } = 0;
-        public bool foodDegradesOverTime { get; set; } = true;
+        public bool disableFoodDegradation { get; set; } = false;
     }
 
 }
