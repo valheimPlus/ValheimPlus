@@ -42,9 +42,9 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify Workbench radius
 * Modify Ward radius
 
-## Torches and Fireplaces
-* Disable torches running out of fuel
-* Disable fireplaces running out of fuel
+## Fire sources
+* Disable all fire sources from running out of fuel once fuel is added.
+* Disable just torches from running out of fuel once fuel is added.
 
 ## Time and Day Manipulation
 *FEATURE DISABLED DUE TO ISSUES*
@@ -67,6 +67,7 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify your inventory sizes of player inventory, chests, boats and else.
 * Disable the red flash on screen when damage is received
 * Display a warning message when you try to place crops to close to another crop
+* Remember mouse position when it loses focus (Windows only)
 
 ## Inventory
 * Modify the amount of rows and columns in each inventory of the game
@@ -294,7 +295,7 @@ If you are hosting for your friends over steam, your friends will need v+ and th
 
 
 # Contributing to ValheimPlus
-Please see [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
+Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
 
 
 # Credits
@@ -308,4 +309,5 @@ Please see [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details on compiling V
 * Doudou 'xiaodoudou' - https://github.com/xiaodoudou
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
 * Mehdi 'AccretionCD' E. - https://github.com/AccretionCD
-* Zogniton - https://github.com/Zogniton - Inventory Overhaul initial creator
+* Zogniton - https://github.com/Zogniton - Inventiry Overhaul initial creator
+* Jules - https://github.com/sirskunkalot
