@@ -1,5 +1,9 @@
 using HarmonyLib;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.UI;
 using ValheimPlus.Configurations;
@@ -100,6 +104,79 @@ namespace ValheimPlus
 					playerScrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
 					Scrollbar playerScrollbar = playerGridScroll.GetComponent < Scrollbar > ();
 					lastValue = playerScrollbar.value;
+				}
+			}
+		}
+	}
+
+	[HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.RepairOneItem))]
+	public static class InventoryGui_RepairOneItem_Transpiler
+	{
+		private static MethodInfo method_EffectList_Create = AccessTools.Method(typeof(EffectList), nameof(EffectList.Create));
+		private static MethodInfo method_CreateNoop = AccessTools.Method(typeof(InventoryGui_RepairOneItem_Transpiler), nameof(InventoryGui_RepairOneItem_Transpiler.CreateNoop));
+
+		/// <summary>
+		/// Patches out the code that spawns an effect for each item repaired - when we repair multiple items, we only want
+		/// one effect, otherwise it looks and sounds bad. The patch for InventoryGui.UpdateRepair will spawn the effect instead.
+		/// </summary>
+		[HarmonyTranspiler]
+		public static IEnumerable<CodeInstruction> Transpile(IEnumerable<CodeInstruction> instructions)
+		{
+			if (!Configuration.Current.Player.IsEnabled) return instructions;
+
+			List<CodeInstruction> il = instructions.ToList();
+
+			if (Configuration.Current.Player.autoRepair)
+			{
+				// We look for a call to EffectList::Create and replace it with our own noop stub.
+				for (int i = 0; i < il.Count; ++i)
+				{
+					if (il[i].Calls(method_EffectList_Create))
+					{
+						il[i].opcode = OpCodes.Call; // original is callvirt, so we need to tweak it
+						il[i].operand = method_CreateNoop;
+					}
+				}
+			}
+
+			return il.AsEnumerable();
+		}
+
+		private static GameObject[] CreateNoop(Vector3 _0, Quaternion _1, Transform _2, float _3)
+		{
+			return null;
+		}
+	}
+
+	[HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.UpdateRepair))]
+	public static class InventoryGui_UpdateRepair_Patch
+	{
+		/// <summary>
+		/// When we're in a state where the InventoryGui is open and we have items available to repair,
+		/// and we have an active crafting station, this patch is responsible for repairing all items
+		/// that can be repaired and then spawning one instance of the repair effect if at least one item
+		/// has been repaired.
+		/// </summary>
+		[HarmonyPrefix]
+		public static void Prefix(InventoryGui __instance)
+		{
+			if (!Configuration.Current.Player.IsEnabled || !Configuration.Current.Player.autoRepair) return;
+
+			CraftingStation curr_crafting_station = Player.m_localPlayer.GetCurrentCraftingStation();
+
+			if (curr_crafting_station != null)
+			{
+				int repair_count = 0;
+
+				while (__instance.HaveRepairableItems())
+				{
+					__instance.RepairOneItem();
+					++repair_count;
+				}
+
+				if (repair_count > 0)
+				{
+					curr_crafting_station.m_repairItemDoneEffects.Create(curr_crafting_station.transform.position, Quaternion.identity, null, 1.0f);
 				}
 			}
 		}
