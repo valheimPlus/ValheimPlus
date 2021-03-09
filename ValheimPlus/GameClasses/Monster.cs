@@ -1,10 +1,9 @@
-﻿using BepInEx;
-using HarmonyLib;
+﻿using HarmonyLib;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
 {
-    public class BepInExPlugin : BaseUnityPlugin
+    public class Monster
     {
         /// <summary>
         /// Altering time for loot appear

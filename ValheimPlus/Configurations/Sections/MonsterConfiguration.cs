@@ -1,6 +1,6 @@
 ﻿namespace ValheimPlus.Configurations.Sections
 {
-    public class MonsterConfiguration : BaseConfig<MonsterConfiguration>
+    public class MonsterConfiguration : ServerSyncConfig<MonsterConfiguration>
     {
         public float dropDelay { get; internal set; } = 0.01f;
     }
