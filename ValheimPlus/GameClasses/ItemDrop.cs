@@ -22,7 +22,7 @@ namespace ValheimPlus
 
             if (Configuration.Current.Items.IsEnabled)
             {
-                
+
                 __instance.m_itemData.m_shared.m_weight = Helper.applyModifierValue(__instance.m_itemData.m_shared.m_weight, Configuration.Current.Items.baseItemWeightReduction);
 
                 if (__instance.m_itemData.m_shared.m_maxStackSize > 1)
@@ -72,7 +72,8 @@ namespace ValheimPlus
             __result = maxDurability;
 
             bool modified = false;
-            switch (itemType) {
+            switch (itemType)
+            {
 
                 // pickaxes
                 case "pickaxe":
@@ -180,6 +181,20 @@ namespace ValheimPlus
             if (modifiedArmorValue != armor)
                 __result = modifiedArmorValue;
 
+            return false;
+        }
+    }
+
+    [HarmonyPatch(typeof(ItemDrop.ItemData), "GetBaseBlockPower", new System.Type[] { typeof(int) })]
+    public static class ItemDrop_GetBaseBlockPower_Patch
+    { 
+        private static bool Prefix(ref ItemDrop.ItemData __instance, ref int quality, ref float __result)
+        {
+            if (!Configuration.Current.Shields.IsEnabled)
+                return true;
+
+            float blockValue = __instance.m_shared.m_blockPower + (float)Mathf.Max(0, quality - 1) * __instance.m_shared.m_blockPowerPerLevel;
+            __result = Helper.applyModifierValue(blockValue, Configuration.Current.Shields.blockRating);
             return false;
         }
     }
