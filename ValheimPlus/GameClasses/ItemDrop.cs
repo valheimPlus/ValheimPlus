@@ -119,7 +119,7 @@ namespace ValheimPlus
                 case ItemDrop.ItemData.ItemType.TwoHandedWeapon:
                 case ItemDrop.ItemData.ItemType.OneHandedWeapon:
                     // WEAPONS
-                    if (!modified) // Some tools are considered to be OneHandedWeapons
+                    if (!modified && itemType != "torch") // Some tools are considered to be OneHandedWeapons
                         multiplierForItem = Helper.applyModifierValue(maxDurability, Configuration.Current.Durability.weapons);
                     break;
                 case ItemDrop.ItemData.ItemType.Bow:
