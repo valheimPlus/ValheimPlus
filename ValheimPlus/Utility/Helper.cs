@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace ValheimPlus
 {
@@ -36,6 +37,26 @@ namespace ValheimPlus
             }
 
             return newValue;
+        }
+
+        // Resize child EffectArea's collision that matches the specified type(s).
+        public static void ResizeChildEffectArea(MonoBehaviour parent, EffectArea.Type includedTypes, float newRadius)
+        {
+            if (parent != null)
+            {
+                EffectArea effectArea = parent.GetComponentInChildren<EffectArea>();
+                if (effectArea != null)
+                {
+                    if ((effectArea.m_type & includedTypes) != 0)
+                    {
+                        SphereCollider collision = effectArea.GetComponent<SphereCollider>();
+                        if (collision != null)
+                        {
+                            collision.radius = newRadius;
+                        }
+                    }
+                }
+            }
         }
     }
 }
