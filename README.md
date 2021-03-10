@@ -36,6 +36,8 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify Kiln processing speed
 * Modify Kiln maximum wood
 * Show the amount of time left until the Fermenter is done.
+* Show the amount of time left until new honey is produced in a beehive.
+* Auto Deposit system for beehive honey to deposit it to the closest nearby chest.
 * Auto Deposit system for Furnace and Kiln to deposit items to the closest nearby chest.
 
 ## Workbench and Ward
@@ -83,6 +85,9 @@ All of these features can be adjusted by a configuration file. This also allows 
 
 ## Item Armor Rating
 * Modify the amount of armor received from armor pieces
+
+## Shield Block Rating
+* Modify the blocked damage of all shields
 
 ## Gathering
 * Modify the amount of resources dropped on destruction of objects.
@@ -137,7 +142,16 @@ Prevents players on the server from making themselves invisible on the map.
 ## Custom Keybinds
 * Hotkey options for fowards and backwards roll.
 
-# Building
+## Crafting
+### Deconstruct feature
+Adds a "deconstruct" tab on all crafting bench GUIs except the cauldron that allows you to turn a "craftable" item that you currently have in your inventory into its recipe ingredients. Adds an optional functionality to change percentage of resources returned.
+* Items require same level workbench to deconstruct as they would need to be crafted
+* Cannot deconstruct ammo, consumables, or materials, trophies, or ooze bombs
+* Cannot receive trophy heads or resin when deconstructing
+* Must have available inventory space for all resources that will be returned from deconstruction
+* If "percentageOfResourcesReturned" configuration is not set to default (100), resources returned are rounded down when percentage is calculated. Valid settings for this config is between 0-100.
+
+## Building
 * Remove Building "Invalid Placement" restriction
 * Remove Building Object deterioration by weather.
 * Remove Building Object deterioration by water.
