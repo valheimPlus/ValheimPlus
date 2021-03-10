@@ -61,15 +61,6 @@ namespace ValheimPlus
 
         public static void Prefix(string name, ref int w, ref int h)
         {
-            /*Type            Size(W x H)    Name
-			  Player          8 x 4          Inventory
-			  Wood Chest      5 x 2          $piece_chestwood
-			  Personal Chest  3 x 2			 $piece_chestprivate
-			  Karve           2 x 2			 Storage
-			  Iron Chest      6 x 3			 $piece_chest
-			  Cart            6 x 3			 Storage
-			  Longboat        6 x 3			 Storage*/
-
             if (Configuration.Current.Inventory.IsEnabled)
             {
                 // Player inventory
