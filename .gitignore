@@ -383,3 +383,6 @@ packages/HarmonyX.2.3.1/LICENSE
 packages/HarmonyX.2.3.1/lib/netstandard2.0/0Harmony.xml
 packages/HarmonyX.2.3.1/lib/net45/0Harmony.xml
 packages/HarmonyX.2.3.1/lib/net35/0Harmony.xml
+
+# include libraries folder
+!libraries/*

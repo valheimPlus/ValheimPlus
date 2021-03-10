@@ -11,5 +11,6 @@
         public float armor { get; internal set; } = 0;
         public float bows { get; internal set; } = 0;
         public float shields { get; internal set; } = 0;
+        public float torch { get; internal set; } = 0;
     }
 }

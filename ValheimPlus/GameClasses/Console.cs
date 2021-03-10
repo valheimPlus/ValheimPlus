@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using HarmonyLib;
-using ValheimPlus.Configurations;
+﻿using HarmonyLib;
 
 namespace ValheimPlus.GameClasses
 {
@@ -10,7 +8,7 @@ namespace ValheimPlus.GameClasses
         /// Adding version data to console
         /// </summary>
         [HarmonyPatch(typeof(Console), "Awake")]
-        public static class HookConsole
+        public static class Console_Awake_Patch
         {
             private static void Postfix(ref Console __instance)
             {
@@ -26,30 +24,6 @@ namespace ValheimPlus.GameClasses
                 }
 
                 __instance.AddString("");
-            }
-        }
-
-        [HarmonyPatch(typeof(Version), "GetVersionString")]
-        public static class VersionServerControl
-        {
-            private static bool Prefix(ref string __result)
-            {
-                string gameVersion = Version.CombineVersion(global::Version.m_major, global::Version.m_minor, global::Version.m_patch);
-                __result = gameVersion;
-
-                Debug.Log($"Version generator started.");
-                if (Configuration.Current.Server.IsEnabled)
-                {
-                    if (Configuration.Current.Server.enforceMod)
-                    {
-                        Debug.Log($"Version generated with enforced mod : {__result}");
-                        __result = gameVersion + "@" + ValheimPlusPlugin.version;
-                        return false;
-                    }
-                }
-
-                Debug.Log($"Version generated : {__result}");
-                return false;
             }
         }
     }

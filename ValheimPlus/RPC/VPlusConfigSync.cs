@@ -11,7 +11,7 @@ namespace ValheimPlus.RPC
         {
             if (ZNet.m_isServer) //Server
             {
-                if (!Configuration.Current.Server.serverSyncsConfig) return;
+                if (!Configuration.Current.Server.IsEnabled || !Configuration.Current.Server.serverSyncsConfig) return;
 
                 ZPackage pkg = new ZPackage();
 

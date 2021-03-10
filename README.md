@@ -22,6 +22,9 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modification of Unarmed Damage
 * Modification of auto pickup range
 * Option to force remove all screen shakes
+* Option to tweak/disable death penalty.
+* Option to disable food degradation.
+* Option to tweak Rested bonus duration per comfort level.
 * Modify the base amount of Unarmed damage multiplied by your unarmed skill level
 
 ## Fermenter, Beehive, Kiln and Furnace
@@ -34,15 +37,19 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify Kiln processing speed
 * Modify Kiln maximum wood
 * Show the amount of time left until the Fermenter is done.
+* Show the amount of time left until new honey is produced in a beehive.
+* Auto Deposit system for beehive honey to deposit it to the closest nearby chest.
 * Auto Deposit system for Furnace and Kiln to deposit items to the closest nearby chest.
 
 ## Workbench and Ward
 * Modify Workbench radius
 * Modify Ward radius
+* Modify radius at which Workbench attachments can be placed.
+* Option to allow crafting stations to automatically repair all appropriate items in the player's inventory on interaction.
 
-## Torches and Fireplaces
-* Disable torches running out of fuel
-* Disable fireplaces running out of fuel
+## Fire sources
+* Disable all fire sources from running out of fuel once fuel is added.
+* Disable just torches from running out of fuel once fuel is added.
 
 ## Time and Day Manipulation
 *FEATURE DISABLED DUE TO ISSUES*
@@ -65,6 +72,7 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify your inventory sizes of player inventory, chests, boats and else.
 * Disable the red flash on screen when damage is received
 * Display a warning message when you try to place crops to close to another crop
+* Remember mouse position when it loses focus (Windows only)
 
 ## Inventory
 * Modify the amount of rows and columns in each inventory of the game
@@ -80,6 +88,9 @@ All of these features can be adjusted by a configuration file. This also allows 
 
 ## Item Armor Rating
 * Modify the amount of armor received from armor pieces
+
+## Shield Block Rating
+* Modify the blocked damage of all shields
 
 ## Gathering
 * Modify the amount of resources dropped on destruction of objects.
@@ -144,10 +155,24 @@ Adds a "deconstruct" tab on all crafting bench GUIs except the cauldron that all
 * Remove Building "Invalid Placement" restriction
 * Remove Building Object deterioration by weather.
 * Remove Building Object deterioration by water.
+* Free rotation mode for the default Building Mode.
 * Advanced Building Mode
 * Advanced Editing Mode
 * Structural Integrity modification system
 * Modify the maximum distance you can place objects at
+* Allow the repair function of the hammer tool to repair all placeables in an area.
+* Allow placeables to drop full material cost upon being destroyed/dismantled, even if built by someone else in multiplayer.
+* Modify effective radius of comfort placeables.
+
+### Free Rotation Mode for the default Building Mode | Video : https://imgur.com/xMH7STj.mp4
+*How it works. All mentioned hotkeys can be modified. This modifies the default build mode.*
+1. You can rotate the object selected in the usual building mode when you press certain hotkeys in any direction.
+  * Use your mouse to change the location of the object.
+  * ScrollWheel + LeftAlt to rotate by 1° in Y axis.
+  * ScrollWheel + C to rotate by 1° in X axis.
+  * ScrollWheel + Z to rotate by 1° in Z axis.
+  * Use the copy rotation hotkeys to copy your current rotation or apply the same rotation to the next object you are building.
+  3. Build the object with a mouse click.
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
@@ -243,6 +268,10 @@ We will not explain how you create a dedicated server. This will only explain ho
 
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
+### DIY Valheim and Valheim+ Dedicated Server Installer:
+The Njord installer provided by ZeroBandwidth and team allows for you to easily setup your own Dedicated Valheim Server built on Ubuntu Linux. This menu system gives you the option to play Valheim in vanilla mode or with the all modding power of Valheim+.  [Njord Menu Github Page](https://github.com/Nimdy/Dedicated_Valheim_Server_Script) 
+All Njord Menu related questions and support should be directed to his community [Njord Menu Support](https://github.com/Nimdy/Dedicated_Valheim_Server_Script/issues)
+
 
 ## **[Game] Unix**
 
@@ -298,18 +327,23 @@ If you are hosting for your friends over steam, your friends will need v+ and th
 
 
 # Contributing to ValheimPlus
-Please see [CONTRIBUTING.md](.github/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
+Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
 
 
-# Credits
+# Official Development Team
 
 * Kevin 'nx#8830' J.- https://github.com/nxPublic
 * Greg 'Zedle' G. - https://github.com/zedle
 * Paige 'radmint' N. - https://github.com/radmint
+* Miguel 'Mixone' T. - https://github.com/Mixone-FinallyHere
+* Chris 'Xenofell' S. - https://github.com/cstamford
+
+# Credits
 * TheTerrasque - https://github.com/TheTerrasque
 * Bruno Vasconcelos - https://github.com/Drakeny
 * GaelicGamer - https://github.com/GaelicGamer
 * Doudou 'xiaodoudou' - https://github.com/xiaodoudou
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
 * Mehdi 'AccretionCD' E. - https://github.com/AccretionCD
-* Zogniton - https://github.com/Zogniton - Inventory Overhaul initial creator
+* Zogniton - https://github.com/Zogniton - Inventiry Overhaul initial creator
+* Jules - https://github.com/sirskunkalot

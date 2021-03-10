@@ -12,7 +12,7 @@ namespace ValheimPlus.GameClasses
         [HarmonyPatch(typeof(CraftingStation), "Start")]
         public static class WorkbenchRangeIncrease
         {
-            private static void Prefix(ref float ___m_rangeBuild, GameObject ___m_areaMarker)
+            private static void Prefix(ref CraftingStation __instance, ref float ___m_rangeBuild, GameObject ___m_areaMarker)
             {
                 if (Configuration.Current.Workbench.IsEnabled && Configuration.Current.Workbench.workbenchRange > 0) 
                 {
@@ -22,6 +22,10 @@ namespace ValheimPlus.GameClasses
                         ___m_areaMarker.GetComponent<CircleProjector>().m_radius = ___m_rangeBuild;
                         float scaleIncrease = (Configuration.Current.Workbench.workbenchRange - 20f) / 20f * 100f;
                         ___m_areaMarker.gameObject.transform.localScale = new Vector3(scaleIncrease / 100, 1f, scaleIncrease / 100);
+
+                        // Apply this change to the child GameObject's EffectArea collision.
+                        // Various other systems query this collision instead of the PrivateArea radius for permissions (notably, enemy spawning).
+                        Helper.ResizeChildEffectArea(__instance, EffectArea.Type.PlayerBase, Configuration.Current.Workbench.workbenchRange);
                     }
                     catch
                     {

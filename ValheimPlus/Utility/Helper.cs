@@ -1,7 +1,8 @@
 using System;
-using System.IO;
-using System.Text;
 using UnityEngine;
+using System.Linq;
+using System.Text;
+using System.Collections.Generic;
 
 namespace ValheimPlus
 {
@@ -77,5 +78,53 @@ namespace ValheimPlus
                 return sb.ToString();
             }
         }
+
+        // Resize child EffectArea's collision that matches the specified type(s).
+        public static void ResizeChildEffectArea(MonoBehaviour parent, EffectArea.Type includedTypes, float newRadius)
+        {
+            if (parent != null)
+            {
+                EffectArea effectArea = parent.GetComponentInChildren<EffectArea>();
+                if (effectArea != null)
+                {
+                    if ((effectArea.m_type & includedTypes) != 0)
+                    {
+                        SphereCollider collision = effectArea.GetComponent<SphereCollider>();
+                        if (collision != null)
+                        {
+                            collision.radius = newRadius;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        public static List<Container> GetNearbyChests(GameObject target, float range = 10)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(target.transform.localPosition, range, LayerMask.GetMask(new string[] { "piece" }));
+
+            // Order the found objects to select the nearest first instead of the farthest inventory.
+            IOrderedEnumerable<Collider> orderedColliders = hitColliders.OrderBy(x => Vector3.Distance(target.transform.localPosition, x.transform.position));
+
+            List<Container> validContainers = new List<Container>();
+            foreach (var hitCollider in hitColliders)
+            {
+                try
+                {
+                    Container foundContainer = hitCollider.GetComponentInParent<Container>();
+                    if (foundContainer.m_name.Contains("piece_chest") && foundContainer.GetInventory() != null)
+                    {
+                        validContainers.Add(foundContainer);
+                    }
+                }
+                catch{ }
+            }
+
+            return validContainers;
+        }
+
+
+
     }
 }

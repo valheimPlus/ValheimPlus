@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using ValheimPlus.Configurations;
+using ValheimPlus.Configurations.Sections;
 
 namespace ValheimPlus
 {
@@ -70,7 +71,7 @@ namespace ValheimPlus
             __inventoryGui.m_recipeList.Clear();
 
             // get items in player inventory that have a recipe
-            foreach(ItemDrop.ItemData craftableItemInInventory in m_playerInventory)
+            foreach (ItemDrop.ItemData craftableItemInInventory in m_playerInventory)
             {
                 if (craftableItemInInventory == null) continue;
 
@@ -178,7 +179,7 @@ namespace ValheimPlus
                     int amount = Deconstruct_GetAmount(resource, itemQuality);
 
                     // don't check inventory space for unreturnable resources
-                    if(unreturnableResources.Any(x => x.Equals(resource.m_resItem.m_itemData.m_shared.m_name)))
+                    if (unreturnableResources.Any(x => x.Equals(resource.m_resItem.m_itemData.m_shared.m_name)))
                     {
                         amount = 0;
                         continue;
@@ -434,7 +435,7 @@ namespace ValheimPlus
                 {
                     continue;
                 }
-                
+
                 // get amount of resource to return, if any
                 resource.m_resItem.m_itemData.m_stack = Deconstruct_GetAmount(resource, num);
 
