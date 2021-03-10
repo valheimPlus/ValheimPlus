@@ -45,6 +45,8 @@ namespace ValheimPlus
     {
         private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir)
         {
+            if (!__instance.m_nview.IsValid() || !__instance.m_nview.IsOwner()) return;
+
             if (Configuration.Current.AdvancedEditingMode.IsEnabled)
             {
                 AEM.PlayerInstance = __instance;
@@ -53,8 +55,7 @@ namespace ValheimPlus
 
             if (Configuration.Current.AdvancedBuildingMode.IsEnabled)
             {
-                ABM.PlayerInstance = __instance;
-                ABM.run();
+                ABM.Run(ref __instance);
             }
 
             if (Configuration.Current.Hotkeys.IsEnabled)
@@ -290,11 +291,12 @@ namespace ValheimPlus
         {
             if (Configuration.Current.AdvancedBuildingMode.IsEnabled)
             {
-                ABM.PlayerInstance = __instance;
-                ABM.run();
+                ABM.Run(ref __instance);
             }
+
             if (ABM.isActive)
                 return false;
+
             return true;
         }
 
