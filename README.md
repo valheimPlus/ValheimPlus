@@ -155,10 +155,11 @@ Adds a "deconstruct" tab on all crafting bench GUIs except the cauldron that all
 * Remove Building "Invalid Placement" restriction
 * Remove Building Object deterioration by weather.
 * Remove Building Object deterioration by water.
+* Free rotation mode for the default Building Mode.
 * Advanced Building Mode
 * Advanced Editing Mode
 * Structural Integrity modification system
-* Modify the maximum distance you can place objects at
+* Modify the maximum distance you can place objects at.
 
 ### Free Rotation Mode for the default Building Mode
 *How it works. All mentioned hotkeys can be modified. This modifies the default build mode.*
