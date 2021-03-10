@@ -15,6 +15,7 @@ namespace ValheimPlus.Configurations
         public FermenterConfiguration Fermenter { get; set; }
         public FireSourceConfiguration FireSource { get; set; }
         public FoodConfiguration Food { get; set; }
+        public SmelterConfiguration Smelter { get; set; }
         public FurnaceConfiguration Furnace { get; set; }
         public HotkeyConfiguration Hotkeys { get; set; }
         public KilnConfiguration Kiln { get; set; }

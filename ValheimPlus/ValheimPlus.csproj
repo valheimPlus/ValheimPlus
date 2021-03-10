@@ -332,6 +332,7 @@
     <Compile Include="AdvancedEditingMode.cs" />
     <Compile Include="Configurations\Sections\ArmorConfiguration.cs" />
     <Compile Include="Configurations\Sections\DurabilityConfiguration.cs" />
+    <Compile Include="Configurations\Sections\SmelterConfiguration.cs" />
     <Compile Include="Configurations\Sections\GatherConfiguration.cs" />
     <Compile Include="GameClasses\Beehive.cs" />
     <Compile Include="Configurations\BaseConfig.cs" />
