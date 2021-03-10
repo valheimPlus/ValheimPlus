@@ -273,6 +273,10 @@ We will not explain how you create a dedicated server. This will only explain ho
 
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
+* DIY Valheim and Valheim+ Dedicated Server Installer:
+* The Njord installer provided by ZeroBandwidth and team allows for you to easily setup your own Dedicated Valheim Server built on Ubuntu Linux. This menu system gives you the option to play Valheim in vanilla mode or with the all modding power of Valheim+.  [Njord Menu Github Page](https://github.com/Nimdy/Dedicated_Valheim_Server_Script) 
+* All Njord Menu related questions and support should be directed to his community[Njord Menu Support](https://github.com/Nimdy/Dedicated_Valheim_Server_Script/issues) first and Valheim+ support directed within our community [Valheim+ Support](https://github.com/valheimPlus/ValheimPlus/issues).
+
 
 ## **[Game] Unix**
 
