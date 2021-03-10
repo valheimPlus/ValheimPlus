@@ -373,6 +373,8 @@
     <Compile Include="GameClasses\Fireplace.cs" />
     <Compile Include="GameClasses\GameCamera.cs" />
     <Compile Include="GameClasses\Hud.cs" />
+    <Compile Include="GameClasses\Piece.cs" />
+    <Compile Include="GameClasses\StationExtension.cs" />
     <Compile Include="GameClasses\Attack.cs" />
     <Compile Include="GameClasses\TeleportWorld.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
