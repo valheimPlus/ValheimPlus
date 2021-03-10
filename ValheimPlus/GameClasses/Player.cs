@@ -1,6 +1,10 @@
 ﻿using HarmonyLib;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
@@ -164,76 +168,122 @@ namespace ValheimPlus
     }
 
     /// <summary>
-    /// Updates food duration.
+    /// Apply Dodge hotkeys
     /// </summary>
-    // ToDo have item tooltips be affected.
-    [HarmonyPatch(typeof(Player), "UpdateFood")]
-    public static class Player_UpdateFood_Patch
+    [HarmonyPatch(typeof(Player), "Update")]
+    public static class ApplyDodgeHotkeys
     {
-        private static bool Prefix(ref Player __instance, ref float dt, ref bool forceUpdate)
+        private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost, Transform ___m_eye)
         {
-            if (!Configuration.Current.Food.IsEnabled) return true;
+            if (!Configuration.Current.Hotkeys.IsEnabled) return;
 
-            __instance.m_foodUpdateTimer += dt;
-            if (__instance.m_foodUpdateTimer >= getModifiedDeltaTime(ref __instance, ref dt) || forceUpdate)
+            KeyCode rollKeyForward = Configuration.Current.Hotkeys.rollForwards;
+            KeyCode rollKeyBackwards = Configuration.Current.Hotkeys.rollBackwards;
+
+            if (Input.GetKeyDown(rollKeyBackwards))
             {
-                __instance.m_foodUpdateTimer = 0f;
-                foreach (Player.Food food in __instance.m_foods)
+                Vector3 dodgeDir = ___m_moveDir;
+                if (dodgeDir.magnitude < 0.1f)
                 {
-                    food.m_health -= food.m_item.m_shared.m_food / food.m_item.m_shared.m_foodBurnTime;
-                    food.m_stamina -= food.m_item.m_shared.m_foodStamina / food.m_item.m_shared.m_foodBurnTime;
-                    if (food.m_health < 0f)
-                    {
-                        food.m_health = 0f;
-                    }
-                    if (food.m_stamina < 0f)
-                    {
-                        food.m_stamina = 0f;
-                    }
-                    if (food.m_health <= 0f)
-                    {
-                        __instance.Message(MessageHud.MessageType.Center, "$msg_food_done", 0, null);
-                        __instance.m_foods.Remove(food);
-                        break;
-                    }
+                    dodgeDir = -___m_lookDir;
+                    dodgeDir.y = 0f;
+                    dodgeDir.Normalize();
                 }
 
-                __instance.GetTotalFoodValue(out float health, out float stamina);
-                __instance.SetMaxHealth(health, true);
-                __instance.SetMaxStamina(stamina, true);
+                HookDodgeRoll.Dodge(__instance, dodgeDir);
             }
-            if (!forceUpdate)
+            if (Input.GetKeyDown(rollKeyForward))
             {
-                __instance.m_foodRegenTimer += dt;
-                if (__instance.m_foodRegenTimer >= 10f)
+                Vector3 dodgeDir = ___m_moveDir;
+                if (dodgeDir.magnitude < 0.1f)
                 {
-                    __instance.m_foodRegenTimer = 0f;
-                    float num = 0f;
-                    foreach (Player.Food food2 in __instance.m_foods)
-                    {
-                        num += food2.m_item.m_shared.m_foodRegen;
-                    }
-                    if (num > 0f)
-                    {
-                        float num2 = 1f;
-                        __instance.m_seman.ModifyHealthRegen(ref num2);
-                        num *= num2;
-                        Helper.getPlayerCharacter(__instance).Heal(num, true);
-                    }
+                    dodgeDir = ___m_lookDir;
+                    dodgeDir.y = 0f;
+                    dodgeDir.Normalize();
+                }
+
+                HookDodgeRoll.Dodge(__instance, dodgeDir);
+            }
+        }
+    }
+
+    // ToDo have item tooltips be affected.
+    [HarmonyPatch(typeof(Player), nameof(Player.UpdateFood))]
+    public static class Player_UpdateFood_Transpiler
+    {
+        private static FieldInfo field_Player_m_foodUpdateTimer = AccessTools.Field(typeof(Player), nameof(Player.m_foodUpdateTimer));
+        private static MethodInfo method_ComputeModifiedDt = AccessTools.Method(typeof(Player_UpdateFood_Transpiler), nameof(Player_UpdateFood_Transpiler.ComputeModifiedDT));
+
+        /// <summary>
+        /// Replaces the first load of dt inside Player::UpdateFood with a modified dt that is scaled
+        /// by the food duration scaling multiplier. This ensures the food lasts longer while maintaining
+        /// the same rate of regeneration.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.Food.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            for (int i = 0; i < il.Count - 2; ++i)
+            {
+                if (il[i].LoadsField(field_Player_m_foodUpdateTimer) &&
+                    il[i + 1].opcode == OpCodes.Ldarg_1 /* dt */ &&
+                    il[i + 2].opcode == OpCodes.Add)
+                {
+                    // We insert after Ldarg_1 (push dt) a call to our function, which computes the modified DT and returns it.
+                    il.Insert(i + 2, new CodeInstruction(OpCodes.Call, method_ComputeModifiedDt));
                 }
             }
 
-            return false;
+            return il.AsEnumerable();
         }
 
-        private static float getModifiedDeltaTime(ref Player __instance, ref float dt)
+        private static float ComputeModifiedDT(float dt)
         {
-            float defaultDeltaTimeTarget = 1f;
-            float newDetalTimeTarget;
+            return dt / Helper.applyModifierValue(1.0f, Configuration.Current.Food.foodDurationMultiplier);
+        }
+    }
 
-            newDetalTimeTarget = Helper.applyModifierValue(defaultDeltaTimeTarget, Configuration.Current.Food.foodDurationMultiplier);
+    [HarmonyPatch(typeof(Player), nameof(Player.GetTotalFoodValue))]
+    public static class Player_GetTotalFoodValue_Transpiler
+    {
+        private static FieldInfo field_Food_m_health = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_health));
+        private static FieldInfo field_Food_m_stamina = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_stamina));
+        private static FieldInfo field_Food_m_item = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_item));
+        private static FieldInfo field_ItemData_m_shared = AccessTools.Field(typeof(ItemDrop.ItemData), nameof(ItemDrop.ItemData.m_shared));
+        private static FieldInfo field_SharedData_m_food = AccessTools.Field(typeof(ItemDrop.ItemData.SharedData), nameof(ItemDrop.ItemData.SharedData.m_food));
+        private static FieldInfo field_SharedData_m_foodStamina = AccessTools.Field(typeof(ItemDrop.ItemData.SharedData), nameof(ItemDrop.ItemData.SharedData.m_foodStamina));
 
-            return newDetalTimeTarget;
+        /// <summary>
+        /// Replaces loads to the current health/stamina for food with loads to the original health/stamina for food
+        /// inside Player::GetTotalFoodValue. This disables food degradation.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.Food.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            if (Configuration.Current.Food.disableFoodDegradation)
+            {
+                for (int i = 0; i < il.Count; ++i)
+                {
+                    bool loads_health = il[i].LoadsField(field_Food_m_health);
+                    bool loads_stamina = il[i].LoadsField(field_Food_m_stamina);
+
+                    if (loads_health || loads_stamina)
+                    {
+                        il[i].operand = field_Food_m_item;
+                        il.Insert(++i, new CodeInstruction(OpCodes.Ldfld, field_ItemData_m_shared));
+                        il.Insert(++i, new CodeInstruction(OpCodes.Ldfld, loads_health ? field_SharedData_m_food : field_SharedData_m_foodStamina));
+                    }
+                }
+            }
+
+            return il.AsEnumerable();
         }
     }
 
@@ -356,6 +406,118 @@ namespace ValheimPlus
                         }
                     }
                 }
+            }
+        }
+    }
+
+    [HarmonyPatch]
+    public static class AreaRepair
+    {
+        private static int m_repair_count;
+
+        [HarmonyPatch(typeof(Player), nameof(Player.UpdatePlacement))]
+        public static class Player_UpdatePlacement_Transpiler
+        {
+            private static MethodInfo method_Player_Repair = AccessTools.Method(typeof(Player), nameof(Player.Repair));
+            private static AccessTools.FieldRef<Player, Piece> field_Player_m_hoveringPiece = AccessTools.FieldRefAccess<Player, Piece>(nameof(Player.m_hoveringPiece));
+            private static MethodInfo method_RepairNearby = AccessTools.Method(typeof(Player_UpdatePlacement_Transpiler), nameof(Player_UpdatePlacement_Transpiler.RepairNearby));
+
+            /// <summary>
+            /// Patches the call to Repair from Player::UpdatePlacement with our own stub which handles repairing multiple pieces rather than just one.
+            /// </summary>
+            [HarmonyTranspiler]
+            public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+                if (!Configuration.Current.Building.IsEnabled) return instructions;
+
+                List<CodeInstruction> il = instructions.ToList();
+
+                if (Configuration.Current.Building.enableAreaRepair)
+                {
+                    // Replace call to Player::Repair with our own stub.
+                    // Our stub calls the original repair multiple times, one for each nearby piece.
+                    for (int i = 0; i < il.Count; ++i)
+                    {
+                        if (il[i].Calls(method_Player_Repair))
+                        {
+                            il[i].operand = method_RepairNearby;
+                        }
+                    }
+                }
+
+                return il.AsEnumerable();
+            }
+
+            public static void RepairNearby(Player instance, ItemDrop.ItemData toolItem, Piece _1)
+            {
+                Piece selected_piece = instance.GetHoveringPiece();
+                Vector3 position = selected_piece != null ? selected_piece.transform.position : instance.transform.position;
+
+                List<Piece> pieces = new List<Piece>();
+                Piece.GetAllPiecesInRadius(position, Configuration.Current.Building.areaRepairRadius, pieces);
+
+                m_repair_count = 0;
+
+                Piece original_piece = instance.m_hoveringPiece;
+
+                foreach (Piece piece in pieces)
+                {
+                    bool has_stamina = instance.HaveStamina(toolItem.m_shared.m_attack.m_attackStamina);
+                    bool uses_durability = toolItem.m_shared.m_useDurability;
+                    bool has_durability = toolItem.m_durability > 0.0f;
+
+                    if (!has_stamina || (uses_durability && !has_durability)) break;
+
+                    // The repair function takes a piece to repair but then completely ignores it and repairs the hovering piece instead...
+                    // I really don't like this, but Valheim's spaghetti code makes it required.
+                    instance.m_hoveringPiece = piece;
+                    instance.Repair(toolItem, _1);
+                    instance.m_hoveringPiece = original_piece;
+                }
+
+                instance.Message(MessageHud.MessageType.TopLeft, string.Format("{0} pieces repaired", m_repair_count));
+            }
+        }
+
+        [HarmonyPatch(typeof(Player), nameof(Player.Repair))]
+        public static class Player_Repair_Transpiler
+        {
+            private static MethodInfo method_Character_Message = AccessTools.Method(typeof(Character), nameof(Character.Message));
+            private static MethodInfo method_MessageNoop = AccessTools.Method(typeof(Player_Repair_Transpiler), nameof(Player_Repair_Transpiler.MessageNoop));
+
+            /// <summary>
+            /// Noops the original message notification when one piece is repaired, and counts them instead - the other transpiler
+            /// will dispatch one notification for a batch of repairs using this count.
+            /// </summary>
+            [HarmonyTranspiler]
+            public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+                if (!Configuration.Current.Building.IsEnabled) return instructions;
+
+                List<CodeInstruction> il = instructions.ToList();
+
+                if (Configuration.Current.Building.enableAreaRepair)
+                {
+                    // Replace calls to Character::Message with our own noop stub
+                    // We don't want to spam messages for each piece so we patch the messages out here and dispatch our own messages in the other transpiler.
+                    // First call pushes 1, then subsequent calls 0 - the first call is the branch where the repair succeeded.
+                    int count = 0;
+                    for (int i = 0; i < il.Count; ++i)
+                    {
+                        if (il[i].Calls(method_Character_Message))
+                        {
+                            il[i].operand = method_MessageNoop;
+                            il.Insert(i++, new CodeInstruction(count++ == 0 ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0, null));
+                        }
+                    }
+                }
+
+                return il.AsEnumerable();
+            }
+
+            public static void MessageNoop(Character _0, MessageHud.MessageType _1, string _2, int _3, Sprite _4, int repaired)
+            {
+                m_repair_count += repaired;
             }
         }
     }

@@ -10,5 +10,6 @@
         public bool cropNotifier { get; internal set; } = false;
         public float restSecondsPerComfortLevel { get; internal set; } = 60;
         public float deathPenaltyMultiplier { get; internal set; } = 0;
+        public bool autoRepair { get; internal set; } = false;
     }
 }
