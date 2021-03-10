@@ -170,13 +170,11 @@ namespace ValheimPlus.GameClasses
 
             //Only sync on first spawn
             if (VPlusMapSync.ShouldSyncOnSpawn)
-                Player_Dodge_ReversePatch.call_Dodge(__instance, dodgeDir);
             {
                 //Send map data to the server
                 VPlusMapSync.SendMapToServer();
                 VPlusMapSync.ShouldSyncOnSpawn = false;
             }
-                Player_Dodge_ReversePatch.call_Dodge(__instance, dodgeDir);
         }
     }
 
