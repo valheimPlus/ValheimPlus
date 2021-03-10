@@ -72,7 +72,6 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify your inventory sizes of player inventory, chests, boats and else.
 * Disable the red flash on screen when damage is received
 * Display a warning message when you try to place crops to close to another crop
-* Remember mouse position when it loses focus (Windows only)
 
 ## Inventory
 * Modify the amount of rows and columns in each inventory of the game
