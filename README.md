@@ -14,9 +14,7 @@ Below you can find a list of hosting companies that are supporting ValehimPlus w
 # Features
 All of these features can be adjusted by a configuration file. This also allows you to only enable very specific featues.
 
-
 ## Player
-
 * Modification of stamina usage and regeneration
 * Modification of stamina usage of all tools and weaponry
 * Modification of carry weight
@@ -137,9 +135,6 @@ All of these features can be adjusted by a configuration file. This also allows 
 ### Shared map system
 Allows you to see the explored areas on the map of other players on the server if they have their position on the map shared ingame.
 *You currently only receive exploration when you are online.*
-
-### Player visibility
-Allows you to be visible on the server map by default when joining.
 
 ### Prevent player from turning off visibility
 Prevents players on the server from making themselves invisible on the map.

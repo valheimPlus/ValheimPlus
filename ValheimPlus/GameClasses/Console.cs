@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     class ConsoleInfo
     {

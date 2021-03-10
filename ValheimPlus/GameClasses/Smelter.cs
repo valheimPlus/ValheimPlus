@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Alters smelter input, output, and production speed configurations

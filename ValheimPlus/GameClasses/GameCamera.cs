@@ -3,7 +3,7 @@ using HarmonyLib;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Advanced Editing Mode Game Camera changes

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using ValheimPlus.Configurations;
 using ValheimPlus.UI;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Set max player limit and disable server password 
