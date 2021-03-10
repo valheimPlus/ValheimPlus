@@ -10,5 +10,11 @@ namespace ValheimPlus.Configurations.Sections
         public int personalChestRows { get; set; } = 2;
         public int ironChestColumns { get; set; } = 8;
         public int ironChestRows { get; set; } = 3;
+        public int cartInventoryColumns { get; set; } = 8;
+        public int cartInventoryRows { get; set; } = 3;
+        public int karveInventoryColumns { get; set; } = 2;
+        public int karveInventoryRows { get; set; } = 2;
+        public int longboatInventoryColumns { get; set; } = 8;
+        public int longboatInventoryRows { get; set; } = 3;
     }
 }

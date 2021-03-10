@@ -99,7 +99,6 @@ namespace ValheimPlus
             }
         }
 
-
         public static List<Container> GetNearbyChests(GameObject target, float range = 10)
         {
             Collider[] hitColliders = Physics.OverlapSphere(target.transform.localPosition, range, LayerMask.GetMask(new string[] { "piece" }));
@@ -124,7 +123,10 @@ namespace ValheimPlus
             return validContainers;
         }
 
-
-
+        // Clamp value between min and max
+        public static int Clamp(int value, int min, int max)
+        {
+            return Math.Min(max, Math.Max(min, value));
+        }
     }
 }

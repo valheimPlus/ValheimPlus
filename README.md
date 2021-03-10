@@ -75,9 +75,7 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Remember mouse position when it loses focus (Windows only)
 
 ## Inventory
-* Modify the amount of rows and columns in each inventory of the game
-* Extend player inventory up to 20 x 8
-* Extend chest inventory (wood up to 10 x 8, iron up to 20 x 8, personal up to 20 x 8 - wood configuration also affects Karve, iron configuration also affects Cart and Longboat)
+* Modify the amount of rows and columns in each inventory of the game (player, boats, cart)
 * Includes automatically added scrollbars when container sizes exceed a certain limit
 * Modify the inventory behavior so that items will be placed in the first slot rather than the last available slot
 
