@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using HarmonyLib;
 using UnityEngine;
 using ValheimPlus.Configurations;
-using ValheimPlus.UI;
 
 namespace ValheimPlus
 {
@@ -42,7 +40,7 @@ namespace ValheimPlus
     }
 
     /// <summary>
-    /// Configure player/container inventory size
+    /// Configure player inventory size
     /// </summary>
     [HarmonyPatch(typeof(Inventory), MethodType.Constructor, new Type[] { typeof(string), typeof(Sprite), typeof(int), typeof(int) })]
     public static class Inventory_Constructor_Patch
@@ -50,53 +48,14 @@ namespace ValheimPlus
         private const int playerInventoryMaxRows = 20;
         private const int playerInventoryMinRows = 4;
 
-        private const int woodChestInventoryMaxRows = 10;
-        private const int woodChestInventoryMinRows = 2;
-        private const int woodChestInventoryMaxCol = 8;
-        private const int woodChestInventoryMinCol = 5;
-
-        private const int personalChestInventoryMaxRows = 20;
-        private const int personalChestInventoryMinRows = 2;
-        private const int personalChestInventoryMaxCol = 8;
-        private const int personalChestInventoryMinCol = 3;
-
-        private const int ironChestInventoryMaxRows = 20;
-        private const int ironChestInventoryMinRows = 3;
-        private const int ironChestInventoryMaxCol = 8;
-        private const int ironChestInventoryMinCol = 6;
-
         public static void Prefix(string name, ref int w, ref int h)
         {
             if (Configuration.Current.Inventory.IsEnabled)
             {
                 // Player inventory
-                if (h == 4 && w == 8)
+                if (h == 4 && w == 8 && name == "Inventory")
                 {
-                    h = Math.Min(playerInventoryMaxRows, Math.Max(playerInventoryMinRows, Configuration.Current.Inventory.playerInventoryRows));
-                }
-                // Wood chest
-                else if (h == 2 && w == 5)
-                {
-                    w = Math.Min(woodChestInventoryMaxCol, Math.Max(woodChestInventoryMinCol, Configuration.Current.Inventory.woodChestColumns));
-                    h = Math.Min(woodChestInventoryMaxRows, Math.Max(woodChestInventoryMinRows, Configuration.Current.Inventory.woodChestRows));
-                }
-                // Personal chest
-                else if (h == 2 && w == 3)
-                {
-                    w = Math.Min(personalChestInventoryMaxCol, Math.Max(personalChestInventoryMinCol, Configuration.Current.Inventory.personalChestColumns));
-                    h = Math.Min(personalChestInventoryMaxRows, Math.Max(personalChestInventoryMinRows, Configuration.Current.Inventory.personalChestRows));
-                }
-                // Karve (small boat)
-                else if (h == 2 && w == 2)
-                {
-                    w = Math.Min(woodChestInventoryMaxCol, Math.Max(woodChestInventoryMinCol, Configuration.Current.Inventory.woodChestColumns));
-                    h = Math.Min(woodChestInventoryMaxRows, Math.Max(woodChestInventoryMinRows, Configuration.Current.Inventory.woodChestRows));
-                }
-                // Iron chest, cart, longboat
-                else if (h == 3 && w == 6)
-                {
-                    w = Math.Min(ironChestInventoryMaxCol, Math.Max(ironChestInventoryMinCol, Configuration.Current.Inventory.ironChestColumns));
-                    h = Math.Min(ironChestInventoryMaxRows, Math.Max(ironChestInventoryMinRows, Configuration.Current.Inventory.ironChestRows));
+                    h = Helper.Clamp(Configuration.Current.Inventory.playerInventoryRows, playerInventoryMinRows, playerInventoryMaxRows);
                 }
             }
         }
