@@ -369,6 +369,7 @@
     <Compile Include="Configurations\Sections\WorkbenchConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaUsageConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
+    <Compile Include="GameClasses\Container.cs" />
     <Compile Include="GameClasses\DropTable.cs" />
     <Compile Include="GameClasses\FejdStartup.cs" />
     <Compile Include="GameClasses\Fireplace.cs" />
