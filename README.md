@@ -309,4 +309,5 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for d
 * Doudou 'xiaodoudou' - https://github.com/xiaodoudou
 * MrPurple6411#0415 - BepInEx Valheim version, AssemblyPublicizer
 * Mehdi 'AccretionCD' E. - https://github.com/AccretionCD
-* Zogniton - https://github.com/Zogniton - Inventory Overhaul initial creator
+* Zogniton - https://github.com/Zogniton - Inventiry Overhaul initial creator
+* Jules - https://github.com/sirskunkalot
