@@ -3,15 +3,15 @@ using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
 {
-    class Monster
+    class Ragdoll
     {
         /// <summary>
         /// Altering time for loot appear
         /// </summary>
-        [HarmonyPatch(typeof(Ragdoll), "Awake")]
+        [HarmonyPatch(typeof(global::Ragdoll), "Awake")]
         public static class Ragdoll_Awake_Patch
         {
-            public static void Prefix(Ragdoll __instance)
+            public static void Prefix(global::Ragdoll __instance)
             {
                 if (Configuration.Current.Monster.IsEnabled)
                 {
