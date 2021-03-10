@@ -12,7 +12,7 @@ namespace ValheimPlus
         [HarmonyPatch(typeof(CraftingStation), "Start")]
         public static class WorkbenchRangeIncrease
         {
-            private static void Prefix(CraftingStation __instance, ref float ___m_rangeBuild, GameObject ___m_areaMarker)
+            private static void Prefix(ref CraftingStation __instance, ref float ___m_rangeBuild, GameObject ___m_areaMarker)
             {
                 if (Configuration.Current.Workbench.IsEnabled && Configuration.Current.Workbench.workbenchRange > 0) 
                 {
