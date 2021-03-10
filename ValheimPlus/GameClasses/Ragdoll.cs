@@ -7,6 +7,7 @@ namespace ValheimPlus.GameClasses
     {
         /// <summary>
         /// Altering time for loot appear
+        /// Using MonsterConfiguration.cs
         /// </summary>
         [HarmonyPatch(typeof(global::Ragdoll), "Awake")]
         public static class Ragdoll_Awake_Patch
