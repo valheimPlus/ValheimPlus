@@ -160,6 +160,7 @@ Adds a "deconstruct" tab on all crafting bench GUIs except the cauldron that all
 * Remove Building "Invalid Placement" restriction
 * Remove Building Object deterioration by weather.
 * Remove Building Object deterioration by water.
+* Free rotation mode for the default Building Mode.
 * Advanced Building Mode
 * Advanced Editing Mode
 * Structural Integrity modification system
@@ -167,6 +168,16 @@ Adds a "deconstruct" tab on all crafting bench GUIs except the cauldron that all
 * Allow the repair function of the hammer tool to repair all placeables in an area.
 * Allow placeables to drop full material cost upon being destroyed/dismantled, even if built by someone else in multiplayer.
 * Modify effective radius of comfort placeables.
+
+### Free Rotation Mode for the default Building Mode | Video : https://imgur.com/xMH7STj.mp4
+*How it works. All mentioned hotkeys can be modified. This modifies the default build mode.*
+1. You can rotate the object selected in the usual building mode when you press certain hotkeys in any direction.
+  * Use your mouse to change the location of the object.
+  * ScrollWheel + LeftAlt to rotate by 1° in Y axis.
+  * ScrollWheel + C to rotate by 1° in X axis.
+  * ScrollWheel + Z to rotate by 1° in Z axis.
+  * Use the copy rotation hotkeys to copy your current rotation or apply the same rotation to the next object you are building.
+  3. Build the object with a mouse click.
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*

@@ -77,7 +77,6 @@ namespace ValheimPlus
                     Container foundContainer = hitCollider.GetComponentInParent<Container>();
                     if (foundContainer.m_name.Contains("piece_chest") && foundContainer.GetInventory() != null)
                     {
-                        Debug.Log(Vector3.Distance(target.transform.localPosition, foundContainer.transform.position));
                         validContainers.Add(foundContainer);
                     }
                 }
