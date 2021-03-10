@@ -1,4 +1,7 @@
 ﻿using HarmonyLib;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus
@@ -107,5 +110,41 @@ namespace ValheimPlus
 		Run,
 		Swim,
 		All = 999
+	}
+
+	[HarmonyPatch(typeof(Skills), nameof(Skills.OnDeath))]
+	public static class Skills_OnDeath_Transpiler
+	{
+		private static MethodInfo method_Skills_LowerAllSkills = AccessTools.Method(typeof(Skills), nameof(Skills.LowerAllSkills));
+		private static MethodInfo method_LowerAllSkills = AccessTools.Method(typeof(Skills_OnDeath_Transpiler), nameof(Skills_OnDeath_Transpiler.LowerAllSkills));
+
+		/// <summary>
+		/// We replace the call to Skills.LowerAllSkills with our own stub, which then applies the death multiplier.
+		/// </summary>
+		[HarmonyTranspiler]
+		public static IEnumerable<CodeInstruction> Transpile(IEnumerable<CodeInstruction> instructions)
+		{
+			if (!Configuration.Current.Player.IsEnabled) return instructions;
+
+			List<CodeInstruction> il = instructions.ToList();
+
+			for (int i = 0; i < il.Count; ++i)
+			{
+				if (il[i].Calls(method_Skills_LowerAllSkills))
+				{
+					il[i].operand = method_LowerAllSkills;
+				}
+			}
+
+			return il.AsEnumerable();
+		}
+
+		public static void LowerAllSkills(Skills instance, float factor)
+		{
+			if (Configuration.Current.Player.deathPenaltyMultiplier > -100.0f)
+			{
+				instance.LowerAllSkills(Helper.applyModifierValue(factor, Configuration.Current.Player.deathPenaltyMultiplier));
+			}
+		}
 	}
 }
