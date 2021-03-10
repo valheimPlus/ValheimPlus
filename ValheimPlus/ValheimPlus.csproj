@@ -373,6 +373,7 @@
     <Compile Include="GameClasses\Fireplace.cs" />
     <Compile Include="GameClasses\GameCamera.cs" />
     <Compile Include="GameClasses\Hud.cs" />
+    <Compile Include="GameClasses\SE_Rested.cs" />
     <Compile Include="GameClasses\Piece.cs" />
     <Compile Include="GameClasses\StationExtension.cs" />
     <Compile Include="GameClasses\Attack.cs" />
