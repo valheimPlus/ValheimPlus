@@ -168,76 +168,122 @@ namespace ValheimPlus
     }
 
     /// <summary>
-    /// Updates food duration.
+    /// Apply Dodge hotkeys
     /// </summary>
-    // ToDo have item tooltips be affected.
-    [HarmonyPatch(typeof(Player), "UpdateFood")]
-    public static class Player_UpdateFood_Patch
+    [HarmonyPatch(typeof(Player), "Update")]
+    public static class ApplyDodgeHotkeys
     {
-        private static bool Prefix(ref Player __instance, ref float dt, ref bool forceUpdate)
+        private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost, Transform ___m_eye)
         {
-            if (!Configuration.Current.Food.IsEnabled) return true;
+            if (!Configuration.Current.Hotkeys.IsEnabled) return;
 
-            __instance.m_foodUpdateTimer += dt;
-            if (__instance.m_foodUpdateTimer >= getModifiedDeltaTime(ref __instance, ref dt) || forceUpdate)
+            KeyCode rollKeyForward = Configuration.Current.Hotkeys.rollForwards;
+            KeyCode rollKeyBackwards = Configuration.Current.Hotkeys.rollBackwards;
+
+            if (Input.GetKeyDown(rollKeyBackwards))
             {
-                __instance.m_foodUpdateTimer = 0f;
-                foreach (Player.Food food in __instance.m_foods)
+                Vector3 dodgeDir = ___m_moveDir;
+                if (dodgeDir.magnitude < 0.1f)
                 {
-                    food.m_health -= food.m_item.m_shared.m_food / food.m_item.m_shared.m_foodBurnTime;
-                    food.m_stamina -= food.m_item.m_shared.m_foodStamina / food.m_item.m_shared.m_foodBurnTime;
-                    if (food.m_health < 0f)
-                    {
-                        food.m_health = 0f;
-                    }
-                    if (food.m_stamina < 0f)
-                    {
-                        food.m_stamina = 0f;
-                    }
-                    if (food.m_health <= 0f)
-                    {
-                        __instance.Message(MessageHud.MessageType.Center, "$msg_food_done", 0, null);
-                        __instance.m_foods.Remove(food);
-                        break;
-                    }
+                    dodgeDir = -___m_lookDir;
+                    dodgeDir.y = 0f;
+                    dodgeDir.Normalize();
                 }
 
-                __instance.GetTotalFoodValue(out float health, out float stamina);
-                __instance.SetMaxHealth(health, true);
-                __instance.SetMaxStamina(stamina, true);
+                HookDodgeRoll.Dodge(__instance, dodgeDir);
             }
-            if (!forceUpdate)
+            if (Input.GetKeyDown(rollKeyForward))
             {
-                __instance.m_foodRegenTimer += dt;
-                if (__instance.m_foodRegenTimer >= 10f)
+                Vector3 dodgeDir = ___m_moveDir;
+                if (dodgeDir.magnitude < 0.1f)
                 {
-                    __instance.m_foodRegenTimer = 0f;
-                    float num = 0f;
-                    foreach (Player.Food food2 in __instance.m_foods)
-                    {
-                        num += food2.m_item.m_shared.m_foodRegen;
-                    }
-                    if (num > 0f)
-                    {
-                        float num2 = 1f;
-                        __instance.m_seman.ModifyHealthRegen(ref num2);
-                        num *= num2;
-                        Helper.getPlayerCharacter(__instance).Heal(num, true);
-                    }
+                    dodgeDir = ___m_lookDir;
+                    dodgeDir.y = 0f;
+                    dodgeDir.Normalize();
+                }
+
+                HookDodgeRoll.Dodge(__instance, dodgeDir);
+            }
+        }
+    }
+
+    // ToDo have item tooltips be affected.
+    [HarmonyPatch(typeof(Player), nameof(Player.UpdateFood))]
+    public static class Player_UpdateFood_Transpiler
+    {
+        private static FieldInfo field_Player_m_foodUpdateTimer = AccessTools.Field(typeof(Player), nameof(Player.m_foodUpdateTimer));
+        private static MethodInfo method_ComputeModifiedDt = AccessTools.Method(typeof(Player_UpdateFood_Transpiler), nameof(Player_UpdateFood_Transpiler.ComputeModifiedDT));
+
+        /// <summary>
+        /// Replaces the first load of dt inside Player::UpdateFood with a modified dt that is scaled
+        /// by the food duration scaling multiplier. This ensures the food lasts longer while maintaining
+        /// the same rate of regeneration.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.Food.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            for (int i = 0; i < il.Count - 2; ++i)
+            {
+                if (il[i].LoadsField(field_Player_m_foodUpdateTimer) &&
+                    il[i + 1].opcode == OpCodes.Ldarg_1 /* dt */ &&
+                    il[i + 2].opcode == OpCodes.Add)
+                {
+                    // We insert after Ldarg_1 (push dt) a call to our function, which computes the modified DT and returns it.
+                    il.Insert(i + 2, new CodeInstruction(OpCodes.Call, method_ComputeModifiedDt));
                 }
             }
 
-            return false;
+            return il.AsEnumerable();
         }
 
-        private static float getModifiedDeltaTime(ref Player __instance, ref float dt)
+        private static float ComputeModifiedDT(float dt)
         {
-            float defaultDeltaTimeTarget = 1f;
-            float newDetalTimeTarget;
+            return dt / Helper.applyModifierValue(1.0f, Configuration.Current.Food.foodDurationMultiplier);
+        }
+    }
 
-            newDetalTimeTarget = Helper.applyModifierValue(defaultDeltaTimeTarget, Configuration.Current.Food.foodDurationMultiplier);
+    [HarmonyPatch(typeof(Player), nameof(Player.GetTotalFoodValue))]
+    public static class Player_GetTotalFoodValue_Transpiler
+    {
+        private static FieldInfo field_Food_m_health = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_health));
+        private static FieldInfo field_Food_m_stamina = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_stamina));
+        private static FieldInfo field_Food_m_item = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_item));
+        private static FieldInfo field_ItemData_m_shared = AccessTools.Field(typeof(ItemDrop.ItemData), nameof(ItemDrop.ItemData.m_shared));
+        private static FieldInfo field_SharedData_m_food = AccessTools.Field(typeof(ItemDrop.ItemData.SharedData), nameof(ItemDrop.ItemData.SharedData.m_food));
+        private static FieldInfo field_SharedData_m_foodStamina = AccessTools.Field(typeof(ItemDrop.ItemData.SharedData), nameof(ItemDrop.ItemData.SharedData.m_foodStamina));
 
-            return newDetalTimeTarget;
+        /// <summary>
+        /// Replaces loads to the current health/stamina for food with loads to the original health/stamina for food
+        /// inside Player::GetTotalFoodValue. This disables food degradation.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.Food.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            if (Configuration.Current.Food.disableFoodDegradation)
+            {
+                for (int i = 0; i < il.Count; ++i)
+                {
+                    bool loads_health = il[i].LoadsField(field_Food_m_health);
+                    bool loads_stamina = il[i].LoadsField(field_Food_m_stamina);
+
+                    if (loads_health || loads_stamina)
+                    {
+                        il[i].operand = field_Food_m_item;
+                        il.Insert(++i, new CodeInstruction(OpCodes.Ldfld, field_ItemData_m_shared));
+                        il.Insert(++i, new CodeInstruction(OpCodes.Ldfld, loads_health ? field_SharedData_m_food : field_SharedData_m_foodStamina));
+                    }
+                }
+            }
+
+            return il.AsEnumerable();
         }
     }
 
