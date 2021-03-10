@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
 using UnityEngine;
+using System.Linq;
 
 namespace ValheimPlus
 {
@@ -103,11 +104,14 @@ namespace ValheimPlus
             if (Configuration.Current.Beehive.autoDepositRange <= 1)
                 Configuration.Current.Beehive.autoDepositRange = 1;
 
-            // place in nearby chest
-            Collider[] hitColliders = Physics.OverlapSphere(__instance.gameObject.transform.localPosition, Configuration.Current.Beehive.autoDepositRange);
+            // Allows for access for linq
+            Beehive beehive = __instance; // allowing access to local function
 
-            // Reverse the found objects to select the nearest first instead of the farthest inventory.
-            System.Array.Reverse(hitColliders);
+            // place in nearby chest
+            Collider[] hitColliders = Physics.OverlapSphere(beehive.gameObject.transform.localPosition, Configuration.Current.Beehive.autoDepositRange);
+
+            // Order the found objects to select the nearest first instead of the farthest inventory.
+            IOrderedEnumerable<Collider> orderedColliders = hitColliders.OrderBy(x => Vector3.Distance(beehive.gameObject.transform.localPosition, x.transform.position));
 
             foreach (var hitCollider in hitColliders)
             {

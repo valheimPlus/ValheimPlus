@@ -36,6 +36,8 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify Kiln processing speed
 * Modify Kiln maximum wood
 * Show the amount of time left until the Fermenter is done.
+* Show the amount of time left until new honey is produced in a beehive.
+* Auto Deposit system for beehive honey to deposit it to the closest nearby chest.
 * Auto Deposit system for Furnace and Kiln to deposit items to the closest nearby chest.
 
 ## Workbench and Ward
@@ -83,6 +85,9 @@ All of these features can be adjusted by a configuration file. This also allows 
 
 ## Item Armor Rating
 * Modify the amount of armor received from armor pieces
+
+## Shield Block Rating
+* Modify the blocked damage of all shields
 
 ## Gathering
 * Modify the amount of resources dropped on destruction of objects.
