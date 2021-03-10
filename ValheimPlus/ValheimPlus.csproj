@@ -333,6 +333,7 @@
     <Compile Include="Configurations\Sections\DeconstructConfiguration.cs" />
     <Compile Include="Configurations\Sections\ArmorConfiguration.cs" />
     <Compile Include="Configurations\Sections\DurabilityConfiguration.cs" />
+    <Compile Include="Configurations\Sections\SmelterConfiguration.cs" />
     <Compile Include="Configurations\Sections\FreePlacementRotationConfiguration.cs" />
     <Compile Include="Configurations\Sections\GatherConfiguration.cs" />
     <Compile Include="Configurations\Sections\ShieldConfiguration.cs" />
