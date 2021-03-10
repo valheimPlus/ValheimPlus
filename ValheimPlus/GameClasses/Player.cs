@@ -190,7 +190,7 @@ namespace ValheimPlus
                     dodgeDir.Normalize();
                 }
 
-                HookDodgeRoll.Dodge(__instance, dodgeDir);
+                Player_Dodge_ReversePatch.call_Dodge(__instance, dodgeDir);
             }
             if (Input.GetKeyDown(rollKeyForward))
             {
@@ -202,7 +202,7 @@ namespace ValheimPlus
                     dodgeDir.Normalize();
                 }
 
-                HookDodgeRoll.Dodge(__instance, dodgeDir);
+                Player_Dodge_ReversePatch.call_Dodge(__instance, dodgeDir);
             }
         }
     }
