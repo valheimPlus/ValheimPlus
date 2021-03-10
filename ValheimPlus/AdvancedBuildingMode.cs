@@ -10,7 +10,7 @@ namespace ValheimPlus
         public static bool isActive = false;
 
         // Player Instance
-        public static Player PlayerInstance;
+        private static Player PlayerInstance;
 
         // Control Flags
         static bool controlFlag = false;
@@ -30,19 +30,27 @@ namespace ValheimPlus
         // Save and Load object rotation
         static Quaternion savedRotation = new Quaternion();
 
-        public static void run()
+        public static void Run(ref Player __instance)
         {
+            PlayerInstance = __instance;
+
             if (AEM.isActive)
             {
                 if (isActive)
+                {
                     exitMode();
+                }
+
                 return;
             }
 
             if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.exitAdvancedBuildingMode))
             {
                 if (isActive)
+                {
                     exitMode();
+                }
+
                 return;
             }
 
@@ -57,15 +65,21 @@ namespace ValheimPlus
             if (isActive && component == null)
             {
                 if (isActive)
+                { 
                     exitMode();
+                }
+
                 return;
             }
 
             // Check if prefab selected (build pieces) & ghost is ready
-            if (selectedPrefab() == null || PlayerInstance.m_placementGhost == null || PlayerInstance.m_buildPieces == null)
+            if (selectedPrefab() == null || PlayerInstance.m_placementGhost == null)
             {
-                if (isActive)
+                if (isActive) 
+                { 
                     exitMode();
+                }
+
                 return;
             }
 
@@ -74,6 +88,7 @@ namespace ValheimPlus
             {
                 if(isActive)
                     exitMode();
+
                 return;
             }
 
@@ -84,7 +99,9 @@ namespace ValheimPlus
                 {
                     exitMode();
                 }
+
                 ABM.isRunning();
+
                 // DO WORK WHEN ALREADY STARTED
                 listenToHotKeysAndDoWork();
             }
@@ -340,6 +357,7 @@ namespace ValheimPlus
             {
                 return true;
             }
+
             if (hoePrefabs.Contains(selectedPrefab.name) || terrainToolPrefabs.Contains(selectedPrefab.name))
             {
                 return true;
