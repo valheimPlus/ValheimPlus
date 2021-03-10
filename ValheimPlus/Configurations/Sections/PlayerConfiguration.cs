@@ -8,6 +8,6 @@
         public bool disableCameraShake { get; internal set; } = false;
         public float baseUnarmedDamage { get; internal set; } = 0;
         public bool cropNotifier { get; internal set; } = false;
-
+        public bool autoRepair { get; internal set; } = false;
     }
 }
