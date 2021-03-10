@@ -312,11 +312,15 @@ If you are hosting for your friends over steam, your friends will need v+ and th
 Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
 
 
-# Credits
+# Official Development Team
 
 * Kevin 'nx#8830' J.- https://github.com/nxPublic
 * Greg 'Zedle' G. - https://github.com/zedle
 * Paige 'radmint' N. - https://github.com/radmint
+* Miguel 'Mixone' T. - https://github.com/Mixone-FinallyHere
+* Chris 'Xenofell' S. - https://github.com/cstamford
+
+# Credits
 * TheTerrasque - https://github.com/TheTerrasque
 * Bruno Vasconcelos - https://github.com/Drakeny
 * GaelicGamer - https://github.com/GaelicGamer
