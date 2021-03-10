@@ -36,6 +36,8 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify Kiln processing speed
 * Modify Kiln maximum wood
 * Show the amount of time left until the Fermenter is done.
+* Show the amount of time left until new honey is produced in a beehive.
+* Auto Deposit system for beehive honey to deposit it to the closest nearby chest.
 * Auto Deposit system for Furnace and Kiln to deposit items to the closest nearby chest.
 
 ## Workbench and Ward
@@ -83,6 +85,9 @@ All of these features can be adjusted by a configuration file. This also allows 
 
 ## Item Armor Rating
 * Modify the amount of armor received from armor pieces
+
+## Shield Block Rating
+* Modify the blocked damage of all shields
 
 ## Gathering
 * Modify the amount of resources dropped on destruction of objects.
@@ -137,14 +142,35 @@ Prevents players on the server from making themselves invisible on the map.
 ## Custom Keybinds
 * Hotkey options for fowards and backwards roll.
 
-# Building
+## Crafting
+### Deconstruct feature
+Adds a "deconstruct" tab on all crafting bench GUIs except the cauldron that allows you to turn a "craftable" item that you currently have in your inventory into its recipe ingredients. Adds an optional functionality to change percentage of resources returned.
+* Items require same level workbench to deconstruct as they would need to be crafted
+* Cannot deconstruct ammo, consumables, or materials, trophies, or ooze bombs
+* Cannot receive trophy heads or resin when deconstructing
+* Must have available inventory space for all resources that will be returned from deconstruction
+* If "percentageOfResourcesReturned" configuration is not set to default (100), resources returned are rounded down when percentage is calculated. Valid settings for this config is between 0-100.
+
+## Building
 * Remove Building "Invalid Placement" restriction
 * Remove Building Object deterioration by weather.
 * Remove Building Object deterioration by water.
+* Free rotation mode for the default Building Mode.
 * Advanced Building Mode
 * Advanced Editing Mode
 * Structural Integrity modification system
-* Modify the maximum distance you can place objects at
+* Modify the maximum distance you can place objects at.
+
+### Free Rotation Mode for the default Building Mode | Video : https://imgur.com/xMH7STj.mp4
+*How it works. All mentioned hotkeys can be modified. This modifies the default build mode.*
+1. You can rotate the object selected in the usual building mode when you press certain hotkeys in any direction.
+  * Use your mouse to change the location of the object.
+  * ScrollWheel + LeftAlt to rotate by 1° in Y axis.
+  * ScrollWheel + C to rotate by 1° in X axis.
+  * ScrollWheel + Z to rotate by 1° in Z axis.
+  * Use the copy rotation hotkeys to copy your current rotation or apply the same rotation to the next object you are building.
+  3. Build the object with a mouse click.
+  
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
@@ -298,11 +324,15 @@ If you are hosting for your friends over steam, your friends will need v+ and th
 Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
 
 
-# Credits
+# Official Development Team
 
 * Kevin 'nx#8830' J.- https://github.com/nxPublic
 * Greg 'Zedle' G. - https://github.com/zedle
 * Paige 'radmint' N. - https://github.com/radmint
+* Miguel 'Mixone' T. - https://github.com/Mixone-FinallyHere
+* Chris 'Xenofell' S. - https://github.com/cstamford
+
+# Credits
 * TheTerrasque - https://github.com/TheTerrasque
 * Bruno Vasconcelos - https://github.com/Drakeny
 * GaelicGamer - https://github.com/GaelicGamer

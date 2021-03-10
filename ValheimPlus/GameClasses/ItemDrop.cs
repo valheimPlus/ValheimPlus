@@ -105,6 +105,11 @@ namespace ValheimPlus
                     multiplierForItem = Helper.applyModifierValue(maxDurability, Configuration.Current.Durability.hoe);
                     break;
 
+                case "torch":
+                    modified = true;
+                    multiplierForItem = Helper.applyModifierValue(maxDurability, Configuration.Current.Durability.torch);
+                    break;
+
                 default:
                     break;
             }
