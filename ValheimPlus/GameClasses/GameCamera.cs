@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using HarmonyLib;
-using UnityEngine;
+﻿using HarmonyLib;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
@@ -37,66 +35,6 @@ namespace ValheimPlus.GameClasses
                     __instance.m_minDistance = 1;
                 }
             }
-        }
-    }
-
-    [HarmonyPatch(typeof(GameCamera), nameof(GameCamera.UpdateMouseCapture))]
-    public static class GameCamera_UpdateMouseCapture_RememberMousePosition
-    {
-        private static Vector2 savedMousePosition;
-
-        private static void Prefix(out State __state)
-        {
-            __state = new State()
-            {
-                PreviousLockState = Cursor.lockState,
-                CurrentMousePosition = new Vector2(Input.mousePosition.x, Screen.height - Input.mousePosition.y - 1)
-            };
-        }
-
-        private static void Postfix(State __state)
-        {
-            if (!(Configuration.Current.Hud.IsEnabled && Configuration.Current.Hud.rememberMousePosition))
-            {
-                return;
-            }
-
-            var currentLockState = Cursor.lockState;
-
-            if (__state.PreviousLockState == currentLockState)
-            {
-                return;
-            }
-
-            if (__state.PreviousLockState == CursorLockMode.None && currentLockState == CursorLockMode.Locked)
-            {
-                savedMousePosition = __state.CurrentMousePosition;
-            }
-
-            if (__state.PreviousLockState == CursorLockMode.Locked)
-            {
-                if (Application.platform == RuntimePlatform.WindowsPlayer)
-                {
-                    User32.SetCursorPosition(savedMousePosition);
-                }
-            }
-        }
-
-        public class State
-        {
-            public CursorLockMode PreviousLockState { get; set; }
-            public Vector2 CurrentMousePosition { get; set; }
-        }
-
-        private static class User32
-        {
-            public static void SetCursorPosition(Vector2 position)
-            {
-                SetCursorPos((int)position.x, (int)position.y);
-            }
-
-            [DllImport("user32.dll")]
-            private static extern bool SetCursorPos(int X, int Y);
         }
     }
 }
