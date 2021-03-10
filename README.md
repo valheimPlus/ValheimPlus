@@ -24,6 +24,9 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modification of Unarmed Damage
 * Modification of auto pickup range
 * Option to force remove all screen shakes
+* Option to tweak/disable death penalty.
+* Option to disable food degradation.
+* Option to tweak Rested bonus duration per comfort level.
 * Modify the base amount of Unarmed damage multiplied by your unarmed skill level
 
 ## Fermenter, Beehive, Kiln and Furnace
@@ -43,6 +46,8 @@ All of these features can be adjusted by a configuration file. This also allows 
 ## Workbench and Ward
 * Modify Workbench radius
 * Modify Ward radius
+* Modify radius at which Workbench attachments can be placed.
+* Option to allow crafting stations to automatically repair all appropriate items in the player's inventory on interaction.
 
 ## Fire sources
 * Disable all fire sources from running out of fuel once fuel is added.
@@ -159,6 +164,9 @@ Adds a "deconstruct" tab on all crafting bench GUIs except the cauldron that all
 * Advanced Editing Mode
 * Structural Integrity modification system
 * Modify the maximum distance you can place objects at
+* Allow the repair function of the hammer tool to repair all placeables in an area.
+* Allow placeables to drop full material cost upon being destroyed/dismantled, even if built by someone else in multiplayer.
+* Modify effective radius of comfort placeables.
 
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
