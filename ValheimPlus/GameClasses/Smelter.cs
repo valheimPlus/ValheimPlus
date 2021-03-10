@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ValheimPlus.Configurations;
@@ -72,41 +73,33 @@ namespace ValheimPlus
                     autoDepositRange = 50;
                 }
 
-                // SphereCast grabbing all overlaps (didn't bother trying to find a mask, so this might be "heavy")
-                Collider[] hitColliders = Physics.OverlapSphere(smelter.gameObject.transform.localPosition, autoDepositRange);
+                List<Container> nearbyChests = Helper.GetNearbyChests(smelter.gameObject, Configuration.Current.Beehive.autoDepositRange);
 
-                // Order the found objects to select the nearest first instead of the farthest inventory.
-                IOrderedEnumerable<Collider> orderedColliders = hitColliders.OrderBy(x => Vector3.Distance(smelter.gameObject.transform.localPosition, x.transform.position));
-
-                foreach (Collider hitCollider in orderedColliders)
+                foreach (Container chest in nearbyChests)
                 {
-                    // Search for Containers components
-                    if (hitCollider.gameObject.GetComponentInParent<Container>() != null)
+                    // Replicating original code, just "spawning/adding" the item inside the chest makes it "not have a prefab"
+                    GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(smelter.GetItemConversion(ore).m_to.gameObject.name);
+
+                    // Also replication of original code, really have no idead what it is for, didn't bother look
+                    ZNetView.m_forceDisableInit = true;
+                    GameObject spawnedOre = UnityEngine.Object.Instantiate<GameObject>(itemPrefab);
+                    ZNetView.m_forceDisableInit = false;
+
+                    // assign stack size, nobody wants a 0/20 stack of metals (its not very usefull)
+                    ItemDrop comp = spawnedOre.GetComponent<ItemDrop>();
+                    comp.m_itemData.m_stack = stack;
+
+                    bool result = chest.GetInventory().AddItem(comp.m_itemData);
+                    if (!result)
                     {
-                        // Replicating original code, just "spawning/adding" the item inside the chest makes it "not have a prefab"
-                        GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(smelter.GetItemConversion(ore).m_to.gameObject.name);
-
-                        // Also replication of original code, really have no idead what it is for, didn't bother look
-                        ZNetView.m_forceDisableInit = true;
-                        GameObject spawnedOre = UnityEngine.Object.Instantiate<GameObject>(itemPrefab);
-                        ZNetView.m_forceDisableInit = false;
-
-                        // assign stack size, nobody wants a 0/20 stack of metals (its not very usefull)
-                        ItemDrop comp = spawnedOre.GetComponent<ItemDrop>();
-                        comp.m_itemData.m_stack = stack;
-
-                        bool result = hitCollider.gameObject.GetComponentInParent<Container>().m_inventory.AddItem(comp.m_itemData);
-                        if (!result)
-                        {
-                            // Chest full, move to the next
-                            continue;
-                        }
-
-                        smelter.m_produceEffects.Create(smelter.transform.position, smelter.transform.rotation, null, 1f);
-                        UnityEngine.Object.Destroy(spawnedOre);
-
-                        return false;
+                        // Chest full, move to the next
+                        continue;
                     }
+
+                    smelter.m_produceEffects.Create(smelter.transform.position, smelter.transform.rotation, null, 1f);
+                    UnityEngine.Object.Destroy(spawnedOre);
+
+                    return false;
                 }
 
                 return true;

@@ -77,11 +77,11 @@ namespace ValheimPlus
                         string info = "";
 
                         int minutes = (int)durationUntilDone / 60;
-                        
+
                         if (((int)durationUntilDone) >= 120)
                             info = minutes + " minutes";
                         else
-                            info = (int)durationUntilDone  + " seconds";
+                            info = (int)durationUntilDone + " seconds";
 
                         __result = Localization.instance.Localize(__instance.m_name + " ( " + contentName + ", $piece_fermenter_fermenting )") + " (" + info + ")";
                         return false;
@@ -98,4 +98,6 @@ namespace ValheimPlus
             return false;
         }
     }
+
+
 }

@@ -2,6 +2,7 @@
 using ValheimPlus.Configurations;
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace ValheimPlus
 {
@@ -89,7 +90,8 @@ namespace ValheimPlus
     {
         private static void Postfix(ref Beehive __instance)
         {
-            return;
+            // Allows for access for linq
+            Beehive beehive = __instance; // allowing access to local function
 
             if (!Configuration.Current.Beehive.autoDeposit || !Configuration.Current.Beehive.IsEnabled)
                 return;
@@ -104,46 +106,32 @@ namespace ValheimPlus
             if (Configuration.Current.Beehive.autoDepositRange <= 1)
                 Configuration.Current.Beehive.autoDepositRange = 1;
 
-            // Allows for access for linq
-            Beehive beehive = __instance; // allowing access to local function
+            // find nearby chests
+            List<Container> nearbyChests = Helper.GetNearbyChests(beehive.gameObject, Configuration.Current.Beehive.autoDepositRange);
 
-            // place in nearby chest
-            Collider[] hitColliders = Physics.OverlapSphere(beehive.gameObject.transform.localPosition, Configuration.Current.Beehive.autoDepositRange);
-
-            // Order the found objects to select the nearest first instead of the farthest inventory.
-            IOrderedEnumerable<Collider> orderedColliders = hitColliders.OrderBy(x => Vector3.Distance(beehive.gameObject.transform.localPosition, x.transform.position));
-
-            foreach (var hitCollider in hitColliders)
+            foreach (Container chest in nearbyChests)
             {
-                //Search for Containers components
-                if (hitCollider.gameObject.GetComponentInParent<Container>() != null)
+                GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(__instance.m_honeyItem.gameObject.name);
+
+                ZNetView.m_forceDisableInit = true;
+                GameObject honeyObject = UnityEngine.Object.Instantiate<GameObject>(itemPrefab);
+                ZNetView.m_forceDisableInit = false;
+
+                ItemDrop comp = honeyObject.GetComponent<ItemDrop>();
+
+                var result = chest.GetInventory().AddItem(comp.m_itemData);
+                UnityEngine.Object.Destroy(honeyObject);
+
+                if (!result)
                 {
-
-
-                    GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(__instance.m_honeyItem.gameObject.name);
-
-                    ZNetView.m_forceDisableInit = true;
-                    GameObject honeyObject = UnityEngine.Object.Instantiate<GameObject>(itemPrefab);
-                    ZNetView.m_forceDisableInit = false;
-
-                    ItemDrop comp = honeyObject.GetComponent<ItemDrop>();
-                    var result = hitCollider.gameObject.GetComponentInParent<Container>().m_inventory.AddItem(comp.m_itemData);
-                    UnityEngine.Object.Destroy(honeyObject);
-
-                    if (!result)
-                    {
-                        //Chest full, move to the next
-                        continue;
-                    }
-
-                    if (result)
-                    {
-                        __instance.m_nview.GetZDO().Set("level", __instance.GetHoneyLevel() - 1);
-                    }
-
-
+                    //Chest full, move to the next
+                    continue;
                 }
+                if (result)
+                    __instance.m_nview.GetZDO().Set("level", __instance.GetHoneyLevel() - 1);
+
             }
+
 
 
         }
