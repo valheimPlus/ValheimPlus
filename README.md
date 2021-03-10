@@ -160,6 +160,17 @@ Adds a "deconstruct" tab on all crafting bench GUIs except the cauldron that all
 * Structural Integrity modification system
 * Modify the maximum distance you can place objects at
 
+### Free Rotation Mode for the default Building Mode
+*How it works. All mentioned hotkeys can be modified. This modifies the default build mode.*
+1. You can rotate the object selected in the usual building mode when you press certain hotkeys in any direction.
+  * Use your mouse to change the location of the object.
+  * ScrollWheel + LeftAlt to rotate by 1° in Y axis.
+  * ScrollWheel + C to rotate by 1° in X axis.
+  * ScrollWheel + Z to rotate by 1° in Z axis.
+  * Use the copy rotation hotkeys to copy your current rotation or apply the same rotation to the next object you are building.
+  3. Build the object with a mouse click.
+  
+
 ### Advanced Building Mode | Video : https://i.imgur.com/ddQCzPy.mp4
 *How it works. All mentioned hotkeys can be modified.*
 1. You freeze the item by pressing the configured key (F1 is default).
