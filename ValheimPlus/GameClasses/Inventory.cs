@@ -23,6 +23,9 @@ namespace ValheimPlus.GameClasses
         }
     }
 
+    /// <summary>
+    /// Makes all items fill inventories top to bottom instead of just tools and weapons
+    /// </summary>
     [HarmonyPatch(typeof(Inventory), "TopFirst")]
     public static class Inventory_TopFirst_Patch
     {
@@ -38,6 +41,9 @@ namespace ValheimPlus.GameClasses
         }
     }
 
+    /// <summary>
+    /// Configure player/container inventory size
+    /// </summary>
     [HarmonyPatch(typeof(Inventory), MethodType.Constructor, new Type[] { typeof(string), typeof(Sprite), typeof(int), typeof(int) })]
     public static class Inventory_Constructor_Patch
     {
