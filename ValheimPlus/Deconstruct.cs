@@ -13,7 +13,6 @@ namespace ValheimPlus
     {
         public static InventoryGui __inventoryGui;
         public static Button m_tabDeconstruct;
-        public static Button m_deconstructButton;
         private const string deconstructText = "Deconstruct";
         private static Recipe m_deconstructRecipe;
         private static ItemDrop.ItemData m_deconstructItem;
@@ -47,13 +46,6 @@ namespace ValheimPlus
             RectTransform tabWidth = (RectTransform)Deconstruct.__inventoryGui.m_tabUpgrade.transform;
             m_tabDeconstruct.transform.position += new Vector3(6f + tabWidth.rect.width, 0, 0);
             m_tabDeconstruct.onClick.AddListener(OnTabDeconstructPressed);
-
-            // set up deconstruct button
-            m_deconstructButton = Object.Instantiate<Button>(Deconstruct.__inventoryGui.m_craftButton);
-            m_deconstructButton.GetComponentInChildren<Text>().text = deconstructText; // needs localization
-            m_deconstructButton.gameObject.SetActive(false);
-            m_deconstructButton.transform.SetParent(Deconstruct.__inventoryGui.m_craftButton.transform.parent, false);
-            m_deconstructButton.onClick.AddListener(new UnityAction(OnDeconstructPressed));
         }
 
         public static void Deconstruct_UpdateRecipeList(ref Player __player)
@@ -197,9 +189,9 @@ namespace ValheimPlus
                 bool craftingStationIsValid = !requiredStation || (currentCraftingStation && currentCraftingStation.CheckUsable(__localPlayer, false));
 
                 // should deconstruct button be clickable
-                m_deconstructButton.interactable = (((playerHasRequirements && craftingStationIsValid) || __localPlayer.NoCostCheat()) && playerHasInventorySpace);
-                m_deconstructButton.GetComponentInChildren<Text>().text = deconstructText;
-                UITooltip component = m_deconstructButton.GetComponent<UITooltip>();
+                __inventoryGui.m_craftButton.interactable = (((playerHasRequirements && craftingStationIsValid) || __localPlayer.NoCostCheat()) && playerHasInventorySpace);
+                __inventoryGui.m_craftButton.GetComponentInChildren<Text>().text = deconstructText;
+                UITooltip component = __inventoryGui.m_craftButton.GetComponent<UITooltip>();
 
                 if (!playerHasInventorySpace)
                 {
@@ -225,7 +217,7 @@ namespace ValheimPlus
                 __inventoryGui.m_recipeDecription.enabled = false;
                 __inventoryGui.m_qualityPanel.gameObject.SetActive(false);
                 __inventoryGui.m_minStationLevelIcon.gameObject.SetActive(false);
-                m_deconstructButton.GetComponent<UITooltip>().m_text = "";
+                __inventoryGui.m_craftButton.GetComponent<UITooltip>().m_text = "";
                 __inventoryGui.m_variantButton.gameObject.SetActive(false);
                 __inventoryGui.m_itemCraftType.gameObject.SetActive(false);
 
@@ -234,18 +226,18 @@ namespace ValheimPlus
                     InventoryGui.HideRequirement(__inventoryGui.m_recipeRequirementList[index].transform);
                 }
 
-                m_deconstructButton.interactable = false;
+                __inventoryGui.m_craftButton.interactable = false;
             }
 
             // if deconstruct button has not been pressed
             if ((double)__inventoryGui.m_craftTimer < 0.0)
             {
                 __inventoryGui.m_craftProgressPanel.gameObject.SetActive(false);
-                m_deconstructButton.gameObject.SetActive(true);
+                __inventoryGui.m_craftButton.gameObject.SetActive(true);
             }
             else
             {
-                m_deconstructButton.gameObject.SetActive(false);
+                __inventoryGui.m_craftButton.gameObject.SetActive(false);
                 __inventoryGui.m_craftProgressPanel.gameObject.SetActive(true);
                 __inventoryGui.m_craftProgressPanel.GetComponentInChildren<Text>().text = "Deconstructing...";
                 __inventoryGui.m_craftProgressBar.SetMaxValue(__inventoryGui.m_craftDuration);
@@ -499,7 +491,7 @@ namespace ValheimPlus
             return (amountToReturn * multiplier) / 100;
         }
 
-        private static void OnDeconstructPressed()
+        public static void OnDeconstructPressed()
         {
             if (__inventoryGui.m_selectedRecipe.Key == null) return;
 
