@@ -14,9 +14,7 @@ Below you can find a list of hosting companies that are supporting ValehimPlus w
 # Features
 All of these features can be adjusted by a configuration file. This also allows you to only enable very specific featues.
 
-
 ## Player
-
 * Modification of stamina usage and regeneration
 * Modification of stamina usage of all tools and weaponry
 * Modification of carry weight
@@ -74,7 +72,6 @@ All of these features can be adjusted by a configuration file. This also allows 
 * Modify your inventory sizes of player inventory, chests, boats and else.
 * Disable the red flash on screen when damage is received
 * Display a warning message when you try to place crops to close to another crop
-* Remember mouse position when it loses focus (Windows only)
 
 ## Inventory
 * Modify the amount of rows and columns in each inventory of the game
@@ -137,9 +134,6 @@ All of these features can be adjusted by a configuration file. This also allows 
 ### Shared map system
 Allows you to see the explored areas on the map of other players on the server if they have their position on the map shared ingame.
 *You currently only receive exploration when you are online.*
-
-### Player visibility
-Allows you to be visible on the server map by default when joining.
 
 ### Prevent player from turning off visibility
 Prevents players on the server from making themselves invisible on the map.
@@ -272,6 +266,10 @@ We will not explain how you create a dedicated server. This will only explain ho
 **Most server hoster do not allow you to upload script files or make your own scripts executable (for very good reasons). You will have to wait until your hoster adapts V+ for his servers.**
 
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
+
+### DIY Valheim and Valheim+ Dedicated Server Installer:
+The Njord installer provided by ZeroBandwidth and team allows for you to easily setup your own Dedicated Valheim Server built on Ubuntu Linux. This menu system gives you the option to play Valheim in vanilla mode or with the all modding power of Valheim+.  [Njord Menu Github Page](https://github.com/Nimdy/Dedicated_Valheim_Server_Script) 
+All Njord Menu related questions and support should be directed to his community [Njord Menu Support](https://github.com/Nimdy/Dedicated_Valheim_Server_Script/issues)
 
 
 ## **[Game] Unix**

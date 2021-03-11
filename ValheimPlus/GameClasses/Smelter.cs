@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Alters smelter input, output, and production speed configurations
@@ -20,6 +20,16 @@ namespace ValheimPlus
                 {
                     __instance.m_maxOre = Configuration.Current.Kiln.maximumWood;
                     __instance.m_secPerProduct = Configuration.Current.Kiln.productionSpeed;
+                }
+            }
+            else if (__instance.m_name.Equals(SmelterDefinitions.SmelterName))
+            {
+                if (Configuration.Current.Smelter.IsEnabled)
+                {
+                    __instance.m_maxOre = Configuration.Current.Smelter.maximumOre;
+                    __instance.m_maxFuel = Configuration.Current.Smelter.maximumCoal;
+                    __instance.m_secPerProduct = Configuration.Current.Smelter.productionSpeed;
+                    __instance.m_fuelPerProduct = Configuration.Current.Smelter.coalUsedPerProduct;
                 }
             }
             else if (__instance.m_name.Equals(SmelterDefinitions.FurnaceName))
@@ -50,6 +60,17 @@ namespace ValheimPlus
                     if (Configuration.Current.Kiln.autoDeposit && !Helper.isTimeSkipping())
                     {
                         bool result = spawn(Configuration.Current.Kiln.autoDepositRange);
+                        return result;
+                    }
+                }
+            }
+            else if (__instance.m_name.Equals(SmelterDefinitions.SmelterName))
+            {
+                if (Configuration.Current.Smelter.IsEnabled)
+                {
+                    if (Configuration.Current.Smelter.autoDeposit)
+                    {
+                        bool result = spawn(Configuration.Current.Smelter.autoDepositRange);
                         return result;
                     }
                 }
@@ -116,6 +137,7 @@ namespace ValheimPlus
     public static class SmelterDefinitions
     {
         public static readonly string KilnName = "$piece_charcoalkiln";
+        public static readonly string SmelterName = "$piece_smelter";
         public static readonly string FurnaceName = "$piece_blastfurnace";
     }
 }

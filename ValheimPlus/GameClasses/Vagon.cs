@@ -1,7 +1,8 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
+using ValheimPlus.Utility;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     class WagonModifications
 	{

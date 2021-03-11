@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
 	
 	[HarmonyPatch(typeof(InventoryGui), "Show")]

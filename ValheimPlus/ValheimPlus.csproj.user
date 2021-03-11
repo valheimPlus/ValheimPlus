@@ -3,4 +3,14 @@
   <PropertyGroup>
     <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
+  <PropertyGroup>
+    <!-- Needs to be your path to the base Valheim folder -->
+    <ValheimDir>$(VALHEIM_INSTALL)</ValheimDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <!-- Runs Steam opening Valheim after building debug -->
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files %28x86%29\Steam\steam.exe</StartProgram>
+    <StartArguments>-applaunch 892970</StartArguments>
+  </PropertyGroup>
 </Project>

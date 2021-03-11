@@ -2,7 +2,7 @@
 using UnityEngine;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     class WardPrivateArea
     {

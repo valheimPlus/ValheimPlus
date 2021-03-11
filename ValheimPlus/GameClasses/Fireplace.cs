@@ -2,7 +2,7 @@
 using System.Linq;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     class FireplaceFuel
     {
