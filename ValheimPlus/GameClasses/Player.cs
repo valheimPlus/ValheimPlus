@@ -492,5 +492,21 @@ namespace ValheimPlus.GameClasses
                 m_repair_count += repaired;
             }
         }
+
+        /// <summary>
+        /// Configures guardian buff duration and cooldown
+        /// </summary>
+        [HarmonyPatch(typeof(Player), "SetGuardianPower")]
+        public static class Player_SetGuardianPower_Patch
+        {
+            private static void Postfix(ref Player __instance)
+            {
+                if (Configuration.Current.Player.IsEnabled)
+                {
+                    __instance.m_guardianSE.m_ttl = Configuration.Current.Player.guardianBuffDuration;
+                    __instance.m_guardianSE.m_cooldown = Configuration.Current.Player.guardianBuffCooldown;
+                }
+            }
+        }
     }
 }
