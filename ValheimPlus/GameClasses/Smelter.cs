@@ -47,7 +47,7 @@ namespace ValheimPlus
             {
                 if (Configuration.Current.Kiln.IsEnabled)
                 {
-                    if (Configuration.Current.Kiln.autoDeposit)
+                    if (Configuration.Current.Kiln.autoDeposit && !Helper.isTimeSkipping())
                     {
                         bool result = spawn(Configuration.Current.Kiln.autoDepositRange);
                         return result;
@@ -58,7 +58,7 @@ namespace ValheimPlus
             {
                 if (Configuration.Current.Furnace.IsEnabled)
                 {
-                    if (Configuration.Current.Furnace.autoDeposit)
+                    if (Configuration.Current.Furnace.autoDeposit && !Helper.isTimeSkipping())
                     {
                         bool result = spawn(Configuration.Current.Furnace.autoDepositRange);
                         return result;
@@ -84,6 +84,10 @@ namespace ValheimPlus
                     ZNetView.m_forceDisableInit = true;
                     GameObject spawnedOre = UnityEngine.Object.Instantiate<GameObject>(itemPrefab);
                     ZNetView.m_forceDisableInit = false;
+
+                    Debug.Log(smelter.GetItemConversion(ore).m_from.m_itemData);
+                    Helper.GetNearbyChestsWithItem(smelter.gameObject, 10, smelter.GetItemConversion(ore).m_from.m_itemData);
+                    
 
                     // assign stack size, nobody wants a 0/20 stack of metals (its not very usefull)
                     ItemDrop comp = spawnedOre.GetComponent<ItemDrop>();

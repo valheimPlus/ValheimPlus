@@ -93,6 +93,9 @@ namespace ValheimPlus
             // Allows for access for linq
             Beehive beehive = __instance; // allowing access to local function
 
+            if (Helper.isTimeSkipping())
+                return;
+
             if (!Configuration.Current.Beehive.autoDeposit || !Configuration.Current.Beehive.IsEnabled)
                 return;
 

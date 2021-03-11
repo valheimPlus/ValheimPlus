@@ -41,7 +41,9 @@ namespace ValheimPlus
             return newValue;
         }
 
-        // Resize child EffectArea's collision that matches the specified type(s).
+        /// <summary>
+        /// Resize child EffectArea's collision that matches the specified type(s).
+        /// </summary>
         public static void ResizeChildEffectArea(MonoBehaviour parent, EffectArea.Type includedTypes, float newRadius)
         {
             if (parent != null)
@@ -61,8 +63,21 @@ namespace ValheimPlus
             }
         }
 
+        /// <summary>
+        /// Check if the current enviroment is skipping time and return true or false
+        /// </summary>
+        public static bool isTimeSkipping()
+        {
+            if (EnvMan.instance.IsTimeSkipping())
+                return true;
 
-        public static List<Container> GetNearbyChests(GameObject target, float range = 10)
+            return false;
+        }
+
+        /// <summary>
+        /// Get all valid nearby chests
+        /// </summary>
+        public static List<Container> GetNearbyChests(GameObject target, float range)
         {
             Collider[] hitColliders = Physics.OverlapSphere(target.transform.localPosition, range, LayerMask.GetMask(new string[] { "piece" }));
 
@@ -86,7 +101,80 @@ namespace ValheimPlus
             return validContainers;
         }
 
+        /// <summary>
+        /// Get a chests that contain the specified itemInfo.m_shared.m_name (item name)
+        /// </summary>
+        public static List<Container> GetNearbyChestsWithItem (GameObject target, float range, ItemDrop.ItemData itemInfo)
+        {
+            List<Container> nearbyChests = GetNearbyChests(target, range);
 
+            List<Container> validChests = new List<Container>();
+            foreach(Container chest in nearbyChests)
+            {
+                if (ChestContainsItem(chest, itemInfo)) { 
+                    validChests.Add(chest);
+                }
+            }
 
+            return validChests;
+        }
+
+        /// <summary>
+        /// Check if the container contains the itemInfo.m_shared.name (item name)
+        /// </summary>
+        public static bool ChestContainsItem(Container chest, ItemDrop.ItemData needle)
+        {
+            List<ItemDrop.ItemData> items = chest.GetInventory().GetAllItems();
+
+            foreach(ItemDrop.ItemData item in items)
+            {
+                if (item.m_shared.m_name == needle.m_shared.m_name)
+                    return true;
+            }
+
+            return false;
+        }
+
+        // function to get all items in nearby chests
+        // function to get the amount of a specific item in all nearby chests
+        // function to remove items in the amount from all nearby chests
+
+        /// <summary>
+        /// Removes the specified amount of a item found by m_shared.m_name by the declared amount
+        /// </summary>
+        public static bool RemoveItemFromChest(Container chest, ItemDrop.ItemData needle, int amount = 1)
+        {
+            if (!ChestContainsItem(chest, needle))
+            {
+                return false;
+            }
+
+            // find item
+            List<ItemDrop.ItemData> allItems = chest.GetInventory().GetAllItems();
+            foreach (ItemDrop.ItemData itemData in allItems)
+            {
+                if (itemData.m_shared.m_name == needle.m_shared.m_name)
+                {
+                    int num = Mathf.Min(itemData.m_stack, amount);
+                    itemData.m_stack -= num;
+                    amount -= num;
+                    if (amount <= 0)
+                    {
+                        break;
+                    }
+                }
+            }
+            allItems.RemoveAll((ItemDrop.ItemData x) => x.m_stack <= 0);
+            chest.m_inventory.m_inventory = allItems;
+            chest.GetInventory().Changed();
+
+            // note how many items removed
+            // add function to see if there are enough items in all chests
+            // add function to see remove all the available items for the demand
+
+            return true;
+        }
+
+        
     }
 }
