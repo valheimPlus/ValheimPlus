@@ -45,6 +45,7 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 * Added hotkey options for forward and backward roll.
 
 **Map**
+* Allow player map position to be displayed by default.
 * Force all players in the server to display their map position.
 * Allow all players to share all map exploration with every other player in the server, as long as their map position is displayed (currently players only receive map exploration from other players while they are online).
 
