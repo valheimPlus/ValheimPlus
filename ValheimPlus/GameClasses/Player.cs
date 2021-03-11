@@ -7,8 +7,10 @@ using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
 using ValheimPlus.Configurations;
+using ValheimPlus.RPC;
+using ValheimPlus.Utility;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Alter player stamina values
@@ -66,6 +68,7 @@ namespace ValheimPlus
             {
                 ApplyDodgeHotkeys(ref __instance, ref ___m_moveDir, ref ___m_lookDir);
             }
+
         }
 
         private static void ApplyDodgeHotkeys(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir)
@@ -150,6 +153,7 @@ namespace ValheimPlus
     {
         private static void Prefix()
         {
+            //Show VPlus tutorial raven if not yet seen by the player's character.
             Tutorial.TutorialText introTutorial = new Tutorial.TutorialText()
             {
                 m_label = "ValheimPlus Intro",
@@ -164,45 +168,13 @@ namespace ValheimPlus
             }
 
             Player.m_localPlayer.ShowTutorial("vplus");
-        }
-    }
 
-    /// <summary>
-    /// Apply Dodge hotkeys
-    /// </summary>
-    [HarmonyPatch(typeof(Player), "Update")]
-    public static class ApplyDodgeHotkeys
-    {
-        private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost, Transform ___m_eye)
-        {
-            if (!Configuration.Current.Hotkeys.IsEnabled) return;
-
-            KeyCode rollKeyForward = Configuration.Current.Hotkeys.rollForwards;
-            KeyCode rollKeyBackwards = Configuration.Current.Hotkeys.rollBackwards;
-
-            if (Input.GetKeyDown(rollKeyBackwards))
+            //Only sync on first spawn
+            if (VPlusMapSync.ShouldSyncOnSpawn)
             {
-                Vector3 dodgeDir = ___m_moveDir;
-                if (dodgeDir.magnitude < 0.1f)
-                {
-                    dodgeDir = -___m_lookDir;
-                    dodgeDir.y = 0f;
-                    dodgeDir.Normalize();
-                }
-
-                Player_Dodge_ReversePatch.call_Dodge(__instance, dodgeDir);
-            }
-            if (Input.GetKeyDown(rollKeyForward))
-            {
-                Vector3 dodgeDir = ___m_moveDir;
-                if (dodgeDir.magnitude < 0.1f)
-                {
-                    dodgeDir = ___m_lookDir;
-                    dodgeDir.y = 0f;
-                    dodgeDir.Normalize();
-                }
-
-                Player_Dodge_ReversePatch.call_Dodge(__instance, dodgeDir);
+                //Send map data to the server
+                VPlusMapSync.SendMapToServer();
+                VPlusMapSync.ShouldSyncOnSpawn = false;
             }
         }
     }
