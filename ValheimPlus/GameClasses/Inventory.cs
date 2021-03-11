@@ -5,7 +5,7 @@ using UnityEngine;
 using ValheimPlus.Configurations;
 using ValheimPlus.UI;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Alters teleportation prevention

@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Apply Beehive class changes
