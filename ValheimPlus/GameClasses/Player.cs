@@ -68,6 +68,7 @@ namespace ValheimPlus.GameClasses
             {
                 ApplyDodgeHotkeys(ref __instance, ref ___m_moveDir, ref ___m_lookDir);
             }
+
         }
 
         private static void ApplyDodgeHotkeys(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir)
