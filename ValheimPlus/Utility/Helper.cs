@@ -103,16 +103,6 @@ namespace ValheimPlus
             }
         }
 
-        /// <summary>
-        /// Check if the current enviroment is skipping time and return true or false
-        /// </summary>
-        public static bool isTimeSkipping()
-        {
-            if (EnvMan.instance.IsTimeSkipping())
-                return true;
-
-            return false;
-        }
 
         /// <summary>
         /// Get all valid nearby chests
@@ -122,7 +112,7 @@ namespace ValheimPlus
             Collider[] hitColliders = Physics.OverlapSphere(target.transform.localPosition, range, LayerMask.GetMask(new string[] { "piece" }));
 
             // Order the found objects to select the nearest first instead of the farthest inventory.
-            IOrderedEnumerable<Collider> orderedColliders = hitColliders.OrderBy(x => Vector3.Distance(target.transform.localPosition, x.transform.position));
+            IOrderedEnumerable<Collider> orderedColliders = hitColliders.OrderBy(x => Vector3.Distance(x.gameObject.transform.position, target.transform.position));
 
             List<Container> validContainers = new List<Container>();
             foreach (var hitCollider in hitColliders)

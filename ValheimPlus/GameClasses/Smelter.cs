@@ -57,7 +57,7 @@ namespace ValheimPlus.GameClasses
             {
                 if (Configuration.Current.Kiln.IsEnabled)
                 {
-                    if (Configuration.Current.Kiln.autoDeposit && !Helper.isTimeSkipping())
+                    if (Configuration.Current.Kiln.autoDeposit)
                     {
                         bool result = spawn(Configuration.Current.Kiln.autoDepositRange);
                         return result;
@@ -79,7 +79,7 @@ namespace ValheimPlus.GameClasses
             {
                 if (Configuration.Current.Furnace.IsEnabled)
                 {
-                    if (Configuration.Current.Furnace.autoDeposit && !Helper.isTimeSkipping())
+                    if (Configuration.Current.Furnace.autoDeposit)
                     {
                         bool result = spawn(Configuration.Current.Furnace.autoDepositRange);
                         return result;
@@ -106,10 +106,6 @@ namespace ValheimPlus.GameClasses
                     GameObject spawnedOre = UnityEngine.Object.Instantiate<GameObject>(itemPrefab);
                     ZNetView.m_forceDisableInit = false;
 
-                    Debug.Log(smelter.GetItemConversion(ore).m_from.m_itemData);
-                    Helper.GetNearbyChestsWithItem(smelter.gameObject, 10, smelter.GetItemConversion(ore).m_from.m_itemData);
-                    
-
                     // assign stack size, nobody wants a 0/20 stack of metals (its not very usefull)
                     ItemDrop comp = spawnedOre.GetComponent<ItemDrop>();
                     comp.m_itemData.m_stack = stack;
@@ -124,7 +120,10 @@ namespace ValheimPlus.GameClasses
                     smelter.m_produceEffects.Create(smelter.transform.position, smelter.transform.rotation, null, 1f);
                     UnityEngine.Object.Destroy(spawnedOre);
 
-                    return false;
+                    if (result)
+                        return false;
+                    else
+                        return true;
                 }
 
                 return true;
