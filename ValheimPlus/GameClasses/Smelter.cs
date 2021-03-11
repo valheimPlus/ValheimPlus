@@ -96,6 +96,8 @@ namespace ValheimPlus.GameClasses
 
                 List<Container> nearbyChests = Helper.GetNearbyChests(smelter.gameObject, Configuration.Current.Beehive.autoDepositRange);
 
+                List<ItemDrop.ItemData> allItems = Helper.GetNearbyChestItems(smelter.gameObject, 20);
+
                 foreach (Container chest in nearbyChests)
                 {
                     // Replicating original code, just "spawning/adding" the item inside the chest makes it "not have a prefab"
@@ -109,6 +111,7 @@ namespace ValheimPlus.GameClasses
                     // assign stack size, nobody wants a 0/20 stack of metals (its not very usefull)
                     ItemDrop comp = spawnedOre.GetComponent<ItemDrop>();
                     comp.m_itemData.m_stack = stack;
+
 
                     bool result = chest.GetInventory().AddItem(comp.m_itemData);
                     if (!result)

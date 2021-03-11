@@ -165,20 +165,81 @@ namespace ValheimPlus
             return false;
         }
 
-        // function to get all items in nearby chests
-        // function to get the amount of a specific item in all nearby chests
+        /// <summary>
+        /// function to get all items in nearby chests by range
+        /// </summary>
+        public static List<ItemDrop.ItemData> GetNearbyChestItems(GameObject target, float range = 10)
+        {
+            List<ItemDrop.ItemData> itemList = new List<ItemDrop.ItemData>();
+            List<Container> nearbyChests = GetNearbyChests(target, range);
+
+            foreach (Container chest in nearbyChests)
+            {
+                List<ItemDrop.ItemData> chestItemList = chest.GetInventory().GetAllItems();
+                foreach (ItemDrop.ItemData item in chestItemList)
+                    itemList.Add(item);
+            }
+
+            return itemList;
+        }
+
+        /// <summary>
+        /// function to get the amount of a specific item in a list of <ItemDrop.ItemData>
+        /// </summary>
+        public static int GetItemAmountInItemList(List<ItemDrop.ItemData> itemList, ItemDrop.ItemData needle)
+        {
+            int amount = 0;
+            foreach(ItemDrop.ItemData item in itemList)
+            {
+                if (item.m_shared.m_name == needle.m_shared.m_name)
+                    amount += item.m_stack;
+            }
+
+            return amount;
+        }
+
         // function to remove items in the amount from all nearby chests
+        public static bool RemoveItemInAmountFromAllNearbyChests(GameObject target, float range, ItemDrop.ItemData needle, int amount)
+        {
+            List<Container> nearbyChests = GetNearbyChests(target, range);
+
+            // check if there are enough items nearby
+            List<ItemDrop.ItemData> allItems = Helper.GetNearbyChestItems(target, range);
+            
+            // get amount of item
+            int availableAmount = GetItemAmountInItemList(allItems, needle);
+
+            // check if there are enough items
+            if (availableAmount < amount || amount == 0)
+                return false;
+
+            // iterate all chests and remove as many items as possible for the respective chest
+            int itemsRemovedTotal = 0;
+            foreach(Container chest in nearbyChests)
+            {
+                if(itemsRemovedTotal != amount) {
+                    int removedItems = RemoveItemFromChest(chest, needle, amount);
+                    itemsRemovedTotal += removedItems;
+                    amount -= removedItems;
+                }
+            }
+
+            return true;
+        }
+
+        // function to add a item by name/ItemDrop.ItemData to a specified chest
 
         /// <summary>
         /// Removes the specified amount of a item found by m_shared.m_name by the declared amount
         /// </summary>
-        public static bool RemoveItemFromChest(Container chest, ItemDrop.ItemData needle, int amount = 1)
+        public static int RemoveItemFromChest(Container chest, ItemDrop.ItemData needle, int amount = 1)
         {
             if (!ChestContainsItem(chest, needle))
             {
-                return false;
+                return 0;
             }
 
+            int totalRemoved = 0;
             // find item
             List<ItemDrop.ItemData> allItems = chest.GetInventory().GetAllItems();
             foreach (ItemDrop.ItemData itemData in allItems)
@@ -188,6 +249,7 @@ namespace ValheimPlus
                     int num = Mathf.Min(itemData.m_stack, amount);
                     itemData.m_stack -= num;
                     amount -= num;
+                    totalRemoved += num;
                     if (amount <= 0)
                     {
                         break;
@@ -198,11 +260,7 @@ namespace ValheimPlus
             chest.m_inventory.m_inventory = allItems;
             chest.GetInventory().Changed();
 
-            // note how many items removed
-            // add function to see if there are enough items in all chests
-            // add function to see remove all the available items for the demand
-
-            return true;
+            return totalRemoved;
         }
 
         
