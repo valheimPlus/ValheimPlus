@@ -199,7 +199,8 @@ Iron chest inventory can be extended up to 20 x 8 (this setting also applies to 
 * Remove password requirement for the server.
 * Modify the maximum amount of players on a server.
 * Modify server data rate in kilobytes.
-* Modify amount in seconds for items to despawn when dropped on the ground. (default is 3600 seconds).
+* Modify number of seconds it takes for items to despawn after being dropped on the ground. (default is 3600 seconds).
+   * *Note: Items on ground will retain base game functionality which ensures that drops don't disappear if a player is nearby or there is a "player base" nearby*
 * Automatically sync V+ configuration of players joining a server to match the server's configuration.
 
 
