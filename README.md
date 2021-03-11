@@ -46,7 +46,7 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 
 **Map**
 * Force all players in the server to display their map position.
-* Allow all players will share all map exploration with every other player in the server, as long as their map position is displayed (currently players only receive map exploration from other players while they are online).
+* Allow all players to share all map exploration with every other player in the server, as long as their map position is displayed (currently players only receive map exploration from other players while they are online).
 
 **Camera**
 * Change the player's Field of View.
