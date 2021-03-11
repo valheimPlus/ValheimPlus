@@ -11,8 +11,8 @@ using ValheimPlus.Configurations;
 namespace ValheimPlus.GameClasses
 {
 	
-	[HarmonyPatch(typeof(InventoryGui), "Show")]
-	public class InventoryGUI_Show_Patch 
+	[HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.Show))]
+	public class InventoryGui_Show_Patch 
 	{
 		private const float oneRowSize = 70.5f;
 		private const float containerOriginalY = -90.0f;
@@ -137,7 +137,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Setting up deconstruct feature
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "Awake")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.Awake))]
     public static class InventoryGui_Awake_Patch
     {
         private static void Postfix(ref InventoryGui __instance)
@@ -152,7 +152,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Setting deconstruct tab state on update crafting panel
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "UpdateCraftingPanel")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.UpdateCraftingPanel))]
     public static class InventoryGui_UpdateCraftingPanel_Patch
     {
         private static void Postfix(ref InventoryGui __instance)
@@ -180,7 +180,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Updating recipe list for deconstruct if deconstruct is enabled
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "UpdateRecipeList")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.UpdateRecipeList))]
     public static class InventoryGui_UpdateRecipeList_Patch
     {
         private static bool Prefix(ref InventoryGui __instance, List<Recipe> recipes)
@@ -204,7 +204,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Updating recipe for deconstruct if deconstruct is enabled
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "UpdateRecipe")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.UpdateRecipe))]
     public static class InventoryGui_UpdateRecipe_Patch
     {
         private static bool Prefix(ref InventoryGui __instance)
@@ -228,7 +228,28 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Accounting for deconstruct tab in craft tab press
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "OnTabCraftPressed")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.OnCraftPressed))]
+    public static class InventoryGui_OnCraftPressed_Patch
+    {
+        private static bool Prefix(ref InventoryGui __instance)
+        {
+            if (Configuration.Current.Deconstruct.IsEnabled)
+            {
+                if (Deconstruct.InDeconstructTab())
+                {
+                    Deconstruct.OnDeconstructPressed();
+                    return false; // skipping original so that we only run deconstruct button function
+                }
+            }
+
+            return true;
+        }
+    }
+
+    /// <summary>
+    /// Accounting for deconstruct tab in craft tab press
+    /// </summary>
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.OnTabCraftPressed))]
     public static class InventoryGui_OnTabCraftPressed_Patch
     {
         private static void Prefix(ref InventoryGui __instance)
@@ -236,7 +257,6 @@ namespace ValheimPlus.GameClasses
             if (Configuration.Current.Deconstruct.IsEnabled)
             {
                 Deconstruct.SetDeconstructTab(true);
-                Deconstruct.m_deconstructButton.gameObject.SetActive(false);
             }
         }
     }
@@ -244,7 +264,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Accounting for deconstruct tab in upgrade tab press
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "OnTabUpgradePressed")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.OnTabUpgradePressed))]
     public static class InventoryGui_OnTabUpgradePressed_Patch
     {
         private static void Prefix(ref InventoryGui __instance)
@@ -252,7 +272,6 @@ namespace ValheimPlus.GameClasses
             if (Configuration.Current.Deconstruct.IsEnabled)
             {
                 Deconstruct.SetDeconstructTab(true);
-                Deconstruct.m_deconstructButton.gameObject.SetActive(false);
             }
         }
     }
@@ -260,7 +279,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Inventory HUD setup
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "SetupRequirement")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.SetupRequirement))]
     public static class InventoryGui_SetupRequirement_Patch
     {
         private static bool Prefix(Transform elementRoot, Piece.Requirement req, Player player, bool craft, int quality, ref bool __result)
