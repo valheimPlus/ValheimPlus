@@ -333,6 +333,7 @@
     <Compile Include="Configurations\Sections\DeconstructConfiguration.cs" />
     <Compile Include="Configurations\Sections\ArmorConfiguration.cs" />
     <Compile Include="Configurations\Sections\DurabilityConfiguration.cs" />
+    <Compile Include="Configurations\Sections\SmelterConfiguration.cs" />
     <Compile Include="Configurations\Sections\FreePlacementRotationConfiguration.cs" />
     <Compile Include="Configurations\Sections\GatherConfiguration.cs" />
     <Compile Include="Configurations\Sections\ShieldConfiguration.cs" />
@@ -368,6 +369,7 @@
     <Compile Include="Configurations\Sections\WorkbenchConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaUsageConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
+    <Compile Include="GameClasses\Container.cs" />
     <Compile Include="GameClasses\DropTable.cs" />
     <Compile Include="GameClasses\FejdStartup.cs" />
     <Compile Include="GameClasses\Fireplace.cs" />
@@ -380,6 +382,10 @@
     <Compile Include="GameClasses\Ragdoll.cs" />
     <Compile Include="GameClasses\TeleportWorld.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
+    <Compile Include="RPC\VPlusAck.cs" />
+    <Compile Include="Utility\ListExtensions.cs" />
+    <Compile Include="Utility\RPCQueue.cs" />
+    <Compile Include="Utility\ZPackageExtensions.cs" />
     <Compile Include="ValheimPlus.cs" />
     <Compile Include="GameClasses\Fermenter.cs" />
     <Compile Include="GameClasses\Inventory.cs" />
@@ -393,7 +399,7 @@
     <Compile Include="GameClasses\Game.cs" />
     <Compile Include="RPC\VPlusConfigSync.cs" />
     <Compile Include="GameClasses\SteamGameServer.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="RPC\VPlusMapSync.cs" />
     <Compile Include="GameClasses\Minimap.cs" />
     <Compile Include="GameClasses\Smelter.cs" />
     <Compile Include="UI\VPlusMainMenu.cs" />
@@ -407,6 +413,7 @@
     <Compile Include="GameClasses\CraftingStation.cs" />
     <Compile Include="Utility\Helper.cs" />
     <Compile Include="Utility\ZNetExtensions.cs" />
+    <Compile Include="VPlusDataObjects.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -421,7 +428,9 @@
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)ValheimPlus.dll" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll"
 copy "$(TargetDir)ValheimPlus.pdb" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.pdb"
-copy "$(TargetDir)ValheimPlus.dll.config" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll.config"</PostBuildEvent>
+copy "$(TargetDir)ValheimPlus.dll.config" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll.config"
+$(SolutionDir)resources\tools\pdb2mdb.exe "$(TargetPath)"
+copy "$(TargetDir)\ValheimPlus.dll.mdb" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll.mdb"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

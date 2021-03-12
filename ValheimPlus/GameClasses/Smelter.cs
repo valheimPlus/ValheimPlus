@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Alters smelter input, output, and production speed configurations
@@ -20,6 +20,16 @@ namespace ValheimPlus
                 {
                     __instance.m_maxOre = Configuration.Current.Kiln.maximumWood;
                     __instance.m_secPerProduct = Configuration.Current.Kiln.productionSpeed;
+                }
+            }
+            else if (__instance.m_name.Equals(SmelterDefinitions.SmelterName))
+            {
+                if (Configuration.Current.Smelter.IsEnabled)
+                {
+                    __instance.m_maxOre = Configuration.Current.Smelter.maximumOre;
+                    __instance.m_maxFuel = Configuration.Current.Smelter.maximumCoal;
+                    __instance.m_secPerProduct = Configuration.Current.Smelter.productionSpeed;
+                    __instance.m_fuelPerProduct = Configuration.Current.Smelter.coalUsedPerProduct;
                 }
             }
             else if (__instance.m_name.Equals(SmelterDefinitions.FurnaceName))
@@ -54,6 +64,17 @@ namespace ValheimPlus
                     }
                 }
             }
+            else if (__instance.m_name.Equals(SmelterDefinitions.SmelterName))
+            {
+                if (Configuration.Current.Smelter.IsEnabled)
+                {
+                    if (Configuration.Current.Smelter.autoDeposit)
+                    {
+                        bool result = spawn(Configuration.Current.Smelter.autoDepositRange);
+                        return result;
+                    }
+                }
+            }
             else if (__instance.m_name.Equals(SmelterDefinitions.FurnaceName))
             {
                 if (Configuration.Current.Furnace.IsEnabled)
@@ -75,6 +96,8 @@ namespace ValheimPlus
 
                 List<Container> nearbyChests = Helper.GetNearbyChests(smelter.gameObject, Configuration.Current.Beehive.autoDepositRange);
 
+                List<ItemDrop.ItemData> allItems = Helper.GetNearbyChestItems(smelter.gameObject, 20);
+
                 foreach (Container chest in nearbyChests)
                 {
                     // Replicating original code, just "spawning/adding" the item inside the chest makes it "not have a prefab"
@@ -89,6 +112,7 @@ namespace ValheimPlus
                     ItemDrop comp = spawnedOre.GetComponent<ItemDrop>();
                     comp.m_itemData.m_stack = stack;
 
+
                     bool result = chest.GetInventory().AddItem(comp.m_itemData);
                     if (!result)
                     {
@@ -99,7 +123,10 @@ namespace ValheimPlus
                     smelter.m_produceEffects.Create(smelter.transform.position, smelter.transform.rotation, null, 1f);
                     UnityEngine.Object.Destroy(spawnedOre);
 
-                    return false;
+                    if (result)
+                        return false;
+                    else
+                        return true;
                 }
 
                 return true;
@@ -112,6 +139,7 @@ namespace ValheimPlus
     public static class SmelterDefinitions
     {
         public static readonly string KilnName = "$piece_charcoalkiln";
+        public static readonly string SmelterName = "$piece_smelter";
         public static readonly string FurnaceName = "$piece_blastfurnace";
     }
 }

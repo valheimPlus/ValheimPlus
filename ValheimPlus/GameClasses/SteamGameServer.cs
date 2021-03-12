@@ -2,7 +2,7 @@
 using Steamworks;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Alters max player count
