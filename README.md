@@ -53,6 +53,8 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 * Change the player's Field of View.
 * Change the maximum zoom-out distance.
 * Change the maximum zoom-out distance when on a boat.
+* Switch between first person and third person on button press.
+* Hotkeys for changing FOV in first person.
 
 **Gathering**
 * Modify the amount of resources dropped on destruction of objects (this includes chitin, stone, all types of wood, and minerals).
