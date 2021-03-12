@@ -78,11 +78,15 @@ namespace ValheimPlus.GameClasses
         {
             if (!__instance.IsServer())
             {
+                ValheimPlusPlugin.harmony.UnpatchSelf();
+
                 // Load the client config file on server ZNet instance exit (server disconnect)
                 if (ConfigurationExtra.LoadSettings() != true)
                 {
                     Debug.LogError("Error while loading configuration file.");
                 }
+
+                ValheimPlusPlugin.harmony.PatchAll();
 
                 //We left the server, so reset our map sync check.
                 VPlusMapSync.ShouldSyncOnSpawn = true;

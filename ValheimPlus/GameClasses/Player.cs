@@ -121,7 +121,7 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Player), "GetMaxCarryWeight")]
     public static class Player_GetMaxCarryWeight_Patch
     {
-        private static void Prefix(Player __instance)
+        private static void Prefix(ref Player __instance)
         {
             if (Configuration.Current.Player.IsEnabled)
             {

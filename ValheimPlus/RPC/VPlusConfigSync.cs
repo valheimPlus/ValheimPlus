@@ -73,10 +73,11 @@ namespace ValheimPlus.RPC
                             tmpWriter.Flush(); //Flush to memStream
                             memStream.Position = 0; //Rewind stream
 
+                            ValheimPlusPlugin.harmony.UnpatchSelf();
+
                             Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
 
-                            // Needed to make sure client is using server configuration as dayLength is setup before
-                            //GameClasses.TimeManipulation.SetupDayLength();
+                            ValheimPlusPlugin.harmony.PatchAll();
 
                             ZLog.Log("Successfully synced VPlus configuration from server.");
                         }
