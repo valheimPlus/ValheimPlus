@@ -39,5 +39,6 @@ namespace ValheimPlus.Configurations
         public ArmorConfiguration Armor { get; set; }
 		public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
         public ShieldConfiguration Shields { get; set; }
+        public FirstPersonConfiguration FirstPerson { get; internal set; }
     }
 }
