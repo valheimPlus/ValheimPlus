@@ -6,9 +6,9 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim. The mod inclu
 # ValheimPlus Server Hosting
 Below you can find a list of hosting companies that are supporting ValheimPlus with very competitive pricing and ease of use.
 
-[![GPortal](http://valheim.plus/gportal/banner.jpg)](http://gportal.valheim.plus/)
-[![ZapHosting](https://i.imgur.com/4ZB1xHU.jpg)](http://zap.valheim.plus/)
-[![GFXHosting](https://www.gtxgaming.co.uk/wp-content/uploads/2021/02/valheim_plus_banner-3.png)](http://gtxgaming.valheim.plus/)
+[![GPortal](https://imgur.com/L46GT7q.png)](http://gportal.valheim.plus/)
+[![ZapHosting](https://i.imgur.com/4ZB1xHU.jpg)](https://zap-hosting.com/valheimplus)
+[![GFXHosting](https://www.gtxgaming.co.uk/wp-content/uploads/2021/02/valheim_plus_banner-3.png)](https://www.gtxgaming.co.uk/clientarea/aff.php?aff=2096)
 
 
 
@@ -34,6 +34,7 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 * Tweak/disable death penalty.
 * Tweak Rested bonus duration per comfort level.
 * Disable the use of portals.
+* Modify the Guardian buff duration and cooldown
 
 
 ### Player Hud
@@ -74,11 +75,16 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 
 ### Inventory
 * Modify the inventory behavior so that items will be placed in the first slot rather than the last available slot.
-* Reconfigure the number of rows and columns in player inventory and containers.
 * Modify the size of player inventory and all types of containers, including vehicles:
-Player inventory can be extended up to 20 x 8.
-Wood chest inventory can be extended up to 10 x 8.
-Iron chest inventory can be extended up to 20 x 8 (this setting also applies to the inventory of Longships and Carts and a scrollbar will appear automatically when the container size exceeds a certain limit).
+  * Player inventory can be extended up to 20 x 8.
+  * Wood chest inventory can be extended up to 10 x 8.
+  * Iron chest inventory can be extended up to 20 x 8.
+  * Personal chest inventory can be extended up to 20 x 8.
+  * Cart/Wagon chest inventory can be extended up to 30 x 8.
+  * Karve chest inventory can be extended up to 30 x 8.
+  * Longboat chest inventory can be extended up to 30 x 8.
+
+
 **Note: As of 0.9.4, player inventory slot configuration is not compatible with Equipment and Quick slots mod**
 
 
