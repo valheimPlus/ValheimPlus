@@ -115,7 +115,8 @@ namespace ValheimPlus.FirstPerson
 		}
 
 		/// <summary>
-		/// Hooks for ABM and AEM
+		/// Update camera for First Person
+		/// 
 		/// </summary>
 		[HarmonyPatch(typeof(GameCamera), "UpdateCamera")]
 		public static class GameCamera_Update_Patch
