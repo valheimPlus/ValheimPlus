@@ -34,6 +34,7 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 * Tweak/disable death penalty.
 * Tweak Rested bonus duration per comfort level.
 * Disable the use of portals.
+* Modify the Guardian buff duration and cooldown
 
 
 ### Player Hud
