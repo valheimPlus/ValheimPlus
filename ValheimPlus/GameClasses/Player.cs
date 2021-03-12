@@ -116,34 +116,44 @@ namespace ValheimPlus.GameClasses
     }
 
     /// <summary>
-    /// Update maximum carry weight based on baseMaximumWeight and baseMegingjordBuff configurations.
+    /// Update maximum carry weight based on baseMaximumWeight configurations.
     /// </summary>
     [HarmonyPatch(typeof(Player), "GetMaxCarryWeight")]
     public static class Player_GetMaxCarryWeight_Patch
     {
-        private static void Postfix(ref float __result)
+        private static void Prefix(Player __instance)
         {
             if (Configuration.Current.Player.IsEnabled)
             {
-                bool Megingjord = false;
-                float carryWeight = __result;
-
-                if (carryWeight > 300)
-                {
-                    Megingjord = true;
-                    carryWeight -= 150;
-                }
-
-                carryWeight = Configuration.Current.Player.baseMaximumWeight;
-                if (Megingjord)
-                {
-                    carryWeight = carryWeight + Configuration.Current.Player.baseMegingjordBuff;
-                }
-
-                __result = carryWeight;
+                __instance.m_maxCarryWeight = Configuration.Current.Player.baseMaximumWeight;
             }
         }
     }
+
+
+    /// <summary>
+    /// Update maximum carry weight based on baseMegingjordBuff configurations.
+    /// </summary>
+    [HarmonyPatch(typeof(SEMan), "ModifyMaxCarryWeight")]
+    public static class Player_ModifyMaxCarryWeight_Patch
+    {
+        private static bool Prefix(ref SEMan __instance, ref float baseLimit, ref float limit)
+        {
+            if (!Configuration.Current.Player.IsEnabled) return true;
+
+            foreach (StatusEffect statusEffect in __instance.m_statusEffects)
+            {
+                if (statusEffect.m_name.Contains("beltstrength"))
+                {
+                    limit = baseLimit + Configuration.Current.Player.baseMegingjordBuff;
+                }
+                statusEffect.ModifyMaxCarryWeight(baseLimit, ref limit);
+            }
+
+            return false;
+        }
+    }
+
 
     /// <summary>
     /// Add ValheimPlus intro to compendium.

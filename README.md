@@ -198,6 +198,7 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
   * Hardwood
 * Disable structural integrity entirely (this will cause objects placed mid-air to not break and fall).
 * Make anything built by players immune to all damage.
+* Make boats invincible to all damage.
 
 
 
