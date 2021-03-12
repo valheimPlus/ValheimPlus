@@ -220,7 +220,7 @@ namespace ValheimPlus.FirstPerson
 					else if (DynamicPerson.isFirstPerson)
 					{
 						// Place camera at head level, plus a tiny bit more
-						__instance.transform.position = localPlayer.m_head.position + new Vector3(0, 0.125f, 0);
+						__instance.transform.position = localPlayer.m_head.position + new Vector3(0, 0.2f, 0);
 					}
 					else
 					{
