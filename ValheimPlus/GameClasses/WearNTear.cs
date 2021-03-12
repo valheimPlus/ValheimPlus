@@ -39,13 +39,20 @@ namespace ValheimPlus.GameClasses
 	[HarmonyPatch(typeof(WearNTear), "ApplyDamage")]
 	public static class WearNTear_ApplyDamage_Patch
 	{
-		private static bool Prefix(ref WearNTear __instance,ref float damage)
-		{
-			if (Configuration.Current.StructuralIntegrity.IsEnabled && Configuration.Current.StructuralIntegrity.disableDamageToPlayerStructures && __instance.m_piece && __instance.m_piece.IsPlacedByPlayer())
-				return false;
+        private static bool Prefix(ref WearNTear __instance, ref float damage)
+        {
+            // Gets the name of the method calling the ApplyDamage method
+            StackTrace stackTrace = new StackTrace();
+            string callingMethod = stackTrace.GetFrame(2).GetMethod().Name;
 
-			return true;
-		}
+            if (!(Configuration.Current.StructuralIntegrity.IsEnabled && __instance.m_piece && __instance.m_piece.IsPlacedByPlayer() && callingMethod != "UpdateWear"))
+                return true;
+
+            if (__instance.m_piece.m_name.StartsWith("$ship"))
+                return !Configuration.Current.StructuralIntegrity.disableDamageToPlayerBoats;
+
+            return !Configuration.Current.StructuralIntegrity.disableDamageToPlayerStructures;
+        }
 	}
 
 	/// <summary>
