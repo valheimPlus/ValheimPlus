@@ -67,7 +67,7 @@ namespace ValheimPlus
 
                 var playerData = PlayersData[__instance];
                 
-                if (!wheel.Equals(0f) || ZInput.GetButton("JoyRotate"))
+                if (!wheel.Equals(0f))
                 {
                     if (Input.GetKey(Configuration.Current.FreePlacementRotation.rotateY))
                     {
