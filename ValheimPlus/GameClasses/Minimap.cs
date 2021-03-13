@@ -70,27 +70,6 @@ namespace ValheimPlus.GameClasses
 
                 //Start map data save timer
                 ValheimPlusPlugin.mapSyncSaveTimer.Start();
-
-                //Debug: Generate many explored areas using RNG w/ radius calc
-                /*for (int i = 0; i < 10000; i++)
-                {
-                    int pixelX = Random.Range(0, Minimap.instance.m_textureSize);
-                    int pixelY = Random.Range(0, Minimap.instance.m_textureSize);
-
-                    int radiusPixels = (int)Mathf.Ceil(Configuration.Current.Map.exploreRadius / Minimap.instance.m_pixelSize);
-
-                    for (int y = pixelY - radiusPixels; y <= pixelY + radiusPixels; ++y)
-                    {
-                        for (int x = pixelX - radiusPixels; x <= pixelX + radiusPixels; ++x)
-                        {
-                            if (x >= 0 && y >= 0 && (x < Minimap.instance.m_textureSize && y < Minimap.instance.m_textureSize) &&
-                                ((double)new Vector2((float)(x - pixelX), (float)(y - pixelY)).magnitude <= (double)radiusPixels))
-                            {
-                                VPlusMapSync.ServerMapData[y * Minimap.instance.m_textureSize + x] = true;
-                            }
-                        }
-                    }
-                }*/
             }
         }
     }

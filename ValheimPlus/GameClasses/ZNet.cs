@@ -123,18 +123,24 @@ namespace ValheimPlus.GameClasses
         {
             if (!__instance.IsServer()) return;
 
-            Minimap.instance.WorldToPixel(pos, out int pixelX, out int pixelY);
-
-            int radiusPixels = (int)Mathf.Ceil(Configuration.Current.Map.exploreRadius / Minimap.instance.m_pixelSize);
-
-            for (int y = pixelY - radiusPixels; y <= pixelY + radiusPixels; ++y)
+            if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareMapProgression)
             {
-                for (int x = pixelX - radiusPixels; x <= pixelX + radiusPixels; ++x)
+                Minimap.instance.WorldToPixel(pos, out int pixelX, out int pixelY);
+
+                int radiusPixels =
+                    (int) Mathf.Ceil(Configuration.Current.Map.exploreRadius / Minimap.instance.m_pixelSize);
+
+                for (int y = pixelY - radiusPixels; y <= pixelY + radiusPixels; ++y)
                 {
-                    if (x >= 0 && y >= 0 && (x < Minimap.instance.m_textureSize && y < Minimap.instance.m_textureSize) &&
-                        ((double)new Vector2((float)(x - pixelX), (float)(y - pixelY)).magnitude <= (double)radiusPixels))
+                    for (int x = pixelX - radiusPixels; x <= pixelX + radiusPixels; ++x)
                     {
-                        VPlusMapSync.ServerMapData[y * Minimap.instance.m_textureSize + x] = true;
+                        if (x >= 0 && y >= 0 &&
+                            (x < Minimap.instance.m_textureSize && y < Minimap.instance.m_textureSize) &&
+                            ((double) new Vector2((float) (x - pixelX), (float) (y - pixelY)).magnitude <=
+                             (double) radiusPixels))
+                        {
+                            VPlusMapSync.ServerMapData[y * Minimap.instance.m_textureSize + x] = true;
+                        }
                     }
                 }
             }
