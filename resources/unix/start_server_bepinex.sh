@@ -88,7 +88,7 @@ export DYLD_LIBRARY_PATH="${doorstop_libs}"
 export DYLD_INSERT_LIBRARIES="${doorstop_libs}/$doorstop_libname"
 
 export templdpath="$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH=./linux64:$LD_LIBRARY_PATH
+LD_LIBRARY_PATH=`./linux64:$LD_LIBRARY_PATH` && export LD_LIBRARY_PATH || export LD_LIBRARY_PATH=./linux64:"$LD_LIBRARY_PATH"
 export SteamAppId=892970
 
 for arg in "$@"
