@@ -54,26 +54,30 @@ namespace ValheimPlus.FirstPerson
 		{
 			private static bool Prefix(ref Character __instance, bool visible)
 			{
-				if (__instance.m_lodGroup == null)
+				if (Configuration.Current.FirstPerson.IsEnabled)
 				{
+					if (__instance.m_lodGroup == null)
+					{
+						return false;
+					}
+					if (__instance.m_lodVisible == visible)
+					{
+						return false;
+					}
+					if (__instance.IsPlayer() && !visible)
+					{
+						return false;
+					}
+					__instance.m_lodVisible = visible;
+					if (__instance.m_lodVisible)
+					{
+						__instance.m_lodGroup.localReferencePoint = __instance.m_originalLocalRef;
+						return false;
+					}
+					__instance.m_lodGroup.localReferencePoint = new Vector3(999999f, 999999f, 999999f);
 					return false;
 				}
-				if (__instance.m_lodVisible == visible)
-				{
-					return false;
-				}
-				if (__instance.IsPlayer() && !visible)
-				{
-					return false;
-				}
-				__instance.m_lodVisible = visible;
-				if (__instance.m_lodVisible)
-				{
-					__instance.m_lodGroup.localReferencePoint = __instance.m_originalLocalRef;
-					return false;
-				}
-				__instance.m_lodGroup.localReferencePoint = new Vector3(999999f, 999999f, 999999f);
-				return false;
+				return true;
 			}
 		}
 
@@ -92,7 +96,9 @@ namespace ValheimPlus.FirstPerson
 			// The game function is literally called ComputePenetration, decent
 			private static bool Prefix()
 			{
-				return false;
+				if(Configuration.Current.FirstPerson.IsEnabled)
+					return false;
+				return true;
 			}
 		}
 
@@ -107,10 +113,13 @@ namespace ValheimPlus.FirstPerson
 		public static class GameCamera_Awake_Patch
 		{
 			private static void Postfix(ref GameCamera __instance)
-			{	
-				CameraConstants.zoomSens = __instance.m_zoomSens;
-				CameraConstants.minDistance = __instance.m_minDistance;
-				CameraConstants.maxDistance = __instance.m_maxDistance;
+			{
+				if (Configuration.Current.FirstPerson.IsEnabled)
+				{
+					CameraConstants.zoomSens = __instance.m_zoomSens;
+					CameraConstants.minDistance = __instance.m_minDistance;
+					CameraConstants.maxDistance = __instance.m_maxDistance;
+				}
 			}
 		}
 
@@ -143,98 +152,101 @@ namespace ValheimPlus.FirstPerson
 			}
 			private static void Postfix(ref GameCamera __instance, float dt)
 			{
-				// This is from game code, not sure if need it though
-				if (__instance.m_freeFly)
+				if (Configuration.Current.FirstPerson.IsEnabled)
 				{
-					__instance.UpdateFreeFly(dt);
-					__instance.UpdateCameraShake(dt);
-					return;
-				}
-				Player localPlayer = Player.m_localPlayer;
-				if (Input.GetKeyDown(Configuration.Current.FirstPerson.hotkey))
-				{
-					DynamicPerson.isFirstPerson = !DynamicPerson.isFirstPerson;
-					if (DynamicPerson.isFirstPerson)
+					// This is from game code, not sure if need it though
+					if (__instance.m_freeFly)
 					{
-						SetupFP(ref __instance, ref localPlayer);
+						__instance.UpdateFreeFly(dt);
+						__instance.UpdateCameraShake(dt);
+						return;
 					}
-					else
+					Player localPlayer = Player.m_localPlayer;
+					if (Input.GetKeyDown(Configuration.Current.FirstPerson.hotkey))
 					{
-						// We are not in First Person any more, reload old values
-						__instance.m_3rdOffset = DynamicPerson.noVPFP_3rdOffset;
-						__instance.m_fpsOffset = DynamicPerson.noVPFP_fpsOffset;
-						// Set the camera stuff to our constant stored values
-						__instance.m_minDistance = CameraConstants.minDistance;
-						__instance.m_maxDistance = CameraConstants.maxDistance;
-						__instance.m_zoomSens = CameraConstants.zoomSens;
-						// Default Field Of View value
-						__instance.m_fov = 65f;
-						// Make head stuff be normal again
-						localPlayer.m_head.localScale = Vector3.one;
-						localPlayer.m_eye.localScale = Vector3.one;
-					}
-				}
-				// FOV of cameras needs to be reset too
-				__instance.m_camera.fieldOfView = __instance.m_fov;
-				__instance.m_skyCamera.fieldOfView = __instance.m_fov;
-				if (localPlayer)
-				{
-					// Same game check
-					if ((!Chat.instance || !Chat.instance.HasFocus()) && 
-						!Console.IsVisible() && !InventoryGui.IsVisible() && 
-						!StoreGui.IsVisible() && !Menu.IsVisible() && 
-						!Minimap.IsOpen() && !localPlayer.InCutscene() && 
-						!localPlayer.InPlaceMode())
-					{
+						DynamicPerson.isFirstPerson = !DynamicPerson.isFirstPerson;
 						if (DynamicPerson.isFirstPerson)
 						{
-							// I dont think either of these two ifs needs explain....
-							if (Input.GetKeyDown(Configuration.Current.FirstPerson.raiseFOVHotkey))
-							{
-								__instance.m_fov += 1f;
-								Console.instance.AddString($"Changed fov to: {__instance.m_fov}");
-							}
-							else if (Input.GetKeyDown(Configuration.Current.FirstPerson.lowerFOVHotkey))
-							{
-								__instance.m_fov -= 1f;
-								Console.instance.AddString($"Changed fov to: {__instance.m_fov}");
-							}
+							SetupFP(ref __instance, ref localPlayer);
 						}
 						else
 						{
-							// Not first camera, just do main game thing
-							float minDistance = __instance.m_minDistance;
-							float axis = Input.GetAxis("Mouse ScrollWheel");
-							__instance.m_distance -= axis * __instance.m_zoomSens;
-							float max = (localPlayer.GetControlledShip() != null) ? __instance.m_maxDistanceBoat : __instance.m_maxDistance;
-							__instance.m_distance = Mathf.Clamp(__instance.m_distance, 0f, max);
+							// We are not in First Person any more, reload old values
+							__instance.m_3rdOffset = DynamicPerson.noVPFP_3rdOffset;
+							__instance.m_fpsOffset = DynamicPerson.noVPFP_fpsOffset;
+							// Set the camera stuff to our constant stored values
+							__instance.m_minDistance = CameraConstants.minDistance;
+							__instance.m_maxDistance = CameraConstants.maxDistance;
+							__instance.m_zoomSens = CameraConstants.zoomSens;
+							// Default Field Of View value
+							__instance.m_fov = 65f;
+							// Make head stuff be normal again
+							localPlayer.m_head.localScale = Vector3.one;
+							localPlayer.m_eye.localScale = Vector3.one;
 						}
 					}
-					if (localPlayer.IsDead() && localPlayer.GetRagdoll())
+					// FOV of cameras needs to be reset too
+					__instance.m_camera.fieldOfView = __instance.m_fov;
+					__instance.m_skyCamera.fieldOfView = __instance.m_fov;
+					if (localPlayer)
 					{
-						// THe weird death cam actually:
-						//  - Breaks body into ragdoll
-						//  - Gives momentum to pieces
-						//  - Then finds the average point of them all to make camera look at
-						__instance.transform.LookAt(localPlayer.GetRagdoll().GetAverageBodyPosition());
+						// Same game check
+						if ((!Chat.instance || !Chat.instance.HasFocus()) &&
+							!Console.IsVisible() && !InventoryGui.IsVisible() &&
+							!StoreGui.IsVisible() && !Menu.IsVisible() &&
+							!Minimap.IsOpen() && !localPlayer.InCutscene() &&
+							!localPlayer.InPlaceMode())
+						{
+							if (DynamicPerson.isFirstPerson)
+							{
+								// I dont think either of these two ifs needs explain....
+								if (Input.GetKeyDown(Configuration.Current.FirstPerson.raiseFOVHotkey))
+								{
+									__instance.m_fov += 1f;
+									Console.instance.AddString($"Changed fov to: {__instance.m_fov}");
+								}
+								else if (Input.GetKeyDown(Configuration.Current.FirstPerson.lowerFOVHotkey))
+								{
+									__instance.m_fov -= 1f;
+									Console.instance.AddString($"Changed fov to: {__instance.m_fov}");
+								}
+							}
+							else
+							{
+								// Not first camera, just do main game thing
+								float minDistance = __instance.m_minDistance;
+								float axis = Input.GetAxis("Mouse ScrollWheel");
+								__instance.m_distance -= axis * __instance.m_zoomSens;
+								float max = (localPlayer.GetControlledShip() != null) ? __instance.m_maxDistanceBoat : __instance.m_maxDistance;
+								__instance.m_distance = Mathf.Clamp(__instance.m_distance, 0f, max);
+							}
+						}
+						if (localPlayer.IsDead() && localPlayer.GetRagdoll())
+						{
+							// THe weird death cam actually:
+							//  - Breaks body into ragdoll
+							//  - Gives momentum to pieces
+							//  - Then finds the average point of them all to make camera look at
+							__instance.transform.LookAt(localPlayer.GetRagdoll().GetAverageBodyPosition());
+						}
+						else if (DynamicPerson.isFirstPerson)
+						{
+							// Place camera at head level, plus a tiny bit more
+							__instance.transform.position = localPlayer.m_head.position + new Vector3(0, 0.2f, 0);
+						}
+						else
+						{
+							// Not even sure why we need to reset the base transform
+							// But game does it so...
+							// ¯\_(ツ)_/¯
+							Vector3 position;
+							Quaternion rotation;
+							__instance.GetCameraPosition(dt, out position, out rotation);
+							__instance.transform.position = position;
+							__instance.transform.rotation = rotation;
+						}
+						__instance.UpdateCameraShake(dt);
 					}
-					else if (DynamicPerson.isFirstPerson)
-					{
-						// Place camera at head level, plus a tiny bit more
-						__instance.transform.position = localPlayer.m_head.position + new Vector3(0, 0.2f, 0);
-					}
-					else
-					{
-						// Not even sure why we need to reset the base transform
-						// But game does it so...
-						// ¯\_(ツ)_/¯
-						Vector3 position;
-						Quaternion rotation;
-						__instance.GetCameraPosition(dt, out position, out rotation);
-						__instance.transform.position = position;
-						__instance.transform.rotation = rotation;
-					}
-					__instance.UpdateCameraShake(dt);
 				}
 			}
 		}
