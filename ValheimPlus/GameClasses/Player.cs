@@ -180,7 +180,7 @@ namespace ValheimPlus.GameClasses
             Player.m_localPlayer.ShowTutorial("vplus");
 
             //Only sync on first spawn
-            if (VPlusMapSync.ShouldSyncOnSpawn)
+            if (VPlusMapSync.ShouldSyncOnSpawn && Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareMapProgression)
             {
                 //Send map data to the server
                 VPlusMapSync.SendMapToServer();

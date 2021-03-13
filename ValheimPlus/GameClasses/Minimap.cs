@@ -60,7 +60,7 @@ namespace ValheimPlus.GameClasses
     {
         private static void Postfix()
         {
-            if (ZNet.m_isServer)
+            if (ZNet.m_isServer && Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareMapProgression)
             {
                 //Init map array
                 VPlusMapSync.ServerMapData = new bool[Minimap.instance.m_textureSize * Minimap.instance.m_textureSize];

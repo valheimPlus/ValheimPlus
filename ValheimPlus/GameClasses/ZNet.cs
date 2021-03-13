@@ -89,12 +89,14 @@ namespace ValheimPlus.GameClasses
                 ValheimPlusPlugin.harmony.PatchAll();
 
                 //We left the server, so reset our map sync check.
-                VPlusMapSync.ShouldSyncOnSpawn = true;
+                if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareMapProgression)
+                    VPlusMapSync.ShouldSyncOnSpawn = true;
             }
             else
             {
                 //Save map data to disk
-                VPlusMapSync.SaveMapDataToDisk();
+                if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareMapProgression)
+                    VPlusMapSync.SaveMapDataToDisk();
             }
         }
     }

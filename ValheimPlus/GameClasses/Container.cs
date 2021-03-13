@@ -41,55 +41,55 @@ namespace ValheimPlus
         /// </summary>
         static void Postfix(Container __instance, ref Inventory ___m_inventory)
         {
+            if (!Configuration.Current.Inventory.IsEnabled) return;
+
             string containerName = __instance.transform.parent.name;
             string inventoryName = ___m_inventory.m_name;
             ref int inventoryColumns = ref ___m_inventory.m_width;
             ref int inventoryRows = ref ___m_inventory.m_height;
 
-            if (Configuration.Current.Inventory.IsEnabled)
+            // Karve (small boat)
+            // Use Contains because the actual name is "Karve (Clone)"
+            if (containerName.Contains("Karve"))
             {
-                // Karve (small boat)
-                // Use Contains because the actual name is "Karve (Clone)"
-                if (containerName.Contains("Karve"))
+                inventoryRows = Helper.Clamp(Configuration.Current.Inventory.karveInventoryRows, karveChestInventoryMinRows, karveChestInventoryMaxRows);
+                inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.karveInventoryColumns, karveChestInventoryMinCol, karveChestInventoryMaxCol);
+            }
+            // Longboat (Large boat)
+            else if (containerName.Contains("VikingShip"))
+            {
+                inventoryRows = Helper.Clamp(Configuration.Current.Inventory.longboatInventoryRows, longboatChestInventoryMinRows, longboatChestInventoryMaxRows);
+                inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.longboatInventoryColumns, longboatChestInventoryMinCol, longboatChestInventoryMaxCol);
+            }
+            // Cart (Wagon)
+            else if (containerName.Contains("Cart"))
+            {
+                inventoryRows = Helper.Clamp(Configuration.Current.Inventory.cartInventoryRows, cartChestInventoryMinRows, cartChestInventoryMaxRows);
+                inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.cartInventoryColumns, cartChestInventoryMinCol, cartChestInventoryMaxCol);
+            }
+            // Chests (containerName is _NetSceneRoot)
+            else
+            {
+                // Personal chest
+                if (inventoryName == "$piece_chestprivate")
                 {
-                    inventoryRows = Helper.Clamp(Configuration.Current.Inventory.karveInventoryRows, karveChestInventoryMinRows, karveChestInventoryMaxRows);
-                    inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.karveInventoryColumns, karveChestInventoryMinCol, karveChestInventoryMaxCol);
+                    inventoryRows = Helper.Clamp(Configuration.Current.Inventory.personalChestRows, personalChestInventoryMinRows, personalChestInventoryMaxRows);
+                    inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.personalChestColumns, personalChestInventoryMinCol, personalChestInventoryMaxCol);
                 }
-                // Longboat (Large boat)
-                else if (containerName.Contains("VikingShip"))
+                // Wood chest
+                else if (inventoryName == "$piece_chestwood")
                 {
-                    inventoryRows = Helper.Clamp(Configuration.Current.Inventory.longboatInventoryRows, longboatChestInventoryMinRows, longboatChestInventoryMaxRows);
-                    inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.longboatInventoryColumns, longboatChestInventoryMinCol, longboatChestInventoryMaxCol);
+                    inventoryRows = Helper.Clamp(Configuration.Current.Inventory.woodChestRows, woodChestInventoryMinRows, woodChestInventoryMaxRows);
+                    inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.woodChestColumns, woodChestInventoryMinCol, woodChestInventoryMaxCol);
                 }
-                // Cart (Wagon)
-                else if (containerName.Contains("Cart"))
+                // Iron chest
+                else if (inventoryName == "$piece_chest")
                 {
-                    inventoryRows = Helper.Clamp(Configuration.Current.Inventory.cartInventoryRows, cartChestInventoryMinRows, cartChestInventoryMaxRows);
-                    inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.cartInventoryColumns, cartChestInventoryMinCol, cartChestInventoryMaxCol);
-                }
-                // Chests (containerName is _NetSceneRoot)
-                else
-                {
-                    // Personal chest
-                    if (inventoryName == "$piece_chestprivate")
-                    {
-                        inventoryRows = Helper.Clamp(Configuration.Current.Inventory.personalChestRows, personalChestInventoryMinRows, personalChestInventoryMaxRows);
-                        inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.personalChestColumns, personalChestInventoryMinCol, personalChestInventoryMaxCol);
-                    }
-                    // Wood chest
-                    else if (inventoryName == "$piece_chestwood")
-                    {
-                        inventoryRows = Helper.Clamp(Configuration.Current.Inventory.woodChestRows, woodChestInventoryMinRows, woodChestInventoryMaxRows);
-                        inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.woodChestColumns, woodChestInventoryMinCol, woodChestInventoryMaxCol);
-                    }
-                    // Iron chest
-                    else if (inventoryName == "$piece_chest")
-                    {
-                        inventoryRows = Helper.Clamp(Configuration.Current.Inventory.ironChestRows, ironChestInventoryMinRows, ironChestInventoryMaxRows);
-                        inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.ironChestColumns, ironChestInventoryMinCol, ironChestInventoryMaxCol);
-                    }
+                    inventoryRows = Helper.Clamp(Configuration.Current.Inventory.ironChestRows, ironChestInventoryMinRows, ironChestInventoryMaxRows);
+                    inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.ironChestColumns, ironChestInventoryMinCol, ironChestInventoryMaxCol);
                 }
             }
+
         }
     }
 }
