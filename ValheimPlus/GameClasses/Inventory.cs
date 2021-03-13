@@ -53,7 +53,7 @@ namespace ValheimPlus.GameClasses
             if (Configuration.Current.Inventory.IsEnabled)
             {
                 // Player inventory
-                if (h == 4 && w == 8 && name == "Inventory")
+                if (h == 4 && w == 8 || name == "Inventory")
                 {
                     h = Helper.Clamp(Configuration.Current.Inventory.playerInventoryRows, playerInventoryMinRows, playerInventoryMaxRows);
                 }
