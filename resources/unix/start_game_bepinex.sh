@@ -9,29 +9,68 @@
 #
 # Note that you won't get a console this way
 #
-# NOTE: Edit these values only if you know what you're doing!
-#
-#
-# args:
-# ARG1 - full path to the game executable to run. Defaults to valheim.x86_64
-# ARG... - additional args to pass to the executable
+# NOTE: Edit the script only if you know what you're doing!
 
-exec="$PWD/valheim.x86_64"
-if [ -n "$1" ]; then
-    exec="$1"
-fi
+# Resolve base directory relative to this script
+# Hopefully this resolves relative paths and links
+a="/$0"; a=${a%/*}; a=${a#/}; a=${a:-.}; BASEDIR=$(cd "$a"; pwd -P)
+
+exec="$BASEDIR/valheim.x86_64"
 
 export DOORSTOP_ENABLE=TRUE
-export DOORSTOP_INVOKE_DLL_PATH="$PWD/BepInEx/core/BepInEx.Preloader.dll"
-export DOORSTOP_CORLIB_OVERRIDE_PATH="$PWD/unstripped_corlib"
+export DOORSTOP_INVOKE_DLL_PATH="$BASEDIR/BepInEx/core/BepInEx.Preloader.dll"
+export DOORSTOP_CORLIB_OVERRIDE_PATH="$BASEDIR/unstripped_corlib"
 
-tmplibpath=$LD_LIBRARY_PATH
+# Allow to specify --doorstop-enable true|false
+# Everything else is passed as-is to `exec`
+while :; do
+    case $1 in
+        --doorstop-enable)
+            if [ -n "$2" ]; then
+                export DOORSTOP_ENABLE=$(echo "$2" | tr a-z A-Z)
+                shift
+            else
+                echo "No --doorstop-enable value specified, using default!"
+            fi
+            ;;
+        --doorstop-target)
+            if [ -n "$2" ]; then
+                export DOORSTOP_INVOKE_DLL_PATH="$2"
+                shift
+            else
+                echo "No --doorstop-target value specified, using default!"
+            fi
+            ;;
+        --doorstop-dll-search-override)
+            if [ -n "$2" ]; then
+                export DOORSTOP_CORLIB_OVERRIDE_PATH="$2"
+            else
+                echo "No --doorstop-dll-search-override value specified, using default!"
+            fi
+            ;;
+        *)
+            if [ -z "$1" ]; then
+                break
+            fi
+            if [ -z "$launch" ]; then
+                launch="$1"
+            else
+                rest="$rest $1"
+            fi
+            ;;
+    esac
+    shift
+done
 
-export LD_LIBRARY_PATH="$PWD/doorstop_libs":"$LD_LIBRARY_PATH"
-export LD_PRELOAD=libdoorstop_x64.so:$LD_PRELOAD
+
+export LD_LIBRARY_PATH="$BASEDIR/doorstop_libs:$LD_LIBRARY_PATH"
+export LD_PRELOAD="libdoorstop_x64.so:$LD_PRELOAD"
+
 
 # Run the main executable
-# Pass through any additional args
-"$exec" ${@:2}
-
-export LD_LIBRARY_PATH=$tmplibpath
+# Don't quote here since $exec may contain args passed by Steam
+if [ -n "$launch" ]; then
+    exec "$launch" $rest
+else
+    exec "$exec"
+fi
