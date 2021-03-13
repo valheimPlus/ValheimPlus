@@ -123,16 +123,6 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 * Modify Fermenter output amount.
 * Display time left until next production.
 
-## Deconstruct feature
-* This feature allows dismantling items craftable in that station back into their original components. Functionality and restrictions:
-    * It is accessed through an additional tab added to each crafting station (except cauldron). 
-    * It allows changing the percentage of resources returned. This percentage is rounded down when calculated (Value can be set from 100 to 0, 100 being default which will return all materials).
-    * Items require the same workbench level to deconstruct as they would require to be crafted.
-    * It does not work with ammo, consumables, materials, trophies, and ooze bombs.
-    * If an item required a trophy or resin to be crafted, these will not be returned.
-    * The deconstructing player must have sufficient available room in their inventory for all the resources that would be returned via deconstruction.
-
-
 
 # Building
 * Disable "Invalid Placement" restriction while building.

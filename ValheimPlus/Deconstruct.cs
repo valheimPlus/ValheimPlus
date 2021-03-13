@@ -9,6 +9,7 @@ using ValheimPlus.Configurations.Sections;
 
 namespace ValheimPlus
 {
+/*
     public static class Deconstruct
     {
         public static InventoryGui __inventoryGui;
@@ -527,4 +528,5 @@ namespace ValheimPlus
 
         public static void SetDeconstructTab(bool isInteractable) => m_tabDeconstruct.interactable = isInteractable;
     }
+*/
 }

@@ -133,7 +133,7 @@ namespace ValheimPlus.GameClasses
 			}
 		}
 	}
-
+    /*
     /// <summary>
     /// Setting up deconstruct feature
     /// </summary>
@@ -275,6 +275,7 @@ namespace ValheimPlus.GameClasses
             }
         }
     }
+    */
 
     /// <summary>
     /// Inventory HUD setup
