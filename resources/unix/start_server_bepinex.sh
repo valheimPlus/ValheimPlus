@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # BepInEx running script
 #
 # This script is used to run a Unity game with BepInEx enabled.
@@ -88,7 +88,11 @@ export DYLD_LIBRARY_PATH="${doorstop_libs}"
 export DYLD_INSERT_LIBRARIES="${doorstop_libs}/$doorstop_libname"
 
 export templdpath="$LD_LIBRARY_PATH"
-LD_LIBRARY_PATH=`./linux64:$LD_LIBRARY_PATH` && export LD_LIBRARY_PATH || export LD_LIBRARY_PATH=./linux64:"$LD_LIBRARY_PATH"
+if [[ "$LD_LIBRARY_PATH" == *" "* ]]; then
+    export LD_LIBRARY_PATH=./linux64:"$LD_LIBRARY_PATH"
+else 
+    export LD_LIBRARY_PATH=./linux64:$LD_LIBRARY_PATH
+fi
 export SteamAppId=892970
 
 for arg in "$@"
