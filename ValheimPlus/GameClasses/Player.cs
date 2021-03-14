@@ -349,6 +349,12 @@ namespace ValheimPlus.GameClasses
                 }
             }
 
+            if (Configuration.Current.GridAlignment.IsEnabled)
+            {
+                if (GridAlignment.AlignPressed ^ GridAlignment.AlignToggled)
+                    GridAlignment.UpdatePlacementGhost(__instance);
+            }
+
             if (Configuration.Current.Building.noInvalidPlacementRestriction)
             {
                 try
@@ -501,6 +507,164 @@ namespace ValheimPlus.GameClasses
             {
                 m_repair_count += repaired;
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(Player), "Update")]
+    public static class GridAlignment
+    {
+        public static int DefaultAlignment = 100;
+        public static bool AlignPressed = false;
+        public static bool AlignToggled = false;
+
+        private static void Postfix(ref Player __instance)
+        {
+            if (!Configuration.Current.GridAlignment.IsEnabled)
+                return;
+
+            if (Input.GetKeyDown(Configuration.Current.GridAlignment.align))
+                AlignPressed = true;
+            if (Input.GetKeyUp(Configuration.Current.GridAlignment.align))
+                AlignPressed = false;
+
+            if (Input.GetKeyDown(Configuration.Current.GridAlignment.changeDefaultAlignment))
+            {
+                if (DefaultAlignment == 50)
+                    DefaultAlignment = 100;
+                else if (DefaultAlignment == 100)
+                    DefaultAlignment = 200;
+                else if (DefaultAlignment == 200)
+                    DefaultAlignment = 400;
+                else
+                    DefaultAlignment = 50;
+                MessageHud.instance.ShowMessage(MessageHud.MessageType.TopLeft, "Default grid alignment set to " + (DefaultAlignment / 100f));
+            }
+
+            if (Input.GetKeyDown(Configuration.Current.GridAlignment.alignToggle))
+            {
+                AlignToggled ^= true;
+                MessageHud.instance.ShowMessage(MessageHud.MessageType.TopLeft, "Grid alignment by default " + (AlignToggled ? "enabled" : "disabled"));
+            }
+        }
+
+        static float FixAlignment(float f)
+        {
+            int i = (int)Mathf.Round(f * 100f);
+            if (i <= 0)
+                return DefaultAlignment / 100f;
+            if (i <= 50)
+                return 0.5f;
+            if (i <= 100)
+                return 1f;
+            if (i <= 200)
+                return 2f;
+            return 4f;
+        }
+
+        public static void GetAlignment(Piece piece, out Vector3 alignment, out Vector3 offset)
+        {
+            var points = new System.Collections.Generic.List<Transform>();
+            piece.GetSnapPoints(points);
+            if (points.Count != 0)
+            {
+                Vector3 min = Vector3.positiveInfinity;
+                Vector3 max = Vector3.negativeInfinity;
+                foreach (var point in points)
+                {
+                    var pos = point.localPosition;
+                    min = Vector3.Min(min, pos);
+                    max = Vector3.Max(max, pos);
+                }
+                alignment = max - min;
+                alignment.x = FixAlignment(alignment.x);
+                alignment.y = FixAlignment(alignment.y);
+                alignment.z = FixAlignment(alignment.z);
+                // Align at top
+                offset = max;
+                if (piece.name == "iron_grate" || piece.name == "wood_gate")
+                {
+                    // Align at bottom, not top
+                    offset.y = min.y;
+                }
+                if (piece.name == "wood_gate")
+                {
+                    alignment.x = 4;
+                }
+            }
+            else
+            {
+                if (piece.m_notOnFloor || piece.name == "sign" || piece.name == "itemstand")
+                {
+                    alignment = new Vector3(0.5f, 0.5f, 0);
+                    offset = new Vector3(0, 0, 0);
+                    if (piece.name == "sign")
+                        alignment.y = 0.25f;
+                }
+                else if (piece.name == "piece_walltorch")
+                {
+                    alignment = new Vector3(0, 0.5f, 0.5f);
+                    offset = new Vector3(0, 0, 0);
+                }
+                else
+                {
+                    alignment = new Vector3(0.5f, 0, 0.5f);
+                    offset = new Vector3(0, 0, 0);
+                }
+            }
+        }
+
+        public static float Align(float value, out float alpha)
+        {
+            float result = Mathf.Round(value);
+            alpha = value - result;
+            return result;
+        }
+
+
+        public static void UpdatePlacementGhost(Player player)
+        {
+            if (player.m_placementGhost == null)
+                return;
+
+            if (ABM.isActive)
+                return;
+
+            bool altMode = ZInput.GetButton("AltPlace") || ZInput.GetButton("JoyAltPlace");
+
+            var piece = player.m_placementGhost.GetComponent<Piece>();
+
+            var newVal = piece.transform.position;
+            newVal = Quaternion.Inverse(piece.transform.rotation) * newVal;
+
+            Vector3 alignment;
+            Vector3 offset;
+            GetAlignment(piece, out alignment, out offset);
+            newVal += offset;
+            var copy = newVal;
+            newVal = new Vector3(newVal.x / alignment.x, newVal.y / alignment.y, newVal.z / alignment.z);
+            float alphaX, alphaY, alphaZ;
+            newVal = new UnityEngine.Vector3(Align(newVal.x, out alphaX), Align(newVal.y, out alphaY), Align(newVal.z, out alphaZ));
+            if (altMode)
+            {
+                float alphaMin = 0.2f;
+                if (Mathf.Abs(alphaX) >= alphaMin && Mathf.Abs(alphaX) >= Mathf.Abs(alphaY) && Mathf.Abs(alphaX) >= Mathf.Abs(alphaZ))
+                    newVal.x += Mathf.Sign(alphaX);
+                else if (Mathf.Abs(alphaY) >= alphaMin && Mathf.Abs(alphaY) >= Mathf.Abs(alphaZ))
+                    newVal.y += Mathf.Sign(alphaY);
+                else if (Mathf.Abs(alphaZ) >= alphaMin)
+                    newVal.z += Mathf.Sign(alphaZ);
+            }
+            newVal = new Vector3(newVal.x * alignment.x, newVal.y * alignment.y, newVal.z * alignment.z);
+            if (alignment.x <= 0)
+                newVal.x = copy.x;
+            if (alignment.y <= 0)
+                newVal.y = copy.y;
+            if (alignment.z <= 0)
+                newVal.z = copy.z;
+            newVal -= offset;
+
+            newVal = piece.transform.rotation * newVal;
+            piece.transform.position = newVal;
         }
     }
     
