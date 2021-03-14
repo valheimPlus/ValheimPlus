@@ -252,7 +252,7 @@ The Njord installer provided by ZeroBandwidth and team allows for you to easily 
 3. Extract the contents of the archive into the game folder.
 4. Make sure to run 'chmod u+x start_game_bepinex.sh' to make the start script executable.
 5. Right-click the Valheim game in your Steam library.
-6. Go to "Properties..." -> "Launch options" and input "./start_game_bepinex.sh %command%".
+6. Go to "Properties..." -> "Launch options" and input "./start_game_bepinex.sh %command%" or "bash ./start_game_bepinex.sh %command%" if the first command does not work.
 
 
 ### **Server[Unix]**
