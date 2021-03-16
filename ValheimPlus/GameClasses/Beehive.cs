@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using ValheimPlus.Configurations;
 using UnityEngine;
 using System.Linq;
@@ -85,31 +85,33 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Auto Deposit for Beehives
     /// </summary>
-    [HarmonyPatch(typeof(Beehive), "UpdateBees")]
+    [HarmonyPatch(typeof(Beehive), "RPC_Extract")]
     public static class Beehive_UpdateBees_Patch
     {
-        private static void Postfix(ref Beehive __instance)
+        private static bool Prefix(long caller, ref Beehive __instance)
         {
             // Allows for access for linq
             Beehive beehive = __instance; // allowing access to local function
 
             if (!Configuration.Current.Beehive.autoDeposit || !Configuration.Current.Beehive.IsEnabled)
-                return;
+                return true;
 
-            // if max level honey
+            // if behive is empty
             if (__instance.GetHoneyLevel() <= 0)
-                return;
+                return true;
 
-            if (Configuration.Current.Beehive.autoDepositRange >= 50)
+            if (Configuration.Current.Beehive.autoDepositRange > 50)
                 Configuration.Current.Beehive.autoDepositRange = 50;
 
-            if (Configuration.Current.Beehive.autoDepositRange <= 1)
+            if (Configuration.Current.Beehive.autoDepositRange < 1)
                 Configuration.Current.Beehive.autoDepositRange = 1;
 
             // find nearby chests
             List<Container> nearbyChests = Helper.GetNearbyChests(beehive.gameObject, Configuration.Current.Beehive.autoDepositRange);
+            if (nearbyChests.Count == 0)
+                return true;
 
-            foreach (Container chest in nearbyChests)
+            while (beehive.GetHoneyLevel() > 0)
             {
                 GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(__instance.m_honeyItem.gameObject.name);
 
@@ -119,21 +121,44 @@ namespace ValheimPlus.GameClasses
 
                 ItemDrop comp = honeyObject.GetComponent<ItemDrop>();
 
-                var result = chest.GetInventory().AddItem(comp.m_itemData);
+                bool result = spawnNearbyChest(comp, true);
                 UnityEngine.Object.Destroy(honeyObject);
-
+                
                 if (!result)
                 {
-                    //Chest full, move to the next
-                    continue;
+                    // Couldn't drop in chest, letting original code handle things
+                    return true;
                 }
-                if (result)
-                    __instance.m_nview.GetZDO().Set("level", __instance.GetHoneyLevel() - 1);
-
             }
 
+            if (beehive.GetHoneyLevel() == 0)
+                beehive.m_spawnEffect.Create(beehive.m_spawnPoint.position, Quaternion.identity);
 
+            bool spawnNearbyChest(ItemDrop item, bool mustHaveItem)
+            {
+                foreach (Container chest in nearbyChests)
+                {
+                    Inventory cInventory = chest.GetInventory();
+                    if (mustHaveItem && !cInventory.HaveItem(item.m_itemData.m_shared.m_name))
+                        continue;
 
+                    if (!cInventory.AddItem(item.m_itemData))
+                    {
+                        //Chest full, move to the next
+                        continue;
+                    }
+                    beehive.m_nview.GetZDO().Set("level", beehive.GetHoneyLevel() - 1);
+                    Helper.PropagateChestUpdate(chest);
+                    return true;
+                }
+                
+                if (mustHaveItem)
+                    return spawnNearbyChest(item, false);
+
+                return false;
+            }
+
+            return true;
         }
     }
 }

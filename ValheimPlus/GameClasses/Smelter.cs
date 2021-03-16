@@ -80,57 +80,66 @@ namespace ValheimPlus.GameClasses
                 if (Configuration.Current.Furnace.IsEnabled)
                 {
                     if (Configuration.Current.Furnace.autoDeposit)
-                    {
+                    {   
                         bool result = spawn(Configuration.Current.Furnace.autoDepositRange);
                         return result;
                     }
                 }
             }
-
             bool spawn(float autoDepositRange)
             {
-                if (autoDepositRange >= 50)
-                {
+                List<Container> nearbyChests = Helper.GetNearbyChests(smelter.gameObject, autoDepositRange);
+                if (nearbyChests.Count == 0)
+                    return true;
+
+                if (autoDepositRange > 50)
                     autoDepositRange = 50;
-                }
+                else if (autoDepositRange < 1)
+                    autoDepositRange = 1;
 
-                List<Container> nearbyChests = Helper.GetNearbyChests(smelter.gameObject, Configuration.Current.Beehive.autoDepositRange);
+                // Replicating original code, just "spawning/adding" the item inside the chest makes it "not have a prefab"
+                GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(smelter.GetItemConversion(ore).m_to.gameObject.name);
 
-                List<ItemDrop.ItemData> allItems = Helper.GetNearbyChestItems(smelter.gameObject, 20);
+                // Also replication of original code, really have no idead what it is for, didn't bother look
+                ZNetView.m_forceDisableInit = true;
+                GameObject spawnedOre = UnityEngine.Object.Instantiate<GameObject>(itemPrefab);
+                ZNetView.m_forceDisableInit = false;
 
-                foreach (Container chest in nearbyChests)
+                // assign stack size, nobody wants a 0/20 stack of metals (its not very usefull)
+                ItemDrop comp = spawnedOre.GetComponent<ItemDrop>();
+                comp.m_itemData.m_stack = stack;
+
+                bool result = spawnNearbyChest(true);
+                UnityEngine.Object.Destroy(spawnedOre);
+
+                bool spawnNearbyChest(bool mustHaveItem)
                 {
-                    // Replicating original code, just "spawning/adding" the item inside the chest makes it "not have a prefab"
-                    GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(smelter.GetItemConversion(ore).m_to.gameObject.name);
-
-                    // Also replication of original code, really have no idead what it is for, didn't bother look
-                    ZNetView.m_forceDisableInit = true;
-                    GameObject spawnedOre = UnityEngine.Object.Instantiate<GameObject>(itemPrefab);
-                    ZNetView.m_forceDisableInit = false;
-
-                    // assign stack size, nobody wants a 0/20 stack of metals (its not very usefull)
-                    ItemDrop comp = spawnedOre.GetComponent<ItemDrop>();
-                    comp.m_itemData.m_stack = stack;
-
-
-                    bool result = chest.GetInventory().AddItem(comp.m_itemData);
-                    if (!result)
+                    foreach (Container chest in nearbyChests)
                     {
-                        // Chest full, move to the next
-                        continue;
+                        Inventory cInventory = chest.GetInventory();
+                        if (mustHaveItem && !cInventory.HaveItem(comp.m_itemData.m_shared.m_name))
+                            continue;
+
+                        bool added = cInventory.AddItem(comp.m_itemData);
+                        if (!added)
+                        {
+                            // Chest full, move to the next
+                            continue;
+                        }
+
+                        smelter.m_produceEffects.Create(smelter.transform.position, smelter.transform.rotation, null, 1f);
+                        Helper.PropagateChestUpdate(chest);
+                        return false;
                     }
 
-                    smelter.m_produceEffects.Create(smelter.transform.position, smelter.transform.rotation, null, 1f);
-                    UnityEngine.Object.Destroy(spawnedOre);
+                    if (mustHaveItem)
+                        return spawnNearbyChest(false);
 
-                    if (result)
-                        return false;
-                    else
-                        return true;
+                    return true;
                 }
-
-                return true;
+                return result;
             }
+            
 
             return true;
         }
