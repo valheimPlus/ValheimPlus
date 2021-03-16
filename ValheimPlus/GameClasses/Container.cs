@@ -22,9 +22,9 @@ namespace ValheimPlus
         private const int ironChestInventoryMinCol = 6;
 
         private const int karveChestInventoryMaxRows = 30;
-        private const int karveChestInventoryMinRows = 3;
+        private const int karveChestInventoryMinRows = 2;
         private const int karveChestInventoryMaxCol = 8;
-        private const int karveChestInventoryMinCol = 6;
+        private const int karveChestInventoryMinCol = 2;
 
         private const int longboatChestInventoryMaxRows = 30;
         private const int longboatChestInventoryMinRows = 3;
