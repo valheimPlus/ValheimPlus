@@ -40,5 +40,6 @@ namespace ValheimPlus.Configurations
 		public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
         public ShieldConfiguration Shields { get; set; }
         public FirstPersonConfiguration FirstPerson { get; internal set; }
+        public GridAlignmentConfiguration GridAlignment { get; set; }
     }
 }

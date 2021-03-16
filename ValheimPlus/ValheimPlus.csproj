@@ -349,6 +349,7 @@
     <Compile Include="Configurations\Sections\AdvancedEditingModeConfiguration.cs" />
     <Compile Include="Configurations\Sections\BeehiveConfiguration.cs" />
     <Compile Include="Configurations\Sections\BuildingConfiguration.cs" />
+    <Compile Include="Configurations\Sections\GridAlignmentConfiguration.cs" />
     <Compile Include="Configurations\Sections\FermenterConfiguration.cs" />
     <Compile Include="Configurations\Sections\FoodConfiguration.cs" />
     <Compile Include="Configurations\Sections\FurnaceConfiguration.cs" />

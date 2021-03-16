@@ -131,6 +131,7 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 * Added a free rotation mode for the default Building Mode.
 * Added Advanced Building Mode.
 * Added Advanced Editing Mode.
+* Allow aligning buildings to a global grid.
 * Modify the structural integrity of placeables.
 * Modify the maximum distance you can place objects at.
 * Added the ability for the hammer tool to repair all placeables in an area instead of just the targeted placeable.
@@ -181,6 +182,12 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 
 **NOTE:**
 * *Other players will not be able to see the item being moved until the player building the item confirms the placement. Dungeons and other no-build areas are still restricted.* 
+
+### Grid alignment
+* When pressing the configured key (left alt is the default) new buildings will be aligned to a global grid.
+   * The mode can also be toggled by pressing another key (F7 by default).
+   * Building elements (from the third tab) are aligned to to their size (e.g. a wood wall will have an alignment of 2m in X and Y direction). The alignment of building elements in other directorion can be configured (by default with the F6 key) to 0.5m, 1m, 2m or 4m.
+   * Other buildings like furniture will always be aligned to 0.5m, but the Y position will not be aligned (to make sure they are always exactly on the floow).
 
 ### Structural Integrity
 * Apply a modifier to the structural integrity of the following materials:
