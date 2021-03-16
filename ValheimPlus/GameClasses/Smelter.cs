@@ -88,7 +88,7 @@ namespace ValheimPlus.GameClasses
             }
             bool spawn(float autoDepositRange)
             {
-                List<Container> nearbyChests = Helper.GetNearbyChests(smelter.gameObject, autoDepositRange);
+                List<Container> nearbyChests = InventoryAssistant.GetNearbyChests(smelter.gameObject, autoDepositRange);
                 if (nearbyChests.Count == 0)
                     return true;
 
@@ -128,7 +128,7 @@ namespace ValheimPlus.GameClasses
                         }
 
                         smelter.m_produceEffects.Create(smelter.transform.position, smelter.transform.rotation, null, 1f);
-                        Helper.PropagateChestUpdate(chest);
+                        InventoryAssistant.ConveyContainerToNetwork(chest);
                         return false;
                     }
 

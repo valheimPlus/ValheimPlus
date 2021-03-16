@@ -107,7 +107,7 @@ namespace ValheimPlus.GameClasses
                 Configuration.Current.Beehive.autoDepositRange = 1;
 
             // find nearby chests
-            List<Container> nearbyChests = Helper.GetNearbyChests(beehive.gameObject, Configuration.Current.Beehive.autoDepositRange);
+            List<Container> nearbyChests = InventoryAssistant.GetNearbyChests(beehive.gameObject, Configuration.Current.Beehive.autoDepositRange);
             if (nearbyChests.Count == 0)
                 return true;
 
@@ -148,7 +148,7 @@ namespace ValheimPlus.GameClasses
                         continue;
                     }
                     beehive.m_nview.GetZDO().Set("level", beehive.GetHoneyLevel() - 1);
-                    Helper.PropagateChestUpdate(chest);
+                    InventoryAssistant.ConveyContainerToNetwork(chest);
                     return true;
                 }
                 

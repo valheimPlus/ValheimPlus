@@ -385,6 +385,7 @@
     <Compile Include="GameClasses\TeleportWorld.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
     <Compile Include="RPC\VPlusAck.cs" />
+    <Compile Include="Utility\InventoryAssistant.cs" />
     <Compile Include="Utility\ListExtensions.cs" />
     <Compile Include="Utility\RPCQueue.cs" />
     <Compile Include="Utility\ZPackageExtensions.cs" />
