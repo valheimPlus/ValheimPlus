@@ -148,7 +148,7 @@ namespace ValheimPlus.GameClasses
                         continue;
                     }
                     beehive.m_nview.GetZDO().Set("level", beehive.GetHoneyLevel() - 1);
-
+                    Helper.PropagateChestUpdate(chest);
                     return true;
                 }
                 

@@ -1,4 +1,4 @@
-using HarmonyLib;
+﻿using HarmonyLib;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -128,7 +128,7 @@ namespace ValheimPlus.GameClasses
                         }
 
                         smelter.m_produceEffects.Create(smelter.transform.position, smelter.transform.rotation, null, 1f);
-
+                        Helper.PropagateChestUpdate(chest);
                         return false;
                     }
 

@@ -263,6 +263,15 @@ namespace ValheimPlus
             return totalRemoved;
         }
 
+        /// <summary>
+        /// Function to trigger chest sync
+        /// </summary>
+        public static void PropagateChestUpdate(Container c)
+        {
+            c.Save();
+            c.GetInventory().Changed();
+        }
+
         // Clamp value between min and max
         public static int Clamp(int value, int min, int max)
         {
