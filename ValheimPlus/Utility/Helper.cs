@@ -115,7 +115,7 @@ namespace ValheimPlus
             IOrderedEnumerable<Collider> orderedColliders = hitColliders.OrderBy(x => Vector3.Distance(x.gameObject.transform.position, target.transform.position));
 
             List<Container> validContainers = new List<Container>();
-            foreach (var hitCollider in hitColliders)
+            foreach (var hitCollider in orderedColliders)
             {
                 try
                 {
