@@ -25,8 +25,8 @@ server_public=1
 # The rest is automatically handled by BepInEx for Valheim+
 
 # Set base path of start_server_bepinex.sh location
-export VALHEIM_PLUS_SCRIPT=$(readlink -f "$0")
-export VALHEIM_PLUS_PATH=$(dirname "$VALHEIM_PLUS_SCRIPT")
+export VALHEIM_PLUS_SCRIPT="$(readlink -f "$0")"
+export VALHEIM_PLUS_PATH="$(dirname "$VALHEIM_PLUS_SCRIPT")"
 
 # Whether or not to enable Doorstop. Valid values: TRUE or FALSE
 export DOORSTOP_ENABLE=TRUE
@@ -40,7 +40,7 @@ export DOORSTOP_CORLIB_OVERRIDE_PATH="${VALHEIM_PLUS_PATH}/unstripped_corlib"
 # ----- DO NOT EDIT FROM THIS LINE FORWARD  ------
 # ----- (unless you know what you're doing) ------
 
-if [ ! -x "$1" -a ! -x "$executable_name" ]; then
+if [ ! -x "$1" -a ! -x "${VALHEIM_PLUS_PATH}/$executable_name" ]; then
 	echo "Please open start_server_bepinex.sh in a text editor and provide the correct executable."
 	exit 1
 fi
@@ -57,8 +57,8 @@ case $os_type in
 		lib_postfix="so"
 		;;
 	Darwin*)
-		executable_name=$(basename "${executable_name}" .app)
-		real_executable_name=$(defaults read "${VALHEIM_PLUS_PATH}/${executable_name}.app/Contents/Info" CFBundleExecutable)
+		executable_name="$(basename "${executable_name}" .app)"
+		real_executable_name="$(defaults read "${VALHEIM_PLUS_PATH}/${executable_name}.app/Contents/Info" CFBundleExecutable)"
 		executable_path="${VALHEIM_PLUS_PATH}/${executable_name}.app/Contents/MacOS/${real_executable_name}"
 		lib_postfix="dylib"
 		;;
@@ -86,13 +86,13 @@ case $executable_type in
 esac
 
 doorstop_libname=libdoorstop_${arch}.${lib_postfix}
-export LD_LIBRARY_PATH="${doorstop_libs}":${LD_LIBRARY_PATH}
-export LD_PRELOAD=$doorstop_libname:$LD_PRELOAD
+export LD_LIBRARY_PATH="${doorstop_libs}":"${LD_LIBRARY_PATH}"
+export LD_PRELOAD="$doorstop_libname":"${LD_PRELOAD}"
 export DYLD_LIBRARY_PATH="${doorstop_libs}"
 export DYLD_INSERT_LIBRARIES="${doorstop_libs}/$doorstop_libname"
 
 export templdpath="$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH="${VALHEIM_PLUS_PATH}/linux64":${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH="${VALHEIM_PLUS_PATH}/linux64":"${LD_LIBRARY_PATH}"
 export SteamAppId=892970
 
 for arg in "$@"
