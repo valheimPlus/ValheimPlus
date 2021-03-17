@@ -146,7 +146,7 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
    * Players can rotate the object selected in any direction while in the usual building mode by pressing certain hotkeys. The location of the object can be manipulated with the mouse:
       * ScrollWheel + LeftAlt to rotate by 1 degree on the Y-axis.
       * ScrollWheel + C to rotate by 1 degree on the X-axis.
-      * ScrollWheel + Z to rotate by 1 degree on the Z-axis.
+      * ScrollWheel + V to rotate by 1 degree on the Z-axis.
    * Use the copy rotation hotkeys to copy the current rotation or apply the same rotation to the next object that is being built.
    * Build the object by clicking.
 
@@ -332,11 +332,11 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for d
 
 * Kevin 'nx#8830' J.- https://github.com/nxPublic
 * Greg 'Zedle' G. - https://github.com/zedle
-* Paige 'radmint' N. - https://github.com/radmint
 * Miguel 'Mixone' T. - https://github.com/Mixone-FinallyHere
-* Chris 'Xenofell' S. - https://github.com/cstamford
 
 # Credits
+* Paige 'radmint' N. - https://github.com/radmint
+* Chris 'Xenofell' S. - https://github.com/cstamford
 * TheTerrasque - https://github.com/TheTerrasque
 * Bruno Vasconcelos - https://github.com/Drakeny
 * GaelicGamer - https://github.com/GaelicGamer
