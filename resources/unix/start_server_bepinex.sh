@@ -21,6 +21,7 @@ server_password="password"
 server_port=2456
 server_world="world"
 server_public=1
+server_savedir="$HOME/.config/unity3d/IronGate/Valheim"
 
 # The rest is automatically handled by BepInEx for Valheim+
 
@@ -118,9 +119,13 @@ do
 	server_public=$2
 	shift 2
 	;;
+	-savedir)
+	server_savedir=$2
+	shift 2
+	;;
 	esac
 done
 
-"${VALHEIM_PLUS_PATH}/${executable_name}" -name "${server_name}" -password "${server_password}" -port "${server_port}" -world "${server_world}" -public "${server_public}"
+"${VALHEIM_PLUS_PATH}/${executable_name}" -name "${server_name}" -password "${server_password}" -port "${server_port}" -world "${server_world}" -public "${server_public}" -savedir "${server_savedir}"
 
 export LD_LIBRARY_PATH=$templdpath
