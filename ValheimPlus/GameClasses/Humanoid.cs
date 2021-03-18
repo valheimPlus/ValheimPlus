@@ -1,10 +1,6 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
-using UnityEngine;
 using System.Collections.Generic;
-using BepInEx.Logging;
-using HarmonyLib.Tools;
-using System;
 
 namespace ValheimPlus.GameClasses
 {
