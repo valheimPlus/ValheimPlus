@@ -33,7 +33,11 @@ namespace ValheimPlus.GameClasses
     {
         private static bool Postfix(bool __result, Humanoid __instance)
         {
-            if (__result && __instance.IsPlayer() && __instance.m_rightItem?.m_shared.m_itemType == ItemDrop.ItemData.ItemType.OneHandedWeapon)
+            if (Configuration.Current.Player.IsEnabled &&
+                Configuration.Current.Player.autoEquipShield &&
+                __result && 
+                __instance.IsPlayer() && 
+                __instance.m_rightItem?.m_shared.m_itemType == ItemDrop.ItemData.ItemType.OneHandedWeapon)
             {
                 List<ItemDrop.ItemData> inventoryItems = __instance.m_inventory.GetAllItems();
 
