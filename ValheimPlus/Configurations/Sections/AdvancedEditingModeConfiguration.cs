@@ -14,5 +14,8 @@ namespace ValheimPlus.Configurations.Sections
         public KeyCode confirmPlacementOfAdvancedEditingMode { get; internal set; } = KeyCode.KeypadEnter;
         public KeyCode copyObjectRotation { get; set; } = KeyCode.Keypad7;
         public KeyCode pasteObjectRotation { get; set; } = KeyCode.Keypad8;
+
+        public KeyCode increaseScrollSpeed { get; set; } = KeyCode.KeypadPlus;
+        public KeyCode decreaseScrollSpeed { get; set; } = KeyCode.KeypadMinus;
     }
 }
