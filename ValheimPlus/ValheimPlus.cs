@@ -64,7 +64,8 @@ namespace ValheimPlus
                 if (!Directory.Exists(VPlusDataDirectoryPath)) Directory.CreateDirectory(VPlusDataDirectoryPath);
 
                 //Logo
-                VPlusMainMenu.Load();
+                if(Configuration.Current.ValheimPlus.IsEnabled && Configuration.Current.ValheimPlus.mainMenuLogo)
+                    VPlusMainMenu.Load();
 
                 //Map Sync Save Timer
                 if (ZNet.m_isServer && Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareMapProgression)
