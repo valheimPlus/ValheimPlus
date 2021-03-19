@@ -29,13 +29,16 @@ namespace ValheimPlus.GameClasses
     /// Adding V+ logo and version text
     /// </summary>
     [HarmonyPatch(typeof(FejdStartup), "SetupGui")]
-    public static class HookGui
+    public static class FejdStartup_SetupGui_Patch
     {
         private static void Postfix(ref FejdStartup __instance)
         {
             // logo
-            GameObject logo = GameObject.Find("LOGO");
-            logo.GetComponent<Image>().sprite = VPlusMainMenu.VPlusLogoSprite;
+            if(Configuration.Current.ValheimPlus.IsEnabled && Configuration.Current.ValheimPlus.mainMenuLogo)
+            {
+                GameObject logo = GameObject.Find("LOGO");
+                logo.GetComponent<Image>().sprite = VPlusMainMenu.VPlusLogoSprite;
+            }
 
             // version text for bottom right of startup
             __instance.m_versionLabel.fontSize = 14;
