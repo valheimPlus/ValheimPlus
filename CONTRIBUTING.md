@@ -71,4 +71,4 @@ Thanks to mono and unity-mono being open source, we patched and compiled our own
 1. needs updating - This work has received feedback and needs to be updated before being accepted
 1. merge conflicts - This pr has merge conflicts that need to be resolved
 1. question - The author of the PR needs to answer a question before the PR can move forward
-1. in discussion - We want to implement the PR but have to make more preparations and test before we can do so.
+1. in discussion - We want to implement the PR but have to make more preparations and tests before we can do so.
