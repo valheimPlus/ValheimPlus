@@ -686,5 +686,73 @@ namespace ValheimPlus.GameClasses
                 }
             }
         }
-    }    
+    }
+    
+    /// <summary>
+    /// Skip Intro
+    /// </summary>
+    [HarmonyPatch(typeof (Player), "OnSpawned")]
+    public class OnSpawned_Patch
+    {
+        [HarmonyPrefix]
+        internal static void Prefix(Player __instance)
+        {
+            if (Configuration.Current.Player.skipintro)
+            {
+                __instance.m_firstSpawn = false;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// PVP Switch Section
+    /// </summary>
+    [HarmonyPatch(typeof(Player), "SetLocalPlayer")]
+    public static class SetLocalPlayer_Patch
+    {
+        public static void Postfix()
+        {
+            if (Configuration.Current.Player.pvpveactv)
+            {
+                if (Configuration.Current.Player.pvpveswitch)
+                    ZLog.LogWarning("[PVPVE] PVP MODE!");
+                else if (Configuration.Current.Player.pvpveswitch == false)
+                    ZLog.LogWarning("[PVPVE] PVE MODE!");
+                
+                Player.m_localPlayer.SetPVP(Configuration.Current.Player.pvpveswitch);
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(Player), "CanSwitchPVP")]
+    class CanSwitchPVP_Patch
+    {
+        static bool Prefix(ref bool __result)
+        {
+            if (Configuration.Current.Player.pvpveactv)
+            {
+                __result = !Configuration.Current.Player.pvpveactv;
+                return false;
+            }
+            return true;
+        }
+    }
+    
+    [HarmonyPatch(typeof(Player), "SetPVP")]
+    class SetPVP_Patch
+    {
+        public static bool Prefix(Player __instance)
+        {
+            if (Configuration.Current.Player.pvpveactv)
+            {
+                __instance.m_pvp = Configuration.Current.Player.pvpveswitch;
+                if (Configuration.Current.Player.pvpveswitch)
+                    __instance.m_nview.GetZDO().Set("pvp", __instance.m_pvp);
+                else if (Configuration.Current.Player.pvpveswitch == false)
+                    __instance.m_nview.GetZDO().Set("pve", __instance.m_pvp);
+                return false;
+            }
+            return true;
+        }
+    }
 }

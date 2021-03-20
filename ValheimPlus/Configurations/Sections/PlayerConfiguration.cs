@@ -14,5 +14,8 @@
         public float guardianBuffDuration { get; internal set; } = 300;
         public float guardianBuffCooldown { get; internal set; } = 1200;
         public bool autoEquipShield { get; internal set; } = false;
+        public bool pvpveswitch { get; internal set; } = false;
+        public bool pvpveactv { get; internal set; } = false;
+        public bool skipintro { get; internal set; } = false;
     }
 }
