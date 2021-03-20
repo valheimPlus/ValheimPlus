@@ -59,4 +59,31 @@ namespace ValheimPlus
             }
         }
     }
+
+    /// <summary>
+    /// Alter projectile velocity and accuracy without affecting damage
+    /// </summary>
+    [HarmonyPatch(typeof(Attack), "ProjectileAttackTriggered")]
+    public static class Attack_ProjectileAttackTriggered
+    {
+        private const float DEFAULT_PROJECTILE_VEL_MIN_CHARGE = 2f;
+        private const float DEFAULT_PROJECTILE_VEL_MAX_CHARGE = 50f;
+
+        private const float DEFAULT_PROJECTILE_VARIANCE_MIN_CHARGE = 20f;
+        private const float DEFAULT_PROJECTILE_VARIANCE_MAX_CHARGE = 1f;
+
+        private const float MAX_VALUE = 1e+6f;
+
+        private static void Prefix(ref Attack __instance)
+        {
+            if (Configuration.Current.ProjectileFired.IsEnabled)
+            {
+                __instance.m_projectileVelMin = Mathf.Clamp(Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MIN_CHARGE, Configuration.Current.ProjectileFired.projectileVelMinCharge), 0f, MAX_VALUE);
+                __instance.m_projectileVel = Mathf.Clamp(Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MAX_CHARGE, Configuration.Current.ProjectileFired.projectileVelMaxCharge), 0f, MAX_VALUE);
+
+                __instance.m_projectileAccuracyMin = Mathf.Clamp(Helper.applyModifierValue(DEFAULT_PROJECTILE_VARIANCE_MIN_CHARGE, Configuration.Current.ProjectileFired.projectileVarMinCharge), 0f, MAX_VALUE);
+                __instance.m_projectileAccuracy = Mathf.Clamp(Helper.applyModifierValue(DEFAULT_PROJECTILE_VARIANCE_MAX_CHARGE, Configuration.Current.ProjectileFired.projectileVarMaxCharge), 0f, MAX_VALUE);
+            }
+        }
+    }
 }

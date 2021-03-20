@@ -5,7 +5,6 @@ namespace ValheimPlus.Configurations
     public class Configuration
     {
         public static Configuration Current { get; set; }
-
         public AdvancedBuildingModeConfiguration AdvancedBuildingMode { get; set; }
         public AdvancedEditingModeConfiguration AdvancedEditingMode { get; set; }
         public BeehiveConfiguration Beehive { get; set; }
@@ -37,10 +36,11 @@ namespace ValheimPlus.Configurations
         public GatherConfiguration Gathering { get; set; }
         public DurabilityConfiguration Durability { get; set; }
         public ArmorConfiguration Armor { get; set; }
-	public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
+	    public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
         public ShieldConfiguration Shields { get; set; }
         public FirstPersonConfiguration FirstPerson { get; internal set; }
         public GridAlignmentConfiguration GridAlignment { get; set; }
         public ValheimPlusConfiguration ValheimPlus { get; set; }
+        public ProjectileFiredConfiguration ProjectileFired { get; set; }
     }
 }
