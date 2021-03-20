@@ -8,7 +8,6 @@ using System.Reflection.Emit;
 using UnityEngine;
 using ValheimPlus.Configurations;
 using ValheimPlus.RPC;
-using ValheimPlus.Utility;
 
 namespace ValheimPlus.GameClasses
 {
@@ -208,7 +207,7 @@ namespace ValheimPlus.GameClasses
             List<CodeInstruction> il = instructions.ToList();
             for (int i = 0; i < il.Count; ++i)
             {
-                if(il[i].operand != null)
+                if (il[i].operand != null)
                     // search for every call to the function
                     if (il[i].operand.ToString().Contains(nameof(Location.IsInsideNoBuildLocation)))
                     {
@@ -219,7 +218,7 @@ namespace ValheimPlus.GameClasses
             return il.AsEnumerable();
         }
 
-        private static bool IsInsideNoBuildLocation (Vector3 point)
+        private static bool IsInsideNoBuildLocation(Vector3 point)
         {
             return false;
         }
@@ -349,7 +348,7 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-	/// <summary>
+    /// <summary>
     /// Starts ABM if not already started
     /// And checks if the player is trying to place a plant/crop too close to another plant/crop
     /// </summary>
@@ -392,7 +391,7 @@ namespace ValheimPlus.GameClasses
                     GridAlignment.UpdatePlacementGhost(__instance);
             }
 
-            if ( Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noInvalidPlacementRestriction)
+            if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noInvalidPlacementRestriction)
             {
                 try
                 {
@@ -421,7 +420,6 @@ namespace ValheimPlus.GameClasses
                 {
                 }
             }
-
 
             if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.cropNotifier)
             {
@@ -719,7 +717,7 @@ namespace ValheimPlus.GameClasses
             piece.transform.position = newVal;
         }
     }
-    
+
     /// <summary>
     /// Configures guardian buff duration and cooldown
     /// </summary>
@@ -730,7 +728,7 @@ namespace ValheimPlus.GameClasses
         {
             if (Configuration.Current.Player.IsEnabled)
             {
-                if(__instance.m_guardianSE) 
+                if (__instance.m_guardianSE)
                 {
                     __instance.m_guardianSE.m_ttl = Configuration.Current.Player.guardianBuffDuration;
                     __instance.m_guardianSE.m_cooldown = Configuration.Current.Player.guardianBuffCooldown;
@@ -767,4 +765,161 @@ namespace ValheimPlus.GameClasses
         }
     }
 
+    [HarmonyPatch(typeof(Player), nameof(Player.HaveRequirements), new System.Type[] { typeof(Piece.Requirement[]), typeof(bool), typeof(int) })]
+    public static class Player_HaveRequirements_Transpiler
+    {
+        private static Stopwatch delta = new Stopwatch();
+        private static List<Container> nearbyChests = null;
+
+        private static MethodInfo method_Inventory_CountItems = AccessTools.Method(typeof(Inventory), nameof(Inventory.CountItems));
+        private static MethodInfo method_ComputeItemQuantity = AccessTools.Method(typeof(Player_HaveRequirements_Transpiler), nameof(Player_HaveRequirements_Transpiler.ComputeItemQuantity));
+
+        /// <summary>
+        /// Patches out the code that checks if there is enough material to craft a specific object.
+        /// The return value of this function is used to set the item as "Craftable" or not in the crafts list.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.CraftFromChest.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            for (int i = 0; i < il.Count; ++i)
+            {
+                if (il[i].Calls(method_Inventory_CountItems))
+                {
+                    il.Insert(++i, new CodeInstruction(OpCodes.Ldloc_2));
+                    il.Insert(++i, new CodeInstruction(OpCodes.Ldarg_0));
+                    il.Insert(++i, new CodeInstruction(OpCodes.Call, method_ComputeItemQuantity));
+                }
+            }
+
+            return il.AsEnumerable();
+        }
+
+        private static int ComputeItemQuantity(int fromInventory, Piece.Requirement item, Player player)
+        {
+            int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
+            if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
+            {
+                GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
+                if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
+
+                nearbyChests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
+                delta.Restart();
+            }
+            return fromInventory + InventoryAssistant.GetItemAmountInItemList(InventoryAssistant.GetNearbyChestItemsByContainerList(nearbyChests), item.m_resItem.m_itemData);
+        }
+    }
+
+    [HarmonyPatch(typeof(Player), nameof(Player.HaveRequirements), new System.Type[] { typeof(Piece), typeof(Player.RequirementMode) })]
+    public static class Player_HaveRequirements_2_Transpiler
+    {
+        private static Stopwatch delta = new Stopwatch();
+        private static List<Container> nearbyChests = null;
+
+        private static MethodInfo method_Inventory_CountItems = AccessTools.Method(typeof(Inventory), nameof(Inventory.CountItems));
+        private static MethodInfo method_ComputeItemQuantity = AccessTools.Method(typeof(Player_HaveRequirements_2_Transpiler), nameof(Player_HaveRequirements_2_Transpiler.ComputeItemQuantity));
+
+        /// <summary>
+        /// Patches out the code that checks if there is enough material to craft a specific object.
+        /// The return value of this function determines if the item should be crafted or not.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.CraftFromChest.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            for (int i = 0; i < il.Count; ++i)
+            {
+                if (il[i].Calls(method_Inventory_CountItems))
+                {
+                    il.Insert(++i, new CodeInstruction(OpCodes.Ldloc_2));
+                    il.Insert(++i, new CodeInstruction(OpCodes.Ldarg_0));
+                    il.Insert(++i, new CodeInstruction(OpCodes.Call, method_ComputeItemQuantity));
+                }
+            }
+
+            return il.AsEnumerable();
+        }
+
+        private static int ComputeItemQuantity(int fromInventory, Piece.Requirement item, Player player)
+        {
+            int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
+            if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
+            {
+                GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
+                if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
+
+                nearbyChests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
+                delta.Restart();
+            }
+
+            return fromInventory + InventoryAssistant.GetItemAmountInItemList(InventoryAssistant.GetNearbyChestItemsByContainerList(nearbyChests), item.m_resItem.m_itemData);
+        }
+    }
+
+    [HarmonyPatch(typeof(Player), nameof(Player.ConsumeResources))]
+    public static class Player_ConsumeResources_Transpiler
+    {
+        private static MethodInfo method_Inventory_RemoveItem = AccessTools.Method(typeof(Inventory), nameof(Inventory.RemoveItem), new System.Type[] { typeof(string), typeof(int) });
+        private static MethodInfo method_RemoveItemsFromInventoryAndNearbyChests = AccessTools.Method(typeof(Player_ConsumeResources_Transpiler), nameof(Player_ConsumeResources_Transpiler.RemoveItemsFromInventoryAndNearbyChests));
+
+        /// <summary>
+        /// Patches out the code that consumes the material required to craft something.
+        /// We first remove the amount we can from the player inventory before moving on to the nearby chests.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.CraftFromChest.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            int thisIdx = -1;
+            int callIdx = -1;
+
+            for (int i = 0; i < il.Count; ++i)
+            {
+                if (il[i].opcode == OpCodes.Ldarg_0)
+                {
+                    thisIdx = i;
+                }
+                else if (il[i].Calls(method_Inventory_RemoveItem))
+                {
+                    callIdx = i;
+                    break;
+                }
+            }
+
+            if (thisIdx == -1 || callIdx == -1)
+            {
+                ZLog.LogError("Failed to apply Player_ConsumeResources_Transpiler");
+                return instructions;
+            }
+            il.RemoveRange(thisIdx + 1, callIdx - thisIdx);
+
+            il.Insert(++thisIdx, new CodeInstruction(OpCodes.Ldloc_2));
+            il.Insert(++thisIdx, new CodeInstruction(OpCodes.Ldloc_3));
+            il.Insert(++thisIdx, new CodeInstruction(OpCodes.Call, method_RemoveItemsFromInventoryAndNearbyChests));
+
+            return il.AsEnumerable();
+        }
+
+        private static void RemoveItemsFromInventoryAndNearbyChests(Player player, Piece.Requirement item, int amount)
+        {
+            GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
+            if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
+
+            int inventoryAmount = player.m_inventory.CountItems(item.m_resItem.m_itemData.m_shared.m_name);
+            player.m_inventory.RemoveItem(item.m_resItem.m_itemData.m_shared.m_name, amount);
+            amount -= inventoryAmount;
+            if (amount <= 0) return;
+
+            InventoryAssistant.RemoveItemInAmountFromAllNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), item.m_resItem.m_itemData, amount, !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
+        }
+    }
 }

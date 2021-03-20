@@ -184,6 +184,10 @@ namespace ValheimPlus
                     }
                 }
             }
+
+            // We don't want to send chest content through network
+            if (totalRemoved == 0) return 0;
+
             allItems.RemoveAll((ItemDrop.ItemData x) => x.m_stack <= 0);
             chest.m_inventory.m_inventory = allItems;
 

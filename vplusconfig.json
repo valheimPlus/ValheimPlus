@@ -204,6 +204,33 @@
 			}
 		}
 	},
+	"CraftFromChest": {
+		"description": "",
+		"icon": "fa fa-archway",
+		"description_website": "Allows crafting using content of nearby chests.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"checkFromWorkbench": {
+				"description": "If in a workbench area, uses it as reference point when scanning for chests",
+				"defaultValue": "F10",
+				"defaultType": "KeyCode"
+			},
+			"range": {
+				"description": "The range of the chest detection (Maximum is 50)",
+				"defaultValue": "20",
+				"defaultType": "float"
+			},
+			"lookupInterval": {
+				"description": "Interval in seconds between each nearby chests discovery (Maximum is 50)",
+				"defaultValue": "3",
+				"defaultType": "int"
+			}
+		}
+	},
 	"Camera": {
 		"description": "",
 		"icon": "fa fa-video",

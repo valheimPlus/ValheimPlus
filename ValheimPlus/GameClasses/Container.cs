@@ -43,6 +43,8 @@ namespace ValheimPlus
         {
             if (!Configuration.Current.Inventory.IsEnabled) return;
 
+            if (__instance == null || ___m_inventory == null) return;
+
             string containerName = __instance.transform.parent.name;
             string inventoryName = ___m_inventory.m_name;
             ref int inventoryColumns = ref ___m_inventory.m_width;
