@@ -7,7 +7,9 @@
         public int coalUsedPerProduct { get; set; } = 2;
         public float productionSpeed { get; set; } = 30;
         public bool autoDeposit { get; set; } = false;
-        public float autoDepositRange { get; set; } = 10;
+        public bool autoFuel { get; set; } = false;
+        public bool ignorePrivateAreaCheck { get; internal set; } = true;
+        public float autoRange { get; set; } = 10;
     }
 
 }
