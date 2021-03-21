@@ -686,5 +686,34 @@ namespace ValheimPlus.GameClasses
                 }
             }
         }
-    }    
+    }
+
+    /// <summary>
+    /// Skips the guardian power activation animation
+    /// </summary>
+    [HarmonyPatch(typeof(Player), "StartGuardianPower")]
+    public static class Player_StartGuardianPower_Patch
+    {
+        private static bool Prefix(ref Player __instance, ref bool __result)
+        {
+            if (!Configuration.Current.Player.disableGuardianBuffAnimation || !Configuration.Current.Player.IsEnabled)
+                return true;
+
+            if (__instance.m_guardianSE == null)
+            {
+                __result = false;
+                return false;
+            }
+            if (__instance.m_guardianPowerCooldown > 0f)
+            {
+                __instance.Message(MessageHud.MessageType.Center, "$hud_powernotready", 0, null);
+                __result = false;
+                return false;
+            }
+            __instance.ActivateGuardianPower();
+            __result = true;
+            return false;
+        }
+    }
+
 }

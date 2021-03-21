@@ -37,7 +37,7 @@ namespace ValheimPlus.Configurations
         public GatherConfiguration Gathering { get; set; }
         public DurabilityConfiguration Durability { get; set; }
         public ArmorConfiguration Armor { get; set; }
-	public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
+	    public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
         public ShieldConfiguration Shields { get; set; }
         public FirstPersonConfiguration FirstPerson { get; internal set; }
         public GridAlignmentConfiguration GridAlignment { get; set; }
