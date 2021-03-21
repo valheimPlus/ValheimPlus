@@ -768,7 +768,6 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Player), nameof(Player.HaveRequirements), new System.Type[] { typeof(Piece.Requirement[]), typeof(bool), typeof(int) })]
     public static class Player_HaveRequirements_Transpiler
     {
-        private static Stopwatch delta = new Stopwatch();
         private static List<Container> nearbyChests = null;
 
         private static MethodInfo method_Inventory_CountItems = AccessTools.Method(typeof(Inventory), nameof(Inventory.CountItems));
@@ -800,12 +799,13 @@ namespace ValheimPlus.GameClasses
 
         private static int ComputeItemQuantity(int fromInventory, Piece.Requirement item, Player player)
         {
+            GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
+            if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
+            
+            Stopwatch delta = GameObjectAssistant.GetStopwatch(pos.gameObject);
             int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
             if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
             {
-                GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
-                if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
-
                 nearbyChests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
                 delta.Restart();
             }
@@ -816,7 +816,6 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Player), nameof(Player.HaveRequirements), new System.Type[] { typeof(Piece), typeof(Player.RequirementMode) })]
     public static class Player_HaveRequirements_2_Transpiler
     {
-        private static Stopwatch delta = new Stopwatch();
         private static List<Container> nearbyChests = null;
 
         private static MethodInfo method_Inventory_CountItems = AccessTools.Method(typeof(Inventory), nameof(Inventory.CountItems));
@@ -848,12 +847,13 @@ namespace ValheimPlus.GameClasses
 
         private static int ComputeItemQuantity(int fromInventory, Piece.Requirement item, Player player)
         {
+            GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
+            if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
+
+            Stopwatch delta = GameObjectAssistant.GetStopwatch(pos.gameObject);
             int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
             if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
             {
-                GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
-                if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
-
                 nearbyChests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
                 delta.Restart();
             }

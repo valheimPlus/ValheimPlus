@@ -285,7 +285,6 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.SetupRequirement))]
     public static class InventoryGui_SetupRequirement_Patch
     {
-        private static Stopwatch delta = new Stopwatch();
         private static List<Container> nearbyChests = null;
 
         private static bool Prefix(Transform elementRoot, Piece.Requirement req, Player player, bool craft, int quality, ref bool __result)
@@ -316,12 +315,13 @@ namespace ValheimPlus.GameClasses
 
                 if (Configuration.Current.CraftFromChest.IsEnabled)
                 {
+                    GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
+                    if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
+
+                    Stopwatch delta = GameObjectAssistant.GetStopwatch(pos.gameObject);
                     int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
                     if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
                     {
-                        GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
-                        if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
-
                         nearbyChests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50));
                         delta.Restart();
                     }

@@ -137,7 +137,7 @@ namespace ValheimPlus
             int availableAmount = GetItemAmountInItemList(allItems, needle);
 
             // check if there are enough items
-            if (availableAmount < amount || amount == 0)
+            if (amount == 0)
                 return 0;
 
             // iterate all chests and remove as many items as possible for the respective chest
@@ -204,6 +204,5 @@ namespace ValheimPlus
             c.Save();
             c.GetInventory().Changed();
         }
-
     }
 }

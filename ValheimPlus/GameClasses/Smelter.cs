@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System.Diagnostics;
 using System.Collections.Generic;
 using UnityEngine;
 using ValheimPlus.Configurations;
@@ -149,12 +150,16 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Smelter), "FixedUpdate")]
     public static class Smelter_FixedUpdate_Patch
     {
-        static void Postfix(ref Smelter __instance)
+        static void Postfix(Smelter __instance)
         {
+            if (__instance == null || !Player.m_localPlayer || __instance.m_nview == null || !__instance.m_nview.IsOwner())
+                return;
+
             Smelter smelter = __instance;
 
-            if (smelter == null || !Player.m_localPlayer || !smelter.m_nview.IsOwner())
-                return;
+            Stopwatch delta = GameObjectAssistant.GetStopwatch(smelter.gameObject);
+            if (delta.IsRunning && delta.ElapsedMilliseconds < 1000) return;
+            delta.Restart();
 
             float autoFuelRange = 0f;
             bool ignorePrivateAreaCheck = false;
@@ -179,6 +184,7 @@ namespace ValheimPlus.GameClasses
                 autoFuelRange = Configuration.Current.Furnace.autoRange;
                 ignorePrivateAreaCheck = Configuration.Current.Furnace.ignorePrivateAreaCheck;
             }
+
             autoFuelRange = Helper.Clamp(autoFuelRange, 1, 50);
 
             int toMaxOre = smelter.m_maxOre - smelter.GetQueueSize();
