@@ -162,6 +162,11 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
+			"noMysticalForcesPreventPlacementRestriction": {
+				"description": "Removes the 'Mystical forces' building prevention and allows destruction of build objects in those areas with the hammer.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"noWeatherDamage": {
 				"description": "Removes the weather damage from rain",
 				"defaultValue": "false",

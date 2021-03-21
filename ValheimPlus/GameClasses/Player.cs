@@ -190,7 +190,44 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-    // ToDo have item tooltips be affected.
+
+    [HarmonyPatch(typeof(Player), nameof(Player.RemovePiece))]
+    public static class Player_RemovePiece_Transpiler
+    {
+        private static MethodInfo modifyIsInsideMythicalZone = AccessTools.Method(typeof(Player_RemovePiece_Transpiler), nameof(Player_RemovePiece_Transpiler.IsInsideNoBuildLocation));
+
+        /// <summary>
+        //  Replaces the RemovePiece().Location.IsInsideNoBuildLocation with a stub function
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noMysticalForcesPreventPlacementRestriction)
+                return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+            for (int i = 0; i < il.Count - 2; ++i)
+            {
+                if(il[i].operand != null)
+                    // search for every call to the function
+                    if (il[i].operand.ToString().Contains(nameof(Location.IsInsideNoBuildLocation)))
+                    {
+                        // replace every call to the function with the stub
+                        il[i] = new CodeInstruction(OpCodes.Call, modifyIsInsideMythicalZone);
+                        UnityEngine.Debug.Log("found");
+                    }
+            }
+            return il.AsEnumerable();
+        }
+
+        private static bool IsInsideNoBuildLocation (Vector3 point)
+        {
+            return false;
+        }
+    }
+
+
+
     [HarmonyPatch(typeof(Player), nameof(Player.UpdateFood))]
     public static class Player_UpdateFood_Transpiler
     {
@@ -356,7 +393,7 @@ namespace ValheimPlus.GameClasses
                     GridAlignment.UpdatePlacementGhost(__instance);
             }
 
-            if (Configuration.Current.Building.noInvalidPlacementRestriction)
+            if ( Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noInvalidPlacementRestriction)
             {
                 try
                 {
@@ -371,8 +408,23 @@ namespace ValheimPlus.GameClasses
                 }
             }
 
+            if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noMysticalForcesPreventPlacementRestriction)
+            {
+                try
+                {
+                    if (__instance.m_placementStatus == Player.PlacementStatus.NoBuildZone)
+                    {
+                        __instance.m_placementStatus = Player.PlacementStatus.Valid;
+                        __instance.m_placementGhost.GetComponent<Piece>().SetInvalidPlacementHeightlight(false);
+                    }
+                }
+                catch
+                {
+                }
+            }
 
-			if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.cropNotifier)
+
+            if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.cropNotifier)
             {
                 if (__instance.m_placementGhost == null)
                     return;
