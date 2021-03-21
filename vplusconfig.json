@@ -1410,7 +1410,7 @@
 		"description_website": "Allows to switch to a first person mode in valheim with very little clipping.",
 		"entries": {
 			"enabled": {
-				"description": "Change false to true to enable this section, if you set this to false the mode will not be accesible",
+				"description": "Change false to true to enable this section",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
@@ -1434,6 +1434,34 @@
 				"defaultValue": "PageDown",
 				"defaultType": "KeyCode"
 			}
+		}
+	},
+	"GridAlignment" : {
+		"description": "When pressing the configured key new buildings will be aligned to a global grid.",
+		"icon": "fad fa-border-right",
+		"description_website": "When pressing the configured key new buildings will be aligned to a global grid, allwoing for consistent placement locations.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"align": {
+				"description": "Key to enable grid alignment.",
+				"defaultValue": "LeftAlt",
+				"defaultType": "KeyCode"
+			},
+			"alignToggle": {
+				"description": "Key to toggle grid alignment.",
+				"defaultValue": "F7",
+				"defaultType": "KeyCode"
+			},
+			"changeDefaultAlignment": {
+				"description": "Key to change the default alignment direction.",
+				"defaultValue": "F6",
+				"defaultType": "KeyCode"
+			},
+			
 		}
 	}
 }
