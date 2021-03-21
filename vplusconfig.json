@@ -937,6 +937,11 @@
 				"defaultValue": "1200",
 				"defaultType": "float"
 			},
+			"disableGuardianBuffAnimation": {
+				"description": "Disable the Guardian Buff animation",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"autoEquipShield": {
 				"description": "If set to true, when equipping a one-handed weapon, the best shield from your inventory is automatically equipped. (Best is determined by highest block power)",
 				"defaultValue": "false",
