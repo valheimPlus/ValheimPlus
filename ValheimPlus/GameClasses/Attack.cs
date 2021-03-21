@@ -64,7 +64,7 @@ namespace ValheimPlus
     /// Alter projectile velocity and accuracy without affecting damage
     /// </summary>
     [HarmonyPatch(typeof(Attack), "ProjectileAttackTriggered")]
-    public static class Attack_ProjectileAttackTriggered
+    public static class Attack_ProjectileAttackTriggered_Patch
     {
         private static void Prefix(ref Attack __instance)
         {
@@ -72,8 +72,8 @@ namespace ValheimPlus
             {
                 if (__instance.m_character is Player)
                 {
-                    __instance.m_projectileVelMin = Configuration.Current.ProjectileFired.playerProjectileVelMinCharge;
-                    __instance.m_projectileVel = Configuration.Current.ProjectileFired.playerProjectileVelMaxCharge;
+                    __instance.m_projectileVelMin = Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MIN_CHARGE, Configuration.Current.ProjectileFired.playerProjectileVelMinCharge);
+                    __instance.m_projectileVel = Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MAX_CHARGE, Configuration.Current.ProjectileFired.playerProjectileVelMaxCharge);
 
                     __instance.m_projectileAccuracyMin = Configuration.Current.ProjectileFired.playerProjectileVarMinCharge;
                     __instance.m_projectileAccuracy = Configuration.Current.ProjectileFired.playerProjectileVarMaxCharge;
