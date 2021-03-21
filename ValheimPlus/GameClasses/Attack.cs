@@ -1,7 +1,8 @@
 ﻿using HarmonyLib;
+using UnityEngine;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Alters stamina of weapons
@@ -70,13 +71,28 @@ namespace ValheimPlus
         {
             if (Configuration.Current.ProjectileFired.IsEnabled)
             {
-                if (__instance.m_character is Player)
+                if (__instance.m_character.IsPlayer())
                 {
-                    __instance.m_projectileVelMin = Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MIN_CHARGE, Configuration.Current.ProjectileFired.playerProjectileVelMinCharge);
-                    __instance.m_projectileVel = Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MAX_CHARGE, Configuration.Current.ProjectileFired.playerProjectileVelMaxCharge);
+                    if (Configuration.Current.ProjectileFired.playerProjectileEnableScaling)
+                    {
+                        Player player = (Player)__instance.m_character;
+                        Skills.Skill skill = player.m_skills.GetSkill(__instance.m_weapon.m_shared.m_skillType);
+                        float maxLevelPercentage = skill.m_level * 0.01f;
 
-                    __instance.m_projectileAccuracyMin = Configuration.Current.ProjectileFired.playerProjectileVarMinCharge;
-                    __instance.m_projectileAccuracy = Configuration.Current.ProjectileFired.playerProjectileVarMaxCharge;
+                        __instance.m_projectileVelMin = Mathf.Lerp(Configuration.Current.ProjectileFired.playerProjectileVelMinCharge, Configuration.Current.ProjectileFired.playerProjectileVelScaledMin, maxLevelPercentage);
+                        __instance.m_projectileVel = Mathf.Lerp(Configuration.Current.ProjectileFired.playerProjectileVelMaxCharge, Configuration.Current.ProjectileFired.playerProjectileVelScaledMax, maxLevelPercentage);
+
+                        __instance.m_projectileAccuracyMin = Mathf.Lerp(Configuration.Current.ProjectileFired.playerProjectileVarMinCharge, Configuration.Current.ProjectileFired.playerProjectileVarScaledMin, maxLevelPercentage);
+                        __instance.m_projectileAccuracy = Mathf.Lerp(Configuration.Current.ProjectileFired.playerProjectileVarMaxCharge, Configuration.Current.ProjectileFired.playerProjectileVarScaledMax, maxLevelPercentage);
+                    }
+                    else
+                    {
+                        __instance.m_projectileVelMin = Configuration.Current.ProjectileFired.playerProjectileVelMinCharge;
+                        __instance.m_projectileVel = Configuration.Current.ProjectileFired.playerProjectileVelMaxCharge;
+
+                        __instance.m_projectileAccuracyMin = Configuration.Current.ProjectileFired.playerProjectileVarMinCharge;
+                        __instance.m_projectileAccuracy = Configuration.Current.ProjectileFired.playerProjectileVarMaxCharge;
+                    }
                 }
                 else
                 {
