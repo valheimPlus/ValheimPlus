@@ -206,7 +206,7 @@ namespace ValheimPlus.GameClasses
                 return instructions;
 
             List<CodeInstruction> il = instructions.ToList();
-            for (int i = 0; i < il.Count - 2; ++i)
+            for (int i = 0; i < il.Count; ++i)
             {
                 if(il[i].operand != null)
                     // search for every call to the function
