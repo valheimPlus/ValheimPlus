@@ -1,9 +1,11 @@
 ﻿using HarmonyLib;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Diagnostics;
 using System.Reflection;
 using System.Reflection.Emit;
+using UnityEngine;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
@@ -105,6 +107,69 @@ namespace ValheimPlus.GameClasses
                         ZLog.Log("Added " + addedFuel + " fuel(" + fuelItemData.m_shared.m_name + ") in " + __instance.m_name);
                 }
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(Fireplace), nameof(Fireplace.Interact))]
+    public static class Fireplace_Interact_Transpiler
+    {
+        private static Stopwatch delta = new Stopwatch();
+        private static List<Container> nearbyChests = null;
+
+        private static MethodInfo method_Inventory_HaveItem = AccessTools.Method(typeof(Inventory), nameof(Inventory.HaveItem));
+        private static MethodInfo method_ReplaceInventoryRefByChest = AccessTools.Method(typeof(Fireplace_Interact_Transpiler), nameof(Fireplace_Interact_Transpiler.ReplaceInventoryRefByChest));
+
+        /// <summary>
+        /// Patches out the code that looks for fuel item.
+        /// When no fuel item has been found in the player inventory, check inside nearby chests.
+        /// If found, replace the reference to the player Inventory by the one from the chest.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.CraftFromChest.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            for (int i = 0; i < il.Count; i++)
+            {
+                if (il[i].Calls(method_Inventory_HaveItem)) // look for the last access to user
+                {
+                    il[i - 6] = new CodeInstruction(OpCodes.Ldloca, 0);
+                    il[i] = new CodeInstruction(OpCodes.Call, method_ReplaceInventoryRefByChest);
+                    il.RemoveRange(i - 2, 2);
+                    il.Insert(i - 2, new CodeInstruction(OpCodes.Ldarg_0));
+
+                    return il.AsEnumerable();
+                }
+            }
+
+            ZLog.LogError("Failed to apply Fireplace_Interact_Transpiler");
+
+            return instructions;
+        }
+
+        private static bool ReplaceInventoryRefByChest(ref Inventory inventory, ItemDrop.ItemData item, Fireplace fireplace)
+        {
+            if (inventory.HaveItem(item.m_shared.m_name)) return true; // original code
+
+            int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
+            if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
+            {
+                nearbyChests = InventoryAssistant.GetNearbyChests(fireplace.gameObject, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
+                delta.Restart();
+            }
+
+            foreach (Container c in nearbyChests)
+            {
+                if (c.GetInventory().HaveItem(item.m_shared.m_name))
+                {
+                    inventory = c.GetInventory();
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 
