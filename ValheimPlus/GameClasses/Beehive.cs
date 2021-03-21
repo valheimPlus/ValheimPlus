@@ -93,7 +93,7 @@ namespace ValheimPlus.GameClasses
             // Allows for access for linq
             Beehive beehive = __instance; // allowing access to local function
 
-            if (!Configuration.Current.Beehive.autoDeposit || !Configuration.Current.Beehive.IsEnabled)
+            if (!Configuration.Current.Beehive.autoDeposit || !Configuration.Current.Beehive.IsEnabled || !beehive.m_nview.IsOwner())
                 return true;
 
             // if behive is empty

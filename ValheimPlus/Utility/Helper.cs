@@ -109,5 +109,11 @@ namespace ValheimPlus
         {
             return Math.Min(max, Math.Max(min, value));
         }
+
+        // Clamp value between min and max
+        public static float Clamp(float value, float min, float max)
+        {
+            return Math.Min(max, Math.Max(min, value));
+        }
     }
 }

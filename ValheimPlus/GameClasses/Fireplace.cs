@@ -1,5 +1,9 @@
 ﻿using HarmonyLib;
+using System;
 using System.Linq;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Reflection.Emit;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
@@ -16,14 +20,14 @@ namespace ValheimPlus.GameClasses
             {
                 if (!Configuration.Current.FireSource.IsEnabled) return;
 
-                if (Configuration.Current.FireSource.onlyTorches)
+                if (FireplaceExtensions.IsTorch(__instance.m_name))
                 {
-                    if (FireplaceExtensions.IsTorch(__instance.m_name))
+                    if (Configuration.Current.FireSource.torches)
                     {
                         __instance.m_startFuel = __instance.m_maxFuel;
                     }
                 }
-                else
+                else if (Configuration.Current.FireSource.fires)
                 {
                     __instance.m_startFuel = __instance.m_maxFuel;
                 }
@@ -40,17 +44,65 @@ namespace ValheimPlus.GameClasses
             {
                 if (!Configuration.Current.FireSource.IsEnabled) return;
 
-                if (Configuration.Current.FireSource.onlyTorches)
+                if (FireplaceExtensions.IsTorch(__instance.m_name))
                 {
-                    // if configuration is set to only keep torches lit, check that our current instance is a torch and only then intercept and overwrite result
-                    if (FireplaceExtensions.IsTorch(__instance.m_name))
+                    if (Configuration.Current.FireSource.torches)
                     {
                         __result = 0.0;
                     }
                 }
-                else
+                else if (Configuration.Current.FireSource.fires)
                 {
                     __result = 0.0;
+                }
+            }
+        }
+
+        [HarmonyPatch(typeof(Fireplace), nameof(Fireplace.UpdateFireplace))]
+        public static class Fireplace_UpdateFireplace_Transpiler
+        {
+            private static MethodInfo method_ZNetView_IsOwner = AccessTools.Method(typeof(ZNetView), nameof(ZNetView.IsOwner));
+            private static MethodInfo method_addFuelFromNearbyChests = AccessTools.Method(typeof(Fireplace_UpdateFireplace_Transpiler), nameof(Fireplace_UpdateFireplace_Transpiler.AddFuelFromNearbyChests));
+
+            [HarmonyTranspiler]
+            public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+            {
+                if (!Configuration.Current.FireSource.IsEnabled || !Configuration.Current.FireSource.autoFuel) return instructions;
+
+                List<CodeInstruction> il = instructions.ToList();
+
+                for (int i = 0; i < il.Count; i++)
+                {
+                    if (il[i].Calls(method_ZNetView_IsOwner))
+                    {
+                        ++i;
+                        il.Insert(++i, new CodeInstruction(OpCodes.Ldarg_0));
+                        il.Insert(++i, new CodeInstruction(OpCodes.Call, method_addFuelFromNearbyChests));
+
+                        return il.AsEnumerable();
+                    }
+                }
+
+                ZLog.LogError("Failed to apply Fireplace_UpdateFireplace_Transpiler");
+
+                return instructions;
+            }
+
+            private static void AddFuelFromNearbyChests(Fireplace __instance)
+            {
+                int toMaxFuel = (int)__instance.m_maxFuel - (int)Math.Ceiling(__instance.m_nview.GetZDO().GetFloat("fuel"));
+
+                if (toMaxFuel > 0)
+                {
+                    ItemDrop.ItemData fuelItemData = __instance.m_fuelItem.m_itemData;
+
+                    int addedFuel = InventoryAssistant.RemoveItemInAmountFromAllNearbyChests(__instance.gameObject, Helper.Clamp(Configuration.Current.FireSource.autoRange, 1, 50), fuelItemData, toMaxFuel, !Configuration.Current.FireSource.ignorePrivateAreaCheck);
+                    for (int i = 0; i < addedFuel; i++)
+                    {
+                        __instance.m_nview.InvokeRPC("AddFuel", new object[] { });
+                    }
+                    if (addedFuel > 0)
+                        ZLog.Log("Added " + addedFuel + " fuel(" + fuelItemData.m_shared.m_name + ") in " + __instance.m_name);
                 }
             }
         }
