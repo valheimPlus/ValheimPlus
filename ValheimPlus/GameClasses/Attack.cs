@@ -66,40 +66,34 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(Attack), "ProjectileAttackTriggered")]
     public static class Attack_ProjectileAttackTriggered
     {
-        private const float DEFAULT_PROJECTILE_VEL_MIN_CHARGE = 2f;
-        private const float DEFAULT_PROJECTILE_VEL_MAX_CHARGE = 50f;
-
-        private const float DEFAULT_PROJECTILE_VARIANCE_MIN_CHARGE = 20f;
-        private const float DEFAULT_PROJECTILE_VARIANCE_MAX_CHARGE = 1f;
-
-        private const float MAX_VALUE = 1e+6f;
-
         private static void Prefix(ref Attack __instance)
         {
             if (Configuration.Current.ProjectileFired.IsEnabled)
             {
                 if (__instance.m_character is Player)
                 {
-                    __instance.m_projectileVelMin = Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MIN_CHARGE, Configuration.Current.ProjectileFired.playerProjectileVelMinCharge);
-                    __instance.m_projectileVel = Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MAX_CHARGE, Configuration.Current.ProjectileFired.playerProjectileVelMaxCharge);
+                    __instance.m_projectileVelMin = Configuration.Current.ProjectileFired.playerProjectileVelMinCharge;
+                    __instance.m_projectileVel = Configuration.Current.ProjectileFired.playerProjectileVelMaxCharge;
 
-                    __instance.m_projectileAccuracyMin = Helper.applyModifierValue(DEFAULT_PROJECTILE_VARIANCE_MIN_CHARGE, Configuration.Current.ProjectileFired.playerProjectileVarMinCharge);
-                    __instance.m_projectileAccuracy = Helper.applyModifierValue(DEFAULT_PROJECTILE_VARIANCE_MAX_CHARGE, Configuration.Current.ProjectileFired.playerProjectileVarMaxCharge);
+                    __instance.m_projectileAccuracyMin = Configuration.Current.ProjectileFired.playerProjectileVarMinCharge;
+                    __instance.m_projectileAccuracy = Configuration.Current.ProjectileFired.playerProjectileVarMaxCharge;
                 }
                 else
                 {
-                    __instance.m_projectileVelMin = Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MIN_CHARGE, Configuration.Current.ProjectileFired.projectileVelMinCharge);
-                    __instance.m_projectileVel = Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MAX_CHARGE, Configuration.Current.ProjectileFired.projectileVelMaxCharge);
+                    __instance.m_projectileVelMin = Configuration.Current.ProjectileFired.projectileVelMinCharge;
+                    __instance.m_projectileVel = Configuration.Current.ProjectileFired.projectileVelMaxCharge;
 
-                    __instance.m_projectileAccuracyMin = Helper.applyModifierValue(DEFAULT_PROJECTILE_VARIANCE_MIN_CHARGE, Configuration.Current.ProjectileFired.projectileVarMinCharge);
-                    __instance.m_projectileAccuracy = Helper.applyModifierValue(DEFAULT_PROJECTILE_VARIANCE_MAX_CHARGE, Configuration.Current.ProjectileFired.projectileVarMaxCharge);
+                    __instance.m_projectileAccuracyMin = Configuration.Current.ProjectileFired.projectileVarMinCharge;
+                    __instance.m_projectileAccuracy = Configuration.Current.ProjectileFired.projectileVarMaxCharge;
                 }
 
-                __instance.m_projectileVelMin = Mathf.Clamp(__instance.m_projectileVelMin, 0f, MAX_VALUE);
-                __instance.m_projectileVel = Mathf.Clamp(__instance.m_projectileVel, 0f, MAX_VALUE);
+                float maxValue = 1e+6f;
 
-                __instance.m_projectileAccuracyMin = Mathf.Clamp(__instance.m_projectileAccuracyMin, 0f, MAX_VALUE);
-                __instance.m_projectileAccuracy = Mathf.Clamp(__instance.m_projectileAccuracy, 0f, MAX_VALUE);
+                __instance.m_projectileVelMin = Mathf.Clamp(__instance.m_projectileVelMin, 0f, maxValue);
+                __instance.m_projectileVel = Mathf.Clamp(__instance.m_projectileVel, 0f, maxValue);
+
+                __instance.m_projectileAccuracyMin = Mathf.Clamp(__instance.m_projectileAccuracyMin, 0f, maxValue);
+                __instance.m_projectileAccuracy = Mathf.Clamp(__instance.m_projectileAccuracy, 0f, maxValue);
             }
         }
     }
