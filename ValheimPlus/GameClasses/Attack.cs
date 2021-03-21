@@ -78,11 +78,28 @@ namespace ValheimPlus
         {
             if (Configuration.Current.ProjectileFired.IsEnabled)
             {
-                __instance.m_projectileVelMin = Mathf.Clamp(Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MIN_CHARGE, Configuration.Current.ProjectileFired.projectileVelMinCharge), 0f, MAX_VALUE);
-                __instance.m_projectileVel = Mathf.Clamp(Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MAX_CHARGE, Configuration.Current.ProjectileFired.projectileVelMaxCharge), 0f, MAX_VALUE);
+                if (__instance.m_character is Player)
+                {
+                    __instance.m_projectileVelMin = Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MIN_CHARGE, Configuration.Current.ProjectileFired.playerProjectileVelMinCharge);
+                    __instance.m_projectileVel = Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MAX_CHARGE, Configuration.Current.ProjectileFired.playerProjectileVelMaxCharge);
 
-                __instance.m_projectileAccuracyMin = Mathf.Clamp(Helper.applyModifierValue(DEFAULT_PROJECTILE_VARIANCE_MIN_CHARGE, Configuration.Current.ProjectileFired.projectileVarMinCharge), 0f, MAX_VALUE);
-                __instance.m_projectileAccuracy = Mathf.Clamp(Helper.applyModifierValue(DEFAULT_PROJECTILE_VARIANCE_MAX_CHARGE, Configuration.Current.ProjectileFired.projectileVarMaxCharge), 0f, MAX_VALUE);
+                    __instance.m_projectileAccuracyMin = Helper.applyModifierValue(DEFAULT_PROJECTILE_VARIANCE_MIN_CHARGE, Configuration.Current.ProjectileFired.playerProjectileVarMinCharge);
+                    __instance.m_projectileAccuracy = Helper.applyModifierValue(DEFAULT_PROJECTILE_VARIANCE_MAX_CHARGE, Configuration.Current.ProjectileFired.playerProjectileVarMaxCharge);
+                }
+                else
+                {
+                    __instance.m_projectileVelMin = Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MIN_CHARGE, Configuration.Current.ProjectileFired.projectileVelMinCharge);
+                    __instance.m_projectileVel = Helper.applyModifierValue(DEFAULT_PROJECTILE_VEL_MAX_CHARGE, Configuration.Current.ProjectileFired.projectileVelMaxCharge);
+
+                    __instance.m_projectileAccuracyMin = Helper.applyModifierValue(DEFAULT_PROJECTILE_VARIANCE_MIN_CHARGE, Configuration.Current.ProjectileFired.projectileVarMinCharge);
+                    __instance.m_projectileAccuracy = Helper.applyModifierValue(DEFAULT_PROJECTILE_VARIANCE_MAX_CHARGE, Configuration.Current.ProjectileFired.projectileVarMaxCharge);
+                }
+
+                __instance.m_projectileVelMin = Mathf.Clamp(__instance.m_projectileVelMin, 0f, MAX_VALUE);
+                __instance.m_projectileVel = Mathf.Clamp(__instance.m_projectileVel, 0f, MAX_VALUE);
+
+                __instance.m_projectileAccuracyMin = Mathf.Clamp(__instance.m_projectileAccuracyMin, 0f, MAX_VALUE);
+                __instance.m_projectileAccuracy = Mathf.Clamp(__instance.m_projectileAccuracy, 0f, MAX_VALUE);
             }
         }
     }
