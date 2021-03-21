@@ -214,7 +214,6 @@ namespace ValheimPlus.GameClasses
                     {
                         // replace every call to the function with the stub
                         il[i] = new CodeInstruction(OpCodes.Call, modifyIsInsideMythicalZone);
-                        UnityEngine.Debug.Log("found");
                     }
             }
             return il.AsEnumerable();
