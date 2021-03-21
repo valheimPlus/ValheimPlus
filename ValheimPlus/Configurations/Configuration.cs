@@ -40,6 +40,7 @@ namespace ValheimPlus.Configurations
         public ShieldConfiguration Shields { get; set; }
         public FirstPersonConfiguration FirstPerson { get; internal set; }
         public GridAlignmentConfiguration GridAlignment { get; set; }
+        public CraftFromChestConfiguration CraftFromChest { get; set; }
         public ValheimPlusConfiguration ValheimPlus { get; set; }
         public ProjectileFiredConfiguration ProjectileFired { get; set; }
     }

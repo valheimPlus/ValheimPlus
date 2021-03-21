@@ -204,6 +204,33 @@
 			}
 		}
 	},
+	"CraftFromChest": {
+		"description": "",
+		"icon": "fa fa-archway",
+		"description_website": "Allows crafting using content of nearby chests.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"checkFromWorkbench": {
+				"description": "If in a workbench area, uses it as reference point when scanning for chests",
+				"defaultValue": "F10",
+				"defaultType": "KeyCode"
+			},
+			"range": {
+				"description": "The range of the chest detection (Maximum is 50)",
+				"defaultValue": "20",
+				"defaultType": "float"
+			},
+			"lookupInterval": {
+				"description": "Interval in seconds between each nearby chests discovery (Maximum is 50)",
+				"defaultValue": "3",
+				"defaultType": "int"
+			}
+		}
+	},
 	"Camera": {
 		"description": "",
 		"icon": "fa fa-video",
@@ -378,14 +405,34 @@
 		"description_website": "Change the in-game beheavior of torches and fireplaces.",
 		"entries": {
 			"enabled": {
-				"description": "If set to true, all fire sources will stay at max fuel level once filled.",
+				"description": "Change false to true to enable this section",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
-			"onlyTorches": {
-				"description": "If set to true, only torch-type fire sources will stay at max fuel level once filled. NOTE: Requires enabled=true above.",
+			"torches": {
+				"description": "If set to true, torch-type fire sources will stay at max fuel level once filled",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"fires": {
+				"description": "If set to true, non torch-type fire sources will stay at max fuel level once filled",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoFuel": {
+				"description": "Look for fuel inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests.",
+				"defaultValue": "true",
+				"defaultType": "bool"	
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto fuel feature.",
+				"defaultValue": 10,
+				"defaultType": "float",
 			}
 		}
 	},
@@ -447,8 +494,18 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
-			"autoDepositRange": {
-				"description": "The range of the chest detection for the auto deposit feature. (Maximum is 50)",
+			"autoFuel": {
+				"description": "Look for fuel inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"	
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests.",
+				"defaultValue": "true",
+				"defaultType": "bool"	
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
 				"defaultValue": "10",
 				"defaultType": "float"
 			}
@@ -489,8 +546,18 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
-			"autoDepositRange": {
-				"description": "The range of the chest detection for the auto deposit feature. (Maximum is 50)",
+			"autoFuel": {
+				"description": "Look for fuel inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"	
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests.",
+				"defaultValue": "true",
+				"defaultType": "bool"	
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
 				"defaultValue": "10",
 				"defaultType": "float"
 			}
@@ -837,8 +904,18 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
-			"autoDepositRange": {
-				"description": "The range of the chest detection for the auto deposit feature. (Maximum is 50)",
+			"autoFuel": {
+				"description": "Look for fuel inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"	
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests.",
+				"defaultValue": "true",
+				"defaultType": "bool"	
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
 				"defaultValue": "10",
 				"defaultType": "float"
 			}

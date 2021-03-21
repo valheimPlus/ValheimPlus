@@ -14,7 +14,7 @@ namespace ValheimPlus
         /// <summary>
         /// Get all valid nearby chests
         /// </summary>
-        public static List<Container> GetNearbyChests(GameObject target, float range)
+        public static List<Container> GetNearbyChests(GameObject target, float range, bool checkWard = true)
         {
             Collider[] hitColliders = Physics.OverlapSphere(target.transform.localPosition, range, LayerMask.GetMask(new string[] { "piece" }));
 
@@ -27,7 +27,9 @@ namespace ValheimPlus
                 try
                 {
                     Container foundContainer = hitCollider.GetComponentInParent<Container>();
-                    if (foundContainer.m_name.Contains("piece_chest") && foundContainer.GetInventory() != null)
+                    bool hasAccess = foundContainer.CheckAccess(Player.m_localPlayer.GetPlayerID());
+                    if (checkWard) hasAccess = hasAccess && PrivateArea.CheckAccess(target.transform.position, flash: false);
+                    if (foundContainer.m_name.Contains("piece_chest") && hasAccess && foundContainer.GetInventory() != null)
                     {
                         validContainers.Add(foundContainer);
                     }
@@ -41,9 +43,9 @@ namespace ValheimPlus
         /// <summary>
         /// Get a chests that contain the specified itemInfo.m_shared.m_name (item name)
         /// </summary>
-        public static List<Container> GetNearbyChestsWithItem(GameObject target, float range, ItemDrop.ItemData itemInfo)
+        public static List<Container> GetNearbyChestsWithItem(GameObject target, float range, ItemDrop.ItemData itemInfo, bool checkWard = true)
         {
-            List<Container> nearbyChests = GetNearbyChests(target, range);
+            List<Container> nearbyChests = GetNearbyChests(target, range, checkWard);
 
             List<Container> validChests = new List<Container>();
             foreach (Container chest in nearbyChests)
@@ -76,10 +78,10 @@ namespace ValheimPlus
         /// <summary>
         /// function to get all items in nearby chests by range
         /// </summary>
-        public static List<ItemDrop.ItemData> GetNearbyChestItems(GameObject target, float range = 10)
+        public static List<ItemDrop.ItemData> GetNearbyChestItems(GameObject target, float range = 10, bool checkWard = true)
         {
             List<ItemDrop.ItemData> itemList = new List<ItemDrop.ItemData>();
-            List<Container> nearbyChests = GetNearbyChests(target, range);
+            List<Container> nearbyChests = GetNearbyChests(target, range, checkWard);
 
             foreach (Container chest in nearbyChests)
             {
@@ -124,9 +126,9 @@ namespace ValheimPlus
         }
 
         // function to remove items in the amount from all nearby chests
-        public static bool RemoveItemInAmountFromAllNearbyChests(GameObject target, float range, ItemDrop.ItemData needle, int amount)
+        public static int RemoveItemInAmountFromAllNearbyChests(GameObject target, float range, ItemDrop.ItemData needle, int amount, bool checkWard = true)
         {
-            List<Container> nearbyChests = GetNearbyChests(target, range);
+            List<Container> nearbyChests = GetNearbyChests(target, range, checkWard);
 
             // check if there are enough items nearby
             List<ItemDrop.ItemData> allItems = GetNearbyChestItemsByContainerList(nearbyChests);
@@ -136,7 +138,7 @@ namespace ValheimPlus
 
             // check if there are enough items
             if (availableAmount < amount || amount == 0)
-                return false;
+                return 0;
 
             // iterate all chests and remove as many items as possible for the respective chest
             int itemsRemovedTotal = 0;
@@ -150,7 +152,7 @@ namespace ValheimPlus
                 }
             }
 
-            return true;
+            return itemsRemovedTotal;
         }
 
         // function to add a item by name/ItemDrop.ItemData to a specified chest
@@ -182,6 +184,10 @@ namespace ValheimPlus
                     }
                 }
             }
+
+            // We don't want to send chest content through network
+            if (totalRemoved == 0) return 0;
+
             allItems.RemoveAll((ItemDrop.ItemData x) => x.m_stack <= 0);
             chest.m_inventory.m_inventory = allItems;
 
