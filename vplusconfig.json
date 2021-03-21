@@ -162,6 +162,11 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
+			"noMysticalForcesPreventPlacementRestriction": {
+				"description": "Removes the 'Mystical forces' building prevention and allows destruction of build objects in those areas with the hammer.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"noWeatherDamage": {
 				"description": "Removes the weather damage from rain",
 				"defaultValue": "false",
@@ -937,6 +942,11 @@
 				"defaultValue": "1200",
 				"defaultType": "float"
 			},
+			"disableGuardianBuffAnimation": {
+				"description": "Disable the Guardian Buff animation",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"autoEquipShield": {
 				"description": "If set to true, when equipping a one-handed weapon, the best shield from your inventory is automatically equipped. (Best is determined by highest block power)",
 				"defaultValue": "false",
@@ -1410,7 +1420,7 @@
 		"description_website": "Allows to switch to a first person mode in valheim with very little clipping.",
 		"entries": {
 			"enabled": {
-				"description": "Change false to true to enable this section, if you set this to false the mode will not be accesible",
+				"description": "Change false to true to enable this section",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
@@ -1434,6 +1444,34 @@
 				"defaultValue": "PageDown",
 				"defaultType": "KeyCode"
 			}
+		}
+	},
+	"GridAlignment" : {
+		"description": "When pressing the configured key new buildings will be aligned to a global grid.",
+		"icon": "fad fa-border-right",
+		"description_website": "When pressing the configured key new buildings will be aligned to a global grid, allwoing for consistent placement locations.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"align": {
+				"description": "Key to enable grid alignment.",
+				"defaultValue": "LeftAlt",
+				"defaultType": "KeyCode"
+			},
+			"alignToggle": {
+				"description": "Key to toggle grid alignment.",
+				"defaultValue": "F7",
+				"defaultType": "KeyCode"
+			},
+			"changeDefaultAlignment": {
+				"description": "Key to change the default alignment direction.",
+				"defaultValue": "F6",
+				"defaultType": "KeyCode"
+			},
+			
 		}
 	}
 }

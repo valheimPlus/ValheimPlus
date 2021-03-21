@@ -34,7 +34,7 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 * Tweak/disable death penalty.
 * Tweak Rested bonus duration per comfort level.
 * Disable the use of portals.
-* Modify the Guardian buff duration and cooldown
+* Modify the Guardian buff duration, cooldown and animation
 
 
 ### Player Hud
@@ -126,6 +126,7 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 
 # Building
 * Disable "Invalid Placement" restriction while building.
+* Disable "Mystical forces" restriction while building and allows to destroying objects using the hammer.
 * Disable deterioration of placeables from weather exposure. 
 * Disable deterioration of placeables from water exposure.
 * Added a free rotation mode for the default Building Mode.
