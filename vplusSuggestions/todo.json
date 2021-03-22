@@ -263,7 +263,7 @@
   },
   "Lock Items Together": {
     "description": "Add the ability to craft items which are permanently fastened to other items, i.e. locking a bed to a boat.",
-    "icon": "fas fa-lockh",
+    "icon": "fas fa-link",
     "status": "In Consideration",
     "category": "Building"
   },
