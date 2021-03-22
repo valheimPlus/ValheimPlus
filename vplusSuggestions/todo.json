@@ -80,7 +80,8 @@
   "Auto deposit for Windmill": {
     "description": "You have already added the features to auto deposit from furances / beehives to nearby chests, make it exist for windmill too please",
     "icon": "fad fa-wind-turbine",
-    "status": "In Consideration",
+    "status": "Planned",
+	"progress": "70",
     "category": "General"
   },
   "Auto weapon switch after swimming": {
@@ -361,8 +362,8 @@
   },
   "Push/Pull Doors": {
     "description": "Add the ability to specify whether a door can open both ways, or only push or pull.",
-    "icon": "fa fa-wrench",
-    "status": "fas fa-door-open",
+    "icon": "fas fa-door-open",
+    "status": "In Consideration",
     "category": "Building"
   },
   "REST API": {
@@ -425,7 +426,7 @@
     "status": "In Consideration",
     "category": "PVP"
   },
-  "Right-click to take/place a single item from a multi-item stack in inventory/containers": {
+  "Right-click to take/place a single item from a multi-item stack in inventory": {
     "description": "Right clicking to take a single item from a stack (or place from a held stack into an empty slot) at a time is something I find myself wanting to do very often, and in line with functionality from Valheim predecessors such as Terraria",
     "icon": "fas fa-cubes",
     "status": "In Consideration",
@@ -476,7 +477,7 @@
   },
   "System to modify merchant items and costs": {
     "description": "A system to modify the offered items from the merchant and their specific costs. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/252'>reference</a>",
-    "icon": "fas fa-money-bill-wave-alt",
+    "icon": "fas fa-sack",
     "status": "Planned",
     "category": "Items"
   },
