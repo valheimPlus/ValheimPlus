@@ -87,7 +87,7 @@ namespace ValheimPlus.Configurations
                     continue;
                 }
 
-                if (prop.PropertyType == typeof(KeyCode))
+                if (prop.PropertyType == typeof(KeyCode) && !RPC.VPlusConfigSync.isConnecting)
                 {
                     prop.SetValue(this, data.GetKeyCode(keyName, (KeyCode)existingValue), null);
                     continue;

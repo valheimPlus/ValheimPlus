@@ -1061,6 +1061,11 @@
 				"defaultValue": "true",
 				"defaultType": "bool"
 			},
+			"serverSyncHotkeys": {
+				"description": "If false allows you to keep your own defined hotkeys instead of synchronising the ones declared for the server. Sections need to be enabled in your local configuration to load hotkeys. This is a client side setting and not affected by server settings.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"dataRate": {
 				"description": "The total amount of data that the server and client can send per second in kilobyte",
 				"defaultValue": "60",
