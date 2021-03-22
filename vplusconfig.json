@@ -427,12 +427,12 @@
 			"ignorePrivateAreaCheck": {
 				"description": "Change true to false to enable private area check when looking for chests.",
 				"defaultValue": "true",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"autoRange": {
 				"description": "The range of the chest detection for the auto fuel feature.",
-				"defaultValue": 10,
-				"defaultType": "float",
+				"defaultValue": "10",
+				"defaultType": "float"
 			}
 		}
 	},
@@ -497,12 +497,12 @@
 			"autoFuel": {
 				"description": "Look for fuel inside nearby chests",
 				"defaultValue": "false",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"ignorePrivateAreaCheck": {
 				"description": "Change true to false to enable private area check when looking for chests.",
 				"defaultValue": "true",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"autoRange": {
 				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
@@ -549,12 +549,12 @@
 			"autoFuel": {
 				"description": "Look for fuel inside nearby chests",
 				"defaultValue": "false",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"ignorePrivateAreaCheck": {
 				"description": "Change true to false to enable private area check when looking for chests.",
 				"defaultValue": "true",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"autoRange": {
 				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
@@ -907,12 +907,12 @@
 			"autoFuel": {
 				"description": "Look for fuel inside nearby chests",
 				"defaultValue": "false",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"ignorePrivateAreaCheck": {
 				"description": "Change true to false to enable private area check when looking for chests.",
 				"defaultValue": "true",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"autoRange": {
 				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
@@ -1269,7 +1269,7 @@
 		"description": "THIS FEATURE IS STILL IN DEVELOPMENT AND IS RIGHT NOW DISABLED UNTIL FURTHER NOTICE",
 		"icon": "fa fa-clock-o",
 		"enabled": "false",
-		"description_website":"",
+		"description_website": "",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -1523,7 +1523,7 @@
 			}
 		}
 	},
-	"GridAlignment" : {
+	"GridAlignment": {
 		"description": "When pressing the configured key new buildings will be aligned to a global grid.",
 		"icon": "fad fa-border-right",
 		"description_website": "When pressing the configured key new buildings will be aligned to a global grid, allwoing for consistent placement locations.",
@@ -1547,8 +1547,8 @@
 				"description": "Key to change the default alignment direction.",
 				"defaultValue": "F6",
 				"defaultType": "KeyCode"
-			},
-			
+			}
+
 		}
 	}
 }
