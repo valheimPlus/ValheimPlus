@@ -1,0 +1,54 @@
+{
+	"General": {
+		"description": "",
+		"icon": "fa fa-list"
+	},
+	"Player": {
+		"description": "",
+		"icon": "fa fa-male"
+	},
+	"Hud": {
+		"description": "",
+		"icon": "fa fa-desktop"
+	},
+	"Monsters": {
+		"description": "",
+		"icon": "fa fa-spider"
+	},
+	"Items": {
+		"description": "",
+		"icon": "fa fa-icons"
+	},
+	"Server": {
+		"description": "",
+		"icon": "fa fa-server"
+	},
+	"World": {
+		"description": "",
+		"icon": "fas fa-globe-europe"
+	},
+	"Ships": {
+		"description": "",
+		"icon": "fa fa-ship"
+	},
+	"Building Modes": {
+		"description": "",
+		"icon": "fas fa-shapes"
+	},
+	"Website": {
+		"description": "",
+		"icon": "fa fa-globe"
+	},
+	"Map": {
+		"description": "",
+		"icon": "fa fa-map"
+	},
+	"Building": {
+		"description": "",
+		"icon": "fa fa-archway"
+	},
+	"PVP": {
+		"description": "",
+		"icon": "fa fa-swords"
+	}
+}
