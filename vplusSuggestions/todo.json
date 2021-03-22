@@ -233,7 +233,7 @@
   },
   "Increase difficulty based on day in game": {
     "description": "Add the ability to add a difficulty multiplier per day.",
-    "icon": "fas fa-sort-numeric-up-alt",
+    "icon": "fad fa-sort-numeric-up",
     "status": "In Consideration",
     "category": "World"
   },
