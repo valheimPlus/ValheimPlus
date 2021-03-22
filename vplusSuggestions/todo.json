@@ -251,7 +251,8 @@
   },
   "Inventory Organisation Buttons": {
     "description": "Add functional buttons like sorting to storage GUIs such as chests",
-    "status": "fas fa-inventory",
+    "icon": "fas fa-inventory",
+    "status": "In consideration",
     "category": "Items"
   },
   "Last Save Timer": {
