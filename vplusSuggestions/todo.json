@@ -26,7 +26,7 @@
   "Additional Server Side Config": {
     "description": "Add additional server config options, such as console to Server chat, bash commands, Customizing how the server appears on the lists ",
     "icon": "fas fa-file-check",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Server"
   },
   "Adjust Spawn Points": {
@@ -92,13 +92,13 @@
   "Bow Ammo": {
     "description": "Show the arrow count in some way when the bow is equipped. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/210'>reference</a>",
     "icon": "fa fa-bow-arrow",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Players"
   },
   "Burn Unwanted Items": {
     "description": "Add a the ability to burn/destroy unwanted items in the kiln",
     "icon": "fas fa-shredder",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Items"
   },
   "Change Animal State Times": {
@@ -110,13 +110,13 @@
   "CharacterID Whitelist": {
     "description": "This will make it so that players can only log into a server with characterIDs that are whitelisted.",
     "icon": "fas fa-universal-access",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Server"
   },
   "Chat System Extension": {
     "description": "It would be nice to have the option for multiple chat rooms, such as Global Chat, Region-Based Chats, Area Chats, etc. Even Trade or LFG Chats! <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/366'>reference</a>",
     "icon": "fal fa-comment-alt-lines",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "General"
   },
   "Chinese translation for config": {
@@ -166,13 +166,13 @@
   "Display a message to all connected Players": {
     "description": "A console command for the admin to send a message to all connected users on the server. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/144'>reference</a>",
     "icon": "fas fa-terminal",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Server"
   },
   "Display carts and boats on the map": {
     "description": "A system to show boats and carts you own on the map. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/107'>reference</a>",
     "icon": "fa fa-map-pin",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Map"
   },
   "Dynamite for Mining": {
@@ -228,7 +228,7 @@
   "In-game Clock": {
     "description": "A ingame display of the in-game. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/365'>reference</a>",
     "icon": "fa fa-clock",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Hud"
   },
   "Increase difficulty based on day in game": {
@@ -240,19 +240,19 @@
   "Increase running speed on player built ground": {
     "description": "5% faster running on wooden floor and 10% faster running on stone floor",
     "icon": "fas fa-running",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Player"
   },
   "Inscriptions on Items": {
     "description": "The ability to tag items with player-customized messages.",
     "icon": "fas fa-pencil-ruler",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Items"
   },
   "Inventory Organisation Buttons": {
     "description": "Add functional buttons like sorting to storage GUIs such as chests",
     "icon": "fas fa-inventory",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Items"
   },
   "Last Save Timer": {
@@ -264,7 +264,7 @@
   "Lock Items Together": {
     "description": "Add the ability to craft items which are permanently fastened to other items, i.e. locking a bed to a boat.",
     "icon": "fas fa-lockh",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Building"
   },
   "Make the Trailer ship craftable and usable": {
@@ -289,7 +289,7 @@
   "Modifiers for Berries and Bushes": {
     "description": "Add a configuration settings to modify the amount of berries harvested from bushes. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/222'>reference</a>",
     "icon": "fab fa-raspberry-pi",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Items"
   },
   "Modify Block and Parry Levels of Weapons": {
@@ -307,7 +307,7 @@
   "Modify Terrain Limitations": {
     "description": "Modify the terrain modification limitations of the game. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/203'>reference</a>",
     "icon": "fa fa-chart-area",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Building"
   },
   "Open doors when hammer equipped": {
@@ -325,7 +325,7 @@
   "Option to remove map clouds": {
     "description": "Add the option to disable the clouds being shown on the large and mini map.",
     "icon": "fas fa-clouds",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Map"
   },
   "Overhaul Planting System": {
@@ -344,7 +344,7 @@
   "Permission System for Console Commands": {
     "description": "A system to only allow certain players with certain permissions on a server to use specified console commands. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/178'>reference</a>",
     "icon": "fas fa-key",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Server"
   },
   "Player Craftable Mob Spawners": {
@@ -392,7 +392,7 @@
   "Remove Ground Height Limits": {
     "description": "Remove/change the limits to how high/low you can dig or build",
     "icon": "fas fa-line-height",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "World"
   },
   "Remove Smoke Vent Requirement": {
@@ -404,7 +404,7 @@
   "Repairs require materials": {
     "description": "Make item repairs cost a % of the items used to create it. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/287'>reference</a>",
     "icon": "fas fa-tools",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Items"
   },
   "Reset mob wave when bosses are killed": {
@@ -416,7 +416,7 @@
   "Respawn System for Caves and Dungeons": {
     "description": "Respawn/Reset dungeons/caves and burials after a defined period of passed time. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/330'>reference</a>",
     "icon": "fas fa-sign-in-alt",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "General"
   },
   "Retrievable arrows & aim/Arrow physics improvements": {
@@ -440,7 +440,7 @@
   "Search bars": {
     "description": "Inventory and Crafting table search bars. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/129'>reference</a>",
     "icon": "fas fa-search",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Hud"
   },
   "Server Specific Characters & Inventory": {
@@ -453,7 +453,7 @@
   "Set LODBios for all players on server": {
     "description": "Add ability to adjust the servers LOD Bios and force that value to all players",
     "icon": "fas fa-binoculars",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Server"
   },
   "Show hit points on health bar": {
@@ -465,7 +465,7 @@
   "Show portal names": {
     "description": "Display a big message with the portals name on the player hud. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/258'>reference</a>",
     "icon": "fa fa-portal-exit",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "Hud"
   },
   "Sleep on any bed": {
@@ -489,7 +489,7 @@
   "Tree Respawn": {
     "description": "Causes a new sapling to grow when a tree stump is removed.",
     "icon": "fas fa-trees",
-    "status": "In consideration",
+    "status": "In Consideration",
     "category": "World"
   },
   "Use portals to connect to other servers": {
