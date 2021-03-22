@@ -20,6 +20,8 @@ namespace ValheimPlus.Configurations
         public FurnaceConfiguration Furnace { get; set; }
         public HotkeyConfiguration Hotkeys { get; set; }
         public KilnConfiguration Kiln { get; set; }
+        public WindmillConfiguration Windmill { get; set; }
+        public SpinningWheelConfiguration SpinningWheel { get; set; }
         public MapConfiguration Map { get; set; }
         public PlayerConfiguration Player { get; set; }
         public ServerConfiguration Server { get; set; }
