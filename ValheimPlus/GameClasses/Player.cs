@@ -144,7 +144,7 @@ namespace ValheimPlus.GameClasses
             {
                 if (statusEffect.m_name.Contains("beltstrength"))
                 {
-                    limit = baseLimit + Configuration.Current.Player.baseMegingjordBuff;
+                    limit = (baseLimit - 150) + Configuration.Current.Player.baseMegingjordBuff;
                     statusEffect.ModifyMaxCarryWeight(baseLimit, ref limit);
                 }
 
