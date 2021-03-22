@@ -80,7 +80,7 @@
   "Auto deposit for Windmill": {
     "description": "You have already added the features to auto deposit from furances / beehives to nearby chests, make it exist for windmill too please",
     "icon": "fad fa-wind-turbine",
-    "status": "Planned",
+    "status": "In Progress",
 	"progress": "70",
     "category": "General"
   },
