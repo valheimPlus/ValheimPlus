@@ -54,7 +54,7 @@
     "category": "Player"
   },
   "Allow more granular inventory size changes": {
-    "description": "<V+ lumps Iron chest, Cart and Longship inventories under a single config. It also doesn't allow changes to the Karve or Personal chest inventory. Would like it if I could set all of these independently. Additionally options should gracefully handle destruction of object or death of character without losing inventory.",
+    "description": "V+ lumps Iron chest, Cart and Longship inventories under a single config. It also doesn't allow changes to the Karve or Personal chest inventory. Would like it if I could set all of these independently. Additionally options should gracefully handle destruction of object or death of character without losing inventory.",
     "icon": "fas fa-inventory",
     "status": "In Consideration",
     "category": "Items"
