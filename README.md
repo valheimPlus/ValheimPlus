@@ -335,6 +335,7 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for d
 * Greg 'Zedle' G. - https://github.com/zedle
 * Miguel 'Mixone' T. - https://github.com/Mixone-FinallyHere
 * Lilian 'healiha' C. - https://github.com/healiha
+* Nathan 'NCJ' J. - https://github.com/ncjsvr
 
 # Credits
 * Paige 'radmint' N. - https://github.com/radmint
