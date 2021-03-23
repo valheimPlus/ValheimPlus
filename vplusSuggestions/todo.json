@@ -5,6 +5,12 @@
     "status": "In Consideration",
     "category": "Building"
   },
+  "Add Gyroscope to advanced editing modes": {
+    "description": "there is already a mod that was made called gizmo here is the link to their github and i was wondering if a solution like that would be possible to implement. https://github.com/rolopogo/ValheimMods/tree/main/Gizmo",
+    "icon": "fas fa-database",
+    "status": "In Consideration",
+    "category": "Server"
+  },
   "Add a beautify tool to the Hoe": {
     "description": "Add a clean up tool to fix horrible looking terraform ",
     "icon": "fas fa-shovel",
@@ -480,6 +486,12 @@
     "icon": "fas fa-sack",
     "status": "Planned",
     "category": "Items"
+  },
+  "Toggle Autofuel on and off for kiln and fires separately": {
+    "description": "Option to be able to toggle autoFuel on/off for Kiln as anyone like me who has wood in chests for building that are within range will get depleted by the Kiln.\nAdditionally an option to be able to turn fires on/off - it's awesome having fire sources permanently lit, however being able to toggle individual  items on and off would be great",
+    "icon": "fas fa-database",
+    "status": "In Consideration",
+    "category": "Server"
   },
   "Toggle Personal/Shared Map": {
     "description": "Add the ability to toggle personal map progress off/on when using the map sharing feature",
