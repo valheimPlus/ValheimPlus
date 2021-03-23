@@ -1,5 +1,7 @@
-using System;
 using HarmonyLib;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
@@ -59,5 +61,11 @@ namespace ValheimPlus.GameClasses
                 }
             }
         }
+    }
+
+    public static class Inventory_NearbyChests_Cache
+    {
+        public static List<Container> chests = new List<Container>();
+        public static readonly Stopwatch delta = new Stopwatch();
     }
 }

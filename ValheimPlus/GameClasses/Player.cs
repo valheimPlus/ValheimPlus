@@ -768,8 +768,6 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Player), nameof(Player.HaveRequirements), new System.Type[] { typeof(Piece.Requirement[]), typeof(bool), typeof(int) })]
     public static class Player_HaveRequirements_Transpiler
     {
-        private static List<Container> nearbyChests = null;
-
         private static MethodInfo method_Inventory_CountItems = AccessTools.Method(typeof(Inventory), nameof(Inventory.CountItems));
         private static MethodInfo method_ComputeItemQuantity = AccessTools.Method(typeof(Player_HaveRequirements_Transpiler), nameof(Player_HaveRequirements_Transpiler.ComputeItemQuantity));
 
@@ -799,25 +797,30 @@ namespace ValheimPlus.GameClasses
 
         private static int ComputeItemQuantity(int fromInventory, Piece.Requirement item, Player player)
         {
+            Stopwatch delta;
+
             GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
-            if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
-            
-            Stopwatch delta = GameObjectAssistant.GetStopwatch(pos.gameObject);
+            if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench)
+            {
+                pos = player.gameObject;
+                delta = Inventory_NearbyChests_Cache.delta;
+            }
+            else
+                delta = GameObjectAssistant.GetStopwatch(pos);
+
             int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
             if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
             {
-                nearbyChests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
+                Inventory_NearbyChests_Cache.chests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
                 delta.Restart();
             }
-            return fromInventory + InventoryAssistant.GetItemAmountInItemList(InventoryAssistant.GetNearbyChestItemsByContainerList(nearbyChests), item.m_resItem.m_itemData);
+            return fromInventory + InventoryAssistant.GetItemAmountInItemList(InventoryAssistant.GetNearbyChestItemsByContainerList(Inventory_NearbyChests_Cache.chests), item.m_resItem.m_itemData);
         }
     }
 
     [HarmonyPatch(typeof(Player), nameof(Player.HaveRequirements), new System.Type[] { typeof(Piece), typeof(Player.RequirementMode) })]
     public static class Player_HaveRequirements_2_Transpiler
     {
-        private static List<Container> nearbyChests = null;
-
         private static MethodInfo method_Inventory_CountItems = AccessTools.Method(typeof(Inventory), nameof(Inventory.CountItems));
         private static MethodInfo method_ComputeItemQuantity = AccessTools.Method(typeof(Player_HaveRequirements_2_Transpiler), nameof(Player_HaveRequirements_2_Transpiler.ComputeItemQuantity));
 
@@ -847,18 +850,25 @@ namespace ValheimPlus.GameClasses
 
         private static int ComputeItemQuantity(int fromInventory, Piece.Requirement item, Player player)
         {
-            GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
-            if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
+            Stopwatch delta;
 
-            Stopwatch delta = GameObjectAssistant.GetStopwatch(pos.gameObject);
+            GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
+            if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench)
+            {
+                pos = player.gameObject;
+                delta = Inventory_NearbyChests_Cache.delta;
+            }
+            else
+                delta = GameObjectAssistant.GetStopwatch(pos);
+
             int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
             if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
             {
-                nearbyChests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
+                Inventory_NearbyChests_Cache.chests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
                 delta.Restart();
             }
 
-            return fromInventory + InventoryAssistant.GetItemAmountInItemList(InventoryAssistant.GetNearbyChestItemsByContainerList(nearbyChests), item.m_resItem.m_itemData);
+            return fromInventory + InventoryAssistant.GetItemAmountInItemList(InventoryAssistant.GetNearbyChestItemsByContainerList(Inventory_NearbyChests_Cache.chests), item.m_resItem.m_itemData);
         }
     }
 
