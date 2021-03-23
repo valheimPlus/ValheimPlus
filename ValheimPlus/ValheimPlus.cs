@@ -49,15 +49,30 @@ namespace ValheimPlus
                 
                 harmony.PatchAll();
 
-                isUpToDate = !IsNewVersionAvailable();
-                if (!isUpToDate)
+                if (IsNewVersionAvailable() == "new")
                 {
                     Logger.LogError("There is a newer version available of ValheimPlus.");
+                    Logger.LogWarning("Please visit " + ValheimPlusPlugin.Repository + ".");
+                } 
+                else if (IsNewVersionAvailable() == "same")
+                {
+                    Logger.LogInfo("ValheimPlus [" + version + "] is up to date.");
+                } 
+                else if (IsNewVersionAvailable() == "old")
+                {
+                    Logger.LogError("You are in a version ahead of the most current one.");
+                    Logger.LogWarning("If you are not a developer, please switch back to the most current stable version published.");
+                    Logger.LogWarning("Please visit " + ValheimPlusPlugin.Repository + ".");
+                } 
+                else if (IsNewVersionAvailable() == "fail")
+                {
+                    Logger.LogError("There was a fail in stipulating the version.");
                     Logger.LogWarning("Please visit " + ValheimPlusPlugin.Repository + ".");
                 }
                 else
                 {
-                    Logger.LogInfo("ValheimPlus [" + version + "] is up to date.");
+                    Logger.LogError("There was a fail in stipulating the version.");
+                    Logger.LogWarning("Please visit " + ValheimPlusPlugin.Repository + ".");
                 }
 
                 //Create VPlus dir if it does not exist.
@@ -76,7 +91,7 @@ namespace ValheimPlus
             }
         }
 
-        public static bool IsNewVersionAvailable()
+        public static string IsNewVersionAvailable()
         {
             WebClient client = new WebClient();
 
@@ -98,9 +113,17 @@ namespace ValheimPlus
             {
                 if (System.Version.TryParse(version, out System.Version currentVersion))
                 {
-                    if (currentVersion < newVersion)
+                    if (currentVersion < newVersion && (currentVersion != newVersion))
                     {
-                        return true;
+                        return "new";
+                    }
+                    if (currentVersion > newVersion && (currentVersion != newVersion))
+                    {
+                        return "old";
+                    }
+                    if (currentVersion == newVersion)
+                    {
+                        return "same";
                     }
                 }
             }
@@ -108,11 +131,11 @@ namespace ValheimPlus
             {
                 if (newestVersion != version)
                 {
-                    return true;
+                    return "fail";
                 }
             }
             
-            return false;
+            return "fail";
         }
     }
 }
