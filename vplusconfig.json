@@ -1243,6 +1243,11 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
+			"disableWaterDamageToPlayerBoats": {
+				"description": "Disables water force damage to all player built boats",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"wood": {
 				"description": "Each of these values reduce the loss of structural integrity by distance by %.",
 				"defaultValue": "0",
