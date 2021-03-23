@@ -4,12 +4,10 @@
 A HarmonyX Mod aimed at improving the gameplay quality of Valheim. The mod includes several different main features that allow users to modify the stats of players, buildings and entities. V+ also offers players the ability to build and place objects with very high precision through a sophisticated system, as well as tweaking and modifying already placed objects with equal precision. The goal is to provide V+ as a base modification for Valheim to increase quality of life, tweak the game's difficulty, and in general, improve the player's experience. V+ also comes with a version and configuration control system for servers and users, enabling server owners to ensure that only players with the same configuration are able to join the server.
 
 # ValheimPlus Server Hosting
-Below you can find a list of hosting companies that are supporting ValheimPlus with very competitive pricing and ease of use.
+We teamed up with one of the best game hosting companies out there to make sure we can offer you the best quality dedicated game server hosting at affordable good prices.
+We work together closely to make sure all our features are integrated and working at all times. We even have a full time dedicated Zap-Hosting support team to help you out in our [discord](https://discord.gg/valheimPlus) in addition.
 
-[![GPortal](https://imgur.com/L46GT7q.png)](https://www.g-portal.com/valheim)
 [![ZapHosting](https://i.imgur.com/4ZB1xHU.jpg)](https://zap-hosting.com/valheimplus)
-[![GFXHosting](https://www.gtxgaming.co.uk/wp-content/uploads/2021/02/valheim_plus_banner-3.png)](https://www.gtxgaming.co.uk/clientarea/aff.php?aff=2096)
-
 
 
 
@@ -205,7 +203,6 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 # Server
 * Remove password requirement for the server.
 * Modify the maximum amount of players on a server.
-* Modify server data rate in kilobytes.
 * Modify number of seconds it takes for items to despawn after being dropped on the ground. (default is 3600 seconds).
    * *Note: Items on ground will retain base game functionality which ensures that drops don't disappear if a player is nearby or there is a "player base" nearby*
 * Automatically sync V+ configuration of players joining a server to match the server's configuration.

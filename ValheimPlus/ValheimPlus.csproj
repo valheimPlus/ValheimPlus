@@ -397,7 +397,6 @@
     <Compile Include="GameClasses\Fermenter.cs" />
     <Compile Include="GameClasses\Inventory.cs" />
     <Compile Include="GameClasses\Console.cs" />
-    <Compile Include="GameClasses\ZDOMan.cs" />
     <Compile Include="GameClasses\ZNet.cs" />
     <Compile Include="GameClasses\Skills.cs" />
     <Compile Include="GameClasses\ItemDrop.cs" />
@@ -428,6 +427,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\logo.png" />
+    <EmbeddedResource Include="Assets\ZapHosting.png" />
+    <EmbeddedResource Include="Assets\ZapHosting_hover.png" />
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup />
