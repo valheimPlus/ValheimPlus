@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
@@ -54,6 +54,8 @@ namespace ValheimPlus.GameClasses
 
         private static ItemDrop.ItemData PullCookableItemFromNearbyChests(CookingStation station)
         {
+            if (station.GetFreeSlot() == -1) return null;
+
             Stopwatch delta = GameObjectAssistant.GetStopwatch(station.gameObject);
 
             int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
