@@ -256,7 +256,7 @@
     "status": "In Consideration",
     "category": "Items"
   },
-  "Inventory Organisation Buttons": {
+  "Inventory Organization Buttons": {
     "description": "Add functional buttons like sorting to storage GUIs such as chests",
     "icon": "fas fa-inventory",
     "status": "In Consideration",
