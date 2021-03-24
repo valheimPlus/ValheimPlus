@@ -17,5 +17,6 @@
         public bool autoEquipShield { get; internal set; } = false;
         public bool skipIntro { get; internal set; } = false;
         public bool iHaveArrivedOnSpawn { get; internal set; } = false;
+        public bool queueWeaponChanges { get; internal set; } = false;
     }
 }
