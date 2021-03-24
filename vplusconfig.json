@@ -1458,6 +1458,11 @@
 				"description": "By default tools and weapons go into inventories top to bottom and other materials bottom to top. Set to true to make all items go into the inventory top to bottom.",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"mergeWithExistingStacks": {
+				"description": "By default items go to their original position when picking up your tombstone. Set to true to make all stacks try to merge with an existing stack first.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
