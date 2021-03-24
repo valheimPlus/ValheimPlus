@@ -339,7 +339,9 @@
     <Compile Include="Configurations\Sections\FreePlacementRotationConfiguration.cs" />
     <Compile Include="Configurations\Sections\GatherConfiguration.cs" />
     <Compile Include="Configurations\Sections\ShieldConfiguration.cs" />
+    <Compile Include="Configurations\Sections\SpinningWheelConfiguration.cs" />
     <Compile Include="Configurations\Sections\ValheimPlusConfiguration.cs" />
+    <Compile Include="Configurations\Sections\WindmillConfiguration.cs" />
     <Compile Include="Deconstruct.cs" />
     <Compile Include="FirstPerson\VPlusFirstPerson.cs" />
     <Compile Include="FreePlacementRotation.cs" />
