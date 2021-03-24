@@ -35,6 +35,21 @@ namespace ValheimPlus.GameClasses
 	}
 
 	/// <summary>
+	/// Removes the integrity check for having a connected piece to the ground.
+	/// </summary>
+	[HarmonyPatch(typeof(WearNTear), "HaveSupport")]
+	public static class WearNTear_HaveSupport_Patch
+	{
+		private static void Postfix(ref bool __result)
+		{
+			if (Configuration.Current.Building.IsEnabled && Configuration.Current.StructuralIntegrity.disableStructuralIntegrity)
+			{
+				__result = true;
+			}
+		}
+	}
+
+	/// <summary>
 	/// Disable damage to player structures
 	/// </summary>
 	[HarmonyPatch(typeof(WearNTear), "ApplyDamage")]
