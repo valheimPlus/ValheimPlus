@@ -50,8 +50,14 @@ namespace ValheimPlus.GameClasses
                 return true;
 
             if (__instance.m_piece.m_name.StartsWith("$ship"))
-                return !Configuration.Current.StructuralIntegrity.disableDamageToPlayerBoats;
-
+            {
+	            if (Configuration.Current.StructuralIntegrity.disableDamageToPlayerBoats ||
+	                (Configuration.Current.StructuralIntegrity.disableWaterDamageToPlayerBoats &&
+	                 stackTrace.GetFrame(15).GetMethod().Name == "UpdateWaterForce")) return false;
+	            
+	            return true;
+            }
+            
             return !Configuration.Current.StructuralIntegrity.disableDamageToPlayerStructures;
         }
 	}
