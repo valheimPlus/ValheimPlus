@@ -1421,7 +1421,7 @@
 			},
 			"ironChestRows": {
 				"description": "Iron chest number of rows (more than 4 rows will add a scrollbar)",
-				"defaultValue": "3",
+				"defaultValue": "4",
 				"defaultType": "int"
 			},
 			"cartInventoryColumns": {
