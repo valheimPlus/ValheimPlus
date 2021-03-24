@@ -201,7 +201,7 @@ namespace ValheimPlus.GameClasses
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noMysticalForcesPreventPlacementRestriction)
+            if (!Configuration.Current.Building.IsEnabled || !Configuration.Current.Building.noMysticalForcesPreventPlacementRestriction)
                 return instructions;
 
             List<CodeInstruction> il = instructions.ToList();
@@ -211,8 +211,8 @@ namespace ValheimPlus.GameClasses
                     // search for every call to the function
                     if (il[i].operand.ToString().Contains(nameof(Location.IsInsideNoBuildLocation)))
                     {
-                        // replace every call to the function with the stub
                         il[i] = new CodeInstruction(OpCodes.Call, modifyIsInsideMythicalZone);
+                        // replace every call to the function with the stub
                     }
             }
             return il.AsEnumerable();
@@ -393,6 +393,7 @@ namespace ValheimPlus.GameClasses
 
             if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noInvalidPlacementRestriction)
             {
+                UnityEngine.Debug.Log("test2");
                 try
                 {
                     if (__instance.m_placementStatus == Player.PlacementStatus.Invalid)
