@@ -622,6 +622,11 @@
 				"description": "If you set this to true, all portals will be disabled",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"forceConsole": {
+				"description": "If you set this to true the console will be force enabled ingame, false will force disable it.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
