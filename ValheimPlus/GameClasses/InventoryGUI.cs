@@ -1,8 +1,8 @@
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
@@ -285,9 +285,6 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.SetupRequirement))]
     public static class InventoryGui_SetupRequirement_Patch
     {
-        private static Stopwatch delta = new Stopwatch();
-        private static List<Container> nearbyChests = null;
-
         private static bool Prefix(Transform elementRoot, Piece.Requirement req, Player player, bool craft, int quality, ref bool __result)
         {
             Image component = elementRoot.transform.Find("res_icon").GetComponent<Image>();
@@ -316,16 +313,24 @@ namespace ValheimPlus.GameClasses
 
                 if (Configuration.Current.CraftFromChest.IsEnabled)
                 {
+                    Stopwatch delta;
+
+                    GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
+                    if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench)
+                    {
+                        pos = player.gameObject;
+                        delta = Inventory_NearbyChests_Cache.delta;
+                    }
+                    else
+                        delta = GameObjectAssistant.GetStopwatch(pos);
+
                     int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
                     if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
                     {
-                        GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
-                        if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
-
-                        nearbyChests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50));
+                        Inventory_NearbyChests_Cache.chests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50));
                         delta.Restart();
                     }
-                    num += InventoryAssistant.GetItemAmountInItemList(InventoryAssistant.GetNearbyChestItemsByContainerList(nearbyChests), req.m_resItem.m_itemData);
+                    num += InventoryAssistant.GetItemAmountInItemList(InventoryAssistant.GetNearbyChestItemsByContainerList(Inventory_NearbyChests_Cache.chests), req.m_resItem.m_itemData);
                 }
 
                 component3.text = num + "/" + amount.ToString();

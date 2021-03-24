@@ -1,9 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.IO;
+using UnityEngine;
 
 
 namespace ValheimPlus
@@ -28,7 +25,7 @@ namespace ValheimPlus
                 {
                     Container foundContainer = hitCollider.GetComponentInParent<Container>();
                     bool hasAccess = foundContainer.CheckAccess(Player.m_localPlayer.GetPlayerID());
-                    if (checkWard) hasAccess = hasAccess && PrivateArea.CheckAccess(target.transform.position, flash: false);
+                    if (checkWard) hasAccess = hasAccess && PrivateArea.CheckAccess(target.transform.position, 0f, false, true);
                     if (foundContainer.m_name.Contains("piece_chest") && hasAccess && foundContainer.GetInventory() != null)
                     {
                         validContainers.Add(foundContainer);
@@ -137,7 +134,7 @@ namespace ValheimPlus
             int availableAmount = GetItemAmountInItemList(allItems, needle);
 
             // check if there are enough items
-            if (availableAmount < amount || amount == 0)
+            if (amount == 0)
                 return 0;
 
             // iterate all chests and remove as many items as possible for the respective chest
@@ -204,6 +201,5 @@ namespace ValheimPlus
             c.Save();
             c.GetInventory().Changed();
         }
-
     }
 }

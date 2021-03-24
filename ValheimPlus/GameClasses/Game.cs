@@ -10,7 +10,7 @@ namespace ValheimPlus.GameClasses
     /// Sync server config to clients
     /// </summary>
     [HarmonyPatch(typeof(Game), "Start")]
-    public static class GameStartPatch
+    public static class Game_Start_Patch
     {
         private static void Prefix()
         {
@@ -25,7 +25,7 @@ namespace ValheimPlus.GameClasses
     /// Alter game difficulty damage scale
     /// </summary>
     [HarmonyPatch(typeof(Game), "GetDifficultyDamageScale")]
-    public static class ChangeDifficultyScaleDamage
+    public static class Game_GetDifficultyDamageScale_Patch
     {
         private static bool Prefix(ref Game __instance, ref Vector3 pos, ref float __result)
         {
@@ -40,11 +40,25 @@ namespace ValheimPlus.GameClasses
         }
     }
 
+
+    /// <summary>
+    /// Disable the "i have arrived" message on spawn.
+    /// </summary>
+    [HarmonyPatch(typeof(Game), "UpdateRespawn")]
+    public static class Game_UpdateRespawn_Patch
+    {
+        private static void Prefix(ref Game __instance, float dt)
+        {
+            if(Configuration.Current.Player.IsEnabled && !Configuration.Current.Player.iHaveArrivedOnSpawn)
+                __instance.m_firstSpawn = false;
+        }
+    }
+
     /// <summary>
     /// Alter game difficulty health scale
     /// </summary>
     [HarmonyPatch(typeof(Game), "GetDifficultyHealthScale")]
-    public static class ChangeDifficultyScaleHealth
+    public static class Game_GetDifficultyHealthScale_Patch
     {
         private static bool Prefix(ref Game __instance, ref Vector3 pos, ref float __result)
         {
@@ -63,7 +77,7 @@ namespace ValheimPlus.GameClasses
     /// Alter player difficulty scale
     /// </summary>
     [HarmonyPatch(typeof(Game), "GetPlayerDifficulty")]
-    public static class ChangePlayerDifficultyCount
+    public static class Game_GetPlayerDifficulty_Patch
     {
         private static bool Prefix(ref Game __instance, ref Vector3 pos, ref int __result)
         {

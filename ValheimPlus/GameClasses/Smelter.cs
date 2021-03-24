@@ -1,5 +1,8 @@
 ﻿using HarmonyLib;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
@@ -13,33 +16,34 @@ namespace ValheimPlus.GameClasses
     {
         private static void Prefix(ref Smelter __instance)
         {
-            if (__instance.m_name.Equals(SmelterDefinitions.KilnName))
+            if (__instance.m_name.Equals(SmelterDefinitions.KilnName) && Configuration.Current.Kiln.IsEnabled)
             {
-                if (Configuration.Current.Kiln.IsEnabled)
-                {
-                    __instance.m_maxOre = Configuration.Current.Kiln.maximumWood;
-                    __instance.m_secPerProduct = Configuration.Current.Kiln.productionSpeed;
-                }
+                __instance.m_maxOre = Configuration.Current.Kiln.maximumWood;
+                __instance.m_secPerProduct = Configuration.Current.Kiln.productionSpeed;
             }
-            else if (__instance.m_name.Equals(SmelterDefinitions.SmelterName))
+            else if (__instance.m_name.Equals(SmelterDefinitions.SmelterName) && Configuration.Current.Smelter.IsEnabled)
             {
-                if (Configuration.Current.Smelter.IsEnabled)
-                {
-                    __instance.m_maxOre = Configuration.Current.Smelter.maximumOre;
-                    __instance.m_maxFuel = Configuration.Current.Smelter.maximumCoal;
-                    __instance.m_secPerProduct = Configuration.Current.Smelter.productionSpeed;
-                    __instance.m_fuelPerProduct = Configuration.Current.Smelter.coalUsedPerProduct;
-                }
+                __instance.m_maxOre = Configuration.Current.Smelter.maximumOre;
+                __instance.m_maxFuel = Configuration.Current.Smelter.maximumCoal;
+                __instance.m_secPerProduct = Configuration.Current.Smelter.productionSpeed;
+                __instance.m_fuelPerProduct = Configuration.Current.Smelter.coalUsedPerProduct;
             }
-            else if (__instance.m_name.Equals(SmelterDefinitions.FurnaceName))
+            else if (__instance.m_name.Equals(SmelterDefinitions.FurnaceName) && Configuration.Current.Furnace.IsEnabled)
             {
-                if (Configuration.Current.Furnace.IsEnabled)
-                {
-                    __instance.m_maxOre = Configuration.Current.Furnace.maximumOre;
-                    __instance.m_maxFuel = Configuration.Current.Furnace.maximumCoal;
-                    __instance.m_secPerProduct = Configuration.Current.Furnace.productionSpeed;
-                    __instance.m_fuelPerProduct = Configuration.Current.Furnace.coalUsedPerProduct;
-                }
+                __instance.m_maxOre = Configuration.Current.Furnace.maximumOre;
+                __instance.m_maxFuel = Configuration.Current.Furnace.maximumCoal;
+                __instance.m_secPerProduct = Configuration.Current.Furnace.productionSpeed;
+                __instance.m_fuelPerProduct = Configuration.Current.Furnace.coalUsedPerProduct;
+            }
+            else if (__instance.m_name.Equals(SmelterDefinitions.WindmillName) && Configuration.Current.Windmill.IsEnabled)
+            {
+                __instance.m_maxOre = Configuration.Current.Windmill.maximumBarley;
+                __instance.m_secPerProduct = Configuration.Current.Windmill.productionSpeed;
+            }
+            else if (__instance.m_name.Equals(SmelterDefinitions.SpinningWheel) && Configuration.Current.SpinningWheel.IsEnabled)
+            {
+                __instance.m_maxOre = Configuration.Current.SpinningWheel.maximumFlax;
+                __instance.m_secPerProduct = Configuration.Current.SpinningWheel.productionSpeed;
             }
         }
 
@@ -54,38 +58,25 @@ namespace ValheimPlus.GameClasses
             if (!smelter.m_nview.IsOwner())
                 return true;
 
-            if (__instance.m_name.Equals(SmelterDefinitions.KilnName))
+            if (__instance.m_name.Equals(SmelterDefinitions.KilnName) && Configuration.Current.Kiln.IsEnabled && Configuration.Current.Kiln.autoDeposit)
             {
-                if (Configuration.Current.Kiln.IsEnabled)
-                {
-                    if (Configuration.Current.Kiln.autoDeposit)
-                    {
-                        bool result = spawn(Helper.Clamp(Configuration.Current.Kiln.autoRange, 1, 50), Configuration.Current.Kiln.ignorePrivateAreaCheck);
-                        return result;
-                    }
-                }
+                return spawn(Helper.Clamp(Configuration.Current.Kiln.autoRange, 1, 50), Configuration.Current.Kiln.ignorePrivateAreaCheck);
             }
-            else if (__instance.m_name.Equals(SmelterDefinitions.SmelterName))
+            if (__instance.m_name.Equals(SmelterDefinitions.SmelterName) && Configuration.Current.Smelter.IsEnabled && Configuration.Current.Smelter.autoDeposit)
             {
-                if (Configuration.Current.Smelter.IsEnabled)
-                {
-                    if (Configuration.Current.Smelter.autoDeposit)
-                    {
-                        bool result = spawn(Helper.Clamp(Configuration.Current.Smelter.autoRange, 1, 50), Configuration.Current.Smelter.ignorePrivateAreaCheck);
-                        return result;
-                    }
-                }
+                return spawn(Helper.Clamp(Configuration.Current.Smelter.autoRange, 1, 50), Configuration.Current.Smelter.ignorePrivateAreaCheck);
             }
-            else if (__instance.m_name.Equals(SmelterDefinitions.FurnaceName))
+            if (__instance.m_name.Equals(SmelterDefinitions.FurnaceName) && Configuration.Current.Furnace.IsEnabled && Configuration.Current.Furnace.autoDeposit)
             {
-                if (Configuration.Current.Furnace.IsEnabled)
-                {
-                    if (Configuration.Current.Furnace.autoDeposit)
-                    {
-                        bool result = spawn(Helper.Clamp(Configuration.Current.Furnace.autoRange, 1, 50), Configuration.Current.Furnace.ignorePrivateAreaCheck);
-                        return result;
-                    }
-                }
+                return spawn(Helper.Clamp(Configuration.Current.Furnace.autoRange, 1, 50), Configuration.Current.Furnace.ignorePrivateAreaCheck);
+            }
+            if (__instance.m_name.Equals(SmelterDefinitions.WindmillName) && Configuration.Current.Windmill.IsEnabled && Configuration.Current.Windmill.autoDeposit)
+            {
+                return spawn(Helper.Clamp(Configuration.Current.Windmill.autoRange, 1, 50), Configuration.Current.Windmill.ignorePrivateAreaCheck);
+            }
+            if (__instance.m_name.Equals(SmelterDefinitions.SpinningWheel) && Configuration.Current.SpinningWheel.IsEnabled && Configuration.Current.SpinningWheel.autoDeposit)
+            {
+                return spawn(Helper.Clamp(Configuration.Current.SpinningWheel.autoRange, 1, 50), Configuration.Current.Windmill.ignorePrivateAreaCheck);
             }
             bool spawn(float autoDepositRange, bool ignorePrivateAreaCheck)
             {
@@ -149,12 +140,16 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Smelter), "FixedUpdate")]
     public static class Smelter_FixedUpdate_Patch
     {
-        static void Postfix(ref Smelter __instance)
+        static void Postfix(Smelter __instance)
         {
+            if (__instance == null || !Player.m_localPlayer || __instance.m_nview == null || !__instance.m_nview.IsOwner())
+                return;
+
             Smelter smelter = __instance;
 
-            if (smelter == null || !Player.m_localPlayer || !smelter.m_nview.IsOwner())
-                return;
+            Stopwatch delta = GameObjectAssistant.GetStopwatch(smelter.gameObject);
+            if (delta.IsRunning && delta.ElapsedMilliseconds < 1000) return;
+            delta.Restart();
 
             float autoFuelRange = 0f;
             bool ignorePrivateAreaCheck = false;
@@ -179,6 +174,21 @@ namespace ValheimPlus.GameClasses
                 autoFuelRange = Configuration.Current.Furnace.autoRange;
                 ignorePrivateAreaCheck = Configuration.Current.Furnace.ignorePrivateAreaCheck;
             }
+            else if (__instance.m_name.Equals(SmelterDefinitions.WindmillName))
+            {
+                if (!Configuration.Current.Windmill.IsEnabled || !Configuration.Current.Windmill.autoDeposit)
+                    return;
+                autoFuelRange = Configuration.Current.Windmill.autoRange;
+                ignorePrivateAreaCheck = Configuration.Current.Windmill.ignorePrivateAreaCheck;
+            }
+            else if (__instance.m_name.Equals(SmelterDefinitions.SpinningWheel))
+            {
+                if (!Configuration.Current.SpinningWheel.IsEnabled || !Configuration.Current.SpinningWheel.autoDeposit)
+                    return;
+                autoFuelRange = Configuration.Current.SpinningWheel.autoRange;
+                ignorePrivateAreaCheck = Configuration.Current.SpinningWheel.ignorePrivateAreaCheck;
+            }
+
             autoFuelRange = Helper.Clamp(autoFuelRange, 1, 50);
 
             int toMaxOre = smelter.m_maxOre - smelter.GetQueueSize();
@@ -225,10 +235,47 @@ namespace ValheimPlus.GameClasses
             }
         }
     }
+
+    [HarmonyPatch(typeof(Smelter), nameof(Smelter.UpdateSmelter))]
+    public static class Smelter_UpdaterSmelter_Transpiler
+    {
+        private static MethodInfo method_Windmill_GetPowerOutput = AccessTools.Method(typeof(Windmill), nameof(Windmill.GetPowerOutput));
+        private static MethodInfo method_GetPowerOutput = AccessTools.Method(typeof(Smelter_UpdaterSmelter_Transpiler), nameof(Smelter_UpdaterSmelter_Transpiler.GetPowerOutput));
+
+        /// <summary>
+        /// Patches out the code that get the power output of a windmill.
+        /// If ignoreWindIntensity is enabled, the power output will always be set to 1;
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.Windmill.IsEnabled || !Configuration.Current.Windmill.ignoreWindIntensity) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+            for (int i = 0; i < il.Count; i++)
+            {
+                if (il[i].Calls(method_Windmill_GetPowerOutput))
+                {
+                    il[i].operand = method_GetPowerOutput;
+                    return il.AsEnumerable();
+                }
+            }
+
+            return instructions;
+        }
+
+        private static float GetPowerOutput(Windmill __instance)
+        {
+            return 1f;
+        }
+    }
+
     public static class SmelterDefinitions
     {
         public static readonly string KilnName = "$piece_charcoalkiln";
         public static readonly string SmelterName = "$piece_smelter";
         public static readonly string FurnaceName = "$piece_blastfurnace";
+        public static readonly string WindmillName = "$piece_windmill";
+        public static readonly string SpinningWheel = "$piece_spinningwheel";
     }
 }

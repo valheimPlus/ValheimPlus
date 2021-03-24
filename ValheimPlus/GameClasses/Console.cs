@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
 {
@@ -24,4 +25,24 @@ namespace ValheimPlus.GameClasses
             __instance.AddString("");
         }
     }
+
+
+    /// <summary>
+    /// Change the console enabled status
+    /// </summary>
+    [HarmonyPatch(typeof(Console), "IsConsoleEnabled")]
+    public static class Console_IsConsoleEnabled_Patch
+    {
+        private static bool Prefix(ref Console __instance, ref bool __result)
+        {
+            if (Configuration.Current.Game.IsEnabled)
+            {
+                __result = Configuration.Current.Game.forceConsole;
+                return false;
+            }
+                
+            return true;
+        }
+    }
+
 }

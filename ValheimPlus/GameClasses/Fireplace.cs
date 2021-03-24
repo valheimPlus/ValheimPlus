@@ -1,11 +1,10 @@
 ﻿using HarmonyLib;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using UnityEngine;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
@@ -16,22 +15,21 @@ namespace ValheimPlus.GameClasses
         public static class Fireplace_Awake_Patch
         {
             /// <summary>
-            /// When fire source is created, check for configurations and set its start fuel to max fuel
+            /// When fire source is loaded in view, check for configurations and set its start fuel and current fuel to max fuel
             /// </summary>
-            private static void Prefix(ref Fireplace __instance)
+            private static void Postfix(ref Fireplace __instance)
             {
                 if (!Configuration.Current.FireSource.IsEnabled) return;
 
-                if (FireplaceExtensions.IsTorch(__instance.m_name))
+                if (Configuration.Current.FireSource.torches && FireplaceExtensions.IsTorch(__instance.m_name))
                 {
-                    if (Configuration.Current.FireSource.torches)
-                    {
-                        __instance.m_startFuel = __instance.m_maxFuel;
-                    }
+                    __instance.m_startFuel = __instance.m_maxFuel;
+                    __instance.m_nview.GetZDO().Set("fuel", __instance.m_maxFuel);
                 }
                 else if (Configuration.Current.FireSource.fires)
                 {
                     __instance.m_startFuel = __instance.m_maxFuel;
+                    __instance.m_nview.GetZDO().Set("fuel", __instance.m_maxFuel);
                 }
             }
         }
@@ -96,6 +94,11 @@ namespace ValheimPlus.GameClasses
 
                 if (toMaxFuel > 0)
                 {
+                    Stopwatch delta = GameObjectAssistant.GetStopwatch(__instance.gameObject);
+
+                    if (delta.IsRunning && delta.ElapsedMilliseconds < 1000) return;
+                    delta.Restart();
+
                     ItemDrop.ItemData fuelItemData = __instance.m_fuelItem.m_itemData;
 
                     int addedFuel = InventoryAssistant.RemoveItemInAmountFromAllNearbyChests(__instance.gameObject, Helper.Clamp(Configuration.Current.FireSource.autoRange, 1, 50), fuelItemData, toMaxFuel, !Configuration.Current.FireSource.ignorePrivateAreaCheck);
@@ -113,7 +116,6 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Fireplace), nameof(Fireplace.Interact))]
     public static class Fireplace_Interact_Transpiler
     {
-        private static Stopwatch delta = new Stopwatch();
         private static List<Container> nearbyChests = null;
 
         private static MethodInfo method_Inventory_HaveItem = AccessTools.Method(typeof(Inventory), nameof(Inventory.HaveItem));
@@ -153,6 +155,7 @@ namespace ValheimPlus.GameClasses
         {
             if (inventory.HaveItem(item.m_shared.m_name)) return true; // original code
 
+            Stopwatch delta = GameObjectAssistant.GetStopwatch(fireplace.gameObject);
             int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
             if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
             {

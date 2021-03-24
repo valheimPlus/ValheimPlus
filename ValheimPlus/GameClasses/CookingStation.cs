@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
@@ -12,7 +12,6 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(CookingStation), nameof(CookingStation.FindCookableItem))]
     public static class CookingStation_FindCookableItem_Transpiler
     {
-        private static Stopwatch delta = new Stopwatch();
         private static List<Container> nearbyChests = null;
 
         private static MethodInfo method_PullCookableItemFromNearbyChests = AccessTools.Method(typeof(CookingStation_FindCookableItem_Transpiler), nameof(CookingStation_FindCookableItem_Transpiler.PullCookableItemFromNearbyChests));
@@ -55,6 +54,10 @@ namespace ValheimPlus.GameClasses
 
         private static ItemDrop.ItemData PullCookableItemFromNearbyChests(CookingStation station)
         {
+            if (station.GetFreeSlot() == -1) return null;
+
+            Stopwatch delta = GameObjectAssistant.GetStopwatch(station.gameObject);
+
             int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
             if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
             {
