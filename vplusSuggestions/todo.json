@@ -11,11 +11,23 @@
     "status": "In Consideration",
     "category": "Server"
   },
+  "Add Skill Scaling": {
+    "description": "Example: As you increase your run skill, the carry weight is increased by xx amount per level to 1000 (as an exmaple) at level 100. Like sneak, your sneak speed increase by a % as you level up the skill which in turn reduces the stamina consumption.",
+    "icon": "fas fa-level-up-alt",
+    "status": "In Consideration",
+    "category": "General"
+  },
   "Add a beautify tool to the Hoe": {
     "description": "Add a clean up tool to fix horrible looking terraform ",
     "icon": "fas fa-shovel",
     "status": "In Consideration",
     "category": "Building"
+  },
+  "Add a hardcore/permadeath mode": {
+    "description": "Add a game mode where a death is permanent forcing you to start a new character.",
+    "icon": "fas fa-skull-crossbones",
+    "status": "In Consideration",
+    "category": "General"
   },
   "Add a ramp tool to the Hoe": {
     "description": "Add a ramp tool that can specify an angle, i.e. 25 degree ramp and then auto levels and creates the ramp for you.",
@@ -23,11 +35,35 @@
     "status": "In Consideration",
     "category": "Building"
   },
+  "Add admin tools": {
+    "description": "Add Backend server administration tools. Basic things like read all chat on server, vanish, fly and chat logging",
+    "icon": "fas fa-server",
+    "status": "In Consideration",
+    "category": "Server"
+  },
   "Add all resources to kiln/smelter/etc. in one keypress": {
     "description": "Add a option to auto input up to the maximum amount of ore from the players inventory and nearby chests into the respective processing building. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/188'>reference</a>",
     "icon": "fas fa-keyboard",
     "status": "Planned",
     "category": "Building"
+  },
+  "Add server favourites": {
+    "description": "Add the ability to add servers as favourites and remember passwords",
+    "icon": "fas fa-server",
+    "status": "In Consideration",
+    "category": "Server"
+  },
+  "Add the ability to set a graphical rendering distance": {
+    "description": "An adjustable numerical value in meters for how far away terrain changes, animals, buildings and vegetation/trees are displayed, or an option to keep an area loaded with the ward.",
+    "icon": "fas fa-binoculars",
+    "status": "In Consideration",
+    "category": "World"
+  },
+  "Add the option to turn off cooking stations for craft from containers": {
+    "description": "Add the option to turn off cooking stations for craft from containers.",
+    "icon": "fas fa-cauldron",
+    "status": "In Consideration",
+    "category": "General"
   },
   "Additional Server Side Config": {
     "description": "Add additional server config options, such as console to Server chat, bash commands, Customizing how the server appears on the lists ",
@@ -38,6 +74,12 @@
   "Adjust Spawn Points": {
     "description": "Add Random Joining Locations across the Equatorial Line with character specific Trophy Shrines, these will give individual character buffs and allows all with access to shrine area the normal ability to learn boss skills.",
     "icon": "fas fa-sign-in-alt",
+    "status": "In Consideration",
+    "category": "World"
+  },
+  "Adjust crop growth speed": {
+    "description": "Add a feature where the crop growth speed can be adjusted.",
+    "icon": "far fa-seedling",
     "status": "In Consideration",
     "category": "World"
   },
@@ -134,6 +176,12 @@
   "Control what Animals Eat": {
     "description": "Add the ability to control what food animals eat, e.g. make it so boars can eat every type of food.",
     "icon": "fas fa-meat",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Cook food in larger stacks": {
+    "description": "Add the ability to cook food in larger stacks",
+    "icon": "far fa-steak",
     "status": "In Consideration",
     "category": "Items"
   },
@@ -268,7 +316,7 @@
   },
   "Lock Items Together": {
     "description": "Add the ability to craft items which are permanently fastened to other items, i.e. locking a bed to a boat.",
-    "icon": "fas fa-lockh",
+    "icon": "fas fa-lock",
     "status": "In consideration",
     "category": "Building"
   },
@@ -405,6 +453,12 @@
     "icon": "far fa-fire-smoke",
     "status": "In Consideration",
     "category": "Building"
+  },
+  "Remove delay on tools": {
+    "description": "Add a feature that allows for adjusting the delay on tool use that was implemented in patch 0.146.8",
+    "icon": "fas fa-tools",
+    "status": "In Consideration",
+    "category": "General"
   },
   "Repairs require materials": {
     "description": "Make item repairs cost a % of the items used to create it. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/287'>reference</a>",
