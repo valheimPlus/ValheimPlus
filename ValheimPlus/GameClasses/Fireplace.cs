@@ -17,19 +17,19 @@ namespace ValheimPlus.GameClasses
             /// <summary>
             /// When fire source is loaded in view, check for configurations and set its start fuel and current fuel to max fuel
             /// </summary>
-            private static void Postfix(ref Fireplace __instance, ref ZNetView __m_nview)
+            private static void Postfix(ref Fireplace __instance)
             {
                 if (!Configuration.Current.FireSource.IsEnabled) return;
 
                 if (Configuration.Current.FireSource.torches && FireplaceExtensions.IsTorch(__instance.m_name))
                 {
                     __instance.m_startFuel = __instance.m_maxFuel;
-                    __m_nview.GetZDO().Set("fuel", __instance.m_maxFuel);
+                    __instance.m_nview.GetZDO().Set("fuel", __instance.m_maxFuel);
                 }
                 else if (Configuration.Current.FireSource.fires)
                 {
                     __instance.m_startFuel = __instance.m_maxFuel;
-                    __m_nview.GetZDO().Set("fuel", __instance.m_maxFuel);
+                    __instance.m_nview.GetZDO().Set("fuel", __instance.m_maxFuel);
                 }
             }
         }
