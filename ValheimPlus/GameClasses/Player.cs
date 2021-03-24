@@ -161,7 +161,7 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Player), "OnSpawned")]
     public static class Player_OnSpawned_Patch
     {
-        private static void Prefix()
+        private static void Prefix(ref Player __instance)
         {
             //Show VPlus tutorial raven if not yet seen by the player's character.
             Tutorial.TutorialText introTutorial = new Tutorial.TutorialText()
@@ -186,6 +186,10 @@ namespace ValheimPlus.GameClasses
                 VPlusMapSync.SendMapToServer();
                 VPlusMapSync.ShouldSyncOnSpawn = false;
             }
+
+            if(Configuration.Current.Player.IsEnabled && Configuration.Current.Player.skipIntro)
+                __instance.m_firstSpawn = false;
+
         }
     }
 
@@ -393,7 +397,6 @@ namespace ValheimPlus.GameClasses
 
             if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noInvalidPlacementRestriction)
             {
-                UnityEngine.Debug.Log("test2");
                 try
                 {
                     if (__instance.m_placementStatus == Player.PlacementStatus.Invalid)

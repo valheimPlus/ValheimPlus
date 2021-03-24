@@ -1048,6 +1048,11 @@
 				"description": "If set to true, when equipping a one-handed weapon, the best shield from your inventory is automatically equipped. (Best is determined by highest block power)",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"skipIntro": {
+				"description": "If set to true, you will always skip the intro of the game.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
