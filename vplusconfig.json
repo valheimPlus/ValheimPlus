@@ -1053,6 +1053,11 @@
 				"description": "If set to true, you will always skip the intro of the game.",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"iHaveArrivedOnSpawn": {
+				"description": "If set to false, disables the "I have arrived!" message on player spawn.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
