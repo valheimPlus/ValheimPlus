@@ -330,6 +330,7 @@
   <ItemGroup>
     <Compile Include="AdvancedBuildingMode.cs" />
     <Compile Include="AdvancedEditingMode.cs" />
+    <Compile Include="Configurations\Sections\ProjectileFiredConfiguration.cs" />
     <Compile Include="Configurations\Sections\CraftFromChestConfiguration.cs" />
     <Compile Include="Configurations\Sections\FirstPersonConfiguration.cs" />
     <Compile Include="Configurations\Sections\DeconstructConfiguration.cs" />
