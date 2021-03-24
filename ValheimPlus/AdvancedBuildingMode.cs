@@ -385,7 +385,7 @@ namespace ValheimPlus
             if (shiftFlag)
                 incValue = 10;
 
-            if (Input.GetKeyDown(KeyCode.KeypadPlus)) 
+            if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.increaseScrollSpeed)) 
             {
                 if ((gScrollDistance - incValue) < 360)
                     gScrollDistance += incValue;
@@ -397,7 +397,7 @@ namespace ValheimPlus
                 Debug.Log("Modification Speed: " + gDistance);
             }
 
-            if (Input.GetKeyDown(KeyCode.KeypadMinus))
+            if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.decreaseScrollSpeed))
             {
                 if((gScrollDistance-incValue) > 0)
                     gScrollDistance = gScrollDistance - incValue;

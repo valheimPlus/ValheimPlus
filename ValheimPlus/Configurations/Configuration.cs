@@ -20,6 +20,8 @@ namespace ValheimPlus.Configurations
         public FurnaceConfiguration Furnace { get; set; }
         public HotkeyConfiguration Hotkeys { get; set; }
         public KilnConfiguration Kiln { get; set; }
+        public WindmillConfiguration Windmill { get; set; }
+        public SpinningWheelConfiguration SpinningWheel { get; set; }
         public MapConfiguration Map { get; set; }
         public PlayerConfiguration Player { get; set; }
         public ServerConfiguration Server { get; set; }
@@ -37,7 +39,11 @@ namespace ValheimPlus.Configurations
         public GatherConfiguration Gathering { get; set; }
         public DurabilityConfiguration Durability { get; set; }
         public ArmorConfiguration Armor { get; set; }
-		public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
+	    public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
         public ShieldConfiguration Shields { get; set; }
+        public FirstPersonConfiguration FirstPerson { get; internal set; }
+        public GridAlignmentConfiguration GridAlignment { get; set; }
+        public CraftFromChestConfiguration CraftFromChest { get; set; }
+        public ValheimPlusConfiguration ValheimPlus { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ValheimPlus.Configurations;
+using ValheimPlus.Utility;
 
 namespace ValheimPlus
 {
@@ -458,7 +459,7 @@ namespace ValheimPlus
             if (shiftFlag)
                 incValue = 10;
 
-            if (Input.GetKeyDown(KeyCode.KeypadPlus))
+            if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.increaseScrollSpeed))
             {
 
                 if ((gScrollDistance - incValue) < 360)
@@ -469,7 +470,7 @@ namespace ValheimPlus
                 notifyUser("Modification Speed: " + gDistance);
                 Debug.Log("Modification Speed: " + gDistance);
             }
-            if (Input.GetKeyDown(KeyCode.KeypadMinus))
+            if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.decreaseScrollSpeed))
             {
 
                 if ((gScrollDistance - incValue) > 0)

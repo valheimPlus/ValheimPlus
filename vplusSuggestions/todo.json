@@ -1,0 +1,520 @@
+{
+  "Add Drawbridges": {
+    "description": "Have the ability to use draw bridges would be great for the community, it would both look good and be practical. Right now we have motes around our castles, that we have to jump. Would be nice to have a bridge we can lower and raise. Also would make castles look a little more real, since lots castles have this type of bridge/gate",
+    "icon": "fab fa-fort-awesome",
+    "status": "In Consideration",
+    "category": "Building"
+  },
+  "Add Gyroscope to advanced editing modes": {
+    "description": "there is already a mod that was made called gizmo here is the link to their github and i was wondering if a solution like that would be possible to implement. https://github.com/rolopogo/ValheimMods/tree/main/Gizmo",
+    "icon": "fas fa-database",
+    "status": "In Consideration",
+    "category": "Server"
+  },
+  "Add a beautify tool to the Hoe": {
+    "description": "Add a clean up tool to fix horrible looking terraform ",
+    "icon": "fas fa-shovel",
+    "status": "In Consideration",
+    "category": "Building"
+  },
+  "Add a ramp tool to the Hoe": {
+    "description": "Add a ramp tool that can specify an angle, i.e. 25 degree ramp and then auto levels and creates the ramp for you.",
+    "icon": "fas fa-ramp-loading",
+    "status": "In Consideration",
+    "category": "Building"
+  },
+  "Add all resources to kiln/smelter/etc. in one keypress": {
+    "description": "Add a option to auto input up to the maximum amount of ore from the players inventory and nearby chests into the respective processing building. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/188'>reference</a>",
+    "icon": "fas fa-keyboard",
+    "status": "Planned",
+    "category": "Building"
+  },
+  "Additional Server Side Config": {
+    "description": "Add additional server config options, such as console to Server chat, bash commands, Customizing how the server appears on the lists ",
+    "icon": "fas fa-file-check",
+    "status": "In Consideration",
+    "category": "Server"
+  },
+  "Adjust Spawn Points": {
+    "description": "Add Random Joining Locations across the Equatorial Line with character specific Trophy Shrines, these will give individual character buffs and allows all with access to shrine area the normal ability to learn boss skills.",
+    "icon": "fas fa-sign-in-alt",
+    "status": "In Consideration",
+    "category": "World"
+  },
+  "Adjustable UI": {
+    "description": "Add the ability to move around the UI elements",
+    "icon": "fas fa-tv-alt",
+    "status": "In Consideration",
+    "category": "Hud"
+  },
+  "Allow all ores in blast furnace": {
+    "description": "Add a configurable setting that allows you to select which ores can be smelted in the blast furnace.",
+    "icon": "fas fa-cubes",
+    "status": "In Consideration",
+    "category": "General"
+  },
+  "Allow first person to be overridden ": {
+    "description": "I would like to set ([FirstPerson] enabled=false) in my config, and not have that overridden when I join a server that forces it to true. First Person is neat, but it breaks the Build Camera mod which I can't live without. The alternative of course is if the Build Camera mod becomes compatible with FirstPerson, or a \"Build Camera\" feature is implemented into V+",
+    "icon": "fas fa-camera-retro",
+    "status": "In Consideration",
+    "category": "Player"
+  },
+  "Allow more granular inventory size changes": {
+    "description": "V+ lumps Iron chest, Cart and Longship inventories under a single config. It also doesn't allow changes to the Karve or Personal chest inventory. Would like it if I could set all of these independently. Additionally options should gracefully handle destruction of object or death of character without losing inventory.",
+    "icon": "fas fa-inventory",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Alter NPC Behaviour ": {
+    "description": "Add the ability to make their turning speeds faster (so that they don't spend 90% of the time trying to slowly path around objects in their path or other NPC)\nMaking some of their attack speeds faster - some enemies just attack too slow, like trolls.\nMaybe give them more types of attacks as options if they cannot reach you.\nI want enemies to be more aggressive so that I can increase stamina regen rates drastically but still have challenging and faster paced combat action in Valheim!",
+    "icon": "fas fa-user-robot",
+    "status": "In Consideration",
+    "category": "Monsters"
+  },
+  "Alternative textures for buildings": {
+    "description": "I would like to be able to build/edit my own Firling styled bases, substituting my thatch roof for a Lox-skin roof (even if it uses different building materials to achieve - actually I'd prefer that too). I would also like to be able to use the Portal graphic as an actual portal that I can assign, just using the summoned graphic instead of the regular one. Also I've noticed that some existing structures that LOOK like what we can build has objects that are not currently in my build list. Such as the larger, flat square of stone I just saw at the bottom of a staircase.",
+    "icon": "fas fa-synagogue",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Auto Eat last eaten foods": {
+    "description": "A more simplistic mod with less cfg options/clutter that auto eats last eaten food and optionally auto uses potions when poisoned,freezing, or below an HP threshold",
+    "icon": "fas fa-french-fries",
+    "status": "In Consideration",
+    "category": "Player"
+  },
+  "Auto deposit for Windmill": {
+    "description": "You have already added the features to auto deposit from furances / beehives to nearby chests, make it exist for windmill too please",
+    "icon": "fad fa-wind-turbine",
+    "status": "In Progress",
+	"progress": "70",
+    "category": "General"
+  },
+  "Auto weapon switch after swimming": {
+    "description": "Add the ability to auto equip the weapons you were holding before you entered water.",
+    "icon": "fas fa-mace",
+    "status": "In Consideration",
+    "category": "Player"
+  },
+  "Bow Ammo": {
+    "description": "Show the arrow count in some way when the bow is equipped. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/210'>reference</a>",
+    "icon": "fa fa-bow-arrow",
+    "status": "In Consideration",
+    "category": "Players"
+  },
+  "Burn Unwanted Items": {
+    "description": "Add a the ability to burn/destroy unwanted items in the kiln",
+    "icon": "fas fa-shredder",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Change Animal State Times": {
+    "description": "Add the ability to control or remove how long certain moods last, i.e. remove the boards frightened state.",
+    "icon": "fa fa-pig",
+    "status": "In Consideration",
+    "category": "General"
+  },
+  "CharacterID Whitelist": {
+    "description": "This will make it so that players can only log into a server with characterIDs that are whitelisted.",
+    "icon": "fas fa-universal-access",
+    "status": "In Consideration",
+    "category": "Server"
+  },
+  "Chat System Extension": {
+    "description": "It would be nice to have the option for multiple chat rooms, such as Global Chat, Region-Based Chats, Area Chats, etc. Even Trade or LFG Chats! <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/366'>reference</a>",
+    "icon": "fal fa-comment-alt-lines",
+    "status": "In Consideration",
+    "category": "General"
+  },
+  "Chinese translation for config": {
+    "description": "Add a chinese translation for the V+ configuration file",
+    "icon": "fas fa-language",
+    "status": "In Consideration",
+    "category": "General"
+  },
+  "Control what Animals Eat": {
+    "description": "Add the ability to control what food animals eat, e.g. make it so boars can eat every type of food.",
+    "icon": "fas fa-meat",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Craftable Chains": {
+    "description": "Add the ability to craft chains in the forge",
+    "icon": "fas fa-link",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Custom Map Markers": {
+    "description": "A system to add custom map markers to the player map with custom icons and more, including if you want to share the Map Marker with others.",
+    "icon": "fa fa-map-pin",
+    "status": "In Progress",
+    "progress": "0",
+    "category": "Map"
+  },
+  "Dedicated Shield Slot": {
+    "description": "Add a Dedicated shield slot or setting to have shield automatically reequip when you switch from a 2-hand back to a 1-hand.",
+    "icon": "fas fa-shield-cross",
+    "status": "In Consideration",
+    "category": "PVP"
+  },
+  "Disable AI Spawns within Area extended spawn Area": {
+    "description": "Disable AI Spawns within the Area extended spawn Area from the PVP mode.",
+    "icon": "fa fa-spider",
+    "status": "In Progress",
+    "progress": "0",
+    "category": "PVP"
+  },
+  "Disable rain/weather": {
+    "description": "Add the option on dedicated server to disable rain or maybe reduce how often it can occur. For me, I'd like to just disable rain and maybe even fog altogether. Others might rather have something like rain not occurring more often than every 7 days or something.",
+    "icon": "fas fa-cloud-sun-rain",
+    "status": "In Consideration",
+    "category": "Server"
+  },
+  "Display a message to all connected Players": {
+    "description": "A console command for the admin to send a message to all connected users on the server. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/144'>reference</a>",
+    "icon": "fas fa-terminal",
+    "status": "In Consideration",
+    "category": "Server"
+  },
+  "Display carts and boats on the map": {
+    "description": "A system to show boats and carts you own on the map. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/107'>reference</a>",
+    "icon": "fa fa-map-pin",
+    "status": "In Consideration",
+    "category": "Map"
+  },
+  "Dynamite for Mining": {
+    "description": "Add dynamite sticks for quickly mining like in MineCraft.",
+    "icon": "fas fa-bomb",
+    "status": "In Consideration",
+    "category": "World"
+  },
+  "Easier sleeping with multiple people on the server.": {
+    "description": "<a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/90'>reference</a>",
+    "icon": "fas fa-bed",
+    "status": "Planned",
+    "category": "Players"
+  },
+  "Endless Waves Base Defense": {
+    "description": "Create an alter of stone. Sacrifice some items at the alter and it initiates an endless waves attack. Try to defend the alter for as many waves as possible. When alter is destroyed you lose. Rewards given based on how many waves you defeated.",
+    "icon": "fad fa-shield",
+    "status": "In Consideration",
+    "category": "Monsters"
+  },
+  "Enforce other mods on/off": {
+    "description": "Add the ability to specify other allowed mods on the server and disable them on client side if they are enabled.",
+    "icon": "fas fa-cogs",
+    "status": "In Consideration",
+    "category": "Server"
+  },
+  "Enforced Inventory Check": {
+    "description": "Add a server side check to enforce the same inventory as when the player last left the server.",
+    "icon": "fas fa-check-circle",
+    "status": "In Progress",
+    "progress": "0",
+    "category": "Server"
+  },
+  "Expanded Trader": {
+    "description": "Add a marketplace function for larger servers",
+    "icon": "fas fa-store",
+    "status": "Planned",
+    "category": "World"
+  },
+  "Extend Spawn Area Range": {
+    "description": "Extend the spawn area by a custom configuration value.",
+    "icon": "fas fa-sign-in-alt",
+    "status": "In Consideration",
+    "progress": "0",
+    "category": "PVP"
+  },
+  "Fall Damage": {
+    "description": "Add the ability to alter or remove fall damage completely.",
+    "icon": "fas fa-star-of-life",
+    "status": "In Consideration",
+    "category": "General"
+  },
+  "In-game Clock": {
+    "description": "A ingame display of the in-game. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/365'>reference</a>",
+    "icon": "fa fa-clock",
+    "status": "In Consideration",
+    "category": "Hud"
+  },
+  "Increase difficulty based on day in game": {
+    "description": "Add the ability to add a difficulty multiplier per day.",
+    "icon": "fad fa-sort-numeric-up",
+    "status": "In Consideration",
+    "category": "World"
+  },
+  "Increase running speed on player built ground": {
+    "description": "5% faster running on wooden floor and 10% faster running on stone floor",
+    "icon": "fas fa-running",
+    "status": "In Consideration",
+    "category": "Player"
+  },
+  "Inscriptions on Items": {
+    "description": "The ability to tag items with player-customized messages.",
+    "icon": "fas fa-pencil-ruler",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Inventory Organisation Buttons": {
+    "description": "Add functional buttons like sorting to storage GUIs such as chests",
+    "icon": "fas fa-inventory",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Last Save Timer": {
+    "description": "Add a last save and time until next save UI element.",
+    "icon": "fas fa-save",
+    "status": "In Consideration",
+    "category": "Hud"
+  },
+  "Lock Items Together": {
+    "description": "Add the ability to craft items which are permanently fastened to other items, i.e. locking a bed to a boat.",
+    "icon": "fas fa-link",
+    "status": "In Consideration",
+    "category": "Building"
+  },
+  "Make the Trailer ship craftable and usable": {
+    "description": "Currently the Trailer ship can only be spawned through console commands and you cannot sail it. For all other intents and purposes its works as a normal boat(storage included)",
+    "icon": "fas fa-ship",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Map Marker Sync System": {
+    "description": "A system to synchronize all map markers ",
+    "icon": "fas fa-sync-alt",
+    "status": "In Progress",
+    "progress": "0",
+    "category": "Map"
+  },
+  "Merchant Discovery": {
+    "description": "Add a Merchant discovery tip on the map since it is currently based on luck.",
+    "icon": "fas fa-shopping-cart",
+    "status": "In Consideration",
+    "category": "Map"
+  },
+  "Modifiers for Berries and Bushes": {
+    "description": "Add a configuration settings to modify the amount of berries harvested from bushes. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/222'>reference</a>",
+    "icon": "fab fa-raspberry-pi",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Modify Block and Parry Levels of Weapons": {
+    "description": "Add the ability to modify block and parry levels. Not being able to modify block values for weapons - especially 2h weapons- makes block worthless when setting up dmg scaling for +100%.",
+    "icon": "fas fa-axe",
+    "status": "In Consideration",
+    "category": "PVP"
+  },
+  "Modify Fishing": {
+    "description": "Add the ability to modify the amount of fish caught by size. I.e. set small to 4, medium to 3 etc.",
+    "icon": "fas fa-fish",
+    "status": "In Consideration",
+    "category": "General"
+  },
+  "Modify Terrain Limitations": {
+    "description": "Modify the terrain modification limitations of the game. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/203'>reference</a>",
+    "icon": "fa fa-chart-area",
+    "status": "In Consideration",
+    "category": "Building"
+  },
+  "Open doors when hammer equipped": {
+    "description": "Add the ability to open a door (etc) when you have the hammer equipped.",
+    "icon": "fas fa-hammer-war",
+    "status": "In Consideration",
+    "category": "Building"
+  },
+  "Option to make all items float": {
+    "description": "Offer a option to make all items float in water.  <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/213'>reference</a>",
+    "icon": "fas fa-water-rise",
+    "status": "Planned",
+    "category": "Items"
+  },
+  "Option to remove map clouds": {
+    "description": "Add the option to disable the clouds being shown on the large and mini map.",
+    "icon": "fas fa-clouds",
+    "status": "In Consideration",
+    "category": "Map"
+  },
+  "Overhaul Planting System": {
+    "description": "Add the ability to grow anything found in the game but only in the biomes it belongs in, i.e. no thistle in the meadows.",
+    "icon": "fas fa-seedling",
+    "status": "In Consideration",
+    "category": "World"
+  },
+  "PVP Mode": {
+    "description": "We are working on a exclusive PVP Mode that will be a addition to the Valheim Plus core mod as a separate mod.",
+    "icon": "fas fa-helmet-battle",
+    "status": "In Progress",
+    "progress": "0",
+    "category": "PVP"
+  },
+  "Permission System for Console Commands": {
+    "description": "A system to only allow certain players with certain permissions on a server to use specified console commands. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/178'>reference</a>",
+    "icon": "fas fa-key",
+    "status": "In Consideration",
+    "category": "Server"
+  },
+  "Player Craftable Mob Spawners": {
+    "description": "Craft mob Spawners to protect your base from other players and besieging mobs. It uses the ward system to approve players who you don’t want the mobs to attack",
+    "icon": "fas fa-pastafarianism",
+    "status": "In Consideration",
+    "category": "PVP"
+  },
+  "Protected Pets": {
+    "description": "Make pets immortal or protected so only player can kill them or essential so they lay down for a bit after taking a deadly hit(edited).",
+    "icon": "fas fa-dog",
+    "status": "In Consideration",
+    "category": "General"
+  },
+  "Push/Pull Doors": {
+    "description": "Add the ability to specify whether a door can open both ways, or only push or pull.",
+    "icon": "fas fa-door-open",
+    "status": "In Consideration",
+    "category": "Building"
+  },
+  "REST API": {
+    "description": "Offer a rest api endpoint to deliver information to a website or similar.",
+    "icon": "fas fa-code",
+    "status": "Planned",
+    "category": "Server"
+  },
+  "Raid Settings": {
+    "description": "Offer extended settings regarding world raids. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/143'>reference</a>",
+    "icon": "fa fa-spider",
+    "status": "Planned",
+    "category": "Monsters"
+  },
+  "Reduce Teleportation Times": {
+    "description": "Reduce the amount of time it takes to travel through a portal",
+    "icon": "fas fa-portal-exit",
+    "status": "In Consideration",
+    "category": "Map"
+  },
+  "Remove Fog": {
+    "description": "Add the ability to remove fog from the game.",
+    "icon": "fas fa-fog",
+    "status": "In Consideration",
+    "category": "World"
+  },
+  "Remove Ground Height Limits": {
+    "description": "Remove/change the limits to how high/low you can dig or build",
+    "icon": "fas fa-line-height",
+    "status": "In Consideration",
+    "category": "World"
+  },
+  "Remove Smoke Vent Requirement": {
+    "description": "Add the ability to disable smoke damage and visibility - in other words, ability to build a fire indoors without having to vent",
+    "icon": "far fa-fire-smoke",
+    "status": "In Consideration",
+    "category": "Building"
+  },
+  "Repairs require materials": {
+    "description": "Make item repairs cost a % of the items used to create it. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/287'>reference</a>",
+    "icon": "fas fa-tools",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Reset mob wave when bosses are killed": {
+    "description": "Every time the server completes a boss, the enemies in the Meadows get more difficult. As of now, our server has beaten the 5th boss and Fulings spawn in the Meadows at night. This makes it very difficult for a new and growing server, such as ours, to introduce new players to our server without them bringing in end-game gear.",
+    "icon": "fas fa-skull-crossbones",
+    "status": "In Consideration",
+    "category": "Monsters"
+  },
+  "Respawn System for Caves and Dungeons": {
+    "description": "Respawn/Reset dungeons/caves and burials after a defined period of passed time. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/330'>reference</a>",
+    "icon": "fas fa-sign-in-alt",
+    "status": "In Consideration",
+    "category": "General"
+  },
+  "Retrievable arrows & aim/Arrow physics improvements": {
+    "description": "A chance to get your arrows back without the special effects i.e Frost arrow reverts to Obsidian arrow and a new recipe to craft special arrows using already made base arrows. i.e obsidian arrows x20 + Freeze glad = Frost Arrow x20. Arrows go where cross-hair is + better velocity and trajectory.",
+    "icon": "fas fa-bow-arrow",
+    "status": "In Consideration",
+    "category": "PVP"
+  },
+  "Right-click to take/place a single item from a multi-item stack in inventory": {
+    "description": "Right clicking to take a single item from a stack (or place from a held stack into an empty slot) at a time is something I find myself wanting to do very often, and in line with functionality from Valheim predecessors such as Terraria",
+    "icon": "fas fa-cubes",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Scrollable Inventory on Controller": {
+    "description": "Add the ability to scroll using controller in the inventory, crafting stations etc.",
+    "icon": "fas fa-inventory",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "Search bars": {
+    "description": "Inventory and Crafting table search bars. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/129'>reference</a>",
+    "icon": "fas fa-search",
+    "status": "In Consideration",
+    "category": "Hud"
+  },
+  "Server Specific Characters & Inventory": {
+    "description": "A networking system for server specific characters with all their skills and inventories synchronised.",
+    "icon": "fad fa-inventory",
+    "status": "In Progress",
+    "progress": "0",
+    "category": "Server"
+  },
+  "Set LODBios for all players on server": {
+    "description": "Add ability to adjust the servers LOD Bios and force that value to all players",
+    "icon": "fas fa-binoculars",
+    "status": "In Consideration",
+    "category": "Server"
+  },
+  "Show hit points on health bar": {
+    "description": "Add the option to show current and max health of any monsters, animals or players.",
+    "icon": "fal fa-virus-slash",
+    "status": "In Consideration",
+    "category": "Monsters"
+  },
+  "Show portal names": {
+    "description": "Display a big message with the portals name on the player hud. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/258'>reference</a>",
+    "icon": "fa fa-portal-exit",
+    "status": "In Consideration",
+    "category": "Hud"
+  },
+  "Sleep on any bed": {
+    "description": "Add the ability to sleep on any bed without setting spawn points. Also introduce sleeping bags if possible.",
+    "icon": "far fa-bed-bunk",
+    "status": "In Consideration",
+    "category": "Items"
+  },
+  "System to modify merchant items and costs": {
+    "description": "A system to modify the offered items from the merchant and their specific costs. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/252'>reference</a>",
+    "icon": "fas fa-sack",
+    "status": "Planned",
+    "category": "Items"
+  },
+  "Toggle Autofuel on and off for kiln and fires separately": {
+    "description": "Option to be able to toggle autoFuel on/off for Kiln as anyone like me who has wood in chests for building that are within range will get depleted by the Kiln.\nAdditionally an option to be able to turn fires on/off - it's awesome having fire sources permanently lit, however being able to toggle individual  items on and off would be great",
+    "icon": "fas fa-database",
+    "status": "In Consideration",
+    "category": "Server"
+  },
+  "Toggle Personal/Shared Map": {
+    "description": "Add the ability to toggle personal map progress off/on when using the map sharing feature",
+    "icon": "fas fa-map-marked-alt",
+    "status": "In Consideration",
+    "category": "Map"
+  },
+  "Tree Respawn": {
+    "description": "Causes a new sapling to grow when a tree stump is removed.",
+    "icon": "fas fa-trees",
+    "status": "In Consideration",
+    "category": "World"
+  },
+  "Use portals to connect to other servers": {
+    "description": "Add the ability to change server through a portal. The server IP and port should be entered as the portals name.",
+    "icon": "fad fa-portal-exit",
+    "status": "In Consideration",
+    "category": "Server"
+  },
+  "Webhook Events": {
+    "description": "Add the ability to send a webhook event to Discord (for example) upon an event happening, i.e. player joining, leaving, being banned, a mob event starting etc",
+    "icon": "fas fa-database",
+    "status": "In Consideration",
+    "category": "Server"
+  }
+}

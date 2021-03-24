@@ -3,7 +3,7 @@ using System;
 using ValheimPlus.Configurations;
 using UnityEngine;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Item weight reduction and teleport prevention changes

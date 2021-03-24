@@ -7,8 +7,9 @@ using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
 using ValheimPlus.Configurations;
+using ValheimPlus.RPC;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Alter player stamina values
@@ -66,6 +67,7 @@ namespace ValheimPlus
             {
                 ApplyDodgeHotkeys(ref __instance, ref ___m_moveDir, ref ___m_lookDir);
             }
+
         }
 
         private static void ApplyDodgeHotkeys(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir)
@@ -113,34 +115,45 @@ namespace ValheimPlus
     }
 
     /// <summary>
-    /// Update maximum carry weight based on baseMaximumWeight and baseMegingjordBuff configurations.
+    /// Update maximum carry weight based on baseMaximumWeight configurations.
     /// </summary>
     [HarmonyPatch(typeof(Player), "GetMaxCarryWeight")]
     public static class Player_GetMaxCarryWeight_Patch
     {
-        private static void Postfix(ref float __result)
+        private static void Prefix(ref Player __instance)
         {
             if (Configuration.Current.Player.IsEnabled)
             {
-                bool Megingjord = false;
-                float carryWeight = __result;
-
-                if (carryWeight > 300)
-                {
-                    Megingjord = true;
-                    carryWeight -= 150;
-                }
-
-                carryWeight = Configuration.Current.Player.baseMaximumWeight;
-                if (Megingjord)
-                {
-                    carryWeight = carryWeight + Configuration.Current.Player.baseMegingjordBuff;
-                }
-
-                __result = carryWeight;
+                __instance.m_maxCarryWeight = Configuration.Current.Player.baseMaximumWeight;
             }
         }
     }
+
+
+    /// <summary>
+    /// Update maximum carry weight based on baseMegingjordBuff configurations.
+    /// </summary>
+    [HarmonyPatch(typeof(SEMan), "ModifyMaxCarryWeight")]
+    public static class Player_ModifyMaxCarryWeight_Patch
+    {
+        private static bool Prefix(ref SEMan __instance, ref float baseLimit, ref float limit)
+        {
+            if (!Configuration.Current.Player.IsEnabled) return true;
+
+            foreach (StatusEffect statusEffect in __instance.m_statusEffects)
+            {
+                if (statusEffect.m_name.Contains("beltstrength"))
+                {
+                    limit = (baseLimit - 150) + Configuration.Current.Player.baseMegingjordBuff;
+                    statusEffect.ModifyMaxCarryWeight(baseLimit, ref limit);
+                }
+
+            }
+
+            return false;
+        }
+    }
+
 
     /// <summary>
     /// Add ValheimPlus intro to compendium.
@@ -150,6 +163,7 @@ namespace ValheimPlus
     {
         private static void Prefix()
         {
+            //Show VPlus tutorial raven if not yet seen by the player's character.
             Tutorial.TutorialText introTutorial = new Tutorial.TutorialText()
             {
                 m_label = "ValheimPlus Intro",
@@ -164,50 +178,54 @@ namespace ValheimPlus
             }
 
             Player.m_localPlayer.ShowTutorial("vplus");
+
+            //Only sync on first spawn
+            if (VPlusMapSync.ShouldSyncOnSpawn && Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareMapProgression)
+            {
+                //Send map data to the server
+                VPlusMapSync.SendMapToServer();
+                VPlusMapSync.ShouldSyncOnSpawn = false;
+            }
         }
     }
 
-    /// <summary>
-    /// Apply Dodge hotkeys
-    /// </summary>
-    [HarmonyPatch(typeof(Player), "Update")]
-    public static class ApplyDodgeHotkeys
+
+    [HarmonyPatch(typeof(Player), nameof(Player.RemovePiece))]
+    public static class Player_RemovePiece_Transpiler
     {
-        private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost, Transform ___m_eye)
+        private static MethodInfo modifyIsInsideMythicalZone = AccessTools.Method(typeof(Player_RemovePiece_Transpiler), nameof(Player_RemovePiece_Transpiler.IsInsideNoBuildLocation));
+
+        /// <summary>
+        //  Replaces the RemovePiece().Location.IsInsideNoBuildLocation with a stub function
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            if (!Configuration.Current.Hotkeys.IsEnabled) return;
+            if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noMysticalForcesPreventPlacementRestriction)
+                return instructions;
 
-            KeyCode rollKeyForward = Configuration.Current.Hotkeys.rollForwards;
-            KeyCode rollKeyBackwards = Configuration.Current.Hotkeys.rollBackwards;
-
-            if (Input.GetKeyDown(rollKeyBackwards))
+            List<CodeInstruction> il = instructions.ToList();
+            for (int i = 0; i < il.Count; ++i)
             {
-                Vector3 dodgeDir = ___m_moveDir;
-                if (dodgeDir.magnitude < 0.1f)
-                {
-                    dodgeDir = -___m_lookDir;
-                    dodgeDir.y = 0f;
-                    dodgeDir.Normalize();
-                }
-
-                Player_Dodge_ReversePatch.call_Dodge(__instance, dodgeDir);
+                if (il[i].operand != null)
+                    // search for every call to the function
+                    if (il[i].operand.ToString().Contains(nameof(Location.IsInsideNoBuildLocation)))
+                    {
+                        // replace every call to the function with the stub
+                        il[i] = new CodeInstruction(OpCodes.Call, modifyIsInsideMythicalZone);
+                    }
             }
-            if (Input.GetKeyDown(rollKeyForward))
-            {
-                Vector3 dodgeDir = ___m_moveDir;
-                if (dodgeDir.magnitude < 0.1f)
-                {
-                    dodgeDir = ___m_lookDir;
-                    dodgeDir.y = 0f;
-                    dodgeDir.Normalize();
-                }
+            return il.AsEnumerable();
+        }
 
-                Player_Dodge_ReversePatch.call_Dodge(__instance, dodgeDir);
-            }
+        private static bool IsInsideNoBuildLocation(Vector3 point)
+        {
+            return false;
         }
     }
 
-    // ToDo have item tooltips be affected.
+
+
     [HarmonyPatch(typeof(Player), nameof(Player.UpdateFood))]
     public static class Player_UpdateFood_Transpiler
     {
@@ -298,7 +316,7 @@ namespace ValheimPlus
             if (Configuration.Current.StaminaUsage.IsEnabled)
             {
                 string methodName = new StackTrace().GetFrame(2).GetMethod().Name;
-                if (methodName.Equals(nameof(Player.UpdatePlacement)) || methodName.Equals(nameof(Player.Repair)))
+                if (methodName.Contains(nameof(Player.UpdatePlacement)) || methodName.Contains(nameof(Player.Repair)) || methodName.Contains(nameof(Player.RemovePiece)))
                 {
                     string itemName = __instance.GetRightItem()?.m_shared.m_name;
                     if (itemName == "$item_hammer")
@@ -330,7 +348,7 @@ namespace ValheimPlus
         }
     }
 
-	/// <summary>
+    /// <summary>
     /// Starts ABM if not already started
     /// And checks if the player is trying to place a plant/crop too close to another plant/crop
     /// </summary>
@@ -367,7 +385,13 @@ namespace ValheimPlus
                 }
             }
 
-            if (Configuration.Current.Building.noInvalidPlacementRestriction)
+            if (Configuration.Current.GridAlignment.IsEnabled)
+            {
+                if (GridAlignment.AlignPressed ^ GridAlignment.AlignToggled)
+                    GridAlignment.UpdatePlacementGhost(__instance);
+            }
+
+            if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noInvalidPlacementRestriction)
             {
                 try
                 {
@@ -382,8 +406,22 @@ namespace ValheimPlus
                 }
             }
 
+            if (Configuration.Current.Building.IsEnabled && Configuration.Current.Building.noMysticalForcesPreventPlacementRestriction)
+            {
+                try
+                {
+                    if (__instance.m_placementStatus == Player.PlacementStatus.NoBuildZone)
+                    {
+                        __instance.m_placementStatus = Player.PlacementStatus.Valid;
+                        __instance.m_placementGhost.GetComponent<Piece>().SetInvalidPlacementHeightlight(false);
+                    }
+                }
+                catch
+                {
+                }
+            }
 
-			if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.cropNotifier)
+            if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.cropNotifier)
             {
                 if (__instance.m_placementGhost == null)
                     return;
@@ -519,6 +557,379 @@ namespace ValheimPlus
             {
                 m_repair_count += repaired;
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(Player), "Update")]
+    public static class GridAlignment
+    {
+        public static int DefaultAlignment = 100;
+        public static bool AlignPressed = false;
+        public static bool AlignToggled = false;
+
+        private static void Postfix(ref Player __instance)
+        {
+            if (!Configuration.Current.GridAlignment.IsEnabled)
+                return;
+
+            if (Input.GetKeyDown(Configuration.Current.GridAlignment.align))
+                AlignPressed = true;
+            if (Input.GetKeyUp(Configuration.Current.GridAlignment.align))
+                AlignPressed = false;
+
+            if (Input.GetKeyDown(Configuration.Current.GridAlignment.changeDefaultAlignment))
+            {
+                if (DefaultAlignment == 50)
+                    DefaultAlignment = 100;
+                else if (DefaultAlignment == 100)
+                    DefaultAlignment = 200;
+                else if (DefaultAlignment == 200)
+                    DefaultAlignment = 400;
+                else
+                    DefaultAlignment = 50;
+                MessageHud.instance.ShowMessage(MessageHud.MessageType.TopLeft, "Default grid alignment set to " + (DefaultAlignment / 100f));
+            }
+
+            if (Input.GetKeyDown(Configuration.Current.GridAlignment.alignToggle))
+            {
+                AlignToggled ^= true;
+                MessageHud.instance.ShowMessage(MessageHud.MessageType.TopLeft, "Grid alignment by default " + (AlignToggled ? "enabled" : "disabled"));
+            }
+        }
+
+        static float FixAlignment(float f)
+        {
+            int i = (int)Mathf.Round(f * 100f);
+            if (i <= 0)
+                return DefaultAlignment / 100f;
+            if (i <= 50)
+                return 0.5f;
+            if (i <= 100)
+                return 1f;
+            if (i <= 200)
+                return 2f;
+            return 4f;
+        }
+
+        public static void GetAlignment(Piece piece, out Vector3 alignment, out Vector3 offset)
+        {
+            var points = new System.Collections.Generic.List<Transform>();
+            piece.GetSnapPoints(points);
+            if (points.Count != 0)
+            {
+                Vector3 min = Vector3.positiveInfinity;
+                Vector3 max = Vector3.negativeInfinity;
+                foreach (var point in points)
+                {
+                    var pos = point.localPosition;
+                    min = Vector3.Min(min, pos);
+                    max = Vector3.Max(max, pos);
+                }
+                alignment = max - min;
+                alignment.x = FixAlignment(alignment.x);
+                alignment.y = FixAlignment(alignment.y);
+                alignment.z = FixAlignment(alignment.z);
+                // Align at top
+                offset = max;
+                if (piece.name == "iron_grate" || piece.name == "wood_gate")
+                {
+                    // Align at bottom, not top
+                    offset.y = min.y;
+                }
+                if (piece.name == "wood_gate")
+                {
+                    alignment.x = 4;
+                }
+            }
+            else
+            {
+                if (piece.m_notOnFloor || piece.name == "sign" || piece.name == "itemstand")
+                {
+                    alignment = new Vector3(0.5f, 0.5f, 0);
+                    offset = new Vector3(0, 0, 0);
+                    if (piece.name == "sign")
+                        alignment.y = 0.25f;
+                }
+                else if (piece.name == "piece_walltorch")
+                {
+                    alignment = new Vector3(0, 0.5f, 0.5f);
+                    offset = new Vector3(0, 0, 0);
+                }
+                else
+                {
+                    alignment = new Vector3(0.5f, 0, 0.5f);
+                    offset = new Vector3(0, 0, 0);
+                }
+            }
+        }
+
+        public static float Align(float value, out float alpha)
+        {
+            float result = Mathf.Round(value);
+            alpha = value - result;
+            return result;
+        }
+
+
+        public static void UpdatePlacementGhost(Player player)
+        {
+            if (player.m_placementGhost == null)
+                return;
+
+            if (ABM.isActive)
+                return;
+
+            bool altMode = ZInput.GetButton("AltPlace") || ZInput.GetButton("JoyAltPlace");
+
+            var piece = player.m_placementGhost.GetComponent<Piece>();
+
+            var newVal = piece.transform.position;
+            newVal = Quaternion.Inverse(piece.transform.rotation) * newVal;
+
+            Vector3 alignment;
+            Vector3 offset;
+            GetAlignment(piece, out alignment, out offset);
+            newVal += offset;
+            var copy = newVal;
+            newVal = new Vector3(newVal.x / alignment.x, newVal.y / alignment.y, newVal.z / alignment.z);
+            float alphaX, alphaY, alphaZ;
+            newVal = new UnityEngine.Vector3(Align(newVal.x, out alphaX), Align(newVal.y, out alphaY), Align(newVal.z, out alphaZ));
+            if (altMode)
+            {
+                float alphaMin = 0.2f;
+                if (Mathf.Abs(alphaX) >= alphaMin && Mathf.Abs(alphaX) >= Mathf.Abs(alphaY) && Mathf.Abs(alphaX) >= Mathf.Abs(alphaZ))
+                    newVal.x += Mathf.Sign(alphaX);
+                else if (Mathf.Abs(alphaY) >= alphaMin && Mathf.Abs(alphaY) >= Mathf.Abs(alphaZ))
+                    newVal.y += Mathf.Sign(alphaY);
+                else if (Mathf.Abs(alphaZ) >= alphaMin)
+                    newVal.z += Mathf.Sign(alphaZ);
+            }
+            newVal = new Vector3(newVal.x * alignment.x, newVal.y * alignment.y, newVal.z * alignment.z);
+            if (alignment.x <= 0)
+                newVal.x = copy.x;
+            if (alignment.y <= 0)
+                newVal.y = copy.y;
+            if (alignment.z <= 0)
+                newVal.z = copy.z;
+            newVal -= offset;
+
+            newVal = piece.transform.rotation * newVal;
+            piece.transform.position = newVal;
+        }
+    }
+
+    /// <summary>
+    /// Configures guardian buff duration and cooldown
+    /// </summary>
+    [HarmonyPatch(typeof(Player), "SetGuardianPower")]
+    public static class Player_SetGuardianPower_Patch
+    {
+        private static void Postfix(ref Player __instance)
+        {
+            if (Configuration.Current.Player.IsEnabled)
+            {
+                if (__instance.m_guardianSE)
+                {
+                    __instance.m_guardianSE.m_ttl = Configuration.Current.Player.guardianBuffDuration;
+                    __instance.m_guardianSE.m_cooldown = Configuration.Current.Player.guardianBuffCooldown;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Skips the guardian power activation animation
+    /// </summary>
+    [HarmonyPatch(typeof(Player), "StartGuardianPower")]
+    public static class Player_StartGuardianPower_Patch
+    {
+        private static bool Prefix(ref Player __instance, ref bool __result)
+        {
+            if (!Configuration.Current.Player.disableGuardianBuffAnimation || !Configuration.Current.Player.IsEnabled)
+                return true;
+
+            if (__instance.m_guardianSE == null)
+            {
+                __result = false;
+                return false;
+            }
+            if (__instance.m_guardianPowerCooldown > 0f)
+            {
+                __instance.Message(MessageHud.MessageType.Center, "$hud_powernotready", 0, null);
+                __result = false;
+                return false;
+            }
+            __instance.ActivateGuardianPower();
+            __result = true;
+            return false;
+        }
+    }
+
+    [HarmonyPatch(typeof(Player), nameof(Player.HaveRequirements), new System.Type[] { typeof(Piece.Requirement[]), typeof(bool), typeof(int) })]
+    public static class Player_HaveRequirements_Transpiler
+    {
+        private static MethodInfo method_Inventory_CountItems = AccessTools.Method(typeof(Inventory), nameof(Inventory.CountItems));
+        private static MethodInfo method_ComputeItemQuantity = AccessTools.Method(typeof(Player_HaveRequirements_Transpiler), nameof(Player_HaveRequirements_Transpiler.ComputeItemQuantity));
+
+        /// <summary>
+        /// Patches out the code that checks if there is enough material to craft a specific object.
+        /// The return value of this function is used to set the item as "Craftable" or not in the crafts list.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.CraftFromChest.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            for (int i = 0; i < il.Count; ++i)
+            {
+                if (il[i].Calls(method_Inventory_CountItems))
+                {
+                    il.Insert(++i, new CodeInstruction(OpCodes.Ldloc_2));
+                    il.Insert(++i, new CodeInstruction(OpCodes.Ldarg_0));
+                    il.Insert(++i, new CodeInstruction(OpCodes.Call, method_ComputeItemQuantity));
+                }
+            }
+
+            return il.AsEnumerable();
+        }
+
+        private static int ComputeItemQuantity(int fromInventory, Piece.Requirement item, Player player)
+        {
+            Stopwatch delta;
+
+            GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
+            if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench)
+            {
+                pos = player.gameObject;
+                delta = Inventory_NearbyChests_Cache.delta;
+            }
+            else
+                delta = GameObjectAssistant.GetStopwatch(pos);
+
+            int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
+            if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
+            {
+                Inventory_NearbyChests_Cache.chests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
+                delta.Restart();
+            }
+            return fromInventory + InventoryAssistant.GetItemAmountInItemList(InventoryAssistant.GetNearbyChestItemsByContainerList(Inventory_NearbyChests_Cache.chests), item.m_resItem.m_itemData);
+        }
+    }
+
+    [HarmonyPatch(typeof(Player), nameof(Player.HaveRequirements), new System.Type[] { typeof(Piece), typeof(Player.RequirementMode) })]
+    public static class Player_HaveRequirements_2_Transpiler
+    {
+        private static MethodInfo method_Inventory_CountItems = AccessTools.Method(typeof(Inventory), nameof(Inventory.CountItems));
+        private static MethodInfo method_ComputeItemQuantity = AccessTools.Method(typeof(Player_HaveRequirements_2_Transpiler), nameof(Player_HaveRequirements_2_Transpiler.ComputeItemQuantity));
+
+        /// <summary>
+        /// Patches out the code that checks if there is enough material to craft a specific object.
+        /// The return value of this function determines if the item should be crafted or not.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.CraftFromChest.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            for (int i = 0; i < il.Count; ++i)
+            {
+                if (il[i].Calls(method_Inventory_CountItems))
+                {
+                    il.Insert(++i, new CodeInstruction(OpCodes.Ldloc_2));
+                    il.Insert(++i, new CodeInstruction(OpCodes.Ldarg_0));
+                    il.Insert(++i, new CodeInstruction(OpCodes.Call, method_ComputeItemQuantity));
+                }
+            }
+
+            return il.AsEnumerable();
+        }
+
+        private static int ComputeItemQuantity(int fromInventory, Piece.Requirement item, Player player)
+        {
+            Stopwatch delta;
+
+            GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
+            if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench)
+            {
+                pos = player.gameObject;
+                delta = Inventory_NearbyChests_Cache.delta;
+            }
+            else
+                delta = GameObjectAssistant.GetStopwatch(pos);
+
+            int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
+            if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
+            {
+                Inventory_NearbyChests_Cache.chests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
+                delta.Restart();
+            }
+
+            return fromInventory + InventoryAssistant.GetItemAmountInItemList(InventoryAssistant.GetNearbyChestItemsByContainerList(Inventory_NearbyChests_Cache.chests), item.m_resItem.m_itemData);
+        }
+    }
+
+    [HarmonyPatch(typeof(Player), nameof(Player.ConsumeResources))]
+    public static class Player_ConsumeResources_Transpiler
+    {
+        private static MethodInfo method_Inventory_RemoveItem = AccessTools.Method(typeof(Inventory), nameof(Inventory.RemoveItem), new System.Type[] { typeof(string), typeof(int) });
+        private static MethodInfo method_RemoveItemsFromInventoryAndNearbyChests = AccessTools.Method(typeof(Player_ConsumeResources_Transpiler), nameof(Player_ConsumeResources_Transpiler.RemoveItemsFromInventoryAndNearbyChests));
+
+        /// <summary>
+        /// Patches out the code that consumes the material required to craft something.
+        /// We first remove the amount we can from the player inventory before moving on to the nearby chests.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.CraftFromChest.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            int thisIdx = -1;
+            int callIdx = -1;
+
+            for (int i = 0; i < il.Count; ++i)
+            {
+                if (il[i].opcode == OpCodes.Ldarg_0)
+                {
+                    thisIdx = i;
+                }
+                else if (il[i].Calls(method_Inventory_RemoveItem))
+                {
+                    callIdx = i;
+                    break;
+                }
+            }
+
+            if (thisIdx == -1 || callIdx == -1)
+            {
+                ZLog.LogError("Failed to apply Player_ConsumeResources_Transpiler");
+                return instructions;
+            }
+            il.RemoveRange(thisIdx + 1, callIdx - thisIdx);
+
+            il.Insert(++thisIdx, new CodeInstruction(OpCodes.Ldloc_2));
+            il.Insert(++thisIdx, new CodeInstruction(OpCodes.Ldloc_3));
+            il.Insert(++thisIdx, new CodeInstruction(OpCodes.Call, method_RemoveItemsFromInventoryAndNearbyChests));
+
+            return il.AsEnumerable();
+        }
+
+        private static void RemoveItemsFromInventoryAndNearbyChests(Player player, Piece.Requirement item, int amount)
+        {
+            GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
+            if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
+
+            int inventoryAmount = player.m_inventory.CountItems(item.m_resItem.m_itemData.m_shared.m_name);
+            player.m_inventory.RemoveItem(item.m_resItem.m_itemData.m_shared.m_name, amount);
+            amount -= inventoryAmount;
+            if (amount <= 0) return;
+
+            InventoryAssistant.RemoveItemInAmountFromAllNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), item.m_resItem.m_itemData, amount, !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
         }
     }
 }

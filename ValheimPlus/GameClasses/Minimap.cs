@@ -1,12 +1,15 @@
 ﻿using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using ValheimPlus.Configurations;
+using ValheimPlus.RPC;
+using Random = UnityEngine.Random;
 
 // ToDo add packet system to convey map markers
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Hooks base explore method
@@ -25,7 +28,7 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(Minimap), "UpdateExplore")]
     public static class ChangeMapBehavior
     {
-        private static void Prefix(ref float dt, ref Player player, ref Minimap __instance, ref float ___m_exploreTimer, ref float ___m_exploreInterval, ref List<ZNet.PlayerInfo> ___m_tempPlayerInfo) // Set after awake function
+        private static void Prefix(ref float dt, ref Player player, ref Minimap __instance, ref float ___m_exploreTimer, ref float ___m_exploreInterval)
         {
             if (Configuration.Current.Map.exploreRadius > 10000) Configuration.Current.Map.exploreRadius = 10000;
 
@@ -37,12 +40,9 @@ namespace ValheimPlus
                 explorerTime += Time.deltaTime;
                 if (explorerTime > ___m_exploreInterval)
                 {
-                    ___m_tempPlayerInfo.Clear();
-                    HookZNet.GetOtherPublicPlayers(ZNet.instance, ___m_tempPlayerInfo); // inconsistent returns but works
-
-                    if (___m_tempPlayerInfo.Count() > 0)
+                    if (ZNet.instance.m_players.Any())
                     {
-                        foreach (ZNet.PlayerInfo m_Player in ___m_tempPlayerInfo)
+                        foreach (ZNet.PlayerInfo m_Player in ZNet.instance.m_players)
                         {
                             HookExplore.call_Explore(__instance, m_Player.m_position, Configuration.Current.Map.exploreRadius);
                         }
@@ -52,6 +52,25 @@ namespace ValheimPlus
 
             // Always reveal for your own, we do this non the less to apply the potentially bigger exploreRadius
             HookExplore.call_Explore(__instance, player.transform.position, Configuration.Current.Map.exploreRadius);
+        }
+    }
+
+    [HarmonyPatch(typeof(Minimap), "Awake")]
+    public static class MinimapAwake
+    {
+        private static void Postfix()
+        {
+            if (ZNet.m_isServer && Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareMapProgression)
+            {
+                //Init map array
+                VPlusMapSync.ServerMapData = new bool[Minimap.instance.m_textureSize * Minimap.instance.m_textureSize];
+
+                //Load map data from disk
+                VPlusMapSync.LoadMapDataFromDisk();
+
+                //Start map data save timer
+                ValheimPlusPlugin.mapSyncSaveTimer.Start();
+            }
         }
     }
 }

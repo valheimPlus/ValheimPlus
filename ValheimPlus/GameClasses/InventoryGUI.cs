@@ -1,6 +1,7 @@
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -8,136 +9,137 @@ using UnityEngine;
 using UnityEngine.UI;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
-	
-	[HarmonyPatch(typeof(InventoryGui), "Show")]
-	public class InventoryGUI_Show_Patch 
-	{
-		private const float oneRowSize = 70.5f;
-		private const float containerOriginalY = -90.0f;
-		private const float containerHeight = -340.0f;
-		private static float lastValue = 0;
 
-		public static void Postfix(ref InventoryGui __instance) 
-		{
-			if (Configuration.Current.Inventory.IsEnabled) {
-				RectTransform container = __instance.m_container;
-				RectTransform player = __instance.m_player;
-				GameObject playerGrid = InventoryGui.instance.m_playerGrid.gameObject;
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.Show))]
+    public class InventoryGui_Show_Patch
+    {
+        private const float oneRowSize = 70.5f;
+        private const float containerOriginalY = -90.0f;
+        private const float containerHeight = -340.0f;
+        private static float lastValue = 0;
 
-				// Player inventory background size, only enlarge it up to 6x8 rows, after that use the scroll bar
-				int playerInventoryBackgroundSize = Math.Min(6, Math.Max(4, Configuration.Current.Inventory.playerInventoryRows));
-				float containerNewY = containerOriginalY - oneRowSize * playerInventoryBackgroundSize;
-				// Resize player inventory
-				player.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, playerInventoryBackgroundSize * oneRowSize);
-				// Move chest inventory based on new player invetory size
-				container.offsetMax = new Vector2(610, containerNewY);
-				container.offsetMin = new Vector2(40, containerNewY + containerHeight);
+        public static void Postfix(ref InventoryGui __instance)
+        {
+            if (Configuration.Current.Inventory.IsEnabled)
+            {
+                RectTransform container = __instance.m_container;
+                RectTransform player = __instance.m_player;
+                GameObject playerGrid = InventoryGui.instance.m_playerGrid.gameObject;
 
-				// Add player inventory scroll bar if it does not exist
-				if (!playerGrid.GetComponent < InventoryGrid > ().m_scrollbar) 
-				{
-					GameObject playerGridScroll = GameObject.Instantiate(InventoryGui.instance.m_containerGrid.m_scrollbar.gameObject, playerGrid.transform.parent);
-					playerGridScroll.name = "PlayerScroll";
-					playerGrid.GetComponent < RectMask2D > ().enabled = true;
-					ScrollRect playerScrollRect = playerGrid.AddComponent < ScrollRect > ();
-					playerGrid.GetComponent < RectTransform > ().offsetMax = new Vector2(800f, playerGrid.GetComponent < RectTransform > ().offsetMax.y);
-					playerGrid.GetComponent < RectTransform > ().anchoredPosition = new Vector2(0f, 1f);
-					playerScrollRect.content = playerGrid.GetComponent < InventoryGrid > ().m_gridRoot;
-					playerScrollRect.viewport = __instance.m_player.GetComponentInChildren < RectTransform > ();
-					playerScrollRect.verticalScrollbar = playerGridScroll.GetComponent < Scrollbar > ();
-					playerGrid.GetComponent < InventoryGrid > ().m_scrollbar = playerGridScroll.GetComponent < Scrollbar > ();
+                // Player inventory background size, only enlarge it up to 6x8 rows, after that use the scroll bar
+                int playerInventoryBackgroundSize = Math.Min(6, Math.Max(4, Configuration.Current.Inventory.playerInventoryRows));
+                float containerNewY = containerOriginalY - oneRowSize * playerInventoryBackgroundSize;
+                // Resize player inventory
+                player.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, playerInventoryBackgroundSize * oneRowSize);
+                // Move chest inventory based on new player invetory size
+                container.offsetMax = new Vector2(610, containerNewY);
+                container.offsetMin = new Vector2(40, containerNewY + containerHeight);
 
-					playerScrollRect.horizontal = false;
-					playerScrollRect.movementType = ScrollRect.MovementType.Clamped;
-					playerScrollRect.scrollSensitivity = oneRowSize;
-					playerScrollRect.inertia = false;
-					playerScrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
-					Scrollbar playerScrollbar = playerGridScroll.GetComponent < Scrollbar > ();
-					lastValue = playerScrollbar.value;
-				}
-			}
-		}
-	}
+                // Add player inventory scroll bar if it does not exist
+                if (!playerGrid.GetComponent<InventoryGrid>().m_scrollbar)
+                {
+                    GameObject playerGridScroll = GameObject.Instantiate(InventoryGui.instance.m_containerGrid.m_scrollbar.gameObject, playerGrid.transform.parent);
+                    playerGridScroll.name = "PlayerScroll";
+                    playerGrid.GetComponent<RectMask2D>().enabled = true;
+                    ScrollRect playerScrollRect = playerGrid.AddComponent<ScrollRect>();
+                    playerGrid.GetComponent<RectTransform>().offsetMax = new Vector2(800f, playerGrid.GetComponent<RectTransform>().offsetMax.y);
+                    playerGrid.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, 1f);
+                    playerScrollRect.content = playerGrid.GetComponent<InventoryGrid>().m_gridRoot;
+                    playerScrollRect.viewport = __instance.m_player.GetComponentInChildren<RectTransform>();
+                    playerScrollRect.verticalScrollbar = playerGridScroll.GetComponent<Scrollbar>();
+                    playerGrid.GetComponent<InventoryGrid>().m_scrollbar = playerGridScroll.GetComponent<Scrollbar>();
 
-	[HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.RepairOneItem))]
-	public static class InventoryGui_RepairOneItem_Transpiler
-	{
-		private static MethodInfo method_EffectList_Create = AccessTools.Method(typeof(EffectList), nameof(EffectList.Create));
-		private static MethodInfo method_CreateNoop = AccessTools.Method(typeof(InventoryGui_RepairOneItem_Transpiler), nameof(InventoryGui_RepairOneItem_Transpiler.CreateNoop));
+                    playerScrollRect.horizontal = false;
+                    playerScrollRect.movementType = ScrollRect.MovementType.Clamped;
+                    playerScrollRect.scrollSensitivity = oneRowSize;
+                    playerScrollRect.inertia = false;
+                    playerScrollRect.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
+                    Scrollbar playerScrollbar = playerGridScroll.GetComponent<Scrollbar>();
+                    lastValue = playerScrollbar.value;
+                }
+            }
+        }
+    }
 
-		/// <summary>
-		/// Patches out the code that spawns an effect for each item repaired - when we repair multiple items, we only want
-		/// one effect, otherwise it looks and sounds bad. The patch for InventoryGui.UpdateRepair will spawn the effect instead.
-		/// </summary>
-		[HarmonyTranspiler]
-		public static IEnumerable<CodeInstruction> Transpile(IEnumerable<CodeInstruction> instructions)
-		{
-			if (!Configuration.Current.Player.IsEnabled) return instructions;
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.RepairOneItem))]
+    public static class InventoryGui_RepairOneItem_Transpiler
+    {
+        private static MethodInfo method_EffectList_Create = AccessTools.Method(typeof(EffectList), nameof(EffectList.Create));
+        private static MethodInfo method_CreateNoop = AccessTools.Method(typeof(InventoryGui_RepairOneItem_Transpiler), nameof(InventoryGui_RepairOneItem_Transpiler.CreateNoop));
 
-			List<CodeInstruction> il = instructions.ToList();
+        /// <summary>
+        /// Patches out the code that spawns an effect for each item repaired - when we repair multiple items, we only want
+        /// one effect, otherwise it looks and sounds bad. The patch for InventoryGui.UpdateRepair will spawn the effect instead.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpile(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.Player.IsEnabled) return instructions;
 
-			if (Configuration.Current.Player.autoRepair)
-			{
-				// We look for a call to EffectList::Create and replace it with our own noop stub.
-				for (int i = 0; i < il.Count; ++i)
-				{
-					if (il[i].Calls(method_EffectList_Create))
-					{
-						il[i].opcode = OpCodes.Call; // original is callvirt, so we need to tweak it
-						il[i].operand = method_CreateNoop;
-					}
-				}
-			}
+            List<CodeInstruction> il = instructions.ToList();
 
-			return il.AsEnumerable();
-		}
+            if (Configuration.Current.Player.autoRepair)
+            {
+                // We look for a call to EffectList::Create and replace it with our own noop stub.
+                for (int i = 0; i < il.Count; ++i)
+                {
+                    if (il[i].Calls(method_EffectList_Create))
+                    {
+                        il[i].opcode = OpCodes.Call; // original is callvirt, so we need to tweak it
+                        il[i].operand = method_CreateNoop;
+                    }
+                }
+            }
 
-		private static GameObject[] CreateNoop(Vector3 _0, Quaternion _1, Transform _2, float _3)
-		{
-			return null;
-		}
-	}
+            return il.AsEnumerable();
+        }
 
-	[HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.UpdateRepair))]
-	public static class InventoryGui_UpdateRepair_Patch
-	{
-		/// <summary>
-		/// When we're in a state where the InventoryGui is open and we have items available to repair,
-		/// and we have an active crafting station, this patch is responsible for repairing all items
-		/// that can be repaired and then spawning one instance of the repair effect if at least one item
-		/// has been repaired.
-		/// </summary>
-		[HarmonyPrefix]
-		public static void Prefix(InventoryGui __instance)
-		{
-			if (!Configuration.Current.Player.IsEnabled || !Configuration.Current.Player.autoRepair) return;
+        private static GameObject[] CreateNoop(Vector3 _0, Quaternion _1, Transform _2, float _3)
+        {
+            return null;
+        }
+    }
 
-			CraftingStation curr_crafting_station = Player.m_localPlayer.GetCurrentCraftingStation();
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.UpdateRepair))]
+    public static class InventoryGui_UpdateRepair_Patch
+    {
+        /// <summary>
+        /// When we're in a state where the InventoryGui is open and we have items available to repair,
+        /// and we have an active crafting station, this patch is responsible for repairing all items
+        /// that can be repaired and then spawning one instance of the repair effect if at least one item
+        /// has been repaired.
+        /// </summary>
+        [HarmonyPrefix]
+        public static void Prefix(InventoryGui __instance)
+        {
+            if (!Configuration.Current.Player.IsEnabled || !Configuration.Current.Player.autoRepair) return;
 
-			if (curr_crafting_station != null)
-			{
-				int repair_count = 0;
+            CraftingStation curr_crafting_station = Player.m_localPlayer.GetCurrentCraftingStation();
 
-				while (__instance.HaveRepairableItems())
-				{
-					__instance.RepairOneItem();
-					++repair_count;
-				}
+            if (curr_crafting_station != null)
+            {
+                int repair_count = 0;
 
-				if (repair_count > 0)
-				{
-					curr_crafting_station.m_repairItemDoneEffects.Create(curr_crafting_station.transform.position, Quaternion.identity, null, 1.0f);
-				}
-			}
-		}
-	}
+                while (__instance.HaveRepairableItems())
+                {
+                    __instance.RepairOneItem();
+                    ++repair_count;
+                }
 
+                if (repair_count > 0)
+                {
+                    curr_crafting_station.m_repairItemDoneEffects.Create(curr_crafting_station.transform.position, Quaternion.identity, null, 1.0f);
+                }
+            }
+        }
+    }
+    /*
     /// <summary>
     /// Setting up deconstruct feature
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "Awake")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.Awake))]
     public static class InventoryGui_Awake_Patch
     {
         private static void Postfix(ref InventoryGui __instance)
@@ -152,7 +154,7 @@ namespace ValheimPlus
     /// <summary>
     /// Setting deconstruct tab state on update crafting panel
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "UpdateCraftingPanel")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.UpdateCraftingPanel))]
     public static class InventoryGui_UpdateCraftingPanel_Patch
     {
         private static void Postfix(ref InventoryGui __instance)
@@ -180,7 +182,7 @@ namespace ValheimPlus
     /// <summary>
     /// Updating recipe list for deconstruct if deconstruct is enabled
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "UpdateRecipeList")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.UpdateRecipeList))]
     public static class InventoryGui_UpdateRecipeList_Patch
     {
         private static bool Prefix(ref InventoryGui __instance, List<Recipe> recipes)
@@ -204,7 +206,7 @@ namespace ValheimPlus
     /// <summary>
     /// Updating recipe for deconstruct if deconstruct is enabled
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "UpdateRecipe")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.UpdateRecipe))]
     public static class InventoryGui_UpdateRecipe_Patch
     {
         private static bool Prefix(ref InventoryGui __instance)
@@ -228,7 +230,28 @@ namespace ValheimPlus
     /// <summary>
     /// Accounting for deconstruct tab in craft tab press
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "OnTabCraftPressed")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.OnCraftPressed))]
+    public static class InventoryGui_OnCraftPressed_Patch
+    {
+        private static bool Prefix(ref InventoryGui __instance)
+        {
+            if (Configuration.Current.Deconstruct.IsEnabled)
+            {
+                if (Deconstruct.InDeconstructTab())
+                {
+                    Deconstruct.OnDeconstructPressed();
+                    return false; // skipping original so that we only run deconstruct button function
+                }
+            }
+
+            return true;
+        }
+    }
+
+    /// <summary>
+    /// Accounting for deconstruct tab in craft tab press
+    /// </summary>
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.OnTabCraftPressed))]
     public static class InventoryGui_OnTabCraftPressed_Patch
     {
         private static void Prefix(ref InventoryGui __instance)
@@ -236,7 +259,6 @@ namespace ValheimPlus
             if (Configuration.Current.Deconstruct.IsEnabled)
             {
                 Deconstruct.SetDeconstructTab(true);
-                Deconstruct.m_deconstructButton.gameObject.SetActive(false);
             }
         }
     }
@@ -244,7 +266,7 @@ namespace ValheimPlus
     /// <summary>
     /// Accounting for deconstruct tab in upgrade tab press
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "OnTabUpgradePressed")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.OnTabUpgradePressed))]
     public static class InventoryGui_OnTabUpgradePressed_Patch
     {
         private static void Prefix(ref InventoryGui __instance)
@@ -252,15 +274,15 @@ namespace ValheimPlus
             if (Configuration.Current.Deconstruct.IsEnabled)
             {
                 Deconstruct.SetDeconstructTab(true);
-                Deconstruct.m_deconstructButton.gameObject.SetActive(false);
             }
         }
     }
+    */
 
     /// <summary>
     /// Inventory HUD setup
     /// </summary>
-    [HarmonyPatch(typeof(InventoryGui), "SetupRequirement")]
+    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.SetupRequirement))]
     public static class InventoryGui_SetupRequirement_Patch
     {
         private static bool Prefix(Transform elementRoot, Piece.Requirement req, Player player, bool craft, int quality, ref bool __result)
@@ -288,6 +310,29 @@ namespace ValheimPlus
                     __result = false;
                     return false;
                 }
+
+                if (Configuration.Current.CraftFromChest.IsEnabled)
+                {
+                    Stopwatch delta;
+
+                    GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
+                    if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench)
+                    {
+                        pos = player.gameObject;
+                        delta = Inventory_NearbyChests_Cache.delta;
+                    }
+                    else
+                        delta = GameObjectAssistant.GetStopwatch(pos);
+
+                    int lookupInterval = Helper.Clamp(Configuration.Current.CraftFromChest.lookupInterval, 1, 10) * 1000;
+                    if (!delta.IsRunning || delta.ElapsedMilliseconds > lookupInterval)
+                    {
+                        Inventory_NearbyChests_Cache.chests = InventoryAssistant.GetNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50));
+                        delta.Restart();
+                    }
+                    num += InventoryAssistant.GetItemAmountInItemList(InventoryAssistant.GetNearbyChestItemsByContainerList(Inventory_NearbyChests_Cache.chests), req.m_resItem.m_itemData);
+                }
+
                 component3.text = num + "/" + amount.ToString();
 
                 if (num < amount)
