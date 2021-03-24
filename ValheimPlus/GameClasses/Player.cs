@@ -50,6 +50,15 @@ namespace ValheimPlus.GameClasses
     {
         private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost, Transform ___m_eye)
         {
+            if ((Configuration.Current.Player.IsEnabled && Configuration.Current.Player.queueWeaponChanges) && (ZInput.GetButtonDown("Hide") || ZInput.GetButtonDown("JoyHide")))
+            {
+                if (__instance.InAttack() && (__instance.GetRightItem() != null || __instance.GetLeftItem() != null))
+                {
+                    // The game ignores this keypress, so queue it and take care of it when able (Player_FixedUpdate_Patch).
+                    EquipPatchState.shouldHideItemsAfterAttack = true;
+                }
+            }
+
             if (!__instance.m_nview.IsValid() || !__instance.m_nview.IsOwner()) return;
 
             if (Configuration.Current.AdvancedEditingMode.IsEnabled)
@@ -934,6 +943,79 @@ namespace ValheimPlus.GameClasses
             if (amount <= 0) return;
 
             InventoryAssistant.RemoveItemInAmountFromAllNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), item.m_resItem.m_itemData, amount, !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
+        }
+    }
+
+    public static class EquipPatchState
+    {
+        public static bool shouldEquipItemsAfterAttack = false;
+        public static bool shouldHideItemsAfterAttack = false;
+        public static List<ItemDrop.ItemData> items = null;
+    }
+
+    /// <summary>
+    /// Queue weapon/item changes until attack is finished, instead of simply ignoring the change entirely
+    /// </summary>
+    [HarmonyPatch(typeof(Player), "ToggleEquiped")]
+    public static class Player_ToggleEquiped_Patch
+    {
+        private static void Postfix(Player __instance, bool __result, ItemDrop.ItemData item)
+        {
+            if (!Configuration.Current.Player.IsEnabled || !Configuration.Current.Player.queueWeaponChanges)
+                return;
+
+            if (!__result || !item.IsEquipable())
+            {
+                // Item is not equipable (second case should never happen as the original always returns false if not equipable)
+                return;
+            }
+            if (__instance.InAttack())
+            {
+                // Store the item(s) to equip when the attack is finished
+                if (EquipPatchState.items == null)
+                    EquipPatchState.items = new List<ItemDrop.ItemData>();
+
+                if (!EquipPatchState.items.Contains(item))
+                    EquipPatchState.items.Add(item);
+
+                EquipPatchState.shouldEquipItemsAfterAttack = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Queue weapon/item changes until attack is finished, instead of simply ignoring the change entirely
+    /// </summary>
+    [HarmonyPatch(typeof(Player), "FixedUpdate")]
+    public static class Player_FixedUpdate_Patch
+    {
+        private static void Postfix(Player __instance)
+        {
+            if (!Configuration.Current.Player.IsEnabled || !Configuration.Current.Player.queueWeaponChanges)
+                return;
+
+            // I'm not sure if the m_nview checks are necessary, but the original code performs them.
+            // Note that we check !InAttack() to ensure we've waited until the attack has
+            if (EquipPatchState.shouldEquipItemsAfterAttack && !__instance.InAttack() &&
+                (__instance.m_nview == null || (__instance.m_nview != null && __instance.m_nview.IsOwner())))
+            {
+                foreach (ItemDrop.ItemData item in EquipPatchState.items)
+                {
+                    float oldDuration = item.m_shared.m_equipDuration;
+                    item.m_shared.m_equipDuration = 0f;
+                    __instance.ToggleEquiped(item);
+                    item.m_shared.m_equipDuration = oldDuration;
+                }
+
+                EquipPatchState.shouldEquipItemsAfterAttack = false;
+                EquipPatchState.items.Clear();
+            }
+
+            if (EquipPatchState.shouldHideItemsAfterAttack && !__instance.InAttack())
+            {
+                __instance.HideHandItems();
+                EquipPatchState.shouldHideItemsAfterAttack = false;
+            }
         }
     }
 }

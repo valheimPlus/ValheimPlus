@@ -1054,13 +1054,18 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
+			"queueWeaponChanges": {
+				"description": "If set to true, weapon switches requested mid-attack will be carried out when the current attack is finished (instead of being ignored)",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"skipIntro": {
 				"description": "If set to true, you will always skip the intro of the game.",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
 			"iHaveArrivedOnSpawn": {
-				"description": "If set to false, disables the "I have arrived!" message on player spawn.",
+				"description": "If set to false, disables the \"I have arrived!\" message on player spawn.",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			}
