@@ -64,7 +64,8 @@ We work together closely to make sure all our features are integrated and workin
 
 **Fire sources**
 * Fire sources retain max fuel once the fuel is added.
-* Alternatively, only torches retain max fuel, while other fire sources will continue to consume it.
+* Can be customised to have either fires and/or torches retaining max fuel.
+* Allow fuel items to be automatically pulled from closest containers.
 
 **Game Difficulty**
 * Modify the difficulty multipliers applied to health and damage of enemies based on the number of connected players.
@@ -105,22 +106,37 @@ We work together closely to make sure all our features are integrated and workin
 * Modify the radius at which Workbench attachments can be placed.
 * Allow crafting stations to automatically repair all appropriate items in the player's inventory on interaction.
 
-### Kiln and Furnace
-* Modify Kiln and Furnace processing speed.
-* Modify kiln and Furnace maximum capacity.
-* Allow items produced by Kiln and Furnace to be automatically placed in the closest container.
+### Kiln, Furnace and Blast Furnace
+* Modify Kiln, Furnace and Blast Furnace processing speed.
+* Modify Kiln, Furnace and Blast Furnace maximum capacity.
+* Allow fuel-type items to be automatically pulled from closest containers.
+* Allow items produced by Kiln, Furnace and Blast Furnace to be automatically placed in the closest containers.
 
 ### Beehive 
 * Modify Beehive honey production speed.
 * Modify Beehive capacity.
 * Display time left until next production.
-* Allow items produced by Beehive to be automatically placed in the closest container.
+* Allow items produced by Beehive to be automatically placed in the closest containers.
 
 ### Fermenter
 * Modify Fermenter speed.
 * Modify Fermenter output amount.
 * Display time left until next production.
+* Allow meads to be automatically pulled from closest containers.
+* Allow items produced by Fermenter to be automatically placed in the closest containers.
 
+### Windmill
+* Modify Windmill speed production speed.
+* Modify maximum amount of barley that can be supplied.
+* Allow ignoring wind intensity so it's always producing at max speed.
+* Allow barley to be automatically pulled from closest containers.
+* Allow items produced by Windmill to be automatically placed in the closest containers.
+
+### Spinning Wheel
+* Modify Spinning Wheel production speed.
+* Modify maximum amount of flax that can be supplied.
+* Allow flax to be automatically pulled from closest containers.
+* Allow items produced by Spinning Wheel to be automatically placed in the closest containers.
 
 # Building
 * Disable "Invalid Placement" restriction while building.
@@ -212,6 +228,12 @@ We work together closely to make sure all our features are integrated and workin
 *This feature is currently disabled*
 * Modify total time of day/night cycle.
 * Modify speed of time passing at night.
+
+
+### Craft From Chests
+* Allow building using the content of nearby chests.
+* Allow crafting from stations using the content of nearby chests.
+* Allow putting meat on cooking stands using the content of nearby chests.
 
 
 # Installation Instructions
