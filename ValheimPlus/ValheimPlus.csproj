@@ -376,6 +376,7 @@
     <Compile Include="Configurations\Sections\WorkbenchConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaUsageConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
+    <Compile Include="GameClasses\Character.cs" />
     <Compile Include="GameClasses\Container.cs" />
     <Compile Include="GameClasses\CookingStation.cs" />
     <Compile Include="GameClasses\DropTable.cs" />
