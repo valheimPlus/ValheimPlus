@@ -31,13 +31,14 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Humanoid), "EquipItem")]
     public static class Humanoid_EquipItem_Patch
     {
-        private static bool Postfix(bool __result, Humanoid __instance)
+        private static bool Postfix(bool __result, Humanoid __instance, ItemDrop.ItemData item)
         {
             if (Configuration.Current.Player.IsEnabled &&
                 Configuration.Current.Player.autoEquipShield &&
                 __result && 
                 __instance.IsPlayer() && 
-                __instance.m_rightItem?.m_shared.m_itemType == ItemDrop.ItemData.ItemType.OneHandedWeapon)
+                __instance.m_rightItem?.m_shared.m_itemType == ItemDrop.ItemData.ItemType.OneHandedWeapon &&
+                item.m_shared.m_itemType != ItemDrop.ItemData.ItemType.Shield)
             {
                 List<ItemDrop.ItemData> inventoryItems = __instance.m_inventory.GetAllItems();
 
