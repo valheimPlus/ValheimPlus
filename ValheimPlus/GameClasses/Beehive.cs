@@ -1,8 +1,10 @@
 using HarmonyLib;
-using ValheimPlus.Configurations;
-using UnityEngine;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
+using UnityEngine;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
 {
@@ -85,8 +87,8 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Auto Deposit for Beehives
     /// </summary>
-    [HarmonyPatch(typeof(Beehive), "RPC_Extract")]
-    public static class Beehive_UpdateBees_Patch
+    [HarmonyPatch(typeof(Beehive), nameof(Beehive.RPC_Extract))]
+    public static class Beehive_RPC_Extract_Patch
     {
         private static bool Prefix(long caller, ref Beehive __instance)
         {
@@ -100,14 +102,10 @@ namespace ValheimPlus.GameClasses
             if (__instance.GetHoneyLevel() <= 0)
                 return true;
 
-            if (Configuration.Current.Beehive.autoDepositRange > 50)
-                Configuration.Current.Beehive.autoDepositRange = 50;
-
-            if (Configuration.Current.Beehive.autoDepositRange < 1)
-                Configuration.Current.Beehive.autoDepositRange = 1;
+            float autoDepositRange = Helper.Clamp(Configuration.Current.Beehive.autoDepositRange, 1, 50);
 
             // find nearby chests
-            List<Container> nearbyChests = InventoryAssistant.GetNearbyChests(beehive.gameObject, Configuration.Current.Beehive.autoDepositRange);
+            List<Container> nearbyChests = InventoryAssistant.GetNearbyChests(beehive.gameObject, autoDepositRange);
             if (nearbyChests.Count == 0)
                 return true;
 
@@ -116,14 +114,14 @@ namespace ValheimPlus.GameClasses
                 GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(__instance.m_honeyItem.gameObject.name);
 
                 ZNetView.m_forceDisableInit = true;
-                GameObject honeyObject = UnityEngine.Object.Instantiate<GameObject>(itemPrefab);
+                GameObject honeyObject = Object.Instantiate<GameObject>(itemPrefab);
                 ZNetView.m_forceDisableInit = false;
 
                 ItemDrop comp = honeyObject.GetComponent<ItemDrop>();
 
                 bool result = spawnNearbyChest(comp, true);
-                UnityEngine.Object.Destroy(honeyObject);
-                
+                Object.Destroy(honeyObject);
+
                 if (!result)
                 {
                     // Couldn't drop in chest, letting original code handle things
@@ -151,7 +149,7 @@ namespace ValheimPlus.GameClasses
                     InventoryAssistant.ConveyContainerToNetwork(chest);
                     return true;
                 }
-                
+
                 if (mustHaveItem)
                     return spawnNearbyChest(item, false);
 
@@ -159,6 +157,84 @@ namespace ValheimPlus.GameClasses
             }
 
             return true;
+        }
+    }
+
+    [HarmonyPatch(typeof(Beehive), nameof(Beehive.UpdateBees))]
+    public static class Beehive_UpdateBees_Transpiler
+    {
+        private static MethodInfo method_AutoDepositToChest = AccessTools.Method(typeof(Beehive_UpdateBees_Transpiler), nameof(Beehive_UpdateBees_Transpiler.AutoDepositToChest));
+
+        /// <summary>
+        /// Patches out the code that periodically updates the amount of honey in a beehive.
+        /// When beehive is full, drops the honey to the nearby chests.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.Beehive.IsEnabled || !Configuration.Current.Beehive.autoDeposit) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            int i = il.Count - 2;
+            il.Insert(++i, new CodeInstruction(OpCodes.Ldarga, 0));
+            il.Insert(++i, new CodeInstruction(OpCodes.Call, method_AutoDepositToChest));
+
+            return il.AsEnumerable();
+        }
+
+        private static void AutoDepositToChest(ref Beehive __instance)
+        {
+            Beehive beehive = __instance;
+
+            List<Container> nearbyChests = InventoryAssistant.GetNearbyChests(beehive.gameObject, Helper.Clamp(Configuration.Current.Beehive.autoDepositRange, 1, 50));
+
+            while (beehive.GetHoneyLevel() > 0)
+            {
+                GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(beehive.m_honeyItem.gameObject.name);
+
+                ZNetView.m_forceDisableInit = true;
+                GameObject honeyObject = Object.Instantiate<GameObject>(itemPrefab);
+                ZNetView.m_forceDisableInit = false;
+
+                ItemDrop comp = honeyObject.GetComponent<ItemDrop>();
+
+                bool result = spawnNearbyChest(comp, true);
+                Object.Destroy(honeyObject);
+
+                if (!result)
+                {
+                    // Couldn't drop in chest, letting original code handle things
+                    return;
+                }
+            }
+
+            if (beehive.GetHoneyLevel() == 0)
+                beehive.m_spawnEffect.Create(beehive.m_spawnPoint.position, Quaternion.identity);
+
+            bool spawnNearbyChest(ItemDrop item, bool mustHaveItem)
+            {
+                foreach (Container chest in nearbyChests)
+                {
+                    Inventory cInventory = chest.GetInventory();
+                    if (mustHaveItem && !cInventory.HaveItem(item.m_itemData.m_shared.m_name))
+                        continue;
+
+                    if (!cInventory.AddItem(item.m_itemData))
+                    {
+                        //Chest full, move to the next
+                        continue;
+                    }
+                    beehive.m_nview.GetZDO().Set("level", beehive.GetHoneyLevel() - 1);
+                    InventoryAssistant.ConveyContainerToNetwork(chest);
+                    return true;
+                }
+
+                if (mustHaveItem)
+                    return spawnNearbyChest(item, false);
+
+                return false;
+            }
         }
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using System.Collections.Concurrent;
 using System.Diagnostics;
+using UnityEngine;
 
 namespace ValheimPlus
 {
@@ -28,6 +25,18 @@ namespace ValheimPlus
         private static float GetGameObjectPosHash(GameObject o)
         {
             return (1000f * o.transform.position.x) + o.transform.position.y + (.001f * o.transform.position.z);
+        }
+
+        public static T GetChildComponentByName<T>(string name, GameObject objected) where T : Component
+        {
+            foreach (T component in objected.GetComponentsInChildren<T>(true))
+            {
+                if (component.gameObject.name == name)
+                {
+                    return component;
+                }
+            }
+            return null;
         }
     }
 }

@@ -7,6 +7,8 @@ namespace ValheimPlus.RPC
 {
     public class VPlusConfigSync
     {
+
+        static public bool isConnecting = false;
         public static void RPC_VPlusConfigSync(long sender, ZPackage configPkg)
         {
             if (ZNet.m_isServer) //Server
@@ -75,8 +77,18 @@ namespace ValheimPlus.RPC
 
                             ValheimPlusPlugin.harmony.UnpatchSelf();
 
-                            Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
-
+                            // Sync HotKeys when connecting ?
+                            if(Configuration.Current.Server.IsEnabled && Configuration.Current.Server.serverSyncHotkeys)
+                            {
+                                isConnecting = true;
+                                Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
+                                isConnecting = false;
+                            }
+                            else
+                            {
+                                Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
+                            }
+                                
                             ValheimPlusPlugin.harmony.PatchAll();
 
                             ZLog.Log("Successfully synced VPlus configuration from server.");

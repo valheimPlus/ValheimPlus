@@ -131,7 +131,7 @@
 				"defaultType": "int"
 			},
 			"autoDeposit": {
-				"description": "Instead of dropping the items, they will be placed inside nearby chests instead.",
+				"description": "Instead of dropping the items, they will be placed inside nearby chests.",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
@@ -216,8 +216,8 @@
 			},
 			"checkFromWorkbench": {
 				"description": "If in a workbench area, uses it as reference point when scanning for chests",
-				"defaultValue": "F10",
-				"defaultType": "KeyCode"
+				"defaultValue": "true",
+				"defaultType": "bool"
 			},
 			"range": {
 				"description": "The range of the chest detection (Maximum is 50)",
@@ -396,6 +396,26 @@
 				"description": "Display the minutes and seconds until the fermenter is done on hover",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"autoDeposit": {
+				"description": "Instead of dropping the items, they will be placed inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoFuel": {
+				"description": "Look for mead inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
+				"defaultValue": "10",
+				"defaultType": "float"
 			}
 		}
 	},
@@ -427,12 +447,12 @@
 			"ignorePrivateAreaCheck": {
 				"description": "Change true to false to enable private area check when looking for chests.",
 				"defaultValue": "true",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"autoRange": {
 				"description": "The range of the chest detection for the auto fuel feature.",
-				"defaultValue": 10,
-				"defaultType": "float",
+				"defaultValue": "10",
+				"defaultType": "float"
 			}
 		}
 	},
@@ -490,19 +510,19 @@
 				"defaultType": "float"
 			},
 			"autoDeposit": {
-				"description": "Instead of dropping the items, they will be placed inside nearby chests instead.",
+				"description": "Instead of dropping the items, they will be placed inside nearby chests.",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
 			"autoFuel": {
 				"description": "Look for fuel inside nearby chests",
 				"defaultValue": "false",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"ignorePrivateAreaCheck": {
 				"description": "Change true to false to enable private area check when looking for chests.",
 				"defaultValue": "true",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"autoRange": {
 				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
@@ -542,19 +562,19 @@
 				"defaultType": "float"
 			},
 			"autoDeposit": {
-				"description": "Instead of dropping the items, they will be placed inside nearby chests instead.",
+				"description": "Instead of dropping the items, they will be placed inside nearby chests.",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
 			"autoFuel": {
 				"description": "Look for fuel inside nearby chests",
 				"defaultValue": "false",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"ignorePrivateAreaCheck": {
 				"description": "Change true to false to enable private area check when looking for chests.",
 				"defaultValue": "true",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"autoRange": {
 				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
@@ -594,12 +614,17 @@
 				"defaultType": "int"
 			},
 			"difficultyScaleRange": {
-				"description": "Instead of dropping the items, they will be placed inside nearby chests instead.",
+				"description": "Instead of dropping the items, they will be placed inside nearby chests.",
 				"defaultValue": "200",
 				"defaultType": "int"
 			},
 			"disablePortals": {
 				"description": "If you set this to true, all portals will be disabled",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"forceConsole": {
+				"description": "If you set this to true the console will be force enabled ingame, false will force disable it.",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			}
@@ -894,25 +919,40 @@
 				"defaultValue": "25",
 				"defaultType": "int"
 			},
+			"dontProcessFineWood": {
+				"description": "Disable Fine Wood as a ressource",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"dontProcessRoundLog": {
+				"description": "Disable Round Log as a ressource",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"productionSpeed": {
 				"description": "The time it takes for the Kiln to produce a single piece of coal in seconds.",
 				"defaultValue": "30",
 				"defaultType": "float"
 			},
 			"autoDeposit": {
-				"description": "Instead of dropping the items, they will be placed inside nearby chests instead.",
+				"description": "Instead of dropping the items, they will be placed inside nearby chests.",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
 			"autoFuel": {
 				"description": "Look for fuel inside nearby chests",
 				"defaultValue": "false",
-				"defaultType": "bool"	
+				"defaultType": "bool"
+			},
+			"stopAutoFuelThreshold": {
+				"description": "Stop looking for fuel when there is at leasts this quantity of Coal in nearby chests (ignored if set to 0)",
+				"defaultValue": "0",
+				"defaultType": "int"
 			},
 			"ignorePrivateAreaCheck": {
 				"description": "Change true to false to enable private area check when looking for chests.",
 				"defaultValue": "true",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"autoRange": {
 				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
@@ -1028,6 +1068,21 @@
 				"description": "If set to true, when equipping a one-handed weapon, the best shield from your inventory is automatically equipped. (Best is determined by highest block power)",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"queueWeaponChanges": {
+				"description": "If set to true, weapon switches requested mid-attack will be carried out when the current attack is finished (instead of being ignored)",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"skipIntro": {
+				"description": "If set to true, you will always skip the intro of the game.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"iHaveArrivedOnSpawn": {
+				"description": "If set to false, disables the \"I have arrived!\" message on player spawn.",
+				"defaultValue": "true",
+				"defaultType": "bool"
 			}
 		}
 	},
@@ -1061,10 +1116,10 @@
 				"defaultValue": "true",
 				"defaultType": "bool"
 			},
-			"dataRate": {
-				"description": "The total amount of data that the server and client can send per second in kilobyte",
-				"defaultValue": "60",
-				"defaultType": "int"
+			"serverSyncHotkeys": {
+				"description": "If false allows you to keep your own defined hotkeys instead of synchronising the ones declared for the server. Sections need to be enabled in your local configuration to load hotkeys. This is a client side setting and not affected by server settings.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
@@ -1243,6 +1298,11 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
+			"disableWaterDamageToPlayerBoats": {
+				"description": "Disables water force damage to all player built boats",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"wood": {
 				"description": "Each of these values reduce the loss of structural integrity by distance by %.",
 				"defaultValue": "0",
@@ -1269,7 +1329,7 @@
 		"description": "THIS FEATURE IS STILL IN DEVELOPMENT AND IS RIGHT NOW DISABLED UNTIL FURTHER NOTICE",
 		"icon": "fa fa-clock-o",
 		"enabled": "false",
-		"description_website":"",
+		"description_website": "",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -1396,7 +1456,7 @@
 			},
 			"ironChestRows": {
 				"description": "Iron chest number of rows (more than 4 rows will add a scrollbar)",
-				"defaultValue": "3",
+				"defaultValue": "4",
 				"defaultType": "int"
 			},
 			"cartInventoryColumns": {
@@ -1431,6 +1491,11 @@
 			},
 			"inventoryFillTopToBottom": {
 				"description": "By default tools and weapons go into inventories top to bottom and other materials bottom to top. Set to true to make all items go into the inventory top to bottom.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"mergeWithExistingStacks": {
+				"description": "By default items go to their original position when picking up your tombstone. Set to true to make all stacks try to merge with an existing stack first.",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			}
@@ -1523,7 +1588,7 @@
 			}
 		}
 	},
-	"GridAlignment" : {
+	"GridAlignment": {
 		"description": "When pressing the configured key new buildings will be aligned to a global grid.",
 		"icon": "fad fa-border-right",
 		"description_website": "When pressing the configured key new buildings will be aligned to a global grid, allwoing for consistent placement locations.",
@@ -1547,8 +1612,92 @@
 				"description": "Key to change the default alignment direction.",
 				"defaultValue": "F6",
 				"defaultType": "KeyCode"
+			}
+
+		}
+	},
+	"Windmill": {
+		"description": "",
+		"icon": "fad fa-wind-turbine",
+		"description_website": "Change the in-game beheavior of the windmill and modify its values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultType": "bool",
+				"defaultValue": "false"
 			},
-			
+			"maximumBarley": {
+				"description": "Maximum amount of barley in a windmill",
+				"defaultValue": "40",
+				"defaultType": "int"
+			},
+			"productionSpeed": {
+				"description": "The time it takes for the windmill to produce barley floor",
+				"defaultValue": "30",
+				"defaultType": "float"
+			},
+			"autoDeposit": {
+				"description": "Instead of dropping the items, they will be placed inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoFuel": {
+				"description": "Look for barley inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto deposit and fuel features (Maximum is 50)",
+				"defaultValue": "10",
+				"defaultType": "float"
+			}
+		}
+	},
+	"SpinningWheel": {
+		"description": "",
+		"icon": "fab fa-cotton-bureau",
+		"description_website": "Change the in-game beheavior of the spinning wheel and modify its values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"maximumFlax": {
+				"description": "Maximum amount of flax in a spinning wheel",
+				"defaultValue": "40",
+				"defaultType": "int"
+			},
+			"productionSpeed": {
+				"description": "The time it takes for the spinning wheel to produce linen thread",
+				"defaultValue": "30",
+				"defaultType": "float"
+			},
+			"autoDeposit": {
+				"description": "Instead of dropping the items, they will be placed inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoFuel": {
+				"description": "Look for flax inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
+				"defaultValue": "10",
+				"defaultType": "float"
+			}
 		}
 	}
 }
