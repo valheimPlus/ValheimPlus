@@ -919,6 +919,16 @@
 				"defaultValue": "25",
 				"defaultType": "int"
 			},
+			"dontProcessFineWood": {
+				"description": "Disable Fine Wood as a ressource",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"dontProcessRoundLog": {
+				"description": "Disable Round Log as a ressource",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"productionSpeed": {
 				"description": "The time it takes for the Kiln to produce a single piece of coal in seconds.",
 				"defaultValue": "30",
@@ -933,6 +943,11 @@
 				"description": "Look for fuel inside nearby chests",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"stopAutoFuelThreshold": {
+				"description": "Stop looking for fuel when there is at leasts this quantity of Coal in nearby chests (ignored if set to 0)",
+				"defaultValue": "0",
+				"defaultType": "int"
 			},
 			"ignorePrivateAreaCheck": {
 				"description": "Change true to false to enable private area check when looking for chests.",
