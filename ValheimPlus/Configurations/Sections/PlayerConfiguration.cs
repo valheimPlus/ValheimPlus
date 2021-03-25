@@ -19,5 +19,6 @@
         public bool iHaveArrivedOnSpawn { get; internal set; } = true;
         public bool queueWeaponChanges { get; internal set; } = false;
         public bool reequipItemsAfterSwimming { get; internal set; } = false;
+        public bool skipTutorials { get; internal set; } = false;
     }
 }
