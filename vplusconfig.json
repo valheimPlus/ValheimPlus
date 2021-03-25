@@ -1550,5 +1550,27 @@
 			}
 
 		}
+	},
+	"RecipeManager": {
+		"description": "Allows for modification and/or additions of craftable recipes",
+		"icon": "fad fa-border-right",
+		"description_website": "Allows for modification and/or additions of craftable recipes.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"databaseFile": {
+				"description": "The filename of the json file which contains the recipe modifications/additions.",
+				"defaultValue": "recipes.json",
+				"defaultType": "string"
+			},
+			"databaseDumpFile": {
+				"description": "Provide a filename to dump all recipes to json. For use as a template.",
+				"defaultValue": "",
+				"defaultType": "KeyCode"
+			}
+		}
 	}
 }
