@@ -11,12 +11,6 @@
     "status": "In Consideration",
     "category": "Server"
   },
-  "Add Skill Scaling": {
-    "description": "Example: As you increase your run skill, the carry weight is increased by xx amount per level to 1000 (as an exmaple) at level 100. Like sneak, your sneak speed increase by a % as you level up the skill which in turn reduces the stamina consumption.",
-    "icon": "fas fa-level-up-alt",
-    "status": "In Consideration",
-    "category": "General"
-  },
   "Add a beautify tool to the Hoe": {
     "description": "Add a clean up tool to fix horrible looking terraform ",
     "icon": "fas fa-shovel",
@@ -176,12 +170,6 @@
   "Control what Animals Eat": {
     "description": "Add the ability to control what food animals eat, e.g. make it so boars can eat every type of food.",
     "icon": "fas fa-meat",
-    "status": "In Consideration",
-    "category": "Items"
-  },
-  "Cook food in larger stacks": {
-    "description": "Add the ability to cook food in larger stacks",
-    "icon": "far fa-steak",
     "status": "In Consideration",
     "category": "Items"
   },
