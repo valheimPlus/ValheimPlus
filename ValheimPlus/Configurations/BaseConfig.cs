@@ -93,6 +93,12 @@ namespace ValheimPlus.Configurations
                     continue;
                 }
 
+                if (prop.PropertyType == typeof(string))
+                {
+                    prop.SetValue(this, data.GetString(keyName, ""), null);
+                    continue;
+                }
+
                 Debug.LogWarning($" Could not load data of type {prop.PropertyType} for key {keyName}");
             }
         }
