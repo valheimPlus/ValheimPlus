@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,11 +14,11 @@ namespace ValheimPlus.FirstPerson
 		static VPlusFirstPerson()
 		{
 		}
-        #region Data Structures
+       		#region Data Structures
 
-        // Struct to hold the dynamic values
-        public struct DynamicPerson
-        {
+        	// Struct to hold the dynamic values
+		public struct DynamicPerson
+		{
 			// Are we in first person or not
 			public static bool isFirstPerson = false;
 			// Holder for old m_3rdOffset value
@@ -29,7 +29,7 @@ namespace ValheimPlus.FirstPerson
 
 		// Struct to hold Camera constants
 		public struct CameraConstants
-        {
+        	{
 			// Valheim zoom thingy value
 			public static float zoomSens = 10f;
 			// Min and max distance of camera
@@ -42,14 +42,14 @@ namespace ValheimPlus.FirstPerson
 
 		#endregion
 
-        #region GameClasses
+        	#region GameClasses
 
-        #region Character
+        	#region Character
         
 		/// <summary>
-        /// Hooks visibility LODs of player
-        /// </summary>
-        [HarmonyPatch(typeof(Character), "SetVisible")]
+		/// Hooks visibility LODs of player
+		/// </summary>
+		[HarmonyPatch(typeof(Character), "SetVisible")]
 		public static class Character_SetVisible_Patch
 		{
 			private static bool Prefix(ref Character __instance, bool visible)
@@ -81,14 +81,14 @@ namespace ValheimPlus.FirstPerson
 			}
 		}
 
-        #endregion
+		#endregion
 
-        #region Player
+		#region Player
 
-        /// <summary>
-        /// Ignore ghost clipping
-        /// </summary>
-        [HarmonyPatch(typeof(Player), "TestGhostClipping")]
+		/// <summary>
+		/// Ignore ghost clipping
+		/// </summary>
+		[HarmonyPatch(typeof(Player), "TestGhostClipping")]
 		public static class Player_TestGhostClipping_Patch
 		{
 			// This function is basically testing whether camera is penetrating player
@@ -102,14 +102,14 @@ namespace ValheimPlus.FirstPerson
 			}
 		}
 
-        #endregion
+		#endregion
 
-        #region GameCamera
+		#region GameCamera
 
-        /// <summary>
-        /// Grab a hold of our camera constants in awake
-        /// </summary>
-        [HarmonyPatch(typeof(GameCamera), "Awake")]
+		/// <summary>
+		/// Grab a hold of our camera constants in awake
+		/// </summary>
+		[HarmonyPatch(typeof(GameCamera), "Awake")]
 		public static class GameCamera_Awake_Patch
 		{
 			private static void Postfix(ref GameCamera __instance)
@@ -132,7 +132,7 @@ namespace ValheimPlus.FirstPerson
 		{
 			// Put outside just to clean up
 			private static void SetupFP(ref GameCamera __instance, ref Player localPlayer)
-            {
+            		{
 				// Save old offsets and then use our own
 				DynamicPerson.noVPFP_3rdOffset = __instance.m_3rdOffset;
 				DynamicPerson.noVPFP_fpsOffset = __instance.m_fpsOffset;
@@ -251,8 +251,8 @@ namespace ValheimPlus.FirstPerson
 			}
 		}
 
-        #endregion
+       		#endregion
 
 		#endregion
-    }
+	}
 }
