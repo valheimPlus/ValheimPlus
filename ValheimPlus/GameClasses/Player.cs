@@ -1026,7 +1026,7 @@ namespace ValheimPlus.GameClasses
     public class Player_HaveSeenTutorial_Patch
     {
         [HarmonyPrefix]
-        internal static void Prefix(Player __instance, ref string name)
+        private static void Prefix(Player __instance, ref string name)
         {
             if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.skipTutorials)
             {
