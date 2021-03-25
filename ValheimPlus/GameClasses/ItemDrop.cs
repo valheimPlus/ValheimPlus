@@ -1,18 +1,19 @@
 ﻿using HarmonyLib;
-using System;
-using ValheimPlus.Configurations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using UnityEngine;
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Item weight reduction and teleport prevention changes
     /// </summary>
-    [HarmonyPatch(typeof(ItemDrop), "Awake")]
-    public static class ChangeItemData
+    [HarmonyPatch(typeof(ItemDrop), nameof(ItemDrop.Awake))]
+    public static class ItemDrop_Awake_Patch
     {
-        private const int defaultSpawnTimeSeconds = 3600;
-
         private static void Prefix(ref ItemDrop __instance)
         {
             if (Configuration.Current.Items.IsEnabled && Configuration.Current.Items.noTeleportPrevention)
@@ -33,25 +34,44 @@ namespace ValheimPlus.GameClasses
                     }
                 }
             }
-
-
-
         }
+    }
 
-        private static void Postfix(ref ItemDrop __instance)
+    [HarmonyPatch(typeof(ItemDrop), nameof(ItemDrop.TimedDestruction))]
+    public static class ItemDrop_TimedDestruction_Patch
+    {
+        private const int defaultSpawnTimeSeconds = 3600;
+        private static MethodInfo method_SetDroppedItemDestroyDuration = AccessTools.Method(typeof(ItemDrop_TimedDestruction_Patch), nameof(ItemDrop_TimedDestruction_Patch.SetDroppedItemDestroyDuration));
+
+        /// <summary>
+        /// Patches the function that checks if an ItemDrop should be destroyed by changing the value being compared.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            if (!Configuration.Current.Items.IsEnabled) return; // if items config not enabled, continue with original method
-            if (Configuration.Current.Items.droppedItemOnGroundDurationInSeconds.Equals(defaultSpawnTimeSeconds)) return; // if set to default, continue with original method
-            if (!(bool)(UnityEngine.Object)__instance.m_nview || !__instance.m_nview.IsValid()) return;
-            if (!__instance.m_nview.IsOwner()) return;
+            if (!Configuration.Current.Items.IsEnabled) return instructions;
 
-            // Get a DateTime value that is the current server time + item drop duration modifier
-            DateTime serverTimeWithTimeChange = ZNet.instance.GetTime().AddSeconds(Configuration.Current.Items.droppedItemOnGroundDurationInSeconds - defaultSpawnTimeSeconds);
+            List<CodeInstruction> il = instructions.ToList();
+            for (int i = 0; i < il.Count; i++)
+            {
+                if (il[i].opcode == OpCodes.Ldc_R8)
+                {
+                    il[i] = new CodeInstruction(OpCodes.Call, method_SetDroppedItemDestroyDuration);
+                    return il.AsEnumerable();
+                }
+            }
 
-            // Re-set spawn time of item to the configured percentage of the original duration
-            __instance.m_nview.GetZDO().Set("SpawnTime", serverTimeWithTimeChange.Ticks);
+            ZLog.LogError("Failed to apply ItemDrop_TimedDestruction_Patch");
+
+            return instructions;
         }
 
+        private static float SetDroppedItemDestroyDuration()
+        {
+            if (!Player.m_localPlayer)
+                return defaultSpawnTimeSeconds;
+            return Helper.Clamp(Configuration.Current.Items.droppedItemOnGroundDurationInSeconds, 0, defaultSpawnTimeSeconds);
+        }
     }
 
 
@@ -192,7 +212,7 @@ namespace ValheimPlus.GameClasses
 
     [HarmonyPatch(typeof(ItemDrop.ItemData), "GetBaseBlockPower", new System.Type[] { typeof(int) })]
     public static class ItemDrop_GetBaseBlockPower_Patch
-    { 
+    {
         private static bool Prefix(ref ItemDrop.ItemData __instance, ref int quality, ref float __result)
         {
             if (!Configuration.Current.Shields.IsEnabled)
