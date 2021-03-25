@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unix", "unix", "{7FBDF646-C
 		resources\unix\start_server_bepinex.sh = resources\unix\start_server_bepinex.sh
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fastJSON-Unity", "libraries\fastJSON\fastJSON\fastJSON-Unity.csproj", "{EA828FA4-FCC9-437B-B98A-32161FB73DDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{2A837100-A030-4D0C-BFFB-B38356118D9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A837100-A030-4D0C-BFFB-B38356118D9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A837100-A030-4D0C-BFFB-B38356118D9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA828FA4-FCC9-437B-B98A-32161FB73DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA828FA4-FCC9-437B-B98A-32161FB73DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA828FA4-FCC9-437B-B98A-32161FB73DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA828FA4-FCC9-437B-B98A-32161FB73DDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

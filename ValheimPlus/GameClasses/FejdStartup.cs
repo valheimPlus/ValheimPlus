@@ -1,9 +1,12 @@
-﻿using HarmonyLib;
+﻿using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using ValheimPlus.Configurations;
 using ValheimPlus.UI;
+using BepInEx;
+using HarmonyLib;
 
 namespace ValheimPlus.GameClasses
 {
@@ -118,6 +121,43 @@ namespace ValheimPlus.GameClasses
             }
 
             return true;
+        }
+    }
+
+    /// <summary>
+    /// Dump stock database of recipes if dump file configured
+    /// </summary>
+    [HarmonyPatch(typeof(FejdStartup), "SetupObjectDB")]
+    public static class FejdStartup_SetupObjectDB_Patch
+    {        
+        private static void Postfix(ref FejdStartup __instance) 
+        {
+            if (RecipeManager.instance != null)
+            {
+                if (Configuration.Current.RecipeManager.databaseDumpFile.Length > 0)
+                {
+                    String path = Path.Combine(Paths.ConfigPath, Configuration.Current.RecipeManager.databaseDumpFile);
+
+                    if (!File.Exists(path))
+                    {
+                        RecipeConfig conf = new RecipeConfig();
+
+                        foreach(Recipe recipe in ObjectDB.instance.m_recipes)
+                        {
+                            RecipeEntry entry = new RecipeEntry(recipe);
+
+                            conf.Recipes.Add(entry);
+                        }
+
+                        Debug.Log($"Saving {conf.Recipes.Count} Recipes To Database Dump At: {path}");
+
+                        if (!conf.SaveTo(path))
+                        {
+                            Debug.Log($"Error Saving Database Dump To: {path}");
+                        }
+                    }
+                }
+            }
         }
     }
 }

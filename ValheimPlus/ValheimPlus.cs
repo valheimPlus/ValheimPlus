@@ -73,6 +73,10 @@ namespace ValheimPlus
                     mapSyncSaveTimer.AutoReset = true;
                     mapSyncSaveTimer.Elapsed += (sender, args) => VPlusMapSync.SaveMapDataToDisk();
                 }
+
+                //Recipe Manager
+                if (Configuration.Current.RecipeManager.IsEnabled)  RecipeManager.Initialize();
+                else                                                RecipeManager.DeInitialize();
             }
         }
 

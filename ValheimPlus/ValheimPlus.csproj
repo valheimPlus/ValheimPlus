@@ -107,6 +107,9 @@
       <HintPath>..\packages\MonoMod.Utils.20.11.26.2\lib\net40\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -335,6 +338,7 @@
     <Compile Include="Configurations\Sections\DeconstructConfiguration.cs" />
     <Compile Include="Configurations\Sections\ArmorConfiguration.cs" />
     <Compile Include="Configurations\Sections\DurabilityConfiguration.cs" />
+    <Compile Include="Configurations\Sections\RecipeManagerConfiguration.cs" />
     <Compile Include="Configurations\Sections\SmelterConfiguration.cs" />
     <Compile Include="Configurations\Sections\FreePlacementRotationConfiguration.cs" />
     <Compile Include="Configurations\Sections\GatherConfiguration.cs" />
@@ -387,6 +391,10 @@
     <Compile Include="GameClasses\Attack.cs" />
     <Compile Include="GameClasses\TeleportWorld.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
+    <Compile Include="RecipeManager\RecipeConfig.cs" />
+    <Compile Include="RecipeManager\RecipeEntry.cs" />
+    <Compile Include="RecipeManager\RecipeEntryRequirement.cs" />
+    <Compile Include="RecipeManager\RecipeManager.cs" />
     <Compile Include="RPC\VPlusAck.cs" />
     <Compile Include="Utility\GameObjectAssistant.cs" />
     <Compile Include="Utility\InventoryAssistant.cs" />
@@ -431,14 +439,20 @@
     <EmbeddedResource Include="Assets\ZapHosting_hover.png" />
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\libraries\fastJSON\fastJSON\fastJSON-Unity.csproj">
+      <Project>{ea828fa4-fcc9-437b-b98a-32161fb73ddf}</Project>
+      <Name>fastJSON-Unity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetDir)ValheimPlus.dll" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll"
 copy "$(TargetDir)ValheimPlus.pdb" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.pdb"
 copy "$(TargetDir)ValheimPlus.dll.config" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll.config"
 $(SolutionDir)resources\tools\pdb2mdb.exe "$(TargetPath)"
-copy "$(TargetDir)\ValheimPlus.dll.mdb" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll.mdb"</PostBuildEvent>
+copy "$(TargetDir)\ValheimPlus.dll.mdb" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll.mdb"
+copy "$(TargetDir)fastJSON.dll" "$(VALHEIM_INSTALL)\BepInEx\plugins\fastJSON.dll"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

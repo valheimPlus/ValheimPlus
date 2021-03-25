@@ -146,4 +146,34 @@ namespace ValheimPlus.GameClasses
             }
         }
     }
+
+    /// <summary>
+    /// Patches SendPeerInfo to sync recipes with the client
+    /// </summary>
+    [HarmonyPatch(typeof(ZNet), "SendPeerInfo")]
+    public static class ZNet_SendPeerInfo_Patch
+    {
+        static void Postfix(ref ZNet __instance, ZRpc rpc, string password)
+        {
+            if (RecipeManager.instance != null && Configuration.Current.Server.IsEnabled && Configuration.Current.Server.serverSyncsConfig)
+            {
+                RecipeManager.instance.Sync(rpc);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [HarmonyPatch(typeof(ZNet), "OnNewConnection")]
+    public static class ZNet_OnNewConnection_Patch
+    {
+        static void Postfix(ref ZNet __instance, ZNetPeer peer)
+        {      
+            if (RecipeManager.instance != null)
+            {
+                RecipeManager.instance.OnNewConnection(peer);
+            }
+        }
+    }
 }

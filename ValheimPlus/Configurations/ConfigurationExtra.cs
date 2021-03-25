@@ -128,6 +128,16 @@ namespace ValheimPlus.Configurations
             Debug.LogWarning($" [Int] Could not read {key}, using default value of {defaultVal}");
             return defaultVal;
         }
+        public static string GetString(this KeyDataCollection data, string key, string defaultVal)
+        {
+            if (data[key] != null)
+            {
+                return data[key].ToString();
+            }
+
+            Debug.LogWarning($" [String] Could not read {key}, using default value of {defaultVal}");
+            return defaultVal;
+        }
 
         public static KeyCode GetKeyCode(this KeyDataCollection data, string key, KeyCode defaultVal)
         {
