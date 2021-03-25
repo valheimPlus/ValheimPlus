@@ -1023,7 +1023,7 @@ namespace ValheimPlus.GameClasses
     /// skip all tutorials from now on
     /// </summary>
     [HarmonyPatch(typeof(Player), "HaveSeenTutorial")]
-    public class HaveSeenTutorial_Patch
+    public class Player_HaveSeenTutorial_Patch
     {
         [HarmonyPrefix]
         internal static void Prefix(Player __instance, ref string name)
