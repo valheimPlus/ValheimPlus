@@ -90,12 +90,6 @@
 	"progress": "70",
     "category": "General"
   },
-  "Auto weapon switch after swimming": {
-    "description": "Add the ability to auto equip the weapons you were holding before you entered water.",
-    "icon": "fas fa-mace",
-    "status": "In Consideration",
-    "category": "Player"
-  },
   "Bow Ammo": {
     "description": "Show the arrow count in some way when the bow is equipped. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/210'>reference</a>",
     "icon": "fa fa-bow-arrow",
