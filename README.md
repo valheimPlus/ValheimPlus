@@ -371,3 +371,4 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for d
 * Jules - https://github.com/sirskunkalot
 * Lilian Cahuzac - https://github.com/healiha
 * Thomas 'Aeluwas#2855' B. - https://github.com/exscape
+* Nick 'baconparticles' P. - https://github.com/baconparticles
