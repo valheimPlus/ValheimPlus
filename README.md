@@ -109,7 +109,9 @@ We work together closely to make sure all our features are integrated and workin
 ### Kiln, Furnace and Blast Furnace
 * Modify Kiln, Furnace and Blast Furnace processing speed.
 * Modify Kiln, Furnace and Blast Furnace maximum capacity.
+* Disable Fine Wood and/or Round Log processing for Kiln.
 * Allow fuel-type items to be automatically pulled from closest containers.
+* Allow Kiln to stop pulling wood from closest containers when a specific threshold as been reached. 
 * Allow items produced by Kiln, Furnace and Blast Furnace to be automatically placed in the closest containers.
 
 ### Beehive 
@@ -351,12 +353,12 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for d
 # Official Development Team
 
 * Kevin 'nx#8830' J.- https://github.com/nxPublic
-* Greg 'Zedle' G. - https://github.com/zedle
 * Miguel 'Mixone' T. - https://github.com/Mixone-FinallyHere
 * Lilian 'healiha' C. - https://github.com/healiha
 * Nathan 'NCJ' J. - https://github.com/ncjsvr
 
 # Credits
+* Greg 'Zedle' G. - https://github.com/zedle
 * Paige 'radmint' N. - https://github.com/radmint
 * Chris 'Xenofell' S. - https://github.com/cstamford
 * TheTerrasque - https://github.com/TheTerrasque
