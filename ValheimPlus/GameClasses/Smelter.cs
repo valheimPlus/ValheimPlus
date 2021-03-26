@@ -179,14 +179,14 @@ namespace ValheimPlus.GameClasses
             }
             else if (__instance.m_name.Equals(SmelterDefinitions.WindmillName))
             {
-                if (!Configuration.Current.Windmill.IsEnabled || !Configuration.Current.Windmill.autoDeposit)
+                if (!Configuration.Current.Windmill.IsEnabled || !Configuration.Current.Windmill.autoFuel)
                     return;
                 autoFuelRange = Configuration.Current.Windmill.autoRange;
                 ignorePrivateAreaCheck = Configuration.Current.Windmill.ignorePrivateAreaCheck;
             }
             else if (__instance.m_name.Equals(SmelterDefinitions.SpinningWheelName))
             {
-                if (!Configuration.Current.SpinningWheel.IsEnabled || !Configuration.Current.SpinningWheel.autoDeposit)
+                if (!Configuration.Current.SpinningWheel.IsEnabled || !Configuration.Current.SpinningWheel.autoFuel)
                     return;
                 autoFuelRange = Configuration.Current.SpinningWheel.autoRange;
                 ignorePrivateAreaCheck = Configuration.Current.SpinningWheel.ignorePrivateAreaCheck;

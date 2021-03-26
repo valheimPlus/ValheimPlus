@@ -353,12 +353,12 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for d
 # Official Development Team
 
 * Kevin 'nx#8830' J.- https://github.com/nxPublic
-* Greg 'Zedle' G. - https://github.com/zedle
 * Miguel 'Mixone' T. - https://github.com/Mixone-FinallyHere
 * Lilian 'healiha' C. - https://github.com/healiha
 * Nathan 'NCJ' J. - https://github.com/ncjsvr
 
 # Credits
+* Greg 'Zedle' G. - https://github.com/zedle
 * Paige 'radmint' N. - https://github.com/radmint
 * Chris 'Xenofell' S. - https://github.com/cstamford
 * TheTerrasque - https://github.com/TheTerrasque
