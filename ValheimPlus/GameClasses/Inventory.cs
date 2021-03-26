@@ -1,5 +1,7 @@
-using System;
 using HarmonyLib;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
@@ -60,4 +62,52 @@ namespace ValheimPlus.GameClasses
             }
         }
     }
+
+
+    public static class Inventory_NearbyChests_Cache
+    {
+        public static List<Container> chests = new List<Container>();
+        public static readonly Stopwatch delta = new Stopwatch();
+    }
+
+    /// <summary>
+    /// When merging another inventory, try to merge items with existing stacks.
+    /// </summary>
+    [HarmonyPatch(typeof(Inventory), "MoveAll")]
+    public static class Inventory_MoveAll_Patch
+    {
+        private static void Prefix(ref Inventory __instance, ref Inventory fromInventory)
+        {
+            if (Configuration.Current.Inventory.IsEnabled && Configuration.Current.Inventory.mergeWithExistingStacks)
+            {
+                List<ItemDrop.ItemData> list = new List<ItemDrop.ItemData>(fromInventory.GetAllItems());
+                foreach (ItemDrop.ItemData otherItem in list)
+                {
+                    if (otherItem.m_shared.m_maxStackSize > 1)
+                    {
+                        foreach (ItemDrop.ItemData myItem in __instance.m_inventory)
+                        {
+                            if (myItem.m_shared.m_name == otherItem.m_shared.m_name && myItem.m_quality == otherItem.m_quality)
+                            {
+                                int itemsToMove = Math.Min(myItem.m_shared.m_maxStackSize - myItem.m_stack, otherItem.m_stack);
+                                myItem.m_stack += itemsToMove;
+                                if (otherItem.m_stack == itemsToMove)
+                                {
+                                    fromInventory.RemoveItem(otherItem);
+                                    break;
+                                }
+                                else
+                                {
+                                    otherItem.m_stack -= itemsToMove;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
 }

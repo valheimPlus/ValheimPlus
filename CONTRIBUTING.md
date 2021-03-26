@@ -6,6 +6,7 @@ How to setup the development enviroment to compile ValheimPlus yourself.
 1. Download the [BepInEx for Valheim package](https://valheim.thunderstore.io/package/download/denikson/BepInExPack_Valheim/5.4.701/).
    - Extract zip contents and copy the contents inside `/BepInExPack_Valheim/` and paste them in your Valheim root folder and overwrite every file when asked.
    - This package sets up your Valheim game with BepInEx configurations specifically for mod devs. Created by [BepInEx](https://github.com/BepInEx).
+1. Copy over all the DLLs from Valheim/unstripped_corlib to Valheim/valheim_Data/Managed *(overwrite when asked)*
 1. Download the [AssemblyPublicizer package](https://mega.nz/file/oQxEjCJI#_XPXEjwLfv9zpcF2HRakYzepMwaUXflA9txxhx4tACA).
    - This package has a tool that you'll use to create publicized versions of the `assembly_*.dll` files for your local development.
    - Repo: https://github.com/MrPurple6411/Bepinex-Tools/releases/tag/1.0.0-Publicizer by [MrPurple6411](https://github.com/MrPurple6411).
@@ -50,6 +51,7 @@ Thanks to mono and unity-mono being open source, we patched and compiled our own
 
 ### Configuration .cfg
 1. Always add new configurations to the .cfg file as well as the configuration class and set the value to the default value from the game.
+1. Always add your new added configurations to the vplusconfig.json at the appropriate places with the most information you are able to fill out (for icons,[FontAwesome](https://fontawesome.com/icons?d=gallery) ). 
    - It is easy to forget test values in your code when you make a PR. Please double check your default values when creating a PR
    - It is recommended when testing to test value inline with your code instead of altering the values on the .cfg/class to prevent this issue. If an inline hardcoded value gets pushed, it's easier to spot this mistake than a inaccurate cfg setting.
 1. Try to find an appropriate existing configuration section before adding a new one. Generally, if your configuration changes something related to the player, for example, then add it to the `[Player]` section. Look at it from the perspective of a user who's looking for a specific configuration instead of the perspective of someone who's coding and looking for a class.
@@ -69,3 +71,4 @@ Thanks to mono and unity-mono being open source, we patched and compiled our own
 1. needs updating - This work has received feedback and needs to be updated before being accepted
 1. merge conflicts - This pr has merge conflicts that need to be resolved
 1. question - The author of the PR needs to answer a question before the PR can move forward
+1. in discussion - We want to implement the PR but have to make more preparations and tests before we can do so.

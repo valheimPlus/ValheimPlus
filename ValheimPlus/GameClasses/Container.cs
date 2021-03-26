@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     [HarmonyPatch(typeof(Container), "Awake")]
     public static class Container_Awake_Patch
@@ -22,9 +22,9 @@ namespace ValheimPlus
         private const int ironChestInventoryMinCol = 6;
 
         private const int karveChestInventoryMaxRows = 30;
-        private const int karveChestInventoryMinRows = 3;
+        private const int karveChestInventoryMinRows = 2;
         private const int karveChestInventoryMaxCol = 8;
-        private const int karveChestInventoryMinCol = 6;
+        private const int karveChestInventoryMinCol = 2;
 
         private const int longboatChestInventoryMaxRows = 30;
         private const int longboatChestInventoryMinRows = 3;
@@ -42,6 +42,8 @@ namespace ValheimPlus
         static void Postfix(Container __instance, ref Inventory ___m_inventory)
         {
             if (!Configuration.Current.Inventory.IsEnabled) return;
+
+            if (__instance == null || ___m_inventory == null || !__instance.transform.parent) return;
 
             string containerName = __instance.transform.parent.name;
             string inventoryName = ___m_inventory.m_name;

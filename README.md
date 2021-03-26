@@ -4,12 +4,10 @@
 A HarmonyX Mod aimed at improving the gameplay quality of Valheim. The mod includes several different main features that allow users to modify the stats of players, buildings and entities. V+ also offers players the ability to build and place objects with very high precision through a sophisticated system, as well as tweaking and modifying already placed objects with equal precision. The goal is to provide V+ as a base modification for Valheim to increase quality of life, tweak the game's difficulty, and in general, improve the player's experience. V+ also comes with a version and configuration control system for servers and users, enabling server owners to ensure that only players with the same configuration are able to join the server.
 
 # ValheimPlus Server Hosting
-Below you can find a list of hosting companies that are supporting ValheimPlus with very competitive pricing and ease of use.
+We teamed up with one of the best game hosting companies out there to make sure we can offer you the best quality dedicated game server hosting at affordable good prices.
+We work together closely to make sure all our features are integrated and working at all times. We even have a full time dedicated Zap-Hosting support team to help you out in our [discord](https://discord.gg/valheimPlus) in addition.
 
-[![GPortal](https://imgur.com/L46GT7q.png)](https://www.g-portal.com/valheim)
 [![ZapHosting](https://i.imgur.com/4ZB1xHU.jpg)](https://zap-hosting.com/valheimplus)
-[![GFXHosting](https://www.gtxgaming.co.uk/wp-content/uploads/2021/02/valheim_plus_banner-3.png)](https://www.gtxgaming.co.uk/clientarea/aff.php?aff=2096)
-
 
 
 
@@ -34,7 +32,7 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 * Tweak/disable death penalty.
 * Tweak Rested bonus duration per comfort level.
 * Disable the use of portals.
-* Modify the Guardian buff duration and cooldown
+* Modify the Guardian buff duration, cooldown and animation
 
 
 ### Player Hud
@@ -66,7 +64,8 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 
 **Fire sources**
 * Fire sources retain max fuel once the fuel is added.
-* Alternatively, only torches retain max fuel, while other fire sources will continue to consume it.
+* Can be customised to have either fires and/or torches retaining max fuel.
+* Allow fuel items to be automatically pulled from closest containers.
 
 **Game Difficulty**
 * Modify the difficulty multipliers applied to health and damage of enemies based on the number of connected players.
@@ -107,30 +106,49 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 * Modify the radius at which Workbench attachments can be placed.
 * Allow crafting stations to automatically repair all appropriate items in the player's inventory on interaction.
 
-### Kiln and Furnace
-* Modify Kiln and Furnace processing speed.
-* Modify kiln and Furnace maximum capacity.
-* Allow items produced by Kiln and Furnace to be automatically placed in the closest container.
+### Kiln, Furnace and Blast Furnace
+* Modify Kiln, Furnace and Blast Furnace processing speed.
+* Modify Kiln, Furnace and Blast Furnace maximum capacity.
+* Disable Fine Wood and/or Round Log processing for Kiln.
+* Allow fuel-type items to be automatically pulled from closest containers.
+* Allow Kiln to stop pulling wood from closest containers when a specific threshold as been reached. 
+* Allow items produced by Kiln, Furnace and Blast Furnace to be automatically placed in the closest containers.
 
 ### Beehive 
 * Modify Beehive honey production speed.
 * Modify Beehive capacity.
 * Display time left until next production.
-* Allow items produced by Beehive to be automatically placed in the closest container.
+* Allow items produced by Beehive to be automatically placed in the closest containers.
 
 ### Fermenter
 * Modify Fermenter speed.
 * Modify Fermenter output amount.
 * Display time left until next production.
+* Allow meads to be automatically pulled from closest containers.
+* Allow items produced by Fermenter to be automatically placed in the closest containers.
 
+### Windmill
+* Modify Windmill speed production speed.
+* Modify maximum amount of barley that can be supplied.
+* Allow ignoring wind intensity so it's always producing at max speed.
+* Allow barley to be automatically pulled from closest containers.
+* Allow items produced by Windmill to be automatically placed in the closest containers.
+
+### Spinning Wheel
+* Modify Spinning Wheel production speed.
+* Modify maximum amount of flax that can be supplied.
+* Allow flax to be automatically pulled from closest containers.
+* Allow items produced by Spinning Wheel to be automatically placed in the closest containers.
 
 # Building
 * Disable "Invalid Placement" restriction while building.
+* Disable "Mystical forces" restriction while building and allows to destroying objects using the hammer.
 * Disable deterioration of placeables from weather exposure. 
 * Disable deterioration of placeables from water exposure.
 * Added a free rotation mode for the default Building Mode.
 * Added Advanced Building Mode.
 * Added Advanced Editing Mode.
+* Allow aligning buildings to a global grid.
 * Modify the structural integrity of placeables.
 * Modify the maximum distance you can place objects at.
 * Added the ability for the hammer tool to repair all placeables in an area instead of just the targeted placeable.
@@ -145,7 +163,7 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
    * Players can rotate the object selected in any direction while in the usual building mode by pressing certain hotkeys. The location of the object can be manipulated with the mouse:
       * ScrollWheel + LeftAlt to rotate by 1 degree on the Y-axis.
       * ScrollWheel + C to rotate by 1 degree on the X-axis.
-      * ScrollWheel + Z to rotate by 1 degree on the Z-axis.
+      * ScrollWheel + V to rotate by 1 degree on the Z-axis.
    * Use the copy rotation hotkeys to copy the current rotation or apply the same rotation to the next object that is being built.
    * Build the object by clicking.
 
@@ -182,6 +200,12 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 **NOTE:**
 * *Other players will not be able to see the item being moved until the player building the item confirms the placement. Dungeons and other no-build areas are still restricted.* 
 
+### Grid alignment
+* When pressing the configured key (left alt is the default) new buildings will be aligned to a global grid.
+   * The mode can also be toggled by pressing another key (F7 by default).
+   * Building elements (from the third tab) are aligned to to their size (e.g. a wood wall will have an alignment of 2m in X and Y direction). The alignment of building elements in other directorion can be configured (by default with the F6 key) to 0.5m, 1m, 2m or 4m.
+   * Other buildings like furniture will always be aligned to 0.5m, but the Y position will not be aligned (to make sure they are always exactly on the floow).
+
 ### Structural Integrity
 * Apply a modifier to the structural integrity of the following materials:
   * Wood
@@ -197,7 +221,6 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 # Server
 * Remove password requirement for the server.
 * Modify the maximum amount of players on a server.
-* Modify server data rate in kilobytes.
 * Modify number of seconds it takes for items to despawn after being dropped on the ground. (default is 3600 seconds).
    * *Note: Items on ground will retain base game functionality which ensures that drops don't disappear if a player is nearby or there is a "player base" nearby*
 * Automatically sync V+ configuration of players joining a server to match the server's configuration.
@@ -207,6 +230,12 @@ Below you can find a list of hosting companies that are supporting ValheimPlus w
 *This feature is currently disabled*
 * Modify total time of day/night cycle.
 * Modify speed of time passing at night.
+
+
+### Craft From Chests
+* Allow building using the content of nearby chests.
+* Allow crafting from stations using the content of nearby chests.
+* Allow putting meat on cooking stands using the content of nearby chests.
 
 
 # Installation Instructions
@@ -252,7 +281,7 @@ The Njord installer provided by ZeroBandwidth and team allows for you to easily 
 3. Extract the contents of the archive into the game folder.
 4. Make sure to run 'chmod u+x start_game_bepinex.sh' to make the start script executable.
 5. Right-click the Valheim game in your Steam library.
-6. Go to "Properties..." -> "Launch options" and input "./start_game_bepinex.sh %command%".
+6. Go to "Properties..." -> "Launch options" and input "./start_game_bepinex.sh %command%" or "bash ./start_game_bepinex.sh %command%" if the first command does not work.
 
 
 ### **Server[Unix]**
@@ -324,12 +353,14 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for d
 # Official Development Team
 
 * Kevin 'nx#8830' J.- https://github.com/nxPublic
-* Greg 'Zedle' G. - https://github.com/zedle
-* Paige 'radmint' N. - https://github.com/radmint
 * Miguel 'Mixone' T. - https://github.com/Mixone-FinallyHere
-* Chris 'Xenofell' S. - https://github.com/cstamford
+* Lilian 'healiha' C. - https://github.com/healiha
+* Nathan 'NCJ' J. - https://github.com/ncjsvr
 
 # Credits
+* Greg 'Zedle' G. - https://github.com/zedle
+* Paige 'radmint' N. - https://github.com/radmint
+* Chris 'Xenofell' S. - https://github.com/cstamford
 * TheTerrasque - https://github.com/TheTerrasque
 * Bruno Vasconcelos - https://github.com/Drakeny
 * GaelicGamer - https://github.com/GaelicGamer
@@ -338,3 +369,6 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for d
 * Mehdi 'AccretionCD' E. - https://github.com/AccretionCD
 * Zogniton - https://github.com/Zogniton - Inventory Overhaul initial creator
 * Jules - https://github.com/sirskunkalot
+* Lilian Cahuzac - https://github.com/healiha
+* Thomas 'Aeluwas#2855' B. - https://github.com/exscape
+* Nick 'baconparticles' P. - https://github.com/baconparticles

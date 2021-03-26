@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BepInEx;
+using HarmonyLib;
+using System;
 using System.IO;
 using System.Net;
-using BepInEx;
-using HarmonyLib;
 using ValheimPlus.Configurations;
 using ValheimPlus.RPC;
 using ValheimPlus.UI;
@@ -12,12 +11,12 @@ namespace ValheimPlus
 {
     // COPYRIGHT 2021 KEVIN "nx#8830" J. // http://n-x.xyz
     // GITHUB REPOSITORY https://github.com/valheimPlus/ValheimPlus
-    
+
 
     [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", version)]
     public class ValheimPlusPlugin : BaseUnityPlugin
     {
-        public const string version = "0.9.5";
+        public const string version = "0.9.6";
         public static string newestVersion = "";
         public static bool isUpToDate = false;
 
@@ -46,7 +45,7 @@ namespace ValheimPlus
             {
                 Logger.LogInfo("Configuration file loaded succesfully.");
 
-                
+
                 harmony.PatchAll();
 
                 isUpToDate = !IsNewVersionAvailable();
@@ -64,7 +63,8 @@ namespace ValheimPlus
                 if (!Directory.Exists(VPlusDataDirectoryPath)) Directory.CreateDirectory(VPlusDataDirectoryPath);
 
                 //Logo
-                VPlusMainMenu.Load();
+                if (Configuration.Current.ValheimPlus.IsEnabled && Configuration.Current.ValheimPlus.mainMenuLogo)
+                    VPlusMainMenu.Load();
 
                 //Map Sync Save Timer
                 if (ZNet.m_isServer && Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareMapProgression)
@@ -110,7 +110,7 @@ namespace ValheimPlus
                     return true;
                 }
             }
-            
+
             return false;
         }
     }

@@ -21,41 +21,46 @@ server_password="password"
 server_port=2456
 server_world="world"
 server_public=1
+server_savedir="$HOME/.config/unity3d/IronGate/Valheim"
 
 # The rest is automatically handled by BepInEx for Valheim+
+
+# Set base path of start_server_bepinex.sh location
+export VALHEIM_PLUS_SCRIPT="$(readlink -f "$0")"
+export VALHEIM_PLUS_PATH="$(dirname "$VALHEIM_PLUS_SCRIPT")"
 
 # Whether or not to enable Doorstop. Valid values: TRUE or FALSE
 export DOORSTOP_ENABLE=TRUE
 
 # What .NET assembly to execute. Valid value is a path to a .NET DLL that mono can execute.
-export DOORSTOP_INVOKE_DLL_PATH="${PWD}/BepInEx/core/BepInEx.Preloader.dll"
+export DOORSTOP_INVOKE_DLL_PATH="${VALHEIM_PLUS_PATH}/BepInEx/core/BepInEx.Preloader.dll"
 
 # Which folder should be put in front of the Unity dll loading path
-export DOORSTOP_CORLIB_OVERRIDE_PATH=./unstripped_corlib
+export DOORSTOP_CORLIB_OVERRIDE_PATH="${VALHEIM_PLUS_PATH}/unstripped_corlib"
 
 # ----- DO NOT EDIT FROM THIS LINE FORWARD  ------
 # ----- (unless you know what you're doing) ------
 
-if [ ! -x "$1" -a ! -x "$executable_name" ]; then
+if [ ! -x "$1" -a ! -x "${VALHEIM_PLUS_PATH}/$executable_name" ]; then
 	echo "Please open start_server_bepinex.sh in a text editor and provide the correct executable."
 	exit 1
 fi
 
-doorstop_libs="${PWD}/doorstop_libs"
+doorstop_libs="${VALHEIM_PLUS_PATH}/doorstop_libs"
 arch=""
 executable_path=""
 lib_postfix=""
 
-os_type=`uname -s`
+os_type=$(uname -s)
 case $os_type in
 	Linux*)
-		executable_path="${PWD}/${executable_name}"
+		executable_path="${VALHEIM_PLUS_PATH}/${executable_name}"
 		lib_postfix="so"
 		;;
 	Darwin*)
-		executable_name=`basename "${executable_name}" .app`
-		real_executable_name=`defaults read "${PWD}/${executable_name}.app/Contents/Info" CFBundleExecutable`
-		executable_path="${PWD}/${executable_name}.app/Contents/MacOS/${real_executable_name}"
+		executable_name="$(basename "${executable_name}" .app)"
+		real_executable_name="$(defaults read "${VALHEIM_PLUS_PATH}/${executable_name}.app/Contents/Info" CFBundleExecutable)"
+		executable_path="${VALHEIM_PLUS_PATH}/${executable_name}.app/Contents/MacOS/${real_executable_name}"
 		lib_postfix="dylib"
 		;;
 	*)
@@ -65,7 +70,7 @@ case $os_type in
 		;;
 esac
 
-executable_type=`LD_PRELOAD="" file -b "${executable_path}"`;
+executable_type=$(LD_PRELOAD="" file -b "${executable_path}");
 
 case $executable_type in
 	*64-bit*)
@@ -82,13 +87,13 @@ case $executable_type in
 esac
 
 doorstop_libname=libdoorstop_${arch}.${lib_postfix}
-export LD_LIBRARY_PATH="${doorstop_libs}":${LD_LIBRARY_PATH}
-export LD_PRELOAD=$doorstop_libname:$LD_PRELOAD
+export LD_LIBRARY_PATH="${doorstop_libs}":"${LD_LIBRARY_PATH}"
+export LD_PRELOAD="$doorstop_libname":"${LD_PRELOAD}"
 export DYLD_LIBRARY_PATH="${doorstop_libs}"
 export DYLD_INSERT_LIBRARIES="${doorstop_libs}/$doorstop_libname"
 
 export templdpath="$LD_LIBRARY_PATH"
-LD_LIBRARY_PATH=`./linux64:$LD_LIBRARY_PATH` && export LD_LIBRARY_PATH || export LD_LIBRARY_PATH=./linux64:"$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="${VALHEIM_PLUS_PATH}/linux64":"${LD_LIBRARY_PATH}"
 export SteamAppId=892970
 
 for arg in "$@"
@@ -114,9 +119,13 @@ do
 	server_public=$2
 	shift 2
 	;;
+	-savedir)
+	server_savedir=$2
+	shift 2
+	;;
 	esac
 done
 
-"${PWD}/${executable_name}" -name "${server_name}" -password "${server_password}" -port "${server_port}" -world "${server_world}" -public "${server_public}"
+"${VALHEIM_PLUS_PATH}/${executable_name}" -name "${server_name}" -password "${server_password}" -port "${server_port}" -world "${server_world}" -public "${server_public}" -savedir "${server_savedir}"
 
 export LD_LIBRARY_PATH=$templdpath
