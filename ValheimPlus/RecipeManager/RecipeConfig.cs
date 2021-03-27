@@ -43,8 +43,14 @@ namespace ValheimPlus
         public void Serialize(ZPackage package)
         {
             package.Write(Recipes.Count);
+            package.Write(Pieces.Count);
 
             foreach(RecipeEntry entry in Recipes)
+            {
+                entry.Serialize(package);
+            }
+
+            foreach(PieceEntry entry in Pieces)
             {
                 entry.Serialize(package);
             }
@@ -57,8 +63,10 @@ namespace ValheimPlus
         public void Unserialize(ZPackage package)
         {
             Recipes.Clear();
+            Pieces.Clear();
             
             int recipe_count = package.ReadInt();
+            int piece_count = package.ReadInt();
 
             for (int i = 0; i < recipe_count; i++)
             {
@@ -69,6 +77,18 @@ namespace ValheimPlus
                 if (entry.IsValid())
                 {
                     Recipes.Add(entry);
+                }
+            }
+
+            for (int i = 0; i < piece_count; i++)
+            {
+                PieceEntry entry = new PieceEntry();
+
+                entry.Unserialize(package);
+
+                if (entry.IsValid())
+                {
+                    Pieces.Add(entry);
                 }
             }
         }
