@@ -19,7 +19,7 @@ namespace ValheimPlus
         public List<RecipeEntryRequirement> Requirements = new List<RecipeEntryRequirement>();
         
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         public RecipeEntry()
         {
@@ -27,7 +27,7 @@ namespace ValheimPlus
         }
         
         /// <summary>
-        /// 
+        /// Constrc from an existing Recipe object
         /// </summary>
         /// <param name="from_recipe"></param>
          public RecipeEntry(Recipe from_recipe)
@@ -47,7 +47,7 @@ namespace ValheimPlus
          }
         
         /// <summary>
-        /// 
+        /// Check if this recipe is valid
         /// </summary>
         /// <returns></returns>
         public bool IsValid()
@@ -59,7 +59,7 @@ namespace ValheimPlus
         }
         
         /// <summary>
-        /// 
+        /// Serialize the object into a ZPackage
         /// </summary>
         /// <param name="package"></param>
         public void Serialize(ZPackage package)
@@ -80,26 +80,26 @@ namespace ValheimPlus
         }
         
         /// <summary>
-        /// 
+        /// Unserialize from a ZPackage into this object
         /// </summary>
         /// <param name="package"></param>
         public void Unserialize(ZPackage package)
         {
-            Name = package.ReadString();
-            ItemName = package.ReadString();
-            Amount = package.ReadInt();
+            Name                = package.ReadString();
+            ItemName            = package.ReadString();
+            Amount              = package.ReadInt();
             MinimumStationLevel = package.ReadInt();
             CraftingStationType = package.ReadString();
-            RepairStationType = package.ReadString();
-            Enabled = package.ReadBool();
+            RepairStationType   = package.ReadString();
+            Enabled             = package.ReadBool();
 
             Requirements.Clear();
 
             int requirement_count = package.ReadInt();
 
-            if ( requirement_count > 0 )
+            if (requirement_count > 0)
             {
-                for ( int i = 0; i < requirement_count; i++)
+                for (int i = 0; i < requirement_count; i++)
                 {
                     RecipeEntryRequirement requirement = new RecipeEntryRequirement();
 

@@ -12,8 +12,9 @@ namespace ValheimPlus
         public int Amount;
         public int AmountPerLevel;
         public bool Recover;
+        
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         public RecipeEntryRequirement()
         {
@@ -21,7 +22,7 @@ namespace ValheimPlus
         }
 
         /// <summary>
-        /// 
+        /// Construct an instance from a Piece.Requirement object
         /// </summary>
         /// <param name="from_requirement"></param>
         public RecipeEntryRequirement(Piece.Requirement from_requirement)
@@ -33,7 +34,7 @@ namespace ValheimPlus
         }
 
         /// <summary>
-        /// 
+        /// Check if this requirement is valid
         /// </summary>
         /// <returns></returns>
         public bool IsValid()
@@ -42,8 +43,9 @@ namespace ValheimPlus
                    Amount >= 0 &&
                    AmountPerLevel >= 0;
         }
+
         /// <summary>
-        /// 
+        /// Serialize the object into a ZPackage
         /// </summary>
         /// <param name="package"></param>
         public void Serialize(ZPackage package)
@@ -53,16 +55,17 @@ namespace ValheimPlus
             package.Write(AmountPerLevel);
             package.Write(Recover);
         }
+
         /// <summary>
-        /// 
+        /// Unserialize from a ZPackage into this object
         /// </summary>
         /// <param name="package"></param>
         public void Unserialize(ZPackage package)
         {
-            ItemName = package.ReadString();
-            Amount = package.ReadInt();
-            AmountPerLevel = package.ReadInt();
-            Recover = package.ReadBool();
+            ItemName        = package.ReadString();
+            Amount          = package.ReadInt();
+            AmountPerLevel  = package.ReadInt();
+            Recover         = package.ReadBool();
         }
     }
 }
