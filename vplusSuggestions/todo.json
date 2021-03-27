@@ -256,12 +256,6 @@
     "progress": "0",
     "category": "PVP"
   },
-  "Fall Damage": {
-    "description": "Add the ability to alter or remove fall damage completely.",
-    "icon": "fas fa-star-of-life",
-    "status": "In Consideration",
-    "category": "General"
-  },
   "In-game Clock": {
     "description": "A ingame display of the in-game. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/365'>reference</a>",
     "icon": "fa fa-clock",

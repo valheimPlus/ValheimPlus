@@ -19,5 +19,7 @@
         public bool iHaveArrivedOnSpawn { get; internal set; } = true;
         public bool queueWeaponChanges { get; internal set; } = false;
         public bool reequipItemsAfterSwimming { get; internal set; } = false;
+        public float fallDamageScalePercent { get; internal set; } = 0;
+        public float maxFallDamage { get; internal set; } = 100;
     }
 }
