@@ -220,9 +220,9 @@ namespace ValheimPlus
         }
 
         /// <summary>
-        /// Syncs ObjectDB recipe list with configuration
+        /// Syncs the crafting station recipes in ObjectDB recipe list with configuration
         /// </summary>
-        public void Sync()
+        public void SyncRecipes()
         {
             foreach (RecipeEntry entry in Config.Recipes)
             {
@@ -298,8 +298,8 @@ namespace ValheimPlus
 
                 RecipeConfig read_config = JSON.ToObject<RecipeConfig>(json, parameters);              
                 
-                UpdateFrom(read_config.Recipes);
-                UpdateFrom(read_config.Pieces);
+                UpdateRecipes(read_config.Recipes);
+                UpdatePieces(read_config.Pieces);
             }
             catch (System.Exception e)
             {
@@ -311,7 +311,7 @@ namespace ValheimPlus
         /// Updates the station recipes configuration with the provided list. Replacing any existing recipes.
         /// </summary>
         /// <param name="config_list"></param>
-        public void UpdateFrom(List<RecipeEntry> config_list)
+        public void UpdateRecipes(List<RecipeEntry> config_list)
         {
             foreach (RecipeEntry recipe_config in config_list)
             {
@@ -326,7 +326,7 @@ namespace ValheimPlus
         /// Updates the piece recipe configuration with the provided list. Replacing any existing recipes.
         /// </summary>
         /// <param name="config_list"></param>
-        public void UpdateFrom(List<PieceEntry> config_list)
+        public void UpdatePieces(List<PieceEntry> config_list)
         {
             foreach (PieceEntry piece_config in config_list)
             {
@@ -347,38 +347,30 @@ namespace ValheimPlus
             return ObjectDB.instance.GetItemPrefab(name);
         }
 
-        public void ProcessPieceTable(PieceTable table)
-        {
-            UnityEngine.Debug.Log($"ProcessPieceTable [{Config.Pieces.Count}]");
-            
-            if (table == null)
-            {
-                UnityEngine.Debug.Log("Null Table");
-                return;
-            }
-            else if (SeenTables.Contains(table.GetInstanceID()))
-            {
-                UnityEngine.Debug.Log("Seen Table");
-                return;
-            }
+        /// <summary>
+        /// Sync a PieceTable instance to any matching piece configurations
+        /// </summary>
+        /// <param name="table"></param>
+        public void SyncPieceTable(PieceTable table)
+        {            
+            if (table == null || SeenTables.Contains(table.GetInstanceID()))  return;
             
             foreach(GameObject pieceObject in table.m_pieces)
             {
-                UpdatePiece(pieceObject.GetComponent<Piece>());                
+                SyncPiece(pieceObject.GetComponent<Piece>());                
             }
 
             SeenTables.Add(table.GetInstanceID());
         }
 
-        public void UpdatePiece(Piece piece)
+        public void SyncPiece(Piece piece)
         {
-            if (piece == null)  { UnityEngine.Debug.Log("Null Piece"); return; }
+            if (piece == null)  return;
             
             PieceEntry config = FindPiece(piece.name);
 
-            if (config == null) { UnityEngine.Debug.Log($"Null Conf {piece.name}"); return; }
+            if (config == null) return;
 
-            // First resolve requirement items are valid
             Piece.Requirement[] requirements = new Piece.Requirement[ config.Requirements.Count ];
                 
             for (int i = 0; i < config.Requirements.Count; i++)
@@ -405,29 +397,7 @@ namespace ValheimPlus
                 requirements[i].m_resItem = requirement_item_drop;
             }
 
-            // All are valid, apply all values to the piece
             piece.m_enabled                 = config.Enabled;
-            piece.m_isUpgrade               = config.IsUpgrade;
-            piece.m_comfort                 = config.Comfort;
-            //from_piece.m_comfortGroup.ToString() = ComfortGroup;
-            piece.m_groundPiece             = config.GroundPiece;
-            piece.m_allowAltGroundPlacement = config.AllowAltGroundPlacement;
-            piece.m_groundOnly              = config.GroundOnly;
-            piece.m_cultivatedGroundOnly    = config.CultivatedGroundOnly;
-            piece.m_waterPiece              = config.WaterPiece;
-            piece.m_clipGround              = config.ClipGround;
-            piece.m_clipEverything          = config.ClipEverything;
-            piece.m_noInWater               = config.NoInWater;
-            piece.m_notOnWood               = config.NotOnWood;
-            piece.m_notOnTiltingSurface     = config.NotOnTiltingSurface;
-            piece.m_inCeilingOnly           = config.InCeilingOnly;
-            piece.m_notOnFloor              = config.NotOnFloor;
-            piece.m_noClipping              = config.NoClipping;
-            piece.m_onlyInTeleportArea      = config.OnlyInTeleportArea;
-            piece.m_allowedInDungeons       = config.AllowedInDungeons;
-            piece.m_spaceRequirement        = config.SpaceRequirement;
-            piece.m_repairPiece             = config.RepairPiece;
-            piece.m_canBeRemoved            = config.CanBeRemoved;
             piece.m_resources               = requirements;
 
             Debug.Log(String.Format("Updated Piece Recipe `{0}", config.Name));
@@ -456,66 +426,7 @@ namespace ValheimPlus
                     UpdateFrom(path);
                 }
 
-                Sync();
-            }
-        }
-
-        /// <summary>
-        /// Executed on new peer connection
-        /// </summary>
-        /// <param name="peer"></param>
-        public void OnNewConnection(ZNetPeer peer)
-        {
-            if (ZNet.instance != null && ZNet.instance.IsClientInstance())
-            {
-                peer.m_rpc.Register("ValheimPlus_RecipeSync", new Action<ZRpc, ZPackage>(this.RPC_Sync));  
-            }
-        }
-
-        /// <summary>
-        /// Sync the current config with the client
-        /// </summary>
-        /// <param name="rpc"></param>
-        public void Sync(ZRpc rpc)
-        {
-            if (ZNet.instance == null || (!ZNet.instance.IsServerInstance() && !ZNet.instance.IsLocalInstance()))
-            {
-                return;
-            }    
-            
-            try
-            {
-                ZPackage package = new ZPackage();
-                Config.Serialize(package);            
-                rpc.Invoke("ValheimPlus_RecipeSync", (object) package);    
-            } catch(Exception e)
-            {
-                Debug.Log($"RPC_Sync Error: {e.Message}");
-                Debug.Log(Environment.StackTrace);
-            }
-        }
-
-        /// <summary>
-        /// Handles the client side sync of recipes recieved from RPC call `ValheimPlus_RecipeSync`
-        /// </summary>
-        /// <param name="rpc"></param>
-        /// <param name="package"></param>
-        protected void RPC_Sync(ZRpc rpc, ZPackage package)
-        {
-            if (ZNet.instance == null || !ZNet.instance.IsClientInstance())
-            {
-                return;
-            }
-
-            try
-            {
-                //RestoreOriginal();
-                Config.Unserialize(package);
-                Sync();
-            } catch(Exception e)
-            {
-                Debug.Log($"RPC_Sync Error: {e.Message}");
-                Debug.Log($"RPC_Sync Error: {Environment.StackTrace}");
+                SyncRecipes();
             }
         }
     }

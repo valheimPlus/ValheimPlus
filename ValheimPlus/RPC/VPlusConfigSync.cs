@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using BepInEx;
 using ValheimPlus.Configurations;
@@ -40,6 +41,12 @@ namespace ValheimPlus.RPC
                     pkg.Write(line);
                 }
 
+                // Sync the recipe manager if it's enabled
+                if (RecipeManager.instance != null)
+                {
+                    RecipeManager.instance.Config.Serialize(pkg);
+                }
+
                 ZRoutedRpc.instance.InvokeRoutedRPC(sender, "VPlusConfigSync", new object[]
                 {
                     pkg
@@ -75,6 +82,8 @@ namespace ValheimPlus.RPC
                             tmpWriter.Flush(); //Flush to memStream
                             memStream.Position = 0; //Rewind stream
 
+                            // Sync the recipe manager if it's enabled
+
                             ValheimPlusPlugin.harmony.UnpatchSelf();
 
                             // Sync HotKeys when connecting ?
@@ -90,6 +99,19 @@ namespace ValheimPlus.RPC
                             }
                                 
                             ValheimPlusPlugin.harmony.PatchAll();
+
+                            if (RecipeManager.instance != null)
+                            {
+                                try
+                                {
+                                    RecipeManager.instance.Config.Unserialize(configPkg);
+                                    RecipeManager.instance.SyncRecipes();
+                                } 
+                                catch(System.Exception e)
+                                {
+                                    ZLog.LogError($"Error syncing recipe manager configuration: {e.Message}");
+                                }                                
+                            }
 
                             ZLog.Log("Successfully synced VPlus configuration from server.");
                         }
