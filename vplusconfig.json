@@ -635,7 +635,7 @@
 			}
 		}
 	},
-	"KeyCodes": {
+	"Hotkeys": {
 		"description": "",
 		"icon": "fa fa-keyboard",
 		"description_website": "Adds custom hotkeys to the game for in-game actions.",
@@ -1103,6 +1103,11 @@
 				"description": "The max damage you can take from falling. Game default is 100. Applied after calculating the scaled damage.",
 				"defaultValue": "100",
 				"defaultType": "float"
+			},
+			"skipTutorials": {
+				"description": "Prevents Valkyrie from showing up to give tutorial messages. You can disable and reset tutorials in the settings if you want to see them all again.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
@@ -1340,29 +1345,6 @@
 			},
 			"hardwood": {
 				"description": "Each of these values reduce the loss of structural integrity by distance by %.",
-				"defaultValue": "0",
-				"defaultType": "float"
-			}
-		}
-	},
-	"Time": {
-		"description": "THIS FEATURE IS STILL IN DEVELOPMENT AND IS RIGHT NOW DISABLED UNTIL FURTHER NOTICE",
-		"icon": "fa fa-clock-o",
-		"enabled": "false",
-		"description_website": "",
-		"entries": {
-			"enabled": {
-				"description": "Change false to true to enable this section",
-				"defaultValue": "false",
-				"defaultType": "bool"
-			},
-			"totalDayTimeInSeconds": {
-				"description": "Total amount of time one complete day and night circle takes to complete",
-				"defaultValue": "1800",
-				"defaultType": "float"
-			},
-			"nightTimeSpeedMultiplier": {
-				"description": "Increase the speed at which time passes at night by %. The value 50 would result in a 50% reduced amount of night time. The value 0 would result in a 0% reduced amount (normal amount).",
 				"defaultValue": "0",
 				"defaultType": "float"
 			}
