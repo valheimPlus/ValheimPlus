@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     [HarmonyPatch(typeof(Container), "Awake")]
     public static class Container_Awake_Patch
@@ -43,7 +43,7 @@ namespace ValheimPlus
         {
             if (!Configuration.Current.Inventory.IsEnabled) return;
 
-            if (__instance == null || ___m_inventory == null) return;
+            if (__instance == null || ___m_inventory == null || !__instance.transform.parent) return;
 
             string containerName = __instance.transform.parent.name;
             string inventoryName = ___m_inventory.m_name;

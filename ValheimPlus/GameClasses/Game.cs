@@ -1,15 +1,17 @@
-﻿using System;
-using HarmonyLib;
-using ValheimPlus.RPC;
+﻿using HarmonyLib;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
 using ValheimPlus.Configurations;
-using UnityEngine;
+using ValheimPlus.RPC;
 
 namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Sync server config to clients
     /// </summary>
-    [HarmonyPatch(typeof(Game), "Start")]
+    [HarmonyPatch(typeof(Game), nameof(Game.Start))]
     public static class Game_Start_Patch
     {
         private static void Prefix()
@@ -29,19 +31,15 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Alter game difficulty damage scale
     /// </summary>
-    [HarmonyPatch(typeof(Game), "GetDifficultyDamageScale")]
+    [HarmonyPatch(typeof(Game), nameof(Game.GetDifficultyDamageScale))]
     public static class Game_GetDifficultyDamageScale_Patch
     {
-        private static bool Prefix(ref Game __instance, ref Vector3 pos, ref float __result)
+        private static float baseDifficultyDamageScale = 0.04f;
+
+        private static void Postfix(ref float __result)
         {
             if (Configuration.Current.Game.IsEnabled)
-            {
-                int playerDifficulty = __instance.GetPlayerDifficulty(pos);
-                __result = 1f + (float)(playerDifficulty - 1) * Configuration.Current.Game.gameDifficultyDamageScale;
-                return false;
-            }
-
-            return true;
+                __result = ((__result - 1f) / baseDifficultyDamageScale * Configuration.Current.Game.gameDifficultyDamageScale) + 1f;
         }
     }
 
@@ -49,12 +47,12 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Disable the "i have arrived" message on spawn.
     /// </summary>
-    [HarmonyPatch(typeof(Game), "UpdateRespawn")]
+    [HarmonyPatch(typeof(Game), nameof(Game.UpdateRespawn))]
     public static class Game_UpdateRespawn_Patch
     {
         private static void Prefix(ref Game __instance, float dt)
         {
-            if(Configuration.Current.Player.IsEnabled && !Configuration.Current.Player.iHaveArrivedOnSpawn)
+            if (Configuration.Current.Player.IsEnabled && !Configuration.Current.Player.iHaveArrivedOnSpawn)
                 __instance.m_firstSpawn = false;
         }
     }
@@ -62,50 +60,61 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Alter game difficulty health scale
     /// </summary>
-    [HarmonyPatch(typeof(Game), "GetDifficultyHealthScale")]
+    [HarmonyPatch(typeof(Game), nameof(Game.GetDifficultyHealthScale))]
     public static class Game_GetDifficultyHealthScale_Patch
     {
-        private static bool Prefix(ref Game __instance, ref Vector3 pos, ref float __result)
+        private static float baseDifficultyHealthScale = 0.4f;
+
+        private static void Postfix(ref float __result)
         {
             if (Configuration.Current.Game.IsEnabled)
-            {
-                int playerDifficulty = __instance.GetPlayerDifficulty(pos);
-                __result = 1f + (float)(playerDifficulty - 1) * Configuration.Current.Game.gameDifficultyHealthScale;
-                return false;
-            }
-
-            return true;
+                __result = ((__result - 1f) / baseDifficultyHealthScale * Configuration.Current.Game.gameDifficultyHealthScale) + 1f;
         }
     }
 
     /// <summary>
     /// Alter player difficulty scale
     /// </summary>
-    [HarmonyPatch(typeof(Game), "GetPlayerDifficulty")]
+    [HarmonyPatch(typeof(Game), nameof(Game.GetPlayerDifficulty))]
     public static class Game_GetPlayerDifficulty_Patch
     {
-        private static bool Prefix(ref Game __instance, ref Vector3 pos, ref int __result)
+
+        /// <summary>
+        /// Patches the range used to check the number of players around.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.Game.IsEnabled) return instructions;
+
+            float range = Math.Min(Configuration.Current.Game.difficultyScaleRange, 2);
+
+            List<CodeInstruction> il = instructions.ToList();
+            for (int i = 0; i < il.Count; i++)
+            {
+                if (il[i].opcode == OpCodes.Ldc_R4)
+                {
+                    il[i].operand = range;
+                    return il.AsEnumerable();
+                }
+            }
+
+            ZLog.LogError("Failed to apply Game_GetPlayerDifficulty_Patch.Transpiler");
+
+            return instructions;
+        }
+
+        private static void Postfix(ref int __result)
         {
             if (Configuration.Current.Game.IsEnabled)
             {
                 if (Configuration.Current.Game.setFixedPlayerCountTo > 0)
                 {
                     __result = Configuration.Current.Game.setFixedPlayerCountTo + Configuration.Current.Game.extraPlayerCountNearby;
-                    return false;
+                    return;
                 }
-
-                int num = Player.GetPlayersInRangeXZ(pos, Configuration.Current.Game.difficultyScaleRange);
-
-                if (num < 1)
-                {
-                    num = 1;
-                }
-
-                __result = num + Configuration.Current.Game.extraPlayerCountNearby;
-                return false;
+                __result += Configuration.Current.Game.extraPlayerCountNearby;
             }
-
-            return true;
         }
     }
 }

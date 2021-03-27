@@ -214,6 +214,11 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
+			"disableCookingStation": {
+				"description": "Change false to tru to disable this feature when using a Cooking Station",
+				"defaultValue": "false",
+				"defaultType": "bool"	
+			},
 			"checkFromWorkbench": {
 				"description": "If in a workbench area, uses it as reference point when scanning for chests",
 				"defaultValue": "true",
@@ -919,6 +924,16 @@
 				"defaultValue": "25",
 				"defaultType": "int"
 			},
+			"dontProcessFineWood": {
+				"description": "Disable Fine Wood as a ressource",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"dontProcessRoundLog": {
+				"description": "Disable Round Log as a ressource",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"productionSpeed": {
 				"description": "The time it takes for the Kiln to produce a single piece of coal in seconds.",
 				"defaultValue": "30",
@@ -933,6 +948,11 @@
 				"description": "Look for fuel inside nearby chests",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"stopAutoFuelThreshold": {
+				"description": "Stop looking for fuel when there is at leasts this quantity of Coal in nearby chests (ignored if set to 0)",
+				"defaultValue": "0",
+				"defaultType": "int"
 			},
 			"ignorePrivateAreaCheck": {
 				"description": "Change true to false to enable private area check when looking for chests.",
@@ -1067,6 +1087,11 @@
 			"iHaveArrivedOnSpawn": {
 				"description": "If set to false, disables the \"I have arrived!\" message on player spawn.",
 				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"reequipItemsAfterSwimming": {
+				"description": "If set to true, items will be re-equipped when you exit water after swimming (if they were hidden automatically)",
+				"defaultValue": "false",
 				"defaultType": "bool"
 			}
 		}
