@@ -44,6 +44,7 @@ namespace ValheimPlus.Configurations
         public GridAlignmentConfiguration GridAlignment { get; set; }
         public CraftFromChestConfiguration CraftFromChest { get; set; }
         public ValheimPlusConfiguration ValheimPlus { get; set; }
-        public ProjectileFiredConfiguration ProjectileFired { get; set; }
+        public PlayerProjectileConfiguration PlayerProjectile { get; set; }
+        public MonsterProjectileConfiguration MonsterProjectile { get; set; }
     }
 }
