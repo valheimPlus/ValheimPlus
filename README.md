@@ -268,16 +268,15 @@ This guide does not cover how to create a dedicated server. These are the steps 
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
 ## **Linux**
+[Easy to set up and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com !](https://zap-hosting.com/valheimplus)
 
 ### DIY Valheim and Valheim+ Dedicated Server Installer:
-[Easy to set up and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com !](https://zap-hosting.com/valheimplus)
 
 The Njord installer provided by ZeroBandwidth and team allows for you to easily set up your own Dedicated Valheim Server built on Ubuntu Linux. This menu system gives you the option to play Valheim in vanilla mode or with the all modding power of Valheim+.
 * All Njord Menu related questions and support should be directed to his community [Njord Menu Support](https://github.com/Nimdy/Dedicated_Valheim_Server_Script/issues)
 * [Njord Menu Github Page](https://github.com/Nimdy/Dedicated_Valheim_Server_Script) 
 
 ### **Game[Unix]**
-[Easy to set up and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com !](https://zap-hosting.com/valheimplus)
 
 1. Download the [latest package called UnixServer.zip over this link](https://github.com/valheimPlus/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*
 2. Locate your game folder manually or start Steam client and right-click the Valheim game in your Steam library and select Manage -> browse local files for Steam to open your game folder. 
