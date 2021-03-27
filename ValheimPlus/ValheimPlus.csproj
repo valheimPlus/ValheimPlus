@@ -395,6 +395,8 @@
     <Compile Include="GameClasses\Attack.cs" />
     <Compile Include="GameClasses\TeleportWorld.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
+    <Compile Include="RecipeManager\PieceEntry.cs" />
+    <Compile Include="RecipeManager\PieceEntryRequirement.cs" />
     <Compile Include="RecipeManager\RecipeConfig.cs" />
     <Compile Include="RecipeManager\RecipeEntry.cs" />
     <Compile Include="RecipeManager\RecipeEntryRequirement.cs" />
