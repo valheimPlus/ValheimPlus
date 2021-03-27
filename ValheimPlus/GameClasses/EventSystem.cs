@@ -6,6 +6,10 @@ namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Mute all sound when the application loses focus
+    /// 
+    /// TODO: find a way to apply a similar change while the settings dialog is still open, 
+    /// to improve user feel of the toggle, and during the loading screen(s)
+    /// 
     /// </summary>
     [HarmonyPatch(typeof(UnityEngine.EventSystems.EventSystem), "OnApplicationFocus")]
     public static class EventSystem_OnApplicationFocus_Patch

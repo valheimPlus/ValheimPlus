@@ -214,6 +214,11 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
+			"disableCookingStation": {
+				"description": "Change false to tru to disable this feature when using a Cooking Station",
+				"defaultValue": "false",
+				"defaultType": "bool"	
+			},
 			"checkFromWorkbench": {
 				"description": "If in a workbench area, uses it as reference point when scanning for chests",
 				"defaultValue": "true",
@@ -931,7 +936,7 @@
 			},
 			"productionSpeed": {
 				"description": "The time it takes for the Kiln to produce a single piece of coal in seconds.",
-				"defaultValue": "30",
+				"defaultValue": "16",
 				"defaultType": "float"
 			},
 			"autoDeposit": {
@@ -1088,6 +1093,16 @@
 				"description": "If set to true, items will be re-equipped when you exit water after swimming (if they were hidden automatically)",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"fallDamageScalePercent": {
+				"description": "The value 50 would result in 50% higher fall damage. The value -50 would result in halved fall damage.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"maxFallDamage": {
+				"description": "The max damage you can take from falling. Game default is 100. Applied after calculating the scaled damage.",
+				"defaultValue": "100",
+				"defaultType": "float"
 			}
 		}
 	},
