@@ -1020,6 +1020,24 @@ namespace ValheimPlus.GameClasses
     }
 
     /// <summary>
+    /// skip all tutorials from now on
+    /// </summary>
+    [HarmonyPatch(typeof(Player), "HaveSeenTutorial")]
+    public class Player_HaveSeenTutorial_Patch
+    {
+        [HarmonyPrefix]
+        private static void Prefix(Player __instance, ref string name)
+        {
+            if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.skipTutorials)
+            {
+                if (!__instance.m_shownTutorials.Contains(name))
+                {
+                    __instance.m_shownTutorials.Add(name);
+                }
+            }
+        }
+    }
+
     /// Sync RecipeManager piece configuration with set table
     /// </summary>
     [HarmonyPatch(typeof(Player), "SetPlaceMode")]
