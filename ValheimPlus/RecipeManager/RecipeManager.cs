@@ -365,6 +365,8 @@ namespace ValheimPlus
 
         public void SyncPiece(Piece piece)
         {
+            CraftingStation station = null;
+            
             if (piece == null)  return;
             
             PieceEntry config = FindPiece(piece.name);
@@ -397,11 +399,25 @@ namespace ValheimPlus
                 requirements[i].m_resItem = requirement_item_drop;
             }
 
+            if ( config.CraftingStationType.Length > 0 )
+            {
+                station = GetCraftingStation(config.CraftingStationType);
+
+                if (station == null)
+                {
+                    Debug.Log(String.Format("Crafting station `{0}` not found for piece recipe `{1}", config.CraftingStationType, config.Name));
+
+                    station = piece.m_craftingStation;
+                }
+            }
+
             piece.m_enabled                 = config.Enabled;
             piece.m_resources               = requirements;
+            piece.m_craftingStation         = station;
 
             Debug.Log(String.Format("Updated Piece Recipe `{0}", config.Name));
         }
+
 
         /// <summary>
         /// Executed on game start
