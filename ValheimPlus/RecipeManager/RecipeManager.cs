@@ -15,6 +15,7 @@ namespace ValheimPlus
     {
         public RecipeConfig Config { get; internal set; } = new RecipeConfig();
         public static RecipeManager instance = null;
+        protected List<int> SeenTables = new List<int>();
 
         /// <summary>
         /// Constructor
@@ -24,11 +25,18 @@ namespace ValheimPlus
 
         }
         
+        /// <summary>
+        /// Initializes the global instance
+        /// </summary>
         public static void Initialize()
         {
             if (RecipeManager.instance == null)
                 RecipeManager.instance = new RecipeManager();
         }
+
+        /// <summary>
+        /// DeInitializes the global instance
+        /// </summary>
         public static void DeInitialize()
         {
             if (RecipeManager.instance != null)
@@ -49,13 +57,24 @@ namespace ValheimPlus
         }
 
         /// <summary>
-        /// Find a recipe entry by its name
+        /// Find a workbench recipe entry by its name
         /// </summary>
         /// <param name="name">The recipe name</param>
         /// <returns></returns>
+        
         public RecipeEntry FindRecipe(String name)
         {
             return Config.Recipes.Find(x => x.Name == name);
+        }
+        
+        /// <summary>
+        /// Find a piece recipe entry by its name
+        /// </summary>
+        /// <param name="name">The recipe name</param>
+        /// <returns></returns>
+        public PieceEntry FindPiece(String name)
+        {
+            return Config.Pieces.Find(x => x.Name == name);
         }
 
         /// <summary>
@@ -83,6 +102,35 @@ namespace ValheimPlus
             }
 
             Config.Recipes.Add(config);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Adds a recipe from a config entry, replacing any existing entry
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public bool AddPiece(PieceEntry config)
+        {
+            if (!config.IsValid())
+            {
+                Debug.Log($"Invalid Config for Piece `{config.Name}`");
+                return false;
+            }
+
+            int removed = Config.Pieces.RemoveAll(x => x.Name == config.Name);
+
+            if (removed > 0)
+            {
+                Debug.Log($"Replaced Piece `{config.Name}`");
+            }
+            else
+            {
+                Debug.Log($"Added Piece `{config.Name}`");
+            }
+
+            Config.Pieces.Add(config);
 
             return true;
         }
@@ -251,6 +299,7 @@ namespace ValheimPlus
                 RecipeConfig read_config = JSON.ToObject<RecipeConfig>(json, parameters);              
                 
                 UpdateFrom(read_config.Recipes);
+                UpdateFrom(read_config.Pieces);
             }
             catch (System.Exception e)
             {
@@ -259,7 +308,7 @@ namespace ValheimPlus
         }
 
         /// <summary>
-        /// Updates the recipe configuration with the provided list. Replacing any existing recipes.
+        /// Updates the station recipes configuration with the provided list. Replacing any existing recipes.
         /// </summary>
         /// <param name="config_list"></param>
         public void UpdateFrom(List<RecipeEntry> config_list)
@@ -274,6 +323,21 @@ namespace ValheimPlus
         }
 
         /// <summary>
+        /// Updates the piece recipe configuration with the provided list. Replacing any existing recipes.
+        /// </summary>
+        /// <param name="config_list"></param>
+        public void UpdateFrom(List<PieceEntry> config_list)
+        {
+            foreach (PieceEntry piece_config in config_list)
+            {
+                if (!AddPiece(piece_config))
+                {
+                    Debug.Log($"Error adding piece `{piece_config.Name}`");
+                }
+            }
+        }
+
+        /// <summary>
         /// Get a game object by its name from ObjectDB
         /// </summary>
         /// <param name="name"></param>
@@ -281,6 +345,92 @@ namespace ValheimPlus
         public GameObject GetGameObject(String name)
         {
             return ObjectDB.instance.GetItemPrefab(name);
+        }
+
+        public void ProcessPieceTable(PieceTable table)
+        {
+            UnityEngine.Debug.Log($"ProcessPieceTable [{Config.Pieces.Count}]");
+            
+            if (table == null)
+            {
+                UnityEngine.Debug.Log("Null Table");
+                return;
+            }
+            else if (SeenTables.Contains(table.GetInstanceID()))
+            {
+                UnityEngine.Debug.Log("Seen Table");
+                return;
+            }
+            
+            foreach(GameObject pieceObject in table.m_pieces)
+            {
+                UpdatePiece(pieceObject.GetComponent<Piece>());                
+            }
+
+            SeenTables.Add(table.GetInstanceID());
+        }
+
+        public void UpdatePiece(Piece piece)
+        {
+            if (piece == null)  { UnityEngine.Debug.Log("Null Piece"); return; }
+            
+            PieceEntry config = FindPiece(piece.name);
+
+            if (config == null) { UnityEngine.Debug.Log($"Null Conf {piece.name}"); return; }
+
+            // First resolve requirement items are valid
+            Piece.Requirement[] requirements = new Piece.Requirement[ config.Requirements.Count ];
+                
+            for (int i = 0; i < config.Requirements.Count; i++)
+            {
+                GameObject requirement_item_object = null;
+                ItemDrop requirement_item_drop = null;
+
+                requirements[i]                   = new Piece.Requirement();                
+                requirements[i].m_amount          = config.Requirements[i].Amount;
+                requirements[i].m_amountPerLevel  = config.Requirements[i].AmountPerLevel;
+                requirements[i].m_recover         = config.Requirements[i].Recover;
+                
+                if ((requirement_item_object = GetGameObject(config.Requirements[i].ItemName)) == null)
+                {
+                    Debug.Log(String.Format("Requirement Item Object `{0}` not found for piece recipe `{1}", config.Requirements[i].ItemName, config.Name));
+                    return;
+                }
+                else if ((requirement_item_drop = requirement_item_object.GetComponent<ItemDrop>()) == null)
+                {
+                    Debug.Log(String.Format("Requirement Item Object `{0}` not found for piece recipe `{1}", config.Requirements[i].ItemName, config.Name));
+                    return;
+                }
+
+                requirements[i].m_resItem = requirement_item_drop;
+            }
+
+            // All are valid, apply all values to the piece
+            piece.m_enabled                 = config.Enabled;
+            piece.m_isUpgrade               = config.IsUpgrade;
+            piece.m_comfort                 = config.Comfort;
+            //from_piece.m_comfortGroup.ToString() = ComfortGroup;
+            piece.m_groundPiece             = config.GroundPiece;
+            piece.m_allowAltGroundPlacement = config.AllowAltGroundPlacement;
+            piece.m_groundOnly              = config.GroundOnly;
+            piece.m_cultivatedGroundOnly    = config.CultivatedGroundOnly;
+            piece.m_waterPiece              = config.WaterPiece;
+            piece.m_clipGround              = config.ClipGround;
+            piece.m_clipEverything          = config.ClipEverything;
+            piece.m_noInWater               = config.NoInWater;
+            piece.m_notOnWood               = config.NotOnWood;
+            piece.m_notOnTiltingSurface     = config.NotOnTiltingSurface;
+            piece.m_inCeilingOnly           = config.InCeilingOnly;
+            piece.m_notOnFloor              = config.NotOnFloor;
+            piece.m_noClipping              = config.NoClipping;
+            piece.m_onlyInTeleportArea      = config.OnlyInTeleportArea;
+            piece.m_allowedInDungeons       = config.AllowedInDungeons;
+            piece.m_spaceRequirement        = config.SpaceRequirement;
+            piece.m_repairPiece             = config.RepairPiece;
+            piece.m_canBeRemoved            = config.CanBeRemoved;
+            piece.m_resources               = requirements;
+
+            Debug.Log(String.Format("Updated Piece Recipe `{0}", config.Name));
         }
 
         /// <summary>

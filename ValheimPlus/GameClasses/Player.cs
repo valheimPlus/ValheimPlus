@@ -1018,4 +1018,19 @@ namespace ValheimPlus.GameClasses
             }
         }
     }
+
+    [HarmonyPatch(typeof(Player), "SetPlaceMode")]
+    public static class Player_SetPlaceMode_Patch
+    {
+        private static void Prefix(Player __instance, PieceTable buildPieces)
+        {
+            UnityEngine.Debug.Log("SetPlaceMode");
+            
+            if (buildPieces != null && RecipeManager.instance != null)
+            {
+                UnityEngine.Debug.Log("Pocessing Piece Table");
+                RecipeManager.instance.ProcessPieceTable(buildPieces);
+            }
+        }
+    }
 }

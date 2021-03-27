@@ -14,6 +14,7 @@ namespace ValheimPlus
     public class RecipeConfig
     {
         public List<RecipeEntry> Recipes = new List<RecipeEntry>();
+        public List<PieceEntry> Pieces = new List<PieceEntry>();
 
         /// <summary>
         /// Constructor
