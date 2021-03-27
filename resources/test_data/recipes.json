@@ -2,23 +2,6 @@
   "Recipes": 
   [
     {
-      "Name": "Recipe_ArmorBronzeChest",
-      "ItemName": "ArmorBronzeChest",
-      "Amount": 1,
-      "MinimumStationLevel": 1,
-      "CraftingStationType": "piece_workbench",
-      "RepairStationType": "",
-      "Enabled": true,
-      "Requirements": [
-        {
-          "ItemName": "Wood",
-          "Amount": 5,
-          "AmountPerLevel": 3,
-          "Recover": true
-        }
-      ]
-    },
-    {
       "Name" : "Recipe_BowFineWood",
       "ItemName" : "BowFineWood",
       "Amount" : 1,
@@ -35,39 +18,146 @@
         }
       ]
     },
+      {
+         "Name" : "Recipe_SpearElderbark",
+         "ItemName" : "SpearElderbark",
+         "Amount" : 1,
+         "MinimumStationLevel" : 1,
+         "CraftingStationType" : "piece_workbench",
+         "RepairStationType" : "",
+         "Enabled" : true,
+         "Requirements" : [
+            {
+               "ItemName" : "Wood",
+               "Amount" : 4,
+               "AmountPerLevel" : 1,
+               "Recover" : true
+            }
+         ]
+      },
+      {
+        "Name": "Recipe_WoodTest",
+        "ItemName": "Wood",
+        "Amount": 21,
+        "MinimumStationLevel": 1,
+        "CraftingStationType": "piece_workbench",
+        "RepairStationType": "",
+        "Enabled": true,
+        "Requirements": [
+          {
+            "ItemName": "Wood",
+            "Amount": 1,
+            "AmountPerLevel": 0,
+            "Recover": true
+          }
+        ]
+      }
+  ],
+  "Pieces":
+  [
     {
-       "Name" : "Recipe_SpearElderbark",
-       "ItemName" : "SpearElderbark",
-       "Amount" : 1,
-       "MinimumStationLevel" : 1,
+       "Name" : "piece_gift1",
        "CraftingStationType" : "piece_workbench",
-       "RepairStationType" : "",
        "Enabled" : true,
        "Requirements" : [
           {
              "ItemName" : "Wood",
-             "Amount" : 4,
+             "Amount" : 1,
              "AmountPerLevel" : 1,
              "Recover" : true
           }
        ]
     },
     {
-      "Name": "Recipe_WoodTest",
-      "ItemName": "Wood",
-      "Amount": 21,
-      "MinimumStationLevel": 1,
-      "CraftingStationType": "piece_workbench",
-      "RepairStationType": "",
-      "Enabled": true,
-      "Requirements": [
-        {
-          "ItemName": "Wood",
-          "Amount": 1,
-          "AmountPerLevel": 0,
-          "Recover": true
-        }
-      ]
-    }
+       "Name" : "piece_gift2",
+       "CraftingStationType" : "piece_workbench",
+       "Enabled" : true,
+       "Requirements" : [
+          {
+             "ItemName" : "Wood",
+             "Amount" : 1,
+             "AmountPerLevel" : 1,
+             "Recover" : true
+          }
+       ]
+    },
+    {
+       "Name" : "piece_gift3",
+       "CraftingStationType" : "piece_workbench",
+       "Enabled" : true,
+       "Requirements" : [
+          {
+             "ItemName" : "Wood",
+             "Amount" : 1,
+             "AmountPerLevel" : 1,
+             "Recover" : true
+          }
+       ]
+    },
+    {
+       "Name" : "piece_xmastree",
+       "CraftingStationType" : "piece_workbench",
+       "Enabled" : true,
+       "Requirements" : [
+          {
+             "ItemName" : "Wood",
+             "Amount" : 1,
+             "AmountPerLevel" : 1,
+             "Recover" : true
+          }
+       ]
+    },
+    {
+       "Name" : "piece_maypole",
+       "CraftingStationType" : "piece_workbench",
+       "Enabled" : true,
+       "Requirements" : [
+          {
+             "ItemName" : "Wood",
+             "Amount" : 1,
+             "AmountPerLevel" : 1,
+             "Recover" : true
+          }
+       ]
+    },
+    {
+       "Name" : "piece_jackoturnip",
+       "CraftingStationType" : "piece_workbench",
+       "Enabled" : true,
+       "Requirements" : [
+          {
+             "ItemName" : "Wood",
+             "Amount" : 1,
+             "AmountPerLevel" : 1,
+             "Recover" : true
+          }
+       ]
+    },
+    {
+       "Name" : "fire_pit",
+       "CraftingStationType" : "",
+       "Enabled" : true,
+       "Requirements" : [
+          {
+             "ItemName" : "Wood",
+             "Amount" : 1,
+             "AmountPerLevel" : 1,
+             "Recover" : true
+          }
+       ]
+      },
+      {
+       "Name" : "bonfire",
+       "CraftingStationType" : "",
+       "Enabled" : true,
+       "Requirements" : [
+          {
+             "ItemName" : "Wood",
+             "Amount" : 1,
+             "AmountPerLevel" : 1,
+             "Recover" : true
+          }
+       ]
+      }
   ]
 }
