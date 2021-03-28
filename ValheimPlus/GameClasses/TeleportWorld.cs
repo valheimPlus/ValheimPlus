@@ -2,7 +2,7 @@
 using ValheimPlus.Configurations;
 using UnityEngine;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
 
     /// <summary>
@@ -20,6 +20,31 @@ namespace ValheimPlus
             }
 
             return true;
+        }
+    }
+    /// <summary>
+    /// Show's portal names in big text
+    /// </summary>
+    [HarmonyPatch(typeof(TeleportWorld), "GetHoverText")]
+    public static class TeleportWorld_bigPortalText_Patch
+    {
+        private static void Postfix(TeleportWorld __instance, string __result)
+        {
+            string portalName = __instance.GetText();
+
+            if (Configuration.Current.Game.IsEnabled && Configuration.Current.Game.bigPortalNames)
+            {
+                __result = Localization.instance.Localize(string.Concat(new string[]
+                    {
+                    "$piece_portal $piece_portal_tag:",
+                    " ",
+                    "[",portalName,"]"
+                    }));
+
+                MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, __result, 0, null);
+                return;
+            }
+            return;
         }
     }
 }
