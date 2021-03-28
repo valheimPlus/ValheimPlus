@@ -9,5 +9,6 @@
         public int difficultyScaleRange { get; internal set; } = 200;
         public bool disablePortals { get; set; } = false;
         public bool forceConsole { get; set; } = false;
+        public bool bigPortalNames { get; set; } = false;
     }
 }
