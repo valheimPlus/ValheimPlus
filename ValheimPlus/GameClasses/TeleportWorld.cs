@@ -31,20 +31,9 @@ namespace ValheimPlus.GameClasses
         private static void Postfix(TeleportWorld __instance, string __result)
         {
             string portalName = __instance.GetText();
-            //string ConnectionStatus = __instance.HaveTarget() ? "$piece_portal_connected" : "$piece_portal_unconnected";
 
             if (Configuration.Current.Game.IsEnabled && Configuration.Current.Game.bigPortalNames)
             {
-
-                //__result = Localization.instance.Localize(string.Concat(new string[]
-                //    {
-                //    "$piece_portal $piece_portal_tag:\"",
-                //    portalName,
-                //    "\"  [",
-                //    ConnectionStatus,
-                //    "]\n[<color=yellow><b>$KEY_Use</b></color>] $piece_portal_settag"
-                //    }));
-
                 __result = Localization.instance.Localize(string.Concat(new string[]
                     {
                     "$piece_portal $piece_portal_tag:",
@@ -56,15 +45,6 @@ namespace ValheimPlus.GameClasses
                 return;
             }
             return;
-            
-            //__result = Localization.instance.Localize(string.Concat(new string[]
-            //        {
-            //        "$piece_portal $piece_portal_tag:\"",
-            //        portalName,
-            //        "\"  [",
-            //        ConnectionStatus,
-            //        "]\n[<color=yellow><b>$KEY_Use</b></color>] $piece_portal_settag"
-            //        }));
         }
     }
 }
