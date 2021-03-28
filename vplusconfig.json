@@ -1710,7 +1710,7 @@
 	"PlayerProjectile": {
 		"description": "",
 		"icon": "fal fa-bow-arrow",
-		"description_website": "Change the in-game behavior of players' projectiles and modify their values.",
+		"description_website": "Changes the in-game behavior of players' projectiles and modify their values. Increasing velocity will not increase damage.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -1747,7 +1747,7 @@
 	"MonsterProjectile": {
 		"description": "",
 		"icon": "fas fa-alien-monster",
-		"description_website": "Change the in-game behavior of monsters' projectiles and modify their values.",
+		"description_website": "Change the in-game behavior of monsters' (Greydrawf, Troll, and dragons) projectiles and modify their values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section.",
