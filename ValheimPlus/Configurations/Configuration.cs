@@ -8,6 +8,7 @@ namespace ValheimPlus.Configurations
 
         public AdvancedBuildingModeConfiguration AdvancedBuildingMode { get; set; }
         public AdvancedEditingModeConfiguration AdvancedEditingMode { get; set; }
+        public BedConfiguration Bed { get; set; }
         public BeehiveConfiguration Beehive { get; set; }
         public BuildingConfiguration Building { get; set; }
         public DeconstructConfiguration Deconstruct { get; set; }

@@ -110,6 +110,28 @@
 			}
 		}
 	},
+	"Bed": {
+		"description": "",
+		"icon": "far fa-bed-bunk",
+		"description_website": "Change the in-game beheavior of how you can interact with a Bed.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"sleepWithoutSpawn": {
+				"description": "Change false to true to enable sleeping without setting bed as spawn.",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"unclaimedBedsOnly": {
+				"description": "Change false to true to enable sleeping on only unclaimed beds without setting bed as spawn.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
 	"Beehive": {
 		"description": "",
 		"icon": "fa fa-hexagon",
@@ -217,7 +239,7 @@
 			"disableCookingStation": {
 				"description": "Change false to tru to disable this feature when using a Cooking Station",
 				"defaultValue": "false",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"checkFromWorkbench": {
 				"description": "If in a workbench area, uses it as reference point when scanning for chests",

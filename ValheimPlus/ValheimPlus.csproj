@@ -330,6 +330,7 @@
   <ItemGroup>
     <Compile Include="AdvancedBuildingMode.cs" />
     <Compile Include="AdvancedEditingMode.cs" />
+    <Compile Include="Configurations\Sections\BedConfiguration.cs" />
     <Compile Include="Configurations\Sections\CraftFromChestConfiguration.cs" />
     <Compile Include="Configurations\Sections\FirstPersonConfiguration.cs" />
     <Compile Include="Configurations\Sections\DeconstructConfiguration.cs" />
@@ -345,6 +346,7 @@
     <Compile Include="Deconstruct.cs" />
     <Compile Include="FirstPerson\VPlusFirstPerson.cs" />
     <Compile Include="FreePlacementRotation.cs" />
+    <Compile Include="GameClasses\Bed.cs" />
     <Compile Include="GameClasses\Beehive.cs" />
     <Compile Include="Configurations\BaseConfig.cs" />
     <Compile Include="Configurations\Configuration.cs" />
