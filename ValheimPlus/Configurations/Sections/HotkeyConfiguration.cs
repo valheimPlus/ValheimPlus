@@ -4,7 +4,7 @@ namespace ValheimPlus.Configurations.Sections
 {
     public class HotkeyConfiguration : BaseConfig<HotkeyConfiguration>
     {
-        public KeyCode rollForwards { get; set; } = KeyCode.F9;
-        public KeyCode rollBackwards { get; set; } = KeyCode.F10;
+        public KeyCode rollForwards { get; internal set; } = KeyCode.F9;
+        public KeyCode rollBackwards { get; internal set; } = KeyCode.F10;
     }
 }
