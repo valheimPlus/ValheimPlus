@@ -6,9 +6,9 @@
 
         public int textFontSize { get; set; } = 34;
 
-        public float textRedChannelRatio { get; set; } = 0.9725f;
-        public float textGreenChannelRatio { get; set; } = 0.4118f;
-        public float textBlueChannelRatio { get; set; } = 0;
-        public float textTransparencyChannelRatio { get; set; } = 1f;
+        public int textRedChannel { get; set; } = 248;
+        public int textGreenChannel { get; set; } = 105;
+        public int textBlueChannel { get; set; } = 0;
+        public int textTransparencyChannel { get; set; } = 255;
     }
 }

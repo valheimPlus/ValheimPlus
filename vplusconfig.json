@@ -1794,23 +1794,23 @@
 			},
 			"textRedChannelRatio": {
 				"description": "Change how red the time text is.",
-				"defaultValue": "0.9725",
-				"defaultType": "float"
+				"defaultValue": "248",
+				"defaultType": "int"
 			},
 			"textGreenChannelRatio": {
 				"description": "Change how green the time text is.",
-				"defaultValue": "0.4118",
-				"defaultType": "float"
+				"defaultValue": "105",
+				"defaultType": "int"
 			},
 			"textBlueChannelRatio": {
 				"description": "Change how blue the time text is.",
 				"defaultValue": "0",
-				"defaultType": "float"
+				"defaultType": "int"
 			},
 			"textTransparencyChannelRatio": {
 				"description": "Change how transparent the time text is.",
-				"defaultValue": "1",
-				"defaultType": "float"
+				"defaultValue": "255",
+				"defaultType": "int"
 			}
 		}
 	}

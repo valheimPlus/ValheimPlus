@@ -119,10 +119,10 @@ namespace ValheimPlus.GameClasses
 
                     timeText = timeObj.AddComponent<Text>();
 
-                    float rRatio = Mathf.Clamp01(Configuration.Current.GameClock.textRedChannelRatio);
-                    float gRatio = Mathf.Clamp01(Configuration.Current.GameClock.textGreenChannelRatio);
-                    float bRatio = Mathf.Clamp01(Configuration.Current.GameClock.textBlueChannelRatio);
-                    float aRatio = Mathf.Clamp01(Configuration.Current.GameClock.textTransparencyChannelRatio);
+                    float rRatio = Mathf.Clamp01((float)Configuration.Current.GameClock.textRedChannel / 255f);
+                    float gRatio = Mathf.Clamp01((float)Configuration.Current.GameClock.textGreenChannel / 255f);
+                    float bRatio = Mathf.Clamp01((float)Configuration.Current.GameClock.textBlueChannel / 255f);
+                    float aRatio = Mathf.Clamp01((float)Configuration.Current.GameClock.textTransparencyChannel / 255f);
 
                     timeText.color = new Color(rRatio, gRatio, bRatio, aRatio);
                     timeText.font = msgHud.m_messageCenterText.font;
