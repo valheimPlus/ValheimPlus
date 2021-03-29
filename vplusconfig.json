@@ -217,7 +217,7 @@
 			"disableCookingStation": {
 				"description": "Change false to tru to disable this feature when using a Cooking Station",
 				"defaultValue": "false",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"checkFromWorkbench": {
 				"description": "If in a workbench area, uses it as reference point when scanning for chests",
@@ -1704,6 +1704,71 @@
 				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
 				"defaultValue": "10",
 				"defaultType": "float"
+			}
+		}
+	},
+	"PlayerProjectile": {
+		"description": "",
+		"icon": "fal fa-bow-arrow",
+		"description_website": "Changes the in-game behavior of players projectiles and modify their values. Increasing velocity will not increase damage.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"playerMinChargeVelocityMultiplier": {
+				"description": "Modify players projectile velocity after minimum (bow) charge and release.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"playerMaxChargeVelocityMultiplier": {
+				"description": "Modify players projectile velocity after maximum (bow and javelin) charge and release.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"playerMinChargeAccuracyMultiplier": {
+				"description": "Modify players projectile accuracy after minimum (bow) charge and release.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"playerMaxChargeAccuracyMultiplier": {
+				"description": "Modify players projectile accuracy after maximum (bow and javelin) charge and release.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"enableScaleWithSkillLevel": {
+				"description": "Scales velocity and accuracy linearly based on level of skill.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"MonsterProjectile": {
+		"description": "",
+		"icon": "fas fa-alien-monster",
+		"description_website": "Change the in-game behavior of monsters (Greydrawf, Troll, and dragons) projectiles and modify their values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section.",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"monsterMaxChargeVelocityMultiplier": {
+				"description": "Modify monters' projectile velocity.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"monsterMaxChargeAccuracyMultiplier": {
+				"description": "Modify monters' projectile accuracy.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
 			}
 		}
 	}
