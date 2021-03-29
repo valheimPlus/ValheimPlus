@@ -1771,5 +1771,47 @@
 				"modifier": "true"
 			}
 		}
+	},
+	"GameClock": {
+		"description": "",
+		"icon": "far fa-clock",
+		"description_website": "Shows In-Game digital clock in top center. Days starts at 0600 and sun sets at 1800.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"useAMPM": {
+				"description": "Change time format from 24hr to AM-PM",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"textFontSize": {
+				"description": "Change font size of time text",
+				"defaultValue": "34",
+				"defaultType": "int"
+			},
+			"textRedChannelRatio": {
+				"description": "Change how red the time text is.",
+				"defaultValue": "0.9725",
+				"defaultType": "float"
+			},
+			"textGreenChannelRatio": {
+				"description": "Change how green the time text is.",
+				"defaultValue": "0.4118",
+				"defaultType": "float"
+			},
+			"textBlueChannelRatio": {
+				"description": "Change how blue the time text is.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"textTransparencyChannelRatio": {
+				"description": "Change how transparent the time text is.",
+				"defaultValue": "1",
+				"defaultType": "float"
+			}
+		}
 	}
 }
