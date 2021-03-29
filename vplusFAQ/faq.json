@@ -6,8 +6,8 @@
     "id": 1
   },
   "A Valheim Game update was just released, what should I do?": {
-    "answerweb": "A new Valheim game update is unlikely to do any more than partially breaking Valheim Plus, however sometimes things are changed in the base game which may complete stop the mod working. In case you encounter any issues, use Steam's verify integrity feature- wait for it to download/update all files and then simply unpack the valheim_Data folder from the downloaded package into your game folder again. This should resolve any issues related.",
-    "answerdiscord": "A new Valheim game update is unlikely to do any more than partially breaking Valheim Plus, however sometimes things are changed in the base game which may complete stop the mod working. In case you encounter any issues, use Steam's verify integrity feature, wait for it to download/update all files and then simply unpack the valheim_Data folder from the downloaded package into your game folder again. This should resolve any issues related.",
+    "answerweb": "A new Valheim game update is unlikely to do any more than partially breaking Valheim Plus, however sometimes things are changed in the base game which may completely stop the mod working. In case you encounter any issues, use Steam's verify integrity feature- wait for it to download/update all files and then simply unpack the valheim_Data folder from the downloaded package into your game folder again. This should resolve any issues related.",
+    "answerdiscord": "A new Valheim game update is unlikely to do any more than partially breaking Valheim Plus, however sometimes things are changed in the base game which may completely stop the mod working. In case you encounter any issues, use Steam's verify integrity feature- wait for it to download/update all files and then simply unpack the valheim_Data folder from the downloaded package into your game folder again. This should resolve any issues related.",
     "icon": "fas fa-question-circle",
     "id": 2
   },
@@ -18,7 +18,7 @@
     "id": 3
   },
   "I cannot connect to my server! It always tells me 'Incompatible version'": {
-    "answerweb": "Please make sure that your own client and the server have the appropriate settings configured in their valheim_plus.cfg.<br><ul><li>If you have enforceConfiguration and enforceMod enabled, only people with the same configuration and mod version can join your server and </li><li>You can only join servers with the same mod and configuration.</li><li>If you have enforceConfiguration and enforceMod disabled, you can join every server including vanilla ones as long as they allow you to. </li><li>(Meaning they have either no v+ mod installed or enforceMod disabled)</li><li>If you have enforceConfiguration disabled and enforceMod enabled, you will be able to join every server with v+ installed as long as its the same version and they dont have enforceConfiguration enabled.</li></ul>",
+    "answerweb": "Please make sure that your own client and the server have the appropriate settings configured in their valheim_plus.cfg.<br><ul><li>- If you have enforceConfiguration and enforceMod enabled, only people with the same configuration and mod version can join your server and </li><li> you can only join servers with the same mod and configuration.</li><li>- If you have enforceConfiguration and enforceMod disabled, you can join every server including vanilla ones as long as they allow you to. (Meaning they have either no v+ mod installed or enforceMod disabled)</li><li>- If you have enforceConfiguration disabled and enforceMod enabled, you will be able to join every server with v+ installed as long as its the</li><li> same version and they dont have enforceConfiguration enabled.</li></ul>",
     "answerdiscord": "Please make sure that your own client and the server have the appropriate settings configured in their valheim_plus.cfg. If you have enforceConfiguration and enforceMod enabled, only people with the same configuration and mod version can join your server. You can only join servers with the same mod and configuration.",
     "icon": "fas fa-question-circle",
     "id": 4
@@ -42,8 +42,8 @@
     "id": 7
   },
   "How do I disable Valheim Plus?": {
-    "answerweb": "To disable Valheim Plus, you can use this tool: <a href='https://github.com/ncjsvr/Valheim-Mod-Toggler'>https://github.com/ncjsvr/Valheim-Mod-Toggler</a> or you can do the following:<br><ul><li>1. Open the doorstop_config.ini in the root of the Valheim game's folder. i.e. 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Valheim'</li><li>2. Change line 3 from 'enabled=true' to 'enabled=false'</li><li>3. Save the file, Valheim Plus should now be disabled when you launch the game.</li></ul>",
-    "answerdiscord": "To disable Valheim Plus, you can use this tool: https://github.com/ncjsvr/Valheim-Mod-Toggler, or you can do the following: Open the doorstop_config.ini in the root of the Valheim game's folder. i.e. 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Valheim', Change line 3 from 'enabled=true' to 'enabled=false', Save the file, Valheim Plus should now be disabled when you launch the game.",
+    "answerweb": "To disable Valheim Plus, you can do the following:<br><ul><li>1. Open the doorstop_config.ini in the root of the Valheim game's folder. i.e. 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Valheim'</li><li>2. Change line 3 from 'enabled=true' to 'enabled=false'</li><li>3. Save the file, Valheim Plus should now be disabled when you launch the game.</li></ul>",
+    "answerdiscord": "To disable Valheim Plus, you can do the following: Open the doorstop_config.ini in the root of the Valheim game's folder. i.e. 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\Valheim', Change line 3 from 'enabled=true' to 'enabled=false', Save the file, Valheim Plus should now be disabled when you launch the game.",
     "icon": "fas fa-question-circle",
     "id": 8
   },

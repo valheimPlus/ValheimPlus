@@ -2,7 +2,7 @@
 using ValheimPlus.Configurations;
 using UnityEngine;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
 
     /// <summary>
@@ -28,41 +28,23 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(TeleportWorld), "GetHoverText")]
     public static class TeleportWorld_bigPortalText_Patch
     {
-        private static bool Prefix(ref TeleportWorld __instance, ref string __result)
+        private static void Postfix(TeleportWorld __instance, string __result)
         {
             string portalName = __instance.GetText();
-            string ConnectionStatus = __instance.HaveTarget() ? "$piece_portal_connected" : "$piece_portal_unconnected";
 
             if (Configuration.Current.Game.IsEnabled && Configuration.Current.Game.bigPortalNames)
             {
                 __result = Localization.instance.Localize(string.Concat(new string[]
-                    {
-                    "$piece_portal $piece_portal_tag:\"",
-                    portalName,
-                    "\"  [",
-                    ConnectionStatus,
-                    "]\n[<color=yellow><b>$KEY_Use</b></color>] $piece_portal_settag"
-                    }));
-
-                string BigPortalName = Localization.instance.Localize(string.Concat(new string[]
                     {
                     "$piece_portal $piece_portal_tag:",
                     " ",
                     "[",portalName,"]"
                     }));
 
-                MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, BigPortalName, 0, null);
-                return true;
+                MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, __result, 0, null);
+                return;
             }
-            __result = Localization.instance.Localize(string.Concat(new string[]
-                    {
-                    "$piece_portal $piece_portal_tag:\"",
-                    portalName,
-                    "\"  [",
-                    ConnectionStatus,
-                    "]\n[<color=yellow><b>$KEY_Use</b></color>] $piece_portal_settag"
-                    }));
-            return false;
+            return;
         }
     }
 }

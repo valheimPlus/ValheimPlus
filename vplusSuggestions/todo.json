@@ -499,12 +499,6 @@
     "status": "In Consideration",
     "category": "Monsters"
   },
-  "Show portal names": {
-    "description": "Display a big message with the portals name on the player hud. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/258'>reference</a>",
-    "icon": "fa fa-portal-exit",
-    "status": "In Consideration",
-    "category": "Hud"
-  },
   "Sleep on any bed": {
     "description": "Add the ability to sleep on any bed without setting spawn points. Also introduce sleeping bags if possible.",
     "icon": "far fa-bed-bunk",
