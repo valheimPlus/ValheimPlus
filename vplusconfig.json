@@ -811,6 +811,48 @@
 			}
 		}
 	},
+	"Pickable": {
+		"description": "",
+		"icon": "fa fa-axe",
+		"description_website": "Change drop rates of pickable items such as berries and valuables.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"edibles": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"flowersAndIngredients": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"materials": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"valuables": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"surtlingCores": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
 	"Durability": {
 		"description": "",
 		"icon": "fa fa-tasks-alt",
