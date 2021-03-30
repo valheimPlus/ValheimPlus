@@ -585,6 +585,11 @@
 				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
 				"defaultValue": "10",
 				"defaultType": "float"
+			},
+			"allowAllOres": {
+				"description": "Change to true or false to enable the use of all ores.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
