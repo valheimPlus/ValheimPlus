@@ -1,6 +1,6 @@
 ﻿namespace ValheimPlus.Configurations.Sections
 {
-    public class GameClockCongifuration : ServerSyncConfig<GameClockCongifuration>
+    public class GameClockConfiguration : ServerSyncConfig<GameClockConfiguration>
     {
         public bool useAMPM { get; set; } = false;
 
