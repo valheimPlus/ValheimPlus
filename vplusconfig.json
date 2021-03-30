@@ -941,7 +941,7 @@
 			},
 			"productionSpeed": {
 				"description": "The time it takes for the Kiln to produce a single piece of coal in seconds.",
-				"defaultValue": "16",
+				"defaultValue": "15",
 				"defaultType": "float"
 			},
 			"autoDeposit": {
