@@ -1026,13 +1026,59 @@ namespace ValheimPlus.GameClasses
     public class Player_HaveSeenTutorial_Patch
     {
         [HarmonyPrefix]
-        private static void Prefix(Player __instance, ref string name)
+        private static void Prefix(ref Player __instance, ref string name)
         {
             if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.skipTutorials)
             {
                 if (!__instance.m_shownTutorials.Contains(name))
                 {
                     __instance.m_shownTutorials.Add(name);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Modifies pickable amount
+    /// </summary>
+    [HarmonyPatch(typeof(Player), "Interact")]
+    public class Player_Interact_Patch
+    {
+        private static readonly Dictionary<String, int> pickableNames = new Dictionary<String, int>
+        {
+            { "Pickable_Dandelion", Configuration.Current.PickableItems.dandelionAmount},
+            { "Pickable_Mushroom", Configuration.Current.PickableItems.mushroomAmount},
+            { "Pickable_Mushroom_blue", Configuration.Current.PickableItems.mushroomBlueAmount},
+            { "Pickable_Mushroom_Yellow", Configuration.Current.PickableItems.mushroomYellowAmount},
+            { "Pickable_Thistle", Configuration.Current.PickableItems.thistleAmount},
+            { "RaspberryBush", Configuration.Current.PickableItems.raspberryAmount},
+            { "BlueberryBush", Configuration.Current.PickableItems.blueberryAmount}
+        };
+
+        private static void Prefix(ref Player __instance, ref GameObject go)
+        {
+            if (Configuration.Current.PickableItems.IsEnabled)
+            {
+                var goParent = go.GetComponentInParent<Interactable>();
+
+                if (goParent is Pickable)
+                {
+                    Pickable component = (Pickable)goParent;
+
+                    if (component != null)
+                    {
+                        String itemName = component.transform.name;
+
+                        if (itemName.Length > 7)
+                        {
+                            String name = itemName.Substring(0, itemName.Length - 7);
+
+                            if (pickableNames.ContainsKey(name))
+                            {
+                                component.m_amount = pickableNames[name];
+                            }
+                        }
+                    }
                 }
             }
         }

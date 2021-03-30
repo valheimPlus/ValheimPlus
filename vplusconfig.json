@@ -1771,5 +1771,52 @@
 				"modifier": "true"
 			}
 		}
+	},
+	"PickableItems": {
+		"description": "",
+		"icon": "fab fa-raspberry-pi",
+		"description_website": "Change the amount of pickable items.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"dandelionAmount": {
+				"description": "Modify the amount of dandelion that is picked up",
+				"defaultValue": "1",
+				"defaultType": "int"
+			},
+			"mushroomAmount": {
+				"description": "Modify the amount of red mushroom that is picked up",
+				"defaultValue": "1",
+				"defaultType": "int"
+			},
+			"mushroomBlueAmount": {
+				"description": "Modify the amount of blue mushroom that is picked up",
+				"defaultValue": "1",
+				"defaultType": "int"
+			},
+			"mushroomYellowAmount": {
+				"description": "Modify the amount of yellow mushroom that is picked up",
+				"defaultValue": "1",
+				"defaultType": "int"
+			},
+			"thistleAmount": {
+				"description": "Modify the amount of thistle that is picked up",
+				"defaultValue": "1",
+				"defaultType": "int"
+			},
+			"raspberryAmount": {
+				"description": "Modify the amount of raspberry that is picked up",
+				"defaultValue": "1",
+				"defaultType": "int"
+			},
+			"blueberryAmount": {
+				"description": "Modify the amount of blueberry that is picked up",
+				"defaultValue": "1",
+				"defaultType": "int"
+			}
+		}
 	}
 }
