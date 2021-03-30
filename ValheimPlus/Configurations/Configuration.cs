@@ -30,6 +30,7 @@ namespace ValheimPlus.Configurations
         public TimeConfiguration Time { get; set; }
         public WardConfiguration Ward { get; set; }
         public StructuralIntegrityConfiguration StructuralIntegrity { get; set; }
+        public TameableConfiguration Tameable { get; set; }
         public HudConfiguration Hud { get; set; }
         public ExperienceConfiguration Experience { get; set; }
         public CameraConfiguration Camera { get; set; }

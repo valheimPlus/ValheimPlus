@@ -1771,5 +1771,32 @@
 				"modifier": "true"
 			}
 		}
+	},
+	"Tameable": {
+		"description": "",
+		"icon": "fas fa-paw",
+		"description_website": "Change the in-game behaviour of creatures tamed by players.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section.",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"mortality": {
+				"description": "Modify what happens when a tamed creature is attacked. 0 = normal, 1 = essential(deadly attacks stun instead of kill), 2 = immortal.",
+				"defaultValue": "0",
+				"defaultType": "int"
+			},
+			"onlyOwnerCanHurt": {
+				"description": "Change to true so only the owner of a tamed creature can hurt it. This will circumvent the mortality setting, so even if tamed creatures are immortal, the owner can still kill them.",
+				"defaultValue": "false",
+				"defaultType": "false"
+			},
+			"stunRecoveryTime": {
+				"description": "How long it takes for a tamed creature to recover(in seconds) if mortality is set to 1(essential) and they are stunned.",
+				"defaultValue": "10",
+				"defaultType": "float"
+			}
+		}
 	}
 }

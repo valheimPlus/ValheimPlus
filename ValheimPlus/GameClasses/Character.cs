@@ -12,6 +12,65 @@ using ValheimPlus.Utility;
 namespace ValheimPlus.GameClasses
 {
     /// <summary>
+    /// Determines how a creature should behave if it should be dead based on Tameable options.
+    /// </summary>
+    [HarmonyPatch(typeof(Character), "CheckDeath")]
+    public static class Character_CheckDeath_Patch
+    {
+        public static void Prefix(Character __instance)
+        {
+            if (Configuration.Current.Tameable.IsEnabled)
+            {
+                Character character = __instance;
+                ZDO zdo = character.m_nview.GetZDO();
+
+                if (!character.IsTamed() || zdo == null)
+                    return;
+
+                if (ShouldSetStunned(character))
+                {
+                    character.SetHealth(character.GetMaxHealth());
+                    character.m_animator.SetBool("sleeping", true);
+                    zdo.Set("sleeping", true);
+                    zdo.Set("isRecoveringFromStun", true);
+                }
+            }
+        }
+
+        private static bool ShouldSetStunned(Character character)
+        {
+            return (TameableMortalityTypes)Configuration.Current.Tameable.mortality == TameableMortalityTypes.Essential && character.GetHealth() <= 0f && !Configuration.Current.Tameable.onlyOwnerCanHurt;
+        }
+    }
+
+    /// <summary>
+    /// Determines whether a tamed creature should take damage or not based on Tameable options.
+    /// </summary>
+    [HarmonyPatch(typeof(Character), "Damage")]
+    public static class Character_Damage_Patch
+    {
+        public static void Prefix(Character __instance, ref HitData hit)
+        {
+            if (Configuration.Current.Tameable.IsEnabled)
+            {
+                Character character = __instance;
+                ZDO zdo = character.m_nview.GetZDO();
+
+                if (!character.IsTamed() || zdo == null)
+                    return;
+
+                if (ShouldIgnoreDamage(hit, zdo))
+                    hit = new HitData();
+            }
+        }
+
+        private static bool ShouldIgnoreDamage(HitData hit, ZDO zdo)
+        {
+            return ((TameableMortalityTypes)Configuration.Current.Tameable.mortality == TameableMortalityTypes.Immortal || (Configuration.Current.Tameable.onlyOwnerCanHurt && hit.GetAttacker().m_nview.GetZDO().m_owner != zdo.m_owner) || zdo.GetBool("isRecoveringFromStun")) && !Configuration.Current.Tameable.onlyOwnerCanHurt;
+        }
+    }
+
+    /// <summary>
     /// Allow tweaking of fall damage
     /// </summary>
     [HarmonyPatch(typeof(Character), "UpdateGroundContact")]
