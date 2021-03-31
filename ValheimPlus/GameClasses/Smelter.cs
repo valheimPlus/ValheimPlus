@@ -35,6 +35,11 @@ namespace ValheimPlus.GameClasses
                 __instance.m_maxFuel = Configuration.Current.Furnace.maximumCoal;
                 __instance.m_secPerProduct = Configuration.Current.Furnace.productionSpeed;
                 __instance.m_fuelPerProduct = Configuration.Current.Furnace.coalUsedPerProduct;
+
+                if (Configuration.Current.Furnace.allowAllOres)
+                {
+                    __instance.m_conversion.AddRange(FurnaceDefinitions.AdditionalConversions);
+                }
             }
             else if (__instance.m_name.Equals(SmelterDefinitions.WindmillName) && Configuration.Current.Windmill.IsEnabled)
             {
@@ -340,6 +345,27 @@ namespace ValheimPlus.GameClasses
         public static readonly string FurnaceName = "$piece_blastfurnace";
         public static readonly string WindmillName = "$piece_windmill";
         public static readonly string SpinningWheelName = "$piece_spinningwheel";
+    }
+
+    public static class FurnaceDefinitions
+    {
+        public static readonly string CopperOrePrefabName = "CopperOre";
+        public static readonly string IronOrePrefabName = "IronOre";
+        public static readonly string SilverOrePrefabName = "SilverOre";
+        public static readonly string TinOrePrefabName = "TinOre";
+
+        public static readonly string CopperPrefabName = "Copper";
+        public static readonly string IronPrefabName = "Iron";
+        public static readonly string SilverPrefabName = "Silver";
+        public static readonly string TinPrefabName = "Tin";
+
+        public static readonly List<Smelter.ItemConversion> AdditionalConversions = new List<Smelter.ItemConversion>
+        {
+            new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(CopperOrePrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(CopperPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() },
+            new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(IronOrePrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(IronPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() },
+            new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(SilverOrePrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(SilverPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() },
+            new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(TinOrePrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(TinPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() }
+        };
     }
 
     public static class WoodDefinitions
