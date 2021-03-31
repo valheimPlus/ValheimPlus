@@ -21,10 +21,13 @@ namespace ValheimPlus.GameClasses
             {
                 if (!Configuration.Current.FireSource.IsEnabled) return;
 
-                if (Configuration.Current.FireSource.torches && FireplaceExtensions.IsTorch(__instance.m_name))
+                if (FireplaceExtensions.IsTorch(__instance.m_name))
                 {
-                    __instance.m_startFuel = __instance.m_maxFuel;
-                    __instance.m_nview.GetZDO().Set("fuel", __instance.m_maxFuel);
+                    if (Configuration.Current.FireSource.torches)
+                    {
+                        __instance.m_startFuel = __instance.m_maxFuel;
+                        __instance.m_nview.GetZDO().Set("fuel", __instance.m_maxFuel);
+                    }
                 }
                 else if (Configuration.Current.FireSource.fires)
                 {

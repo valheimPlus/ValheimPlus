@@ -24,7 +24,7 @@ namespace ValheimPlus.GameClasses
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            if (!Configuration.Current.CraftFromChest.IsEnabled) return instructions;
+            if (!Configuration.Current.CraftFromChest.IsEnabled || !Configuration.Current.CraftFromChest.disableCookingStation) return instructions;
 
             List<CodeInstruction> il = instructions.ToList();
             int endIdx = -1;

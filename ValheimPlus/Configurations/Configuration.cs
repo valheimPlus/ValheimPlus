@@ -5,7 +5,6 @@ namespace ValheimPlus.Configurations
     public class Configuration
     {
         public static Configuration Current { get; set; }
-
         public AdvancedBuildingModeConfiguration AdvancedBuildingMode { get; set; }
         public AdvancedEditingModeConfiguration AdvancedEditingMode { get; set; }
         public BeehiveConfiguration Beehive { get; set; }
@@ -31,12 +30,14 @@ namespace ValheimPlus.Configurations
         public TimeConfiguration Time { get; set; }
         public WardConfiguration Ward { get; set; }
         public StructuralIntegrityConfiguration StructuralIntegrity { get; set; }
+        public TameableConfiguration Tameable { get; set; }
         public HudConfiguration Hud { get; set; }
         public ExperienceConfiguration Experience { get; set; }
         public CameraConfiguration Camera { get; set; }
         public GameConfiguration Game { get; set; }
         public WagonConfiguration Wagon { get; set; }
         public GatherConfiguration Gathering { get; set; }
+        public PickableConfiguration Pickable { get; set; }
         public DurabilityConfiguration Durability { get; set; }
         public ArmorConfiguration Armor { get; set; }
 	    public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
@@ -45,5 +46,8 @@ namespace ValheimPlus.Configurations
         public GridAlignmentConfiguration GridAlignment { get; set; }
         public CraftFromChestConfiguration CraftFromChest { get; set; }
         public ValheimPlusConfiguration ValheimPlus { get; set; }
+        public PlayerProjectileConfiguration PlayerProjectile { get; set; }
+        public MonsterProjectileConfiguration MonsterProjectile { get; set; }
+        public GameClockConfiguration GameClock { get; set; }
     }
 }

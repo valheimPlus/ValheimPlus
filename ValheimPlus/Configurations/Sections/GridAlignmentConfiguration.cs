@@ -4,8 +4,8 @@ namespace ValheimPlus.Configurations.Sections
 {
     public class GridAlignmentConfiguration : ServerSyncConfig<GridAlignmentConfiguration>
     {
-        public KeyCode align { get; set; } = KeyCode.LeftAlt;
-        public KeyCode alignToggle { get; set; } = KeyCode.F7;
-        public KeyCode changeDefaultAlignment { get; set; } = KeyCode.F6;
+        public KeyCode align { get; internal set; } = KeyCode.LeftAlt;
+        public KeyCode alignToggle { get; internal set; } = KeyCode.F7;
+        public KeyCode changeDefaultAlignment { get; internal set; } = KeyCode.F6;
     }
 }
