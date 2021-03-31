@@ -47,5 +47,6 @@ namespace ValheimPlus.Configurations
         public ValheimPlusConfiguration ValheimPlus { get; set; }
         public PlayerProjectileConfiguration PlayerProjectile { get; set; }
         public MonsterProjectileConfiguration MonsterProjectile { get; set; }
+        public GameClockConfiguration GameClock { get; set; }
     }
 }

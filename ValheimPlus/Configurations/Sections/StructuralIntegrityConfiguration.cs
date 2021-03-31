@@ -6,9 +6,9 @@
         public float stone { get; internal set; } = 0;
         public float iron { get; internal set; } = 0;
         public float hardWood { get; internal set; } = 0;
-        public bool disableStructuralIntegrity { get; set; } = false;
-        public bool disableDamageToPlayerStructures { get; set; } = false;
-        public bool disableDamageToPlayerBoats { get; set; } = false;
-        public bool disableWaterDamageToPlayerBoats { get; set; } = false;
+        public bool disableStructuralIntegrity { get; internal set; } = false;
+        public bool disableDamageToPlayerStructures { get; internal set; } = false;
+        public bool disableDamageToPlayerBoats { get; internal set; } = false;
+        public bool disableWaterDamageToPlayerBoats { get; internal set; } = false;
     }
 }

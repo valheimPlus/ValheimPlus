@@ -115,6 +115,7 @@ We work together closely to make sure all our features are integrated and workin
 * Allow fuel-type items to be automatically pulled from closest containers.
 * Allow Kiln to stop pulling wood from closest containers when a specific threshold as been reached. 
 * Allow items produced by Kiln, Furnace and Blast Furnace to be automatically placed in the closest containers.
+* Allow Furnace to process all ore types instead of just Black Metal Scrap and Flametal Ore.
 
 ### Beehive 
 * Modify Beehive honey production speed.
