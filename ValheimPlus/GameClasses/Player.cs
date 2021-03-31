@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
+using UnityEngine.UI;
 using ValheimPlus.Configurations;
 using ValheimPlus.RPC;
 
@@ -43,11 +44,14 @@ namespace ValheimPlus.GameClasses
     }
 
     /// <summary>
-    /// Hooks for ABM and AEM
+    /// Hooks for ABM and AEM, Dodge Hotkeys and Display of the game clock
     /// </summary>
+    /// 
     [HarmonyPatch(typeof(Player), "Update")]
     public static class Player_Update_Patch
     {
+
+        private static GameObject timeObj = null;
         private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost, Transform ___m_eye)
         {
             if ((Configuration.Current.Player.IsEnabled && Configuration.Current.Player.queueWeaponChanges) && (ZInput.GetButtonDown("Hide") || ZInput.GetButtonDown("JoyHide")))
@@ -77,9 +81,7 @@ namespace ValheimPlus.GameClasses
                 ApplyDodgeHotkeys(ref __instance, ref ___m_moveDir, ref ___m_lookDir);
             }
 
-            /// <summary>
-            /// Display game clock
-            /// </summary>
+
             if (Configuration.Current.GameClock.IsEnabled)
             {
                 EnvMan env = EnvMan.instance;
@@ -109,6 +111,7 @@ namespace ValheimPlus.GameClasses
                 Hud hud = Hud.instance;
 
                 Text timeText;
+
                 if (timeObj == null)
                 {
                     MessageHud msgHud = MessageHud.instance;
