@@ -217,7 +217,7 @@
 			"disableCookingStation": {
 				"description": "Change false to tru to disable this feature when using a Cooking Station",
 				"defaultValue": "false",
-				"defaultType": "bool"	
+				"defaultType": "bool"
 			},
 			"checkFromWorkbench": {
 				"description": "If in a workbench area, uses it as reference point when scanning for chests",
@@ -585,6 +585,11 @@
 				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
 				"defaultValue": "10",
 				"defaultType": "float"
+			},
+			"allowAllOres": {
+				"description": "Change to true or false to enable the use of all ores.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
@@ -630,6 +635,11 @@
 			},
 			"forceConsole": {
 				"description": "If you set this to true the console will be force enabled ingame, false will force disable it.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"bigPortalNames": {
+				"description": "If you set this to true, portal names will be displayed in big text in center of screen.",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			}
@@ -801,6 +811,48 @@
 			}
 		}
 	},
+	"Pickable": {
+		"description": "",
+		"icon": "fa fa-axe",
+		"description_website": "Change drop rates of pickable items such as berries and valuables.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"edibles": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"flowersAndIngredients": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"materials": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"valuables": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"surtlingCores": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
 	"Durability": {
 		"description": "",
 		"icon": "fa fa-tasks-alt",
@@ -936,7 +988,7 @@
 			},
 			"productionSpeed": {
 				"description": "The time it takes for the Kiln to produce a single piece of coal in seconds.",
-				"defaultValue": "16",
+				"defaultValue": "15",
 				"defaultType": "float"
 			},
 			"autoDeposit": {
@@ -1721,6 +1773,140 @@
 				"description": "Provide a filename to dump all recipes to json. For use as a template.",
 				"defaultValue": "",
 				"defaultType": "KeyCode"
+			}
+		}
+	},
+	"PlayerProjectile": {
+		"description": "",
+		"icon": "fal fa-bow-arrow",
+		"description_website": "Changes the in-game behavior of players projectiles and modify their values. Increasing velocity will not increase damage.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"playerMinChargeVelocityMultiplier": {
+				"description": "Modify players projectile velocity after minimum (bow) charge and release.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"playerMaxChargeVelocityMultiplier": {
+				"description": "Modify players projectile velocity after maximum (bow and javelin) charge and release.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"playerMinChargeAccuracyMultiplier": {
+				"description": "Modify players projectile accuracy after minimum (bow) charge and release.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"playerMaxChargeAccuracyMultiplier": {
+				"description": "Modify players projectile accuracy after maximum (bow and javelin) charge and release.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"enableScaleWithSkillLevel": {
+				"description": "Scales velocity and accuracy linearly based on level of skill.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"MonsterProjectile": {
+		"description": "",
+		"icon": "fas fa-alien-monster",
+		"description_website": "Change the in-game behavior of monsters (Greydrawf, Troll, and dragons) projectiles and modify their values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section.",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"monsterMaxChargeVelocityMultiplier": {
+				"description": "Modify monters' projectile velocity.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"monsterMaxChargeAccuracyMultiplier": {
+				"description": "Modify monters' projectile accuracy.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
+	"GameClock": {
+		"description": "",
+		"icon": "far fa-clock",
+		"description_website": "Shows In-Game digital clock in top center. Days starts at 0600 and sun sets at 1800.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"useAMPM": {
+				"description": "Change time format from 24hr to AM-PM",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"textFontSize": {
+				"description": "Change font size of time text",
+				"defaultValue": "34",
+				"defaultType": "int"
+			},
+			"textRedChannel": {
+				"description": "Change how red the time text is.",
+				"defaultValue": "248",
+				"defaultType": "int"
+			},
+			"textGreenChannel": {
+				"description": "Change how green the time text is.",
+				"defaultValue": "105",
+				"defaultType": "int"
+			},
+			"textBlueChannel": {
+				"description": "Change how blue the time text is.",
+				"defaultValue": "0",
+				"defaultType": "int"
+			},
+			"textTransparencyChannel": {
+				"description": "Change how transparent the time text is.",
+				"defaultValue": "255",
+				"defaultType": "int"
+			}
+		}
+	},
+	"Tameable": {
+		"description": "",
+		"icon": "fas fa-paw",
+		"description_website": "Change the in-game behaviour of creatures tamed by players.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section.",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"mortality": {
+				"description": "Modify what happens when a tamed creature is attacked. 0 = normal, 1 = essential(deadly attacks stun instead of kill), 2 = immortal.",
+				"defaultValue": "0",
+				"defaultType": "int"
+			},
+			"onlyOwnerCanHurt": {
+				"description": "Change to true so only the owner of a tamed creature can hurt it. This will circumvent the mortality setting, so even if tamed creatures are immortal, the owner can still kill them.",
+				"defaultValue": "false",
+				"defaultType": "false"
+			},
+			"stunRecoveryTime": {
+				"description": "How long it takes for a tamed creature to recover(in seconds) if mortality is set to 1(essential) and they are stunned.",
+				"defaultValue": "10",
+				"defaultType": "float"
 			}
 		}
 	}

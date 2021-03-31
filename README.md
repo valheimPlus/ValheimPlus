@@ -34,7 +34,9 @@ We work together closely to make sure all our features are integrated and workin
 * Tweak/disable death penalty.
 * Tweak Rested bonus duration per comfort level.
 * Disable the use of portals.
-* Modify the Guardian buff duration, cooldown and animation
+* Modify the Guardian buff duration, cooldown and animation.
+* Disable tutorials from Valkyrie.
+* Modify velocity and accuracy of projectiles.
 
 
 ### Player Hud
@@ -44,6 +46,8 @@ We work together closely to make sure all our features are integrated and workin
 * Disable red screen flash on receiving damage.
 * Display a warning message when attempting to place different crops too close to each other.
 * Added hotkey options for forward and backward roll.
+* Display in-game clock in top center.
+
 
 **Map**
 * Force all players in the server to display their map position.
@@ -115,6 +119,7 @@ We work together closely to make sure all our features are integrated and workin
 * Allow fuel-type items to be automatically pulled from closest containers.
 * Allow Kiln to stop pulling wood from closest containers when a specific threshold as been reached. 
 * Allow items produced by Kiln, Furnace and Blast Furnace to be automatically placed in the closest containers.
+* Allow Furnace to process all ore types instead of just Black Metal Scrap and Flametal Ore.
 
 ### Beehive 
 * Modify Beehive honey production speed.
@@ -157,7 +162,6 @@ We work together closely to make sure all our features are integrated and workin
 * Added option for placeables destroyed/dismantled by players to always drop their full material cost, even if built by another player.
 * Modify effective radius of comfort placeables.
 * Modify Ward structure protection radius.
-
 
 ### Free Rotation Mode for the default Building Mode
 * **Video demo: https://imgur.com/xMH7STj.mp4**
@@ -217,6 +221,21 @@ We work together closely to make sure all our features are integrated and workin
 * Disable structural integrity entirely (this will cause objects placed mid-air to not break and fall).
 * Make anything built by players immune to all damage.
 * Make boats invincible to all damage.
+
+
+# Creatures and Monsters
+
+### Protected Pets
+* Added option for tamed creatures to be normal, essential, or immortal.
+* Added option for modifying the time a tamed essential animal will spend stunned after being hit with what would normally be a killing blow.
+* Added option for determining whether only the owner of a tamed creature can hurt it or not(which also circumvents the essential/immortality option).
+
+### Monster Projectile
+* Modify velocity and accuracy of projectiles.
+
+
+
+
 
 
 
@@ -376,3 +395,4 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for d
 * Lilian Cahuzac - https://github.com/healiha
 * Thomas 'Aeluwas#2855' B. - https://github.com/exscape
 * Nick 'baconparticles' P. - https://github.com/baconparticles
+* An 'Hachidan' N. - https://github.com/ahnguyen09
