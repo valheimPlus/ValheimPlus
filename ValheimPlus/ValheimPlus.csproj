@@ -343,6 +343,7 @@
     <Compile Include="Configurations\Sections\GatherConfiguration.cs" />
     <Compile Include="Configurations\Sections\ShieldConfiguration.cs" />
     <Compile Include="Configurations\Sections\SpinningWheelConfiguration.cs" />
+    <Compile Include="Configurations\Sections\TameableConfiguration.cs" />
     <Compile Include="Configurations\Sections\ValheimPlusConfiguration.cs" />
     <Compile Include="Configurations\Sections\WindmillConfiguration.cs" />
     <Compile Include="Deconstruct.cs" />
@@ -388,11 +389,13 @@
     <Compile Include="GameClasses\GameCamera.cs" />
     <Compile Include="GameClasses\Hud.cs" />
     <Compile Include="GameClasses\EventSystem.cs" />
+    <Compile Include="GameClasses\MonsterAI.cs" />
     <Compile Include="GameClasses\Settings.cs" />
     <Compile Include="GameClasses\SE_Rested.cs" />
     <Compile Include="GameClasses\Piece.cs" />
     <Compile Include="GameClasses\StationExtension.cs" />
     <Compile Include="GameClasses\Attack.cs" />
+    <Compile Include="GameClasses\Tameable.cs" />
     <Compile Include="GameClasses\TeleportWorld.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
     <Compile Include="RPC\VPlusAck.cs" />
