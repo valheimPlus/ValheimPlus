@@ -66,4 +66,53 @@ namespace ValheimPlus.GameClasses
         }
         */
     }
+
+    [HarmonyPatch(typeof(EnvMan), "SetEnv")]
+    public static class EnvMan_SetEnv_Patch
+    {
+        private static void Prefix(ref EnvMan __instance, ref EnvSetup env)
+        {
+            if (Configuration.Current.Game.IsEnabled && Configuration.Current.Game.disableFog)
+            {
+                env.m_fogDensityNight = 0.0001f;
+                env.m_fogDensityMorning = 0.0001f;
+                env.m_fogDensityDay = 0.0001f;
+                env.m_fogDensityEvening = 0.0001f;
+            }
+
+            if (Configuration.Current.Brightness.IsEnabled)
+            {
+                applyEnvModifier(env);
+            }
+        }
+
+        private static void applyEnvModifier(EnvSetup env)
+        {
+            env.m_fogColorMorning = applyBrightnessModifier(env.m_fogColorMorning, Configuration.Current.Brightness.morningBrightnessMultiplier);
+            env.m_fogColorSunMorning = applyBrightnessModifier(env.m_fogColorSunMorning, Configuration.Current.Brightness.morningBrightnessMultiplier);
+            env.m_sunColorMorning = applyBrightnessModifier(env.m_sunColorMorning, Configuration.Current.Brightness.morningBrightnessMultiplier);
+
+            env.m_ambColorDay = applyBrightnessModifier(env.m_ambColorDay, Configuration.Current.Brightness.dayBrightnessMultiplier);
+            env.m_fogColorDay = applyBrightnessModifier(env.m_fogColorDay, Configuration.Current.Brightness.dayBrightnessMultiplier);
+            env.m_fogColorSunDay = applyBrightnessModifier(env.m_fogColorSunDay, Configuration.Current.Brightness.dayBrightnessMultiplier);
+            env.m_sunColorDay = applyBrightnessModifier(env.m_sunColorDay, Configuration.Current.Brightness.dayBrightnessMultiplier);
+
+            env.m_fogColorEvening = applyBrightnessModifier(env.m_fogColorEvening, Configuration.Current.Brightness.eveningBrightnessMultiplier);
+            env.m_fogColorSunEvening = applyBrightnessModifier(env.m_fogColorSunEvening, Configuration.Current.Brightness.eveningBrightnessMultiplier);
+            env.m_sunColorEvening = applyBrightnessModifier(env.m_sunColorEvening, Configuration.Current.Brightness.eveningBrightnessMultiplier);
+
+            env.m_ambColorNight = applyBrightnessModifier(env.m_ambColorNight, Configuration.Current.Brightness.nightBrightnessMultiplier);
+            env.m_fogColorNight = applyBrightnessModifier(env.m_fogColorNight, Configuration.Current.Brightness.nightBrightnessMultiplier);
+            env.m_fogColorSunNight = applyBrightnessModifier(env.m_fogColorSunNight, Configuration.Current.Brightness.nightBrightnessMultiplier);
+            env.m_sunColorNight = applyBrightnessModifier(env.m_sunColorNight, Configuration.Current.Brightness.nightBrightnessMultiplier);
+        }
+
+        private static Color applyBrightnessModifier(Color color, float multiplier)
+        {
+            float h, s, v;
+            Color.RGBToHSV(color, out h, out s, out v);
+            v = Mathf.Clamp01(Helper.applyModifierValue(v, multiplier));
+            return Color.HSVToRGB(h, s, v);
+        }
+    }
 }

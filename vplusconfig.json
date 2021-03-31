@@ -642,6 +642,11 @@
 				"description": "If you set this to true, portal names will be displayed in big text in center of screen.",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"disableFog": {
+				"description": "Remove dense fog from the game.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
@@ -1861,7 +1866,7 @@
 			}
 		}
 	},
-  "Tameable": {
+	"Tameable": {
 		"description": "",
 		"icon": "fas fa-paw",
 		"description_website": "Change the in-game behaviour of creatures tamed by players.",
@@ -1885,7 +1890,39 @@
 				"description": "How long it takes for a tamed creature to recover(in seconds) if mortality is set to 1(essential) and they are stunned.",
 				"defaultValue": "10",
 				"defaultType": "float"
-      }
-    }
-  }
+			}
+		}
+	},
+	"Brightness": {
+		"description": "",
+		"icon": "fas fa-sun",
+		"description_website": "Change the brightness during different time of day.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section.",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"morningBrightnessMultiplier": {
+				"description": "Change how bright it looks in the morning. A multiplier (+3) will lead in a big change in brightness.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"dayBrightnessMultiplier": {
+				"description": "Change how bright it looks during the day. A multiplier (+3) will lead in a big change in brightness.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"eveningBrightnessMultiplier": {
+				"description": "Change how bright it looks in the evening. A multiplier (+3) will lead in a big change in brightness.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"nightBrightnessMultiplier": {
+				"description": "Change how bright it looks at night. A multiplier (+3) will lead in a big change in brightness.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			}
+		}
+	}
 }
