@@ -338,6 +338,7 @@
     <Compile Include="Configurations\Sections\DeconstructConfiguration.cs" />
     <Compile Include="Configurations\Sections\ArmorConfiguration.cs" />
     <Compile Include="Configurations\Sections\DurabilityConfiguration.cs" />
+    <Compile Include="Configurations\Sections\PickableConfiguration.cs" />
     <Compile Include="Configurations\Sections\SmelterConfiguration.cs" />
     <Compile Include="Configurations\Sections\FreePlacementRotationConfiguration.cs" />
     <Compile Include="Configurations\Sections\GatherConfiguration.cs" />
@@ -390,6 +391,7 @@
     <Compile Include="GameClasses\Hud.cs" />
     <Compile Include="GameClasses\EventSystem.cs" />
     <Compile Include="GameClasses\MonsterAI.cs" />
+    <Compile Include="GameClasses\Pickable.cs" />
     <Compile Include="GameClasses\Settings.cs" />
     <Compile Include="GameClasses\SE_Rested.cs" />
     <Compile Include="GameClasses\Piece.cs" />
