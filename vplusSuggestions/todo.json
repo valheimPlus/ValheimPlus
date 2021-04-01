@@ -256,12 +256,6 @@
     "progress": "0",
     "category": "PVP"
   },
-  "In-game Clock": {
-    "description": "A ingame display of the in-game. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/365'>reference</a>",
-    "icon": "fa fa-clock",
-    "status": "In Consideration",
-    "category": "Hud"
-  },
   "Increase difficulty based on day in game": {
     "description": "Add the ability to add a difficulty multiplier per day.",
     "icon": "fad fa-sort-numeric-up",
@@ -316,12 +310,6 @@
     "icon": "fas fa-shopping-cart",
     "status": "In Consideration",
     "category": "Map"
-  },
-  "Modifiers for Berries and Bushes": {
-    "description": "Add a configuration settings to modify the amount of berries harvested from bushes. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/222'>reference</a>",
-    "icon": "fab fa-raspberry-pi",
-    "status": "In Consideration",
-    "category": "Items"
   },
   "Modify Block and Parry Levels of Weapons": {
     "description": "Add the ability to modify block and parry levels. Not being able to modify block values for weapons - especially 2h weapons- makes block worthless when setting up dmg scaling for +100%.",
