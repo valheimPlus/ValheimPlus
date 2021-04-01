@@ -1552,6 +1552,16 @@
 				"description": "By default items go to their original position when picking up your tombstone. Set to true to make all stacks try to merge with an existing stack first.",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"holdAltToAutoSplit": {
+				"description": "If true, holding alt while clicking an item will take as much as you can carry without becoming encumbered. If an item in the player inventory is clicked, move or drop as little as possible to become unencumbered.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoMoveByDefault": {
+				"description": "If true, holdAltToAutoSplit will move the item for you (to the first available slot). If false, you get to place the item yourself. Hold alt+shift to toggle to the opposite behavior once.",
+				"defaultValue": "true",
+				"defaultType": "bool"
 			}
 		}
 	},

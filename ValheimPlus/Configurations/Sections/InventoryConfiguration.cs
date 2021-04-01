@@ -4,6 +4,8 @@ namespace ValheimPlus.Configurations.Sections
     {
         public bool inventoryFillTopToBottom { get; internal set; } = false;
         public bool mergeWithExistingStacks { get; internal set; } = false;
+        public bool holdAltToAutoSplit { get; internal set; } = false;
+        public bool autoMoveByDefault { get; internal set; } = true;
         public int playerInventoryRows { get; internal set; } = 4;
         public int woodChestColumns { get; internal set; } = 5;
         public int woodChestRows { get; internal set; } = 2;
