@@ -44,7 +44,7 @@ namespace ValheimPlus.GameClasses
 				{
 					if (Input.GetKeyDown(KeyCode.E))
 					{
-						bool flag = Traverse.Create(__instance).Method("IsCurrent", new object[0]).GetValue<bool>() || repeat || (Configuration.Current.Bed.unclaimedBedsOnly && ___m_nview.GetZDO().GetLong("owner", 0L) != 0L);
+						bool flag = Traverse.Create(__instance).Method("IsCurrent", new object[0]).GetValue<bool>() || repeat || Configuration.Current.Bed.unclaimedBedsOnly && ___m_nview.GetZDO().GetLong("owner", 0L) != 0L;
 						if (!flag)
 						{
 							Player humanPlayer = human as Player;
