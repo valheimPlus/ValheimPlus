@@ -487,12 +487,6 @@
     "status": "In Consideration",
     "category": "Monsters"
   },
-  "Sleep on any bed": {
-    "description": "Add the ability to sleep on any bed without setting spawn points. Also introduce sleeping bags if possible.",
-    "icon": "far fa-bed-bunk",
-    "status": "In Consideration",
-    "category": "Items"
-  },
   "System to modify merchant items and costs": {
     "description": "A system to modify the offered items from the merchant and their specific costs. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/252'>reference</a>",
     "icon": "fas fa-sack",
