@@ -88,6 +88,7 @@ namespace ValheimPlus.GameClasses
 
         private static void applyEnvModifier(EnvSetup env)
         {
+            /* changing brightness during a period of day had a coupling affect with other period, need further development
             env.m_fogColorMorning = applyBrightnessModifier(env.m_fogColorMorning, Configuration.Current.Brightness.morningBrightnessMultiplier);
             env.m_fogColorSunMorning = applyBrightnessModifier(env.m_fogColorSunMorning, Configuration.Current.Brightness.morningBrightnessMultiplier);
             env.m_sunColorMorning = applyBrightnessModifier(env.m_sunColorMorning, Configuration.Current.Brightness.morningBrightnessMultiplier);
@@ -100,6 +101,7 @@ namespace ValheimPlus.GameClasses
             env.m_fogColorEvening = applyBrightnessModifier(env.m_fogColorEvening, Configuration.Current.Brightness.eveningBrightnessMultiplier);
             env.m_fogColorSunEvening = applyBrightnessModifier(env.m_fogColorSunEvening, Configuration.Current.Brightness.eveningBrightnessMultiplier);
             env.m_sunColorEvening = applyBrightnessModifier(env.m_sunColorEvening, Configuration.Current.Brightness.eveningBrightnessMultiplier);
+            */
 
             env.m_ambColorNight = applyBrightnessModifier(env.m_ambColorNight, Configuration.Current.Brightness.nightBrightnessMultiplier);
             env.m_fogColorNight = applyBrightnessModifier(env.m_fogColorNight, Configuration.Current.Brightness.nightBrightnessMultiplier);
@@ -111,7 +113,16 @@ namespace ValheimPlus.GameClasses
         {
             float h, s, v;
             Color.RGBToHSV(color, out h, out s, out v);
-            v = Mathf.Clamp01(Helper.applyModifierValue(v, multiplier));
+            float scaleFunc;
+            if (multiplier >= 0)
+            {
+                scaleFunc = (Mathf.Sqrt(multiplier) * 1.069952679E-4f) + 1f;
+            }
+            else
+            {
+                scaleFunc = 1f - (Mathf.Sqrt(Mathf.Abs(multiplier)) * 1.069952679E-4f);
+            }
+            v = Mathf.Clamp01(v * scaleFunc);
             return Color.HSVToRGB(h, s, v);
         }
     }

@@ -1903,23 +1903,8 @@
 				"defaultType": "bool",
 				"defaultValue": "false"
 			},
-			"morningBrightnessMultiplier": {
-				"description": "Change how bright it looks in the morning. A multiplier (+3) will lead in a big change in brightness.",
-				"defaultValue": "0",
-				"defaultType": "float"
-			},
-			"dayBrightnessMultiplier": {
-				"description": "Change how bright it looks during the day. A multiplier (+3) will lead in a big change in brightness.",
-				"defaultValue": "0",
-				"defaultType": "float"
-			},
-			"eveningBrightnessMultiplier": {
-				"description": "Change how bright it looks in the evening. A multiplier (+3) will lead in a big change in brightness.",
-				"defaultValue": "0",
-				"defaultType": "float"
-			},
 			"nightBrightnessMultiplier": {
-				"description": "Change how bright it looks at night. A multiplier (+3) will lead in a big change in brightness.",
+				"description": "Change how bright it looks at night. A multiplier (+100) will result in nearly double in brightness.",
 				"defaultValue": "0",
 				"defaultType": "float"
 			}
