@@ -5,6 +5,7 @@ namespace ValheimPlus.Configurations
     public class Configuration
     {
         public static Configuration Current { get; set; }
+        public static Configuration Local { get; set; }
         public AdvancedBuildingModeConfiguration AdvancedBuildingMode { get; set; }
         public AdvancedEditingModeConfiguration AdvancedEditingMode { get; set; }
         public BeehiveConfiguration Beehive { get; set; }
@@ -49,5 +50,6 @@ namespace ValheimPlus.Configurations
         public PlayerProjectileConfiguration PlayerProjectile { get; set; }
         public MonsterProjectileConfiguration MonsterProjectile { get; set; }
         public GameClockConfiguration GameClock { get; set; }
+        public NetworkConfiguration NetworkConfiguration { get; set; }
     }
 }

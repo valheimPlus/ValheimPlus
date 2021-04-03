@@ -39,7 +39,10 @@ namespace ValheimPlus.Configurations
             try
             {
                 if (File.Exists(ConfigIniPath))
+                {
                     Configuration.Current = LoadFromIni(ConfigIniPath);
+                    Configuration.Local = Configuration.Current;
+                }
                 else
                 {
                     Debug.LogError("Error: Configuration not found. Plugin not loaded.");

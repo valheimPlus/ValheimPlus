@@ -40,50 +40,53 @@
       <HintPath>..\packages\HarmonyX.2.3.1\lib\net35\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="assembly_googleanalytics_publicized">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\publicized_assemblies\assembly_googleanalytics_publicized.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_googleanalytics_publicized.dll</HintPath>
     </Reference>
     <Reference Include="assembly_guiutils_publicized">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\publicized_assemblies\assembly_guiutils_publicized.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_guiutils_publicized.dll</HintPath>
     </Reference>
     <Reference Include="assembly_lux_publicized">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\publicized_assemblies\assembly_lux_publicized.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_lux_publicized.dll</HintPath>
     </Reference>
     <Reference Include="assembly_postprocessing_publicized">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\publicized_assemblies\assembly_postprocessing_publicized.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_postprocessing_publicized.dll</HintPath>
     </Reference>
     <Reference Include="assembly_simplemeshcombine_publicized">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\publicized_assemblies\assembly_simplemeshcombine_publicized.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_simplemeshcombine_publicized.dll</HintPath>
     </Reference>
     <Reference Include="assembly_steamworks_publicized">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\publicized_assemblies\assembly_steamworks_publicized.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_steamworks_publicized.dll</HintPath>
     </Reference>
     <Reference Include="assembly_sunshafts_publicized">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\publicized_assemblies\assembly_sunshafts_publicized.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_sunshafts_publicized.dll</HintPath>
     </Reference>
     <Reference Include="assembly_utils_publicized">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\publicized_assemblies\assembly_utils_publicized.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_utils_publicized.dll</HintPath>
     </Reference>
     <Reference Include="assembly_valheim_publicized">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\publicized_assemblies\assembly_valheim_publicized.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\publicized_assemblies\assembly_valheim_publicized.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx, Version=5.4.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\BepInEx\core\BepInEx.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx.Harmony, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\BepInEx\core\BepInEx.Harmony.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\core\BepInEx.Harmony.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx.Preloader, Version=5.4.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\BepInEx\core\BepInEx.Preloader.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\core\BepInEx.Preloader.dll</HintPath>
     </Reference>
     <Reference Include="HarmonyXInterop, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\BepInEx\core\HarmonyXInterop.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\core\HarmonyXInterop.dll</HintPath>
     </Reference>
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4, Version=1.0.15.93, Culture=neutral, PublicKeyToken=62e1b5ec1eec9bdd, processorArchitecture=MSIL">
+      <HintPath>..\packages\lz4net.1.0.15.93\lib\net4-client\LZ4.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil, Version=0.11.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Cecil.0.11.3\lib\net40\Mono.Cecil.dll</HintPath>
@@ -98,7 +101,7 @@
       <HintPath>..\packages\Mono.Cecil.0.11.3\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\Mono.Security.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\unstripped_corlib\Mono.Security.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.RuntimeDetour, Version=20.11.26.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoMod.RuntimeDetour.20.11.26.2\lib\net40\MonoMod.RuntimeDetour.dll</HintPath>
@@ -110,218 +113,218 @@
     <Reference Include="System.Net" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AccessibilityModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AccessibilityModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.AccessibilityModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AIModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.AIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AndroidJNIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AndroidJNIModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.AndroidJNIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ARModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ARModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.ARModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClothModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ClothModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.ClothModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClusterInputModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ClusterInputModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.ClusterInputModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClusterRendererModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ClusterRendererModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.ClusterRendererModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CrashReportingModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.CrashReportingModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.CrashReportingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.DirectorModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.DirectorModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.DirectorModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.DSPGraphModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.DSPGraphModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.DSPGraphModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GameCenterModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.GameCenterModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.GameCenterModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GridModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.GridModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.GridModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.HotReloadModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.HotReloadModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.HotReloadModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.InputModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.InputModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.InputModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.JSONSerializeModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.LocalizationModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.LocalizationModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.LocalizationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PerformanceReportingModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.PerformanceReportingModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.PerformanceReportingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Physics2DModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.Physics2DModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.Physics2DModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ProfilerModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ProfilerModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.ProfilerModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ScreenCaptureModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.ScreenCaptureModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SharedInternalsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.SharedInternalsModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.SharedInternalsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpriteMaskModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.SpriteMaskModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.SpriteMaskModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpriteShapeModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.SpriteShapeModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.SpriteShapeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StreamingModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.StreamingModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.StreamingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SubstanceModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.SubstanceModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.SubstanceModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SubsystemsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.SubsystemsModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.SubsystemsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TerrainModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.TerrainModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.TerrainModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TerrainPhysicsModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.TerrainPhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextCoreModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.TextCoreModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.TextCoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TilemapModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.TilemapModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.TilemapModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TLSModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.TLSModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.TLSModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIElementsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UIElementsModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UIElementsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UmbraModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UmbraModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UmbraModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UNETModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UNETModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UNETModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityAnalyticsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UnityAnalyticsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityConnectModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityConnectModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UnityConnectModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityTestProtocolModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityTestProtocolModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UnityTestProtocolModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestAudioModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestTextureModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestWWWModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VehiclesModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.VehiclesModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.VehiclesModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VFXModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.VFXModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.VFXModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VideoModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.VideoModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.VideoModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VRModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.VRModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.VRModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.WindModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.WindModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.WindModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.XRModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.XRModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Valheim\valheim_Data\Managed\UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="YamlDotNet, Version=9.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
       <HintPath>..\packages\YamlDotNet.9.1.4\lib\net35\YamlDotNet.dll</HintPath>
@@ -339,6 +342,7 @@
     <Compile Include="Configurations\Sections\ArmorConfiguration.cs" />
     <Compile Include="Configurations\Sections\DurabilityConfiguration.cs" />
     <Compile Include="Configurations\Sections\PickableConfiguration.cs" />
+    <Compile Include="Configurations\Sections\NetworkConfiguration.cs" />
     <Compile Include="Configurations\Sections\SmelterConfiguration.cs" />
     <Compile Include="Configurations\Sections\FreePlacementRotationConfiguration.cs" />
     <Compile Include="Configurations\Sections\GatherConfiguration.cs" />
@@ -400,6 +404,8 @@
     <Compile Include="GameClasses\Tameable.cs" />
     <Compile Include="GameClasses\TeleportWorld.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
+    <Compile Include="GameClasses\ZDOMan.cs" />
+    <Compile Include="GameClasses\ZSteamSocket.cs" />
     <Compile Include="RPC\VPlusAck.cs" />
     <Compile Include="Utility\GameObjectAssistant.cs" />
     <Compile Include="Utility\InventoryAssistant.cs" />
@@ -447,11 +453,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)ValheimPlus.dll" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll"
-copy "$(TargetDir)ValheimPlus.pdb" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.pdb"
-copy "$(TargetDir)ValheimPlus.dll.config" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll.config"
-$(SolutionDir)resources\tools\pdb2mdb.exe "$(TargetPath)"
-copy "$(TargetDir)\ValheimPlus.dll.mdb" "$(VALHEIM_INSTALL)\BepInEx\plugins\ValheimPlus.dll.mdb"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
