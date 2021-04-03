@@ -1,0 +1,14 @@
+{
+	"enforceMod not working as expected": {
+		"id": "1",
+		"bug_description": "Currently the way enforceMod works makes it impossible for a client with V+ to connect both to non-V+ servers and to V+ servers that have enforceMod=true. One has to change its local configuration every time."
+	},
+	"When using auto-equip shield the shield stays equipped after weapon is put away": {
+		"id": "2",
+		"bug_description": "When using auto-equip shield the shield stays equipped after weapon is put away"
+	},
+	"Config merger strips multi-comment lines out": {
+		"id": "3",
+		"bug_description": "When using the new config handling web app at https://valheim-plus-config.web.app/. The web app is stripping out multi-line comments (appears to only keep the last line before the actual configuration value)."
+	}
+}
