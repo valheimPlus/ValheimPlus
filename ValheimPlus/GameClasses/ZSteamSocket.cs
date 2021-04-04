@@ -136,7 +136,8 @@ namespace ValheimPlus.GameClasses
         ///We are re-writing each of the outgoing byte arrays as a compressed package if necessary.
         private static void Prefix(ref ZSteamSocket __instance)
         {
-            if (!Configuration.Local.NetworkConfiguration.enableCompression) {
+            if (!Configuration.Local.NetworkConfiguration.enableCompression &&
+                VPlusNetworkStaticSync.SteamPeerSupportsCompression(__instance.GetPeerId()) {
                 ///Don't do anything if compression isn't enabled.
                 return; 
             }

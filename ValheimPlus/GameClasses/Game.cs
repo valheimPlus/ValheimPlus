@@ -19,6 +19,7 @@ namespace ValheimPlus.GameClasses
             ZRoutedRpc.instance.Register("VPlusConfigSync", new Action<long, ZPackage>(VPlusConfigSync.RPC_VPlusConfigSync)); //Config Sync
             ZRoutedRpc.instance.Register("VPlusMapSync", new Action<long, ZPackage>(VPlusMapSync.RPC_VPlusMapSync)); //Map Sync
             ZRoutedRpc.instance.Register("VPlusAck", new Action<long>(VPlusAck.RPC_VPlusAck)); //Ack
+            ZRoutedRpc.instance.Register("VPlusNetworkStatusSync", new Action<long, ZPackage>(VPlusNetworkStatusManager.RPC_VPlusNetworkStatusSync)); //Network Status Sync
         }
     }
 
