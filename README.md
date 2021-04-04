@@ -108,6 +108,11 @@ We work together closely to make sure all our features are integrated and workin
 
 # Crafting and Production
 
+### Craft From Chests
+* Allow building using the content of nearby chests.
+* Allow crafting from stations using the content of nearby chests.
+* Allow putting meat on cooking stands using the content of nearby chests.
+
 ### Workbench
 * Modify Workbench radius.
 * Modify the radius at which Workbench attachments can be placed.
@@ -236,10 +241,6 @@ We work together closely to make sure all our features are integrated and workin
 
 
 
-
-
-
-
 # Server
 * Remove password requirement for the server.
 * Modify the maximum amount of players on a server.
@@ -247,12 +248,6 @@ We work together closely to make sure all our features are integrated and workin
    * *Note: Items on ground will retain base game functionality which ensures that drops don't disappear if a player is nearby or there is a "player base" nearby*
 * Automatically sync V+ configuration of players joining a server to match the server's configuration.
 
-
-
-### Craft From Chests
-* Allow building using the content of nearby chests.
-* Allow crafting from stations using the content of nearby chests.
-* Allow putting meat on cooking stands using the content of nearby chests.
 
 
 # Installation Instructions
