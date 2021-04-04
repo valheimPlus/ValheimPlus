@@ -85,6 +85,9 @@
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
     </Reference>
+    <Reference Include="LZ4, Version=1.0.15.93, Culture=neutral, PublicKeyToken=62e1b5ec1eec9bdd, processorArchitecture=MSIL">
+      <HintPath>..\packages\lz4net.1.0.15.93\lib\net4-client\LZ4.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Cecil, Version=0.11.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Cecil.0.11.3\lib\net40\Mono.Cecil.dll</HintPath>
     </Reference>
@@ -332,6 +335,7 @@
     <Compile Include="AdvancedEditingMode.cs" />
     <Compile Include="Configurations\Sections\GameClockConfiguration.cs" />
     <Compile Include="Configurations\Sections\MonsterProjectileConfiguration.cs" />
+    <Compile Include="Configurations\Sections\NetworkConfiguration.cs" />
     <Compile Include="Configurations\Sections\PlayerProjectileConfiguration.cs" />
     <Compile Include="Configurations\Sections\CraftFromChestConfiguration.cs" />
     <Compile Include="Configurations\Sections\FirstPersonConfiguration.cs" />
@@ -400,7 +404,10 @@
     <Compile Include="GameClasses\Tameable.cs" />
     <Compile Include="GameClasses\TeleportWorld.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
+    <Compile Include="GameClasses\ZDOMan.cs" />
+    <Compile Include="GameClasses\ZSteamSocket.cs" />
     <Compile Include="RPC\VPlusAck.cs" />
+    <Compile Include="RPC\VPlusNetworkStatusSync.cs" />
     <Compile Include="Utility\GameObjectAssistant.cs" />
     <Compile Include="Utility\InventoryAssistant.cs" />
     <Compile Include="Utility\ListExtensions.cs" />
