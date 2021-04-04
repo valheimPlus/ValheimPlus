@@ -248,11 +248,6 @@ We work together closely to make sure all our features are integrated and workin
 * Automatically sync V+ configuration of players joining a server to match the server's configuration.
 
 
-### Time and Day Manipulation
-*This feature is currently disabled*
-* Modify total time of day/night cycle.
-* Modify speed of time passing at night.
-
 
 ### Craft From Chests
 * Allow building using the content of nearby chests.
