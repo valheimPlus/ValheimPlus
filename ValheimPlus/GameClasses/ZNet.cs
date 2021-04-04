@@ -58,13 +58,17 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(ZNet), "RPC_PeerInfo")]
     public static class ConfigServerSync
     {
-        private static void Postfix(ref ZNet __instance)
+        private static void Postfix(ref ZNet __instance, ZRpc rpc, ZPackage pkg)
         {
             if (!ZNet.m_isServer)
             {
                 ZLog.Log("-------------------- SENDING VPLUGCONFIGSYNC REQUEST");
                 ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusConfigSync", new object[] { new ZPackage() });
                 VPlusNetworkStatusManager.SendNetworkStatus(ZRoutedRpc.instance.GetServerPeerID(), new VPlusNetworkStatus(Configuration.Local.NetworkConfiguration.enableCompression, 0));
+            }
+            else
+            {
+                VPlusNetworkStatusManager.SendNetworkStatus(__instance.GetPeer(rpc).m_uid, new VPlusNetworkStatus(Configuration.Local.NetworkConfiguration.enableCompression, 0));
             }
         }
     }
