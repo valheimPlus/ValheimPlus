@@ -4,6 +4,7 @@ using IniParser.Model;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
@@ -40,13 +41,52 @@ namespace ValheimPlus.Configurations
             {
                 if (File.Exists(ConfigIniPath))
                 {
+                    FileIniDataParser parser = new FileIniDataParser();
+                    IniData configdata = parser.ReadFile(ConfigIniPath);
+
+                    string compareIni = null;
+                    try
+                    {
+                        // get the current versions ini data
+                        compareIni = ValheimPlusPlugin.getCurrentWebIniFile();
+                    }
+                    catch (Exception e) { }
+
+                    if (compareIni != null)
+                    {
+                        StreamReader reader = new StreamReader(new MemoryStream(System.Text.Encoding.ASCII.GetBytes(compareIni)));
+                        IniData webConfig = parser.ReadData(reader);
+
+                        // Duplication of comments otherwise with this merge function.
+                        configdata.ClearAllComments();
+
+                        webConfig.Merge(configdata);
+                        parser.WriteFile(ConfigIniPath, webConfig);
+                    }
+
                     Configuration.Current = LoadFromIni(ConfigIniPath);
                     Configuration.Local = Configuration.Current;
                 }
                 else
                 {
-                    Debug.LogError("Error: Configuration not found. Plugin not loaded.");
-                    return false;
+                    Debug.LogError("Error: Configuration not found. Trying to download latest config.");
+
+                    // download latest ini if not present
+                    bool status = false;
+                    try
+                    {
+                        string defaultIni = ValheimPlusPlugin.getCurrentWebIniFile();
+                        if(defaultIni != null)
+                        {
+                            System.IO.File.WriteAllText(ConfigIniPath, defaultIni);
+                            Debug.Log("Default Configuration downloaded. Loading downloaded default settings.");
+                            Configuration.Current = LoadFromIni(ConfigIniPath);
+                            status = true;
+                        }
+                    }
+                    catch (Exception e) { }
+
+                    return status;
                 }
             }
             catch (Exception ex)
