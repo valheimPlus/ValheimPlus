@@ -78,7 +78,7 @@ namespace ValheimPlus.RPC
                             ValheimPlusPlugin.harmony.UnpatchSelf();
 
                             // Sync HotKeys when connecting ?
-                            if(Configuration.Current.Server.IsEnabled && Configuration.Current.Server.serverSyncHotkeys)
+                            if(Configuration.Current.Server.IsEnabled && !Configuration.Current.Server.serverSyncHotkeys)
                             {
                                 isConnecting = true;
                                 Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);

@@ -51,7 +51,8 @@ We work together closely to make sure all our features are integrated and workin
 
 **Map**
 * Force all players in the server to display their map position.
-* Allow all players to share all map exploration with every other player in the server, as long as their map position is displayed (currently players only receive map exploration from other players while they are online).
+* Allow all players to share all map exploration with every other player in the server, as long as their map position is displayed.
+* A system to automatically share all map progression with players connecting, even if they have never been on the server.
 
 **Camera**
 * Change the player's Field of View.
