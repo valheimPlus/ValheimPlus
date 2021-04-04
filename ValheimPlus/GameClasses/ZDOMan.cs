@@ -30,7 +30,7 @@ namespace ValheimPlus.GameClasses
                 if (microSecondsTillNextSend > microSecondsBetweenChunks)
                 {
                     //We do not expect that we can send data this chunk
-                    __result = false; return true;
+                    __result = false; return false;
                 }
                 else
                 {
@@ -43,19 +43,19 @@ namespace ValheimPlus.GameClasses
                 int sendQueueSize = peer.m_peer.m_socket.GetSendQueueSize();
                 if (!flush && sendQueueSize > 10240)
                 {
-                    __result = false; return true;
+                    __result = false; return false;
                 }
                 numberOfBytesWeCanBuffer = 10240 - sendQueueSize;
                 if (numberOfBytesWeCanBuffer < 2048)
                 {
-                    __result = false; return true;
+                    __result = false; return false;
                 }
             }		
             __instance.m_tempToSync.Clear();
             __instance.CreateSyncList(peer, __instance.m_tempToSync);
             if (__instance.m_tempToSync.Count == 0 && peer.m_invalidSector.Count == 0)
             {
-                __result = false; return true;
+                __result = false; return false;
             }
             ZPackage outerDataWrapper = new ZPackage();
             bool haveInvalidSectorsToSend = false;
@@ -110,7 +110,7 @@ namespace ValheimPlus.GameClasses
                 });
             }
             __result = havePackageDataToSend || haveInvalidSectorsToSend;
-            return true;
+            return false;
         }
     }
 

@@ -137,10 +137,13 @@ namespace ValheimPlus.GameClasses
     {
         private static void Postfix()
         {
-            int maxSendRate = Configuration.Local.NetworkConfiguration.maxSendRatePerConnection_kbps * 1200;
-            GCHandle maxSendRateHandle = GCHandle.Alloc(maxSendRate, GCHandleType.Pinned);
-            SteamNetworkingUtils.SetConfigValue(ESteamNetworkingConfigValue.k_ESteamNetworkingConfig_SendRateMax, ESteamNetworkingConfigScope.k_ESteamNetworkingConfig_Global, IntPtr.Zero, ESteamNetworkingConfigDataType.k_ESteamNetworkingConfig_Int32, maxSendRateHandle.AddrOfPinnedObject());
-            maxSendRateHandle.Free();
+            if (ZSteamSocket.m_statusChanged == null)
+            {
+                int maxSendRate = Configuration.Local.NetworkConfiguration.maxSendRatePerConnection_kbps * 1200;
+                GCHandle maxSendRateHandle = GCHandle.Alloc(maxSendRate, GCHandleType.Pinned);
+                SteamNetworkingUtils.SetConfigValue(ESteamNetworkingConfigValue.k_ESteamNetworkingConfig_SendRateMax, ESteamNetworkingConfigScope.k_ESteamNetworkingConfig_Global, IntPtr.Zero, ESteamNetworkingConfigDataType.k_ESteamNetworkingConfig_Int32, maxSendRateHandle.AddrOfPinnedObject());
+                maxSendRateHandle.Free();
+            }
         }
     }
 
@@ -154,8 +157,10 @@ namespace ValheimPlus.GameClasses
         ///We are re-writing each of the outgoing byte arrays as a compressed package if necessary.
         private static void Prefix(ref ZSteamSocket __instance)
         {
-            if (!Configuration.Local.NetworkConfiguration.enableCompression &&
-                VPlusNetworkStatusManager.SteamPeerSupportsCompression(__instance.GetPeerID())) {
+            if ( Configuration.Local == null ||
+                 Configuration.Local.NetworkConfiguration == null ||
+                 ! Configuration.Local.NetworkConfiguration.enableCompression ||
+                 ! VPlusNetworkStatusManager.SteamPeerSupportsCompression(__instance.GetPeerID())) {
                 ///Don't do anything if compression isn't enabled.
                 return; 
             }

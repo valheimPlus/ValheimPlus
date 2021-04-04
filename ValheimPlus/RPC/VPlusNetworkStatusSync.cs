@@ -19,6 +19,7 @@ namespace ValheimPlus.RPC
         public VPlusNetworkStatus(ZPackage pkg)
         {
             this.Deserialize(pkg);
+            ZLog.Log("Desierialized networkstatus to " + this.ToString());
         }
 
         public ZPackage Serialize()
@@ -33,12 +34,18 @@ namespace ValheimPlus.RPC
             this.CompressionEnabled = pkg.ReadBool();
             this.EstimatedUpstreamCapacity = pkg.ReadInt();
         }
+        override
+        public string ToString()
+        {
+            return "CompressionEnabled: " + this.CompressionEnabled + ", EstimatedUpstreamCapacity: " + this.EstimatedUpstreamCapacity;
+        }
     }
     public class VPlusNetworkStatusManager
     {
         public static Dictionary<long, VPlusNetworkStatus> peerNetworkCapabilities = new Dictionary<long, VPlusNetworkStatus>();
         public static void RPC_VPlusNetworkStatusSync(long sender, ZPackage configPkg)
         {
+            ZLog.Log("-------------------------- Got NetworkSyncStatus from " + sender);
             if(!peerNetworkCapabilities.ContainsKey(sender))
             {
                 peerNetworkCapabilities.Add(sender, new VPlusNetworkStatus(configPkg));
