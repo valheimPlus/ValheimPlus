@@ -26,8 +26,7 @@ namespace ValheimPlus.GameClasses
 				ZSteamSocket peerSocket = (ZSteamSocket)peer.m_peer.m_socket;
 				//If the next send is outside our current timeslice we should wait so higher priority data can get buffered
 				long microSecondsTillNextSend = peerSocket.GetEstimatedMicroSecondDelayTillNextTransfer();
-				int numChunksPerSecond = 20;
-				long microSecondsBetweenChunks = (long)(1000000.0f * (1.0f/ (float)numChunksPerSecond)); //Currently hardcoded to 0.05f or 1/20th of a second.
+				long microSecondsBetweenChunks = (long)(1000000.0f * (1.0f/ (float)ZDOMan.m_sendFPS)); //Currently hardcoded to 0.05f or 1/20th of a second.
 				if (microSecondsTillNextSend > microSecondsBetweenChunks)
                 {
 					//We do not expect that we can send data this chunk
@@ -35,7 +34,7 @@ namespace ValheimPlus.GameClasses
                 }
                 else
                 {
-					numberOfBytesWeCanBuffer = peerSocket.GetEstimatedSendCapacity() / numChunksPerSecond;
+					numberOfBytesWeCanBuffer = (int)(peerSocket.GetEstimatedSendCapacity() / ZDOMan.m_sendFPS);
 				}
 			}
             else

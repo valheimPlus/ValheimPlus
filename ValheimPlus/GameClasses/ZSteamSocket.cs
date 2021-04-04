@@ -21,6 +21,9 @@ namespace ValheimPlus.GameClasses
     {
         public static long totalCompressedSize = 0L;
         public static long totalUncompressedSize = 0L;
+
+        private static int estimatedCapacityTotal = 0;
+        private static int estimatedCapacityCount = 0;
  
         public static int GetEstimatedSendCapacity(this ZSteamSocket zsteamsocket)
         {
@@ -44,6 +47,21 @@ namespace ValheimPlus.GameClasses
                         myEstimatedThroughput = steamNetworkingQuickConnectionStatus.m_nSendRateBytesPerSecond;
                     }
                     totalSendRate += (int)steamNetworkingQuickConnectionStatus.m_flOutBytesPerSec;
+                    if (!ZNet.m_isServer)
+                    {
+                        if(estimatedCapacityCount > ZDOMan.m_sendFPS*2)
+                        {
+                            VPlusNetworkStatusManager.SendNetworkStatus(ZRoutedRpc.instance.GetServerPeerID(), new VPlusNetworkStatus(Configuration.Local.NetworkConfiguration.enableCompression, estimatedCapacityTotal / estimatedCapacityCount));
+                            estimatedCapacityCount = 1;
+                            estimatedCapacityTotal = steamNetworkingQuickConnectionStatus.m_nSendRateBytesPerSecond;
+                        }
+                        else
+                        {
+                            estimatedCapacityCount += 1;
+                            estimatedCapacityTotal += steamNetworkingQuickConnectionStatus.m_nSendRateBytesPerSecond;
+                        }
+                    }
+
                 }
 
             }

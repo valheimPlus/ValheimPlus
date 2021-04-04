@@ -64,6 +64,7 @@ namespace ValheimPlus.GameClasses
             {
                 ZLog.Log("-------------------- SENDING VPLUGCONFIGSYNC REQUEST");
                 ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusConfigSync", new object[] { new ZPackage() });
+                VPlusNetworkStatusManager.SendNetworkStatus(ZRoutedRpc.instance.GetServerPeerID(), new VPlusNetworkStatus(Configuration.Local.NetworkConfiguration.enableCompression, 0));
             }
         }
     }
