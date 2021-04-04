@@ -1861,7 +1861,7 @@
 			}
 		}
 	},
-  "Tameable": {
+	"Tameable": {
 		"description": "",
 		"icon": "fas fa-paw",
 		"description_website": "Change the in-game behaviour of creatures tamed by players.",
@@ -1885,7 +1885,34 @@
 				"description": "How long it takes for a tamed creature to recover(in seconds) if mortality is set to 1(essential) and they are stunned.",
 				"defaultValue": "10",
 				"defaultType": "float"
-      }
-    }
-  }
+			}
+		}
+	},
+	"Network": {
+		"description": "",
+		"icon": "fas fa-wifi",
+		"description_website": "Changes local networking configurations for server/client.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section.",
+				"defaultType": "bool",
+				"defaultValue": "true"
+			},
+			"maxSendRatePerConnection_kbps": {
+				"description": "Sets the absolute maximum throughput the game will use for a single connection in KB/s. As a client this should be at most 10% less than your actual upload bandwidth. As a server, this should be roughly 10% less than MAX_UPLOAD/MAX_CLIENTS.",
+				"defaultValue": "128",
+				"defaultType": "int"
+			},
+			"maxSendRateOverall_kbps": {
+				"description": "Sets the absolute maximum throughput the game will use for all connections in KB/s. Not useful for a client. For a server, if your maxSendRatePerConnection_kbps*MAX_CLIENTS > maxSendRateOverall_kbps it is possible that you will starve some clients. maxSendRateOverall_kbps should be roughly 10% less than your MAX_UPLOAD.",
+				"defaultValue": "1280",
+				"defaultType": "int"
+			},
+			"enableCompression": {
+				"description": "Enables LZ4 compression for outgoing connections if the reciving peer can accept compressed data. Enabling this does not force compression for clients. Compression is negotiated on a per client basis.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	}
 }
