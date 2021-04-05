@@ -2,7 +2,7 @@
 {
     public class SpinningWheelConfiguration : ServerSyncConfig<SpinningWheelConfiguration>
     {
-        public int maximumFlax { get; internal set; } = 40;
+        public int maximumFlax { get; internal set; } = 50;
         public float productionSpeed { get; internal set; } = 30;
         public bool autoDeposit { get; internal set; } = true;
         public bool autoFuel { get; internal set; } = true;
