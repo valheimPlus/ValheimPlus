@@ -36,16 +36,16 @@ We work together closely to make sure all our features are integrated and workin
 * Disable the use of portals.
 * Modify the Guardian buff duration, cooldown and animation.
 * Disable tutorials from Valkyrie.
-* Modify velocity and accuracy of projectiles.
+* Modify velocity and accuracy of projectiles from bows and javelins including a option to scale it with skill level.
 
 
 ### Player Hud
-* Show skill experience gains in the top left corner.
+* Show skill experience gains and current skill level in the top left corner on gaining exp.
 * Show amount of items in the player's inventory when crafting or building an object.
 * Show numerical stamina value below stamina bar.
 * Disable red screen flash on receiving damage.
 * Display a warning message when attempting to place different crops too close to each other.
-* Added hotkey options for forward and backward roll.
+* Hotkey options for forward and backward roll.
 * Display in-game clock in top center.
 
 
@@ -63,16 +63,23 @@ We work together closely to make sure all our features are integrated and workin
 
 **Gathering**
 * Modify the amount of resources dropped on destruction of objects (this includes chitin, stone, all types of wood, and minerals).
-* Modify the drop chance of resources from destroyed objects.
+* Modify the amount of resources gathered from interactable objects.
+  * Edibles: Carrots, Blueberries, Cloudberrys, Raspberrys, Mushrooms, Blue Mushrooms, Yellow Mushrooms
+  * Flowers and Ingredients : Barley, CarrotSeeds, Dandelions, Flax, Thistle, TurnipSeeds, Turnips[/color]
+  * Materials : BoneFragments, Flint, Stone, Wood
+  * Valuables : Ambers, AmberPearls, Coins, Rubys
+  * Surtling cores on item stands inside dungeons.
+* Modify the drop chance of resources from destroyed objects that have a drop chance like muddy scrap piles.
 
 **Wagon**
 * Modify the weight contribution of items placed inside a wagon.
-* Modify the base weight of the wagon.
+* Modify the base weight of all wagons.
 
 **Fire sources**
-* Fire sources retain max fuel once the fuel is added.
-* Can be customised to have either fires and/or torches retaining max fuel.
-* Allow fuel items to be automatically pulled from closest containers.
+* Option to set fires to retain maximum fuel once the fuel is added.
+* Option to set torches and braziers to retain maximum fuel once the fuel is added.
+* A system to allow wood to be automatically pulled and inserted from nearby chests from fires.
+* A system to automatically pull wood on interaction with a fireplace from nearby chests.
 
 **Game Difficulty**
 * Modify the difficulty multipliers applied to health and damage of enemies based on the number of connected players.
@@ -93,7 +100,7 @@ We work together closely to make sure all our features are integrated and workin
   * Longboat chest inventory can be extended up to 30 x 8.
 
 
-**Note: As of 0.9.4, player inventory slot configuration is not compatible with Equipment and Quick slots mod**
+**Note: Player inventory slot configuration is not compatible with Equipment and Quick slots mod unless the Inventory section is disabled.**
 
 
 ### Items
@@ -108,13 +115,15 @@ We work together closely to make sure all our features are integrated and workin
 
 # Crafting and Production
 
-### Craft From Chests
+### Crafting
 * Allow building using the content of nearby chests.
 * Allow crafting from stations using the content of nearby chests.
-* Allow putting meat on cooking stands using the content of nearby chests.
+* Allow searching for items that fit inside nearby chests in addition to the inventory when interacting with objects.
+*as example when interacting with a kiln, it will search for wood in nearby chests in addition to your inventory.*
 
 ### Workbench
 * Modify Workbench radius.
+* Disable Workbench requirements for roof and exposure.
 * Modify the radius at which Workbench attachments can be placed.
 * Allow crafting stations to automatically repair all appropriate items in the player's inventory on interaction.
 
@@ -123,7 +132,7 @@ We work together closely to make sure all our features are integrated and workin
 * Modify Kiln, Furnace and Blast Furnace maximum capacity.
 * Disable Fine Wood and/or Round Log processing for Kiln.
 * Allow fuel-type items to be automatically pulled from closest containers.
-* Allow Kiln to stop pulling wood from closest containers when a specific threshold as been reached. 
+* Allow Kiln to stop pulling wood from closest containers when a specific threshold has been reached. 
 * Allow items produced by Kiln, Furnace and Blast Furnace to be automatically placed in the closest containers.
 * Allow Furnace to process all ore types instead of just Black Metal Scrap and Flametal Ore.
 
@@ -136,31 +145,50 @@ We work together closely to make sure all our features are integrated and workin
 ### Fermenter
 * Modify Fermenter speed.
 * Modify Fermenter output amount.
-* Display time left until next production.
+* Display time left until its finished its next production.
 * Allow meads to be automatically pulled from closest containers.
 * Allow items produced by Fermenter to be automatically placed in the closest containers.
 
 ### Windmill
 * Modify Windmill speed production speed.
-* Modify maximum amount of barley that can be supplied.
+* Modify maximum amount of barley that can be placed inside.
 * Allow ignoring wind intensity so it's always producing at max speed.
 * Allow barley to be automatically pulled from closest containers.
 * Allow items produced by Windmill to be automatically placed in the closest containers.
 
 ### Spinning Wheel
 * Modify Spinning Wheel production speed.
-* Modify maximum amount of flax that can be supplied.
+* Modify maximum amount of flax that can be placed inside.
 * Allow flax to be automatically pulled from closest containers.
 * Allow items produced by Spinning Wheel to be automatically placed in the closest containers.
 
+# Creatures and Monsters
+
+### Tamed Pets
+* Added option for tamed creatures to be normal, essential, or immortal.
+* Added option for modifying the time a tamed essential animal will spend stunned after being hit with what would normally be a killing blow.
+* Added option for determining whether only the owner of a tamed creature can hurt it or not(which also circumvents the essential/immortality option).
+
+### Monsters
+* Modify velocity and accuracy of projectiles.
+* Modify damage and health scaling of monsters in multiplayer based on player count.
+
+# Server
+* Remove password requirement for the server.
+* Modify the maximum amount of players on a server.
+* Modify number of seconds it takes for items to despawn after being dropped on the ground. (default is 3600 seconds).
+   * *Note: Items on ground will retain base game functionality which ensures that drops don't disappear if a player is nearby or there is a "player base" nearby*
+* Automatically sync V+ configuration of players joining a server to match the server's configuration.
+
+
 # Building
 * Disable "Invalid Placement" restriction while building.
-* Disable "Mystical forces" restriction while building and allows to destroying objects using the hammer.
+* Disable "Mystical forces" restriction while building and allows to destroying objects using the hammer in the area.
 * Disable deterioration of placeables from weather exposure. 
 * Disable deterioration of placeables from water exposure.
-* Added a free rotation mode for the default Building Mode.
-* Added Advanced Building Mode.
-* Added Advanced Editing Mode.
+* Free rotation mode for the default Building Mode.
+* Advanced Building Mode.
+* Advanced Editing Mode.
 * Allow aligning buildings to a global grid.
 * Modify the structural integrity of placeables.
 * Modify the maximum distance you can place objects at.
@@ -168,6 +196,22 @@ We work together closely to make sure all our features are integrated and workin
 * Added option for placeables destroyed/dismantled by players to always drop their full material cost, even if built by another player.
 * Modify effective radius of comfort placeables.
 * Modify Ward structure protection radius.
+
+### Grid alignment
+* When pressing the configured key (left alt is the default) new buildings will be aligned to a global grid.
+   * The mode can also be toggled by pressing another key (F7 by default).
+   * Building elements (from the third tab) are aligned to to their size (e.g. a wood wall will have an alignment of 2m in X and Y direction). The alignment of building elements in other directorion can be configured (by default with the F6 key) to 0.5m, 1m, 2m or 4m.
+   * Other buildings like furniture will always be aligned to 0.5m, but the Y position will not be aligned (to make sure they are always exactly on the floor).
+
+### Structural Integrity
+* Apply a modifier to the structural integrity of the following materials:
+  * Wood
+  * Stone
+  * Iron
+  * Hardwood
+* Disable structural integrity entirely (this will cause objects placed mid-air to not break and fall).
+* Make anything built by players immune to all damage.
+* Make boats invincible to all damage.
 
 ### Free Rotation Mode for the default Building Mode
 * **Video demo: https://imgur.com/xMH7STj.mp4**
@@ -212,41 +256,6 @@ We work together closely to make sure all our features are integrated and workin
 **NOTE:**
 * *Other players will not be able to see the item being moved until the player building the item confirms the placement. Dungeons and other no-build areas are still restricted.* 
 
-### Grid alignment
-* When pressing the configured key (left alt is the default) new buildings will be aligned to a global grid.
-   * The mode can also be toggled by pressing another key (F7 by default).
-   * Building elements (from the third tab) are aligned to to their size (e.g. a wood wall will have an alignment of 2m in X and Y direction). The alignment of building elements in other directorion can be configured (by default with the F6 key) to 0.5m, 1m, 2m or 4m.
-   * Other buildings like furniture will always be aligned to 0.5m, but the Y position will not be aligned (to make sure they are always exactly on the floow).
-
-### Structural Integrity
-* Apply a modifier to the structural integrity of the following materials:
-  * Wood
-  * Stone
-  * Iron
-  * Hardwood
-* Disable structural integrity entirely (this will cause objects placed mid-air to not break and fall).
-* Make anything built by players immune to all damage.
-* Make boats invincible to all damage.
-
-
-# Creatures and Monsters
-
-### Protected Pets
-* Added option for tamed creatures to be normal, essential, or immortal.
-* Added option for modifying the time a tamed essential animal will spend stunned after being hit with what would normally be a killing blow.
-* Added option for determining whether only the owner of a tamed creature can hurt it or not(which also circumvents the essential/immortality option).
-
-### Monster Projectile
-* Modify velocity and accuracy of projectiles.
-
-
-
-# Server
-* Remove password requirement for the server.
-* Modify the maximum amount of players on a server.
-* Modify number of seconds it takes for items to despawn after being dropped on the ground. (default is 3600 seconds).
-   * *Note: Items on ground will retain base game functionality which ensures that drops don't disappear if a player is nearby or there is a "player base" nearby*
-* Automatically sync V+ configuration of players joining a server to match the server's configuration.
 
 
 
