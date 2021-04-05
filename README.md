@@ -49,19 +49,19 @@ We work together closely to make sure all our features are integrated and workin
 * Display in-game clock in top center.
 
 
-**Map**
+### Map
 * Force all players in the server to display their map position.
 * Allow all players to share all map exploration with every other player in the server, as long as their map position is displayed.
 * A system to automatically share all map progression with players connecting, even if they have never been on the server.
 
-**Camera**
+### Camera
 * Change the player's Field of View.
 * Change the maximum zoom-out distance.
 * Change the maximum zoom-out distance when on a boat.
 * Switch between first person and third person on button press.
 * Hotkeys for changing FOV in first person.
 
-**Gathering**
+### Gathering
 * Modify the amount of resources dropped on destruction of objects (this includes chitin, stone, all types of wood, and minerals).
 * Modify the amount of resources gathered from interactable objects.
   * Edibles: Carrots, Blueberries, Cloudberrys, Raspberrys, Mushrooms, Blue Mushrooms, Yellow Mushrooms
@@ -71,24 +71,24 @@ We work together closely to make sure all our features are integrated and workin
   * Surtling cores on item stands inside dungeons.
 * Modify the drop chance of resources from destroyed objects that have a drop chance like muddy scrap piles.
 
-**Wagon**
+### Wagon
 * Modify the weight contribution of items placed inside a wagon.
 * Modify the base weight of all wagons.
 
-**Fire sources**
+### Fire sources
 * Option to set fires to retain maximum fuel once the fuel is added.
 * Option to set torches and braziers to retain maximum fuel once the fuel is added.
 * A system to allow wood to be automatically pulled and inserted from nearby chests from fires.
 * A system to automatically pull wood on interaction with a fireplace from nearby chests.
 
-**Game Difficulty**
+### Game Difficulty
 * Modify the difficulty multipliers applied to health and damage of enemies based on the number of connected players.
 * Modify the range at which the game considers other players to be nearby.
 * Add a number of players to the player count for the purpose of difficulty calculation.
 * Set the difficulty calculation to a specific player count.
 
 
-### Inventory
+## Inventory
 * Modify the inventory behavior so that items will be placed in the first slot rather than the last available slot.
 * Modify the size of player inventory and all types of containers, including vehicles:
   * Player inventory can be extended up to 20 x 8.
@@ -99,11 +99,10 @@ We work together closely to make sure all our features are integrated and workin
   * Karve chest inventory can be extended up to 30 x 8.
   * Longboat chest inventory can be extended up to 30 x 8.
 
-
 **Note: Player inventory slot configuration is not compatible with Equipment and Quick slots mod unless the Inventory section is disabled.**
 
 
-### Items
+## Items
 * Modify the durability of each item type separately.
 * Modify the amount of armor granted by armor pieces.
 * Modify the amount of damage blocked by all shields.
@@ -262,8 +261,11 @@ We work together closely to make sure all our features are integrated and workin
 # Installation Instructions
 We supply 4 different versions of V+ with every release since version 0.8. You can find detailed instructions on how to install these variants below.
 
-**ATTENTION FOR MULTIPLAYER**: Both the game and the server should have this mod installed to prevent all kinds of different issues. If you have the mod installed and then have friends join over steam they should have the mod as well.
+**ATTENTION FOR MULTIPLAYER**: 
+Both the game and the server should have this mod installed to prevent all kinds of different issues. 
+If you have the mod installed and then have friends join over steam they should have the mod as well.
 
+Detailed installation instructions can be [found on our website](https://valheim.plus/installation).
 
 ## **Windows**
 ### Game(Steam)
@@ -290,12 +292,6 @@ This guide does not cover how to create a dedicated server. These are the steps 
 
 ## **Linux**
 [Easy to set up and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com !](https://zap-hosting.com/valheimplus)
-
-### DIY Valheim and Valheim+ Dedicated Server Installer:
-
-The Njord installer provided by ZeroBandwidth and team allows for you to easily set up your own Dedicated Valheim Server built on Ubuntu Linux. This menu system gives you the option to play Valheim in vanilla mode or with the all modding power of Valheim+.
-* All Njord Menu related questions and support should be directed to his community [Njord Menu Support](https://github.com/Nimdy/Dedicated_Valheim_Server_Script/issues)
-* [Njord Menu Github Page](https://github.com/Nimdy/Dedicated_Valheim_Server_Script) 
 
 ### **Game[Unix]**
 
@@ -327,18 +323,45 @@ This guide does not cover how to create a dedicated server. These are the steps 
 
 **Most server hosters do not allow you to upload script files or make your own scripts executable (for very good reasons). You will have to wait until your hoster adapts V+ for his servers.**
 
+**DIY Valheim and Valheim+ Dedicated Server Installer:**
+The Njord installer provided by ZeroBandwidth and team allows for you to easily set up your own Dedicated Valheim Server built on Ubuntu Linux. This menu system gives you the option to play Valheim in vanilla mode or with the all modding power of Valheim+.
+* All Njord Menu related questions and support should be directed to his community [Njord Menu Support](https://github.com/Nimdy/Dedicated_Valheim_Server_Script/issues)
+* [Njord Menu Github Page](https://github.com/Nimdy/Dedicated_Valheim_Server_Script) 
+
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
 
+
+
 # What if the game updates?
-Game updates are unlikely to do more than partially break ValheimPlus at worst. In case you encounter any issues, use Steam's verify integrity feature and wait for it to download/update all files.
-Then simply unpack the *valheim_Data* folder from the downloaded last available v+ version package into your game folder again.
-This should resolve any issues related. If you continue to have issues, contact the help channel in our discord server.
+Game updates are unlikely to do more than partially break specific features of ValheimPlus at worst. 
+In case you encounter any issues, use Steam's verify integrity feature and wait for it to download/update all files.
+This should resolve any issues related. If you continue to have issues, contact the help channel in [our discord server](http://discord.gg/valheimPlus).
 
 # Server Config & Version Control (About Version Enforcement)
-* If you have enforceMod enabled, only players with the same mod version can join your server and you can only join servers with the same mod version.
+* If you have the Server section and enforceMod enabled in the mods config, only players with the same mod version can join your server and you can only join servers with the same mod version installed.
+* If you have the Server section and serverSyncsConfig enabled in the mods config, every player joining your server will receive the servers configuration.
+* This system is working reliably and is issue-free. Any issues encountered are likely derived from a faulty configuration set up, or the server/client not running v+.
 
 **This system is working reliably and is issue-free. Any issues encountered are likely derived from a faulty configuration set up, or the server/client not running v+.**
+
+
+# Configuration File
+
+The Config file name is supposed to be "valheim_plus.cfg" and it needs to be placed in "BepInEx\config".
+
+You can turn off and on every feature of V+ via the config file, by default all settings are turned off.
+
+By default, the "BepInEx\config\valheim_plus.cfg" is created when you start your game or server the first time.
+
+The configuration of a older version of Valheim Plus will automatically be updated to a newer version. [Alternatively you can use this website](https://valheim-plus-config.web.app/) .
+
+When hosting a server, the server configuration file overwrites the client's configuration file on connect if you have the Server section and the serverSyncsConfig option enabled. 
+
+Only the server configuration file (located in the server files) needs to be set up when hosting a server with V+ by default.
+
+When hosting for other players over steam, every player will need v+ and they will receive the local settings from the host's game folder.
+
 
 # Join the Discord
 We have several different channels including a showcase channel and alpha testing system, allowing players to always get the newest versions available to test out.
@@ -354,20 +377,6 @@ https://twitter.com/ValheimPlus
 Supporting this Project on Patreon will allow me to dedicate more of my free time to this project. It will also pay for server costs of our new domains and our upcoming discord bot.
 
 https://www.patreon.com/valheimPlus
-
-
-# Configuration File
-
-The Config file name is supposed to be "valheim_plus.cfg" and it needs to be placed in "BepInEx\config".
-
-You can turn off and on every feature of V+ via the config file, by default all settings are turned off.
-
-When hosting a server, the server configuration file overwrites the client's configuration file on connect. 
-
-Only the server configuration file (located in the server files) needs to be set up when hosting a server with V+.
-
-When hosting for other players over steam, every player will need v+ and they will receive the local settings from the host's game folder.
-
 
 # Contributing to ValheimPlus
 Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.

@@ -322,40 +322,80 @@ You cannot be in Build mode (hammer, hoe or terrain tool). How it works:
 [size=5][u][b]Installation Instructions[/b][/u][/size]
 We supply 4 different versions of V+ with every release since version 0.8. You can find detailed instructions on how to install these variants below.
 
-[b]ATTENTION FOR MULTIPLAYER[/b]: Both the game and the server should have this mod installed to prevent all kinds of different issues. If you have the mod installed and then have friends join over steam they should have the mod as well.
+[b]ATTENTION FOR MULTIPLAYER[/b]: 
+Both the game and the server should have this mod installed to prevent all kinds of different issues. 
+If you have the mod installed and then have friends join over steam they should have the mod as well.
 
 Detailed installation instructions can be [url=https://valheim.plus/installation]found on our website[/url].
 
 
 [size=4][b][u]Windows[/u][/b][/size]
 
-[size=3][b]Game(Steam)[/b][/size]
+[size=3][b]Vortex Installation[/b][/size]
+[spoiler]
+If you are using vortex to install Valheim Plus, make sure you also download the latest BepInEx version, without BepInEx the mod wont work.
 
-1. Download the latest package called WindowsClient.zip.
-2. Locate your game folder manually or start Steam client and right-click the Valheim game in your Steam library and select Manage -> browse local files for Steam to open your game folder. 
-3. Extract the contents of the .zip file into the game folder.
-4. Open valheim_plus.cfg under BepInEx\config with any text editor and configure the mod to your needs.
+1. [url=https://valheim.thunderstore.io/package/denikson/BepInExPack_Valheim/]Download BepInEx here, click manual download[/url].
+2. Unpack BepInEx into your root game folder. [color=#d8d8d8][i]( Example : "C:\Program Files (x86)\Steam\steamapps\common\Valheim" )[/i][/color]
+3. Install ValheimPlus via vortex.
+4. After starting your game once, open valheim_plus.cfg under BepInEx\config with any text editor and configure the mod to your needs.
 
-[b][i]Please read the section about Server Config & Version Control (About Version Enforcement) below.[/i][/b]
 
+[size=4][b][u]Server Config & Version Control (About Version Enforcement)[/u][/b][/size]
+[list]
+[*] If you have the Server section and enforceMod enabled in the mods config, only players with the same mod version can join your server and you can only join servers with the same mod version installed.
+[*] If you have the Server section and serverSyncsConfig enabled in the mods config, every player joining your server will receive the servers configuration.
+[*] This system is working reliably and is issue-free. Any issues encountered are likely derived from a faulty configuration set up, or the server/client not running v+.
+[/list]
+[/spoiler]
+
+[size=3][b]Manual Installation[/b][/size]
+[spoiler]
+1. [url=https://valheim.thunderstore.io/package/denikson/BepInExPack_Valheim/]Download BepInEx here, click manual download[/url].
+2. Unpack BepInEx into your root game folder. [color=#d8d8d8][i]( Example : "C:\Program Files (x86)\Steam\steamapps\common\Valheim" )[/i][/color]
+3. Download the latest package called WindowsClient.zip.
+4. Locate your game folder manually or start Steam client and right-click the Valheim game in your Steam library and select Manage -> browse local files for Steam to open your game folder. 
+5. Extract the contents of the .zip file into the game folder.
+6. After starting your game once, open valheim_plus.cfg under BepInEx\config with any text editor and configure the mod to your needs.
+
+
+[size=4][b][u]Server Config & Version Control (About Version Enforcement)[/u][/b][/size]
+[list]
+[*] If you have the Server section and enforceMod enabled in the mods config, only players with the same mod version can join your server and you can only join servers with the same mod version installed.
+[*] If you have the Server section and serverSyncsConfig enabled in the mods config, every player joining your server will receive the servers configuration.
+[*] This system is working reliably and is issue-free. Any issues encountered are likely derived from a faulty configuration set up, or the server/client not running v+.
+[/list]
+[/spoiler]
 
 [size=3][b]Server[/b][/size]
+[spoiler]
 [url=https://zap-hosting.com/valheimplus]Easy to set up and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com![/url]
-This guide does not cover how to create a dedicated server. These are the steps to install the mod:
+
+If you want to play with friends over steam, its enough to have Valheim Plus installed as modification. The other players need to install Valheim Plus too.
+
+This guide does not cover how to create a dedicated server. 
+These are the steps to install the mod on a dedicated server:
 
 1. Download the latest package called WindowsServer.zip.
 2. Extract the contents of the .zip file into your root server folder.
-3. Open valheim_plus.cfg under BepInEx\config with any text editor and configure the mod to your needs.
+3. After starting your server once, open valheim_plus.cfg under BepInEx\config with any text editor and configure the mod to your needs.
+4. Restart the server to have the changed settings take effect.
 
-[b][i]Please read the section about Server Config & Version Control (About Version Enforcement) below.[/i][/b]
 
+[size=4][b][u]Server Config & Version Control (About Version Enforcement)[/u][/b][/size]
+[list]
+[*] If you have the Server section and enforceMod enabled in the mods config, only players with the same mod version can join your server and you can only join servers with the same mod version installed.
+[*] If you have the Server section and serverSyncsConfig enabled in the mods config, every player joining your server will receive the servers configuration.
+[*] This system is working reliably and is issue-free. Any issues encountered are likely derived from a faulty configuration set up, or the server/client not running v+.
+[/list]
+[/spoiler]
 
 
 
 [size=4][b][u]Unix[/u][/b][/size]
 
 [size=3][b]Game[/b][/size]
-
+[spoiler]
 1. Download the [latest package called UnixServer.zip over this link](https://github.com/valheimPlus/ValheimPlus/releases/latest/). (Scroll down and click "assets")
 2. Locate your game folder manually or start Steam client and right-click the Valheim game in your Steam library and select Manage -> browse local files for Steam to open your game folder. 
 3. Extract the contents of the archive into the game folder.
@@ -364,9 +404,21 @@ This guide does not cover how to create a dedicated server. These are the steps 
 6. Go to "Properties..." -> "Launch options" and input "./start_game_bepinex.sh %command%".
 
 
+[size=4][b][u]Server Config & Version Control (About Version Enforcement)[/u][/b][/size]
+[list]
+[*] If you have the Server section and enforceMod enabled in the mods config, only players with the same mod version can join your server and you can only join servers with the same mod version installed.
+[*] If you have the Server section and serverSyncsConfig enabled in the mods config, every player joining your server will receive the servers configuration.
+[*] This system is working reliably and is issue-free. Any issues encountered are likely derived from a faulty configuration set up, or the server/client not running v+.
+[/list]
+[/spoiler]
+
 [size=3][b]Server[/b][/size]
+[spoiler]
 [url=https://zap-hosting.com/valheimplus]Easy to set up and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com![/url]
-This guide does not cover how to create a dedicated server. These are the steps to install the mod:
+
+This guide does not cover how to create a dedicated server. 
+
+These are the steps to install the mod:
 
 1. Download the [latest package called UnixServer.zip over this link](https://github.com/valheimPlus/ValheimPlus/releases/latest/). (Scroll down and click "assets")
 2. Extract the contents of the .zip file into your root server folder.
@@ -386,20 +438,64 @@ This guide does not cover how to create a dedicated server. These are the steps 
 [*]Please read the section about Server Config & Version Control (About Version Enforcement) below.
 [/list]
 
+[size=4][b][u]Server Config & Version Control (About Version Enforcement)[/u][/b][/size]
+[list]
+[*] If you have the Server section and enforceMod enabled in the mods config, only players with the same mod version can join your server and you can only join servers with the same mod version installed.
+[*] If you have the Server section and serverSyncsConfig enabled in the mods config, every player joining your server will receive the servers configuration.
+[*] This system is working reliably and is issue-free. Any issues encountered are likely derived from a faulty configuration set up, or the server/client not running v+.
+[/list]
+[/spoiler]
 
 
 
 [size=4][b][u]What if the game updates?[/u][/b][/size]
-Game updates are unlikely to do more than partially break ValheimPlus at worst. In case you encounter any issues, use Steam's verify integrity feature and wait for it to download/update all files.
-Then simply unpack the [i]valheim_Data[/i] folder from the downloaded last available v+ version package into your game folder again.
-This should resolve any issues related. If you continue to have issues, contact the help channel in our discord server.
+Game updates are unlikely to do more than partially break specific features of ValheimPlus at worst. 
+In case you encounter any issues, use Steam's verify integrity feature and wait for it to download/update all files.
+This should resolve any issues related. If you continue to have issues, contact the help channel in [url=http://discord.gg/valheimPlus]our discord server[/url].
 
 
-[size=4][b][u]Server Config & Version Control (About Version Enforcement)[/u][/b][/size]
-[list]
-[*] If you have enforceMod enabled, only players with the same mod version can join your server and you can only join servers with the same mod version.
-[*] This system is working reliably and is issue-free. Any issues encountered are likely derived from a faulty configuration set up, or the server/client not running v+.
-[/list]
+[size=4][b][u]Configuration File[/u][/b][/size]
+The Config file name is supposed to be "valheim_plus.cfg" and it needs to be placed in "BepInEx\config".
+
+You can turn off and on every feature of V+ via the config file, by default all settings are turned off.
+
+By default, the "BepInEx\config\valheim_plus.cfg" is created when you start your game or server the first time.
+
+The configuration of a older version of Valheim Plus will automatically be updated to a newer version. [url=https://valheim-plus-config.web.app/]Alternatively you can use this website[/url].
+
+When hosting a server, the server configuration file overwrites the client's configuration file on connect if you have the Server section and the serverSyncsConfig option enabled. 
+
+Only the server configuration file (located in the server files) needs to be set up when hosting a server with V+ by default.
+
+When hosting for other players over steam, every player will need v+ and they will receive the local settings from the host's game folder.
+
+
+[size=4][b][u]Bug Reports[/u][/b][/size]
+Every bug report that does not follow the following syntax or provides more than the default template in terms of information, will be removed without comment.
+
+[spoiler]
+
+Short description of the issue/bug:
+
+Mod version:
+
+Singleplayer or Multiplayer?
+
+What other mods are you using?
+
+If its a server related issue, are you hosting your game or is it a dedicated server?
+
+If its a dedicated server, what server provider are you using if you are using one?
+
+The operation system used:
+
+Are there are error logs available to you from the server or client console, if so ([url=https://pastebin.com/]use this website[/url]):
+
+Link to your .cfg file ([url=https://pastebin.com/]use this website[/url]):
+
+Please describe in details when the issue occurred and what exactly you where doing in-game:
+
+[/spoiler]
 
 [size=4][b][u]Join the Discord[/u][/b][/size]
 We have several different channels including a showcase channel and alpha testing system, allowing players to always get the newest versions available to test out.
@@ -419,20 +515,5 @@ Is used to post about releases of ValheimPlus and to potentially reply to issues
 Supporting this Project on Patreon will allow us to dedicate more of my free time to this project. All of our developers are paid. We also pay taxes.
 [url=https://www.patreon.com/valheimPlus]https://www.patreon.com/valheimPlus[/url]
 
-
-
-[size=4][b][u]Configuration File[/u][/b][/size]
-The Config file name is supposed to be "valheim_plus.cfg" and it needs to be placed in "BepInEx\config".
-
-You can turn off and on every feature of V+ via the config file, by default all settings are turned off.
-
-When hosting a server, the server configuration file overwrites the client's configuration file on connect. 
-
-Only the server configuration file (located in the server files) needs to be set up when hosting a server with V+.
-
-When hosting for other players over steam, every player will need v+ and they will receive the local settings from the host's game folder.
-
-
-[b][size=5]GitHub Repository & Current Configuration File[/size][/b]
+[b][size=5]GitHub Repository[/size][/b]
 [url=https://github.com/nxPublic/ValheimPlus]https://github.com/nxPublic/ValheimPlus[/url]
-[url=https://github.com/valheimPlus/ValheimPlus/blob/development/valheim_plus.cfg]https://github.com/valheimPlus/ValheimPlus/blob/development/valheim_plus.cfg[/url]
