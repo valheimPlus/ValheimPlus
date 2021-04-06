@@ -1,14 +1,10 @@
 {
-	"enforceMod not working as expected": {
+	"Inconsistent Movement Distance in Advanced Editor": {
 		"id": "1",
-		"bug_description": "Currently the way enforceMod works makes it impossible for a client with V+ to connect both to non-V+ servers and to V+ servers that have enforceMod=true. One has to change its local configuration every time."
+		"bug_description": "Noticed while building that when using shift to increase the placement movement and then going immediately back the same number of steps, the object doesn't always end up back in the same place."
 	},
-	"When using auto-equip shield the shield stays equipped after weapon is put away": {
+	"BeeHives": {
 		"id": "2",
-		"bug_description": "When using auto-equip shield the shield stays equipped after weapon is put away"
-	},
-	"Config merger strips multi-comment lines out": {
-		"id": "3",
-		"bug_description": "When using the new config handling web app at https://valheim-plus-config.web.app/. The web app is stripping out multi-line comments (appears to only keep the last line before the actual configuration value)."
+		"bug_description": "BeeHives constantly being checked over and over every 5 seconds sound and action very annoying"
 	}
 }
