@@ -5,6 +5,6 @@
 	},
 	"BeeHives": {
 		"id": "2",
-		"bug_description": "BeeHives constantly being checked over and over every 5 seconds sound and action very annoying"
+		"bug_description": "BeeHives constantly being checked every 5 seconds."
 	}
 }
