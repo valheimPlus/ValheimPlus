@@ -10,5 +10,6 @@
         public bool disablePortals { get; internal set; } = false;
         public bool forceConsole { get; internal set; } = false;
         public bool bigPortalNames { get; internal set; } = false;
+        public bool disableFog { get; internal set; } = false;
     }
 }

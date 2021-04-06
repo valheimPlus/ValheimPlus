@@ -402,12 +402,6 @@
     "status": "In Consideration",
     "category": "Map"
   },
-  "Remove Fog": {
-    "description": "Add the ability to remove fog from the game.",
-    "icon": "fas fa-fog",
-    "status": "In Consideration",
-    "category": "World"
-  },
   "Remove Ground Height Limits": {
     "description": "Remove/change the limits to how high/low you can dig or build",
     "icon": "fas fa-line-height",
