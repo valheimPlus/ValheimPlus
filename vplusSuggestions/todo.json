@@ -256,12 +256,6 @@
     "progress": "0",
     "category": "PVP"
   },
-  "In-game Clock": {
-    "description": "A ingame display of the in-game. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/365'>reference</a>",
-    "icon": "fa fa-clock",
-    "status": "In Consideration",
-    "category": "Hud"
-  },
   "Increase difficulty based on day in game": {
     "description": "Add the ability to add a difficulty multiplier per day.",
     "icon": "fad fa-sort-numeric-up",

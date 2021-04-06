@@ -56,14 +56,16 @@ Thanks to mono and unity-mono being open source, we patched and compiled our own
    - It is recommended when testing to test value inline with your code instead of altering the values on the .cfg/class to prevent this issue. If an inline hardcoded value gets pushed, it's easier to spot this mistake than a inaccurate cfg setting.
 1. Try to find an appropriate existing configuration section before adding a new one. Generally, if your configuration changes something related to the player, for example, then add it to the `[Player]` section. Look at it from the perspective of a user who's looking for a specific configuration instead of the perspective of someone who's coding and looking for a class.
 1. Add any new configuration Sections (`[Section]`) to the bottom of the .cfg file so that we're less likely to break existing config.
-3. Check out our helpers in the /Utilities/ folder and use them where appropriate
-4. For configuration modifiers that add a modifcation to the base value, always use a percentage configuration and use the `applyModifier()` utility.
+1. Check out our helpers in the /Utilities/ folder and use them where appropriate
+1. For configuration modifiers that add a modifcation to the base value, always use a percentage configuration and use the `applyModifier()` utility.
+1. For configuration modifier values make sure to add `"modifier": "true"` as entry stat to the vplusconfig.json.
 
 ## Making a Pull Request
 1. Only make a pull request for finished work. Otherwise, if we pull the work down to test it and it doesn't work, we don't know if it's because it's unfinished or if there's an unintentional bug.
    - If you'd like a review on your work before something it's finished, send us a link to a compare via Discord or make a "Draft" PR.
 1. If you want credit, add your credit to the `README.md` in your pull request if the work is more than a documentation update. We will not be able to track this ourselves and rely on you to add your preferred way of being credited.
 1. After you have made a GitHub contribution, reach out to one of the V+ devs on Discord if you'd like the "GitHub contributor" role.
+2. Make sure that if your pull requests takes care of a suggestion from our website at https://valheim.plus/todo that you also remove it from the `vplusSuggestions/todo.json`
 
 ## Pull Request labels
 1. pending merge - This work has been reviewed and accepted and will be merged after the coming release
@@ -72,3 +74,8 @@ Thanks to mono and unity-mono being open source, we patched and compiled our own
 1. merge conflicts - This pr has merge conflicts that need to be resolved
 1. question - The author of the PR needs to answer a question before the PR can move forward
 1. in discussion - We want to implement the PR but have to make more preparations and tests before we can do so.
+
+## Files
+1. valheim_plus.cfg - the file responsible for loading the configuration on game start.
+2. vplusconfig.json - the file responsible to generate the website documentation that can be found here https://valheim.plus/documentation
+3. vplusSuggestions/todo.json - the file responsible to generate the website page https://valheim.plus/todo

@@ -1839,22 +1839,22 @@
 				"defaultValue": "34",
 				"defaultType": "int"
 			},
-			"textRedChannelRatio": {
+			"textRedChannel": {
 				"description": "Change how red the time text is.",
 				"defaultValue": "248",
 				"defaultType": "int"
 			},
-			"textGreenChannelRatio": {
+			"textGreenChannel": {
 				"description": "Change how green the time text is.",
 				"defaultValue": "105",
 				"defaultType": "int"
 			},
-			"textBlueChannelRatio": {
+			"textBlueChannel": {
 				"description": "Change how blue the time text is.",
 				"defaultValue": "0",
 				"defaultType": "int"
 			},
-			"textTransparencyChannelRatio": {
+			"textTransparencyChannel": {
 				"description": "Change how transparent the time text is.",
 				"defaultValue": "255",
 				"defaultType": "int"

@@ -34,49 +34,61 @@ We work together closely to make sure all our features are integrated and workin
 * Tweak/disable death penalty.
 * Tweak Rested bonus duration per comfort level.
 * Disable the use of portals.
-* Modify the Guardian buff duration, cooldown and animation
+* Modify the Guardian buff duration, cooldown and animation.
+* Disable tutorials from Valkyrie.
+* Modify velocity and accuracy of projectiles from bows and javelins including a option to scale it with skill level.
 
 
 ### Player Hud
-* Show skill experience gains in the top left corner.
+* Show skill experience gains and current skill level in the top left corner on gaining exp.
 * Show amount of items in the player's inventory when crafting or building an object.
 * Show numerical stamina value below stamina bar.
 * Disable red screen flash on receiving damage.
 * Display a warning message when attempting to place different crops too close to each other.
-* Added hotkey options for forward and backward roll.
+* Hotkey options for forward and backward roll.
+* Display in-game clock in top center.
 
-**Map**
+
+### Map
 * Force all players in the server to display their map position.
-* Allow all players to share all map exploration with every other player in the server, as long as their map position is displayed (currently players only receive map exploration from other players while they are online).
+* Allow all players to share all map exploration with every other player in the server, as long as their map position is displayed.
+* A system to automatically share all map progression with players connecting, even if they have never been on the server.
 
-**Camera**
+### Camera
 * Change the player's Field of View.
 * Change the maximum zoom-out distance.
 * Change the maximum zoom-out distance when on a boat.
 * Switch between first person and third person on button press.
 * Hotkeys for changing FOV in first person.
 
-**Gathering**
+### Gathering
 * Modify the amount of resources dropped on destruction of objects (this includes chitin, stone, all types of wood, and minerals).
-* Modify the drop chance of resources from destroyed objects.
+* Modify the amount of resources gathered from interactable objects.
+  * Edibles: Carrots, Blueberries, Cloudberrys, Raspberrys, Mushrooms, Blue Mushrooms, Yellow Mushrooms
+  * Flowers and Ingredients : Barley, CarrotSeeds, Dandelions, Flax, Thistle, TurnipSeeds, Turnips[/color]
+  * Materials : BoneFragments, Flint, Stone, Wood
+  * Valuables : Ambers, AmberPearls, Coins, Rubys
+  * Surtling cores on item stands inside dungeons.
+* Modify the drop chance of resources from destroyed objects that have a drop chance like muddy scrap piles.
 
-**Wagon**
+### Wagon
 * Modify the weight contribution of items placed inside a wagon.
-* Modify the base weight of the wagon.
+* Modify the base weight of all wagons.
 
-**Fire sources**
-* Fire sources retain max fuel once the fuel is added.
-* Can be customised to have either fires and/or torches retaining max fuel.
-* Allow fuel items to be automatically pulled from closest containers.
+### Fire sources
+* Option to set fires to retain maximum fuel once the fuel is added.
+* Option to set torches and braziers to retain maximum fuel once the fuel is added.
+* A system to allow wood to be automatically pulled and inserted from nearby chests from fires.
+* A system to automatically pull wood on interaction with a fireplace from nearby chests.
 
-**Game Difficulty**
+### Game Difficulty
 * Modify the difficulty multipliers applied to health and damage of enemies based on the number of connected players.
 * Modify the range at which the game considers other players to be nearby.
 * Add a number of players to the player count for the purpose of difficulty calculation.
 * Set the difficulty calculation to a specific player count.
 
 
-### Inventory
+## Inventory
 * Modify the inventory behavior so that items will be placed in the first slot rather than the last available slot.
 * Modify the size of player inventory and all types of containers, including vehicles:
   * Player inventory can be extended up to 20 x 8.
@@ -87,11 +99,10 @@ We work together closely to make sure all our features are integrated and workin
   * Karve chest inventory can be extended up to 30 x 8.
   * Longboat chest inventory can be extended up to 30 x 8.
 
+**Note: Player inventory slot configuration is not compatible with Equipment and Quick slots mod unless the Inventory section is disabled.**
 
-**Note: As of 0.9.4, player inventory slot configuration is not compatible with Equipment and Quick slots mod**
 
-
-### Items
+## Items
 * Modify the durability of each item type separately.
 * Modify the amount of armor granted by armor pieces.
 * Modify the amount of damage blocked by all shields.
@@ -103,8 +114,15 @@ We work together closely to make sure all our features are integrated and workin
 
 # Crafting and Production
 
+### Crafting
+* Allow building using the content of nearby chests.
+* Allow crafting from stations using the content of nearby chests.
+* Allow searching for items that fit inside nearby chests in addition to the inventory when interacting with objects.
+*as example when interacting with a kiln, it will search for wood in nearby chests in addition to your inventory.*
+
 ### Workbench
 * Modify Workbench radius.
+* Disable Workbench requirements for roof and exposure.
 * Modify the radius at which Workbench attachments can be placed.
 * Allow crafting stations to automatically repair all appropriate items in the player's inventory on interaction.
 
@@ -113,7 +131,7 @@ We work together closely to make sure all our features are integrated and workin
 * Modify Kiln, Furnace and Blast Furnace maximum capacity.
 * Disable Fine Wood and/or Round Log processing for Kiln.
 * Allow fuel-type items to be automatically pulled from closest containers.
-* Allow Kiln to stop pulling wood from closest containers when a specific threshold as been reached. 
+* Allow Kiln to stop pulling wood from closest containers when a specific threshold has been reached. 
 * Allow items produced by Kiln, Furnace and Blast Furnace to be automatically placed in the closest containers.
 * Allow Furnace to process all ore types instead of just Black Metal Scrap and Flametal Ore.
 
@@ -126,31 +144,50 @@ We work together closely to make sure all our features are integrated and workin
 ### Fermenter
 * Modify Fermenter speed.
 * Modify Fermenter output amount.
-* Display time left until next production.
+* Display time left until its finished its next production.
 * Allow meads to be automatically pulled from closest containers.
 * Allow items produced by Fermenter to be automatically placed in the closest containers.
 
 ### Windmill
 * Modify Windmill speed production speed.
-* Modify maximum amount of barley that can be supplied.
+* Modify maximum amount of barley that can be placed inside.
 * Allow ignoring wind intensity so it's always producing at max speed.
 * Allow barley to be automatically pulled from closest containers.
 * Allow items produced by Windmill to be automatically placed in the closest containers.
 
 ### Spinning Wheel
 * Modify Spinning Wheel production speed.
-* Modify maximum amount of flax that can be supplied.
+* Modify maximum amount of flax that can be placed inside.
 * Allow flax to be automatically pulled from closest containers.
 * Allow items produced by Spinning Wheel to be automatically placed in the closest containers.
 
+# Creatures and Monsters
+
+### Tamed Pets
+* Added option for tamed creatures to be normal, essential, or immortal.
+* Added option for modifying the time a tamed essential animal will spend stunned after being hit with what would normally be a killing blow.
+* Added option for determining whether only the owner of a tamed creature can hurt it or not(which also circumvents the essential/immortality option).
+
+### Monsters
+* Modify velocity and accuracy of projectiles.
+* Modify damage and health scaling of monsters in multiplayer based on player count.
+
+# Server
+* Remove password requirement for the server.
+* Modify the maximum amount of players on a server.
+* Modify number of seconds it takes for items to despawn after being dropped on the ground. (default is 3600 seconds).
+   * *Note: Items on ground will retain base game functionality which ensures that drops don't disappear if a player is nearby or there is a "player base" nearby*
+* Automatically sync V+ configuration of players joining a server to match the server's configuration.
+
+
 # Building
 * Disable "Invalid Placement" restriction while building.
-* Disable "Mystical forces" restriction while building and allows to destroying objects using the hammer.
+* Disable "Mystical forces" restriction while building and allows to destroying objects using the hammer in the area.
 * Disable deterioration of placeables from weather exposure. 
 * Disable deterioration of placeables from water exposure.
-* Added a free rotation mode for the default Building Mode.
-* Added Advanced Building Mode.
-* Added Advanced Editing Mode.
+* Free rotation mode for the default Building Mode.
+* Advanced Building Mode.
+* Advanced Editing Mode.
 * Allow aligning buildings to a global grid.
 * Modify the structural integrity of placeables.
 * Modify the maximum distance you can place objects at.
@@ -159,16 +196,21 @@ We work together closely to make sure all our features are integrated and workin
 * Modify effective radius of comfort placeables.
 * Modify Ward structure protection radius.
 
+### Grid alignment
+* When pressing the configured key (left alt is the default) new buildings will be aligned to a global grid.
+   * The mode can also be toggled by pressing another key (F7 by default).
+   * Building elements (from the third tab) are aligned to to their size (e.g. a wood wall will have an alignment of 2m in X and Y direction). The alignment of building elements in other directorion can be configured (by default with the F6 key) to 0.5m, 1m, 2m or 4m.
+   * Other buildings like furniture will always be aligned to 0.5m, but the Y position will not be aligned (to make sure they are always exactly on the floor).
 
-
-# Creatures and Monsters
-
-### Protected Pets
-* Added option for tamed creatures to be normal, essential, or immortal.
-* Added option for modifying the time a tamed essential animal will spend stunned after being hit with what would normally be a killing blow.
-* Added option for determining whether only the owner of a tamed creature can hurt it or not(which also circumvents the essential/immortality option).
-
-
+### Structural Integrity
+* Apply a modifier to the structural integrity of the following materials:
+  * Wood
+  * Stone
+  * Iron
+  * Hardwood
+* Disable structural integrity entirely (this will cause objects placed mid-air to not break and fall).
+* Make anything built by players immune to all damage.
+* Make boats invincible to all damage.
 
 ### Free Rotation Mode for the default Building Mode
 * **Video demo: https://imgur.com/xMH7STj.mp4**
@@ -213,49 +255,17 @@ We work together closely to make sure all our features are integrated and workin
 **NOTE:**
 * *Other players will not be able to see the item being moved until the player building the item confirms the placement. Dungeons and other no-build areas are still restricted.* 
 
-### Grid alignment
-* When pressing the configured key (left alt is the default) new buildings will be aligned to a global grid.
-   * The mode can also be toggled by pressing another key (F7 by default).
-   * Building elements (from the third tab) are aligned to to their size (e.g. a wood wall will have an alignment of 2m in X and Y direction). The alignment of building elements in other directorion can be configured (by default with the F6 key) to 0.5m, 1m, 2m or 4m.
-   * Other buildings like furniture will always be aligned to 0.5m, but the Y position will not be aligned (to make sure they are always exactly on the floow).
 
-### Structural Integrity
-* Apply a modifier to the structural integrity of the following materials:
-  * Wood
-  * Stone
-  * Iron
-  * Hardwood
-* Disable structural integrity entirely (this will cause objects placed mid-air to not break and fall).
-* Make anything built by players immune to all damage.
-* Make boats invincible to all damage.
-
-
-
-# Server
-* Remove password requirement for the server.
-* Modify the maximum amount of players on a server.
-* Modify number of seconds it takes for items to despawn after being dropped on the ground. (default is 3600 seconds).
-   * *Note: Items on ground will retain base game functionality which ensures that drops don't disappear if a player is nearby or there is a "player base" nearby*
-* Automatically sync V+ configuration of players joining a server to match the server's configuration.
-
-
-### Time and Day Manipulation
-*This feature is currently disabled*
-* Modify total time of day/night cycle.
-* Modify speed of time passing at night.
-
-
-### Craft From Chests
-* Allow building using the content of nearby chests.
-* Allow crafting from stations using the content of nearby chests.
-* Allow putting meat on cooking stands using the content of nearby chests.
 
 
 # Installation Instructions
 We supply 4 different versions of V+ with every release since version 0.8. You can find detailed instructions on how to install these variants below.
 
-**ATTENTION FOR MULTIPLAYER**: Both the game and the server should have this mod installed to prevent all kinds of different issues. If you have the mod installed and then have friends join over steam they should have the mod as well.
+**ATTENTION FOR MULTIPLAYER**: 
+Both the game and the server should have this mod installed to prevent all kinds of different issues. 
+If you have the mod installed and then have friends join over steam they should have the mod as well.
 
+Detailed installation instructions can be [found on our website](https://valheim.plus/installation).
 
 ## **Windows**
 ### Game(Steam)
@@ -282,12 +292,6 @@ This guide does not cover how to create a dedicated server. These are the steps 
 
 ## **Linux**
 [Easy to set up and ready to use ValheimPlus servers can be rented here at ZAP-Hosting.com !](https://zap-hosting.com/valheimplus)
-
-### DIY Valheim and Valheim+ Dedicated Server Installer:
-
-The Njord installer provided by ZeroBandwidth and team allows for you to easily set up your own Dedicated Valheim Server built on Ubuntu Linux. This menu system gives you the option to play Valheim in vanilla mode or with the all modding power of Valheim+.
-* All Njord Menu related questions and support should be directed to his community [Njord Menu Support](https://github.com/Nimdy/Dedicated_Valheim_Server_Script/issues)
-* [Njord Menu Github Page](https://github.com/Nimdy/Dedicated_Valheim_Server_Script) 
 
 ### **Game[Unix]**
 
@@ -319,18 +323,45 @@ This guide does not cover how to create a dedicated server. These are the steps 
 
 **Most server hosters do not allow you to upload script files or make your own scripts executable (for very good reasons). You will have to wait until your hoster adapts V+ for his servers.**
 
+**DIY Valheim and Valheim+ Dedicated Server Installer:**
+The Njord installer provided by ZeroBandwidth and team allows for you to easily set up your own Dedicated Valheim Server built on Ubuntu Linux. This menu system gives you the option to play Valheim in vanilla mode or with the all modding power of Valheim+.
+* All Njord Menu related questions and support should be directed to his community [Njord Menu Support](https://github.com/Nimdy/Dedicated_Valheim_Server_Script/issues)
+* [Njord Menu Github Page](https://github.com/Nimdy/Dedicated_Valheim_Server_Script) 
+
 **Please read the section about Server Config & Version Control (About Version Enforcement) below.**
 
 
+
+
 # What if the game updates?
-Game updates are unlikely to do more than partially break ValheimPlus at worst. In case you encounter any issues, use Steam's verify integrity feature and wait for it to download/update all files.
-Then simply unpack the *valheim_Data* folder from the downloaded last available v+ version package into your game folder again.
-This should resolve any issues related. If you continue to have issues, contact the help channel in our discord server.
+Game updates are unlikely to do more than partially break specific features of ValheimPlus at worst. 
+In case you encounter any issues, use Steam's verify integrity feature and wait for it to download/update all files.
+This should resolve any issues related. If you continue to have issues, contact the help channel in [our discord server](http://discord.gg/valheimPlus).
 
 # Server Config & Version Control (About Version Enforcement)
-* If you have enforceMod enabled, only players with the same mod version can join your server and you can only join servers with the same mod version.
+* If you have the Server section and enforceMod enabled in the mods config, only players with the same mod version can join your server and you can only join servers with the same mod version installed.
+* If you have the Server section and serverSyncsConfig enabled in the mods config, every player joining your server will receive the servers configuration.
+* This system is working reliably and is issue-free. Any issues encountered are likely derived from a faulty configuration set up, or the server/client not running v+.
 
 **This system is working reliably and is issue-free. Any issues encountered are likely derived from a faulty configuration set up, or the server/client not running v+.**
+
+
+# Configuration File
+
+The Config file name is supposed to be "valheim_plus.cfg" and it needs to be placed in "BepInEx\config".
+
+You can turn off and on every feature of V+ via the config file, by default all settings are turned off.
+
+By default, the "BepInEx\config\valheim_plus.cfg" is created when you start your game or server the first time.
+
+The configuration of a older version of Valheim Plus will automatically be updated to a newer version. [Alternatively you can use this website](https://valheim-plus-config.web.app/) .
+
+When hosting a server, the server configuration file overwrites the client's configuration file on connect if you have the Server section and the serverSyncsConfig option enabled. 
+
+Only the server configuration file (located in the server files) needs to be set up when hosting a server with V+ by default.
+
+When hosting for other players over steam, every player will need v+ and they will receive the local settings from the host's game folder.
+
 
 # Join the Discord
 We have several different channels including a showcase channel and alpha testing system, allowing players to always get the newest versions available to test out.
@@ -346,20 +377,6 @@ https://twitter.com/ValheimPlus
 Supporting this Project on Patreon will allow me to dedicate more of my free time to this project. It will also pay for server costs of our new domains and our upcoming discord bot.
 
 https://www.patreon.com/valheimPlus
-
-
-# Configuration File
-
-The Config file name is supposed to be "valheim_plus.cfg" and it needs to be placed in "BepInEx\config".
-
-You can turn off and on every feature of V+ via the config file, by default all settings are turned off.
-
-When hosting a server, the server configuration file overwrites the client's configuration file on connect. 
-
-Only the server configuration file (located in the server files) needs to be set up when hosting a server with V+.
-
-When hosting for other players over steam, every player will need v+ and they will receive the local settings from the host's game folder.
-
 
 # Contributing to ValheimPlus
 Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for development and contributing to the project.
