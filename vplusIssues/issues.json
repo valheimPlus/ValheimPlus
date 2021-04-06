@@ -7,4 +7,8 @@
 		"id": "2",
 		"bug_description": "BeeHives constantly being checked every 5 seconds."
 	}
+	"Furnace allow all Ores": {
+		"id": "3",
+		"bug_description": "Allow all ores in furnace is not working entirely correct."
+	}
 }
