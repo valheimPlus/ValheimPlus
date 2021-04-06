@@ -52,6 +52,7 @@ namespace ValheimPlus.GameClasses
     {
 
         private static GameObject timeObj = null;
+        private static double savedEnvSeconds = -1;
         private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost, Transform ___m_eye)
         {
             if ((Configuration.Current.Player.IsEnabled && Configuration.Current.Player.queueWeaponChanges) && (ZInput.GetButtonDown("Hide") || ZInput.GetButtonDown("JoyHide")))
@@ -84,34 +85,13 @@ namespace ValheimPlus.GameClasses
 
             if (Configuration.Current.GameClock.IsEnabled)
             {
-                EnvMan env = EnvMan.instance;
-                float minuteFrac = Mathf.Lerp(0, 24, env.GetDayFraction());
-                float hr24 = Mathf.Floor(minuteFrac);
-                minuteFrac = minuteFrac - hr24;
-                float minutes = Mathf.Lerp(0, 60, minuteFrac);
-
-                int hours_int = Mathf.FloorToInt(hr24);
-                int minutes_int = Mathf.FloorToInt(minutes);
-
                 String hours_str = "";
                 String minutes_str = "";
                 String amPM_str = "";
 
-                if (Configuration.Current.GameClock.useAMPM)
-                {
-                    amPM_str = (hours_int < 12) ? " AM" : " PM";
-                    if (hours_int > 12) hours_int -= 12;
-                }
-
-                if (hours_int < 10) hours_str = "0" + hours_int;
-                if (minutes_int < 10) minutes_str = "0" + minutes_int;
-                if (hours_int >= 10) hours_str = hours_int.ToString();
-                if (minutes_int >= 10) minutes_str = minutes_int.ToString();
-
                 Hud hud = Hud.instance;
 
                 Text timeText;
-
                 if (timeObj == null)
                 {
                     MessageHud msgHud = MessageHud.instance;
@@ -122,24 +102,49 @@ namespace ValheimPlus.GameClasses
 
                     timeText = timeObj.AddComponent<Text>();
 
-                    float rRatio = Mathf.Clamp01((float)Configuration.Current.GameClock.textRedChannel / 255f);
-                    float gRatio = Mathf.Clamp01((float)Configuration.Current.GameClock.textGreenChannel / 255f);
-                    float bRatio = Mathf.Clamp01((float)Configuration.Current.GameClock.textBlueChannel / 255f);
-                    float aRatio = Mathf.Clamp01((float)Configuration.Current.GameClock.textTransparencyChannel / 255f);
+                    float rRatio = Mathf.Clamp01(Configuration.Current.GameClock.textRedChannelRatio);
+                    float gRatio = Mathf.Clamp01(Configuration.Current.GameClock.textGreenChannelRatio);
+                    float bRatio = Mathf.Clamp01(Configuration.Current.GameClock.textBlueChannelRatio);
+                    float aRatio = Mathf.Clamp01(Configuration.Current.GameClock.textTransparencyChannelRatio);
 
                     timeText.color = new Color(rRatio, gRatio, bRatio, aRatio);
                     timeText.font = msgHud.m_messageCenterText.font;
-                    timeText.fontSize = Configuration.Current.GameClock.textFontSize;
+                    timeText.fontSize = 34;
                     timeText.enabled = true;
                     timeText.alignment = TextAnchor.MiddleCenter;
                     timeText.horizontalOverflow = HorizontalWrapMode.Overflow;
                 }
                 else timeText = timeObj.GetComponent<Text>();
-                timeText.text = hours_str + ":" + minutes_str + amPM_str;
-                var staminaBarRec = hud.m_staminaBar2Root.transform as RectTransform;
-                var statusEffictBarRec = hud.m_statusEffectListRoot.transform as RectTransform;
-                timeObj.GetComponent<RectTransform>().position = new Vector2(staminaBarRec.position.x, statusEffictBarRec.position.y);
-                timeObj.SetActive(true);
+
+                EnvMan env = EnvMan.instance;
+                if (savedEnvSeconds != env.m_totalSeconds)
+                {
+                    float minuteFrac = Mathf.Lerp(0, 24, env.GetDayFraction());
+                    float hr24 = Mathf.Floor(minuteFrac);
+                    minuteFrac = minuteFrac - hr24;
+                    float minutes = Mathf.Lerp(0, 60, minuteFrac);
+
+                    int hours_int = Mathf.FloorToInt(hr24);
+                    int minutes_int = Mathf.FloorToInt(minutes);
+
+                    if (Configuration.Current.GameClock.useAMPM)
+                    {
+                        amPM_str = (hours_int < 12) ? " AM" : " PM";
+                        if (hours_int > 12) hours_int -= 12;
+                    }
+
+                    if (hours_int < 10) hours_str = "0" + hours_int;
+                    if (minutes_int < 10) minutes_str = "0" + minutes_int;
+                    if (hours_int >= 10) hours_str = hours_int.ToString();
+                    if (minutes_int >= 10) minutes_str = minutes_int.ToString();
+
+                    timeText.text = hours_str + ":" + minutes_str + amPM_str;
+                    var staminaBarRec = hud.m_staminaBar2Root.transform as RectTransform;
+                    var statusEffictBarRec = hud.m_statusEffectListRoot.transform as RectTransform;
+                    timeObj.GetComponent<RectTransform>().position = new Vector2(staminaBarRec.position.x, statusEffictBarRec.position.y);
+                    timeObj.SetActive(true);
+                    savedEnvSeconds = env.m_totalSeconds;
+                }
             }
         }
 
