@@ -735,6 +735,11 @@
 				"description": "Set to true to remove the red screen flash overlay when the player takes damage.",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"displayBowAmmoCounts": {
+				"description": "Display arrow type, current ammo, and total ammo when bow is in hotbar - Never (0), Equipped (1), Always (2)",
+				"defaultValue": "0",
+				"defaultType": "int"
 			}
 		}
 	},
