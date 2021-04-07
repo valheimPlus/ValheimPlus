@@ -27,7 +27,14 @@ namespace ValheimPlus
                     bool hasAccess = foundContainer.CheckAccess(Player.m_localPlayer.GetPlayerID());
                     if (checkWard) hasAccess = hasAccess && PrivateArea.CheckAccess(hitCollider.gameObject.transform.position, 0f, false, true);
                     var piece = foundContainer.GetComponentInParent<Piece>();
-                    if (piece != null && piece.IsPlacedByPlayer() && hasAccess && foundContainer.GetInventory() != null)
+                    var isVagon = foundContainer.GetComponentInParent<Vagon>() != null;
+                    var isShip = foundContainer.GetComponentInParent<Ship>() != null;
+                    if (piece != null
+                        && piece.IsPlacedByPlayer()
+                        && !isVagon
+                        && !isShip
+                        && hasAccess
+                        && foundContainer.GetInventory() != null)
                     {
                         validContainers.Add(foundContainer);
                     }
