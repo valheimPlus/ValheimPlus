@@ -1047,6 +1047,11 @@
 				"description": "Prevents you and other people on the server to turn off their map sharing option",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"shareablePins": {
+				"desciption": "Allow pins to be shared",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
