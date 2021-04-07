@@ -126,12 +126,6 @@
 	"progress": "70",
     "category": "General"
   },
-  "Bow Ammo": {
-    "description": "Show the arrow count in some way when the bow is equipped. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/210'>reference</a>",
-    "icon": "fa fa-bow-arrow",
-    "status": "In Consideration",
-    "category": "Players"
-  },
   "Burn Unwanted Items": {
     "description": "Add a the ability to burn/destroy unwanted items in the kiln",
     "icon": "fas fa-shredder",
