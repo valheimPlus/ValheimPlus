@@ -29,6 +29,7 @@ namespace ValheimPlus.GameClasses
                 __instance.m_staminaRegenDelay = Helper.applyModifierValue(__instance.m_staminaRegenDelay, Configuration.Current.Stamina.staminaRegenDelay);
                 __instance.m_staminaRegen = Helper.applyModifierValue(__instance.m_staminaRegen, Configuration.Current.Stamina.staminaRegen);
                 __instance.m_swimStaminaDrainMinSkill = Helper.applyModifierValue(__instance.m_swimStaminaDrainMinSkill, Configuration.Current.Stamina.swimStaminaDrain);
+                __instance.m_swimStaminaDrainMaxSkill = Helper.applyModifierValue(__instance.m_swimStaminaDrainMaxSkill, Configuration.Current.Stamina.swimStaminaDrain);
                 __instance.m_jumpStaminaUsage = Helper.applyModifierValue(__instance.m_jumpStaminaUsage, Configuration.Current.Stamina.jumpStaminaDrain);
             }
             if (Configuration.Current.Player.IsEnabled)
