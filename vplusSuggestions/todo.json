@@ -83,12 +83,6 @@
     "status": "In Consideration",
     "category": "Hud"
   },
-  "Allow all ores in blast furnace": {
-    "description": "Add a configurable setting that allows you to select which ores can be smelted in the blast furnace.",
-    "icon": "fas fa-cubes",
-    "status": "In Consideration",
-    "category": "General"
-  },
   "Allow first person to be overridden ": {
     "description": "I would like to set ([FirstPerson] enabled=false) in my config, and not have that overridden when I join a server that forces it to true. First Person is neat, but it breaks the Build Camera mod which I can't live without. The alternative of course is if the Build Camera mod becomes compatible with FirstPerson, or a \"Build Camera\" feature is implemented into V+",
     "icon": "fas fa-camera-retro",
