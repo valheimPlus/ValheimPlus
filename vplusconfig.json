@@ -585,6 +585,11 @@
 				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
 				"defaultValue": "10",
 				"defaultType": "float"
+			},
+			"allowAllOres": {
+				"description": "Change to true or false to enable the use of all ores.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
@@ -941,7 +946,7 @@
 			},
 			"productionSpeed": {
 				"description": "The time it takes for the Kiln to produce a single piece of coal in seconds.",
-				"defaultValue": "16",
+				"defaultValue": "15",
 				"defaultType": "float"
 			},
 			"autoDeposit": {
@@ -1772,7 +1777,49 @@
 			}
 		}
 	},
-	"Tameable": {
+	"GameClock": {
+		"description": "",
+		"icon": "far fa-clock",
+		"description_website": "Shows In-Game digital clock in top center. Days starts at 0600 and sun sets at 1800.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"useAMPM": {
+				"description": "Change time format from 24hr to AM-PM",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"textFontSize": {
+				"description": "Change font size of time text",
+				"defaultValue": "34",
+				"defaultType": "int"
+			},
+			"textRedChannelRatio": {
+				"description": "Change how red the time text is.",
+				"defaultValue": "248",
+				"defaultType": "int"
+			},
+			"textGreenChannelRatio": {
+				"description": "Change how green the time text is.",
+				"defaultValue": "105",
+				"defaultType": "int"
+			},
+			"textBlueChannelRatio": {
+				"description": "Change how blue the time text is.",
+				"defaultValue": "0",
+				"defaultType": "int"
+			},
+			"textTransparencyChannelRatio": {
+				"description": "Change how transparent the time text is.",
+				"defaultValue": "255",
+				"defaultType": "int"
+			}
+		}
+	},
+  "Tameable": {
 		"description": "",
 		"icon": "fas fa-paw",
 		"description_website": "Change the in-game behaviour of creatures tamed by players.",
@@ -1796,7 +1843,7 @@
 				"description": "How long it takes for a tamed creature to recover(in seconds) if mortality is set to 1(essential) and they are stunned.",
 				"defaultValue": "10",
 				"defaultType": "float"
-			}
-		}
-	}
+      }
+    }
+  }
 }
