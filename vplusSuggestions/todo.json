@@ -384,12 +384,6 @@
     "status": "In Consideration",
     "category": "PVP"
   },
-  "Protected Pets": {
-    "description": "Make pets immortal or protected so only player can kill them or essential so they lay down for a bit after taking a deadly hit(edited).",
-    "icon": "fas fa-dog",
-    "status": "In Consideration",
-    "category": "General"
-  },
   "Push/Pull Doors": {
     "description": "Add the ability to specify whether a door can open both ways, or only push or pull.",
     "icon": "fas fa-door-open",
