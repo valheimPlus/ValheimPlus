@@ -350,7 +350,7 @@ namespace ValheimPlus.GameClasses
     public static class FurnaceDefinitions
     {
         public static readonly string CopperOrePrefabName = "CopperOre";
-        public static readonly string IronOrePrefabName = "IronOre";
+        public static readonly string ScrapIronPrefabName = "IronScrap";
         public static readonly string SilverOrePrefabName = "SilverOre";
         public static readonly string TinOrePrefabName = "TinOre";
 
@@ -362,7 +362,7 @@ namespace ValheimPlus.GameClasses
         public static readonly List<Smelter.ItemConversion> AdditionalConversions = new List<Smelter.ItemConversion>
         {
             new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(CopperOrePrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(CopperPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() },
-            new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(IronOrePrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(IronPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() },
+            new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(ScrapIronPrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(IronPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() },
             new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(SilverOrePrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(SilverPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() },
             new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(TinOrePrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(TinPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() }
         };

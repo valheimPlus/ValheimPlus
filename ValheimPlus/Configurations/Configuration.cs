@@ -37,6 +37,7 @@ namespace ValheimPlus.Configurations
         public GameConfiguration Game { get; set; }
         public WagonConfiguration Wagon { get; set; }
         public GatherConfiguration Gathering { get; set; }
+        public PickableConfiguration Pickable { get; set; }
         public DurabilityConfiguration Durability { get; set; }
         public ArmorConfiguration Armor { get; set; }
 	    public FreePlacementRotationConfiguration FreePlacementRotation { get; set; }
@@ -48,5 +49,6 @@ namespace ValheimPlus.Configurations
         public PlayerProjectileConfiguration PlayerProjectile { get; set; }
         public MonsterProjectileConfiguration MonsterProjectile { get; set; }
         public GameClockConfiguration GameClock { get; set; }
+        public BrightnessConfiguration Brightness { get; set; }
     }
 }

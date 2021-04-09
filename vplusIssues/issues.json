@@ -1,0 +1,14 @@
+{
+	"Inconsistent Movement Distance in Advanced Editor": {
+		"id": "1",
+		"bug_description": "Noticed while building that when using shift to increase the placement movement and then going immediately back the same number of steps, the object doesn't always end up back in the same place."
+	},
+	"BeeHives": {
+		"id": "2",
+		"bug_description": "BeeHives constantly being checked every 5 seconds."
+	},
+	"Furnace allow all Ores": {
+		"id": "3",
+		"bug_description": "Allow all ores in furnace is not working entirely correct."
+	}
+}

@@ -642,6 +642,11 @@
 				"description": "If you set this to true, portal names will be displayed in big text in center of screen.",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"disableFog": {
+				"description": "Remove dense fog from the game.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
@@ -730,6 +735,11 @@
 				"description": "Set to true to remove the red screen flash overlay when the player takes damage.",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"displayBowAmmoCounts": {
+				"description": "Display arrow type, current ammo, and total ammo when bow is in hotbar - Never (0), Equipped (1), Always (2)",
+				"defaultValue": "0",
+				"defaultType": "int"
 			}
 		}
 	},
@@ -805,6 +815,48 @@
 			},
 			"Chitin": {
 				"description": "The value 50 will increase the dropped resources from 10 to 15. The value -50 will reduce the amount of dropped resources from 10 to 5.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
+	"Pickable": {
+		"description": "",
+		"icon": "fa fa-axe",
+		"description_website": "Change drop rates of pickable items such as berries and valuables.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"edibles": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"flowersAndIngredients": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"materials": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"valuables": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"surtlingCores": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
 				"defaultValue": "0",
 				"defaultType": "float",
 				"modifier": "true"
@@ -998,6 +1050,11 @@
 			},
 			"preventPlayerFromTurningOffPublicPosition": {
 				"description": "Prevents you and other people on the server to turn off their map sharing option",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"shareablePins": {
+				"desciption": "Allow pins to be shared",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			}
@@ -1374,6 +1431,11 @@
 				"description": "The range of wards by meters",
 				"defaultValue": "20",
 				"defaultType": "float"
+			},
+			"wardEnemySpawnRange": {
+				"description": "Set the enemy spawn radius around wards in meters",
+				"defaultValue": "0",
+				"defaultType": "float"
 			}
 		}
 	},
@@ -1390,6 +1452,11 @@
 			"workbenchRange": {
 				"description": "Set the workbench radius in meters",
 				"defaultValue": "20",
+				"defaultType": "float"
+			},
+			"workbenchEnemySpawnRange": {
+				"description": "Set the enemy spawn radius around workbenches in meters",
+				"defaultValue": "0",
 				"defaultType": "float"
 			},
 			"workbenchAttachmentRange": {
@@ -1797,29 +1864,29 @@
 				"defaultValue": "34",
 				"defaultType": "int"
 			},
-			"textRedChannelRatio": {
+			"textRedChannel": {
 				"description": "Change how red the time text is.",
 				"defaultValue": "248",
 				"defaultType": "int"
 			},
-			"textGreenChannelRatio": {
+			"textGreenChannel": {
 				"description": "Change how green the time text is.",
 				"defaultValue": "105",
 				"defaultType": "int"
 			},
-			"textBlueChannelRatio": {
+			"textBlueChannel": {
 				"description": "Change how blue the time text is.",
 				"defaultValue": "0",
 				"defaultType": "int"
 			},
-			"textTransparencyChannelRatio": {
+			"textTransparencyChannel": {
 				"description": "Change how transparent the time text is.",
 				"defaultValue": "255",
 				"defaultType": "int"
 			}
 		}
 	},
-  "Tameable": {
+	"Tameable": {
 		"description": "",
 		"icon": "fas fa-paw",
 		"description_website": "Change the in-game behaviour of creatures tamed by players.",
@@ -1843,7 +1910,24 @@
 				"description": "How long it takes for a tamed creature to recover(in seconds) if mortality is set to 1(essential) and they are stunned.",
 				"defaultValue": "10",
 				"defaultType": "float"
-      }
-    }
-  }
+			}
+		}
+	},
+	"Brightness": {
+		"description": "",
+		"icon": "fas fa-sun",
+		"description_website": "Change the brightness during different time of day.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section.",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"nightBrightnessMultiplier": {
+				"description": "Change how bright it looks at night. A multiplier (+100) will result in nearly double in brightness.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			}
+		}
+	}
 }

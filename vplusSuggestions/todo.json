@@ -83,12 +83,6 @@
     "status": "In Consideration",
     "category": "Hud"
   },
-  "Allow all ores in blast furnace": {
-    "description": "Add a configurable setting that allows you to select which ores can be smelted in the blast furnace.",
-    "icon": "fas fa-cubes",
-    "status": "In Consideration",
-    "category": "General"
-  },
   "Allow first person to be overridden ": {
     "description": "I would like to set ([FirstPerson] enabled=false) in my config, and not have that overridden when I join a server that forces it to true. First Person is neat, but it breaks the Build Camera mod which I can't live without. The alternative of course is if the Build Camera mod becomes compatible with FirstPerson, or a \"Build Camera\" feature is implemented into V+",
     "icon": "fas fa-camera-retro",
@@ -125,12 +119,6 @@
     "status": "In Progress",
 	"progress": "70",
     "category": "General"
-  },
-  "Bow Ammo": {
-    "description": "Show the arrow count in some way when the bow is equipped. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/210'>reference</a>",
-    "icon": "fa fa-bow-arrow",
-    "status": "In Consideration",
-    "category": "Players"
   },
   "Burn Unwanted Items": {
     "description": "Add a the ability to burn/destroy unwanted items in the kiln",
@@ -256,12 +244,6 @@
     "progress": "0",
     "category": "PVP"
   },
-  "In-game Clock": {
-    "description": "A ingame display of the in-game. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/365'>reference</a>",
-    "icon": "fa fa-clock",
-    "status": "In Consideration",
-    "category": "Hud"
-  },
   "Increase difficulty based on day in game": {
     "description": "Add the ability to add a difficulty multiplier per day.",
     "icon": "fad fa-sort-numeric-up",
@@ -316,12 +298,6 @@
     "icon": "fas fa-shopping-cart",
     "status": "In Consideration",
     "category": "Map"
-  },
-  "Modifiers for Berries and Bushes": {
-    "description": "Add a configuration settings to modify the amount of berries harvested from bushes. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/222'>reference</a>",
-    "icon": "fab fa-raspberry-pi",
-    "status": "In Consideration",
-    "category": "Items"
   },
   "Modify Block and Parry Levels of Weapons": {
     "description": "Add the ability to modify block and parry levels. Not being able to modify block values for weapons - especially 2h weapons- makes block worthless when setting up dmg scaling for +100%.",
@@ -407,12 +383,6 @@
     "icon": "fas fa-portal-exit",
     "status": "In Consideration",
     "category": "Map"
-  },
-  "Remove Fog": {
-    "description": "Add the ability to remove fog from the game.",
-    "icon": "fas fa-fog",
-    "status": "In Consideration",
-    "category": "World"
   },
   "Remove Ground Height Limits": {
     "description": "Remove/change the limits to how high/low you can dig or build",
