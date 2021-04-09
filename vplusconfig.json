@@ -1426,6 +1426,11 @@
 				"description": "The range of wards by meters",
 				"defaultValue": "20",
 				"defaultType": "float"
+			},
+			"wardEnemySpawnRange": {
+				"description": "Set the enemy spawn radius around wards in meters",
+				"defaultValue": "0",
+				"defaultType": "float"
 			}
 		}
 	},
@@ -1442,6 +1447,11 @@
 			"workbenchRange": {
 				"description": "Set the workbench radius in meters",
 				"defaultValue": "20",
+				"defaultType": "float"
+			},
+			"workbenchEnemySpawnRange": {
+				"description": "Set the enemy spawn radius around workbenches in meters",
+				"defaultValue": "0",
 				"defaultType": "float"
 			},
 			"workbenchAttachmentRange": {
