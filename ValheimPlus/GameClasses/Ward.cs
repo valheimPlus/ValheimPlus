@@ -20,7 +20,7 @@ namespace ValheimPlus.GameClasses
 
                     // Apply this change to the child GameObject's EffectArea collision.
                     // Various other systems query this collision instead of the PrivateArea radius for permissions (notably, enemy spawning).
-                    Helper.ResizeChildEffectArea(__instance, EffectArea.Type.PlayerBase, Configuration.Current.Ward.wardRange);
+                    Helper.ResizeChildEffectArea(__instance, EffectArea.Type.PlayerBase, Configuration.Current.Ward.wardEnemySpawnRange > 0 ? Configuration.Current.Ward.wardEnemySpawnRange : Configuration.Current.Ward.wardRange);
                 }
             }
         }
