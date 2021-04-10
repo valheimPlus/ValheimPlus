@@ -113,7 +113,7 @@
 	"Beehive": {
 		"description": "",
 		"icon": "fa fa-hexagon",
-		"description_website": "Change the in-game beheavior of the beehive and modify its values.",
+		"description_website": "Change the in-game behavior of the beehive and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -150,7 +150,7 @@
 	"Building": {
 		"description": "",
 		"icon": "fa fa-archway",
-		"description_website": "Change the beheavior of the in-game building objects and their placement restrictions.",
+		"description_website": "Change the behavior of the in-game building objects and their placement restrictions.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -239,7 +239,7 @@
 	"Camera": {
 		"description": "",
 		"icon": "fa fa-video",
-		"description_website": "Change the beheavior of the in-game camera.",
+		"description_website": "Change the behavior of the in-game camera.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -380,7 +380,7 @@
 	"Fermenter": {
 		"description": "",
 		"icon": "fa fa-vial",
-		"description_website": "Change the in-game beheavior of the fermenter and modify its values.",
+		"description_website": "Change the in-game behavior of the fermenter and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -427,7 +427,7 @@
 	"FireSource": {
 		"description": "",
 		"icon": "fa fa-fire",
-		"description_website": "Change the in-game beheavior of torches and fireplaces.",
+		"description_website": "Change the in-game behavior of torches and fireplaces.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -464,7 +464,7 @@
 	"Food": {
 		"description": "",
 		"icon": "fa fa-steak",
-		"description_website": "Change the in-game beheavior of food and its values.",
+		"description_website": "Change the in-game behavior of food and its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -487,7 +487,7 @@
 	"Smelter": {
 		"description": "",
 		"icon": "fa fa-fireplace",
-		"description_website": "Change the in-game beheavior of the smelter and modify its values.",
+		"description_website": "Change the in-game behavior of the smelter and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -539,7 +539,7 @@
 	"Furnace": {
 		"description": "",
 		"icon": "fad fa-fireplace",
-		"description_website": "Change the in-game beheavior of the furnace and modify its values.",
+		"description_website": "Change the in-game behavior of the furnace and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -675,7 +675,7 @@
 	"Items": {
 		"description": "",
 		"icon": "fa fa-icons",
-		"description_website": "Change the in-game beheavior of items and modify their values.",
+		"description_website": "Change the in-game behavior of items and modify their values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -974,7 +974,7 @@
 	"Kiln": {
 		"description": "",
 		"icon": "fa fa-igloo",
-		"description_website": "Change the in-game beheavior of the kiln and modify its values.",
+		"description_website": "Change the in-game behavior of the kiln and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -1031,7 +1031,7 @@
 	"Map": {
 		"description": "",
 		"icon": "fas fa-map",
-		"description_website": "Change the in-game beheavior of the map and allow for shared map progression between players.",
+		"description_website": "Change the in-game behavior of the map and allow for shared map progression between players.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -1698,7 +1698,7 @@
 	"Windmill": {
 		"description": "",
 		"icon": "fad fa-wind-turbine",
-		"description_website": "Change the in-game beheavior of the windmill and modify its values.",
+		"description_website": "Change the in-game behavior of the windmill and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -1740,7 +1740,7 @@
 	"SpinningWheel": {
 		"description": "",
 		"icon": "fab fa-cotton-bureau",
-		"description_website": "Change the in-game beheavior of the spinning wheel and modify its values.",
+		"description_website": "Change the in-game behavior of the spinning wheel and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
