@@ -110,6 +110,28 @@
 			}
 		}
 	},
+	"Bed": {
+		"description": "",
+		"icon": "far fa-bed-bunk",
+		"description_website": "Change the in-game beheavior of how you can interact with a Bed. A new Hot-Key 'LShift+E' will be presented when hovering over Beds to activate the functionality of sleeping without setting a spawn point.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"sleepWithoutSpawn": {
+				"description": "Change false to true to enable sleeping without setting bed as spawn.",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"unclaimedBedsOnly": {
+				"description": "Change false to true to enable sleeping on only unclaimed beds without setting bed as spawn. You can still sleep as normal on Beds that have been claimed by yourself.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
 	"Beehive": {
 		"description": "",
 		"icon": "fa fa-hexagon",
