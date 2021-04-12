@@ -28,8 +28,10 @@ namespace ValheimPlus.UI
             // Find the bow in the hotbar
             ItemDrop.ItemData bow = null;
             foreach (ItemDrop.ItemData item in __instance.m_items)
-                if (item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
+            {
+                if (item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow && player.IsItemEquiped(item))
                     bow = item;
+            }
 
             // If there is no bow or it is not equipped, remove the text element
             if (bow == null || (Configuration.Current.Hud.displayBowAmmoCounts == 1 && !bow.m_equiped))
