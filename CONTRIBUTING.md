@@ -11,7 +11,7 @@ How to setup the development enviroment to compile ValheimPlus yourself.
    - This package has a tool that you'll use to create publicized versions of the `assembly_*.dll` files for your local development.
    - Repo: https://github.com/MrPurple6411/Bepinex-Tools/releases/tag/1.0.0-Publicizer by [MrPurple6411](https://github.com/MrPurple6411).
 1. Drag and drop all `assembly_*.dll` files from "\Valheim\valheim_Data\Managed\" folder onto "AssemblyPublicizer.exe". This will create a new folder called "/publicized_assemblies/".
-1. Define Enviroment Variable `VALHEIM_INSTALL` with path to Valheim Install Directory  
+1. Define Environment Variable `VALHEIM_INSTALL` with path to Valheim Install Directory  
    - example: `setx VALHEIM_INSTALL "C:\Program Files\Steam\steamapps\common\Valheim" /M`
 
 ## Debugging with dnSpy
@@ -57,7 +57,7 @@ Thanks to mono and unity-mono being open source, we patched and compiled our own
 1. Try to find an appropriate existing configuration section before adding a new one. Generally, if your configuration changes something related to the player, for example, then add it to the `[Player]` section. Look at it from the perspective of a user who's looking for a specific configuration instead of the perspective of someone who's coding and looking for a class.
 1. Add any new configuration Sections (`[Section]`) to the bottom of the .cfg file so that we're less likely to break existing config.
 1. Check out our helpers in the /Utilities/ folder and use them where appropriate
-1. For configuration modifiers that add a modifcation to the base value, always use a percentage configuration and use the `applyModifier()` utility.
+1. For configuration modifiers that add a modification to the base value, always use a percentage configuration and use the `applyModifier()` utility.
 1. For configuration modifier values make sure to add `"modifier": "true"` as entry stat to the vplusconfig.json.
 
 ## Making a Pull Request
