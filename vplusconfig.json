@@ -1901,8 +1901,8 @@
 				"defaultValue": "0",
 				"defaultType": "int"
 			},
-			"onlyOwnerCanHurt": {
-				"description": "Change to true so only the owner of a tamed creature can hurt it. This will circumvent the mortality setting, so even if tamed creatures are immortal, the owner can still kill them.",
+			"ownerDamageOverride": {
+				"description": "Change to true so any damage the owner does will override the mortality setting (e.g., an immortal/essential tame can still be killed by the owner).",
 				"defaultValue": "false",
 				"defaultType": "false"
 			},
