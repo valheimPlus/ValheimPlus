@@ -389,6 +389,7 @@
     <Compile Include="GameClasses\FejdStartup.cs" />
     <Compile Include="GameClasses\Fireplace.cs" />
     <Compile Include="GameClasses\GameCamera.cs" />
+    <Compile Include="RPC\VPlusMapPinSync.cs" />
     <Compile Include="UI\HotkeyBar.cs" />
     <Compile Include="GameClasses\Hud.cs" />
     <Compile Include="GameClasses\EventSystem.cs" />
@@ -438,6 +439,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Assets\Bundles\map-pin-ui" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
