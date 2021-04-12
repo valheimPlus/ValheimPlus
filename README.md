@@ -199,7 +199,7 @@ We work together closely to make sure all our features are integrated and workin
 ### Grid alignment
 * When pressing the configured key (left alt is the default) new buildings will be aligned to a global grid.
    * The mode can also be toggled by pressing another key (F7 by default).
-   * Building elements (from the third tab) are aligned to to their size (e.g. a wood wall will have an alignment of 2m in X and Y direction). The alignment of building elements in other directorion can be configured (by default with the F6 key) to 0.5m, 1m, 2m or 4m.
+   * Building elements (from the third tab) are aligned to to their size (e.g. a wood wall will have an alignment of 2m in X and Y direction). The alignment of building elements in other direction can be configured (by default with the F6 key) to 0.5m, 1m, 2m or 4m.
    * Other buildings like furniture will always be aligned to 0.5m, but the Y position will not be aligned (to make sure they are always exactly on the floor).
 
 ### Structural Integrity
@@ -236,7 +236,7 @@ We work together closely to make sure all our features are integrated and workin
    * Build the object by clicking.
   
 **NOTE:**
-* *Objects built with this system are not excempt from the structure/support system. Dungeons and other no-build areas are still restricted.*
+* *Objects built with this system are not exempt from the structure/support system. Dungeons and other no-build areas are still restricted.*
 
 ### Advanced Editing Mode
 * **Video demo: https://imgur.com/DMb4ZUv.mp4**
