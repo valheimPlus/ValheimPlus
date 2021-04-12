@@ -83,12 +83,6 @@
     "status": "In Consideration",
     "category": "Hud"
   },
-  "Allow all ores in blast furnace": {
-    "description": "Add a configurable setting that allows you to select which ores can be smelted in the blast furnace.",
-    "icon": "fas fa-cubes",
-    "status": "In Consideration",
-    "category": "General"
-  },
   "Allow first person to be overridden ": {
     "description": "I would like to set ([FirstPerson] enabled=false) in my config, and not have that overridden when I join a server that forces it to true. First Person is neat, but it breaks the Build Camera mod which I can't live without. The alternative of course is if the Build Camera mod becomes compatible with FirstPerson, or a \"Build Camera\" feature is implemented into V+",
     "icon": "fas fa-camera-retro",
@@ -125,12 +119,6 @@
     "status": "In Progress",
 	"progress": "70",
     "category": "General"
-  },
-  "Bow Ammo": {
-    "description": "Show the arrow count in some way when the bow is equipped. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/210'>reference</a>",
-    "icon": "fa fa-bow-arrow",
-    "status": "In Consideration",
-    "category": "Players"
   },
   "Burn Unwanted Items": {
     "description": "Add a the ability to burn/destroy unwanted items in the kiln",
@@ -372,12 +360,6 @@
     "status": "In Consideration",
     "category": "PVP"
   },
-  "Protected Pets": {
-    "description": "Make pets immortal or protected so only player can kill them or essential so they lay down for a bit after taking a deadly hit(edited).",
-    "icon": "fas fa-dog",
-    "status": "In Consideration",
-    "category": "General"
-  },
   "Push/Pull Doors": {
     "description": "Add the ability to specify whether a door can open both ways, or only push or pull.",
     "icon": "fas fa-door-open",
@@ -401,12 +383,6 @@
     "icon": "fas fa-portal-exit",
     "status": "In Consideration",
     "category": "Map"
-  },
-  "Remove Fog": {
-    "description": "Add the ability to remove fog from the game.",
-    "icon": "fas fa-fog",
-    "status": "In Consideration",
-    "category": "World"
   },
   "Remove Ground Height Limits": {
     "description": "Remove/change the limits to how high/low you can dig or build",

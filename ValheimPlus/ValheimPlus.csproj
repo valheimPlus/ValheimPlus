@@ -331,6 +331,7 @@
     <Compile Include="AdvancedBuildingMode.cs" />
     <Compile Include="AdvancedEditingMode.cs" />
     <Compile Include="Configurations\Sections\BedConfiguration.cs" />
+    <Compile Include="Configurations\Sections\BrightnessConfiguration.cs" />
     <Compile Include="Configurations\Sections\GameClockConfiguration.cs" />
     <Compile Include="Configurations\Sections\MonsterProjectileConfiguration.cs" />
     <Compile Include="Configurations\Sections\PlayerProjectileConfiguration.cs" />
@@ -391,6 +392,8 @@
     <Compile Include="GameClasses\FejdStartup.cs" />
     <Compile Include="GameClasses\Fireplace.cs" />
     <Compile Include="GameClasses\GameCamera.cs" />
+    <Compile Include="RPC\VPlusMapPinSync.cs" />
+    <Compile Include="UI\HotkeyBar.cs" />
     <Compile Include="GameClasses\Hud.cs" />
     <Compile Include="GameClasses\EventSystem.cs" />
     <Compile Include="GameClasses\MonsterAI.cs" />
@@ -439,6 +442,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Assets\Bundles\map-pin-ui" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

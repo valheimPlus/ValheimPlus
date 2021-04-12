@@ -12,22 +12,40 @@ using ValheimPlus.Utility;
 namespace ValheimPlus.GameClasses
 {
     /// <summary>
-    /// Determines how a creature should behave if it should be dead based on Tameable options.
+    /// Determines what happens when a tamed creature takes damage.
     /// </summary>
-    [HarmonyPatch(typeof(Character), "CheckDeath")]
-    public static class Character_CheckDeath_Patch
+    [HarmonyPatch(typeof(Character), "Damage")]
+    public static class Character_Damage_Patch
     {
-        public static void Prefix(Character __instance)
+        public static void Prefix(Character __instance, ref HitData hit, out Tameable __state)
+        {
+            __state = null;
+            if (Configuration.Current.Tameable.IsEnabled)
+            {
+                Character character = __instance;
+                ZDO zdo = character.m_nview.GetZDO();
+                __state = character.GetComponent<Tameable>();
+
+                if (!character.IsTamed() || zdo == null || hit == null || __state)
+                    return;
+
+                if (ShouldIgnoreDamage(character, __state, hit, zdo))
+                    hit = new HitData();
+            }
+        }
+
+        public static void Postfix(Character __instance, HitData hit, Tameable __state)
         {
             if (Configuration.Current.Tameable.IsEnabled)
             {
                 Character character = __instance;
                 ZDO zdo = character.m_nview.GetZDO();
+                Tameable tameable = __state;
 
-                if (!character.IsTamed() || zdo == null)
+                if (!character.IsTamed() || zdo == null || tameable == null)
                     return;
 
-                if (ShouldSetStunned(character))
+                if (ShouldSetStunned(character, tameable, hit))
                 {
                     character.SetHealth(character.GetMaxHealth());
                     character.m_animator.SetBool("sleeping", true);
@@ -37,36 +55,24 @@ namespace ValheimPlus.GameClasses
             }
         }
 
-        private static bool ShouldSetStunned(Character character)
+        private static bool ShouldIgnoreDamage(Character tame, Tameable tameable, HitData hit, ZDO zdo)
         {
-            return (TameableMortalityTypes)Configuration.Current.Tameable.mortality == TameableMortalityTypes.Essential && character.GetHealth() <= 0f && !Configuration.Current.Tameable.onlyOwnerCanHurt;
-        }
-    }
-
-    /// <summary>
-    /// Determines whether a tamed creature should take damage or not based on Tameable options.
-    /// </summary>
-    [HarmonyPatch(typeof(Character), "Damage")]
-    public static class Character_Damage_Patch
-    {
-        public static void Prefix(Character __instance, ref HitData hit)
-        {
-            if (Configuration.Current.Tameable.IsEnabled)
-            {
-                Character character = __instance;
-                ZDO zdo = character.m_nview.GetZDO();
-
-                if (!character.IsTamed() || zdo == null)
-                    return;
-
-                if (ShouldIgnoreDamage(hit, zdo))
-                    hit = new HitData();
-            }
+            bool tameIsImmortal = (TameableMortalityTypes)Configuration.Current.Tameable.mortality == TameableMortalityTypes.Immortal;
+            bool tameOwnerDamageOverride = Configuration.Current.Tameable.ownerDamageOverride;
+            Character attacker = hit.GetAttacker();
+            bool tameAttackerIsOwner = attacker == tameable.GetPlayer(attacker.GetZDOID());
+            bool tameIsRecoveringFromStun = zdo.GetBool("isRecoveringFromStun");
+            return (tameIsImmortal && !(tameOwnerDamageOverride && tameAttackerIsOwner)) || tameIsRecoveringFromStun;
         }
 
-        private static bool ShouldIgnoreDamage(HitData hit, ZDO zdo)
+        private static bool ShouldSetStunned(Character character, Tameable tameable, HitData hit)
         {
-            return ((TameableMortalityTypes)Configuration.Current.Tameable.mortality == TameableMortalityTypes.Immortal || (Configuration.Current.Tameable.onlyOwnerCanHurt && hit.GetAttacker().m_nview.GetZDO().m_owner != zdo.m_owner) || zdo.GetBool("isRecoveringFromStun")) && !Configuration.Current.Tameable.onlyOwnerCanHurt;
+            bool tameIsEssential = (TameableMortalityTypes)Configuration.Current.Tameable.mortality == TameableMortalityTypes.Essential;
+            bool tameShouldBeDead = character.GetHealth() <= 0f;
+            bool tameOwnerDamageOverride = Configuration.Current.Tameable.ownerDamageOverride;
+            Character attacker = hit.GetAttacker();
+            bool tameAttackerIsOwner = attacker == tameable.GetPlayer(attacker.GetZDOID());
+            return tameIsEssential && tameShouldBeDead && !(tameOwnerDamageOverride && tameAttackerIsOwner);
         }
     }
 
