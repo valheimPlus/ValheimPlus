@@ -9,7 +9,7 @@ namespace ValheimPlus.UI
     /// <summary>
     /// Shows current and total ammo counts below bow icon, if bow is equipped in hotbar
     /// </summary>
-    [HarmonyPatch(typeof(HotkeyBar), "UpdateIcons")]
+    [HarmonyPatch(typeof(HotkeyBar), nameof(HotkeyBar.UpdateIcons))]
     public static class HotkeyBar_UpdateIcons_Patch
     {
         private const string hudObjectName = "BowAmmoCounts";
@@ -29,12 +29,15 @@ namespace ValheimPlus.UI
             ItemDrop.ItemData bow = null;
             foreach (ItemDrop.ItemData item in __instance.m_items)
             {
-                if (item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow && player.IsItemEquiped(item))
-                    bow = item;
+                if (item.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Bow)
+                {
+                    if (bow == null || player.IsItemEquiped(item))
+                        bow = item;
+                }
             }
 
             // If there is no bow or it is not equipped, remove the text element
-            if (bow == null || (Configuration.Current.Hud.displayBowAmmoCounts == 1 && !bow.m_equiped))
+            if (bow == null || (Configuration.Current.Hud.displayBowAmmoCounts == 1 && !player.IsItemEquiped(bow)))
             {
                 if (ammoCounter != null)
                 {
