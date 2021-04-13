@@ -53,12 +53,6 @@
     "status": "In Consideration",
     "category": "World"
   },
-  "Add the option to turn off cooking stations for craft from containers": {
-    "description": "Add the option to turn off cooking stations for craft from containers.",
-    "icon": "fas fa-cauldron",
-    "status": "In Consideration",
-    "category": "General"
-  },
   "Additional Server Side Config": {
     "description": "Add additional server config options, such as console to Server chat, bash commands, Customizing how the server appears on the lists ",
     "icon": "fas fa-file-check",
