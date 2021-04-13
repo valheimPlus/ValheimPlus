@@ -113,13 +113,6 @@
     "status": "In Consideration",
     "category": "Player"
   },
-  "Auto deposit for Windmill": {
-    "description": "You have already added the features to auto deposit from furances / beehives to nearby chests, make it exist for windmill too please",
-    "icon": "fad fa-wind-turbine",
-    "status": "In Progress",
-	"progress": "70",
-    "category": "General"
-  },
   "Burn Unwanted Items": {
     "description": "Add a the ability to burn/destroy unwanted items in the kiln",
     "icon": "fas fa-shredder",
@@ -148,7 +141,8 @@
     "description": "Add a chinese translation for the V+ configuration file",
     "icon": "fas fa-language",
     "status": "In Consideration",
-    "category": "General"
+    "category": "In Progress",
+	"progress": "50"
   },
   "Control what Animals Eat": {
     "description": "Add the ability to control what food animals eat, e.g. make it so boars can eat every type of food.",
@@ -166,7 +160,7 @@
     "description": "A system to add custom map markers to the player map with custom icons and more, including if you want to share the Map Marker with others.",
     "icon": "fa fa-map-pin",
     "status": "In Progress",
-    "progress": "0",
+    "progress": "90",
     "category": "Map"
   },
   "Dedicated Shield Slot": {
@@ -185,7 +179,7 @@
   "Disable rain/weather": {
     "description": "Add the option on dedicated server to disable rain or maybe reduce how often it can occur. For me, I'd like to just disable rain and maybe even fog altogether. Others might rather have something like rain not occurring more often than every 7 days or something.",
     "icon": "fas fa-cloud-sun-rain",
-    "status": "In Consideration",
+    "status": "Planned",
     "category": "Server"
   },
   "Display a message to all connected Players": {
@@ -199,12 +193,6 @@
     "icon": "fa fa-map-pin",
     "status": "In Consideration",
     "category": "Map"
-  },
-  "Dynamite for Mining": {
-    "description": "Add dynamite sticks for quickly mining like in MineCraft.",
-    "icon": "fas fa-bomb",
-    "status": "In Consideration",
-    "category": "World"
   },
   "Easier sleeping with multiple people on the server.": {
     "description": "<a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/90'>reference</a>",
@@ -279,12 +267,6 @@
     "icon": "fas fa-link",
     "status": "In Consideration",
     "category": "Building"
-  },
-  "Make the Trailer ship craftable and usable": {
-    "description": "Currently the Trailer ship can only be spawned through console commands and you cannot sail it. For all other intents and purposes its works as a normal boat(storage included)",
-    "icon": "fas fa-ship",
-    "status": "In Consideration",
-    "category": "Items"
   },
   "Map Marker Sync System": {
     "description": "A system to synchronize all map markers ",
@@ -401,12 +383,6 @@
     "icon": "fas fa-tools",
     "status": "In Consideration",
     "category": "General"
-  },
-  "Repairs require materials": {
-    "description": "Make item repairs cost a % of the items used to create it. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/287'>reference</a>",
-    "icon": "fas fa-tools",
-    "status": "In Consideration",
-    "category": "Items"
   },
   "Reset mob wave when bosses are killed": {
     "description": "Every time the server completes a boss, the enemies in the Meadows get more difficult. As of now, our server has beaten the 5th boss and Fulings spawn in the Meadows at night. This makes it very difficult for a new and growing server, such as ours, to introduce new players to our server without them bringing in end-game gear.",
