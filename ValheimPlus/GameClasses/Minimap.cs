@@ -91,7 +91,8 @@ namespace ValheimPlus.GameClasses
         {
             private static void AddPin(ref Minimap __instance)
             {
-                Minimap.PinData addedPin = __instance.AddPin(pinPos, (Minimap.PinType)iconSelected.value, pinName.text, true, false);
+                Minimap.PinType pintype = iconSelected.value == 4 ? Minimap.PinType.Icon4 : (Minimap.PinType)iconSelected.value;
+                Minimap.PinData addedPin = __instance.AddPin(pinPos, pintype, pinName.text, true, false);
                 if (Configuration.Current.Map.shareablePins && sharePin.isOn)
                     VPlusMapPinSync.SendMapPinToServer(addedPin);
                 pinEditorPanel.SetActive(false);
@@ -124,7 +125,7 @@ namespace ValheimPlus.GameClasses
                         Debug.Log("Pin Name loaded properly");
                     Minimap theInstance = __instance;
                     GameObjectAssistant.GetChildComponentByName<Transform>("OK", pinEditorPanel).gameObject.GetComponent<Button>().onClick.AddListener(delegate { AddPin(ref theInstance); });
-                    GameObjectAssistant.GetChildComponentByName<Transform>("Cancel", pinEditorPanel).gameObject.GetComponent<Button>().onClick.AddListener(delegate { Minimap.instance.m_wasFocused = false; });
+                    GameObjectAssistant.GetChildComponentByName<Transform>("Cancel", pinEditorPanel).gameObject.GetComponent<Button>().onClick.AddListener(delegate { Minimap.instance.m_wasFocused = false; pinEditorPanel.SetActive(false); });
                     iconSelected = pinEditorPanel.GetComponentInChildren<Dropdown>();
                     iconSelected.options.Clear();
                     int ind = 0;
