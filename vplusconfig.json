@@ -110,10 +110,32 @@
 			}
 		}
 	},
+	"Bed": {
+		"description": "",
+		"icon": "far fa-bed-bunk",
+		"description_website": "Change the in-game beheavior of how you can interact with a Bed. A new Hot-Key 'LShift+E' will be presented when hovering over Beds to activate the functionality of sleeping without setting a spawn point.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"sleepWithoutSpawn": {
+				"description": "Change false to true to enable sleeping without setting bed as spawn.",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"unclaimedBedsOnly": {
+				"description": "Change false to true to enable sleeping on only unclaimed beds without setting bed as spawn. You can still sleep as normal on Beds that have been claimed by yourself.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
 	"Beehive": {
 		"description": "",
 		"icon": "fa fa-hexagon",
-		"description_website": "Change the in-game beheavior of the beehive and modify its values.",
+		"description_website": "Change the in-game behavior of the beehive and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -150,7 +172,7 @@
 	"Building": {
 		"description": "",
 		"icon": "fa fa-archway",
-		"description_website": "Change the beheavior of the in-game building objects and their placement restrictions.",
+		"description_website": "Change the behavior of the in-game building objects and their placement restrictions.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -239,7 +261,7 @@
 	"Camera": {
 		"description": "",
 		"icon": "fa fa-video",
-		"description_website": "Change the beheavior of the in-game camera.",
+		"description_website": "Change the behavior of the in-game camera.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -380,7 +402,7 @@
 	"Fermenter": {
 		"description": "",
 		"icon": "fa fa-vial",
-		"description_website": "Change the in-game beheavior of the fermenter and modify its values.",
+		"description_website": "Change the in-game behavior of the fermenter and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -427,7 +449,7 @@
 	"FireSource": {
 		"description": "",
 		"icon": "fa fa-fire",
-		"description_website": "Change the in-game beheavior of torches and fireplaces.",
+		"description_website": "Change the in-game behavior of torches and fireplaces.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -464,7 +486,7 @@
 	"Food": {
 		"description": "",
 		"icon": "fa fa-steak",
-		"description_website": "Change the in-game beheavior of food and its values.",
+		"description_website": "Change the in-game behavior of food and its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -487,7 +509,7 @@
 	"Smelter": {
 		"description": "",
 		"icon": "fa fa-fireplace",
-		"description_website": "Change the in-game beheavior of the smelter and modify its values.",
+		"description_website": "Change the in-game behavior of the smelter and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -539,7 +561,7 @@
 	"Furnace": {
 		"description": "",
 		"icon": "fad fa-fireplace",
-		"description_website": "Change the in-game beheavior of the furnace and modify its values.",
+		"description_website": "Change the in-game behavior of the furnace and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -642,6 +664,11 @@
 				"description": "If you set this to true, portal names will be displayed in big text in center of screen.",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"disableFog": {
+				"description": "Remove dense fog from the game.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
@@ -670,7 +697,7 @@
 	"Items": {
 		"description": "",
 		"icon": "fa fa-icons",
-		"description_website": "Change the in-game beheavior of items and modify their values.",
+		"description_website": "Change the in-game behavior of items and modify their values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -730,6 +757,11 @@
 				"description": "Set to true to remove the red screen flash overlay when the player takes damage.",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"displayBowAmmoCounts": {
+				"description": "Display arrow type, current ammo, and total ammo when bow is in hotbar - Never (0), Equipped (1), Always (2)",
+				"defaultValue": "0",
+				"defaultType": "int"
 			}
 		}
 	},
@@ -964,7 +996,7 @@
 	"Kiln": {
 		"description": "",
 		"icon": "fa fa-igloo",
-		"description_website": "Change the in-game beheavior of the kiln and modify its values.",
+		"description_website": "Change the in-game behavior of the kiln and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -1021,7 +1053,7 @@
 	"Map": {
 		"description": "",
 		"icon": "fas fa-map",
-		"description_website": "Change the in-game beheavior of the map and allow for shared map progression between players.",
+		"description_website": "Change the in-game behavior of the map and allow for shared map progression between players.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -1040,6 +1072,11 @@
 			},
 			"preventPlayerFromTurningOffPublicPosition": {
 				"description": "Prevents you and other people on the server to turn off their map sharing option",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"shareablePins": {
+				"desciption": "Allow pins to be shared",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			}
@@ -1416,6 +1453,11 @@
 				"description": "The range of wards by meters",
 				"defaultValue": "20",
 				"defaultType": "float"
+			},
+			"wardEnemySpawnRange": {
+				"description": "Set the enemy spawn radius around wards in meters",
+				"defaultValue": "0",
+				"defaultType": "float"
 			}
 		}
 	},
@@ -1432,6 +1474,11 @@
 			"workbenchRange": {
 				"description": "Set the workbench radius in meters",
 				"defaultValue": "20",
+				"defaultType": "float"
+			},
+			"workbenchEnemySpawnRange": {
+				"description": "Set the enemy spawn radius around workbenches in meters",
+				"defaultValue": "0",
 				"defaultType": "float"
 			},
 			"workbenchAttachmentRange": {
@@ -1673,7 +1720,7 @@
 	"Windmill": {
 		"description": "",
 		"icon": "fad fa-wind-turbine",
-		"description_website": "Change the in-game beheavior of the windmill and modify its values.",
+		"description_website": "Change the in-game behavior of the windmill and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -1715,7 +1762,7 @@
 	"SpinningWheel": {
 		"description": "",
 		"icon": "fab fa-cotton-bureau",
-		"description_website": "Change the in-game beheavior of the spinning wheel and modify its values.",
+		"description_website": "Change the in-game behavior of the spinning wheel and modify its values.",
 		"entries": {
 			"enabled": {
 				"description": "Change false to true to enable this section",
@@ -1898,8 +1945,8 @@
 				"defaultValue": "0",
 				"defaultType": "int"
 			},
-			"onlyOwnerCanHurt": {
-				"description": "Change to true so only the owner of a tamed creature can hurt it. This will circumvent the mortality setting, so even if tamed creatures are immortal, the owner can still kill them.",
+			"ownerDamageOverride": {
+				"description": "Change to true so any damage the owner does will override the mortality setting (e.g., an immortal/essential tame can still be killed by the owner).",
 				"defaultValue": "false",
 				"defaultType": "false"
 			},
@@ -1908,6 +1955,26 @@
 				"defaultValue": "10",
 				"defaultType": "float"
 			}
+    }
+  },
+	"Brightness": {
+		"description": "",
+		"icon": "fas fa-sun",
+		"description_website": "Change the brightness during different time of day.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section.",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"nightBrightnessMultiplier": {
+				"description": "Change how bright it looks at night. A multiplier (+100) will result in nearly double in brightness.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			}
 		}
 	}
+
+	
 }
+

@@ -32,6 +32,9 @@ namespace ValheimPlus
         public static string Repository = "https://github.com/valheimPlus/ValheimPlus";
         public static string ApiRepository = "https://api.github.com/repos/valheimPlus/valheimPlus/tags";
 
+        // Website INI for auto update
+        public static string iniFile = "https://raw.githubusercontent.com/valheimPlus/ValheimPlus/" + version + "/valheim_plus.cfg";
+
         // Awake is called once when both the game and the plug-in are loaded
         void Awake()
         {
@@ -43,6 +46,7 @@ namespace ValheimPlus
             }
             else
             {
+                
                 Logger.LogInfo("Configuration file loaded succesfully.");
 
 
@@ -77,6 +81,22 @@ namespace ValheimPlus
                 if (Configuration.Current.RecipeManager.IsEnabled)  RecipeManager.Initialize();
                 else                                                RecipeManager.DeInitialize();
             }
+        }
+
+        public static string getCurrentWebIniFile()
+        {
+            WebClient client = new WebClient();
+            client.Headers.Add("User-Agent: V+ Server");
+            string reply = null;
+            try
+            {
+                reply = client.DownloadString(iniFile);
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+            return reply;
         }
 
         public static bool IsNewVersionAvailable()
