@@ -53,12 +53,6 @@
     "status": "In Consideration",
     "category": "World"
   },
-  "Add the option to turn off cooking stations for craft from containers": {
-    "description": "Add the option to turn off cooking stations for craft from containers.",
-    "icon": "fas fa-cauldron",
-    "status": "In Consideration",
-    "category": "General"
-  },
   "Additional Server Side Config": {
     "description": "Add additional server config options, such as console to Server chat, bash commands, Customizing how the server appears on the lists ",
     "icon": "fas fa-file-check",
@@ -82,12 +76,6 @@
     "icon": "fas fa-tv-alt",
     "status": "In Consideration",
     "category": "Hud"
-  },
-  "Allow all ores in blast furnace": {
-    "description": "Add a configurable setting that allows you to select which ores can be smelted in the blast furnace.",
-    "icon": "fas fa-cubes",
-    "status": "In Consideration",
-    "category": "General"
   },
   "Allow first person to be overridden ": {
     "description": "I would like to set ([FirstPerson] enabled=false) in my config, and not have that overridden when I join a server that forces it to true. First Person is neat, but it breaks the Build Camera mod which I can't live without. The alternative of course is if the Build Camera mod becomes compatible with FirstPerson, or a \"Build Camera\" feature is implemented into V+",
@@ -119,25 +107,6 @@
     "status": "In Consideration",
     "category": "Player"
   },
-  "Auto deposit for Windmill": {
-    "description": "You have already added the features to auto deposit from furances / beehives to nearby chests, make it exist for windmill too please",
-    "icon": "fad fa-wind-turbine",
-    "status": "In Progress",
-	"progress": "70",
-    "category": "General"
-  },
-  "Auto weapon switch after swimming": {
-    "description": "Add the ability to auto equip the weapons you were holding before you entered water.",
-    "icon": "fas fa-mace",
-    "status": "In Consideration",
-    "category": "Player"
-  },
-  "Bow Ammo": {
-    "description": "Show the arrow count in some way when the bow is equipped. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/210'>reference</a>",
-    "icon": "fa fa-bow-arrow",
-    "status": "In Consideration",
-    "category": "Players"
-  },
   "Burn Unwanted Items": {
     "description": "Add a the ability to burn/destroy unwanted items in the kiln",
     "icon": "fas fa-shredder",
@@ -166,7 +135,8 @@
     "description": "Add a chinese translation for the V+ configuration file",
     "icon": "fas fa-language",
     "status": "In Consideration",
-    "category": "General"
+    "category": "In Progress",
+	"progress": "50"
   },
   "Control what Animals Eat": {
     "description": "Add the ability to control what food animals eat, e.g. make it so boars can eat every type of food.",
@@ -184,7 +154,7 @@
     "description": "A system to add custom map markers to the player map with custom icons and more, including if you want to share the Map Marker with others.",
     "icon": "fa fa-map-pin",
     "status": "In Progress",
-    "progress": "0",
+    "progress": "90",
     "category": "Map"
   },
   "Dedicated Shield Slot": {
@@ -203,7 +173,7 @@
   "Disable rain/weather": {
     "description": "Add the option on dedicated server to disable rain or maybe reduce how often it can occur. For me, I'd like to just disable rain and maybe even fog altogether. Others might rather have something like rain not occurring more often than every 7 days or something.",
     "icon": "fas fa-cloud-sun-rain",
-    "status": "In Consideration",
+    "status": "Planned",
     "category": "Server"
   },
   "Display a message to all connected Players": {
@@ -217,12 +187,6 @@
     "icon": "fa fa-map-pin",
     "status": "In Consideration",
     "category": "Map"
-  },
-  "Dynamite for Mining": {
-    "description": "Add dynamite sticks for quickly mining like in MineCraft.",
-    "icon": "fas fa-bomb",
-    "status": "In Consideration",
-    "category": "World"
   },
   "Easier sleeping with multiple people on the server.": {
     "description": "<a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/90'>reference</a>",
@@ -262,18 +226,6 @@
     "progress": "0",
     "category": "PVP"
   },
-  "Fall Damage": {
-    "description": "Add the ability to alter or remove fall damage completely.",
-    "icon": "fas fa-star-of-life",
-    "status": "In Consideration",
-    "category": "General"
-  },
-  "In-game Clock": {
-    "description": "A ingame display of the in-game. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/365'>reference</a>",
-    "icon": "fa fa-clock",
-    "status": "In Consideration",
-    "category": "Hud"
-  },
   "Increase difficulty based on day in game": {
     "description": "Add the ability to add a difficulty multiplier per day.",
     "icon": "fad fa-sort-numeric-up",
@@ -310,12 +262,6 @@
     "status": "In Consideration",
     "category": "Building"
   },
-  "Make the Trailer ship craftable and usable": {
-    "description": "Currently the Trailer ship can only be spawned through console commands and you cannot sail it. For all other intents and purposes its works as a normal boat(storage included)",
-    "icon": "fas fa-ship",
-    "status": "In Consideration",
-    "category": "Items"
-  },
   "Map Marker Sync System": {
     "description": "A system to synchronize all map markers ",
     "icon": "fas fa-sync-alt",
@@ -328,12 +274,6 @@
     "icon": "fas fa-shopping-cart",
     "status": "In Consideration",
     "category": "Map"
-  },
-  "Modifiers for Berries and Bushes": {
-    "description": "Add a configuration settings to modify the amount of berries harvested from bushes. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/222'>reference</a>",
-    "icon": "fab fa-raspberry-pi",
-    "status": "In Consideration",
-    "category": "Items"
   },
   "Modify Block and Parry Levels of Weapons": {
     "description": "Add the ability to modify block and parry levels. Not being able to modify block values for weapons - especially 2h weapons- makes block worthless when setting up dmg scaling for +100%.",
@@ -396,12 +336,6 @@
     "status": "In Consideration",
     "category": "PVP"
   },
-  "Protected Pets": {
-    "description": "Make pets immortal or protected so only player can kill them or essential so they lay down for a bit after taking a deadly hit(edited).",
-    "icon": "fas fa-dog",
-    "status": "In Consideration",
-    "category": "General"
-  },
   "Push/Pull Doors": {
     "description": "Add the ability to specify whether a door can open both ways, or only push or pull.",
     "icon": "fas fa-door-open",
@@ -426,12 +360,6 @@
     "status": "In Consideration",
     "category": "Map"
   },
-  "Remove Fog": {
-    "description": "Add the ability to remove fog from the game.",
-    "icon": "fas fa-fog",
-    "status": "In Consideration",
-    "category": "World"
-  },
   "Remove Ground Height Limits": {
     "description": "Remove/change the limits to how high/low you can dig or build",
     "icon": "fas fa-line-height",
@@ -449,12 +377,6 @@
     "icon": "fas fa-tools",
     "status": "In Consideration",
     "category": "General"
-  },
-  "Repairs require materials": {
-    "description": "Make item repairs cost a % of the items used to create it. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/287'>reference</a>",
-    "icon": "fas fa-tools",
-    "status": "In Consideration",
-    "category": "Items"
   },
   "Reset mob wave when bosses are killed": {
     "description": "Every time the server completes a boss, the enemies in the Meadows get more difficult. As of now, our server has beaten the 5th boss and Fulings spawn in the Meadows at night. This makes it very difficult for a new and growing server, such as ours, to introduce new players to our server without them bringing in end-game gear.",
@@ -510,18 +432,6 @@
     "icon": "fal fa-virus-slash",
     "status": "In Consideration",
     "category": "Monsters"
-  },
-  "Show portal names": {
-    "description": "Display a big message with the portals name on the player hud. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/258'>reference</a>",
-    "icon": "fa fa-portal-exit",
-    "status": "In Consideration",
-    "category": "Hud"
-  },
-  "Sleep on any bed": {
-    "description": "Add the ability to sleep on any bed without setting spawn points. Also introduce sleeping bags if possible.",
-    "icon": "far fa-bed-bunk",
-    "status": "In Consideration",
-    "category": "Items"
   },
   "System to modify merchant items and costs": {
     "description": "A system to modify the offered items from the merchant and their specific costs. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/252'>reference</a>",

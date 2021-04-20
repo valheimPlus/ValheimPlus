@@ -1,5 +1,8 @@
 ﻿using HarmonyLib;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
 using ValheimPlus.Configurations;
 using ValheimPlus.RPC;
 
@@ -15,6 +18,7 @@ namespace ValheimPlus.GameClasses
         {
             ZRoutedRpc.instance.Register("VPlusConfigSync", new Action<long, ZPackage>(VPlusConfigSync.RPC_VPlusConfigSync)); //Config Sync
             ZRoutedRpc.instance.Register("VPlusMapSync", new Action<long, ZPackage>(VPlusMapSync.RPC_VPlusMapSync)); //Map Sync
+            ZRoutedRpc.instance.Register("VPlusMapPinSync", new Action<long, ZPackage>(VPlusMapPinSync.RPC_VPlusMapPinSync)); //Map Pin Sync
             ZRoutedRpc.instance.Register("VPlusAck", new Action<long>(VPlusAck.RPC_VPlusAck)); //Ack
         }
     }
@@ -70,6 +74,32 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Game), nameof(Game.GetPlayerDifficulty))]
     public static class Game_GetPlayerDifficulty_Patch
     {
+
+        /// <summary>
+        /// Patches the range used to check the number of players around.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.Game.IsEnabled) return instructions;
+
+            float range = Math.Min(Configuration.Current.Game.difficultyScaleRange, 2);
+
+            List<CodeInstruction> il = instructions.ToList();
+            for (int i = 0; i < il.Count; i++)
+            {
+                if (il[i].opcode == OpCodes.Ldc_R4)
+                {
+                    il[i].operand = range;
+                    return il.AsEnumerable();
+                }
+            }
+
+            ZLog.LogError("Failed to apply Game_GetPlayerDifficulty_Patch.Transpiler");
+
+            return instructions;
+        }
+
         private static void Postfix(ref int __result)
         {
             if (Configuration.Current.Game.IsEnabled)

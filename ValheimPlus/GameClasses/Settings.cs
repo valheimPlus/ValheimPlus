@@ -11,11 +11,13 @@ namespace ValheimPlus.GameClasses
         public static void CreateToggle()
         {
             Toggle cmToggle = Settings.instance.m_continousMusic;
-            muteAudioToggle = GameObject.Instantiate(cmToggle);
-            Text textComponent = muteAudioToggle.GetComponentInChildren<Text>();
-            textComponent.text = "Mute Game in Background";
-            muteAudioToggle.transform.SetParent(cmToggle.transform.parent, false);
-            muteAudioToggle.transform.Translate(new Vector2(0, -50f)); // TODO replace magic number with math
+            muteAudioToggle = GameObject.Instantiate(cmToggle, cmToggle.transform.parent, false);
+            muteAudioToggle.name = "MuteGameInBackground";
+            muteAudioToggle.GetComponentInChildren<Text>().text = "Mute Game in Background";
+
+            // scaleFactor is overwritten by GuiScaler::UpdateScale, which is called every frame, but impacted when pressing OK in the settings dialog
+            CanvasScaler canvasScalerComponent = muteAudioToggle.transform.root.GetComponentInChildren<CanvasScaler>();
+            muteAudioToggle.transform.Translate(new Vector2(0, -40 * canvasScalerComponent.scaleFactor));
         }
     }
 

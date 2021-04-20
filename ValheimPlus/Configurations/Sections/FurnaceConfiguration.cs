@@ -10,6 +10,7 @@
         public bool autoFuel { get; internal set; } = false;
         public bool ignorePrivateAreaCheck { get; internal set; } = true;
         public float autoRange { get; internal set; } = 10;
+        public bool allowAllOres { get; internal set; } = false;
     }
 
 }
