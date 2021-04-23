@@ -407,6 +407,7 @@
     <Compile Include="GameClasses\TeleportWorld.cs" />
     <Compile Include="GameClasses\Humanoid.cs" />
     <Compile Include="RPC\VPlusAck.cs" />
+    <Compile Include="UI\VPlusSettings.cs" />
     <Compile Include="Utility\GameObjectAssistant.cs" />
     <Compile Include="Utility\InventoryAssistant.cs" />
     <Compile Include="Utility\ListExtensions.cs" />
@@ -443,6 +444,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <EmbeddedResource Include="Assets\Bundles\map-pin-ui" />
+    <EmbeddedResource Include="Assets\Bundles\settings-ui" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
