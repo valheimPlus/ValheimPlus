@@ -86,7 +86,7 @@ namespace ValheimPlus.GameClasses
         public static Toggle sharePin;
         public static Vector3 pinPos;
 
-        [HarmonyPatch(typeof(Minimap), nameof(Minimap.AddPin)]
+        [HarmonyPatch(typeof(Minimap), nameof(Minimap.AddPin))]
         public static class Minimap_AddPin_Patch
         {
             private static void Postfix(ref Minimap __instance, ref Minimap.PinData __result)
