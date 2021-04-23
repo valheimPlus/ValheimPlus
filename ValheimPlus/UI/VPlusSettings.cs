@@ -108,7 +108,7 @@ namespace ValheimPlus.UI
                 modSettingsPanel.transform.localPosition = Vector3.zero;
             }
             Dropdown dropper = modSettingsPanel.GetComponentInChildren<Dropdown>();
-            settingsContentPanel = GameObjectAssistant.GetChildComponentByName<Transform>("Content", dropper.gameObject.transform.parent.GetChild(2).gameObject).gameObject;
+            settingsContentPanel = GameObjectAssistant.GetChildComponentByName<Transform>("Content", dropper.gameObject.transform.parent.GetChild(3).gameObject).gameObject;
             dropper.options.Clear();
             foreach (var prop in typeof(Configuration).GetProperties())
             {
