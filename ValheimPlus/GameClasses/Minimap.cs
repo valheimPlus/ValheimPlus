@@ -86,6 +86,16 @@ namespace ValheimPlus.GameClasses
         public static Toggle sharePin;
         public static Vector3 pinPos;
 
+        [HarmonyPatch(typeof(Minimap), nameof(Minimap.AddPin))]
+        public static class Minimap_AddPin_Patch
+        {
+            private static void Postfix(ref Minimap __instance, ref Minimap.PinData __result)
+            {
+                if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareAllPins)
+                    VPlusMapPinSync.SendMapPinToServer(__result);
+            }
+        }
+
         [HarmonyPatch(typeof(Minimap), "Awake")]
         public static class MapPinEditor_Patches_Awake
         {
@@ -93,7 +103,7 @@ namespace ValheimPlus.GameClasses
             {
                 Minimap.PinType pintype = iconSelected.value == 4 ? Minimap.PinType.Icon4 : (Minimap.PinType)iconSelected.value;
                 Minimap.PinData addedPin = __instance.AddPin(pinPos, pintype, pinName.text, true, false);
-                if (Configuration.Current.Map.shareablePins && sharePin.isOn)
+                if (Configuration.Current.Map.shareablePins && sharePin.isOn && !Configuration.Current.Map.shareAllPins)
                     VPlusMapPinSync.SendMapPinToServer(addedPin);
                 pinEditorPanel.SetActive(false);
                 __instance.m_wasFocused = false;
@@ -140,7 +150,7 @@ namespace ValheimPlus.GameClasses
                     sharePin = pinEditorPanel.GetComponentInChildren<Toggle>();
                     if (sharePin != null)
                         Debug.Log("Share pin loaded properly");
-                    if (!Configuration.Current.Map.shareablePins)
+                    if (!Configuration.Current.Map.shareablePins || Configuration.Current.Map.shareAllPins)
                         sharePin.gameObject.SetActive(false);
                 }
             }

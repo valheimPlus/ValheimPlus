@@ -40,10 +40,13 @@ namespace ValheimPlus.RPC
                     Vector3 pinPos = mapPinPkg.ReadVector3();
                     int pinType = mapPinPkg.ReadInt();
                     string pinName = mapPinPkg.ReadString();
-                    Minimap.PinData addedPin = Minimap.instance.AddPin(pinPos, (Minimap.PinType)pinType, pinName, true, false);
-                    MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, $"Received map pin {pinName} from {senderName}!",
-                        0, Minimap.instance.GetSprite((Minimap.PinType)pinType));
-                    ZLog.Log($"I got pin named {pinName} from {senderName}!");
+                    if (!Minimap.instance.HaveSimilarPin(pinPos, (Minimap.PinType)pinType, pinName, true))
+                    {
+                        Minimap.PinData addedPin = Minimap.instance.AddPin(pinPos, (Minimap.PinType)pinType, pinName, true, false);
+                        MessageHud.instance.ShowMessage(MessageHud.MessageType.Center, $"Received map pin {pinName} from {senderName}!",
+                            0, Minimap.instance.GetSprite((Minimap.PinType)pinType));
+                        ZLog.Log($"I got pin named {pinName} from {senderName}!");
+                    }
                 }
                 //Send Ack
                 VPlusAck.SendAck(sender);
