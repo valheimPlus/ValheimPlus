@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using ValheimPlus.Configurations;
 using ValheimPlus.Utility;
@@ -19,9 +20,11 @@ namespace ValheimPlus.UI
         public static GameObject modSettingsPanelCloner = null;
         public static AssetBundle modSettingsBundle = null;
         public static Font norseFont;
-        public static Color vplusYellow = new Color(255, 164, 0);
+        public static Color32 vplusYellow = new Color32(255, 164, 0, 255);
         public static GameObject settingsContentPanel;
         public static Dictionary<string, List<GameObject>> settingFamillySettings;
+        public static Button applyButton;
+        public static Button okButton;
 
         public static List<string> availableSettings { get; private set; }
 
@@ -31,16 +34,16 @@ namespace ValheimPlus.UI
         }
 
         public static GameObject CreateSettingEntry(string name, string value, Transform parent)
-        {
+        {            
             GameObject settingName = GameObject.Instantiate(new GameObject(name, typeof(RectTransform), typeof(Text), typeof(Outline), typeof(LayoutElement)));
             settingName.GetComponent<Text>().font = norseFont;
             settingName.GetComponent<Text>().color = vplusYellow;
             settingName.GetComponent<Outline>().effectDistance = new Vector2(2, 2);
             settingName.GetComponent<LayoutElement>().minHeight = 250;
-            settingName.GetComponent<Text>().fontSize = 30;
-            settingName.GetComponent<Text>().text = name;
+            settingName.GetComponent<Text>().fontSize = 20;
+            settingName.GetComponent<Text>().text = $"Setting: {name}\nCurrent value: {value}";
             settingName.GetComponent<Text>().fontStyle = FontStyle.Bold;
-            settingName.GetComponent<RectTransform>().sizeDelta = new Vector2(400, 100);
+            settingName.GetComponent<RectTransform>().sizeDelta = new Vector2(400, 150);
 
             settingName.transform.SetParent(parent, false);
 
@@ -68,7 +71,8 @@ namespace ValheimPlus.UI
             settingvaluePlaceholder.GetComponent<Text>().color = vplusYellow;
             settingvaluePlaceholder.GetComponent<Text>().fontSize = 20;
             settingvaluePlaceholder.GetComponent<Text>().fontStyle = FontStyle.BoldAndItalic;
-            settingvaluePlaceholder.GetComponent<Text>().text = "";
+            settingvaluePlaceholder.GetComponent<Text>().text = "New setting value...";
+            settingvaluePlaceholder.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
 
             GameObject settingvalueText = GameObject.Instantiate(new GameObject($"{name}_value_text", typeof(RectTransform), typeof(Text), typeof(Outline)));
             settingvalueText.transform.SetParent(settingValue.transform, false);
@@ -83,7 +87,12 @@ namespace ValheimPlus.UI
             settingvalueText.GetComponent<Text>().color = vplusYellow;
             settingvalueText.GetComponent<Text>().fontSize = 20;
             settingvalueText.GetComponent<Text>().fontStyle = FontStyle.BoldAndItalic;
-            settingvalueText.GetComponent<Text>().text = value;
+            settingvalueText.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
+            //settingvalueText.GetComponent<Text>().text = value;
+
+            settingValue.GetComponent<InputField>().placeholder = settingvaluePlaceholder.GetComponent<Text>();
+            settingValue.GetComponent<InputField>().textComponent = settingvalueText.GetComponent<Text>();
+            settingValue.GetComponent<InputField>().targetGraphic = settingValue.GetComponent<Image>();
 
             settingName.SetActive(false);
             return settingName;
@@ -92,9 +101,56 @@ namespace ValheimPlus.UI
         public static void Load()
         {
             norseFont = Resources.FindObjectsOfTypeAll<Font>().FirstOrDefault(fnt => fnt.name == "Norse");
+            //norseFont = Resources.FindObjectsOfTypeAll<Font>().FirstOrDefault(fnt => fnt.name == "Arial");
             modSettingsBundle = AssetBundle.LoadFromStream(EmbeddedAsset.LoadEmbeddedAsset("Assets.Bundles.settings-ui"));
-            modSettingsPanelCloner = modSettingsBundle.LoadAsset<GameObject>("Mod Settings");
+            modSettingsPanelCloner = modSettingsBundle.LoadAsset<GameObject>("Mod Settings");            
             modSettingsPanelCloner.SetActive(false);            
+        }
+
+        public static void Apply()
+        {            
+            foreach (KeyValuePair<string, List<GameObject>> settingSection in settingFamillySettings)
+            {
+                foreach(GameObject settingEntry in settingSection.Value)
+                {
+                    string newVal = settingEntry.GetComponentInChildren<InputField>().text;
+                    if (newVal == "")
+                        continue;
+                    else
+                    {                        
+                        PropertyInfo propSection = Configuration.Current.GetType().GetProperty(settingSection.Key);
+                        var settingFamilyProp = propSection.GetValue(Configuration.Current, null);
+                        Type propType = settingFamilyProp.GetType();
+                        PropertyInfo prop = propType.GetProperty(settingEntry.name.Replace("(Clone)", ""));
+                        if (prop.PropertyType == typeof(float))
+                        {
+                            prop.SetValue(settingFamilyProp, float.Parse(newVal), null);
+                            continue;
+                        }
+
+                        if (prop.PropertyType == typeof(int))
+                        {
+                            prop.SetValue(settingFamilyProp, int.Parse(newVal), null);
+                            continue;
+                        }
+
+                        if (prop.PropertyType == typeof(bool))
+                        {
+                            prop.SetValue(settingFamilyProp, bool.Parse(newVal), null);
+                            continue;
+                        }
+
+                        if (prop.PropertyType == typeof(KeyCode) && !RPC.VPlusConfigSync.isConnecting)
+                        {
+                            prop.SetValue(settingFamilyProp, Enum.Parse(typeof(KeyCode), newVal), null);
+                            continue;
+                        }
+                        settingFamillySettings[settingSection.Key][settingFamillySettings[settingSection.Key].IndexOf(settingEntry)] = CreateSettingEntry(settingEntry.name.Replace("(Clone)", ""), newVal, settingEntry.transform.parent);
+                    }
+                }
+            }
+            ValheimPlusPlugin.harmony.UnpatchSelf();
+            ValheimPlusPlugin.harmony.PatchAll();
         }
 
         public static void Show()
@@ -106,9 +162,18 @@ namespace ValheimPlus.UI
                 modSettingsPanel = GameObject.Instantiate(modSettingsPanelCloner);
                 modSettingsPanel.transform.SetParent(FejdStartup.instance.m_mainMenu.transform, false);
                 modSettingsPanel.transform.localPosition = Vector3.zero;
+                applyButton = GameObjectAssistant.GetChildComponentByName<Button>("Apply", modSettingsPanel);
+                okButton = GameObjectAssistant.GetChildComponentByName<Button>("OK", modSettingsPanel);
+                applyButton.onClick.AddListener(Apply);
+                okButton.onClick.AddListener(delegate { 
+                    Apply();
+                    modSettingsPanel.SetActive(false);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                });
             }
             Dropdown dropper = modSettingsPanel.GetComponentInChildren<Dropdown>();
             settingsContentPanel = GameObjectAssistant.GetChildComponentByName<Transform>("Content", dropper.gameObject.transform.parent.GetChild(3).gameObject).gameObject;
+            settingsContentPanel.transform.parent.parent.gameObject.GetComponentInChildren<Scrollbar>().direction = Scrollbar.Direction.BottomToTop;
             dropper.options.Clear();
             foreach (var prop in typeof(Configuration).GetProperties())
             {
@@ -120,9 +185,9 @@ namespace ValheimPlus.UI
                     settingFamillySettings.Add(keyName, new List<GameObject>());
                     foreach (var setting in prop.PropertyType.GetProperties())
                     {
-                        var test = Configuration.Current.GetType().GetProperty(prop.Name).GetValue(Configuration.Current, null);
+                        var settingFamillyProp = Configuration.Current.GetType().GetProperty(prop.Name).GetValue(Configuration.Current, null);
                         settingFamillySettings[keyName].Add(CreateSettingEntry(setting.Name,
-                            test.GetType().GetProperty(setting.Name).GetValue(test, null).ToString(),
+                            settingFamillyProp.GetType().GetProperty(setting.Name).GetValue(settingFamillyProp, null).ToString(),
                         settingsContentPanel.transform
                         ));
                     }
