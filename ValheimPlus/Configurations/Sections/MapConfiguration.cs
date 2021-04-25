@@ -8,5 +8,6 @@
         //public bool useImprovedPinEditorUI { get; internal set; } = false;
         public bool shareablePins { get; internal set; } = false;
         public bool shareAllPins { get; internal set; } = false;
+        public bool displayCartsAndBoats { get; internal set; } = false;
     }
 }

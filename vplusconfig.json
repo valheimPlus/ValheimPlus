@@ -1079,6 +1079,11 @@
 				"desciption": "Allow pins to be shared",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"showCartsAndBoats": {
+				"description": "Display carts and boats on the map",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
