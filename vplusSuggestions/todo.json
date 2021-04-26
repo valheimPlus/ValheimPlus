@@ -182,12 +182,6 @@
     "status": "In Consideration",
     "category": "Server"
   },
-  "Display carts and boats on the map": {
-    "description": "A system to show boats and carts you own on the map. <a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/107'>reference</a>",
-    "icon": "fa fa-map-pin",
-    "status": "In Consideration",
-    "category": "Map"
-  },
   "Easier sleeping with multiple people on the server.": {
     "description": "<a target='_blank' href='https://github.com/valheimPlus/ValheimPlus/issues/90'>reference</a>",
     "icon": "fas fa-bed",
