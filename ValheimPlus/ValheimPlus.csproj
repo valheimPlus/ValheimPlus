@@ -359,7 +359,6 @@
     <Compile Include="Configurations\ConfigurationExtra.cs" />
     <Compile Include="Configurations\Sections\AdvancedBuildingModeConfiguration.cs" />
     <Compile Include="Configurations\Sections\AdvancedEditingModeConfiguration.cs" />
-    <Compile Include="Configurations\Sections\BedConfiguration.cs" />
     <Compile Include="Configurations\Sections\BeehiveConfiguration.cs" />
     <Compile Include="Configurations\Sections\BuildingConfiguration.cs" />
     <Compile Include="Configurations\Sections\GridAlignmentConfiguration.cs" />
