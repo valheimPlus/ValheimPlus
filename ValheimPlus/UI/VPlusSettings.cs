@@ -29,6 +29,8 @@ namespace ValheimPlus.UI
         public static Dictionary<string, List<GameObject>> settingFamillySettings;
         public static Button applyButton;
         public static Button okButton;
+        public static Dropdown dropper;
+        public static GameObject uiTooltipPrefab = null;
 
         public static List<string> availableSettings { get; private set; }
 
@@ -37,88 +39,40 @@ namespace ValheimPlus.UI
             return src.GetType().GetProperty(propName).GetValue(src, null);
         }
 
-        public static GameObject CreateEnableToggle(string settingName, string value, Transform parent)
-        {
+        public static GameObject CreateEnableToggle(string settingName, string value, Transform parent, string comments)
+        {            
             bool currentVal = bool.Parse(value);
             GameObject enableToggleThis = GameObject.Instantiate(enableToggle);
-            enableToggleThis.name = $"EnableToggle_{settingName}";
-            enableToggleThis.GetComponentInChildren<Text>().font = norseFont;
-            enableToggleThis.GetComponentInChildren<Text>().color = vplusYellow;
-            enableToggleThis.GetComponentInChildren<Outline>().effectDistance = new Vector2(2, 2);
-            enableToggleThis.GetComponent<LayoutElement>().minHeight = 50;
-            enableToggleThis.GetComponentInChildren<Text>().fontSize = 20;
-            enableToggleThis.GetComponentInChildren<Text>().text = $"Enable this section ?";
-            enableToggleThis.GetComponentInChildren<Text>().fontStyle = FontStyle.Bold;
-            enableToggleThis.GetComponent<RectTransform>().sizeDelta = new Vector2(400, 150);
+            enableToggleThis.AddComponent<UITooltip>().m_tooltipPrefab = uiTooltipPrefab;
+            enableToggleThis.GetComponent<UITooltip>().Set($"{settingName}", comments);
             enableToggleThis.GetComponentInChildren<Toggle>().isOn = currentVal;
-
             enableToggleThis.transform.SetParent(parent, false);
-
             enableToggleThis.SetActive(false);
             return enableToggleThis;
         }
 
-        public static GameObject CreateSettingEntry(string name, string value, Transform parent)
+        public static GameObject CreateTextSettingEntry(string name, string value, Transform parent, string comments)
         {            
-            GameObject settingName = GameObject.Instantiate(new GameObject(name, typeof(RectTransform), typeof(Text), typeof(Outline), typeof(LayoutElement)));
-            settingName.GetComponent<Text>().font = norseFont;
-            settingName.GetComponent<Text>().color = vplusYellow;
-            settingName.GetComponent<Outline>().effectDistance = new Vector2(2, 2);
-            settingName.GetComponent<LayoutElement>().minHeight = 250;
-            settingName.GetComponent<Text>().fontSize = 20;
-            settingName.GetComponent<Text>().text = $"Setting: {name}\nCurrent value: {value}";
-            settingName.GetComponent<Text>().fontStyle = FontStyle.Bold;
-            settingName.GetComponent<RectTransform>().sizeDelta = new Vector2(400, 150);
-
+            GameObject settingName = GameObject.Instantiate(modSettingsBundle.LoadAsset<GameObject>("SettingEntry_Text"));
+            settingName.name = name;
+            settingName.transform.GetChild(0).GetComponent<Text>().text = $"Setting: {name}\nCurrent value: {value}";
             settingName.transform.SetParent(parent, false);
+            settingName.AddComponent<UITooltip>().m_tooltipPrefab = uiTooltipPrefab;
+            settingName.GetComponent<UITooltip>().Set($"{name}", comments);
+            settingName.SetActive(false);
+            return settingName;
+        }
 
-            GameObject settingValue = GameObject.Instantiate(new GameObject($"{name}_value", typeof(RectTransform), typeof(Image), typeof(InputField)));
-            settingValue.transform.SetParent(settingName.transform, false);
-            settingValue.GetComponent<RectTransform>().localPosition = new Vector2(25, -25);
-            settingValue.GetComponent<RectTransform>().anchoredPosition = new Vector2(25, -25);
-            settingValue.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
-            settingValue.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
-            settingValue.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-            settingValue.GetComponent<RectTransform>().sizeDelta = new Vector2(250, 50);
-            settingValue.GetComponent<Image>().sprite = modSettingsPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite;
-            
-
-            GameObject settingvaluePlaceholder = GameObject.Instantiate(new GameObject($"{name}_Placeholder", typeof(RectTransform), typeof(Text), typeof(Outline)));
-            settingvaluePlaceholder.transform.SetParent(settingValue.transform, false);
-            settingvaluePlaceholder.GetComponent<RectTransform>().localPosition = new Vector2(0, -0.5f);
-            settingvaluePlaceholder.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -0.5f);
-            settingvaluePlaceholder.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-            settingvaluePlaceholder.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
-            settingvaluePlaceholder.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-            settingvaluePlaceholder.GetComponent<RectTransform>().sizeDelta = new Vector2(-20, -13);
-            settingvaluePlaceholder.GetComponent<Outline>().effectDistance = new Vector2(2, 2);
-            settingvaluePlaceholder.GetComponent<Text>().font = norseFont;
-            settingvaluePlaceholder.GetComponent<Text>().color = vplusYellow;
-            settingvaluePlaceholder.GetComponent<Text>().fontSize = 20;
-            settingvaluePlaceholder.GetComponent<Text>().fontStyle = FontStyle.BoldAndItalic;
-            settingvaluePlaceholder.GetComponent<Text>().text = "New setting value...";
-            settingvaluePlaceholder.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
-
-            GameObject settingvalueText = GameObject.Instantiate(new GameObject($"{name}_value_text", typeof(RectTransform), typeof(Text), typeof(Outline)));
-            settingvalueText.transform.SetParent(settingValue.transform, false);
-            settingvalueText.GetComponent<RectTransform>().localPosition = new Vector2(0, -0.5f);
-            settingvalueText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -0.5f);
-            settingvalueText.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
-            settingvalueText.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
-            settingvalueText.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-            settingvalueText.GetComponent<RectTransform>().sizeDelta = new Vector2(-20, -13);
-            settingvalueText.GetComponent<Outline>().effectDistance = new Vector2(2, 2);
-            settingvalueText.GetComponent<Text>().font = norseFont;
-            settingvalueText.GetComponent<Text>().color = vplusYellow;
-            settingvalueText.GetComponent<Text>().fontSize = 20;
-            settingvalueText.GetComponent<Text>().fontStyle = FontStyle.BoldAndItalic;
-            settingvalueText.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
-            //settingvalueText.GetComponent<Text>().text = value;
-
-            settingValue.GetComponent<InputField>().placeholder = settingvaluePlaceholder.GetComponent<Text>();
-            settingValue.GetComponent<InputField>().textComponent = settingvalueText.GetComponent<Text>();
-            settingValue.GetComponent<InputField>().targetGraphic = settingValue.GetComponent<Image>();
-
+        public static GameObject CreateBoolSettingEntry(string name, string value, Transform parent, string comments)
+        {
+            GameObject settingName = GameObject.Instantiate(modSettingsBundle.LoadAsset<GameObject>("SettingEntry_Toggle"));
+            settingName.name = name;
+            settingName.AddComponent<UITooltip>().m_tooltipPrefab = uiTooltipPrefab;
+            settingName.GetComponent<UITooltip>().Set($"{name}", comments);
+            settingName.transform.GetChild(0).GetComponent<Text>().text = $"Setting: {name}";
+            settingName.GetComponentInChildren<Toggle>().isOn = bool.Parse(value);
+            settingName.transform.SetParent(parent, false);
+            settingName.GetComponentInChildren<Toggle>().gameObject.GetComponent<RectTransform>().localPosition = new Vector3(0, -12.5f, 0);
             settingName.SetActive(false);
             return settingName;
         }
@@ -128,8 +82,9 @@ namespace ValheimPlus.UI
             norseFont = Resources.FindObjectsOfTypeAll<Font>().FirstOrDefault(fnt => fnt.name == "Norse");
             //norseFont = Resources.FindObjectsOfTypeAll<Font>().FirstOrDefault(fnt => fnt.name == "Arial");
             modSettingsBundle = AssetBundle.LoadFromStream(EmbeddedAsset.LoadEmbeddedAsset("Assets.Bundles.settings-ui"));
-            modSettingsPanelCloner = modSettingsBundle.LoadAsset<GameObject>("Mod Settings");            
-            enableToggle = modSettingsBundle.LoadAsset<GameObject>("Toggle_Y");            
+            modSettingsPanelCloner = modSettingsBundle.LoadAsset<GameObject>("Mod Settings");
+            enableToggle = modSettingsBundle.LoadAsset<GameObject>("Toggle_Enable");
+            uiTooltipPrefab = modSettingsBundle.LoadAsset<GameObject>("SettingsTooltip");
             modSettingsPanelCloner.SetActive(false);            
         }
 
@@ -182,7 +137,10 @@ namespace ValheimPlus.UI
                                     configdata[settingSection.Key][settingEntry.name.Replace("(Clone)", "")] = newVal;
                                     continue;
                                 }
-                                settingFamillySettings[settingSection.Key][settingFamillySettings[settingSection.Key].IndexOf(settingEntry)] = CreateSettingEntry(settingEntry.name.Replace("(Clone)", ""), newVal, settingEntry.transform.parent);
+                                settingFamillySettings[settingSection.Key][settingFamillySettings[settingSection.Key].IndexOf(settingEntry)] = 
+                                    CreateTextSettingEntry(settingEntry.name.Replace("(Clone)", ""), 
+                                    newVal, settingEntry.transform.parent,
+                                    string.Join("\n", configdata[settingSection.Key].GetKeyData(settingEntry.name.Replace("(Clone)", "")).Comments));
                             }
                         } else
                         {
@@ -190,9 +148,17 @@ namespace ValheimPlus.UI
                             PropertyInfo propSection = Configuration.Current.GetType().GetProperty(settingSection.Key);
                             var settingFamilyProp = propSection.GetValue(Configuration.Current, null);
                             Type propType = settingFamilyProp.GetType();
-                            FieldInfo prop = propType.GetField("IsEnabled");
-                            prop.SetValue(settingFamilyProp, enableSectionTog.isOn);
-                            configdata[settingSection.Key]["enabled"] = enableSectionTog.isOn.ToString();
+                            if (settingEntry.name.Contains("Toggle_Enable"))
+                            {
+                                FieldInfo prop = propType.GetField("IsEnabled");
+                                prop.SetValue(settingFamilyProp, enableSectionTog.isOn);
+                                configdata[settingSection.Key]["enabled"] = enableSectionTog.isOn.ToString();
+                            } else
+                            {
+                                PropertyInfo prop = propType.GetProperty(settingEntry.name.Replace("(Clone)", ""));
+                                prop.SetValue(settingFamilyProp, enableSectionTog.isOn, null);
+                                configdata[settingSection.Key][settingEntry.name.Replace("(Clone)", "")] = enableSectionTog.isOn.ToString();
+                            }
                         }
                     }
                 }
@@ -212,18 +178,27 @@ namespace ValheimPlus.UI
                 modSettingsPanel.transform.SetParent(FejdStartup.instance.m_mainMenu.transform, false);
                 modSettingsPanel.transform.localPosition = Vector3.zero;
                 applyButton = GameObjectAssistant.GetChildComponentByName<Button>("Apply", modSettingsPanel);
+                dropper = modSettingsPanel.GetComponentInChildren<Dropdown>();
                 okButton = GameObjectAssistant.GetChildComponentByName<Button>("OK", modSettingsPanel);
-                applyButton.onClick.AddListener(Apply);
+                applyButton.onClick.AddListener(delegate {
+                    int dropdownval = dropper.value;
+                    dropper.value = 0;
+                    Apply();
+                    Show();
+                    dropper.value = dropdownval;
+                });
                 okButton.onClick.AddListener(delegate { 
                     Apply();
                     modSettingsPanel.SetActive(false);
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 });
-            }
-            Dropdown dropper = modSettingsPanel.GetComponentInChildren<Dropdown>();
+                applyButton.gameObject.SetActive(false);
+            }            
             settingsContentPanel = GameObjectAssistant.GetChildComponentByName<Transform>("Content", dropper.gameObject.transform.parent.GetChild(3).gameObject).gameObject;
             settingsContentPanel.transform.parent.parent.gameObject.GetComponentInChildren<Scrollbar>().direction = Scrollbar.Direction.BottomToTop;
             dropper.options.Clear();
+            FileIniDataParser parser = new FileIniDataParser();
+            IniData configdata = parser.ReadFile(ConfigurationExtra.ConfigIniPath);
             foreach (var prop in typeof(Configuration).GetProperties())
             {
                 string keyName = prop.Name;
@@ -235,14 +210,23 @@ namespace ValheimPlus.UI
                     var settingFamillyProp = Configuration.Current.GetType().GetProperty(prop.Name).GetValue(Configuration.Current, null);
                     GameObject enableToggleThis = CreateEnableToggle(keyName, 
                         settingFamillyProp.GetType().GetField("IsEnabled").GetValue(settingFamillyProp).ToString(),
-                        settingsContentPanel.transform);
+                        settingsContentPanel.transform,
+                        string.Join("\n", configdata[keyName].GetKeyData("enabled").Comments));
                     settingFamillySettings[keyName].Add(enableToggleThis);
                     foreach (var setting in prop.PropertyType.GetProperties())
                     {
-                        settingFamillySettings[keyName].Add(CreateSettingEntry(setting.Name,
+                        var keyDatumCommentate = configdata[keyName].GetKeyData(setting.Name);
+                        var commentarium = "";
+                        if (keyDatumCommentate != null)
+                            commentarium = string.Join("\n", keyDatumCommentate.Comments);
+                        if (settingFamillyProp.GetType().GetProperty(setting.Name).PropertyType == typeof(bool))
+                            settingFamillySettings[keyName].Add(CreateBoolSettingEntry(setting.Name,
                             settingFamillyProp.GetType().GetProperty(setting.Name).GetValue(settingFamillyProp, null).ToString(),
-                        settingsContentPanel.transform
-                        ));
+                            settingsContentPanel.transform, commentarium));
+                        else
+                            settingFamillySettings[keyName].Add(CreateTextSettingEntry(setting.Name,
+                                settingFamillyProp.GetType().GetProperty(setting.Name).GetValue(settingFamillyProp, null).ToString(),
+                            settingsContentPanel.transform, commentarium));
                     }
                     dropper.options.Add(new Dropdown.OptionData(keyName));
                 }
