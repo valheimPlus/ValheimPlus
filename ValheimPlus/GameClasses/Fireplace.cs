@@ -19,7 +19,7 @@ namespace ValheimPlus.GameClasses
             /// </summary>
             private static void Postfix(ref Fireplace __instance)
             {
-                if (!Configuration.Current.FireSource.IsEnabled) return;
+                if (!Configuration.Current.FireSource.IsEnabled || !__instance.m_nview) return;
 
                 if (FireplaceExtensions.IsTorch(__instance.m_name))
                 {
@@ -187,7 +187,7 @@ namespace ValheimPlus.GameClasses
             "$piece_groundtorch", // standing iron torch
             "$piece_groundtorchgreen", // standing green torch
             "$piece_sconce", // sconce torch
-            "$piece_brazierceiling01" // brazier
+            "$piece_fire" // brazier
         };
 
         internal static bool IsTorch(string itemName)
