@@ -187,7 +187,7 @@ namespace ValheimPlus.GameClasses
             "$piece_groundtorch", // standing iron torch
             "$piece_groundtorchgreen", // standing green torch
             "$piece_sconce", // sconce torch
-            "$piece_brazierceiling01" // brazier
+            "$piece_fire" // brazier
         };
 
         internal static bool IsTorch(string itemName)
