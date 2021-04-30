@@ -5,7 +5,7 @@
         public bool noInvalidPlacementRestriction { get; internal set; } = false;
         public bool noMysticalForcesPreventPlacementRestriction { get; internal set; } = false;
         public bool noWeatherDamage { get; internal set; } = false;
-        public float maximumPlacementDistance { get; internal set; } = 5;
+        public float maximumPlacementDistance { get; internal set; } = 8;
         public float pieceComfortRadius { get; internal set; } = 10;
         public bool alwaysDropResources { get; internal set; } = false;
         public bool alwaysDropExcludedResources { get; internal set; } = false;
