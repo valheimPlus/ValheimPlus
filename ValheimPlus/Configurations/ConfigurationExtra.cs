@@ -157,7 +157,7 @@ namespace ValheimPlus.Configurations
 
         public static bool GetBool(this KeyDataCollection data, string key)
         {
-            var truevals = new[] { "y", "yes", "true" };
+            var truevals = new[] { "y", "yes", "true", "1", "enabled" };
             return truevals.Contains($"{data[key]}".ToLower());
         }
 
@@ -173,7 +173,7 @@ namespace ValheimPlus.Configurations
 
         public static KeyCode GetKeyCode(this KeyDataCollection data, string key, KeyCode defaultVal)
         {
-            if (Enum.TryParse<KeyCode>(data[key], out var result)) {
+            if (Enum.TryParse<KeyCode>(data[key].Trim(), out var result)) {
                 return result;
             }
 
