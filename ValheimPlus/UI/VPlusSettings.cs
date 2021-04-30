@@ -31,6 +31,7 @@ namespace ValheimPlus.UI
         public static Button okButton;
         public static Dropdown dropper;
         public static GameObject uiTooltipPrefab = null;
+        public static string[] keycodeNames;
 
         public static List<string> availableSettings { get; private set; }
 
@@ -60,6 +61,25 @@ namespace ValheimPlus.UI
             settingName.AddComponent<UITooltip>().m_tooltipPrefab = uiTooltipPrefab;
             settingName.GetComponent<UITooltip>().Set($"{name}", comments);
             settingName.SetActive(false);
+            return settingName;    
+        }
+
+        public static GameObject CreateKeyCodeSettingEntry(string name, string value, Transform parent, string comments)
+        {
+            GameObject settingName = GameObject.Instantiate(modSettingsBundle.LoadAsset<GameObject>("SettingEntry_KeyCode"));
+            settingName.name = name;
+            settingName.transform.GetChild(0).GetComponent<Text>().text = $"Setting: {name}";
+            settingName.transform.SetParent(parent, false);
+            Dropdown dropper = settingName.GetComponentInChildren<Dropdown>();
+            dropper.options.Clear();
+            foreach(string key in keycodeNames)
+            {
+                dropper.options.Add(new Dropdown.OptionData(key));
+            }
+            dropper.value = keycodeNames.ToList().IndexOf(value);
+            settingName.AddComponent<UITooltip>().m_tooltipPrefab = uiTooltipPrefab;
+            settingName.GetComponent<UITooltip>().Set($"{name}", comments);
+            settingName.SetActive(false);
             return settingName;
         }
 
@@ -85,6 +105,7 @@ namespace ValheimPlus.UI
             modSettingsPanelCloner = modSettingsBundle.LoadAsset<GameObject>("Mod Settings");
             enableToggle = modSettingsBundle.LoadAsset<GameObject>("Toggle_Enable");
             uiTooltipPrefab = modSettingsBundle.LoadAsset<GameObject>("SettingsTooltip");
+            keycodeNames = Enum.GetNames(typeof(KeyCode));
             modSettingsPanelCloner.SetActive(false);            
         }
 
@@ -98,62 +119,76 @@ namespace ValheimPlus.UI
                 {
                     foreach (GameObject settingEntry in settingSection.Value)
                     {
-                        InputField inputEntry = settingEntry.GetComponentInChildren<InputField>();
-                        if (inputEntry != null)
+                        PropertyInfo propSection = Configuration.Current.GetType().GetProperty(settingSection.Key);
+                        var settingFamilyProp = propSection.GetValue(Configuration.Current, null);
+                        Type propType = settingFamilyProp.GetType();
+                        if (settingEntry.name.Contains("Toggle_Enable"))
                         {
-                            string newVal = inputEntry.text;
-                            if (newVal == "")
-                                continue;
-                            else
+                            Toggle enableSectionTog = settingEntry.GetComponentInChildren<Toggle>();
+                            FieldInfo prop = propType.GetField("IsEnabled");
+                            prop.SetValue(settingFamilyProp, enableSectionTog.isOn);
+                            configdata[settingSection.Key]["enabled"] = enableSectionTog.isOn.ToString();
+                        }
+                        else
+                        {
+                            InputField inputEntry = settingEntry.GetComponentInChildren<InputField>();
+                            Toggle enableSectionTog = settingEntry.GetComponentInChildren<Toggle>();
+                            Dropdown inputDropdown = settingEntry.GetComponentInChildren<Dropdown>();
+                            if (inputEntry != null)
                             {
-                                PropertyInfo propSection = Configuration.Current.GetType().GetProperty(settingSection.Key);
-                                var settingFamilyProp = propSection.GetValue(Configuration.Current, null);
-                                Type propType = settingFamilyProp.GetType();
+                                string newVal = inputEntry.text;
+                                if (newVal == "")
+                                    continue;
+                                else
+                                {
+                                    PropertyInfo prop = propType.GetProperty(settingEntry.name.Replace("(Clone)", ""));
+                                    if (prop.PropertyType == typeof(float))
+                                    {
+                                        prop.SetValue(settingFamilyProp, float.Parse(newVal), null);
+                                        configdata[settingSection.Key][settingEntry.name.Replace("(Clone)", "")] = newVal;
+                                        continue;
+                                    }
+
+                                    if (prop.PropertyType == typeof(int))
+                                    {
+                                        prop.SetValue(settingFamilyProp, int.Parse(newVal), null);
+                                        configdata[settingSection.Key][settingEntry.name.Replace("(Clone)", "")] = newVal;
+                                        continue;
+                                    }
+
+                                    if (prop.PropertyType == typeof(bool))
+                                    {
+                                        prop.SetValue(settingFamilyProp, bool.Parse(newVal), null);
+                                        configdata[settingSection.Key][settingEntry.name.Replace("(Clone)", "")] = newVal;
+                                        continue;
+                                    }
+
+                                    if (prop.PropertyType == typeof(KeyCode) && !RPC.VPlusConfigSync.isConnecting)
+                                    {
+                                        prop.SetValue(settingFamilyProp, Enum.Parse(typeof(KeyCode), newVal), null);
+                                        configdata[settingSection.Key][settingEntry.name.Replace("(Clone)", "")] = newVal;
+                                        continue;
+                                    }
+                                    settingFamillySettings[settingSection.Key][settingFamillySettings[settingSection.Key].IndexOf(settingEntry)] =
+                                        CreateTextSettingEntry(settingEntry.name.Replace("(Clone)", ""),
+                                        newVal, settingEntry.transform.parent,
+                                        string.Join("\n", configdata[settingSection.Key].GetKeyData(settingEntry.name.Replace("(Clone)", "")).Comments));
+                                }
+                            }
+                            else if (inputDropdown != null)
+                            {
                                 PropertyInfo prop = propType.GetProperty(settingEntry.name.Replace("(Clone)", ""));
-                                if (prop.PropertyType == typeof(float))
-                                {
-                                    prop.SetValue(settingFamilyProp, float.Parse(newVal), null);
-                                    configdata[settingSection.Key][settingEntry.name.Replace("(Clone)", "")] = newVal;
+                                string newVal = keycodeNames[inputDropdown.value];
+                                if (newVal == ((KeyCode)prop.GetValue(settingFamilyProp, null)).ToString())
                                     continue;
-                                }
-
-                                if (prop.PropertyType == typeof(int))
-                                {
-                                    prop.SetValue(settingFamilyProp, int.Parse(newVal), null);
-                                    configdata[settingSection.Key][settingEntry.name.Replace("(Clone)", "")] = newVal;
-                                    continue;
-                                }
-
-                                if (prop.PropertyType == typeof(bool))
-                                {
-                                    prop.SetValue(settingFamilyProp, bool.Parse(newVal), null);
-                                    configdata[settingSection.Key][settingEntry.name.Replace("(Clone)", "")] = newVal;
-                                    continue;
-                                }
-
                                 if (prop.PropertyType == typeof(KeyCode) && !RPC.VPlusConfigSync.isConnecting)
                                 {
                                     prop.SetValue(settingFamilyProp, Enum.Parse(typeof(KeyCode), newVal), null);
                                     configdata[settingSection.Key][settingEntry.name.Replace("(Clone)", "")] = newVal;
                                     continue;
                                 }
-                                settingFamillySettings[settingSection.Key][settingFamillySettings[settingSection.Key].IndexOf(settingEntry)] = 
-                                    CreateTextSettingEntry(settingEntry.name.Replace("(Clone)", ""), 
-                                    newVal, settingEntry.transform.parent,
-                                    string.Join("\n", configdata[settingSection.Key].GetKeyData(settingEntry.name.Replace("(Clone)", "")).Comments));
                             }
-                        } else
-                        {
-                            Toggle enableSectionTog = settingEntry.GetComponentInChildren<Toggle>();
-                            PropertyInfo propSection = Configuration.Current.GetType().GetProperty(settingSection.Key);
-                            var settingFamilyProp = propSection.GetValue(Configuration.Current, null);
-                            Type propType = settingFamilyProp.GetType();
-                            if (settingEntry.name.Contains("Toggle_Enable"))
-                            {
-                                FieldInfo prop = propType.GetField("IsEnabled");
-                                prop.SetValue(settingFamilyProp, enableSectionTog.isOn);
-                                configdata[settingSection.Key]["enabled"] = enableSectionTog.isOn.ToString();
-                            } else
+                            else
                             {
                                 PropertyInfo prop = propType.GetProperty(settingEntry.name.Replace("(Clone)", ""));
                                 prop.SetValue(settingFamilyProp, enableSectionTog.isOn, null);
@@ -194,7 +229,7 @@ namespace ValheimPlus.UI
                 });
                 applyButton.gameObject.SetActive(false);
             }            
-            settingsContentPanel = GameObjectAssistant.GetChildComponentByName<Transform>("Content", dropper.gameObject.transform.parent.GetChild(3).gameObject).gameObject;
+            settingsContentPanel = GameObjectAssistant.GetChildComponentByName<Transform>("SettingsContent", modSettingsPanel).gameObject;
             settingsContentPanel.transform.parent.parent.gameObject.GetComponentInChildren<Scrollbar>().direction = Scrollbar.Direction.BottomToTop;
             dropper.options.Clear();
             FileIniDataParser parser = new FileIniDataParser();
@@ -213,14 +248,24 @@ namespace ValheimPlus.UI
                         settingsContentPanel.transform,
                         string.Join("\n", configdata[keyName].GetKeyData("enabled").Comments));
                     settingFamillySettings[keyName].Add(enableToggleThis);
+                    var praeteriCommentarium = "";
                     foreach (var setting in prop.PropertyType.GetProperties())
                     {
                         var keyDatumCommentate = configdata[keyName].GetKeyData(setting.Name);
                         var commentarium = "";
                         if (keyDatumCommentate != null)
+                        {
                             commentarium = string.Join("\n", keyDatumCommentate.Comments);
+                            praeteriCommentarium = commentarium;
+                        }
+                        else
+                            commentarium = praeteriCommentarium;
                         if (settingFamillyProp.GetType().GetProperty(setting.Name).PropertyType == typeof(bool))
                             settingFamillySettings[keyName].Add(CreateBoolSettingEntry(setting.Name,
+                            settingFamillyProp.GetType().GetProperty(setting.Name).GetValue(settingFamillyProp, null).ToString(),
+                            settingsContentPanel.transform, commentarium));
+                        else if (settingFamillyProp.GetType().GetProperty(setting.Name).PropertyType == typeof(KeyCode))
+                            settingFamillySettings[keyName].Add(CreateKeyCodeSettingEntry(setting.Name,
                             settingFamillyProp.GetType().GetProperty(setting.Name).GetValue(settingFamillyProp, null).ToString(),
                             settingsContentPanel.transform, commentarium));
                         else
