@@ -19,7 +19,7 @@ namespace ValheimPlus.GameClasses
             /// </summary>
             private static void Postfix(ref Fireplace __instance)
             {
-                if (!Configuration.Current.FireSource.IsEnabled) return;
+                if (!Configuration.Current.FireSource.IsEnabled || !__instance.m_nview) return;
 
                 if (FireplaceExtensions.IsTorch(__instance.m_name))
                 {
