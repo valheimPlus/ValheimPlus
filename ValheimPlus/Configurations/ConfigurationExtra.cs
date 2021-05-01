@@ -171,6 +171,17 @@ namespace ValheimPlus.Configurations
             return defaultVal;
         }
 
+        public static string GetString(this KeyDataCollection data, string key)
+        {
+            string result = data[key];
+            ZLog.Log($"Taking String Value for: { key }, Value: { result }");
+
+            if (result.Length > 2)
+                return result.Substring(1, result.Length - 2);
+            else
+                return String.Empty;
+        }
+
         public static KeyCode GetKeyCode(this KeyDataCollection data, string key, KeyCode defaultVal)
         {
             if (Enum.TryParse<KeyCode>(data[key].Trim(), out var result)) {
