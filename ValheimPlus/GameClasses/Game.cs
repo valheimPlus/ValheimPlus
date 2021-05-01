@@ -41,11 +41,36 @@ namespace ValheimPlus.GameClasses
 
 
     /// <summary>
+    /// This patch enables users to use a custom message when OnSpawn event occurs.
     /// Disable the "i have arrived" message on spawn.
     /// </summary>
     [HarmonyPatch(typeof(Game), nameof(Game.UpdateRespawn))]
     public static class Game_UpdateRespawn_Patch
     {
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            // If Empty will be used the default Text "I have arrived!"
+            if (!String.IsNullOrEmpty(Configuration.Current.Player.customTextOnSpawn))
+            {
+                List<CodeInstruction> il = instructions.ToList();
+
+                for (int i = 0; i < il.Count; i++)
+                {
+                    if (il[i].opcode == OpCodes.Ldstr)
+                        if (((string)il[i].operand).ToLower() == "i have arrived!")
+                        {
+                            il[i].operand = Configuration.Current.Player.customTextOnSpawn;
+                            return il.AsEnumerable();
+                        }
+                }
+            }
+
+            ZLog.LogError("Failed to apply Game_UpdateRespawn_Patch.Transpiler");
+
+            return instructions;
+        }
+
         private static void Prefix(ref Game __instance, float dt)
         {
             if (Configuration.Current.Player.IsEnabled && !Configuration.Current.Player.iHaveArrivedOnSpawn)
