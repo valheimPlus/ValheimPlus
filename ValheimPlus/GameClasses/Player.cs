@@ -36,6 +36,8 @@ namespace ValheimPlus.GameClasses
             {
                 __instance.m_autoPickupRange = Configuration.Current.Player.baseAutoPickUpRange;
                 __instance.m_baseCameraShake = Configuration.Current.Player.disableCameraShake ? 0f : 4f;
+                __instance.m_maxCarryWeight = Configuration.Current.Player.baseMaximumWeight;
+            
             }
             if (Configuration.Current.Building.IsEnabled)
             {
@@ -192,7 +194,10 @@ namespace ValheimPlus.GameClasses
         [HarmonyPatch(typeof(Player), "Dodge", new Type[] { typeof(Vector3) })]
         public static void call_Dodge(object instance, Vector3 dodgeDir) => throw new NotImplementedException();
     }
-
+    
+    /*
+    * Moved to Player Awake so that it is only called once
+    *
     /// <summary>
     /// Update maximum carry weight based on baseMaximumWeight configurations.
     /// </summary>
@@ -207,7 +212,7 @@ namespace ValheimPlus.GameClasses
             }
         }
     }
-
+    */
 
     /// <summary>
     /// Update maximum carry weight based on baseMegingjordBuff configurations.
