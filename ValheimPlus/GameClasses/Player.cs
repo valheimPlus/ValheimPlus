@@ -213,28 +213,18 @@ namespace ValheimPlus.GameClasses
         }
     }
     */
-
+    
     /// <summary>
     /// Update maximum carry weight based on baseMegingjordBuff configurations.
     /// </summary>
-    [HarmonyPatch(typeof(SEMan), "ModifyMaxCarryWeight")]
-    public static class Player_ModifyMaxCarryWeight_Patch
+    [HarmonyPatch(typeof(SE_Stats), nameof(SE_Stats.Setup)]
+    public static class SE_Stats_Setup_Patch
     {
-        private static bool Prefix(ref SEMan __instance, ref float baseLimit, ref float limit)
+        private static void Postfix(ref SEMan __instance)
         {
-            if (!Configuration.Current.Player.IsEnabled) return true;
-
-            foreach (StatusEffect statusEffect in __instance.m_statusEffects)
-            {
-                if (statusEffect.m_name.Contains("beltstrength"))
-                {
-                    limit = (baseLimit - 150) + Configuration.Current.Player.baseMegingjordBuff;
-                    statusEffect.ModifyMaxCarryWeight(baseLimit, ref limit);
-                }
-
-            }
-
-            return false;
+            if (Configuration.Current.Player.IsEnabled) 
+                if (__instance.m_addMaxCarryWeight != null && __instance.m_addMaxCarryWeight > 0)
+                    __instance.m_addMaxCarryWeight = Configuration.Current.Player.baseMegingjordBuff;
         }
     }
 
