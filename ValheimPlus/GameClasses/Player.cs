@@ -224,7 +224,7 @@ namespace ValheimPlus.GameClasses
         {
             if (Configuration.Current.Player.IsEnabled) 
                 if (__instance.m_addMaxCarryWeight != null && __instance.m_addMaxCarryWeight > 0)
-                    __instance.m_addMaxCarryWeight = Configuration.Current.Player.baseMegingjordBuff;
+                    __instance.m_addMaxCarryWeight = (__instance.m_addMaxCarryWeight - 150) + Configuration.Current.Player.baseMegingjordBuff;
         }
     }
 
