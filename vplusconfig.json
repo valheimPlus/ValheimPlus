@@ -632,7 +632,7 @@
 			},
 			"gameDifficultyHealthScale": {
 				"description": "The games health multiplier per person nearby in difficultyScaleRange(m) radius.",
-				"defaultValue": "0.04",
+				"defaultValue": "0.4",
 				"defaultType": "float"
 			},
 			"extraPlayerCountNearby": {
