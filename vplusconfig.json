@@ -1117,7 +1117,7 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
-			"disableCameraSbaseUnarmedDamagehake": {
+			"disableCameraShake": {
 				"description": "Disable all types of camera shake",
 				"defaultValue": "false",
 				"defaultType": "bool"
