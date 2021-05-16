@@ -217,10 +217,10 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Update maximum carry weight based on baseMegingjordBuff configurations.
     /// </summary>
-    [HarmonyPatch(typeof(SE_Stats), nameof(SE_Stats.Setup)]
+    [HarmonyPatch(typeof(SE_Stats), nameof(SE_Stats.Setup))]
     public static class SE_Stats_Setup_Patch
     {
-        private static void Postfix(ref SEMan __instance)
+        private static void Postfix(ref SE_Stats __instance)
         {
             if (Configuration.Current.Player.IsEnabled) 
                 if (__instance.m_addMaxCarryWeight != null && __instance.m_addMaxCarryWeight > 0)
