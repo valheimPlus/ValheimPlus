@@ -110,218 +110,218 @@
     <Reference Include="System.Net" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AccessibilityModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AccessibilityModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.AccessibilityModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AIModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.AIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AndroidJNIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AndroidJNIModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.AndroidJNIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ARModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ARModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.ARModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.AudioModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClothModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ClothModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.ClothModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClusterInputModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ClusterInputModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.ClusterInputModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ClusterRendererModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ClusterRendererModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.ClusterRendererModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CrashReportingModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.CrashReportingModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.CrashReportingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.DirectorModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.DirectorModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.DirectorModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.DSPGraphModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.DSPGraphModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.DSPGraphModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GameCenterModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.GameCenterModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.GameCenterModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.GridModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.GridModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.GridModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.HotReloadModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.HotReloadModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.HotReloadModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.ImageConversionModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.InputLegacyModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.InputModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.InputModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.InputModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.JSONSerializeModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.JSONSerializeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.LocalizationModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.LocalizationModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.LocalizationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.ParticleSystemModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PerformanceReportingModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.PerformanceReportingModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.PerformanceReportingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Physics2DModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.Physics2DModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.Physics2DModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ProfilerModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ProfilerModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.ProfilerModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.ScreenCaptureModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.ScreenCaptureModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SharedInternalsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.SharedInternalsModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.SharedInternalsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpriteMaskModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.SpriteMaskModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.SpriteMaskModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpriteShapeModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.SpriteShapeModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.SpriteShapeModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StreamingModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.StreamingModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.StreamingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SubstanceModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.SubstanceModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.SubstanceModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SubsystemsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.SubsystemsModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.SubsystemsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TerrainModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.TerrainModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.TerrainModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TerrainPhysicsModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.TerrainPhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextCoreModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.TextCoreModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.TextCoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.TextRenderingModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TilemapModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.TilemapModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.TilemapModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TLSModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.TLSModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.TLSModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIElementsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UIElementsModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UIElementsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UmbraModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UmbraModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UmbraModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UNETModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UNETModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UNETModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityAnalyticsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UnityAnalyticsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityConnectModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityConnectModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UnityConnectModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityTestProtocolModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityTestProtocolModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UnityTestProtocolModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestAudioModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UnityWebRequestModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestTextureModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UnityWebRequestWWWModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VehiclesModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.VehiclesModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.VehiclesModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VFXModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.VFXModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.VFXModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VideoModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.VideoModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.VideoModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.VRModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.VRModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.VRModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.WindModule">
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.WindModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.WindModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.XRModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.XRModule.dll</HintPath>
+      <HintPath>$(VALHEIM_INSTALL)\unstripped_corlib\UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="YamlDotNet, Version=9.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
       <HintPath>..\packages\YamlDotNet.9.1.4\lib\net35\YamlDotNet.dll</HintPath>
