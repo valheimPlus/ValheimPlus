@@ -12,7 +12,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Alters smelter input, output, and production speed configurations
     /// </summary>
-    [HarmonyPatch(typeof(Smelter), "Awake")]
+    [HarmonyPatch(typeof(Smelter), nameof(Smelter.Awake))]
     public static class Smelter_Awake_Patch
     {
         private static void Prefix(ref Smelter __instance)
@@ -55,7 +55,7 @@ namespace ValheimPlus.GameClasses
 
     }
 
-    [HarmonyPatch(typeof(Smelter), "Spawn")]
+    [HarmonyPatch(typeof(Smelter), nameof(Smelter.Spawn))]
     public static class Smelter_Spawn_Patch
     {
         private static bool Prefix(string ore, int stack, ref Smelter __instance)
@@ -143,10 +143,10 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-    [HarmonyPatch(typeof(Smelter), "FixedUpdate")]
-    public static class Smelter_FixedUpdate_Patch
+    [HarmonyPatch(typeof(Smelter), nameof(Smelter.UpdateSmelter))]
+    public static class Smelter_UpdateSmelter_Patch
     {
-        static void Postfix(Smelter __instance)
+        static void Prefix(Smelter __instance)
         {
             if (__instance == null || !Player.m_localPlayer || __instance.m_nview == null || !__instance.m_nview.IsOwner())
                 return;
