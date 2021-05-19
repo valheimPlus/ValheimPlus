@@ -60,7 +60,7 @@ We work together closely to make sure all our features are integrated and workin
 * Option to show boats and carts on the map with icons.
 * A Map Marker UI to share your map markers with people currently online.
 
-### Camera
+### Camera 
 * Change the player's Field of View.
 * Change the maximum zoom-out distance.
 * Change the maximum zoom-out distance when on a boat.
