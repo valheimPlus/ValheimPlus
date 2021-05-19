@@ -37,6 +37,7 @@ We work together closely to make sure all our features are integrated and workin
 * Modify the Guardian buff duration, cooldown and animation.
 * Disable tutorials from Valkyrie.
 * Modify velocity and accuracy of projectiles from bows and javelins including a option to scale it with skill level.
+* Option to sleep without setting your spawn point.
 
 
 ### Player Hud
@@ -47,12 +48,17 @@ We work together closely to make sure all our features are integrated and workin
 * Display a warning message when attempting to place different crops too close to each other.
 * Hotkey options for forward and backward roll.
 * Display in-game clock in top center.
+* Disable Fog.
+* Option to increase brightness at night.
+* Show the amount of arrows when a bow is equipped.
 
 
 ### Map
 * Force all players in the server to display their map position.
 * Allow all players to share all map exploration with every other player in the server, as long as their map position is displayed.
 * A system to automatically share all map progression with players connecting, even if they have never been on the server.
+* Option to show boats and carts on the map with icons.
+* A Map Marker UI to share your map markers with people currently online.
 
 ### Camera
 * Change the player's Field of View.
