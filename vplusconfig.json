@@ -1080,6 +1080,11 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
+			"shareAllPins": {
+				"desciption": "Shares all pins always",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"showCartsAndBoats": {
 				"description": "Display carts and boats on the map",
 				"defaultValue": "false",
