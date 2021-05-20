@@ -239,7 +239,7 @@ namespace ValheimPlus.UI
             foreach (var prop in typeof(Configuration).GetProperties())
             {
                 string keyName = prop.Name;
-                if (keyName == "Current" || keyName == "Settings")
+                if (keyName == "Current" || keyName == "Settings" || keyName == "Time" || keyName == "Deconstruct")
                     continue;
                 else
                 {
