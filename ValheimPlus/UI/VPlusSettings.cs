@@ -207,6 +207,8 @@ namespace ValheimPlus.UI
         {
             norseFont = Resources.FindObjectsOfTypeAll<Font>().FirstOrDefault(fnt => fnt.name == "Norse");
             settingFamillySettings = new Dictionary<string, List<GameObject>>();
+            if (modSettingsPanelCloner == null)
+                Load();
             if (modSettingsPanel == null)
             {
                 modSettingsPanel = GameObject.Instantiate(modSettingsPanelCloner);
