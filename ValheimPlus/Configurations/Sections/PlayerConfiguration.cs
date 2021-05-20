@@ -22,5 +22,6 @@
         public float fallDamageScalePercent { get; internal set; } = 0;
         public float maxFallDamage { get; internal set; } = 100;
         public bool skipTutorials { get; internal set; } = false;
+        public bool disableEncumbered { get; internal set; } = false;
     }
 }

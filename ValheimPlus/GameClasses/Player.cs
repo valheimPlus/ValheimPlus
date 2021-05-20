@@ -1102,4 +1102,14 @@ namespace ValheimPlus.GameClasses
             }
         }
     }
+
+    [HarmonyPatch(typeof(Player), nameof(Player.IsEncumbered))]
+    public static class Player_DisableEncumbered_Patch
+    {
+        private static void Postfix(ref bool __result)
+        {
+            if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.disableEncumbered)
+                __result = false;
+        }
+    }
 }
