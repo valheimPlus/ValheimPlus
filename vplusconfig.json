@@ -1956,7 +1956,7 @@
 				"defaultValue": "false"
 			},
 			"nightBrightnessMultiplier": {
-				"description": "Change how bright it looks at night. A multiplier (+100) will result in nearly double in brightness.",
+				"description": "Changes how bright it looks at night. A value between 5 and 10 will result in nearly double in brightness at night.",
 				"defaultValue": "0",
 				"defaultType": "float"
 			}
