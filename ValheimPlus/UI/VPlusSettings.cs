@@ -251,6 +251,8 @@ namespace ValheimPlus.UI
                     var praeteriCommentarium = "";
                     foreach (var setting in prop.PropertyType.GetProperties())
                     {
+                        if (setting.Name == "NeedsServerSync")
+                            continue;
                         var keyDatumCommentate = configdata[keyName].GetKeyData(setting.Name);
                         var commentarium = "";
                         if (keyDatumCommentate != null)
