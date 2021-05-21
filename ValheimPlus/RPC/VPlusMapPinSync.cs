@@ -66,11 +66,13 @@ namespace ValheimPlus.RPC
         public static void SendMapPinToServer(Minimap.PinData pinData, bool keepQuiet = false)
         {
             ZLog.Log("-------------------- SENDING VPLUS MapPin DATA");
-
             ZPackage pkg = new ZPackage();
 
             pkg.Write(ZRoutedRpc.instance.m_id); // Sender ID
-            pkg.Write(Player.m_localPlayer.GetPlayerName()); // Sender Name
+            if(keepQuiet)
+                pkg.Write(""); // Loaded in
+            else
+                pkg.Write(Player.m_localPlayer.GetPlayerName()); // Sender Name
             pkg.Write(pinData.m_pos); // Pin position
             pkg.Write((int)pinData.m_type); // Pin type
             pkg.Write(pinData.m_name); // Pin name
