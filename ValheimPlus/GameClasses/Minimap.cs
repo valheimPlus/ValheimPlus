@@ -99,7 +99,7 @@ namespace ValheimPlus.GameClasses
         [HarmonyPatch(typeof(Minimap), "Awake")]
         public static class MapPinEditor_Patches_Awake
         {
-            private static void AddPin(ref Minimap __instance)
+            public static void AddPin(ref Minimap __instance)
             {
                 Minimap.PinType pintype = iconSelected.value == 4 ? Minimap.PinType.Icon4 : (Minimap.PinType)iconSelected.value;
                 Minimap.PinData addedPin = __instance.AddPin(pinPos, pintype, pinName.text, true, false);
@@ -191,6 +191,42 @@ namespace ValheimPlus.GameClasses
                     return false;
                 }
                 return true;
+            }
+        }
+
+        [HarmonyPatch(typeof(Minimap), nameof(Minimap.InTextInput))]
+        public static class MapPinEditor_InTextInput_Patch
+        {
+            private static bool Prefix(ref bool __result)
+            {
+                if (Configuration.Current.Map.IsEnabled)
+                {
+                    __result = Minimap.m_instance.m_mode == Minimap.MapMode.Large && Minimap.m_instance.m_wasFocused;
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        [HarmonyPatch(typeof(Minimap), nameof(Minimap.Update))]
+        public static class MapPinEditor_Update_Patch
+        {
+            private static void Postfix(ref Minimap __instance)
+            {
+                if (Configuration.Current.Map.IsEnabled)
+                {
+                    if (Minimap.InTextInput())
+                    {
+                        if (Input.GetKeyDown(KeyCode.Escape))
+                        {
+                            Minimap.instance.m_wasFocused = false; 
+                            pinEditorPanel.SetActive(false);
+                        } else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+                        {
+                            MapPinEditor_Patches_Awake.AddPin(ref __instance);
+                        }
+                    }
+                }
             }
         }
     }
