@@ -89,13 +89,18 @@ namespace ValheimPlus.GameClasses
         [HarmonyPatch(typeof(Minimap), nameof(Minimap.AddPin))]
         public static class Minimap_AddPin_Patch
         {
+            public static List<Minimap.PinType> shareablePins;
+
             private static void Postfix(ref Minimap __instance, ref Minimap.PinData __result)
             {
                 if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareAllPins)
-                    if(__instance.m_mode != Minimap.MapMode.Large)
-                        VPlusMapPinSync.SendMapPinToServer(__result, true);
-                    else
-                        VPlusMapPinSync.SendMapPinToServer(__result);
+                    if (shareablePins.Contains(__result.m_type))
+                    {
+                        if (__instance.m_mode != Minimap.MapMode.Large)
+                            VPlusMapPinSync.SendMapPinToServer(__result, true);
+                        else
+                            VPlusMapPinSync.SendMapPinToServer(__result);
+                    }
             }
         }
 
@@ -116,6 +121,9 @@ namespace ValheimPlus.GameClasses
             {
                 if (Configuration.Current.Map.IsEnabled)
                 {
+                    Minimap_AddPin_Patch.shareablePins = new List<Minimap.PinType>() { 
+                        Minimap.PinType.Icon0, Minimap.PinType.Icon1, Minimap.PinType.Icon2, 
+                        Minimap.PinType.Icon3, Minimap.PinType.Icon4 };
                     GameObject iconPanelOld = GameObjectAssistant.GetChildComponentByName<Transform>("IconPanel", __instance.m_largeRoot).gameObject;
                     for (int i = 0; i < 5; i++)
                     {
@@ -168,6 +176,9 @@ namespace ValheimPlus.GameClasses
                 {
                     if(pinEditorPanel == null)
                     {
+                        Minimap_AddPin_Patch.shareablePins = new List<Minimap.PinType>() {
+                        Minimap.PinType.Icon0, Minimap.PinType.Icon1, Minimap.PinType.Icon2,
+                        Minimap.PinType.Icon3, Minimap.PinType.Icon4 };
                         GameObject iconPanelOld = GameObjectAssistant.GetChildComponentByName<Transform>("IconPanel", __instance.m_largeRoot).gameObject;
                         for (int i = 0; i < 5; i++)
                         {
