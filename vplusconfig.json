@@ -646,7 +646,7 @@
 				"defaultType": "int"
 			},
 			"difficultyScaleRange": {
-				"description": "Instead of dropping the items, they will be placed inside nearby chests.",
+				"description": "The range in meters at which other players count towards nearby players for the difficulty scale.",
 				"defaultValue": "200",
 				"defaultType": "int"
 			},
