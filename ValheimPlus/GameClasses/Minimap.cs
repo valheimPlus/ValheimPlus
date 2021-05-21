@@ -356,7 +356,7 @@ namespace ValheimPlus.GameClasses
 
                 if (!pinWasFound)
                 {
-                    customPin = __instance.AddPin(zdo.m_position, Minimap.PinType.Icon0, pinName, false, false);
+                    customPin = __instance.AddPin(zdo.m_position, Minimap.PinType.Death, pinName, false, false);
 
                     Sprite sprite;
                     if (icons.TryGetValue(hashCode, out sprite))
