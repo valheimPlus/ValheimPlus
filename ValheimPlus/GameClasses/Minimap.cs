@@ -92,10 +92,13 @@ namespace ValheimPlus.GameClasses
             private static void Postfix(ref Minimap __instance, ref Minimap.PinData __result)
             {
                 if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareAllPins)
-                    if(__instance.m_mode != Minimap.MapMode.Large)
-                        VPlusMapPinSync.SendMapPinToServer(__result, true);
-                    else
-                        VPlusMapPinSync.SendMapPinToServer(__result);
+                    if (!(__result.m_type == Minimap.PinType.Player))
+                    {
+                        if (__instance.m_mode != Minimap.MapMode.Large)
+                            VPlusMapPinSync.SendMapPinToServer(__result, true);
+                        else
+                            VPlusMapPinSync.SendMapPinToServer(__result);
+                    }
             }
         }
 
