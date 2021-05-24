@@ -1085,6 +1085,11 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
+			"syncPins": {
+				"desciption": "Sync all pins between all players",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"showCartsAndBoats": {
 				"description": "Display carts and boats on the map",
 				"defaultValue": "false",

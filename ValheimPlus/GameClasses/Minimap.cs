@@ -121,49 +121,79 @@ namespace ValheimPlus.GameClasses
             {
                 if (Configuration.Current.Map.IsEnabled)
                 {
-                    Minimap_AddPin_Patch.shareablePins = new List<Minimap.PinType>() { 
-                        Minimap.PinType.Icon0, Minimap.PinType.Icon1, Minimap.PinType.Icon2, 
-                        Minimap.PinType.Icon3, Minimap.PinType.Icon4 };
-                    GameObject iconPanelOld = GameObjectAssistant.GetChildComponentByName<Transform>("IconPanel", __instance.m_largeRoot).gameObject;
-                    for (int i = 0; i < 5; i++)
-                    {
-                        GameObjectAssistant.GetChildComponentByName<Transform>("Icon" + i.ToString(), iconPanelOld).gameObject.SetActive(false);
-                    }
-                    GameObjectAssistant.GetChildComponentByName<Transform>("Bkg", iconPanelOld).gameObject.SetActive(false);
-                    iconPanelOld.SetActive(false);
-                    __instance.m_nameInput.gameObject.SetActive(false);
-                    if (mapPinBundle == null)
-                    {
-                        mapPinBundle = AssetBundle.LoadFromStream(EmbeddedAsset.LoadEmbeddedAsset("Assets.Bundles.map-pin-ui"));
-                    }
-                    GameObject pinEditorPanelParent = mapPinBundle.LoadAsset<GameObject>("MapPinEditor");
-                    pinEditorPanel = GameObject.Instantiate(pinEditorPanelParent.transform.GetChild(0).gameObject);
-                    pinEditorPanel.transform.SetParent(__instance.m_largeRoot.transform, false);
-                    pinEditorPanel.SetActive(false);
+                    SetupMap(__instance);
 
-                    pinName = pinEditorPanel.GetComponentInChildren<InputField>();
-                    if (pinName != null)
-                        Debug.Log("Pin Name loaded properly");
-                    Minimap theInstance = __instance;
-                    GameObjectAssistant.GetChildComponentByName<Transform>("OK", pinEditorPanel).gameObject.GetComponent<Button>().onClick.AddListener(delegate { AddPin(ref theInstance); });
-                    GameObjectAssistant.GetChildComponentByName<Transform>("Cancel", pinEditorPanel).gameObject.GetComponent<Button>().onClick.AddListener(delegate { Minimap.instance.m_wasFocused = false; pinEditorPanel.SetActive(false); });
-                    iconSelected = pinEditorPanel.GetComponentInChildren<Dropdown>();
-                    iconSelected.options.Clear();
-                    int ind = 0;
-                    List<string> list = new List<string> { "Fire", "Home", "Hammer", "Circle", "Rune" };
-                    foreach (string option in list)
-                    {
-                        iconSelected.options.Add(new Dropdown.OptionData(option, Minimap.instance.m_icons[ind].m_icon));
-                        ind++;
-                    }
-                    if (iconSelected != null)
-                        Debug.Log("Dropdown loaded properly");
-                    sharePin = pinEditorPanel.GetComponentInChildren<Toggle>();
-                    if (sharePin != null)
-                        Debug.Log("Share pin loaded properly");
-                    if (!Configuration.Current.Map.shareablePins || Configuration.Current.Map.shareAllPins)
-                        sharePin.gameObject.SetActive(false);
+                    if (Configuration.Current.Map.syncPins) 
+                        ProcessPinsSync(__instance);
                 }
+            }
+
+            private static void SetupMap(Minimap __instance)
+            {
+                ZLog.LogWarning("--- VPlus SetupMap");
+                
+                Minimap_AddPin_Patch.shareablePins = new List<Minimap.PinType>()
+                {
+                    Minimap.PinType.Icon0, Minimap.PinType.Icon1, Minimap.PinType.Icon2,
+                    Minimap.PinType.Icon3, Minimap.PinType.Icon4
+                };
+                GameObject iconPanelOld = GameObjectAssistant
+                    .GetChildComponentByName<Transform>("IconPanel", __instance.m_largeRoot).gameObject;
+                for (int i = 0; i < 5; i++)
+                {
+                    GameObjectAssistant.GetChildComponentByName<Transform>("Icon" + i.ToString(), iconPanelOld).gameObject
+                        .SetActive(false);
+                }
+
+                GameObjectAssistant.GetChildComponentByName<Transform>("Bkg", iconPanelOld).gameObject.SetActive(false);
+                iconPanelOld.SetActive(false);
+                __instance.m_nameInput.gameObject.SetActive(false);
+                if (mapPinBundle == null)
+                {
+                    mapPinBundle = AssetBundle.LoadFromStream(EmbeddedAsset.LoadEmbeddedAsset("Assets.Bundles.map-pin-ui"));
+                }
+
+                GameObject pinEditorPanelParent = mapPinBundle.LoadAsset<GameObject>("MapPinEditor");
+                pinEditorPanel = GameObject.Instantiate(pinEditorPanelParent.transform.GetChild(0).gameObject);
+                pinEditorPanel.transform.SetParent(__instance.m_largeRoot.transform, false);
+                pinEditorPanel.SetActive(false);
+
+                pinName = pinEditorPanel.GetComponentInChildren<InputField>();
+                if (pinName != null)
+                    Debug.Log("Pin Name loaded properly");
+                Minimap theInstance = __instance;
+                GameObjectAssistant.GetChildComponentByName<Transform>("OK", pinEditorPanel).gameObject.GetComponent<Button>()
+                    .onClick.AddListener(delegate { AddPin(ref theInstance); });
+                GameObjectAssistant.GetChildComponentByName<Transform>("Cancel", pinEditorPanel).gameObject.GetComponent<Button>()
+                    .onClick.AddListener(delegate
+                    {
+                        Minimap.instance.m_wasFocused = false;
+                        pinEditorPanel.SetActive(false);
+                    });
+                iconSelected = pinEditorPanel.GetComponentInChildren<Dropdown>();
+                iconSelected.options.Clear();
+                int ind = 0;
+                List<string> list = new List<string> {"Fire", "Home", "Hammer", "Circle", "Rune"};
+                foreach (string option in list)
+                {
+                    iconSelected.options.Add(new Dropdown.OptionData(option, Minimap.instance.m_icons[ind].m_icon));
+                    ind++;
+                }
+
+                if (iconSelected != null)
+                    Debug.Log("Dropdown loaded properly");
+                sharePin = pinEditorPanel.GetComponentInChildren<Toggle>();
+                if (sharePin != null)
+                    Debug.Log("Share pin loaded properly");
+                if (!Configuration.Current.Map.shareablePins || Configuration.Current.Map.shareAllPins)
+                    sharePin.gameObject.SetActive(false);
+            }
+
+            private static void ProcessPinsSync(Minimap minimap)
+            {
+                ZLog.LogWarning("--- VPlus ProcessPinsSync");
+                
+                VPlusMapPinsSync.SendMapPinsToServer(minimap.m_pins);
             }
         }
 
