@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,7 +8,6 @@ using UnityEngine.UI;
 using ValheimPlus.Configurations;
 using ValheimPlus.RPC;
 using ValheimPlus.Utility;
-using Random = UnityEngine.Random;
 
 // ToDo add packet system to convey map markers
 namespace ValheimPlus.GameClasses
@@ -93,14 +91,33 @@ namespace ValheimPlus.GameClasses
 
             private static void Postfix(ref Minimap __instance, ref Minimap.PinData __result)
             {
-                if (Configuration.Current.Map.IsEnabled && Configuration.Current.Map.shareAllPins)
-                    if (shareablePins.Contains(__result.m_type))
+                if (Configuration.Current.Map.IsEnabled)
+                {
+                    Configuration.Current.Map.syncPins = true;
+
+                    ZLog.LogWarning($"--- Configuration.Current.Map.syncPins: {Configuration.Current.Map.syncPins}");
+                    
+                    if (Configuration.Current.Map.shareAllPins && shareablePins.Contains(__result.m_type))
                     {
                         if (__instance.m_mode != Minimap.MapMode.Large)
                             VPlusMapPinSync.SendMapPinToServer(__result, true);
                         else
                             VPlusMapPinSync.SendMapPinToServer(__result);
                     }
+                    
+                    if (Configuration.Current.Map.syncPins)
+                    {
+                        ZLog.Log("-------------------- syncPins HOOK");
+                        HandleMapSyncPinsOption(__instance);
+                    }
+                }
+            }
+
+            public static void HandleMapSyncPinsOption(Minimap minimap)
+            {
+                if (ZNet.instance.IsServer()) return;
+
+                VPlusMapGlobalPinSync.Initialize();
             }
         }
 
@@ -122,9 +139,6 @@ namespace ValheimPlus.GameClasses
                 if (Configuration.Current.Map.IsEnabled)
                 {
                     SetupMap(__instance);
-
-                    if (Configuration.Current.Map.syncPins) 
-                        ProcessPinsSync(__instance);
                 }
             }
 
@@ -187,13 +201,6 @@ namespace ValheimPlus.GameClasses
                     Debug.Log("Share pin loaded properly");
                 if (!Configuration.Current.Map.shareablePins || Configuration.Current.Map.shareAllPins)
                     sharePin.gameObject.SetActive(false);
-            }
-
-            private static void ProcessPinsSync(Minimap minimap)
-            {
-                ZLog.LogWarning("--- VPlus ProcessPinsSync");
-                
-                VPlusMapPinsSync.SendMapPinsToServer(minimap.m_pins);
             }
         }
 

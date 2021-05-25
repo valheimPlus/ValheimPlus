@@ -14,13 +14,13 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Game), nameof(Game.Start))]
     public static class Game_Start_Patch
     {
-        public static string ActionNameMapPinsSync = "VPlusMapPinsSync";
+        public static string ActionNameMapGlobalPinSync = "VPlusMapGlobalPinSync";
         private static void Prefix()
         {
             ZRoutedRpc.instance.Register("VPlusConfigSync", new Action<long, ZPackage>(VPlusConfigSync.RPC_VPlusConfigSync)); //Config Sync
             ZRoutedRpc.instance.Register("VPlusMapSync", new Action<long, ZPackage>(VPlusMapSync.RPC_VPlusMapSync)); //Map Sync
             ZRoutedRpc.instance.Register("VPlusMapPinSync", new Action<long, ZPackage>(VPlusMapPinSync.RPC_VPlusMapPinSync)); //Map Pin Sync
-            ZRoutedRpc.instance.Register(ActionNameMapPinsSync, new Action<long, ZPackage>(VPlusMapPinsSync.RPC_VPlusMapPinsSync)); //Map Pins Sync
+            ZRoutedRpc.instance.Register(ActionNameMapGlobalPinSync, new Action<long, ZPackage>(VPlusMapGlobalPinSync.RPC_VPlusMapPinsSync)); //Map Pins Sync
             ZRoutedRpc.instance.Register("VPlusAck", new Action<long>(VPlusAck.RPC_VPlusAck)); //Ack
         }
     }
