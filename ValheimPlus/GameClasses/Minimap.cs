@@ -93,9 +93,7 @@ namespace ValheimPlus.GameClasses
             {
                 if (Configuration.Current.Map.IsEnabled)
                 {
-                    Configuration.Current.Map.syncPins = true;
-
-                    ZLog.LogWarning($"--- Configuration.Current.Map.syncPins: {Configuration.Current.Map.syncPins}");
+                    ZLog.LogWarning($"--- Configuration.Current.Map.syncPins: {Configuration.Current.Map.globalPinSync}");
                     
                     if (Configuration.Current.Map.shareAllPins && shareablePins.Contains(__result.m_type))
                     {
@@ -105,7 +103,7 @@ namespace ValheimPlus.GameClasses
                             VPlusMapPinSync.SendMapPinToServer(__result);
                     }
                     
-                    if (Configuration.Current.Map.syncPins)
+                    if (Configuration.Current.Map.globalPinSync)
                     {
                         ZLog.Log("-------------------- syncPins HOOK");
                         HandleMapSyncPinsOption(__instance);
