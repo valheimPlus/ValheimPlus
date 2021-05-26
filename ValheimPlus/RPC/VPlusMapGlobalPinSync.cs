@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using ValheimPlus.GameClasses;
+using ValheimPlus.Utility;
 
 namespace ValheimPlus.RPC
 {
@@ -26,33 +28,39 @@ namespace ValheimPlus.RPC
         public bool m_checked;
     }
 
-    internal class NetworkPinPackageInfo
-    {
-        public long senderName;
-        public int count;
-    }
-
     internal class NetworkPinPackageData
     {
-        public NetworkPinPackageInfo info;
-        public List<CachedPin> pinList;
+        public class Info
+        {
+            public long senderName;
+            public int totalChunks;
+            public int chunkPinsCount;
+            public bool isLast;
+        }
+
+        public Info info;
+        public List<CachedPin> pinsList;
     }
+
 
     internal class VPlusMapGlobalPinSync
     {
         public static List<CachedPin> pinsCache = new List<CachedPin>();
+        private static int chunkSize = 50;
 
-        public static List<Minimap.PinData> cientMapPins
+        public static List<CachedPin> cientMapPins
         {
             get
             {
-                List<Minimap.PinData> filtered = new List<Minimap.PinData>();
+                List<CachedPin> filtered = new List<CachedPin>();
 
                 foreach (var pin in Minimap.instance.m_pins)
                 {
                     if (Enum.IsDefined(typeof(AllowedPinTypes), (AllowedPinTypes) pin.m_type))
                     {
-                        filtered.Add(pin);
+                        CachedPin cachedPin = ConvertRawToCachedPin(pin);
+
+                        filtered.Add(cachedPin);
                     }
                 }
 
@@ -60,7 +68,18 @@ namespace ValheimPlus.RPC
             }
         }
 
-        public static void RPC_VPlusMapPinsSync(long sender, ZPackage mapPinPkg)
+        public static void RPC_VPlusMapGlobalPinSyncServer(long sender, ZPackage mapPinPkg)
+        {
+            if (mapPinPkg == null)
+            {
+                ZLog.LogWarning("MapPinsSync: Got empty map pin package from client.");
+                return;
+            }
+
+            ServerHandler(sender, mapPinPkg);
+        }
+
+        public static void RPC_VPlusMapGlobalPinSyncClient(long sender, ZPackage mapPinPkg)
         {
             if (mapPinPkg == null)
             {
@@ -68,14 +87,24 @@ namespace ValheimPlus.RPC
                 return;
             }
 
-            if (ZNet.instance.IsServer())
+            ClientHandler(sender, mapPinPkg);
+        }
+
+        public static void RPC_VPlusMapGlobalPinSyncRemovePin(long sender, ZPackage mapPinPkg)
+        {
+            if (mapPinPkg == null)
             {
-                ServerAction(sender, mapPinPkg);
+                ZLog.LogWarning("MapPinsSync: Got empty map pin package from server.");
+                return;
             }
-            else
-            {
-                ClientAction(sender, mapPinPkg);
-            }
+            
+            var pos = mapPinPkg.ReadVector3();
+            var radius = mapPinPkg.ReadSingle();
+            var pin = Minimap.instance.GetClosestPin(pos, radius);
+
+            CachedPin cachedPin = ConvertRawToCachedPin(pin);
+
+            RemovePinFromCache(cachedPin);
         }
 
         public static void Initialize(bool keepQuiet = false)
@@ -84,61 +113,67 @@ namespace ValheimPlus.RPC
 
             if (cientMapPins.Count == 0) return;
 
-            var packedPins = PackRawPins(cientMapPins);
+            var packageList = ChunkPayload(cientMapPins);
 
-            ZLog.Log($"MapPinsSync: SENDING ({cientMapPins.Count}) Map Pins to server");
+            if (packageList == null)
+            {
+                ZLog.LogError("MapPinsSync: Error sending map pins to the server!");
+                return;
+            }
 
-            ZRoutedRpc.instance.InvokeRoutedRPC(
-                ZRoutedRpc.instance.GetServerPeerID(),
-                Game_Start_Patch.ActionNameMapGlobalPinSync,
-                new object[] {packedPins}
-            );
+            foreach (ZPackage package in packageList)
+            {
+                var rpcData = new RpcData()
+                {
+                    Name = Game_Start_Patch.ActionNameMapGlobalPinSyncServer,
+                    Payload = new object[] {package},
+                    Target = ZRoutedRpc.instance.GetServerPeerID()
+                };
 
-            ZLog.Log($"MapPinsSync: Sent {cientMapPins.Count} pins to the server");
+                RpcQueue.Enqueue(rpcData);
+            }
         }
 
-        private static void ServerAction(long sender, ZPackage clientPinPackage)
+        public static void SendPinRemoveRequest(Vector3 pos, float radius)
+        {
+            ZPackage package = new ZPackage();
+            long senderId = ZRoutedRpc.instance.m_id;
+
+            package.Write(pos);
+            package.Write(radius);
+
+            ZRoutedRpc.instance.InvokeRoutedRPC(
+                senderId,
+                Game_Start_Patch.ActionNameMapGlobalPinSyncRemovePin,
+                new object[] {package}
+            );
+        }
+
+        private static void ServerHandler(long sender, ZPackage clientNetPackage)
         {
             if (sender == ZRoutedRpc.instance.GetServerPeerID()) return; // Don't  process own broadcasted data
-            if (clientPinPackage == null) return;
+            if (clientNetPackage == null) return;
+
 
             ZLog.Log("MapPinsSync: Processing PINS from CLIENT");
 
-            NetworkPinPackageData unpackedData = UnpackNetworkPackage(clientPinPackage);
 
-            ZLog.Log($"MapPinsSync: pins sender : {unpackedData.info.senderName}");
+            NetworkPinPackageData unpackedData = UnpackNetworkPackage(clientNetPackage);
 
             if (unpackedData.info.senderName == ZRoutedRpc.instance.m_id) return;
 
             MergePinsWithCache(unpackedData);
+
+            // Don't proceed at the final logic until get all chunks.
+            if (!unpackedData.info.isLast) return;
+
+            // Tell RPC Queue we got all packages (?)
+            // VPlusAck.SendAck(sender);
+
             BroadcastPins(sender);
         }
 
-        private static void BroadcastPins(long sender)
-        {
-            var mapPinPkg = PackCachedPins(pinsCache);
-
-            if (mapPinPkg == null)
-            {
-                ZLog.LogError("MapPinsSync: Error sending map pins to the clients!");
-                return;
-            }
-
-            foreach (ZNetPeer peer in ZRoutedRpc.instance.m_peers)
-            {
-                // if (peer.m_uid == sender) continue;
-
-                ZRoutedRpc.instance.InvokeRoutedRPC(
-                    peer.m_uid,
-                    Game_Start_Patch.ActionNameMapGlobalPinSync,
-                    new object[] {mapPinPkg}
-                );
-            }
-
-            ZLog.Log($"MapPinsSync: Sent {pinsCache.Count} pins to all clients");
-        }
-
-        private static void ClientAction(long sender, ZPackage mapPinPkg)
+        private static void ClientHandler(long sender, ZPackage mapPinPkg)
         {
             if (sender != ZRoutedRpc.instance.GetServerPeerID()) return; //Only bother if it's from the server.
 
@@ -147,17 +182,51 @@ namespace ValheimPlus.RPC
             NetworkPinPackageData unpackedData = UnpackNetworkPackage(mapPinPkg);
 
             MergePinsWithCache(unpackedData);
-            UpdateClientMinimap(unpackedData, unpackedData.info.senderName);
+
+            // Don't proceed at the final logic until get all chunks.
+            if (!unpackedData.info.isLast) return;
+
+            // Tell RPC Queue we got all packages (?)
+            // VPlusAck.SendAck(sender);
+
+            UpdateClientMinimap();
+        }
+
+        private static void BroadcastPins(long sender)
+        {
+            var packageList = ChunkPayload(pinsCache);
+
+            if (packageList == null)
+            {
+                ZLog.LogError("MapPinsSync: Error sending map pins to the clients!");
+                return;
+            }
+
+            //Send the updated server map to all clients
+            foreach (ZPackage package in packageList)
+            {
+                var rpcData = new RpcData()
+                {
+                    Name = Game_Start_Patch.ActionNameMapGlobalPinSyncClient,
+                    Payload = new object[] {package},
+                    Target = ZRoutedRpc.Everybody
+                };
+
+                RpcQueue.Enqueue(rpcData);
+            }
+
+            ZLog.Log($"-------------------------- Packages: {packageList.Count}");
+            ZLog.Log($"MapPinsSync: Sent {packageList.Count * chunkSize} pins to all clients");
         }
 
 
-        private static void UpdateClientMinimap(NetworkPinPackageData data, long pinSender)
+        private static void UpdateClientMinimap()
         {
             ZLog.Log("MapPinsSync: Updating CLIENT map");
 
             int count = 0;
 
-            foreach (var serverPin in data.pinList)
+            foreach (var serverPin in pinsCache)
             {
                 bool inCache = CheckPinExistsInCache(serverPin);
                 bool onMap = Minimap.instance.HaveSimilarPin(
@@ -184,82 +253,52 @@ namespace ValheimPlus.RPC
 
             Minimap.instance.UpdatePins();
 
-            ZLog.LogWarning($"MapPinsSync: Added {count} pins from {pinSender}!");
+            ZLog.LogWarning($"MapPinsSync: Added {count} pins!");
         }
 
-        private static ZPackage PackRawPins(List<Minimap.PinData> pinsData)
+        private static List<ZPackage> ChunkPayload(List<CachedPin> pinsData)
+        {
+            List<ZPackage> packageList = new List<ZPackage>();
+            List<List<CachedPin>> chunkedPinsData = pinsData.ChunkBy(chunkSize);
+
+            foreach (var chunk in chunkedPinsData)
+            {
+                ZPackage package = PackPins(
+                    chunk,
+                    chunkedPinsData.Count,
+                    chunk == chunkedPinsData.Last()
+                );
+
+                packageList.Add(package);
+            }
+
+            return packageList;
+        }
+
+        private static ZPackage PackPins(List<CachedPin> pinsChunk, int chunksCount, bool isLast)
         {
             ZPackage pkg = new ZPackage();
 
-            if (pinsData.Count == 0) return null;
+            if (pinsChunk.Count == 0) return null;
 
             try
             {
                 pkg.Write(ZRoutedRpc.instance.m_id); // Write sender ID
+                pkg.Write(chunksCount); // Write total chunks count
+                pkg.Write(pinsChunk.Count); // Write pins count in this chunk
 
-
-                ZLog.Log($"MapPinsSync: Writing sender ID to package: {ZRoutedRpc.instance.m_id}");
-
-                List<CachedPin> packedPins = new List<CachedPin>();
-
-                ZLog.Log($"MapPinsSync: Writing pins to package...");
-
-                foreach (var pin in pinsData)
+                foreach (var pin in pinsChunk)
                 {
-                    packedPins.Add(new CachedPin()
-                    {
-                        m_name = pin.m_name,
-                        m_pos = pin.m_pos,
-                        m_save = pin.m_save,
-                        m_type = pin.m_type,
-                        m_checked = pin.m_checked
-                    });
+                    pkg.Write(pin.m_name);
+                    pkg.Write(pin.m_pos);
+                    pkg.Write(pin.m_save);
+                    pkg.Write((int) pin.m_type);
+                    pkg.Write(pin.m_checked);
                 }
 
+                // boolean dictating if this is the last chunk in the ZPackage sequence
+                pkg.Write(isLast);
 
-                pkg.Write(packedPins.Count); // Write pins count
-
-                foreach (var packedPin in packedPins)
-                {
-                    pkg.Write(packedPin.m_name);
-                    pkg.Write(packedPin.m_pos);
-                    pkg.Write(packedPin.m_save);
-                    pkg.Write((int) packedPin.m_type);
-                    pkg.Write(packedPin.m_checked);
-                }
-
-                ZLog.Log($"MapPinsSync: Packed {packedPins.Count} pins");
-                return pkg;
-            }
-            catch
-            {
-                ZLog.LogError("MapPinsSync: PACKING ERROR");
-                return null;
-            }
-        }
-
-
-        private static ZPackage PackCachedPins(List<CachedPin> pinsData)
-        {
-            ZPackage pkg = new ZPackage();
-
-            if (pinsData.Count == 0) return null;
-
-            try
-            {
-                pkg.Write(ZRoutedRpc.instance.m_id); // Write sender ID
-                pkg.Write(pinsData.Count); // Write pins count
-
-                foreach (var packedPin in pinsData)
-                {
-                    pkg.Write(packedPin.m_name);
-                    pkg.Write(packedPin.m_pos);
-                    pkg.Write(packedPin.m_save);
-                    pkg.Write((int) packedPin.m_type);
-                    pkg.Write(packedPin.m_checked);
-                }
-
-                ZLog.Log($"MapPinsSync: Packed {pinsData.Count} pins");
                 return pkg;
             }
             catch
@@ -273,11 +312,13 @@ namespace ValheimPlus.RPC
         {
             List<CachedPin> list = new List<CachedPin>();
 
-            long pinSender = package.ReadLong();
-            int pinCount = package.ReadInt();
+            long senderId = package.ReadLong();
+            int chunksCount = package.ReadInt();
+            int pinsCount = package.ReadInt();
+
             int count = 0;
 
-            for (var i = 0; i < pinCount; i++)
+            for (var i = 0; i < pinsCount; i++)
             {
                 string m_name = package.ReadString();
                 Vector3 m_pos = package.ReadVector3();
@@ -302,17 +343,18 @@ namespace ValheimPlus.RPC
                 count++;
             }
 
-            package.m_stream.Position = 0;
-            package.m_stream.Flush();
+            bool isLast = package.ReadBool();
 
             return new NetworkPinPackageData()
             {
-                info = new NetworkPinPackageInfo()
+                info = new NetworkPinPackageData.Info()
                 {
-                    senderName = pinSender,
-                    count = pinCount
+                    senderName = senderId,
+                    totalChunks = chunksCount,
+                    chunkPinsCount = pinsCount,
+                    isLast = isLast
                 },
-                pinList = list
+                pinsList = list
             };
         }
 
@@ -326,28 +368,42 @@ namespace ValheimPlus.RPC
         /*
          * merge acquired pins with local cache 
          */
+
         private static void MergePinsWithCache(NetworkPinPackageData data)
         {
             int count = 0;
 
-            foreach (var networkPin in data.pinList)
+            foreach (var networkPin in data.pinsList)
             {
-                CachedPin pin = new CachedPin()
-                {
-                    m_name = networkPin.m_name,
-                    m_pos = networkPin.m_pos,
-                    m_save = networkPin.m_save,
-                    m_type = networkPin.m_type,
-                    m_checked = networkPin.m_checked
-                };
+                if (CheckPinExistsInCache(networkPin)) continue;
 
-                if (CheckPinExistsInCache(pin)) continue;
-
-                pinsCache.Add(pin);
+                pinsCache.Add(networkPin);
                 count++;
             }
 
             ZLog.Log($"MapPinsSync: Merged {count} PINS");
+        }
+
+        private static void RemovePinFromCache(CachedPin pin)
+        {
+            ZLog.Log($"globalPinSync: removed pin '{pin.m_name}'");
+            
+            if (pinsCache.Contains(pin))
+            {
+                pinsCache.Remove(pin);
+            }
+        }
+
+        private static CachedPin ConvertRawToCachedPin(Minimap.PinData rawPin)
+        {
+            return new CachedPin()
+            {
+                m_name = rawPin.m_name,
+                m_pos = rawPin.m_pos,
+                m_save = rawPin.m_save,
+                m_type = rawPin.m_type,
+                m_checked = rawPin.m_checked
+            };
         }
     }
 }
