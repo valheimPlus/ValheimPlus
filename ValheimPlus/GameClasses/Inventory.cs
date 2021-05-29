@@ -2,6 +2,7 @@ using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using UnityEngine;
 using ValheimPlus.Configurations;
 
@@ -11,15 +12,13 @@ namespace ValheimPlus.GameClasses
     /// Alters teleportation prevention
     /// </summary>
     [HarmonyPatch(typeof(Inventory), "IsTeleportable")]
-    public static class noItemTeleportPrevention
+    public static class NoItemTeleportPrevention
     {
         private static void Postfix(ref bool __result)
         {
-            if (Configuration.Current.Items.IsEnabled)
-            {
-                if (Configuration.Current.Items.noTeleportPrevention)
-                    __result = true;
-            }
+            if (!Configuration.Current.Items.IsEnabled) return;
+            if (Configuration.Current.Items.noTeleportPrevention)
+                __result = true;
         }
     }
 
@@ -31,13 +30,10 @@ namespace ValheimPlus.GameClasses
     {
         public static bool Prefix(ref bool __result)
         {
-            if (Configurations.Configuration.Current.Inventory.IsEnabled &&
-                Configurations.Configuration.Current.Inventory.inventoryFillTopToBottom)
-            {
-                __result = true;
-                return false;
-            }
-            else return true;
+            if (!Configurations.Configuration.Current.Inventory.IsEnabled ||
+                !Configurations.Configuration.Current.Inventory.inventoryFillTopToBottom) return true;
+            __result = true;
+            return false;
         }
     }
 
@@ -47,18 +43,18 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Inventory), MethodType.Constructor, new Type[] { typeof(string), typeof(Sprite), typeof(int), typeof(int) })]
     public static class Inventory_Constructor_Patch
     {
-        private const int playerInventoryMaxRows = 20;
-        private const int playerInventoryMinRows = 4;
+        private const int PlayerInventoryMaxRows = 20;
+        private const int PlayerInventoryMinRows = 4;
+        private const int PlayerInventoryDefaultCols = 8;
 
-        public static void Prefix(string name, ref int w, ref int h)
+        public static void Prefix(string name, ref int defaultWidth, ref int defaultHeight)
         {
-            if (Configuration.Current.Inventory.IsEnabled)
+            if (!Configuration.Current.Inventory.IsEnabled) return;
+            // Player inventory
+            if (defaultHeight == PlayerInventoryMinRows &&
+                defaultWidth == PlayerInventoryDefaultCols || name == "Inventory")
             {
-                // Player inventory
-                if (h == 4 && w == 8 || name == "Inventory")
-                {
-                    h = Helper.Clamp(Configuration.Current.Inventory.playerInventoryRows, playerInventoryMinRows, playerInventoryMaxRows);
-                }
+                defaultHeight = Helper.Clamp(Configuration.Current.Inventory.playerInventoryRows, PlayerInventoryMinRows, PlayerInventoryMaxRows);
             }
         }
     }
@@ -66,8 +62,8 @@ namespace ValheimPlus.GameClasses
 
     public static class Inventory_NearbyChests_Cache
     {
-        public static List<Container> chests = new List<Container>();
-        public static readonly Stopwatch delta = new Stopwatch();
+        public static List<Container> Chests = new List<Container>();
+        public static readonly Stopwatch Delta = new Stopwatch();
     }
 
     /// <summary>
@@ -78,33 +74,34 @@ namespace ValheimPlus.GameClasses
     {
         private static void Prefix(ref Inventory __instance, ref Inventory fromInventory)
         {
-            if (Configuration.Current.Inventory.IsEnabled && Configuration.Current.Inventory.mergeWithExistingStacks)
+            if (!Configuration.Current.Inventory.IsEnabled ||
+                !Configuration.Current.Inventory.mergeWithExistingStacks) return;
+
+            foreach (var itemData in fromInventory.GetAllItems()
+                .Where(otherItem => otherItem.m_shared.m_maxStackSize > 1))
             {
-                List<ItemDrop.ItemData> list = new List<ItemDrop.ItemData>(fromInventory.GetAllItems());
-                foreach (ItemDrop.ItemData otherItem in list)
+                foreach (var myItem in __instance.m_inventory)
                 {
-                    if (otherItem.m_shared.m_maxStackSize > 1)
+                    if (ItemDataOrQualityDoesNotMatch(myItem, itemData)) continue;
+
+                    var itemsToMove = Math.Min(myItem.m_shared.m_maxStackSize - myItem.m_stack, itemData.m_stack);
+                    myItem.m_stack += itemsToMove;
+
+                    if (itemData.m_stack == itemsToMove)
                     {
-                        foreach (ItemDrop.ItemData myItem in __instance.m_inventory)
-                        {
-                            if (myItem.m_shared.m_name == otherItem.m_shared.m_name && myItem.m_quality == otherItem.m_quality)
-                            {
-                                int itemsToMove = Math.Min(myItem.m_shared.m_maxStackSize - myItem.m_stack, otherItem.m_stack);
-                                myItem.m_stack += itemsToMove;
-                                if (otherItem.m_stack == itemsToMove)
-                                {
-                                    fromInventory.RemoveItem(otherItem);
-                                    break;
-                                }
-                                else
-                                {
-                                    otherItem.m_stack -= itemsToMove;
-                                }
-                            }
-                        }
+                        fromInventory.RemoveItem(itemData);
+                        break;
                     }
+
+                    itemData.m_stack -= itemsToMove;
                 }
             }
+        }
+
+        private static bool ItemDataOrQualityDoesNotMatch(ItemDrop.ItemData myItem, ItemDrop.ItemData itemData)
+        {
+            return myItem.m_shared.m_name != itemData.m_shared.m_name ||
+                   myItem.m_quality != itemData.m_quality;
         }
     }
 
