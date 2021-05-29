@@ -1207,6 +1207,11 @@
 				"description": "Prevents Valkyrie from showing up to give tutorial messages. You can disable and reset tutorials in the settings if you want to see them all again.",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"disableEncumbered": {
+				"description": "If set to true, disables encumbered effect from carrying to much weight.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
