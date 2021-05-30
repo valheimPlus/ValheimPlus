@@ -432,6 +432,17 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Player), "UpdatePlacementGhost")]
     public static class Player_UpdatePlacementGhost_Patch
     {
+        private static bool Prefix(ref Player __instance, bool flashGuardStone)
+        {
+            if (ABM.isActive)
+            {
+                // Skip the original method
+                return false;
+            }
+
+            return true;
+        }
+        
         private static void Postfix(ref Player __instance)
         {
             if (ABM.exitOnNextIteration)
