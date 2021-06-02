@@ -126,16 +126,17 @@ namespace ValheimPlus
             // CONTROL PRESSED
             if (Input.GetKeyDown(KeyCode.LeftControl)) { controlFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftControl)) { controlFlag = false; }
-
+            // SHIFT PRESSED
             if (Input.GetKeyDown(KeyCode.LeftShift)) { shiftFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftShift)) { shiftFlag = false; }
-            changeModificationSpeed();
-
             // LEFT ALT PRESSED
             if (Input.GetKeyDown(KeyCode.LeftAlt)) { altFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftAlt)) { altFlag = false; }
+            
+            changeModificationSpeed();
 
-            if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.copyObjectRotation)) {
+            if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.copyObjectRotation))
+            {
                 savedRotation = component.transform.rotation;
             }
             if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.pasteObjectRotation))
