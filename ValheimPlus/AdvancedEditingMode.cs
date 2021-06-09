@@ -7,10 +7,15 @@ namespace ValheimPlus
     class AEM
     {
         // Status
-        public static bool isActive = false;
+        public static bool isActive;
 
         // Player Instance
         public static Player PlayerInstance;
+
+        // Control Flags
+        static bool controlFlag;
+        static bool shiftFlag;
+        static bool altFlag;
 
         // Hit Object Data
         public static Vector3 HitPoint;
@@ -22,20 +27,18 @@ namespace ValheimPlus
         private static Quaternion InitialRotation;
         private static Vector3 InitialPosition;
 
-        private static bool isInExsistence;
-
-        // Hotkey Flags
-        private static bool controlFlag = false;
-        private static bool shiftFlag = false;
-        private static bool altFlag = false;
-
-        // Modification Strenghts
-        private static float gDistance = 2;
-        private static float gScrollDistance = 2;
-
+        private static bool isInExistence;
+        
+        // Modification Speeds
+        const float BASE_TRANSLATION_DISTANCE = (float) 0.1; // 1/10th of a 1m pole
+        const float BASE_ROTATION_ANGLE_DEGREES = 3;
+        
+        static float currentModificationSpeed = 1;
+        const float MIN_MODIFICATION_SPEED = 1;
+        const float MAX_MODIFICATION_SPEED = 30;
 
         // Save and Load object rotation
-        static Quaternion savedRotation = new Quaternion();
+        static Quaternion savedRotation;
 
         // Executing the raycast to find the object
         public static bool ExecuteRayCast(Player playerInstance)
@@ -62,25 +65,27 @@ namespace ValheimPlus
 
                 return isValidRayCastTarget();
             }
-            else
-            {
-                resetObjectInfo();
-                return false;
-            }
+
+            resetObjectInfo();
+            return false;
         }
 
         // Exiting variables
-        public static bool forceExitNextIteration = false;
+        public static bool forceExitNextIteration;
 
 
         // Initializing class
         public static bool checkForObject()
         {
             if (PlayerInstance == null)
+            {
                 return false;
+            }
 
             if (!ExecuteRayCast(PlayerInstance))
+            {
                 return false;
+            }
 
             return true;
         }
@@ -103,10 +108,12 @@ namespace ValheimPlus
             // CHECK FOR BUILD MODE
             if (isInBuildMode())
             {
-                if (isActive) { 
+                if (isActive)
+                {
                     exitMode();
                     resetObjectTransform();
                 }
+
                 return;
             }
 
@@ -140,8 +147,8 @@ namespace ValheimPlus
 
             if (isActive)
             {
-                // If object is not in exsistence anymore
-                if (hitPieceStillExsists())
+                // If object is not in existence anymore
+                if (hitPieceStillExists())
                 {
                     // Try to prevent znet error, relatively untested yet if this is any solution.
                     // ghetto solution, will be improved in future version if it proofs to be effective.
@@ -161,7 +168,7 @@ namespace ValheimPlus
                         exitMode();
                     }
 
-                    AEM.isRunning();
+                    isRunning();
                     listenToHotKeysAndDoWork();
                 }
                 else
@@ -169,7 +176,6 @@ namespace ValheimPlus
                     exitMode();
                 }
             }
-
         }
 
         private static void listenToHotKeysAndDoWork()
@@ -186,7 +192,9 @@ namespace ValheimPlus
             if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.confirmPlacementOfAdvancedEditingMode))
             {
                 if (isContainer())
+                {
                     dropContainerContents();
+                }
 
                 // PLACE NEW
                 GameObject gameObject2 = UnityEngine.Object.Instantiate<GameObject>(HitPiece.gameObject, HitPiece.transform.position, HitPiece.transform.rotation);
@@ -194,7 +202,8 @@ namespace ValheimPlus
 
                 // REMOVE OLD
                 ZNetView component1 = HitPiece.GetComponent<ZNetView>();
-                if ((UnityEngine.Object)component1 == (UnityEngine.Object)null) {
+                if ((UnityEngine.Object)component1 == (UnityEngine.Object)null) 
+                {
                     Debug.Log("AEM: Error, network object empty.");
 
                     resetObjectTransform();
@@ -213,31 +222,14 @@ namespace ValheimPlus
             // CONTROL PRESSED
             if (Input.GetKeyDown(KeyCode.LeftControl)) { controlFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftControl)) { controlFlag = false; }
-
             // SHIFT PRESSED
-            float distance = gDistance;
-            float scrollDistance = gScrollDistance;
-
             if (Input.GetKeyDown(KeyCode.LeftShift)) { shiftFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftShift)) { shiftFlag = false; }
-
-            changeModificationSpeeds(shiftFlag);
-
-            if (shiftFlag) 
-            { 
-                distance = gDistance * 3;
-                scrollDistance = gScrollDistance * 3;
-            } 
-            else 
-            { 
-                distance = gDistance; 
-                scrollDistance = gScrollDistance;
-            }
-
             // LEFT ALT PRESSED
             if (Input.GetKeyDown(KeyCode.LeftAlt)) { altFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftAlt)) { altFlag = false; }
-
+            
+            changeModificationSpeed();
 
             if (Input.GetKeyUp(Configuration.Current.AdvancedEditingMode.copyObjectRotation))
             {
@@ -255,27 +247,24 @@ namespace ValheimPlus
                 exitMode();
             }
 
-            // SCROLL CONTROLS
+            var currentRotationAngleDegrees = BASE_ROTATION_ANGLE_DEGREES * currentModificationSpeed;
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 Quaternion rotation;
                 if (controlFlag)
                 {
                     rX++;
-                    rotation = Quaternion.Euler(HitPiece.transform.eulerAngles.x + (scrollDistance * (float)rX), HitPiece.transform.eulerAngles.y, HitPiece.transform.eulerAngles.z); // forward to backwards
+                    rotation = Quaternion.Euler(HitPiece.transform.eulerAngles.x + (currentRotationAngleDegrees * rX), HitPiece.transform.eulerAngles.y, HitPiece.transform.eulerAngles.z); // forward to backwards
+                }
+                else if (altFlag)
+                {
+                    rZ++;
+                    rotation = Quaternion.Euler(HitPiece.transform.eulerAngles.x, HitPiece.transform.eulerAngles.y, HitPiece.transform.eulerAngles.z + (currentRotationAngleDegrees * rZ)); // diagonal
                 }
                 else
                 {
-                    if (altFlag)
-                    {
-                        rZ++;
-                        rotation = Quaternion.Euler(HitPiece.transform.eulerAngles.x, HitPiece.transform.eulerAngles.y, HitPiece.transform.eulerAngles.z + (scrollDistance * (float)rZ)); // diagonal
-                    }
-                    else
-                    {
-                        rY++;
-                        rotation = Quaternion.Euler(HitPiece.transform.eulerAngles.x, HitPiece.transform.eulerAngles.y + (scrollDistance * (float)rY), HitPiece.transform.eulerAngles.z); // left<->right
-                    }
+                    rY++;
+                    rotation = Quaternion.Euler(HitPiece.transform.eulerAngles.x, HitPiece.transform.eulerAngles.y + (currentRotationAngleDegrees * rY), HitPiece.transform.eulerAngles.z); // left<->right
                 }
                 HitPiece.transform.rotation = rotation;
             }
@@ -285,75 +274,71 @@ namespace ValheimPlus
                 if (controlFlag)
                 {
                     rX--;
-                    rotation = Quaternion.Euler(HitPiece.transform.eulerAngles.x + (scrollDistance * (float)rX), HitPiece.transform.eulerAngles.y, HitPiece.transform.eulerAngles.z); // forward to backwards
+                    rotation = Quaternion.Euler(HitPiece.transform.eulerAngles.x + (currentRotationAngleDegrees * rX), HitPiece.transform.eulerAngles.y, HitPiece.transform.eulerAngles.z); // forward to backwards
+                }
+                else if (altFlag)
+                {
+                    rZ--;
+                    rotation = Quaternion.Euler(HitPiece.transform.eulerAngles.x, HitPiece.transform.eulerAngles.y, HitPiece.transform.eulerAngles.z + (currentRotationAngleDegrees * rZ)); // diagonal
                 }
                 else
                 {
-                    if (altFlag)
-                    {
-                        rZ--;
-                        rotation = Quaternion.Euler(HitPiece.transform.eulerAngles.x, HitPiece.transform.eulerAngles.y, HitPiece.transform.eulerAngles.z + (scrollDistance * (float)rZ)); // diagonal
-                    }
-                    else
-                    {
-                        rY--;
-                        rotation = Quaternion.Euler(HitPiece.transform.eulerAngles.x, HitPiece.transform.eulerAngles.y + (scrollDistance * (float)rY), HitPiece.transform.eulerAngles.z); // left<->right
-                    }
+                    rY--;
+                    rotation = Quaternion.Euler(HitPiece.transform.eulerAngles.x, HitPiece.transform.eulerAngles.y + (currentRotationAngleDegrees * rY), HitPiece.transform.eulerAngles.z); // left<->right
                 }
 
                 HitPiece.transform.rotation = rotation;
             }
 
-            // NUMPAD CONTROL
+            var currentTranslationDistance = BASE_TRANSLATION_DISTANCE * currentModificationSpeed;
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 if (controlFlag)
                 {
-                    HitPiece.transform.Translate(Vector3.up * distance * Time.deltaTime);
+                    HitPiece.transform.Translate(Vector3.up * currentTranslationDistance);
                 }
                 else
                 {
-                    HitPiece.transform.Translate(Vector3.forward * distance * Time.deltaTime);
+                    HitPiece.transform.Translate(Vector3.forward * currentTranslationDistance);
                 }
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 if (controlFlag)
                 {
-                    HitPiece.transform.Translate(Vector3.down * distance * Time.deltaTime);
+                    HitPiece.transform.Translate(Vector3.down * currentTranslationDistance);
                 }
                 else
                 {
-                    HitPiece.transform.Translate(Vector3.back * distance * Time.deltaTime);
+                    HitPiece.transform.Translate(Vector3.back * currentTranslationDistance);
                 }
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                HitPiece.transform.Translate(Vector3.left * distance * Time.deltaTime);
+                HitPiece.transform.Translate(Vector3.left * currentTranslationDistance);
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                HitPiece.transform.Translate(Vector3.right * distance * Time.deltaTime);
+                HitPiece.transform.Translate(Vector3.right * currentTranslationDistance);
             }
         }
 
         // Hit Piece still is a valid target
-        private static bool hitPieceStillExsists()
+        private static bool hitPieceStillExists()
         {
             try
-            { // check to see if the hit object still exsists
+            { // check to see if the hit object still exists
                 if (isActive)
                 {
-                    Vector3 exsistenceCheck = HitPiece.transform.position;
-                    isInExsistence = true;
+                    isInExistence = true;
                 }
             }
             catch
             {
-                isInExsistence = false;
+                isInExistence = false;
             }
 
-            return isInExsistence;
+            return isInExistence;
         }
 
         // Check for access to object
@@ -439,51 +424,38 @@ namespace ValheimPlus
         {
             Container ContainerInstance = HitPiece.GetComponent<Container>();
 
-            if (ContainerInstance != null)
-            {
-                return true;
-            }
-            return false;
+            return ContainerInstance != null;
         }
 
-        private static bool dropContainerContents()
+        private static void dropContainerContents()
         {
             Container ContainerInstance = HitPiece.GetComponent<Container>();
             ContainerInstance.DropAllItems();
-            return true;
         }
 
-        private static void changeModificationSpeeds(bool isShiftPressed)
+        private static void changeModificationSpeed()
         {
-            float incValue = 1;
+            float speedDelta = 1;
             if (shiftFlag)
-                incValue = 10;
+            {
+                speedDelta = 10;
+            }
 
             if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.increaseScrollSpeed))
             {
+                currentModificationSpeed = Mathf.Clamp(currentModificationSpeed + speedDelta, MIN_MODIFICATION_SPEED,
+                    MAX_MODIFICATION_SPEED);
 
-                if ((gScrollDistance - incValue) < 360)
-                    gScrollDistance += incValue;
-
-                if ((gDistance - incValue) < 360)
-                    gDistance += incValue;
-                notifyUser("Modification Speed: " + gDistance);
-                Debug.Log("Modification Speed: " + gDistance);
+                notifyUser("Modification Speed: " + currentModificationSpeed);
             }
+
             if (Input.GetKeyDown(Configuration.Current.AdvancedEditingMode.decreaseScrollSpeed))
             {
+                currentModificationSpeed = Mathf.Clamp(currentModificationSpeed - speedDelta, MIN_MODIFICATION_SPEED,
+                    MAX_MODIFICATION_SPEED);
 
-                if ((gScrollDistance - incValue) > 0)
-                    gScrollDistance = gScrollDistance - incValue;
-
-                if ((gDistance - incValue) > 0)
-                    gDistance = gDistance - incValue;
-
-                notifyUser("Modification Speed: " + gDistance);
-                Debug.Log("Modification Speed: " + gDistance);
+                notifyUser("Modification Speed: " + currentModificationSpeed);
             }
         }
-
-
     }
 }

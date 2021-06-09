@@ -427,26 +427,22 @@ namespace ValheimPlus.GameClasses
     }
 
     /// <summary>
-    /// Starts ABM if not already started
-    /// And checks if the player is trying to place a plant/crop too close to another plant/crop
+    /// Checks if the player is trying to place a plant/crop too close to another plant/crop
     /// </summary>
     [HarmonyPatch(typeof(Player), "UpdatePlacementGhost")]
     public static class Player_UpdatePlacementGhost_Patch
     {
         private static bool Prefix(ref Player __instance, bool flashGuardStone)
         {
-            if (Configuration.Current.AdvancedBuildingMode.IsEnabled)
-            {
-                ABM.Run(ref __instance);
-            }
-
             if (ABM.isActive)
+            {
+                // Skip the original method
                 return false;
+            }
 
             return true;
         }
-
-
+        
         private static void Postfix(ref Player __instance)
         {
             if (ABM.exitOnNextIteration)

@@ -7,28 +7,32 @@ namespace ValheimPlus
     class ABM
     {
         // Status
-        public static bool isActive = false;
+        public static bool isActive;
 
         // Player Instance
         private static Player PlayerInstance;
 
         // Control Flags
-        static bool controlFlag = false;
-        static bool shiftFlag = false;
-        static bool altFlag = false;
+        static bool controlFlag;
+        static bool shiftFlag;
+        static bool altFlag;
 
         // Exit flags
-        public static bool exitOnNextIteration = false;
-        static bool blockDefaultFunction = false;
+        public static bool exitOnNextIteration;
+        static bool blockDefaultFunction;
 
-        static private Piece component;
+        private static Piece component;
 
-        //Modification Speeds
-        static float gDistance = 2;
-        static float gScrollDistance = 2;
+        // Modification Speeds
+        const float BASE_TRANSLATION_DISTANCE = (float) 0.1; // 1/10th of a 1m pole
+        const float BASE_ROTATION_ANGLE_DEGREES = 3;
+        
+        static float currentModificationSpeed = 1;
+        const float MIN_MODIFICATION_SPEED = 1;
+        const float MAX_MODIFICATION_SPEED = 30;
 
         // Save and Load object rotation
-        static Quaternion savedRotation = new Quaternion();
+        static Quaternion savedRotation;
 
         public static void Run(ref Player __instance)
         {
@@ -64,10 +68,7 @@ namespace ValheimPlus
 
             if (isActive && component == null)
             {
-                if (isActive)
-                { 
-                    exitMode();
-                }
+                exitMode();
 
                 return;
             }
@@ -86,8 +87,10 @@ namespace ValheimPlus
             // Check if Build Mode && Correct build mode
             if (isInBuildMode() && IsHoeOrTerrainTool(selectedPrefab()))
             {
-                if(isActive)
+                if (isActive)
+                {
                     exitMode();
+                }
 
                 return;
             }
@@ -100,7 +103,7 @@ namespace ValheimPlus
                     exitMode();
                 }
 
-                ABM.isRunning();
+                isRunning();
 
                 // DO WORK WHEN ALREADY STARTED
                 listenToHotKeysAndDoWork();
@@ -123,31 +126,17 @@ namespace ValheimPlus
             // CONTROL PRESSED
             if (Input.GetKeyDown(KeyCode.LeftControl)) { controlFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftControl)) { controlFlag = false; }
-
+            // SHIFT PRESSED
             if (Input.GetKeyDown(KeyCode.LeftShift)) { shiftFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftShift)) { shiftFlag = false; }
-            changeModificationSpeeds(shiftFlag);
-
-            // SHIFT PRESSED
-            float distance;
-            float scrollDistance;
-
-            if (shiftFlag)
-            {  
-                distance = gDistance * 3;
-                scrollDistance = gScrollDistance * 3;
-            } 
-            else
-            { 
-                distance = gDistance; 
-                scrollDistance = gScrollDistance;
-            }
-
             // LEFT ALT PRESSED
             if (Input.GetKeyDown(KeyCode.LeftAlt)) { altFlag = true; }
             if (Input.GetKeyUp(KeyCode.LeftAlt)) { altFlag = false; }
+            
+            changeModificationSpeed();
 
-            if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.copyObjectRotation)) {
+            if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.copyObjectRotation))
+            {
                 savedRotation = component.transform.rotation;
             }
             if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.pasteObjectRotation))
@@ -155,27 +144,24 @@ namespace ValheimPlus
                 component.transform.rotation = savedRotation;
             }
 
-
+            var currentRotationAngleDegrees = BASE_ROTATION_ANGLE_DEGREES * currentModificationSpeed;
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 Quaternion rotation;
                 if (controlFlag)
                 {
                     rX++;
-                    rotation = Quaternion.Euler(component.transform.eulerAngles.x + (scrollDistance * (float)rX), component.transform.eulerAngles.y, component.transform.eulerAngles.z); // forward to backwards
+                    rotation = Quaternion.Euler(component.transform.eulerAngles.x + (currentRotationAngleDegrees * rX), component.transform.eulerAngles.y, component.transform.eulerAngles.z); // forward to backwards
+                }
+                else if (altFlag)
+                {
+                    rZ++;
+                    rotation = Quaternion.Euler(component.transform.eulerAngles.x, component.transform.eulerAngles.y, component.transform.eulerAngles.z + (currentRotationAngleDegrees * rZ)); // diagonal
                 }
                 else
                 {
-                    if (altFlag)
-                    {
-                        rZ++;
-                        rotation = Quaternion.Euler(component.transform.eulerAngles.x, component.transform.eulerAngles.y, component.transform.eulerAngles.z + (scrollDistance * (float)rZ)); // diagonal
-                    }
-                    else
-                    {
-                        rY++;
-                        rotation = Quaternion.Euler(component.transform.eulerAngles.x, component.transform.eulerAngles.y + (scrollDistance * (float)rY), component.transform.eulerAngles.z); // left<->right
-                    }
+                    rY++;
+                    rotation = Quaternion.Euler(component.transform.eulerAngles.x, component.transform.eulerAngles.y + (currentRotationAngleDegrees * rY), component.transform.eulerAngles.z); // left<->right
                 }
                 component.transform.rotation = rotation;
             }
@@ -185,55 +171,52 @@ namespace ValheimPlus
                 if (controlFlag)
                 {
                     rX--;
-                    rotation = Quaternion.Euler(component.transform.eulerAngles.x + (scrollDistance * (float)rX), component.transform.eulerAngles.y, component.transform.eulerAngles.z); // forward to backwards
+                    rotation = Quaternion.Euler(component.transform.eulerAngles.x + (currentRotationAngleDegrees * rX), component.transform.eulerAngles.y, component.transform.eulerAngles.z); // forward to backwards
+                }
+                else if (altFlag)
+                {
+                    rZ--;
+                    rotation = Quaternion.Euler(component.transform.eulerAngles.x, component.transform.eulerAngles.y, component.transform.eulerAngles.z + (currentRotationAngleDegrees * rZ)); // diagonal
                 }
                 else
                 {
-                    if (altFlag)
-                    {
-                        rZ--;
-                        rotation = Quaternion.Euler(component.transform.eulerAngles.x, component.transform.eulerAngles.y, component.transform.eulerAngles.z + (scrollDistance * (float)rZ)); // diagonal
-                    }
-                    else
-                    {
-                        rY--;
-                        rotation = Quaternion.Euler(component.transform.eulerAngles.x, component.transform.eulerAngles.y + (scrollDistance * (float)rY), component.transform.eulerAngles.z); // left<->right
-                    }
+                    rY--;
+                    rotation = Quaternion.Euler(component.transform.eulerAngles.x, component.transform.eulerAngles.y + (currentRotationAngleDegrees * rY), component.transform.eulerAngles.z); // left<->right
                 }
 
                 component.transform.rotation = rotation;
             }
 
-
+            var currentTranslationDistance = BASE_TRANSLATION_DISTANCE * currentModificationSpeed;
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 if (controlFlag)
                 {
-                    component.transform.Translate(Vector3.up * distance * Time.deltaTime);
+                    component.transform.Translate(Vector3.up * currentTranslationDistance);
                 }
                 else
                 {
-                    component.transform.Translate(Vector3.forward * distance * Time.deltaTime);
+                    component.transform.Translate(Vector3.forward * currentTranslationDistance);
                 }
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 if (controlFlag)
                 {
-                    component.transform.Translate(Vector3.down * distance * Time.deltaTime);
+                    component.transform.Translate(Vector3.down * currentTranslationDistance);
                 }
                 else
                 {
-                    component.transform.Translate(Vector3.back * distance * Time.deltaTime);
+                    component.transform.Translate(Vector3.back * currentTranslationDistance);
                 }
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                component.transform.Translate(Vector3.left * distance * Time.deltaTime);
+                component.transform.Translate(Vector3.left * currentTranslationDistance);
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                component.transform.Translate(Vector3.right * distance * Time.deltaTime);
+                component.transform.Translate(Vector3.right * currentTranslationDistance);
             }
 
             try
@@ -245,10 +228,8 @@ namespace ValheimPlus
             }
         }
 
-        private static bool isValidPlacement()
+        private static void isValidPlacement()
         {
-            bool water = component.m_waterPiece || component.m_noInWater;
-
             PlayerInstance.m_placementStatus = 0;
 
             if (component.m_groundOnly || component.m_groundPiece || component.m_cultivatedGroundOnly)
@@ -276,7 +257,7 @@ namespace ValheimPlus
                 }
             }
 
-            if (component.m_onlyInTeleportArea && !EffectArea.IsPointInsideArea(component.transform.position, EffectArea.Type.Teleport, 0f))
+            if (component.m_onlyInTeleportArea && !EffectArea.IsPointInsideArea(component.transform.position, EffectArea.Type.Teleport))
             {
                 PlayerInstance.m_placementStatus = Player.PlacementStatus.NoTeleportArea;
             }
@@ -291,7 +272,7 @@ namespace ValheimPlus
 
             float radius = component.GetComponent<PrivateArea>() ? component.GetComponent<PrivateArea>().m_radius : 0f;
 
-            if (!PrivateArea.CheckAccess(PlayerInstance.m_placementGhost.transform.position, radius, true))
+            if (!PrivateArea.CheckAccess(PlayerInstance.m_placementGhost.transform.position, radius))
             {
                 PlayerInstance.m_placementStatus = Player.PlacementStatus.PrivateZone;
             }
@@ -303,8 +284,6 @@ namespace ValheimPlus
             {
                 component.SetInvalidPlacementHeightlight(false);
             }
-
-            return true;
         }
 
         private static void startMode()
@@ -379,34 +358,28 @@ namespace ValheimPlus
             }
         }
 
-        private static void changeModificationSpeeds(bool isShiftPressed)
+        private static void changeModificationSpeed()
         {
-            float incValue = 1;
+            float speedDelta = 1;
             if (shiftFlag)
-                incValue = 10;
-
-            if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.increaseScrollSpeed)) 
             {
-                if ((gScrollDistance - incValue) < 360)
-                    gScrollDistance += incValue;
+                speedDelta = 10;
+            }
 
-                if ((gDistance - incValue) < 360)
-                    gDistance += incValue;
+            if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.increaseScrollSpeed))
+            {
+                currentModificationSpeed = Mathf.Clamp(currentModificationSpeed + speedDelta, MIN_MODIFICATION_SPEED,
+                    MAX_MODIFICATION_SPEED);
 
-                notifyUser("Modification Speed: " + gDistance);
-                Debug.Log("Modification Speed: " + gDistance);
+                notifyUser("Modification Speed: " + currentModificationSpeed);
             }
 
             if (Input.GetKeyDown(Configuration.Current.AdvancedBuildingMode.decreaseScrollSpeed))
             {
-                if((gScrollDistance-incValue) > 0)
-                    gScrollDistance = gScrollDistance - incValue;
+                currentModificationSpeed = Mathf.Clamp(currentModificationSpeed - speedDelta, MIN_MODIFICATION_SPEED,
+                    MAX_MODIFICATION_SPEED);
 
-                if ((gDistance - incValue) > 0)
-                    gDistance = gDistance - incValue;
-
-                notifyUser("Modification Speed: " + gDistance);
-                Debug.Log("Modification Speed: " + gDistance);
+                notifyUser("Modification Speed: " + currentModificationSpeed);
             }
         }
     }
