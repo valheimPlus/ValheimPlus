@@ -104,12 +104,13 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-    [HarmonyPatch(typeof(Fermenter), nameof(Fermenter.UpdateVis))]
-    public static class Fermenter_UpdateVis_Transpiler
+    // Update 0.154.1 refactored the name to SlowUpdate from UpdateVis
+    [HarmonyPatch(typeof(Fermenter), nameof(Fermenter.SlowUpdate))]
+    public static class Fermenter_SlowUpdate_Transpiler
     {
         private static MethodInfo method_GameObject_SetActive = AccessTools.Method(typeof(GameObject), nameof(GameObject.SetActive));
-        private static MethodInfo method_InvokeRPCTap = AccessTools.Method(typeof(Fermenter_UpdateVis_Transpiler), nameof(Fermenter_UpdateVis_Transpiler.InvokeRPCTap));
-        private static MethodInfo method_AddItemFromNearbyChests = AccessTools.Method(typeof(Fermenter_UpdateVis_Transpiler), nameof(Fermenter_UpdateVis_Transpiler.AddItemFromNearbyChests));
+        private static MethodInfo method_InvokeRPCTap = AccessTools.Method(typeof(Fermenter_SlowUpdate_Transpiler), nameof(Fermenter_SlowUpdate_Transpiler.InvokeRPCTap));
+        private static MethodInfo method_AddItemFromNearbyChests = AccessTools.Method(typeof(Fermenter_SlowUpdate_Transpiler), nameof(Fermenter_SlowUpdate_Transpiler.AddItemFromNearbyChests));
 
         /// <summary>
         /// Patches out the code that check for Fermenter status.
@@ -138,7 +139,7 @@ namespace ValheimPlus.GameClasses
             }
             if (!found)
             {
-                ZLog.LogError("Failed to apply Fermenter_UpdateVis_Transpiler");
+                ZLog.LogError("Failed to apply Fermenter_UpdateVis_Transpiler 1");
                 return instructions;
             }
             found = false;
@@ -153,7 +154,7 @@ namespace ValheimPlus.GameClasses
                 }
             }
 
-            ZLog.LogError("Failed to apply Fermenter_UpdateVis_Transpiler");
+            ZLog.LogError("Failed to apply Fermenter_UpdateVis_Transpiler 2");
 
             return instructions;
         }
