@@ -99,7 +99,7 @@ namespace ValheimPlus.GameClasses
                 return true;
 
             // if behive is empty
-            if (__instance.GetHoneyLevel() <= 0)
+            if (beehive.GetHoneyLevel() <= 0)
                 return true;
 
             float autoDepositRange = Helper.Clamp(Configuration.Current.Beehive.autoDepositRange, 1, 50);
@@ -188,6 +188,9 @@ namespace ValheimPlus.GameClasses
             Beehive beehive = __instance;
 
             List<Container> nearbyChests = InventoryAssistant.GetNearbyChests(beehive.gameObject, Helper.Clamp(Configuration.Current.Beehive.autoDepositRange, 1, 50));
+
+            if (beehive.GetHoneyLevel() != beehive.m_maxHoney)
+                return;
 
             while (beehive.GetHoneyLevel() > 0)
             {
