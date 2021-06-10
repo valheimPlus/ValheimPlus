@@ -139,7 +139,7 @@ namespace ValheimPlus.GameClasses
             }
             if (!found)
             {
-                ZLog.LogError("Failed to apply Fermenter_UpdateVis_Transpiler 1");
+                ZLog.LogError("Failed to apply Fermenter_SlowUpdate_Transpiler 1");
                 return instructions;
             }
             found = false;
@@ -154,7 +154,7 @@ namespace ValheimPlus.GameClasses
                 }
             }
 
-            ZLog.LogError("Failed to apply Fermenter_UpdateVis_Transpiler 2");
+            ZLog.LogError("Failed to apply Fermenter_SlowUpdate_Transpiler 2");
 
             return instructions;
         }
