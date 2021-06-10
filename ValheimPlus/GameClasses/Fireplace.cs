@@ -11,7 +11,7 @@ namespace ValheimPlus.GameClasses
 {
     class FireplaceFuel
     {
-        [HarmonyPatch(typeof(Fireplace), "Awake")]
+        [HarmonyPatch(typeof(Fireplace), nameof(Fireplace.Awake))]
         public static class Fireplace_Awake_Patch
         {
             /// <summary>
@@ -19,9 +19,9 @@ namespace ValheimPlus.GameClasses
             /// </summary>
             private static void Postfix(ref Fireplace __instance)
             {
-                if (!Configuration.Current.FireSource.IsEnabled || !__instance.m_nview) return;
+                if (!Configuration.Current.FireSource.IsEnabled || !__instance.m_nview || __instance.m_nview.m_zdo == null) return;
 
-                if (FireplaceExtensions.IsTorch(__instance.m_name))
+                if (FireplaceExtensions.IsTorch(__instance.m_nview.GetPrefabName()))
                 {
                     if (Configuration.Current.FireSource.torches)
                     {
@@ -37,7 +37,7 @@ namespace ValheimPlus.GameClasses
             }
         }
 
-        [HarmonyPatch(typeof(Fireplace), "GetTimeSinceLastUpdate")]
+        [HarmonyPatch(typeof(Fireplace), nameof(Fireplace.GetTimeSinceLastUpdate))]
         public static class Fireplace_GetTimeSinceLastUpdate_Patch
         {
             /// <summary>
@@ -183,11 +183,11 @@ namespace ValheimPlus.GameClasses
     {
         static readonly string[] torchItemNames = new[]
         {
-            "$piece_groundtorchwood", // standing wood torch
-            "$piece_groundtorch", // standing iron torch
-            "$piece_groundtorchgreen", // standing green torch
-            "$piece_sconce", // sconce torch
-            "$piece_fire" // brazier
+            "piece_groundtorch_wood", // standing wood torch
+            "piece_groundtorch", // standing iron torch
+            "piece_groundtorch_green", // standing green torch
+            "piece_walltorch", // sconce torch
+            "piece_brazierceiling01" // brazier
         };
 
         internal static bool IsTorch(string itemName)
