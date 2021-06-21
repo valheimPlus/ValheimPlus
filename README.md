@@ -7,7 +7,7 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim. The mod inclu
 
 # ValheimPlus Server Hosting
 We teamed up with one of the best game hosting companies out there to make sure we can offer you the best quality dedicated game server hosting at affordable good prices.
-We work together closely to make sure all our features are integrated and working at all times. We even have a full time dedicated Zap-Hosting support team to help you out in our [discord](https://discord.gg/valheimPlus) in addition.
+We work together closely to make sure all our features are integrated and working at all times. We even have a full time dedicated Zap-Hosting support team to help you out in our [discord](https://discord.valheim.plus) in addition.
 
 [![ZapHosting](https://i.imgur.com/4ZB1xHU.jpg)](https://zap-hosting.com/valheimplus)
 
@@ -342,7 +342,7 @@ The Njord installer provided by ZeroBandwidth and team allows for you to easily 
 # What if the game updates?
 Game updates are unlikely to do more than partially break specific features of ValheimPlus at worst. 
 In case you encounter any issues, use Steam's verify integrity feature and wait for it to download/update all files.
-This should resolve any issues related. If you continue to have issues, contact the help channel in [our discord server](http://discord.gg/valheimPlus).
+This should resolve any issues related. If you continue to have issues, contact the help channel in [our discord server](https://discord.valheim.plus).
 
 # Server Config & Version Control (About Version Enforcement)
 * If you have the Server section and enforceMod enabled in the mods config, only players with the same mod version can join your server and you can only join servers with the same mod version installed.
@@ -373,7 +373,7 @@ When hosting for other players over steam, every player will need v+ and they wi
 We have several different channels including a showcase channel and alpha testing system, allowing players to always get the newest versions available to test out.
 
 ![ValheimPlus Icon](https://raw.githubusercontent.com/nxPublic/ValheimPlus/master/ico.png)
-https://discord.gg/AmH6Va97GT
+https://discord.valheim.plus
 
 # Twitter
 Is used to post about releases of ValheimPlus and to potentially reply to issues.
