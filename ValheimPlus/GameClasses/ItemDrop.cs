@@ -86,10 +86,10 @@ namespace ValheimPlus.GameClasses
             string itemName = __instance.m_shared.m_name.Replace("$item_", "");
             string itemType = itemName.Split(new char[] { '_' })[0];
 
-            float multiplierForItem = 0;
-
             float maxDurability = (__instance.m_shared.m_maxDurability + (float)Mathf.Max(0, quality - 1) * __instance.m_shared.m_durabilityPerLevel);
             __result = maxDurability;
+            float multiplierForItem = maxDurability;
+
 
             bool modified = false;
             switch (itemType)
