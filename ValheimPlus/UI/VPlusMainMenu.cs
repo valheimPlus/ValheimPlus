@@ -28,7 +28,7 @@ namespace ValheimPlus.UI
             Stream bannerHoverStream = EmbeddedAsset.LoadEmbeddedAsset("Assets.ZapHosting_hover.png");
             Texture2D bannerHoverTexture = Helper.LoadPng(bannerHoverStream);
             VPlusBannerHoverSprite = Sprite.Create(bannerHoverTexture, new Rect(0, 0, bannerHoverTexture.width, bannerHoverTexture.height), new Vector2(0.5f, 0.5f));
-            bannerStream.Dispose();            
+            bannerHoverStream.Dispose();            
         }
     }
 }
