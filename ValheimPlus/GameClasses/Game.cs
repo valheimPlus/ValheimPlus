@@ -27,7 +27,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Alter game difficulty damage scale
     /// </summary>
-    [HarmonyPatch(typeof(Game), nameof(Game.GetDifficultyDamageScale))]
+    [HarmonyPatch(typeof(Game), nameof(Game.GetDifficultyDamageScalePlayer))]
     public static class Game_GetDifficultyDamageScale_Patch
     {
         private static float baseDifficultyDamageScale = 0.04f;
@@ -54,9 +54,9 @@ namespace ValheimPlus.GameClasses
     }
 
     /// <summary>
-    /// Alter game difficulty health scale
+    /// Alter game difficulty health scale for enemies
     /// </summary>
-    [HarmonyPatch(typeof(Game), nameof(Game.GetDifficultyHealthScale))]
+    [HarmonyPatch(typeof(Game), nameof(Game.GetDifficultyDamageScaleEnemy))]
     public static class Game_GetDifficultyHealthScale_Patch
     {
         private static float baseDifficultyHealthScale = 0.4f;

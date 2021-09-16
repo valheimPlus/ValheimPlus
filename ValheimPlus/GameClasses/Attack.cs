@@ -7,8 +7,8 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Alters stamina of weapons
     /// </summary>
-    [HarmonyPatch(typeof(Attack), "GetStaminaUsage")]
-    public static class Attack_GetStaminaUsage_Patch
+    [HarmonyPatch(typeof(Attack), "GetAttackStamina")]
+    public static class Attack_GetAttackStamina_Patch
     {
         private static void Postfix(ref Attack __instance, ref float __result)
         {

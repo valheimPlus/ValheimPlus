@@ -24,7 +24,7 @@ namespace ValheimPlus {
 				{
 					var healthText = __instance.m_healthText;
 					stamina = new GameObject();
-					stamina.transform.SetParent(__instance.m_staminaBar.transform.parent);
+					stamina.transform.SetParent(__instance.m_mountStaminaBar.transform.parent);
 					stamina.AddComponent<RectTransform>();
 
 					staminaText = stamina.AddComponent<Text>();
