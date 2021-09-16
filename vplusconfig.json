@@ -748,11 +748,6 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
-			"displayStaminaValue": {
-				"description": "Shows current and max stamina numerically underneath the stamina bar.",
-				"defaultValue": "false",
-				"defaultType": "bool"
-			},
 			"removeDamageFlash": {
 				"description": "Set to true to remove the red screen flash overlay when the player takes damage.",
 				"defaultValue": "false",
