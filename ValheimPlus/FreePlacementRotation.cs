@@ -333,7 +333,7 @@ namespace ValheimPlus
                             {
                                 Vector3 position = b.parent.position;
                                 Vector3 p = b.position - (a.position - __instance.m_placementGhost.transform.position);
-                                if (!__instance.IsOverlapingOtherPiece(p, __instance.m_placementGhost.name, __instance.m_tempPieces))
+                                if (!__instance.IsOverlapingOtherPiece(p, __instance.m_placementGhost.transform.rotation , __instance.m_placementGhost.name, __instance.m_tempPieces, component1.m_allowRotatedOverlap))
                                     __instance.m_placementGhost.transform.position = p;
                             }
                         }
