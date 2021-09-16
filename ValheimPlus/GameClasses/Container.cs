@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
+using UnityEngine;
 
 namespace ValheimPlus.GameClasses
 {
@@ -41,37 +42,19 @@ namespace ValheimPlus.GameClasses
         /// </summary>
         static void Postfix(Container __instance, ref Inventory ___m_inventory)
         {
+
             if (!Configuration.Current.Inventory.IsEnabled) return;
 
-            if (__instance == null || ___m_inventory == null || !__instance.transform.parent) return;
+            if (__instance == null || ___m_inventory == null || !__instance.transform.parent) {
 
-            string containerName = __instance.transform.parent.name;
-            string inventoryName = ___m_inventory.m_name;
-            ref int inventoryColumns = ref ___m_inventory.m_width;
-            ref int inventoryRows = ref ___m_inventory.m_height;
+                // is chest
 
-            // Karve (small boat)
-            // Use Contains because the actual name is "Karve (Clone)"
-            if (containerName.Contains("Karve"))
-            {
-                inventoryRows = Helper.Clamp(Configuration.Current.Inventory.karveInventoryRows, karveChestInventoryMinRows, karveChestInventoryMaxRows);
-                inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.karveInventoryColumns, karveChestInventoryMinCol, karveChestInventoryMaxCol);
-            }
-            // Longboat (Large boat)
-            else if (containerName.Contains("VikingShip"))
-            {
-                inventoryRows = Helper.Clamp(Configuration.Current.Inventory.longboatInventoryRows, longboatChestInventoryMinRows, longboatChestInventoryMaxRows);
-                inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.longboatInventoryColumns, longboatChestInventoryMinCol, longboatChestInventoryMaxCol);
-            }
-            // Cart (Wagon)
-            else if (containerName.Contains("Cart"))
-            {
-                inventoryRows = Helper.Clamp(Configuration.Current.Inventory.cartInventoryRows, cartChestInventoryMinRows, cartChestInventoryMaxRows);
-                inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.cartInventoryColumns, cartChestInventoryMinCol, cartChestInventoryMaxCol);
-            }
-            // Chests (containerName is _NetSceneRoot)
-            else
-            {
+                if (___m_inventory == null) return;
+
+                string inventoryName = ___m_inventory.m_name;
+                ref int inventoryColumns = ref ___m_inventory.m_width;
+                ref int inventoryRows = ref ___m_inventory.m_height;
+
                 // Personal chest
                 if (inventoryName == "$piece_chestprivate")
                 {
@@ -90,7 +73,38 @@ namespace ValheimPlus.GameClasses
                     inventoryRows = Helper.Clamp(Configuration.Current.Inventory.ironChestRows, ironChestInventoryMinRows, ironChestInventoryMaxRows);
                     inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.ironChestColumns, ironChestInventoryMinCol, ironChestInventoryMaxCol);
                 }
-            }
+
+                return;
+            } else {
+
+                // is not chest
+
+                string containerName = __instance.transform.parent.name;
+                string inventoryName = ___m_inventory.m_name;
+                ref int inventoryColumns = ref ___m_inventory.m_width;
+                ref int inventoryRows = ref ___m_inventory.m_height;
+
+                // Karve (small boat)
+                // Use Contains because the actual name is "Karve (Clone)"
+                if (containerName.Contains("Karve"))
+                {
+                    inventoryRows = Helper.Clamp(Configuration.Current.Inventory.karveInventoryRows, karveChestInventoryMinRows, karveChestInventoryMaxRows);
+                    inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.karveInventoryColumns, karveChestInventoryMinCol, karveChestInventoryMaxCol);
+                }
+                // Longboat (Large boat)
+                else if (containerName.Contains("VikingShip"))
+                {
+                    inventoryRows = Helper.Clamp(Configuration.Current.Inventory.longboatInventoryRows, longboatChestInventoryMinRows, longboatChestInventoryMaxRows);
+                    inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.longboatInventoryColumns, longboatChestInventoryMinCol, longboatChestInventoryMaxCol);
+                }
+                // Cart (Wagon)
+                else if (containerName.Contains("Cart"))
+                {
+                    inventoryRows = Helper.Clamp(Configuration.Current.Inventory.cartInventoryRows, cartChestInventoryMinRows, cartChestInventoryMaxRows);
+                    inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.cartInventoryColumns, cartChestInventoryMinCol, cartChestInventoryMaxCol);
+                }
+            };
+
 
         }
     }
