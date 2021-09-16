@@ -89,7 +89,7 @@ namespace ValheimPlus.GameClasses
         [HarmonyPatch(typeof(Minimap), nameof(Minimap.AddPin))]
         public static class Minimap_AddPin_Patch
         {
-            public static List<Minimap.PinType> shareablePins;
+            public static List<Minimap.PinType> shareablePins = new List<Minimap.PinType>();
 
             private static void Postfix(ref Minimap __instance, ref Minimap.PinData __result)
             {
