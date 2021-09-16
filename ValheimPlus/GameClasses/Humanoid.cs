@@ -17,6 +17,8 @@ namespace ValheimPlus.GameClasses
                     {
                         Player CharacterPlayerInstance = (Player)__instance;
                         __weapon.m_shared.m_damages.m_blunt = CharacterPlayerInstance.GetSkillFactor(Skills.SkillType.Unarmed) * Configuration.Current.Player.baseUnarmedDamage;
+                        if (__weapon.m_shared.m_damages.m_blunt <= 2)
+                            __weapon.m_shared.m_damages.m_blunt = 2;
                     }
                 }
             }
