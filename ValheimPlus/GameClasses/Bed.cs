@@ -69,7 +69,7 @@ namespace ValheimPlus.GameClasses
 							{
 								return;
 							}
-							human.AttachStart(__instance.m_spawnPoint, true, true, "attach_bed", new Vector3(0f, 0.5f, 0f));
+							human.AttachStart(__instance.m_spawnPoint, __instance.gameObject, true, true, false, "attach_bed", new Vector3(0f, 0.5f, 0f));
 							return;
 						}
 					}
