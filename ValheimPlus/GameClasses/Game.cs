@@ -35,7 +35,7 @@ namespace ValheimPlus.GameClasses
         private static void Postfix(ref float __result)
         {
             if (Configuration.Current.Game.IsEnabled)
-                __result = ((__result - 1f) / baseDifficultyDamageScale * Configuration.Current.Game.gameDifficultyDamageScale) + 1f;
+                __result = ((__result - 1f) / baseDifficultyDamageScale * Configuration.Current.Game.gameDifficultyDamageScale / 100f) + 1f;
         }
     }
 
@@ -64,7 +64,7 @@ namespace ValheimPlus.GameClasses
         private static void Postfix(ref float __result)
         {
             if (Configuration.Current.Game.IsEnabled)
-                __result = ((__result - 1f) / baseDifficultyHealthScale * Configuration.Current.Game.gameDifficultyHealthScale) + 1f;
+                __result = ((__result - 1f) / baseDifficultyHealthScale * Configuration.Current.Game.gameDifficultyHealthScale / 100f) + 1f;
         }
     }
 

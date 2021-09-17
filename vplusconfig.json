@@ -626,13 +626,13 @@
 				"defaultType": "bool"
 			},
 			"gameDifficultyDamageScale": {
-				"description": "The games damage multiplier per person nearby in difficultyScaleRange(m) radius.",
-				"defaultValue": "0.04",
+				"description": "The games damage increase in percent per person nearby in difficultyScaleRange(m) radius.",
+				"defaultValue": "4",
 				"defaultType": "float"
 			},
 			"gameDifficultyHealthScale": {
-				"description": "The games health multiplier per person nearby in difficultyScaleRange(m) radius.",
-				"defaultValue": "0.4",
+				"description": "The games health increase in percent per person nearby in difficultyScaleRange(m) radius.",
+				"defaultValue": "40",
 				"defaultType": "float"
 			},
 			"extraPlayerCountNearby": {
