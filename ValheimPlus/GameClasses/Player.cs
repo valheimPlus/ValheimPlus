@@ -195,24 +195,6 @@ namespace ValheimPlus.GameClasses
         public static void call_Dodge(object instance, Vector3 dodgeDir) => throw new NotImplementedException();
     }
     
-    /*
-    * Moved to Player Awake so that it is only called once
-    *
-    /// <summary>
-    /// Update maximum carry weight based on baseMaximumWeight configurations.
-    /// </summary>
-    [HarmonyPatch(typeof(Player), "GetMaxCarryWeight")]
-    public static class Player_GetMaxCarryWeight_Patch
-    {
-        private static void Prefix(ref Player __instance)
-        {
-            if (Configuration.Current.Player.IsEnabled)
-            {
-                __instance.m_maxCarryWeight = Configuration.Current.Player.baseMaximumWeight;
-            }
-        }
-    }
-    */
     
     /// <summary>
     /// Update maximum carry weight based on baseMegingjordBuff configurations.
