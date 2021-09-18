@@ -4,9 +4,11 @@ using IniParser.Model;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using ValheimPlus.Utility;
 
 namespace ValheimPlus.Configurations
 {
@@ -28,7 +30,7 @@ namespace ValheimPlus.Configurations
                 }
             }
 
-            return Settings.CreateMD5(serialized);
+            return Helper.CreateMD5(serialized);
         }
 
         public static string ConfigIniPath = Path.GetDirectoryName(Paths.BepInExConfigPath) + Path.DirectorySeparatorChar + "valheim_plus.cfg";
@@ -38,11 +40,52 @@ namespace ValheimPlus.Configurations
             try
             {
                 if (File.Exists(ConfigIniPath))
+                {
+                    FileIniDataParser parser = new FileIniDataParser();
+                    IniData configdata = parser.ReadFile(ConfigIniPath);
+
+                    string compareIni = null;
+                    try
+                    {
+                        // get the current versions ini data
+                        compareIni = ValheimPlusPlugin.getCurrentWebIniFile();
+                    }
+                    catch (Exception e) { }
+
+                    if (compareIni != null)
+                    {
+                        StreamReader reader = new StreamReader(new MemoryStream(System.Text.Encoding.ASCII.GetBytes(compareIni)));
+                        IniData webConfig = parser.ReadData(reader);
+
+                        // Duplication of comments otherwise with this merge function.
+                        configdata.ClearAllComments();
+
+                        webConfig.Merge(configdata);
+                        parser.WriteFile(ConfigIniPath, webConfig);
+                    }
+
                     Configuration.Current = LoadFromIni(ConfigIniPath);
+                }
                 else
                 {
-                    Debug.LogError("Error: Configuration not found. Plugin not loaded.");
-                    return false;
+                    Debug.LogError("Error: Configuration not found. Trying to download latest config.");
+
+                    // download latest ini if not present
+                    bool status = false;
+                    try
+                    {
+                        string defaultIni = ValheimPlusPlugin.getCurrentWebIniFile();
+                        if(defaultIni != null)
+                        {
+                            System.IO.File.WriteAllText(ConfigIniPath, defaultIni);
+                            Debug.Log("Default Configuration downloaded. Loading downloaded default settings.");
+                            Configuration.Current = LoadFromIni(ConfigIniPath);
+                            status = true;
+                        }
+                    }
+                    catch (Exception e) { }
+
+                    return status;
                 }
             }
             catch (Exception ex)
@@ -114,7 +157,7 @@ namespace ValheimPlus.Configurations
 
         public static bool GetBool(this KeyDataCollection data, string key)
         {
-            var truevals = new[] { "y", "yes", "true" };
+            var truevals = new[] { "y", "yes", "true", "1", "enabled" };
             return truevals.Contains($"{data[key]}".ToLower());
         }
 
@@ -130,7 +173,7 @@ namespace ValheimPlus.Configurations
 
         public static KeyCode GetKeyCode(this KeyDataCollection data, string key, KeyCode defaultVal)
         {
-            if (Enum.TryParse<KeyCode>(data[key], out var result)) {
+            if (Enum.TryParse<KeyCode>(data[key].Trim(), out var result)) {
                 return result;
             }
 

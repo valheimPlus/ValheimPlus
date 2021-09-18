@@ -7,11 +7,13 @@ namespace ValheimPlus.RPC
 {
     public class VPlusConfigSync
     {
+
+        static public bool isConnecting = false;
         public static void RPC_VPlusConfigSync(long sender, ZPackage configPkg)
         {
             if (ZNet.m_isServer) //Server
             {
-                if (!Configuration.Current.Server.serverSyncsConfig) return;
+                if (!Configuration.Current.Server.IsEnabled || !Configuration.Current.Server.serverSyncsConfig) return;
 
                 ZPackage pkg = new ZPackage();
 
@@ -36,8 +38,6 @@ namespace ValheimPlus.RPC
                 foreach (string line in cleanConfigData)
                 {
                     pkg.Write(line);
-
-                    ZLog.Log("SENTCONFIG: " + line);
                 }
 
                 ZRoutedRpc.instance.InvokeRoutedRPC(sender, "VPlusConfigSync", new object[]
@@ -70,17 +70,26 @@ namespace ValheimPlus.RPC
                                 string line = configPkg.ReadString();
 
                                 tmpWriter.WriteLine(line);
-
-                                ZLog.Log("CONFIGDATA: " + line);
                             }
 
                             tmpWriter.Flush(); //Flush to memStream
                             memStream.Position = 0; //Rewind stream
 
-                            Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
+                            ValheimPlusPlugin.harmony.UnpatchSelf();
 
-                            // Needed to make sure client is using server configuration as dayLength is setup before
-                            // TimeManipulation.SetupDayLength(); DEACTIVATED
+                            // Sync HotKeys when connecting ?
+                            if(Configuration.Current.Server.IsEnabled && !Configuration.Current.Server.serverSyncHotkeys)
+                            {
+                                isConnecting = true;
+                                Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
+                                isConnecting = false;
+                            }
+                            else
+                            {
+                                Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
+                            }
+                                
+                            ValheimPlusPlugin.harmony.PatchAll();
 
                             ZLog.Log("Successfully synced VPlus configuration from server.");
                         }

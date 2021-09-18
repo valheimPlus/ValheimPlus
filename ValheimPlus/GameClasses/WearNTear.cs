@@ -1,7 +1,8 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
+using System.Diagnostics;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
 	/// <summary>
 	/// Disable weather damage
@@ -34,18 +35,46 @@ namespace ValheimPlus
 	}
 
 	/// <summary>
+	/// Removes the integrity check for having a connected piece to the ground.
+	/// </summary>
+	[HarmonyPatch(typeof(WearNTear), "HaveSupport")]
+	public static class WearNTear_HaveSupport_Patch
+	{
+		private static void Postfix(ref bool __result)
+		{
+			if (Configuration.Current.Building.IsEnabled && Configuration.Current.StructuralIntegrity.disableStructuralIntegrity)
+			{
+				__result = true;
+			}
+		}
+	}
+
+	/// <summary>
 	/// Disable damage to player structures
 	/// </summary>
 	[HarmonyPatch(typeof(WearNTear), "ApplyDamage")]
 	public static class WearNTear_ApplyDamage_Patch
 	{
-		private static bool Prefix(ref WearNTear __instance,ref float damage)
-		{
-			if (Configuration.Current.StructuralIntegrity.IsEnabled && Configuration.Current.StructuralIntegrity.disableDamageToPlayerStructures && __instance.m_piece && __instance.m_piece.IsPlacedByPlayer())
-				return false;
+        private static bool Prefix(ref WearNTear __instance, ref float damage)
+        {
+            // Gets the name of the method calling the ApplyDamage method
+            StackTrace stackTrace = new StackTrace();
+            string callingMethod = stackTrace.GetFrame(2).GetMethod().Name;
 
-			return true;
-		}
+            if (!(Configuration.Current.StructuralIntegrity.IsEnabled && __instance.m_piece && __instance.m_piece.IsPlacedByPlayer() && callingMethod != "UpdateWear"))
+                return true;
+
+            if (__instance.m_piece.m_name.StartsWith("$ship"))
+            {
+	            if (Configuration.Current.StructuralIntegrity.disableDamageToPlayerBoats ||
+	                (Configuration.Current.StructuralIntegrity.disableWaterDamageToPlayerBoats &&
+	                 stackTrace.GetFrame(15).GetMethod().Name == "UpdateWaterForce")) return false;
+	            
+	            return true;
+            }
+            
+            return !Configuration.Current.StructuralIntegrity.disableDamageToPlayerStructures;
+        }
 	}
 
 	/// <summary>

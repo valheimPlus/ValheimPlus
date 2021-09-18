@@ -2,10 +2,13 @@
 {
     public class FermenterConfiguration : ServerSyncConfig<FermenterConfiguration>
     {
-        public float fermenterDuration { get; set; } = 2400;
-        public int fermenterItemsProduced { get; set; } = 4;
-
-        public bool showFermenterDuration { get; set; } = false;
+        public float fermenterDuration { get; internal set; } = 2400;
+        public int fermenterItemsProduced { get; internal set; } = 4;
+        public bool showDuration { get; internal set; } = false;
+        public bool autoDeposit { get; internal set; } = false;
+        public bool autoFuel { get; internal set; } = false;
+        public bool ignorePrivateAreaCheck { get; internal set; } = false;
+        public float autoRange { get; internal set; } = 10;
     }
 
 }

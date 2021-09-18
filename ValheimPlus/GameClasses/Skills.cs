@@ -1,7 +1,11 @@
 ﻿using HarmonyLib;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using ValheimPlus.Configurations;
+using ValheimPlus.Utility;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
 	[HarmonyPatch(typeof(Skills), "RaiseSkill")]
 	public static class AddExpGainedDisplay
@@ -79,9 +83,17 @@ namespace ValheimPlus
 		{
 			if (Configuration.Current.Hud.IsEnabled && Configuration.Current.Hud.experienceGainedNotifications)
 			{
-				Skills.Skill skill = __instance.GetSkill(skillType);
-				float percent = skill.m_accumulator / (skill.GetNextLevelRequirement() / 100);
-				__instance.m_player.Message(MessageHud.MessageType.TopLeft, skill.m_info.m_skill + " [" + Helper.tFloat(skill.m_accumulator, 2) + "/" + Helper.tFloat(skill.GetNextLevelRequirement(), 2) + "] (" + Helper.tFloat(percent, 0) + "%)", 0, skill.m_info.m_icon);
+				try
+                {
+					Skills.Skill skill;
+					skill = __instance.GetSkill(skillType);
+					float percent = skill.m_accumulator / (skill.GetNextLevelRequirement() / 100);
+					__instance.m_player.Message(MessageHud.MessageType.TopLeft, "Level " + Helper.tFloat(skill.m_level, 0) + " " + skill.m_info.m_skill
+						+ " [" + Helper.tFloat(skill.m_accumulator, 2) + "/" + Helper.tFloat(skill.GetNextLevelRequirement(), 2) + "]"
+						+ " (" + Helper.tFloat(percent, 0) + "%)", 0, skill.m_info.m_icon);
+				}
+				catch
+                { return; }
 			}
 		}
 	}
@@ -107,5 +119,41 @@ namespace ValheimPlus
 		Run,
 		Swim,
 		All = 999
+	}
+
+	[HarmonyPatch(typeof(Skills), nameof(Skills.OnDeath))]
+	public static class Skills_OnDeath_Transpiler
+	{
+		private static MethodInfo method_Skills_LowerAllSkills = AccessTools.Method(typeof(Skills), nameof(Skills.LowerAllSkills));
+		private static MethodInfo method_LowerAllSkills = AccessTools.Method(typeof(Skills_OnDeath_Transpiler), nameof(Skills_OnDeath_Transpiler.LowerAllSkills));
+
+		/// <summary>
+		/// We replace the call to Skills.LowerAllSkills with our own stub, which then applies the death multiplier.
+		/// </summary>
+		[HarmonyTranspiler]
+		public static IEnumerable<CodeInstruction> Transpile(IEnumerable<CodeInstruction> instructions)
+		{
+			if (!Configuration.Current.Player.IsEnabled) return instructions;
+
+			List<CodeInstruction> il = instructions.ToList();
+
+			for (int i = 0; i < il.Count; ++i)
+			{
+				if (il[i].Calls(method_Skills_LowerAllSkills))
+				{
+					il[i].operand = method_LowerAllSkills;
+				}
+			}
+
+			return il.AsEnumerable();
+		}
+
+		public static void LowerAllSkills(Skills instance, float factor)
+		{
+			if (Configuration.Current.Player.deathPenaltyMultiplier > -100.0f)
+			{
+				instance.LowerAllSkills(Helper.applyModifierValue(factor, Configuration.Current.Player.deathPenaltyMultiplier));
+			}
+		}
 	}
 }

@@ -4,8 +4,7 @@
     {
         public bool showRequiredItems { get; internal set; } = false;
         public bool experienceGainedNotifications { get; internal set; } = false;
-        public float chatMessageDistance { get; internal set; }
-        public bool displayStaminaValue { get; internal set; } = false;
         public bool removeDamageFlash { get; internal set; } = false;
+        public int displayBowAmmoCounts { get; internal set; } = 0;
     }
 }

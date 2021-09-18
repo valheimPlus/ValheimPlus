@@ -1,18 +1,19 @@
 ﻿using HarmonyLib;
-using System;
-using ValheimPlus.Configurations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
 using UnityEngine;
+using ValheimPlus.Configurations;
 
-namespace ValheimPlus
+namespace ValheimPlus.GameClasses
 {
     /// <summary>
     /// Item weight reduction and teleport prevention changes
     /// </summary>
-    [HarmonyPatch(typeof(ItemDrop), "Awake")]
-    public static class ChangeItemData
+    [HarmonyPatch(typeof(ItemDrop), nameof(ItemDrop.Awake))]
+    public static class ItemDrop_Awake_Patch
     {
-        private const int defaultSpawnTimeSeconds = 3600;
-
         private static void Prefix(ref ItemDrop __instance)
         {
             if (Configuration.Current.Items.IsEnabled && Configuration.Current.Items.noTeleportPrevention)
@@ -22,7 +23,7 @@ namespace ValheimPlus
 
             if (Configuration.Current.Items.IsEnabled)
             {
-                
+
                 __instance.m_itemData.m_shared.m_weight = Helper.applyModifierValue(__instance.m_itemData.m_shared.m_weight, Configuration.Current.Items.baseItemWeightReduction);
 
                 if (__instance.m_itemData.m_shared.m_maxStackSize > 1)
@@ -32,26 +33,53 @@ namespace ValheimPlus
                         __instance.m_itemData.m_shared.m_maxStackSize = (int)Helper.applyModifierValue(__instance.m_itemData.m_shared.m_maxStackSize, Configuration.Current.Items.itemStackMultiplier);
                     }
                 }
+
+                // Add floating property to all dropped items.
+                if (!__instance.gameObject.GetComponent<Floating>() && Configuration.Current.Items.itemsFloatInWater)
+                {
+                    __instance.gameObject.AddComponent<Floating>();
+                    __instance.gameObject.GetComponent<Floating>().m_waterLevelOffset = 0.5f;
+                }
+
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(ItemDrop), nameof(ItemDrop.TimedDestruction))]
+    public static class ItemDrop_TimedDestruction_Patch
+    {
+        private const int defaultSpawnTimeSeconds = 3600;
+        private static MethodInfo method_SetDroppedItemDestroyDuration = AccessTools.Method(typeof(ItemDrop_TimedDestruction_Patch), nameof(ItemDrop_TimedDestruction_Patch.SetDroppedItemDestroyDuration));
+
+        /// <summary>
+        /// Patches the function that checks if an ItemDrop should be destroyed by changing the value being compared.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.Items.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+            for (int i = 0; i < il.Count; i++)
+            {
+                if (il[i].opcode == OpCodes.Ldc_R8)
+                {
+                    il[i] = new CodeInstruction(OpCodes.Call, method_SetDroppedItemDestroyDuration);
+                    return il.AsEnumerable();
+                }
             }
 
+            ZLog.LogError("Failed to apply ItemDrop_TimedDestruction_Patch");
 
-
+            return instructions;
         }
 
-        private static void Postfix(ref ItemDrop __instance)
+        private static float SetDroppedItemDestroyDuration()
         {
-            if (!Configuration.Current.Items.IsEnabled) return; // if items config not enabled, continue with original method
-            if (Configuration.Current.Items.droppedItemOnGroundDurationInSeconds.Equals(defaultSpawnTimeSeconds)) return; // if set to default, continue with original method
-            if (!(bool)(UnityEngine.Object)__instance.m_nview || !__instance.m_nview.IsValid()) return;
-            if (!__instance.m_nview.IsOwner()) return;
-
-            // Get a DateTime value that is the current server time + item drop duration modifier
-            DateTime serverTimeWithTimeChange = ZNet.instance.GetTime().AddSeconds(Configuration.Current.Items.droppedItemOnGroundDurationInSeconds - defaultSpawnTimeSeconds);
-
-            // Re-set spawn time of item to the configured percentage of the original duration
-            __instance.m_nview.GetZDO().Set("SpawnTime", serverTimeWithTimeChange.Ticks);
+            if (!Player.m_localPlayer)
+                return defaultSpawnTimeSeconds;
+            return Helper.Clamp(Configuration.Current.Items.droppedItemOnGroundDurationInSeconds, 0, defaultSpawnTimeSeconds);
         }
-
     }
 
 
@@ -66,13 +94,14 @@ namespace ValheimPlus
             string itemName = __instance.m_shared.m_name.Replace("$item_", "");
             string itemType = itemName.Split(new char[] { '_' })[0];
 
-            float multiplierForItem = 0;
-
             float maxDurability = (__instance.m_shared.m_maxDurability + (float)Mathf.Max(0, quality - 1) * __instance.m_shared.m_durabilityPerLevel);
             __result = maxDurability;
+            float multiplierForItem = maxDurability;
+
 
             bool modified = false;
-            switch (itemType) {
+            switch (itemType)
+            {
 
                 // pickaxes
                 case "pickaxe":
@@ -102,6 +131,11 @@ namespace ValheimPlus
                 case "hoe":
                     modified = true;
                     multiplierForItem = Helper.applyModifierValue(maxDurability, Configuration.Current.Durability.hoe);
+                    break;
+
+                case "torch":
+                    modified = true;
+                    multiplierForItem = Helper.applyModifierValue(maxDurability, Configuration.Current.Durability.torch);
                     break;
 
                 default:
@@ -180,6 +214,20 @@ namespace ValheimPlus
             if (modifiedArmorValue != armor)
                 __result = modifiedArmorValue;
 
+            return false;
+        }
+    }
+
+    [HarmonyPatch(typeof(ItemDrop.ItemData), "GetBaseBlockPower", new System.Type[] { typeof(int) })]
+    public static class ItemDrop_GetBaseBlockPower_Patch
+    {
+        private static bool Prefix(ref ItemDrop.ItemData __instance, ref int quality, ref float __result)
+        {
+            if (!Configuration.Current.Shields.IsEnabled)
+                return true;
+
+            float blockValue = __instance.m_shared.m_blockPower + (float)Mathf.Max(0, quality - 1) * __instance.m_shared.m_blockPowerPerLevel;
+            __result = Helper.applyModifierValue(blockValue, Configuration.Current.Shields.blockRating);
             return false;
         }
     }

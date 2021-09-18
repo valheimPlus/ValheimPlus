@@ -1,0 +1,2012 @@
+{
+	"ValheimPlus": {
+		"description": "",
+		"icon": "fa fa-list",
+		"description_website": "Specifically about the internal settings of Valheim Plus.",
+		"entries": {
+			"enabled": {
+				"description": "Change true to false to disable this section",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"mainMenuLogo": {
+				"description": "Display the Valheim Plus logo in the main menu",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"AdvancedBuildingMode": {
+		"description": "https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes",
+		"icon": "fa fa-archway",
+		"description_website": "A advanced building mode with several features to improve quality of life in building mode using a precise hotkey system.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section, if you set this to false the mode will not be accesible",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"enterAdvancedBuildingMode": {
+				"description": "Enter the advanced building mode with this key when building",
+				"defaultValue": "F1",
+				"defaultType": "KeyCode"
+			},
+			"exitAdvancedBuildingMode": {
+				"description": "Exit the advanced building mode with this key when building",
+				"defaultValue": "F3",
+				"defaultType": "KeyCode"
+			},
+			"copyObjectRotation": {
+				"description": "Copy the object rotation of the currently selected object in ABM",
+				"defaultValue": "Keypad7",
+				"defaultType": "KeyCode"
+			},
+			"pasteObjectRotation": {
+				"description": "Apply the copied object rotation to the currently selected object in ABM",
+				"defaultValue": "Keypad8",
+				"defaultType": "KeyCode"
+			},
+			"increaseScrollSpeed": {
+				"description": "Increases the amount an object rotates and moves. Holding Shift will increase in increments of 10 instead of 1.",
+				"defaultValue": "KeypadPlus",
+				"defaultType": "KeyCode"
+			},
+			"decreaseScrollSpeed": {
+				"description": "Decreases the amount an object rotates and moves. Holding Shift will decrease in increments of 10 instead of 1.",
+				"defaultValue": "KeypadMinus",
+				"defaultType": "KeyCode"
+			}
+		}
+	},
+	"AdvancedEditingMode": {
+		"description": "; https://docs.unity3d.com/ScriptReference/KeyCode.html <- a list of keycodes",
+		"icon": "fa fa-archway",
+		"description_website": "A advanced editing mode with several features to improve quality of life when moving objects using a precise hotkey system.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section, if you set this to false the mode will not be accesible",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"enterAdvancedEditingMode": {
+				"description": "Enter the advanced building mode with this key when building",
+				"defaultValue": "Numpad0",
+				"defaultType": "KeyCode"
+			},
+			"resetAdvancedEditingMode": {
+				"description": "Reset the object to its original position and rotation",
+				"defaultValue": "F7",
+				"defaultType": "KeyCode"
+			},
+			"abortAndExitAdvancedEditingMode": {
+				"description": "Exit the advanced editing mode with this key and reset the object",
+				"defaultValue": "F8",
+				"defaultType": "KeyCode"
+			},
+			"confirmPlacementOfAdvancedEditingMode": {
+				"description": "Confirm the placement of the object and place it",
+				"defaultValue": "KeypadEnter",
+				"defaultType": "KeyCode"
+			},
+			"copyObjectRotation": {
+				"description": "Copy the object rotation of the currently selected object in AEM",
+				"defaultValue": "Keypad7",
+				"defaultType": "KeyCode"
+			},
+			"pasteObjectRotation": {
+				"description": "Apply the copied object rotation to the currently selected object in AEM",
+				"defaultValue": "Keypad8",
+				"defaultType": "KeyCode"
+			},
+			"increaseScrollSpeed": {
+				"description": "Increases the amount an object rotates and moves. Holding Shift will increase in increments of 10 instead of 1.",
+				"defaultValue": "KeypadPlus",
+				"defaultType": "KeyCode"
+			},
+			"decreaseScrollSpeed": {
+				"description": "Decreases the amount an object rotates and moves. Holding Shift will decrease in increments of 10 instead of 1.",
+				"defaultValue": "KeypadMinus",
+				"defaultType": "KeyCode"
+			}
+		}
+	},
+	"Bed": {
+		"description": "",
+		"icon": "far fa-bed-bunk",
+		"description_website": "Change the in-game beheavior of how you can interact with a Bed. A new Hot-Key 'LShift+E' will be presented when hovering over Beds to activate the functionality of sleeping without setting a spawn point.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"sleepWithoutSpawn": {
+				"description": "Change false to true to enable sleeping without setting bed as spawn.",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"unclaimedBedsOnly": {
+				"description": "Change false to true to enable sleeping on only unclaimed beds without setting bed as spawn. You can still sleep as normal on Beds that have been claimed by yourself.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"Beehive": {
+		"description": "",
+		"icon": "fa fa-hexagon",
+		"description_website": "Change the in-game behavior of the beehive and modify its values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"honeyProductionSpeed": {
+				"description": "configure the speed at which the bees produce honey in seconds, 1200 seconds are 24 ingame hours",
+				"defaultValue": "1200",
+				"defaultType": "float"
+			},
+			"maximumHoneyPerBeehive": {
+				"description": "configure the maximum amount of honey in beehives",
+				"defaultValue": "4",
+				"defaultType": "int"
+			},
+			"autoDeposit": {
+				"description": "Instead of dropping the items, they will be placed inside nearby chests.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoDepositRange": {
+				"description": "The range of the chest detection for the auto deposit feature. (Maximum is 50)",
+				"defaultValue": "10",
+				"defaultType": "float"
+			},
+			"showDuration": {
+				"description": "Display the minutes and seconds until the beehive produces honey on hover",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"Building": {
+		"description": "",
+		"icon": "fa fa-archway",
+		"description_website": "Change the behavior of the in-game building objects and their placement restrictions.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"noInvalidPlacementRestriction": {
+				"description": "Remove some of the Invalid placement messages, most notably provides the ability to place objects into other objects",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"noMysticalForcesPreventPlacementRestriction": {
+				"description": "Removes the 'Mystical forces' building prevention and allows destruction of build objects in those areas with the hammer.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"noWeatherDamage": {
+				"description": "Removes the weather damage from rain",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"maximumPlacementDistance": {
+				"description": "The maximum range that you can place build objects at",
+				"defaultValue": "5",
+				"defaultType": "float"
+			},
+			"pieceComfortRadius": {
+				"description": "The radius, in meters, in which a piece must be to contribute to the comfort level.",
+				"defaultValue": "10",
+				"defaultType": "float"
+			},
+			"alwaysDropResources": {
+				"description": "When destroying a building piece, setting this to true will ensure it always drops full resources.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"alwaysDropExcludedResources": {
+				"description": "When destroying a building piece, setting this to true will ensure it always drops pieces that the devs have marked as do not drop",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"enableAreaRepair": {
+				"description": "Setting this to true will cause repairing with the hammer to repair in a radius.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"areaRepairRadius": {
+				"description": "Sets the area repair radius. A value of 7.5 would mean your repair radius is 7.5m. Requires enableAreaRepair=true",
+				"defaultValue": "7.5",
+				"defaultType": "float"
+			}
+		}
+	},
+	"CraftFromChest": {
+		"description": "",
+		"icon": "fa fa-archway",
+		"description_website": "Allows crafting using content of nearby chests.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"disableCookingStation": {
+				"description": "Change false to tru to disable this feature when using a Cooking Station",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"checkFromWorkbench": {
+				"description": "If in a workbench area, uses it as reference point when scanning for chests",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"range": {
+				"description": "The range of the chest detection (Maximum is 50)",
+				"defaultValue": "20",
+				"defaultType": "float"
+			},
+			"lookupInterval": {
+				"description": "Interval in seconds between each nearby chests discovery (Maximum is 50)",
+				"defaultValue": "3",
+				"defaultType": "int"
+			}
+		}
+	},
+	"Camera": {
+		"description": "",
+		"icon": "fa fa-video",
+		"description_website": "Change the behavior of the in-game camera.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"cameraMaximumZoomDistance": {
+				"description": "The maximum zoom distance to your character",
+				"defaultValue": "6",
+				"defaultType": "float"
+			},
+			"cameraBoatMaximumZoomDistance": {
+				"description": "The maximum zoom distance to your character when in a boat",
+				"defaultValue": "6",
+				"defaultType": "float"
+			},
+			"cameraFOV": {
+				"description": "The game camera FOV",
+				"defaultValue": "65",
+				"defaultType": "float"
+			}
+		}
+	},
+	"Experience": {
+		"description": "",
+		"icon": "fa fa-flask",
+		"description_website": "Modify the experience gained for actions in the game.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"swords": {
+				"description": "The modifier value for the experience gained of swords.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"knives": {
+				"description": "The modifier value for the experience gained of knives.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"clubs": {
+				"description": "The modifier value for the experience gained of clubs.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"polearms": {
+				"description": "The modifier value for the experience gained of polearms.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"spears": {
+				"description": "The modifier value for the experience gained of spears.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"blocking": {
+				"description": "The modifier value for the experience gained of blocking.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"axes": {
+				"description": "The modifier value for the experience gained of axes.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"bows": {
+				"description": "The modifier value for the experience gained of bows.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"fireMagic": {
+				"description": "The modifier value for the experience gained of fire magic.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"frostMagic": {
+				"description": "The modifier value for the experience gained of frost magic.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"unarmed": {
+				"description": "The modifier value for the experience gained of unarmed.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"pickaxes": {
+				"description": "The modifier value for the experience gained of mining.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"woodCutting": {
+				"description": "The modifier value for the experience gained of wood cutting.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"jump": {
+				"description": "The modifier value for the experience gained of jumping.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"sneak": {
+				"description": "The modifier value for the experience gained of sneaking.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"run": {
+				"description": "The modifier value for the experience gained of running.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"swim": {
+				"description": "The modifier value for the experience gained of swimming.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
+	"Fermenter": {
+		"description": "",
+		"icon": "fa fa-vial",
+		"description_website": "Change the in-game behavior of the fermenter and modify its values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"fermenterDuration": {
+				"description": "configure the time that the fermenter takes to produce its product, 2400 seconds are 48 ingame hours",
+				"defaultValue": "2400",
+				"defaultType": "float"
+			},
+			"fermenterItemsProduced": {
+				"description": "configure the total amount of produced items from a fermenter.",
+				"defaultValue": "6",
+				"defaultType": "int"
+			},
+			"showDuration": {
+				"description": "Display the minutes and seconds until the fermenter is done on hover",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoDeposit": {
+				"description": "Instead of dropping the items, they will be placed inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoFuel": {
+				"description": "Look for mead inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
+				"defaultValue": "10",
+				"defaultType": "float"
+			}
+		}
+	},
+	"FireSource": {
+		"description": "",
+		"icon": "fa fa-fire",
+		"description_website": "Change the in-game behavior of torches and fireplaces.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"torches": {
+				"description": "If set to true, torch-type fire sources will stay at max fuel level once filled",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"fires": {
+				"description": "If set to true, non torch-type fire sources will stay at max fuel level once filled",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoFuel": {
+				"description": "Look for fuel inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests.",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto fuel feature.",
+				"defaultValue": "10",
+				"defaultType": "float"
+			}
+		}
+	},
+	"Food": {
+		"description": "",
+		"icon": "fa fa-steak",
+		"description_website": "Change the in-game behavior of food and its values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"foodDurationMultiplier": {
+				"description": "Increase or reduce the time that food lasts by %. The value 50 would cause food to run out 50% slower.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"disableFoodDegradation": {
+				"description": "If set to true, this option prevents food degrading over time - in other words, it retains its maximum benefit until it expires.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"Smelter": {
+		"description": "",
+		"icon": "fa fa-fireplace",
+		"description_website": "Change the in-game behavior of the smelter and modify its values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"maximumOre": {
+				"description": "Maximum amount of ore in a smelter",
+				"defaultValue": "10",
+				"defaultType": "int"
+			},
+			"maximumCoal": {
+				"description": "Maximum amount of coal in a smelter",
+				"defaultValue": "20",
+				"defaultType": "int"
+			},
+			"coalUsedPerProduct": {
+				"description": "The total amount of coal used to produce a single smelted ingot.",
+				"defaultValue": "2",
+				"defaultType": "int"
+			},
+			"productionSpeed": {
+				"description": "The time it takes for the smelter to produce a single ingot in seconds.",
+				"defaultValue": "30",
+				"defaultType": "float"
+			},
+			"autoDeposit": {
+				"description": "Instead of dropping the items, they will be placed inside nearby chests.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoFuel": {
+				"description": "Look for fuel inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests.",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
+				"defaultValue": "10",
+				"defaultType": "float"
+			}
+		}
+	},
+	"Furnace": {
+		"description": "",
+		"icon": "fad fa-fireplace",
+		"description_website": "Change the in-game behavior of the furnace and modify its values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"maximumOre": {
+				"description": "Maximum amount of ore in a furnace",
+				"defaultValue": "10",
+				"defaultType": "int"
+			},
+			"maximumCoal": {
+				"description": "Maximum amount of coal in a furnace",
+				"defaultValue": "20",
+				"defaultType": "int"
+			},
+			"coalUsedPerProduct": {
+				"description": "The total amount of coal used to produce a single smelted ingot.",
+				"defaultValue": "2",
+				"defaultType": "int"
+			},
+			"productionSpeed": {
+				"description": "The time it takes for the smelter to produce a single ingot in seconds.",
+				"defaultValue": "30",
+				"defaultType": "float"
+			},
+			"autoDeposit": {
+				"description": "Instead of dropping the items, they will be placed inside nearby chests.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoFuel": {
+				"description": "Look for fuel inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests.",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
+				"defaultValue": "10",
+				"defaultType": "float"
+			},
+			"allowAllOres": {
+				"description": "Change to true or false to enable the use of all ores.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"Game": {
+		"description": "",
+		"icon": "fa fa-gamepad",
+		"description_website": "Change the general games behavior and its values, including difficulty and portals.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"gameDifficultyDamageScale": {
+				"description": "The games damage increase in percent per person nearby in difficultyScaleRange(m) radius.",
+				"defaultValue": "4",
+				"defaultType": "float"
+			},
+			"gameDifficultyHealthScale": {
+				"description": "The games health increase in percent per person nearby in difficultyScaleRange(m) radius.",
+				"defaultValue": "40",
+				"defaultType": "float"
+			},
+			"extraPlayerCountNearby": {
+				"description": "Adds additional players to the difficulty calculation in multiplayer unrelated to the actual amount",
+				"defaultValue": "0",
+				"defaultType": "int"
+			},
+			"setFixedPlayerCountTo": {
+				"description": "Sets the nearby player count always to this value + extraPlayerCountNearby.",
+				"defaultValue": "0",
+				"defaultType": "int"
+			},
+			"difficultyScaleRange": {
+				"description": "The range in meters at which other players count towards nearby players for the difficulty scale.",
+				"defaultValue": "200",
+				"defaultType": "int"
+			},
+			"disablePortals": {
+				"description": "If you set this to true, all portals will be disabled",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"forceConsole": {
+				"description": "If you set this to true the console will be force enabled ingame, false will force disable it.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"bigPortalNames": {
+				"description": "If you set this to true, portal names will be displayed in big text in center of screen.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"disableFog": {
+				"description": "Remove dense fog from the game.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"Hotkeys": {
+		"description": "",
+		"icon": "fa fa-keyboard",
+		"description_website": "Adds custom hotkeys to the game for in-game actions.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"rollForwards": {
+				"description": "Roll forwards on key pressed",
+				"defaultValue": "F9",
+				"defaultType": "KeyCode"
+			},
+			"rollBackwards": {
+				"description": "Roll backwards on key pressed",
+				"defaultValue": "F10",
+				"defaultType": "KeyCode"
+			}
+		}
+	},
+	"Items": {
+		"description": "",
+		"icon": "fa fa-icons",
+		"description_website": "Change the in-game behavior of items and modify their values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"noTeleportPrevention": {
+				"description": "Enables you to teleport with ores and other usually restricted objects",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"baseItemWeightReduction": {
+				"description": "Increase or reduce item weight by % percent. The value -50 will reduce item weight of every object by 50%.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"itemStackMultiplier": {
+				"description": "Increase the size of all item stacks by %. The value 50 would set a usual item stack of 100 to be 150.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"droppedItemOnGroundDurationInSeconds": {
+				"description": "Set duration that dropped items live before despawning. Game default is 3600 seconds.",
+				"defaultValue": "3600",
+				"defaultType": "float"
+			},
+			"itemsFloatInWater": {
+				"description": "Items dropped always float in water.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"HUD": {
+		"description": "",
+		"icon": "fa fa-desktop",
+		"description_website": "Change the in-game player interface and its behavior.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"showRequiredItems": {
+				"description": "Shows the required amount of items AND the amount of items in your inventory in build mode and while crafting.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"experienceGainedNotifications": {
+				"description": "Shows small notifications about all skill experienced gained in the top left corner.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"removeDamageFlash": {
+				"description": "Set to true to remove the red screen flash overlay when the player takes damage.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"displayBowAmmoCounts": {
+				"description": "Display arrow type, current ammo, and total ammo when bow is in hotbar - Never (0), Equipped (1), Always (2)",
+				"defaultValue": "0",
+				"defaultType": "int"
+			}
+		}
+	},
+	"Gathering": {
+		"description": "",
+		"icon": "fa fa-axe",
+		"description_website": "Change gathering rates of resources in the world.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"dropChance": {
+				"description": "Modify the chance to drop resources from resource nodes affected by this category",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"wood": {
+				"description": "The value 50 will increase the dropped resources from 10 to 15. The value -50 will reduce the amount of dropped resources from 10 to 5.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"stone": {
+				"description": "The value 50 will increase the dropped resources from 10 to 15. The value -50 will reduce the amount of dropped resources from 10 to 5.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"fineWood": {
+				"description": "The value 50 will increase the dropped resources from 10 to 15. The value -50 will reduce the amount of dropped resources from 10 to 5..",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"coreWood": {
+				"description": "The value 50 will increase the dropped resources from 10 to 15. The value -50 will reduce the amount of dropped resources from 10 to 5.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"elderBark": {
+				"description": "The value 50 will increase the dropped resources from 10 to 15. The value -50 will reduce the amount of dropped resources from 10 to 5.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"ironScrap": {
+				"description": "The value 50 will increase the dropped resources from 10 to 15. The value -50 will reduce the amount of dropped resources from 10 to 5.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"tinOre": {
+				"description": "The value 50 will increase the dropped resources from 10 to 15. The value -50 will reduce the amount of dropped resources from 10 to 5.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"copperOre": {
+				"description": "The value 50 will increase the dropped resources from 10 to 15. The value -50 will reduce the amount of dropped resources from 10 to 5.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"silverOre": {
+				"description": "The value 50 will increase the dropped resources from 10 to 15. The value -50 will reduce the amount of dropped resources from 10 to 5.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"Chitin": {
+				"description": "The value 50 will increase the dropped resources from 10 to 15. The value -50 will reduce the amount of dropped resources from 10 to 5.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
+	"Pickable": {
+		"description": "",
+		"icon": "fa fa-axe",
+		"description_website": "Change drop rates of pickable items such as berries and valuables.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"edibles": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"flowersAndIngredients": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"materials": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"valuables": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"surtlingCores": {
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
+	"Durability": {
+		"description": "",
+		"icon": "fa fa-tasks-alt",
+		"description_website": "Change the in-game durability values of certain item types.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"axes": {
+				"description": "The value 50 will increase the durability from 100 to 150. The value -50 will reduce the durability from 100 to 50.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"pickaxes": {
+				"description": "The value 50 will increase the durability from 100 to 150. The value -50 will reduce the durability from 100 to 50.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"hammer": {
+				"description": "The value 50 will increase the durability from 100 to 150. The value -50 will reduce the durability from 100 to 50.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"cultivator": {
+				"description": "The value 50 will increase the durability from 100 to 150. The value -50 will reduce the durability from 100 to 50.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"hoe": {
+				"description": "The value 50 will increase the durability from 100 to 150. The value -50 will reduce the durability from 100 to 50.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"weapons": {
+				"description": "The value 50 will increase the durability from 100 to 150. The value -50 will reduce the durability from 100 to 50.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"armor": {
+				"description": "The value 50 will increase the durability from 100 to 150. The value -50 will reduce the durability from 100 to 50.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"bows": {
+				"description": "The value 50 will increase the durability from 100 to 150. The value -50 will reduce the durability from 100 to 50.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"shields": {
+				"description": "The value 50 will increase the durability from 100 to 150. The value -50 will reduce the durability from 100 to 50.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"torch": {
+				"description": "The value 50 will increase the durability from 100 to 150. The value -50 will reduce the durability from 100 to 50.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
+	"Armor": {
+		"description": "",
+		"icon": "fa fa-helmet-battle",
+		"description_website": "Change the in-game armor values of certain item types.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"helmets": {
+				"description": "The value 50 will increase the armor from 14 to 21. The value -50 will reduce the durability from 14 to 7.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"chests": {
+				"description": "The value 50 will increase the armor from 14 to 21. The value -50 will reduce the durability from 14 to 7.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"legs": {
+				"description": "The value 50 will increase the armor from 14 to 21. The value -50 will reduce the durability from 14 to 7.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"capes": {
+				"description": "The value 50 will increase the armor from 14 to 21. The value -50 will reduce the durability from 14 to 7.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
+	"Kiln": {
+		"description": "",
+		"icon": "fa fa-igloo",
+		"description_website": "Change the in-game behavior of the kiln and modify its values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"maximumWood": {
+				"description": "Maximum amount of wood in a Kiln",
+				"defaultValue": "25",
+				"defaultType": "int"
+			},
+			"dontProcessFineWood": {
+				"description": "Disable Fine Wood as a ressource",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"dontProcessRoundLog": {
+				"description": "Disable Round Log as a ressource",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"productionSpeed": {
+				"description": "The time it takes for the Kiln to produce a single piece of coal in seconds.",
+				"defaultValue": "15",
+				"defaultType": "float"
+			},
+			"autoDeposit": {
+				"description": "Instead of dropping the items, they will be placed inside nearby chests.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoFuel": {
+				"description": "Look for fuel inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"stopAutoFuelThreshold": {
+				"description": "Stop looking for fuel when there is at leasts this quantity of Coal in nearby chests (ignored if set to 0)",
+				"defaultValue": "0",
+				"defaultType": "int"
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests.",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
+				"defaultValue": "10",
+				"defaultType": "float"
+			}
+		}
+	},
+	"Map": {
+		"description": "",
+		"icon": "fas fa-map",
+		"description_website": "Change the in-game behavior of the map and allow for shared map progression between players.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"shareMapProgression": {
+				"description": "With this enabled you will receive the same exploration progression as other players on the server, this will also enable the option for the server to sync everyones exploration progression on connecting to the server.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"exploreRadius": {
+				"description": "The radius of the map that you explore when moving",
+				"defaultValue": "100",
+				"defaultType": "float"
+			},
+			"preventPlayerFromTurningOffPublicPosition": {
+				"description": "Prevents you and other people on the server to turn off their map sharing option",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"shareablePins": {
+				"desciption": "Allow pins to be shared",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"shareAllPins": {
+				"desciption": "Shares all pins always",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"showCartsAndBoats": {
+				"description": "Display carts and boats on the map",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"Player": {
+		"description": "",
+		"icon": "fa fa-male",
+		"description_website": "Change or modify most of the in-game character related values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"baseMaximumWeight": {
+				"description": "The base amount of carry weight of your character",
+				"defaultValue": "300",
+				"defaultType": "float"
+			},
+			"baseMegingjordBuff": {
+				"description": "Increase the buff you receive to your carry weight from Megingjord's girdle",
+				"defaultValue": "150",
+				"defaultType": "float"
+			},
+			"baseAutoPickUpRange": {
+				"description": "Increase auto pickup range of all items",
+				"defaultValue": "2",
+				"defaultType": "float"
+			},
+			"disableCameraShake": {
+				"description": "Disable all types of camera shake",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"disableCameraShake": {
+				"description": "Disable all types of camera shake",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"baseUnarmedDamage": {
+				"description": "The base unarmed damage multiplied by your skill level. 120 will result in a maximum of up to 12 damage when you have a skill level of 10.",
+				"defaultValue": "70",
+				"defaultType": "float"
+			},
+			"cropNotifier": {
+				"description": "When changed to true, you will not be permitted to place a crop within the grow radius of another crop",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"restSecondsPerComfortLevel": {
+				"description": "How many seconds each comfort level contributes to the rested bonus.",
+				"defaultValue": "60",
+				"defaultType": "float"
+			},
+			"deathPenaltyMultiplier": {
+				"description": "Change the death penalty in percentage, where higher will increase the death penalty and lower will reduce it.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"autoRepair": {
+				"description": "If set to true, this option will automatically repair your equipment when you interact with the appropriate workbench.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"guardianBuffDuration": {
+				"description": "Boss buff duration (seconds).",
+				"defaultValue": "300",
+				"defaultType": "float"
+			},
+			"guardianBuffCooldown": {
+				"description": "Boss buff cooldown (seconds).",
+				"defaultValue": "1200",
+				"defaultType": "float"
+			},
+			"disableGuardianBuffAnimation": {
+				"description": "Disable the Guardian Buff animation",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoEquipShield": {
+				"description": "If set to true, when equipping a one-handed weapon, the best shield from your inventory is automatically equipped. (Best is determined by highest block power)",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"queueWeaponChanges": {
+				"description": "If set to true, weapon switches requested mid-attack will be carried out when the current attack is finished (instead of being ignored)",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"skipIntro": {
+				"description": "If set to true, you will always skip the intro of the game.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"iHaveArrivedOnSpawn": {
+				"description": "If set to false, disables the \"I have arrived!\" message on player spawn.",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"reequipItemsAfterSwimming": {
+				"description": "If set to true, items will be re-equipped when you exit water after swimming (if they were hidden automatically)",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"fallDamageScalePercent": {
+				"description": "The value 50 would result in 50% higher fall damage. The value -50 would result in halved fall damage.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"maxFallDamage": {
+				"description": "The max damage you can take from falling. Game default is 100. Applied after calculating the scaled damage.",
+				"defaultValue": "100",
+				"defaultType": "float"
+			},
+			"skipTutorials": {
+				"description": "Prevents Valkyrie from showing up to give tutorial messages. You can disable and reset tutorials in the settings if you want to see them all again.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"disableEncumbered": {
+				"description": "If set to true, disables encumbered effect from carrying to much weight.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"Server": {
+		"description": "",
+		"icon": "fad fa-server",
+		"description_website": "Change the behavior of hosted servers and modify previously restricted or hardcoded values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"maxPlayers": {
+				"description": "Modify the amount of players on your Server",
+				"defaultValue": "10",
+				"defaultType": "int"
+			},
+			"disableServerPassword": {
+				"description": "Removes the requirement to have a server password",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"enforceMod": {
+				"description": "This settings add a version control check to make sure that people that try to join your game or the server you try to join has V+ installed",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"serverSyncsConfig": {
+				"description": "Changes whether the server will force it's config on clients that connect. Only affects servers.",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"serverSyncHotkeys": {
+				"description": "If false allows you to keep your own defined hotkeys instead of synchronising the ones declared for the server. Sections need to be enabled in your local configuration to load hotkeys. This is a client side setting and not affected by server settings.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"Stamina": {
+		"description": "",
+		"icon": "fa fa-dumbbell",
+		"description_website": "Change the stamina usage of in-game character related actions.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"dodgeStaminaUsage": {
+				"description": "Changes the amount of stamina cost of using by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"encumberedStaminaDrain": {
+				"description": "Changes the amount of stamina cost of using by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"jumpStaminaDrain": {
+				"description": "Changes the amount of stamina cost of using by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"runStaminaDrain": {
+				"description": "Changes the amount of stamina cost of using by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"sneakStaminaDrain": {
+				"description": "Changes the amount of stamina cost of using by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"staminaRegen": {
+				"description": "Changes the total amount of stamina recovered per second by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"staminaRegenDelay": {
+				"description": "Changes the delay until stamina regeneration sets in by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"swimStaminaDrain": {
+				"description": "Changes the amount of stamina cost of using by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
+	"StaminaUsage": {
+		"description": "",
+		"icon": "fa fa-tools",
+		"description_website": "Change the stamina usage of in-game tools and weapons related actions.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"axes": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"blocking": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"bows": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"clubs": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"knives": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"pickaxes": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"polearms": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"spears": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"swords": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"unarmed": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"hammer": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"hoe": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"cultivator": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
+	"StructuralIntegrity": {
+		"description": "",
+		"icon": "fas fa-construction",
+		"description_website": "Change the behavior of the structural integrity system and their values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"disableStructuralIntegrity": {
+				"description": "Disables the entire structural integrity system and allows for placement in free air, does not prevent building damage.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"disableDamageToPlayerStructures": {
+				"description": "Disables any damage from anything to all player built structures. Does not prevent damage from structural integrity.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"disableDamageToPlayerBoats": {
+				"description": "Disables any damage from anything to all player built boats",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"disableWaterDamageToPlayerBoats": {
+				"description": "Disables water force damage to all player built boats",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"wood": {
+				"description": "Each of these values reduce the loss of structural integrity by distance by %.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"stone": {
+				"description": "Each of these values reduce the loss of structural integrity by distance by %.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"iron": {
+				"description": "Each of these values reduce the loss of structural integrity by distance by %.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"hardwood": {
+				"description": "Each of these values reduce the loss of structural integrity by distance by %.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			}
+		}
+	},
+	"Ward": {
+		"description": "",
+		"icon": "fad fa-lock",
+		"description_website": "Change the values and behavior of the placeable Ward object.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"wardRange": {
+				"description": "The range of wards by meters",
+				"defaultValue": "20",
+				"defaultType": "float"
+			},
+			"wardEnemySpawnRange": {
+				"description": "Set the enemy spawn radius around wards in meters",
+				"defaultValue": "0",
+				"defaultType": "float"
+			}
+		}
+	},
+	"Workbench": {
+		"description": "",
+		"icon": "fad fa-hammer",
+		"description_website": "Change the values and behavior of the in-game workbenches.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"workbenchRange": {
+				"description": "Set the workbench radius in meters",
+				"defaultValue": "20",
+				"defaultType": "float"
+			},
+			"workbenchEnemySpawnRange": {
+				"description": "Set the enemy spawn radius around workbenches in meters",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"workbenchAttachmentRange": {
+				"description": "Sets the workbench attachment (e.g. anvil) radius",
+				"defaultValue": "5",
+				"defaultType": "float"
+			},
+			"disableRoofCheck": {
+				"description": "Disables the roof and exposure requirement to use a workbench",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"Wagon": {
+		"description": "",
+		"icon": "fa fa-wagon-covered",
+		"description_website": "Change the values and behavior of the in-game wagon used to transport items.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"wagonBaseMass": {
+				"description": "Change the base wagon physical mass of the wagon object",
+				"defaultValue": "20",
+				"defaultType": "float"
+			},
+			"wagonExtraMassFromItems": {
+				"description": "This value changes the game physical weight of wagons by +/- more/less from item weight inside. The value 50 would increase the weight by 50% more. The value -100 would remove the entire extra weight.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			}
+		}
+	},
+	"Inventory": {
+		"description": "",
+		"icon": "fa fa-inventory",
+		"description_website": "Change the values, size and behavior of the in-game inventory.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"playerInventoryRows": {
+				"description": "Player inventory number of rows (inventory is resized up to 6 rows, higher values will add a scrollbar)",
+				"defaultValue": "4",
+				"defaultType": "int"
+			},
+			"woodChestColumns": {
+				"description": "Wood chest number of columns",
+				"defaultValue": "5",
+				"defaultType": "int"
+			},
+			"woodChestRows": {
+				"description": "Wood chest number of rows (more than 4 rows will add a scrollbar)",
+				"defaultValue": "2",
+				"defaultType": "int"
+			},
+			"personalChestColumns": {
+				"description": "Personal chest number of columns",
+				"defaultValue": "3",
+				"defaultType": "int"
+			},
+			"personalChestRows": {
+				"description": "Personal chest number of rows",
+				"defaultValue": "2",
+				"defaultType": "int"
+			},
+			"ironChestColumns": {
+				"description": "Iron chests already have 8 columns by default but now you can lower it ",
+				"defaultValue": "8",
+				"defaultType": "int"
+			},
+			"ironChestRows": {
+				"description": "Iron chest number of rows (more than 4 rows will add a scrollbar)",
+				"defaultValue": "4",
+				"defaultType": "int"
+			},
+			"cartInventoryColumns": {
+				"description": "Cart (Wagon) inventory number of columns",
+				"defaultValue": "8",
+				"defaultType": "int"
+			},
+			"cartInventoryRows": {
+				"description": "Cart (Wagon) inventory number of rows (more than 4 rows will add a scrollbar)",
+				"defaultValue": "2",
+				"defaultType": "int"
+			},
+			"karveInventoryRows": {
+				"description": "Karve (small boat) inventory number of rows (more than 4 rows will add a scrollbar)",
+				"defaultValue": "2",
+				"defaultType": "int"
+			},
+			"karveInventoryColumns": {
+				"description": "Karve (small boat) inventory number of columns",
+				"defaultValue": "8",
+				"defaultType": "int"
+			},
+			"longboatInventoryColumns": {
+				"description": "Longboat (large boat) inventory number of columns",
+				"defaultValue": "8",
+				"defaultType": "int"
+			},
+			"longboatInventoryRows": {
+				"description": "Longboat (large boat) inventory number of rows (more than 4 rows will add a scrollbar)",
+				"defaultValue": "3",
+				"defaultType": "int"
+			},
+			"inventoryFillTopToBottom": {
+				"description": "By default tools and weapons go into inventories top to bottom and other materials bottom to top. Set to true to make all items go into the inventory top to bottom.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"mergeWithExistingStacks": {
+				"description": "By default items go to their original position when picking up your tombstone. Set to true to make all stacks try to merge with an existing stack first.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"FreePlacementRotation": {
+		"description": "",
+		"icon": "fa fa-archway",
+		"description_website": "A addition to the basic standard building/placement mode allowing you to rotate all objects on all axis.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section, if you set this to false the mode will not be accesible",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"rotateY": {
+				"description": "Rotates placement marker by 1 degree with keep ability to attach to nearly pieces",
+				"defaultValue": "LeftAlt",
+				"defaultType": "KeyCode"
+			},
+			"rotateX": {
+				"description": "Rotates placement marker by 1 degree with keep ability to attach to nearly pieces",
+				"defaultValue": "C",
+				"defaultType": "KeyCode"
+			},
+			"rotateZ": {
+				"description": "Rotates placement marker by 1 degree with keep ability to attach to nearly pieces",
+				"defaultValue": "V",
+				"defaultType": "KeyCode"
+			},
+			"copyRotationParallel": {
+				"description": "Copy rotation of placement marker from target piece in front of you",
+				"defaultValue": "F",
+				"defaultType": "KeyCode"
+			},
+			"copyRotationPerpendicular": {
+				"description": "Set rotation to be perpendicular to piece in front of you",
+				"defaultValue": "G",
+				"defaultType": "KeyCode"
+			}
+		}
+	},
+	"Shields": {
+		"description": "",
+		"icon": "fad fa-shield",
+		"description_website": "Change the block values of the in-game shields.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"blockRating": {
+				"description": "Increase or decrease the block value on all shields in %. -50 would be 50% less block rating, 50 would be 50% more block rating.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
+	"FirstPerson": {
+		"description": "",
+		"icon": "fal fa-video",
+		"description_website": "Allows to switch to a first person mode in valheim with very little clipping.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"hotkey": {
+				"description": "Hotkey to enable First Person",
+				"defaultValue": "F10",
+				"defaultType": "KeyCode"
+			},
+			"defaultFOV": {
+				"description": "Default Field Of View to use",
+				"defaultValue": "65.0",
+				"defaultType": "float"
+			},
+			"raiseFOVHotkey": {
+				"description": "Hotkey to raise Field Of View",
+				"defaultValue": "PageUp",
+				"defaultType": "KeyCode"
+			},
+			"lowerFOVHotkey": {
+				"description": "Hotkey to lower Field Of View",
+				"defaultValue": "PageDown",
+				"defaultType": "KeyCode"
+			}
+		}
+	},
+	"GridAlignment": {
+		"description": "When pressing the configured key new buildings will be aligned to a global grid.",
+		"icon": "fad fa-border-right",
+		"description_website": "When pressing the configured key new buildings will be aligned to a global grid, allwoing for consistent placement locations.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"align": {
+				"description": "Key to enable grid alignment.",
+				"defaultValue": "LeftAlt",
+				"defaultType": "KeyCode"
+			},
+			"alignToggle": {
+				"description": "Key to toggle grid alignment.",
+				"defaultValue": "F7",
+				"defaultType": "KeyCode"
+			},
+			"changeDefaultAlignment": {
+				"description": "Key to change the default alignment direction.",
+				"defaultValue": "F6",
+				"defaultType": "KeyCode"
+			}
+
+		}
+	},
+	"Windmill": {
+		"description": "",
+		"icon": "fad fa-wind-turbine",
+		"description_website": "Change the in-game behavior of the windmill and modify its values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"maximumBarley": {
+				"description": "Maximum amount of barley in a windmill",
+				"defaultValue": "40",
+				"defaultType": "int"
+			},
+			"productionSpeed": {
+				"description": "The time it takes for the windmill to produce barley floor",
+				"defaultValue": "30",
+				"defaultType": "float"
+			},
+			"autoDeposit": {
+				"description": "Instead of dropping the items, they will be placed inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoFuel": {
+				"description": "Look for barley inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto deposit and fuel features (Maximum is 50)",
+				"defaultValue": "10",
+				"defaultType": "float"
+			}
+		}
+	},
+	"SpinningWheel": {
+		"description": "",
+		"icon": "fab fa-cotton-bureau",
+		"description_website": "Change the in-game behavior of the spinning wheel and modify its values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"maximumFlax": {
+				"description": "Maximum amount of flax in a spinning wheel",
+				"defaultValue": "40",
+				"defaultType": "int"
+			},
+			"productionSpeed": {
+				"description": "The time it takes for the spinning wheel to produce linen thread",
+				"defaultValue": "30",
+				"defaultType": "float"
+			},
+			"autoDeposit": {
+				"description": "Instead of dropping the items, they will be placed inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"autoFuel": {
+				"description": "Look for flax inside nearby chests",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"ignorePrivateAreaCheck": {
+				"description": "Change true to false to enable private area check when looking for chests",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"autoRange": {
+				"description": "The range of the chest detection for the auto deposit and fuel features. (Maximum is 50)",
+				"defaultValue": "10",
+				"defaultType": "float"
+			}
+		}
+	},
+	"PlayerProjectile": {
+		"description": "",
+		"icon": "fal fa-bow-arrow",
+		"description_website": "Changes the in-game behavior of players projectiles and modify their values. Increasing velocity will not increase damage.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"playerMinChargeVelocityMultiplier": {
+				"description": "Modify players projectile velocity after minimum (bow) charge and release.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"playerMaxChargeVelocityMultiplier": {
+				"description": "Modify players projectile velocity after maximum (bow and javelin) charge and release.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"playerMinChargeAccuracyMultiplier": {
+				"description": "Modify players projectile accuracy after minimum (bow) charge and release.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"playerMaxChargeAccuracyMultiplier": {
+				"description": "Modify players projectile accuracy after maximum (bow and javelin) charge and release.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"enableScaleWithSkillLevel": {
+				"description": "Scales velocity and accuracy linearly based on level of skill.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			}
+		}
+	},
+	"MonsterProjectile": {
+		"description": "",
+		"icon": "fas fa-alien-monster",
+		"description_website": "Change the in-game behavior of monsters (Greydrawf, Troll, and dragons) projectiles and modify their values.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section.",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"monsterMaxChargeVelocityMultiplier": {
+				"description": "Modify monters' projectile velocity.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"monsterMaxChargeAccuracyMultiplier": {
+				"description": "Modify monters' projectile accuracy.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
+	},
+	"GameClock": {
+		"description": "",
+		"icon": "far fa-clock",
+		"description_website": "Shows In-Game digital clock in top center. Days starts at 0600 and sun sets at 1800.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"useAMPM": {
+				"description": "Change time format from 24hr to AM-PM",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"textFontSize": {
+				"description": "Change font size of time text",
+				"defaultValue": "34",
+				"defaultType": "int"
+			},
+			"textRedChannel": {
+				"description": "Change how red the time text is.",
+				"defaultValue": "248",
+				"defaultType": "int"
+			},
+			"textGreenChannel": {
+				"description": "Change how green the time text is.",
+				"defaultValue": "105",
+				"defaultType": "int"
+			},
+			"textBlueChannel": {
+				"description": "Change how blue the time text is.",
+				"defaultValue": "0",
+				"defaultType": "int"
+			},
+			"textTransparencyChannel": {
+				"description": "Change how transparent the time text is.",
+				"defaultValue": "255",
+				"defaultType": "int"
+			}
+		}
+	},
+	"Tameable": {
+		"description": "",
+		"icon": "fas fa-paw",
+		"description_website": "Change the in-game behaviour of creatures tamed by players.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section.",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"mortality": {
+				"description": "Modify what happens when a tamed creature is attacked. 0 = normal, 1 = essential(deadly attacks stun instead of kill), 2 = immortal.",
+				"defaultValue": "0",
+				"defaultType": "int"
+			},
+			"ownerDamageOverride": {
+				"description": "Change to true so any damage the owner does will override the mortality setting (e.g., an immortal/essential tame can still be killed by the owner).",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"stunRecoveryTime": {
+				"description": "How long it takes for a tamed creature to recover(in seconds) if mortality is set to 1(essential) and they are stunned.",
+				"defaultValue": "10",
+				"defaultType": "float"
+			}
+		}
+	},
+	"Brightness": {
+		"description": "",
+		"icon": "fas fa-sun",
+		"description_website": "Change the brightness during different time of day.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section.",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"nightBrightnessMultiplier": {
+				"description": "Changes how bright it looks at night. A value between 5 and 10 will result in nearly double in brightness at night.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			}
+		}
+	},
+	"Chat": {
+		"description": "",
+		"icon": "fa fa-comments",
+		"description_website": "Several different settings to change the default in-game chat behavior.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section.",
+				"defaultType": "bool",
+				"defaultValue": "false"
+			},
+			"shoutDistance": {
+				"description": "If the player is outside of this range in meters in comparison to the creator of the shout you will not see the message on the map or in the chat unless you have outOfRangeShoutsDisplayInChatWindow enabled. If this is set to 0, its disabled.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"pingDistance": {
+				"description": "If the player is outside of this range in meters in comparison to the creator of the ping on the map you will not see the ping on the map. If this is set to 0, its disabled.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"forcedCase": {
+				"description": "Disable the forced upper and lower case conversions for in-game text messages of all types.",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"defaultWhisperDistance": {
+				"description": "This value determines the range in meters that you can see whisper text messages by default.",
+				"defaultValue": "4",
+				"defaultType": "float"
+			},
+			"defaultNormalDistance": {
+				"description": "This value determines the range in meters that you can see normal text messages by default.",
+				"defaultValue": "15",
+				"defaultType": "float"
+			},
+			"defaultShoutDistance": {
+				"description": "This value determines the range in meters that you can see shout text messages by default.",
+				"defaultValue": "70",
+				"defaultType": "float"
+			}
+		}
+	}
+}
