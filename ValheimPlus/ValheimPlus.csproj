@@ -332,6 +332,7 @@
     <Compile Include="AdvancedEditingMode.cs" />
     <Compile Include="Configurations\Sections\BedConfiguration.cs" />
     <Compile Include="Configurations\Sections\BrightnessConfiguration.cs" />
+    <Compile Include="Configurations\Sections\ChatConfiguration.cs" />
     <Compile Include="Configurations\Sections\GameClockConfiguration.cs" />
     <Compile Include="Configurations\Sections\MonsterProjectileConfiguration.cs" />
     <Compile Include="Configurations\Sections\PlayerProjectileConfiguration.cs" />
@@ -391,6 +392,7 @@
     <Compile Include="GameClasses\FejdStartup.cs" />
     <Compile Include="GameClasses\Fireplace.cs" />
     <Compile Include="GameClasses\GameCamera.cs" />
+    <Compile Include="GameClasses\Chat.cs" />
     <Compile Include="RPC\VPlusMapPinSync.cs" />
     <Compile Include="UI\HotkeyBar.cs" />
     <Compile Include="GameClasses\Hud.cs" />

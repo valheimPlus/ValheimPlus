@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection.Emit;
+using HarmonyLib;
 
 namespace ValheimPlus
 {
@@ -13,6 +15,45 @@ namespace ValheimPlus
 		{
 			return (Character)__instance;
 		}
+
+        /// <summary>
+        /// A function to get the current player by network sender id, even in singleplayer
+        /// </summary>
+        public static Player getPlayerBySenderId(long id)
+        {
+            // A little more efficient than the Player.GetPlayer function but its miniscule.
+            // This one also works in single player and requires no additonal work around.
+            List<Player> allPlayers = Player.GetAllPlayers();
+            foreach (Player player in allPlayers)
+            {
+                ZDOID zdoInfo = Helper.getPlayerCharacter(player).GetZDOID();
+                if (zdoInfo != new ZDOID(0L, 0U))
+                {
+                    if (zdoInfo.m_userID == id)
+                        return player;
+                }
+            }
+            return null;
+        }
+
+        public static List<CodeInstruction> removeForcedCaseFunctionCalls(List<CodeInstruction> il)
+        {
+            for (int i = 0; i < il.Count; ++i)
+            {
+                if (il[i].operand != null)
+                {
+                    string op = il[i].operand.ToString();
+                    if (op.Contains(nameof(string.ToUpper)) || op.Contains(nameof(string.ToLower)) || op.Contains(nameof(string.ToLowerInvariant)))
+                    {
+                        il[i] = new CodeInstruction(OpCodes.Nop);
+                        il[i - 1] = new CodeInstruction(OpCodes.Nop);
+                        il[i + 1] = new CodeInstruction(OpCodes.Nop);
+                    }
+
+                }
+            }
+            return il;
+        }
 
         public static float tFloat(this float value, int digits)
         {
