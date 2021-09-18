@@ -725,6 +725,11 @@
 				"description": "Set duration that dropped items live before despawning. Game default is 3600 seconds.",
 				"defaultValue": "3600",
 				"defaultType": "float"
+			},
+			"itemsFloatInWater": {
+				"description": "Items dropped always float in water.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},

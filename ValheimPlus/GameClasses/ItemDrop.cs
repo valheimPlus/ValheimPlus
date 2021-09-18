@@ -33,6 +33,14 @@ namespace ValheimPlus.GameClasses
                         __instance.m_itemData.m_shared.m_maxStackSize = (int)Helper.applyModifierValue(__instance.m_itemData.m_shared.m_maxStackSize, Configuration.Current.Items.itemStackMultiplier);
                     }
                 }
+
+                // Add floating property to all dropped items.
+                if (!__instance.gameObject.GetComponent<Floating>() && Configuration.Current.Items.itemsFloatInWater)
+                {
+                    __instance.gameObject.AddComponent<Floating>();
+                    __instance.gameObject.GetComponent<Floating>().m_waterLevelOffset = 0.5f;
+                }
+
             }
         }
     }
