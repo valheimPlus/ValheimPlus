@@ -115,6 +115,7 @@ We work together closely to make sure all our features are integrated and workin
 * Remove teleport prevention from all items.
 * Reduce the weight of all items by percent.
 * Modify maximum item stack size by percent.
+* Make all items float in water.
 
 
 
@@ -184,6 +185,13 @@ We work together closely to make sure all our features are integrated and workin
 * Modify number of seconds it takes for items to despawn after being dropped on the ground. (default is 3600 seconds).
    * *Note: Items on ground will retain base game functionality which ensures that drops don't disappear if a player is nearby or there is a "player base" nearby*
 * Automatically sync V+ configuration of players joining a server to match the server's configuration.
+
+
+# Chat System
+* Change default text visibility distances for all types of ingame messages.
+*Disable forced uppercase and lowercase in shout and whisper messages.
+* Options to limit shouting distance.
+* Options to limit ping distance.
 
 
 # Building
