@@ -103,6 +103,7 @@ namespace ValheimPlus.GameClasses
                 "Mushroom",
                 "MushroomBlue",
                 "MushroomYellow",
+                "Onion"
             };
 
             var flowersAndIngredients = new List<string>
@@ -113,7 +114,8 @@ namespace ValheimPlus.GameClasses
                 "Flax",
                 "Thistle",
                 "TurnipSeeds",
-                "Turnip"
+                "Turnip",
+                "OnionSeeds"
             };
 
             var materials = new List<string>
