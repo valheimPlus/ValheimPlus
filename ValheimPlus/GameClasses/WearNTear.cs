@@ -72,7 +72,14 @@ namespace ValheimPlus.GameClasses
 	            
 	            return true;
             }
-            
+             if (__instance.m_piece.m_name.StartsWith("$cart"))
+            {
+	            if (Configuration.Current.StructuralIntegrity.disableDamageToPlayerStructures ||
+	                (Configuration.Current.StructuralIntegrity.disableDamageToPlayerStructures &&
+	                 stackTrace.GetFrame(15).GetMethod().Name == "UpdateWaterForce")) return false;
+	            
+	            return true;
+            }
             return !Configuration.Current.StructuralIntegrity.disableDamageToPlayerStructures;
         }
 	}
