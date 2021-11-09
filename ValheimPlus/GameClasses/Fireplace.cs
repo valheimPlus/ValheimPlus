@@ -186,8 +186,10 @@ namespace ValheimPlus.GameClasses
             "piece_groundtorch_wood", // standing wood torch
             "piece_groundtorch", // standing iron torch
             "piece_groundtorch_green", // standing green torch
+            "piece_groundtorch_blue", // standing blue torch
             "piece_walltorch", // sconce torch
-            "piece_brazierceiling01" // brazier
+            "piece_brazierceiling01", // brazier
+            "piece_jackoturnip" // Jack-o-turnip
         };
 
         internal static bool IsTorch(string itemName)
