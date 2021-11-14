@@ -26,7 +26,7 @@ namespace ValheimPlus
     [HarmonyPatch(typeof(SE_Rested), nameof(SE_Rested.CalculateComfortLevel))]
     public static class SE_Rested_CalculateComfortLevel_Transpiler
     {
-        private static MethodInfo method_SE_Rested_GetNearbyPieces = AccessTools.Method(typeof(SE_Rested), nameof(SE_Rested.GetNearbyPieces));
+        private static MethodInfo method_SE_Rested_GetNearbyPieces = AccessTools.Method(typeof(SE_Rested), nameof(SE_Rested.GetNearbyComfortPieces));
         private static MethodInfo method_GetNearbyPieces = AccessTools.Method(typeof(SE_Rested_CalculateComfortLevel_Transpiler), nameof(SE_Rested_CalculateComfortLevel_Transpiler.GetNearbyPieces));
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace ValheimPlus
         public static List<Piece> GetNearbyPieces(Vector3 point)
         {
             List<Piece> pieces = new List<Piece>();
-            Piece.GetAllPiecesInRadius(point, Configuration.Current.Building.pieceComfortRadius, pieces);
+            Piece.GetAllComfortPiecesInRadius(point, Configuration.Current.Building.pieceComfortRadius, pieces);
             return pieces;
         }
     }
