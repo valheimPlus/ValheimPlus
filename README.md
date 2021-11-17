@@ -329,7 +329,7 @@ This guide does not cover how to create a dedicated server. These are the steps 
 3. Locate your `Valheim/` game folder.  
   Open your Steam client. In your *"Library"* tab, right-click on Valheim.
   Select *"Manage 🡺 Browse local files"*, and make note of the location.  
-  ![image](./resources/images/nav_steam_local_files.png)  
+  ![image](https://user-images.githubusercontent.com/10716475/142159998-38105800-6f3a-4229-9140-02c363d16ee4.png)
 4. Ensure that you have the correct path to your game folder location:  
   ```  
   my_path=/replace/with/your/path/to/common/Valheim/  
@@ -347,7 +347,7 @@ This guide does not cover how to create a dedicated server. These are the steps 
   Select *"Properties...."*  
   In the pop-up, add the following to the *"Launch Options"* `./start_game_bepinex.sh %command%`  
   (in rare cases that this command does not work, use `bash /start_game_bepinex.sh %command%` instead)  
-   ![image](./resources/images/nav_steam_launch_options.png)  
+   ![image](https://user-images.githubusercontent.com/10716475/142167891-f54c273d-d438-4bd0-ab02-b66c79b199cc.png)
 
 
 
