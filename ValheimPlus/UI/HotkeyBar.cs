@@ -93,7 +93,7 @@ namespace ValheimPlus.UI
                 if (totalAmmo == 0)
                     ammoCounterText.text = noAmmoDisplay;
                 else
-                    ammoCounterText.text = ammoItem.m_shared.m_name.Split('_').Last() + " " + currentAmmo + "/" + totalAmmo;
+                    ammoCounterText.text = ammoItem.m_shared.m_name.Split('_').Last() + "\n" + currentAmmo + "/" + totalAmmo;
             }
         }
     }
