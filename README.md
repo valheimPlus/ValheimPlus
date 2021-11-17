@@ -327,7 +327,7 @@ This guide does not cover how to create a dedicated server. These are the steps 
 1. **NOTE:** It is recommended to install ValheimPlus before installing other mods, especially those which also use BepInEx.
 2. Download the [latest package called UnixServer.zip over this link](https://github.com/valheimPlus/ValheimPlus/releases/latest/). *(Scroll down and click "assets")*.
 3. Locate your `Valheim/` game folder.  
-  Open your Steam client right-click the Valheim game in your Steam Library.  
+  Open your Steam client. In your *"Library"* tab, right-click on Valheim.
   Select *"Manage 🡺 Browse local files"*, and make note of the location.  
   ![image](https://user-images.githubusercontent.com/10716475/142159998-38105800-6f3a-4229-9140-02c363d16ee4.png)
 4. Ensure that you have the correct path to your game folder location:  
@@ -343,7 +343,8 @@ This guide does not cover how to create a dedicated server. These are the steps 
   chmod u+x $my_path/start_game_bepinex.sh
   ```
   
-10. Return to your Steam client. Right-click the Valheim game in your Steam library. Select *"Properties...."*  
+10. Return to your Steam client. In your *"Library"* tab, right-click on Valheim.   
+  Select *"Properties...."*  
   In the pop-up, add the following to the *"Launch Options"* `./start_game_bepinex.sh %command%`  
   (in rare cases that this command does not work, use `bash /start_game_bepinex.sh %command%` instead)  
    ![image](https://user-images.githubusercontent.com/10716475/142167891-f54c273d-d438-4bd0-ab02-b66c79b199cc.png)
