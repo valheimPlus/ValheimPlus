@@ -15,6 +15,7 @@
         public float guardianBuffCooldown { get; internal set; } = 1200;
         public bool disableGuardianBuffAnimation { get; internal set; } = false;
         public bool autoEquipShield { get; internal set; } = false;
+        public bool autoUnequipShield { get; internal set; } = false;
         public bool skipIntro { get; internal set; } = false;
         public bool iHaveArrivedOnSpawn { get; internal set; } = true;
         public bool queueWeaponChanges { get; internal set; } = false;

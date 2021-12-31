@@ -28,7 +28,7 @@ namespace ValheimPlus.GameClasses
     }
 
     /// <summary>
-    /// When equipping a one-handed weapon, also equip best shield from inventory.
+    /// When unequipping a one-handed weapon also unequip shield from inventory.
     /// </summary>
     [HarmonyPatch(typeof(Humanoid), "EquipItem")]
     public static class Humanoid_EquipItem_Patch
@@ -36,7 +36,7 @@ namespace ValheimPlus.GameClasses
         private static bool Postfix(bool __result, Humanoid __instance, ItemDrop.ItemData item)
         {
             if (Configuration.Current.Player.IsEnabled &&
-                Configuration.Current.Player.autoEquipShield &&
+                Configuration.Current.Player.autoUnequipShield &&
                 __result && 
                 __instance.IsPlayer() && 
                 __instance.m_rightItem?.m_shared.m_itemType == ItemDrop.ItemData.ItemType.OneHandedWeapon &&
