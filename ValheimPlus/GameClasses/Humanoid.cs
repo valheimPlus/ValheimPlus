@@ -80,6 +80,33 @@ namespace ValheimPlus.GameClasses
         public static bool shouldReequipItemsAfterSwimming = false;
     }
 
+    /// <summary>
+    /// When deequipping a one-handed weapon, also deequip best shield from inventory.
+    /// </summary>
+    [HarmonyPatch(typeof(Humanoid), "UnequipItem")]
+    public static class Humanoid_UnequipItem_Patch
+    {
+        private static void Postfix(Humanoid __instance, ItemDrop.ItemData item)
+        {
+            if (Configuration.Current.Player.IsEnabled &&
+                Configuration.Current.Player.autoEquipShield &&
+                item?.m_shared.m_itemType == ItemDrop.ItemData.ItemType.OneHandedWeapon &&
+                __instance.IsPlayer())
+            {
+                List<ItemDrop.ItemData> inventoryItems = __instance.m_inventory.GetAllItems();
+
+                foreach (ItemDrop.ItemData inventoryItem in inventoryItems)
+                {
+                    if (inventoryItem.m_shared.m_itemType == ItemDrop.ItemData.ItemType.Shield)
+                    {
+                        if(inventoryItem.m_equiped)
+                            __instance.UnequipItem(inventoryItem, false);
+                    }
+                }
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(Humanoid), "UpdateEquipment")]
     public static class Humanoid_UpdateEquipment_Patch
     {
