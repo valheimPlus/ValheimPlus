@@ -81,7 +81,7 @@ namespace ValheimPlus.GameClasses
     }
 
     /// <summary>
-    /// When unequipping a one-handed weapon, also unequip shield from inventory.
+    /// When unequipping a one-handed weapon also unequip shield from inventory.
     /// </summary>
     [HarmonyPatch(typeof(Humanoid), "UnequipItem")]
     public static class Humanoid_UnequipItem_Patch
