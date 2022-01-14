@@ -250,20 +250,41 @@ namespace ValheimPlus.GameClasses
     }
 
 
-    [HarmonyPatch(typeof(Player), nameof(Player.EatFood))]
-    public static class Player_UpdateFood_Patch
+    [HarmonyPatch(typeof(Player), nameof(Player.UpdateFood))]
+    public static class Player_UpdateFood_Transpiler
     {
-        static float defaultValue = 0;
-        private static void Prefix(ref Player __instance, ref ItemDrop.ItemData item)
+        private static FieldInfo field_Player_m_foodUpdateTimer = AccessTools.Field(typeof(Player), nameof(Player.m_foodUpdateTimer));
+        private static MethodInfo method_ComputeModifiedDt = AccessTools.Method(typeof(Player_UpdateFood_Transpiler), nameof(Player_UpdateFood_Transpiler.ComputeModifiedDT));
+
+        /// <summary>
+        /// Replaces the first load of dt inside Player::UpdateFood with a modified dt that is scaled
+        /// by the food duration scaling multiplier. This ensures the food lasts longer while maintaining
+        /// the same rate of regeneration.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            if (!Configuration.Current.Food.IsEnabled || Configuration.Current.Food.foodDurationMultiplier == 0) return; // Don't execute if disabled
-            if (!__instance.CanEat(item, false)) return; // Don't continue if you cant eat the item
-            defaultValue = item.m_shared.m_foodBurnTime; // preserve original value
-            item.m_shared.m_foodBurnTime = Helper.applyModifierValue(item.m_shared.m_foodBurnTime, Configuration.Current.Food.foodDurationMultiplier); // apply changed value
+            if (!Configuration.Current.Food.IsEnabled) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            for (int i = 0; i < il.Count - 2; ++i)
+            {
+                if (il[i].LoadsField(field_Player_m_foodUpdateTimer) &&
+                    il[i + 1].opcode == OpCodes.Ldarg_1 /* dt */ &&
+                    il[i + 2].opcode == OpCodes.Add)
+                {
+                    // We insert after Ldarg_1 (push dt) a call to our function, which computes the modified DT and returns it.
+                    il.Insert(i + 2, new CodeInstruction(OpCodes.Call, method_ComputeModifiedDt));
+                }
+            }
+
+            return il.AsEnumerable();
         }
-        private static void Postfix(ref Player __instance, ref ItemDrop.ItemData item)
+
+        private static float ComputeModifiedDT(float dt)
         {
-            item.m_shared.m_foodBurnTime = defaultValue; // reset to default value after execution of EatFood
+            return dt / Helper.applyModifierValue(1.0f, Configuration.Current.Food.foodDurationMultiplier);
         }
     }
 
