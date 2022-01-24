@@ -189,7 +189,7 @@ We work together closely to make sure all our features are integrated and workin
 
 # Chat System
 * Change default text visibility distances for all types of ingame messages.
-*Disable forced uppercase and lowercase in shout and whisper messages.
+* Disable forced uppercase and lowercase in shout and whisper messages.
 * Options to limit shouting distance.
 * Options to limit ping distance.
 
