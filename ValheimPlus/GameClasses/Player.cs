@@ -367,7 +367,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Alters stamina of tools, bows and blocking
     /// </summary>
-    [HarmonyPatch(typeof(Player), "UseStamina")]
+    [HarmonyPatch(typeof(Player), nameof(Player.UseStamina))]
     public static class Player_UseStamina_Patch
     {
         private static void Prefix(ref Player __instance, ref float v)
@@ -410,7 +410,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Checks if the player is trying to place a plant/crop too close to another plant/crop
     /// </summary>
-    [HarmonyPatch(typeof(Player), "UpdatePlacementGhost")]
+    [HarmonyPatch(typeof(Player), nameof(Player.UpdatePlacementGhost))]
     public static class Player_UpdatePlacementGhost_Patch
     {
         private static bool Prefix(ref Player __instance, bool flashGuardStone)
@@ -615,7 +615,7 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-    [HarmonyPatch(typeof(Player), "Update")]
+    [HarmonyPatch(typeof(Player), nameof(Player.Update))]
     public static class GridAlignment
     {
         public static int DefaultAlignment = 100;
@@ -773,29 +773,11 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-    /// <summary>
-    /// Configures guardian buff duration and cooldown
-    /// </summary>
-    [HarmonyPatch(typeof(Player), "SetGuardianPower")]
-    public static class Player_SetGuardianPower_Patch
-    {
-        private static void Postfix(ref Player __instance)
-        {
-            if (Configuration.Current.Player.IsEnabled)
-            {
-                if (__instance.m_guardianSE)
-                {
-                    __instance.m_guardianSE.m_ttl = Configuration.Current.Player.guardianBuffDuration;
-                    __instance.m_guardianSE.m_cooldown = Configuration.Current.Player.guardianBuffCooldown;
-                }
-            }
-        }
-    }
 
     /// <summary>
     /// Skips the guardian power activation animation
     /// </summary>
-    [HarmonyPatch(typeof(Player), "StartGuardianPower")]
+    [HarmonyPatch(typeof(Player), nameof(Player.StartGuardianPower))]
     public static class Player_StartGuardianPower_Patch
     {
         private static bool Prefix(ref Player __instance, ref bool __result)
@@ -814,6 +796,7 @@ namespace ValheimPlus.GameClasses
                 __result = false;
                 return false;
             }
+
             __instance.ActivateGuardianPower();
             __result = true;
             return false;
