@@ -1173,7 +1173,7 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
-			"autoEquipShield": {
+			"autoUnequipShield": {
 				"description": "If set to true, when unequipping a one-handed weapon shield from your inventory is automatically unequipped.",
 				"defaultValue": "false",
 				"defaultType": "bool"
