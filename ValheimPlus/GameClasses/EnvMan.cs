@@ -67,17 +67,17 @@ namespace ValheimPlus.GameClasses
         */
     }
 
-    [HarmonyPatch(typeof(EnvMan), "SetEnv")]
+    [HarmonyPatch(typeof(EnvMan), nameof(EnvMan.SetEnv))]
     public static class EnvMan_SetEnv_Patch
     {
         private static void Prefix(ref EnvMan __instance, ref EnvSetup env)
         {
             if (Configuration.Current.Game.IsEnabled && Configuration.Current.Game.disableFog)
             {
-                env.m_fogDensityNight = 0.0001f;
-                env.m_fogDensityMorning = 0.0001f;
-                env.m_fogDensityDay = 0.0001f;
-                env.m_fogDensityEvening = 0.0001f;
+                env.m_fogDensityNight = 0f;
+                env.m_fogDensityMorning = 0f;
+                env.m_fogDensityDay = 0f;
+                env.m_fogDensityEvening = 0f;
             }
 
             if (Configuration.Current.Brightness.IsEnabled)
@@ -124,6 +124,26 @@ namespace ValheimPlus.GameClasses
             }
             v = Mathf.Clamp01(v * scaleFunc);
             return Color.HSVToRGB(h, s, v);
+        }
+    }
+
+    [HarmonyPatch(typeof(EnvMan), nameof(EnvMan.SetParticleArrayEnabled))]
+    public static class EnvMan_SetParticleArrayEnabled_Patch
+    {
+        private static void Postfix(ref MistEmitter __instance, GameObject[] psystems, bool enabled)
+        {
+            // Disable Mist clouds, does not work on Console Commands (env Misty) but should work in the regular game.
+            if (Configuration.Current.Game.IsEnabled && Configuration.Current.Game.disableFog)
+            {
+                foreach (GameObject gameObject in psystems)
+                {
+                    MistEmitter componentInChildren = gameObject.GetComponentInChildren<MistEmitter>();
+                    if (componentInChildren)
+                    {
+                        componentInChildren.enabled = false;
+                    }
+                }
+            }
         }
     }
 }
