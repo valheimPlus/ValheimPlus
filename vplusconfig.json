@@ -255,6 +255,16 @@
 				"description": "Interval in seconds between each nearby chests discovery (Maximum is 50)",
 				"defaultValue": "3",
 				"defaultType": "int"
+			},
+			"allowCraftingFromCarts": {
+				"description": "Allows the system to use and see contents of carts for crafting",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
+			"allowCraftingFromShips": {
+				"description": "Allows the system to use and see contents of ships for crafting",
+				"defaultValue": "true",
+				"defaultType": "bool"
 			}
 		}
 	},

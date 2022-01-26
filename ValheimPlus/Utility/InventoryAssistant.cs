@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+using ValheimPlus.Configurations;
 
 namespace ValheimPlus
 {
@@ -31,11 +31,15 @@ namespace ValheimPlus
                     var isShip = foundContainer.GetComponentInParent<Ship>() != null;
                     if (piece != null
                         && piece.IsPlacedByPlayer()
-                        && !isVagon
-                        && !isShip
                         && hasAccess
                         && foundContainer.GetInventory() != null)
                     {
+
+                        if (isVagon && !Configuration.Current.CraftFromChest.allowCraftingFromCarts)
+                            continue;
+                        if (isShip && !Configuration.Current.CraftFromChest.allowCraftingFromShips)
+                            continue;
+
                         validContainers.Add(foundContainer);
                     }
                 }
