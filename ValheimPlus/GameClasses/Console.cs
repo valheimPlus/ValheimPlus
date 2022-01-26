@@ -35,9 +35,9 @@ namespace ValheimPlus.GameClasses
     {
         private static bool Prefix(ref Console __instance, ref bool __result)
         {
-            if (Configuration.Current.Game.IsEnabled)
+            if (Configuration.Current.Game.IsEnabled && Configuration.Current.Game.disableConsole)
             {
-                __result = Configuration.Current.Game.forceConsole;
+                __result = false;
                 return false;
             }
                 
