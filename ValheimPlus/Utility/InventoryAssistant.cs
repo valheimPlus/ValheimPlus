@@ -13,7 +13,7 @@ namespace ValheimPlus
         /// </summary>
         public static List<Container> GetNearbyChests(GameObject target, float range, bool checkWard = true)
         {
-            Collider[] hitColliders = Physics.OverlapSphere(target.transform.localPosition, range, LayerMask.GetMask(new string[] { "piece" }));
+            Collider[] hitColliders = Physics.OverlapSphere(target.transform.position, range, LayerMask.GetMask(new string[] { "piece" }));
 
             // Order the found objects to select the nearest first instead of the farthest inventory.
             IOrderedEnumerable<Collider> orderedColliders = hitColliders.OrderBy(x => Vector3.Distance(x.gameObject.transform.position, target.transform.position));
