@@ -19,6 +19,7 @@
 		public float sneak { get; internal set; } = 0;
 		public float run { get; internal set; } = 0;
 		public float swim { get; internal set; } = 0;
+		public float ride { get; internal set; } = 0;
 
 	}
 

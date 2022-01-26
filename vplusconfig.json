@@ -396,6 +396,12 @@
 				"defaultValue": "0",
 				"defaultType": "float",
 				"modifier": "true"
+			},
+			"ride": {
+				"description": "The modifier value for the experience gained of riding.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
 			}
 		}
 	},

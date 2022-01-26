@@ -70,6 +70,9 @@ namespace ValheimPlus.GameClasses
 					case SkillType.Swim:
 						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.swim);
 						break;
+					case SkillType.Ride:
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.ride);
+						break;
 					default:
 						break;
 				}
@@ -118,6 +121,7 @@ namespace ValheimPlus.GameClasses
 		Sneak,
 		Run,
 		Swim,
+		Ride = 110,
 		All = 999
 	}
 
