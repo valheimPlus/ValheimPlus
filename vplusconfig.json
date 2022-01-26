@@ -1593,12 +1593,22 @@
 				"defaultType": "int"
 			},
 			"ironChestColumns": {
-				"description": "Iron chests already have 8 columns by default but now you can lower it ",
-				"defaultValue": "8",
+				"description": "Iron chest number of columns.",
+				"defaultValue": "6",
 				"defaultType": "int"
 			},
 			"ironChestRows": {
 				"description": "Iron chest number of rows (more than 4 rows will add a scrollbar)",
+				"defaultValue": "4",
+				"defaultType": "int"
+			},
+			"blackmetalChestColumns": {
+				"description": "Blackmetal chests already have 8 columns by default but now you can lower it.",
+				"defaultValue": "8",
+				"defaultType": "int"
+			},
+			"blackmetalChestRows": {
+				"description": "Blackmetal chest number of rows (more than 4 rows will add a scrollbar)",
 				"defaultValue": "4",
 				"defaultType": "int"
 			},

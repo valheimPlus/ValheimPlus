@@ -9,8 +9,10 @@ namespace ValheimPlus.Configurations.Sections
         public int woodChestRows { get; internal set; } = 2;
         public int personalChestColumns { get; internal set; } = 3;
         public int personalChestRows { get; internal set; } = 2;
-        public int ironChestColumns { get; internal set; } = 8;
+        public int ironChestColumns { get; internal set; } = 6;
         public int ironChestRows { get; internal set; } = 4;
+        public int blackmetalChestColumns { get; internal set; } = 8;
+        public int blackmetalChestRows { get; internal set; } = 4;
         public int cartInventoryColumns { get; internal set; } = 8;
         public int cartInventoryRows { get; internal set; } = 3;
         public int karveInventoryColumns { get; internal set; } = 2;

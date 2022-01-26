@@ -10,7 +10,7 @@ namespace ValheimPlus.GameClasses
         private const int woodChestInventoryMaxRows = 10;
         private const int woodChestInventoryMinRows = 2;
         private const int woodChestInventoryMaxCol = 8;
-        private const int woodChestInventoryMinCol = 5;
+        private const int woodChestInventoryMinCol = 3;
 
         private const int personalChestInventoryMaxRows = 20;
         private const int personalChestInventoryMinRows = 2;
@@ -20,7 +20,12 @@ namespace ValheimPlus.GameClasses
         private const int ironChestInventoryMaxRows = 20;
         private const int ironChestInventoryMinRows = 3;
         private const int ironChestInventoryMaxCol = 8;
-        private const int ironChestInventoryMinCol = 6;
+        private const int ironChestInventoryMinCol = 3;
+
+        private const int blackmetalChestInventoryMaxRows = 20;
+        private const int blackmetalChestInventoryMinRows = 3;
+        private const int blackmetalChestInventoryMaxCol = 8;
+        private const int blackmetalChestInventoryMinCol = 3;
 
         private const int karveChestInventoryMaxRows = 30;
         private const int karveChestInventoryMinRows = 2;
@@ -72,6 +77,12 @@ namespace ValheimPlus.GameClasses
                 {
                     inventoryRows = Helper.Clamp(Configuration.Current.Inventory.ironChestRows, ironChestInventoryMinRows, ironChestInventoryMaxRows);
                     inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.ironChestColumns, ironChestInventoryMinCol, ironChestInventoryMaxCol);
+                }
+                // Black Metal chest
+                else if (inventoryName == "$piece_chestblackmetal")
+                {
+                    inventoryRows = Helper.Clamp(Configuration.Current.Inventory.blackmetalChestRows, blackmetalChestInventoryMinRows, blackmetalChestInventoryMaxRows);
+                    inventoryColumns = Helper.Clamp(Configuration.Current.Inventory.blackmetalChestColumns, blackmetalChestInventoryMinCol, blackmetalChestInventoryMaxCol);
                 }
 
                 return;
