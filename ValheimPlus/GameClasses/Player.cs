@@ -633,6 +633,9 @@ namespace ValheimPlus.GameClasses
 
         private static void Postfix(ref Player __instance)
         {
+            if (!__instance.IsPlayer())
+                return;
+
             if (!Configuration.Current.GridAlignment.IsEnabled)
                 return;
 
@@ -737,7 +740,7 @@ namespace ValheimPlus.GameClasses
 
         public static void UpdatePlacementGhost(Player player)
         {
-            if (player.m_placementGhost == null)
+            if (player.m_placementGhost == null || !player.IsPlayer())
                 return;
 
             if (ABM.isActive)
