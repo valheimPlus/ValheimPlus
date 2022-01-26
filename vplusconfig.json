@@ -1420,6 +1420,12 @@
 				"defaultValue": "0",
 				"defaultType": "float",
 				"modifier": "true"
+			},
+			"fishing": {
+				"description": "Changes the amount of stamina drain by %",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
 			}
 		}
 	},

@@ -375,6 +375,15 @@ namespace ValheimPlus.GameClasses
             if (Configuration.Current.StaminaUsage.IsEnabled)
             {
                 string methodName = new StackTrace().GetFrame(2).GetMethod().Name;
+                
+                if (methodName.Contains(nameof(Player.FixedUpdate)) || methodName.Contains(nameof(Player.PlayerAttackInput))) {
+                    string itemName = __instance.GetRightItem()?.m_shared.m_name;
+                    if (itemName == "$item_fishingrod")
+                    {
+                        v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.fishing);
+                    }
+                }
+
                 if (methodName.Contains(nameof(Player.UpdatePlacement)) || methodName.Contains(nameof(Player.Repair)) || methodName.Contains(nameof(Player.RemovePiece)))
                 {
                     string itemName = __instance.GetRightItem()?.m_shared.m_name;
@@ -403,7 +412,7 @@ namespace ValheimPlus.GameClasses
                 {
                     v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.blocking);
                 }
-            }
+            }       
         }
     }
 
