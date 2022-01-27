@@ -200,7 +200,7 @@
 				"defaultType": "float"
 			},
 			"pieceComfortRadius": {
-				"description": "The radius, in meters, in which a piece must be to contribute to the comfort level.",
+				"description": "The radius, in meters, in which a piece must be to contribute to the comfort level. The maximum is 300 meters.",
 				"defaultValue": "10",
 				"defaultType": "float"
 			},

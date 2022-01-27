@@ -43,7 +43,7 @@ namespace ValheimPlus
             for (int i = 0; i < il.Count; ++i)
             {
                 if (il[i].opcode == OpCodes.Ldc_R4)
-                    il[i].operand = Configuration.Current.Building.pieceComfortRadius;
+                    il[i].operand = Mathf.Clamp(Configuration.Current.Building.pieceComfortRadius, 1, 300);
             }
 
             return il.AsEnumerable();
@@ -67,7 +67,7 @@ namespace ValheimPlus
             for (int i = 0; i < il.Count; ++i)
             {
                 if (il[i].opcode == OpCodes.Ldc_R4)
-                    il[i].operand = Configuration.Current.Building.pieceComfortRadius;
+                    il[i].operand = Mathf.Clamp(Configuration.Current.Building.pieceComfortRadius, 1, 300);
             }
             return il.AsEnumerable();
         }
