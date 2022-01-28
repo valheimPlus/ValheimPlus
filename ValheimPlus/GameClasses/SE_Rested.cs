@@ -36,7 +36,7 @@ namespace ValheimPlus
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            if (!Configuration.Current.Building.IsEnabled) return instructions;
+            if (!Configuration.Current.Building.IsEnabled || Configuration.Current.Building.pieceComfortRadius == 10) return instructions;
 
             List<CodeInstruction> il = instructions.ToList();
 
@@ -60,7 +60,7 @@ namespace ValheimPlus
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            if (!Configuration.Current.Building.IsEnabled) return instructions;
+            if (!Configuration.Current.Building.IsEnabled || Configuration.Current.Building.pieceComfortRadius == 10) return instructions;
 
             List<CodeInstruction> il = instructions.ToList();
 

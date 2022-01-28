@@ -1094,7 +1094,7 @@ namespace ValheimPlus.GameClasses
     }
 
     [HarmonyPatch(typeof(Player), nameof(Player.IsEncumbered))]
-    public static class Player_DisableEncumbered_Patch
+    public static class Player_IsEncumbered_Patch
     {
         private static void Postfix(ref bool __result)
         {
