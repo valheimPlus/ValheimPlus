@@ -10,5 +10,6 @@ namespace ValheimPlus.Configurations.Sections
         public int mortality { get; internal set; } = 0;
         public bool ownerDamageOverride { get; internal set; } = false;
         public float stunRecoveryTime { get; internal set; } = 10f;
+        public bool stunInformation { get; internal set; } = false;
     }
 }

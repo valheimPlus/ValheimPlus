@@ -14,7 +14,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Determines what happens when a tamed creature takes damage.
     /// </summary>
-    [HarmonyPatch(typeof(Character), "Damage")]
+    [HarmonyPatch(typeof(Character), nameof(Character.Damage))]
     public static class Character_Damage_Patch
     {
         public static void Prefix(Character __instance, ref HitData hit, out Tameable __state)

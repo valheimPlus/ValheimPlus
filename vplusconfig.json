@@ -1984,6 +1984,11 @@
 				"description": "How long it takes for a tamed creature to recover(in seconds) if mortality is set to 1(essential) and they are stunned.",
 				"defaultValue": "10",
 				"defaultType": "float"
+			},
+			"stunInformation": {
+				"description": "If the tamed creature is recovering from a stun, then add Stunned to the hover text on mouse over.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},

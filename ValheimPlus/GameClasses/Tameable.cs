@@ -21,12 +21,12 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Adds a text indicator so player's know when an animal they've tamed has been stunned.
     /// </summary>
-    [HarmonyPatch(typeof(Tameable), "GetHoverText")]
+    [HarmonyPatch(typeof(Tameable), nameof(Tameable.GetHoverText))]
     public static class Tameable_GetHoverText_Patch
     {
         public static void Postfix(Tameable __instance, ref string __result)
         {
-            if (Configuration.Current.Tameable.IsEnabled)
+            if (Configuration.Current.Tameable.IsEnabled && Configuration.Current.Tameable.stunInformation)
             {
                 Tameable tameable = __instance;
 

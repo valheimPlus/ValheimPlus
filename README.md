@@ -174,6 +174,7 @@ We work together closely to make sure all our features are integrated and workin
 * Added option for tamed creatures to be normal, essential, or immortal.
 * Added option for modifying the time a tamed essential animal will spend stunned after being hit with what would normally be a killing blow.
 * Added option for determining whether only the owner of a tamed creature can hurt it or not(which also circumvents the essential/immortality option).
+* Added option to display if the pet is stunned when hover over it with the mouse.
 
 ### Monsters
 * Modify velocity and accuracy of projectiles.
