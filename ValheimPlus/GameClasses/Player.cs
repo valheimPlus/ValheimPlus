@@ -785,6 +785,24 @@ namespace ValheimPlus.GameClasses
         }
     }
 
+    /// <summary>
+    /// Configures guardian buff duration and cooldown
+    /// </summary>
+    [HarmonyPatch(typeof(Player), nameof(Player.SetGuardianPower))]
+    public static class Player_SetGuardianPower_Patch
+    {
+        private static void Postfix(ref Player __instance)
+        {
+            if (Configuration.Current.Player.IsEnabled)
+            {
+                if (__instance.m_guardianSE)
+                {
+                    __instance.m_guardianSE.m_ttl = Configuration.Current.Player.guardianBuffDuration;
+                    __instance.m_guardianSE.m_cooldown = Configuration.Current.Player.guardianBuffCooldown;
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// Skips the guardian power activation animation
@@ -993,7 +1011,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Queue weapon/item changes until attack is finished, instead of simply ignoring the change entirely
     /// </summary>
-    [HarmonyPatch(typeof(Player), "ToggleEquiped")]
+    [HarmonyPatch(typeof(Player), nameof(Player.ToggleEquiped))]
     public static class Player_ToggleEquiped_Patch
     {
         private static void Postfix(Player __instance, bool __result, ItemDrop.ItemData item)
@@ -1023,7 +1041,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Queue weapon/item changes until attack is finished, instead of simply ignoring the change entirely
     /// </summary>
-    [HarmonyPatch(typeof(Player), "FixedUpdate")]
+    [HarmonyPatch(typeof(Player), nameof(Player.FixedUpdate))]
     public static class Player_FixedUpdate_Patch
     {
         private static void Postfix(Player __instance)
@@ -1059,7 +1077,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// skip all tutorials from now on
     /// </summary>
-    [HarmonyPatch(typeof(Player), "HaveSeenTutorial")]
+    [HarmonyPatch(typeof(Player), nameof(Player.HaveSeenTutorial))]
     public class Player_HaveSeenTutorial_Patch
     {
         [HarmonyPrefix]
@@ -1080,6 +1098,7 @@ namespace ValheimPlus.GameClasses
     {
         private static void Postfix(ref bool __result)
         {
+            // TODO: remove prevention of auto pickup when overweight. ~ Requires transpiler to Player.AutoPickup Line 25~
             if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.disableEncumbered)
                 __result = false;
         }
