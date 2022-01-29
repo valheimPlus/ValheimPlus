@@ -1103,4 +1103,41 @@ namespace ValheimPlus.GameClasses
                 __result = false;
         }
     }
+
+    /// <summary>
+    /// Redirects the default call to GetMaxCarryWeight inside the Player.AutoPick function to a dummy function to allow auto pickup of items if overweight.
+    /// This is the only reliable way to do this without causing immense additional computation power due to hooks being called every frame.
+    /// </summary>
+    [HarmonyPatch(typeof(Player), nameof(Player.AutoPickup))]
+    public static class Player_AutoPickup_Transpiler
+    {
+        private static MethodInfo method_Player_GetMaxCarryWeight = AccessTools.Method(typeof(Player), nameof(Player.GetMaxCarryWeight));
+        private static MethodInfo method_GetMaxCarryWeight = AccessTools.Method(typeof(Player_AutoPickup_Transpiler), nameof(Player_AutoPickup_Transpiler.GetMaxCarryWeight));
+
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.autoPickUpWhenEncumbered) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            for (int i = 0; i < il.Count; ++i)
+            {
+                if (il[i].Calls(method_Player_GetMaxCarryWeight))
+                {
+                    il[i - 1].opcode = OpCodes.Nop; // required to remove the this. index(0) stack value [ldarg.0]
+                    il[i].operand = method_GetMaxCarryWeight;
+                    break;
+                }
+            }
+
+            return il.AsEnumerable();
+        }
+
+        public static float GetMaxCarryWeight()
+        {
+            return 9999999f;
+        }
+    }
+
 }

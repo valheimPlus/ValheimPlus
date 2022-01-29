@@ -24,5 +24,6 @@
         public float maxFallDamage { get; internal set; } = 100;
         public bool skipTutorials { get; internal set; } = false;
         public bool disableEncumbered { get; internal set; } = false;
+        public bool autoPickUpWhenEncumbered { get; internal set; } = false;
     }
 }
