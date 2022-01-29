@@ -171,9 +171,11 @@ We work together closely to make sure all our features are integrated and workin
 # Creatures and Monsters
 
 ### Tamed Pets
-* Added option for tamed creatures to be normal, essential, or immortal.
+* Added option for tamed creatures to be essential, or immortal.
+* Essential tamed creatures are not fully invincble but get stunned when hit with a killing blow and healed to full life. They can still die, rarely.
+* Immortal tamed creatures are fully invincble to every type of damage.
 * Added option for modifying the time a tamed essential animal will spend stunned after being hit with what would normally be a killing blow.
-* Added option for determining whether only the owner of a tamed creature can hurt it or not(which also circumvents the essential/immortality option).
+* Added option for determining whether players can hurt tamed creatures or not when having essential/immortality option enabled.
 * Added option to display if the pet is stunned when hover over it with the mouse.
 
 ### Monsters

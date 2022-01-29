@@ -1971,13 +1971,13 @@
 				"defaultValue": "false"
 			},
 			"mortality": {
-				"description": "Modify what happens when a tamed creature is attacked. 0 = normal, 1 = essential(deadly attacks stun instead of kill), 2 = immortal.",
+				"description": "Modify what happens when a tamed creature is attacked. 0 = normal, 1 = essential(deadly attacks stun instead of kill, tamed creatures can rarely still die), 2 = immortal.",
 				"defaultValue": "0",
 				"defaultType": "int"
 			},
 			"ownerDamageOverride": {
-				"description": "Change to true so any damage the owner does will override the mortality setting (e.g., an immortal/essential tame can still be killed by the owner).",
-				"defaultValue": "false",
+				"description": "This will circumvent the mortality setting, so even if tamed creatures are immortal, players can still kill them with a butcher knife. This option only works if have mortality to set to either essential(1) or immortal(2).",
+				"defaultValue": "true",
 				"defaultType": "bool"
 			},
 			"stunRecoveryTime": {
