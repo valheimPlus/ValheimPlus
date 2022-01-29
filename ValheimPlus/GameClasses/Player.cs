@@ -1117,7 +1117,7 @@ namespace ValheimPlus.GameClasses
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.autoPickUpWhenEncumbered) return instructions;
+            if (!Configuration.Current.Player.IsEnabled || !Configuration.Current.Player.autoPickUpWhenEncumbered) return instructions;
 
             List<CodeInstruction> il = instructions.ToList();
 

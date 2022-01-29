@@ -1204,6 +1204,11 @@
 				"defaultValue": "true",
 				"defaultType": "bool"
 			},
+			"dontUnequipItemsWhenSwimming": {
+				"description": "Your character will not put away / unequip your items when entering the water.",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"reequipItemsAfterSwimming": {
 				"description": "If set to true, items will be re-equipped when you exit water after swimming (if they were hidden automatically)",
 				"defaultValue": "false",

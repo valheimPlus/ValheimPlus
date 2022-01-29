@@ -1,6 +1,9 @@
 ﻿using HarmonyLib;
 using ValheimPlus.Configurations;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Linq;
 
 namespace ValheimPlus.GameClasses
 {
@@ -75,10 +78,6 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-    public static class UpdateEquipmentState
-    {
-        public static bool shouldReequipItemsAfterSwimming = false;
-    }
 
     /// <summary>
     /// When unequipping a one-handed weapon also unequip shield from inventory.
@@ -107,12 +106,19 @@ namespace ValheimPlus.GameClasses
         }
     }
 
+    /// <summary>
+    /// Re-equip items when leaving the water.
+    /// </summary>
+    public static class UpdateEquipmentState
+    {
+        public static bool shouldReequipItemsAfterSwimming = false;
+    }
     [HarmonyPatch(typeof(Humanoid), "UpdateEquipment")]
     public static class Humanoid_UpdateEquipment_Patch
     {
         private static bool Prefix(Humanoid __instance)
         {
-            if (!Configuration.Current.Player.IsEnabled || !Configuration.Current.Player.reequipItemsAfterSwimming)
+            if (!Configuration.Current.Player.IsEnabled || !Configuration.Current.Player.reequipItemsAfterSwimming || Configuration.Current.Player.dontUnequipItemsWhenSwimming)
                 return true;
 
             if (__instance.IsPlayer() && __instance.IsSwiming() && !__instance.IsOnGround())
@@ -134,4 +140,41 @@ namespace ValheimPlus.GameClasses
             return true;
         }
     }
+
+
+    /// <summary>
+    /// Removes the forced un-equip of items in your main and off-hand when entering water.
+    /// </summary>
+    [HarmonyPatch(typeof(Humanoid), nameof(Humanoid.UpdateEquipment))]
+    public static class Player_Humanoid_UpdateEquipment
+    {
+        private static MethodInfo method_Humanoid_HideHandItems = AccessTools.Method(typeof(Humanoid), nameof(Humanoid.HideHandItems));
+        private static MethodInfo method_HideHandItems = AccessTools.Method(typeof(Player_Humanoid_UpdateEquipment), nameof(Player_Humanoid_UpdateEquipment.HideHandItems));
+
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            if (!Configuration.Current.Player.IsEnabled || !Configuration.Current.Player.dontUnequipItemsWhenSwimming) return instructions;
+
+            List<CodeInstruction> il = instructions.ToList();
+
+            for (int i = 0; i < il.Count; ++i)
+            {
+                if (il[i].Calls(method_Humanoid_HideHandItems))
+                {
+                    il[i - 1].opcode = OpCodes.Nop; // required to remove the this. index(0) stack value [ldarg.0]
+                    il[i].operand = method_HideHandItems;
+                    break;
+                }
+            }
+
+            return il.AsEnumerable();
+        }
+
+        public static void HideHandItems()
+        {
+        }
+    }
+
+
 }
