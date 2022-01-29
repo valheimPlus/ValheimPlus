@@ -104,6 +104,13 @@ namespace ValheimPlus.GameClasses
             }
         }
 
+
+        /// <summary>
+        /// Below is the code for the retired Vplus pin share system, i (nx) plan on working with this a little more when i get to it and have a plan on how i would like to change this.
+        /// This will require some more days/weeks until i get to it, sorry.
+        /// </summary>
+
+        /*
         [HarmonyPatch(typeof(Minimap), "Awake")]
         public static class MapPinEditor_Patches_Awake
         {
@@ -166,7 +173,9 @@ namespace ValheimPlus.GameClasses
                 }
             }
         }
+        */
 
+        /*
         [HarmonyPatch(typeof(Minimap), "OnMapDblClick")]
         public static class MapPinEditor_Patches_OnMapDblClick
         {
@@ -235,7 +244,9 @@ namespace ValheimPlus.GameClasses
                 return true;
             }
         }
+        */
 
+        /*
         [HarmonyPatch(typeof(Minimap), "UpdateNameInput")]
         public static class MapPinEditor_Patches_UpdateNameInput
         {
@@ -248,8 +259,9 @@ namespace ValheimPlus.GameClasses
                 }
                 return true;
             }
-        }
+        }*/
 
+        /*
         [HarmonyPatch(typeof(Minimap), nameof(Minimap.InTextInput))]
         public static class MapPinEditor_InTextInput_Patch
         {
@@ -262,8 +274,9 @@ namespace ValheimPlus.GameClasses
                 }
                 return true;
             }
-        }
+        }*/
 
+        /*
         [HarmonyPatch(typeof(Minimap), nameof(Minimap.Update))]
         public static class MapPinEditor_Update_Patch
         {
@@ -285,8 +298,8 @@ namespace ValheimPlus.GameClasses
                 }
             }
         }
+        */
     }
-
 
     /// <summary>
     /// Show boats and carts on map

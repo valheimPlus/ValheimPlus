@@ -59,7 +59,7 @@ We work together closely to make sure all our features are integrated and workin
 * Allow all players to share all map exploration with every other player in the server, as long as their map position is displayed.
 * A system to automatically share all map progression with players connecting, even if they have never been on the server.
 * Option to show boats and carts on the map with icons.
-* A Map Marker UI to share your map markers with people currently online.
+* Automatically share all created pins with everyone connected to the Server.
 
 ### Camera 
 * Change the player's Field of View.

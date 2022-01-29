@@ -1091,13 +1091,8 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
-			"shareablePins": {
-				"desciption": "Allow pins to be shared",
-				"defaultValue": "false",
-				"defaultType": "bool"
-			},
 			"shareAllPins": {
-				"desciption": "Shares all pins always",
+				"desciption": "This option automatically shares created pins with everyone playing on the server.",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
