@@ -38,6 +38,7 @@ We work together closely to make sure all our features are integrated and workin
 * Disable tutorials from Valkyrie.
 * Modify velocity and accuracy of projectiles from bows and javelins including a option to scale it with skill level.
 * Option to sleep without setting your spawn point.
+* Allow auto pickup of items when encumbered (overweight).
 
 
 ### Player Hud

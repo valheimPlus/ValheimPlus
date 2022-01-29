@@ -1233,6 +1233,11 @@
 				"description": "If set to true, disables encumbered effect from carrying to much weight.",
 				"defaultValue": "false",
 				"defaultType": "bool"
+			},
+			"autoPickUpWhenEncumbered": {
+				"description": "If set to true, allows the auto pickup of items when encumbered (overweight) from carrying to much weight.",
+				"defaultValue": "false",
+				"defaultType": "bool"
 			}
 		}
 	},
