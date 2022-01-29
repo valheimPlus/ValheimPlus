@@ -11,16 +11,24 @@ using ValheimPlus.Utility;
 
 namespace ValheimPlus.GameClasses
 {
+
+    // TODO: clamp stun value
+
     /// <summary>
     /// Forces a tamed creature to stay asleep if it's recovering from being stunned.
     /// </summary>
-    [HarmonyPatch(typeof(MonsterAI), "UpdateSleep")]
+    [HarmonyPatch(typeof(MonsterAI), nameof(MonsterAI.UpdateSleep))]
     public static class MonsterAI_UpdateSleep_Patch
     {
         public static void Prefix(MonsterAI __instance, ref float dt)
         {
             if (Configuration.Current.Tameable.IsEnabled)
             {
+
+                Tameable tamed = __instance.GetComponent<Tameable>();
+                if (tamed == null)
+                    return;
+
                 MonsterAI monsterAI = __instance;
                 ZDO zdo = monsterAI.m_nview.GetZDO();
 

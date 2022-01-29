@@ -17,69 +17,94 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Character), nameof(Character.Damage))]
     public static class Character_Damage_Patch
     {
-        public static void Prefix(Character __instance, ref HitData hit, out Tameable __state)
-        {
-            __state = null;
-            if (Configuration.Current.Tameable.IsEnabled)
-            {
-                Character character = __instance;
-                ZDO zdo = character.m_nview.GetZDO();
-                __state = character.GetComponent<Tameable>();
-
-                if (!character.IsTamed() || zdo == null || hit == null || __state)
-                    return;
-
-                if (ShouldIgnoreDamage(character, __state, hit, zdo))
-                    hit = new HitData();
-            }
-        }
-
-        public static void Postfix(Character __instance, HitData hit, Tameable __state)
+        public static void Prefix(ref Character __instance, ref HitData hit)
         {
             if (Configuration.Current.Tameable.IsEnabled)
             {
-                Character character = __instance;
-                ZDO zdo = character.m_nview.GetZDO();
-                Tameable tameable = __state;
-
-                if (!character.IsTamed() || zdo == null || tameable == null)
-                    return;
-
-                if (ShouldSetStunned(character, tameable, hit))
+                // if immortal
+                if (isMortality(TameableMortalityTypes.Immortal))
                 {
-                    character.SetHealth(character.GetMaxHealth());
-                    character.m_animator.SetBool("sleeping", true);
-                    zdo.Set("sleeping", true);
-                    zdo.Set("isRecoveringFromStun", true);
+                    // Network & Tameable component
+                    ZDO zdo = __instance.m_nview.GetZDO();
+                    Tameable tamed = __instance.GetComponent<Tameable>();
+
+                    // Is tamed, has network, has valid hit data, tamed component is present.
+                    if (!__instance.IsTamed() || zdo == null || hit == null || tamed == null)
+                        return;
+
+                    // Check if it should ignore the hit damage (includes stunned status check)
+                    if (ShouldIgnoreDamage(__instance, hit, zdo))
+                        hit = new HitData();
                 }
+
+
             }
         }
 
-        private static bool ShouldIgnoreDamage(Character tame, Tameable tameable, HitData hit, ZDO zdo)
+        public static void Postfix(ref Character __instance, ref HitData hit)
         {
-            bool tameIsImmortal = (TameableMortalityTypes)Configuration.Current.Tameable.mortality == TameableMortalityTypes.Immortal;
-            bool tameOwnerDamageOverride = Configuration.Current.Tameable.ownerDamageOverride;
-            Character attacker = hit.GetAttacker();
-            bool tameAttackerIsOwner = attacker == tameable.GetPlayer(attacker.GetZDOID());
-            bool tameIsRecoveringFromStun = zdo.GetBool("isRecoveringFromStun");
-            return (tameIsImmortal && !(tameOwnerDamageOverride && tameAttackerIsOwner)) || tameIsRecoveringFromStun;
+            if (Configuration.Current.Tameable.IsEnabled)
+            {
+                // if essential
+                if (isMortality(TameableMortalityTypes.Essential))
+                {
+                    // Network & Tameable component
+                    ZDO zdo = __instance.m_nview.GetZDO();
+                    Tameable tamed = __instance.GetComponent<Tameable>();
+
+                    // Is tamed, has network, has valid hit data, tamed component is present.
+                    if (!__instance.IsTamed() || zdo == null || hit == null || tamed == null)
+                        return;
+
+                    // if killed on this hit
+                    if (__instance.GetHealth() <= 5f)
+                    {
+                        // Allow players to kill the tamed creature with ownerDamageOverride
+                        if(ShouldIgnoreDamage(__instance, hit, zdo)){
+                            __instance.SetHealth(__instance.GetMaxHealth());
+                            __instance.m_animator.SetBool("sleeping", true);
+                            zdo.Set("sleeping", true);
+                            zdo.Set("isRecoveringFromStun", true);
+                        }
+                    }
+                }
+
+            }
         }
 
-        private static bool ShouldSetStunned(Character character, Tameable tameable, HitData hit)
+
+        private static bool isMortality(TameableMortalityTypes type)
         {
-            bool tameIsEssential = (TameableMortalityTypes)Configuration.Current.Tameable.mortality == TameableMortalityTypes.Essential;
-            bool tameShouldBeDead = character.GetHealth() <= 0f;
-            bool tameOwnerDamageOverride = Configuration.Current.Tameable.ownerDamageOverride;
-            Character attacker = hit.GetAttacker();
-            bool tameAttackerIsOwner = attacker == tameable.GetPlayer(attacker.GetZDOID());
-            return tameIsEssential && tameShouldBeDead && !(tameOwnerDamageOverride && tameAttackerIsOwner);
+            TameableMortalityTypes setting = (TameableMortalityTypes)Mathf.Clamp(Configuration.Current.Tameable.mortality, 0, 2);
+            if (setting == type)
+            {
+                return true;
+            }
+            return false;
         }
+
+        private static bool ShouldIgnoreDamage(Character __instance, HitData hit, ZDO zdo)
+        {
+            // The only valid attack from a player is with a butcher knife from a player.
+            if (Configuration.Current.Tameable.ownerDamageOverride)
+            {
+                Character attacker = hit.GetAttacker();
+                // Attacker is player
+                if (attacker == __instance.GetComponent<Tameable>().GetPlayer(attacker.GetZDOID()))
+                    return false;
+            }
+
+            return true;
+        }
+
+
+
     }
 
     /// <summary>
     /// Allow tweaking of fall damage
     /// </summary>
-    [HarmonyPatch(typeof(Character), "UpdateGroundContact")]
+    [HarmonyPatch(typeof(Character), nameof(Character.UpdateGroundContact))]
     public static class Character_UpdateGroundContact_Transpiler
     {
         private static readonly MethodInfo method_calculateFallDamage = AccessTools.Method(typeof(Character_UpdateGroundContact_Transpiler), nameof(calculateFallDamage));
