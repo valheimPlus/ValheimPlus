@@ -39,6 +39,8 @@ We work together closely to make sure all our features are integrated and workin
 * Modify velocity and accuracy of projectiles from bows and javelins including a option to scale it with skill level.
 * Option to sleep without setting your spawn point.
 * Allow auto pickup of items when encumbered (overweight).
+* Option to automatically unequip your shield when you're unequipping your main hand weapon.
+* Option to automatically equip your shield when you're equipping your main hand weapon.
 
 
 ### Player Hud
@@ -180,7 +182,7 @@ We work together closely to make sure all our features are integrated and workin
 * Added option to display if the pet is stunned when hover over it with the mouse.
 
 ### Monsters
-* Modify velocity and accuracy of projectiles.
+* Modify velocity and accuracy of projectiles from monsters.
 * Modify damage and health scaling of monsters in multiplayer based on player count.
 
 # Server
