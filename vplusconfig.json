@@ -870,31 +870,31 @@
 				"defaultType": "bool"
 			},
 			"edibles": {
-				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally. Included are all berries, all mushrooms, onions and carrots.",
 				"defaultValue": "0",
 				"defaultType": "float",
 				"modifier": "true"
 			},
 			"flowersAndIngredients": {
-				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally. Included are Barley, Flax, Dandelion, Thistle, Carrot Seeds, Turnip Seeds, Turnip, Onion Seeds.",
 				"defaultValue": "0",
 				"defaultType": "float",
 				"modifier": "true"
 			},
 			"materials": {
-				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally. Included are Bone Fragments, Flint, Stone, Wood (branches on the ground).",
 				"defaultValue": "0",
 				"defaultType": "float",
 				"modifier": "true"
 			},
 			"valuables": {
-				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally. Included are Amber, Amber Pearl, Coins, Ruby.",
 				"defaultValue": "0",
 				"defaultType": "float",
 				"modifier": "true"
 			},
 			"surtlingCores": {
-				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"description": "The value 100 will double the amount of dropped resources, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally. Affects only surtling cores.",
 				"defaultValue": "0",
 				"defaultType": "float",
 				"modifier": "true"
