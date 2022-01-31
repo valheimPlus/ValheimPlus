@@ -13,8 +13,16 @@ namespace ValheimPlus
         /// </summary>
         public static List<Container> GetNearbyChests(GameObject target, float range, bool checkWard = true)
         {
-            Collider[] hitColliders = Physics.OverlapSphere(target.transform.position, range, LayerMask.GetMask(new string[] { "piece" }));
+            // item == cart layermask
+            // vehicle == cart&ship layermask
 
+            string[] layerMask = { "piece" };
+
+            if(Configuration.Current.CraftFromChest.allowCraftingFromCarts || Configuration.Current.CraftFromChest.allowCraftingFromShips)
+                layerMask = new string[] { "piece", "item", "vehicle" };
+
+            Collider[] hitColliders = Physics.OverlapSphere(target.transform.position, range, LayerMask.GetMask(layerMask));
+            
             // Order the found objects to select the nearest first instead of the farthest inventory.
             IOrderedEnumerable<Collider> orderedColliders = hitColliders.OrderBy(x => Vector3.Distance(x.gameObject.transform.position, target.transform.position));
 
@@ -29,8 +37,10 @@ namespace ValheimPlus
                     var piece = foundContainer.GetComponentInParent<Piece>();
                     var isVagon = foundContainer.GetComponentInParent<Vagon>() != null;
                     var isShip = foundContainer.GetComponentInParent<Ship>() != null;
+
+
                     if (piece != null
-                        && piece.IsPlacedByPlayer()
+                        /*&& piece.IsPlacedByPlayer() Prevents detection of ship storage */
                         && hasAccess
                         && foundContainer.GetInventory() != null)
                     {
@@ -40,7 +50,8 @@ namespace ValheimPlus
                         if (isShip && !Configuration.Current.CraftFromChest.allowCraftingFromShips)
                             continue;
 
-                        validContainers.Add(foundContainer);
+                        if(piece.IsPlacedByPlayer() || (isShip && Configuration.Current.CraftFromChest.allowCraftingFromShips))
+                            validContainers.Add(foundContainer);
                     }
                 }
                 catch { }
