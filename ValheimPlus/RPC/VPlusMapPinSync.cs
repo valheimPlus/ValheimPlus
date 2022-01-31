@@ -11,7 +11,7 @@ namespace ValheimPlus.RPC
         /// <summary>
 		/// Sync Pin with clients via the server
         /// </summary>
-        public static void RPC_VPlusMapPinSync(long sender, ZPackage mapPinPkg)
+        public static void RPC_VPlusMapAddPin(long sender, ZPackage mapPinPkg)
         {
             if (ZNet.m_isServer) //Server
             {
@@ -22,7 +22,7 @@ namespace ValheimPlus.RPC
                 foreach(ZNetPeer peer in ZRoutedRpc.instance.m_peers)
                 {
                     if(peer.m_uid != sender)
-                        ZRoutedRpc.instance.InvokeRoutedRPC(peer.m_uid, "VPlusMapPinSync", new object[] { mapPinPkg });
+                        ZRoutedRpc.instance.InvokeRoutedRPC(peer.m_uid, "VPlusMapAddPin", new object[] { mapPinPkg });
                 }                
 
                 ZLog.Log($"Sent map pin to all clients");
@@ -78,7 +78,7 @@ namespace ValheimPlus.RPC
             pkg.Write(pinData.m_name); // Pin name
             pkg.Write(keepQuiet); // Don't shout
 
-            ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusMapPinSync", new object[] { pkg });
+            ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusMapAddPin", new object[] { pkg });
 
             ZLog.Log($"Sent map pin {pinData.m_name} to the server");
 
