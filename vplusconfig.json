@@ -257,12 +257,12 @@
 				"defaultType": "int"
 			},
 			"allowCraftingFromCarts": {
-				"description": "Allows the system to use and see contents of carts for crafting",
+				"description": "Allows the system to use and see contents of carts for crafting. Might also allow use of other modded containers or vehicles not accessible otherwise.",
 				"defaultValue": "true",
 				"defaultType": "bool"
 			},
 			"allowCraftingFromShips": {
-				"description": "Allows the system to use and see contents of ships for crafting",
+				"description": "Allows the system to use and see contents of ships for crafting. Might also allow use of other modded containers or vehicles not accessible otherwise.",
 				"defaultValue": "true",
 				"defaultType": "bool"
 			}

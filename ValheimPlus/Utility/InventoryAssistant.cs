@@ -38,7 +38,6 @@ namespace ValheimPlus
                     var isVagon = foundContainer.GetComponentInParent<Vagon>() != null;
                     var isShip = foundContainer.GetComponentInParent<Ship>() != null;
 
-
                     if (piece != null
                         /*&& piece.IsPlacedByPlayer() Prevents detection of ship storage */
                         && hasAccess
