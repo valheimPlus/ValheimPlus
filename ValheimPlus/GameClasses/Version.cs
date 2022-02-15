@@ -14,18 +14,12 @@ namespace ValheimPlus.GameClasses
         {
             private static void Postfix(ref string __result)
             {
-                Debug.Log($"Version generator started.");
                 if (Configuration.Current.Server.IsEnabled)
                 {
                     if (Configuration.Current.Server.enforceMod)
                     {
                         __result = __result + "@" + ValheimPlusPlugin.version;
-                        Debug.Log($"Version generated with enforced mod : {__result}");
                     }
-                }
-                else
-                {
-                    Debug.Log($"Version generated : {__result}");
                 }
             }
         }
