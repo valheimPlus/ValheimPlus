@@ -14,7 +14,7 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Change Ping and global message behavior
     /// </summary>
-    [HarmonyPatch(typeof(Chat), nameof(Chat.OnNewChatMessage))]
+    [HarmonyPatch(typeof(Chat), nameof(Chat.OnNewChatMessage), new System.Type[] { typeof(GameObject), typeof(long), typeof(Vector3), typeof(Talker.Type), typeof(string), typeof(string) })]
     public static class Chat_AddInworldText_Patch
     {
         private static bool Prefix(ref Chat __instance, GameObject go, long senderID, Vector3 pos, Talker.Type type, string user, string text)
@@ -68,7 +68,7 @@ namespace ValheimPlus.GameClasses
 
 
 
-    [HarmonyPatch(typeof(Chat), nameof(Chat.AddInworldText))]
+    [HarmonyPatch(typeof(Chat), nameof(Chat.AddInworldText), new System.Type[] { typeof(GameObject), typeof(long), typeof(Vector3), typeof(Talker.Type), typeof(string), typeof(string) })]
     public static class Chat_AddInworldText_Transpiler
     {
         /// <summary>
@@ -88,6 +88,8 @@ namespace ValheimPlus.GameClasses
 
     }
 
+
+    /* should no longer be required since 00.207.20
     [HarmonyPatch(typeof(Chat), nameof(Chat.AddString))]
     public static class Chat_AddString_Transpiler
     {
@@ -106,7 +108,7 @@ namespace ValheimPlus.GameClasses
         }
 
 
-    }
+    }*/
 
 
 
