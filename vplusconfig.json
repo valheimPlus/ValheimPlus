@@ -672,7 +672,7 @@
 				"defaultType": "bool"
 			},
 			"disableConsole": {
-				"description": "If you set this to false the console will be force disabled in-game.",
+				"description": "If you set this to true the console will be force disabled in-game.",
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
