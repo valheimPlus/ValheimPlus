@@ -53,9 +53,8 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Player), "Update")]
     public static class Player_Update_Patch
     {
-
         private static GameObject timeObj = null;
-        private static double savedEnvSeconds = -1;
+        private static double savedEnvMinutes = -1;
         private static void Postfix(ref Player __instance, ref Vector3 ___m_moveDir, ref Vector3 ___m_lookDir, ref GameObject ___m_placementGhost, Transform ___m_eye)
         {
             if ((Configuration.Current.Player.IsEnabled && Configuration.Current.Player.queueWeaponChanges) && (ZInput.GetButtonDown("Hide") || ZInput.GetButtonDown("JoyHide")))
@@ -85,11 +84,8 @@ namespace ValheimPlus.GameClasses
                 ApplyDodgeHotkeys(ref __instance, ref ___m_moveDir, ref ___m_lookDir);
             }
 
-
             if (Configuration.Current.GameClock.IsEnabled)
             {
-                String hours_str = "";
-                String minutes_str = "";
                 String amPM_str = "";
 
                 Hud hud = Hud.instance;
@@ -120,8 +116,11 @@ namespace ValheimPlus.GameClasses
                 else timeText = timeObj.GetComponent<Text>();
 
                 EnvMan env = EnvMan.instance;
-                if (savedEnvSeconds != env.m_totalSeconds)
+                // only update the time at most once per minute
+                if (savedEnvMinutes != env.m_totalSeconds/60)
                 {
+                    int day = env.GetCurrentDay();
+
                     float minuteFrac = Mathf.Lerp(0, 24, env.GetDayFraction());
                     float hr24 = Mathf.Floor(minuteFrac);
                     minuteFrac = minuteFrac - hr24;
@@ -136,17 +135,17 @@ namespace ValheimPlus.GameClasses
                         if (hours_int > 12) hours_int -= 12;
                     }
 
-                    if (hours_int < 10) hours_str = "0" + hours_int;
-                    if (minutes_int < 10) minutes_str = "0" + minutes_int;
-                    if (hours_int >= 10) hours_str = hours_int.ToString();
-                    if (minutes_int >= 10) minutes_str = minutes_int.ToString();
+                    // always show hours and minutes as double digits.
+                    // combine all values into a single notification 
+                    timeText.text = $"Day {day}, {hours_int:00}:{minutes_int:00} {amPM_str}";
 
-                    timeText.text = hours_str + ":" + minutes_str + amPM_str;
-                    var staminaBarRec = hud.m_staminaBar2Root.transform as RectTransform;
-                    var statusEffictBarRec = hud.m_statusEffectListRoot.transform as RectTransform;
-                    timeObj.GetComponent<RectTransform>().position = new Vector2(staminaBarRec.position.x, statusEffictBarRec.position.y);
+                    // place the time directly below the stamina bar
+                    var staminaBarRect = hud.m_staminaBar2Root.transform as RectTransform;
+                    var statusEffectBarRect = hud.m_statusEffectListRoot.transform as RectTransform;
+                    timeObj.GetComponent<RectTransform>().position = new Vector2(staminaBarRect.position.x, statusEffectBarRect.position.y);
                     timeObj.SetActive(true);
-                    savedEnvSeconds = env.m_totalSeconds;
+
+                    savedEnvMinutes = env.m_totalSeconds/60;
                 }
             }
         }
