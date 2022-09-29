@@ -16,7 +16,7 @@ namespace ValheimPlus
     [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", version)]
     public class ValheimPlusPlugin : BaseUnityPlugin
     {
-        public const string version = "0.9.9.8";
+        public const string version = "0.9.9.9";
         public static string newestVersion = "";
         public static bool isUpToDate = false;
 
@@ -46,7 +46,7 @@ namespace ValheimPlus
             }
             else
             {
-                
+
                 Logger.LogInfo("Configuration file loaded succesfully.");
 
 
@@ -91,7 +91,7 @@ namespace ValheimPlus
             {
                 reply = client.DownloadString(iniFile);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return null;
             }

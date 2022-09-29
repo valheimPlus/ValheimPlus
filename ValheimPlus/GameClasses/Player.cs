@@ -37,7 +37,7 @@ namespace ValheimPlus.GameClasses
                 __instance.m_autoPickupRange = Configuration.Current.Player.baseAutoPickUpRange;
                 __instance.m_baseCameraShake = Configuration.Current.Player.disableCameraShake ? 0f : 4f;
                 __instance.m_maxCarryWeight = Configuration.Current.Player.baseMaximumWeight;
-            
+
             }
             if (Configuration.Current.Building.IsEnabled)
             {
@@ -194,8 +194,8 @@ namespace ValheimPlus.GameClasses
         [HarmonyPatch(typeof(Player), "Dodge", new Type[] { typeof(Vector3) })]
         public static void call_Dodge(object instance, Vector3 dodgeDir) => throw new NotImplementedException();
     }
-    
-    
+
+
     /// <summary>
     /// Update maximum carry weight based on baseMegingjordBuff configurations.
     /// </summary>
@@ -204,8 +204,8 @@ namespace ValheimPlus.GameClasses
     {
         private static void Postfix(ref SE_Stats __instance)
         {
-            if (Configuration.Current.Player.IsEnabled) 
-                if (__instance.m_addMaxCarryWeight != null && __instance.m_addMaxCarryWeight > 0)
+            if (Configuration.Current.Player.IsEnabled)
+                if (__instance.m_addMaxCarryWeight > 0)
                     __instance.m_addMaxCarryWeight = (__instance.m_addMaxCarryWeight - 150) + Configuration.Current.Player.baseMegingjordBuff;
         }
     }
@@ -243,7 +243,7 @@ namespace ValheimPlus.GameClasses
                 VPlusMapSync.ShouldSyncOnSpawn = false;
             }
 
-            if(Configuration.Current.Player.IsEnabled && Configuration.Current.Player.skipIntro)
+            if (Configuration.Current.Player.IsEnabled && Configuration.Current.Player.skipIntro)
                 __instance.m_firstSpawn = false;
 
         }
@@ -375,8 +375,9 @@ namespace ValheimPlus.GameClasses
             if (Configuration.Current.StaminaUsage.IsEnabled)
             {
                 string methodName = new StackTrace().GetFrame(2).GetMethod().Name;
-                
-                if (methodName.Contains(nameof(Player.FixedUpdate)) || methodName.Contains(nameof(Player.PlayerAttackInput))) {
+
+                if (methodName.Contains(nameof(Player.FixedUpdate)) || methodName.Contains(nameof(Player.PlayerAttackInput)))
+                {
                     string itemName = __instance.GetRightItem()?.m_shared.m_name;
                     if (itemName == "$item_fishingrod")
                     {
@@ -412,7 +413,7 @@ namespace ValheimPlus.GameClasses
                 {
                     v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.blocking);
                 }
-            }       
+            }
         }
     }
 
@@ -432,7 +433,7 @@ namespace ValheimPlus.GameClasses
 
             return true;
         }
-        
+
         private static void Postfix(ref Player __instance)
         {
             if (ABM.exitOnNextIteration)
