@@ -68,7 +68,7 @@ namespace ValheimPlus.GameClasses
                 }
             }
 
-            ZLog.LogError("Failed to apply ZNet.RPC_PeerInfo.Transpiler");
+            ZLog.LogError("Failed to alter server player limit (ZNet.RPC_PeerInfo.Transpiler)");
 
             return instructions;
         }
