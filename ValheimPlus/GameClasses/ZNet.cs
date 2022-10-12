@@ -1,6 +1,8 @@
 ﻿using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using ValheimPlus.Configurations;
 using ValheimPlus.RPC;
@@ -21,26 +23,6 @@ namespace ValheimPlus.GameClasses
     }
 
     /// <summary>
-    /// Alter server player limit
-    /// </summary>
-    [HarmonyPatch(typeof(ZNet), "Awake")]
-    public static class ChangeGameServerVariables
-    {
-        private static void Postfix(ref ZNet __instance)
-        {
-            if (Configuration.Current.Server.IsEnabled)
-            {
-                int maxPlayers = Configuration.Current.Server.maxPlayers;
-                if (maxPlayers >= 1)
-                {
-                    // Set Server Instance Max Players
-                    __instance.m_serverPlayerLimit = maxPlayers;
-                }
-            }
-        }
-    }
-
-    /// <summary>
     /// Send queued RPCs
     /// </summary>
     [HarmonyPatch(typeof(ZNet), "SendPeriodicData")]
@@ -58,6 +40,8 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(ZNet), "RPC_PeerInfo")]
     public static class ConfigServerSync
     {
+        private static MethodInfo method_ZNet_GetNrOfPlayers = AccessTools.Method(typeof(ZNet), nameof(ZNet.GetNrOfPlayers));
+
         private static void Postfix(ref ZNet __instance)
         {
             if (!ZNet.m_isServer)
@@ -65,6 +49,28 @@ namespace ValheimPlus.GameClasses
                 ZLog.Log("-------------------- SENDING VPLUGCONFIGSYNC REQUEST");
                 ZRoutedRpc.instance.InvokeRoutedRPC(ZRoutedRpc.instance.GetServerPeerID(), "VPlusConfigSync", new object[] { new ZPackage() });
             }
+        }
+
+        /// <summary>
+        /// Alter server player limit
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> il = instructions.ToList();
+
+            for (int i = 0; i < il.Count; i++)
+            {
+                if (il[i].Calls(method_ZNet_GetNrOfPlayers))
+                {
+                    il[i + 1].operand = Configuration.Current.Server.maxPlayers;
+                    return il.AsEnumerable();
+                }
+            }
+
+            ZLog.LogError("Failed to alter server player limit (ZNet.RPC_PeerInfo.Transpiler)");
+
+            return instructions;
         }
     }
 
@@ -128,7 +134,7 @@ namespace ValheimPlus.GameClasses
                 Minimap.instance.WorldToPixel(pos, out int pixelX, out int pixelY);
 
                 int radiusPixels =
-                    (int) Mathf.Ceil(Configuration.Current.Map.exploreRadius / Minimap.instance.m_pixelSize);
+                    (int)Mathf.Ceil(Configuration.Current.Map.exploreRadius / Minimap.instance.m_pixelSize);
 
                 for (int y = pixelY - radiusPixels; y <= pixelY + radiusPixels; ++y)
                 {
@@ -136,8 +142,8 @@ namespace ValheimPlus.GameClasses
                     {
                         if (x >= 0 && y >= 0 &&
                             (x < Minimap.instance.m_textureSize && y < Minimap.instance.m_textureSize) &&
-                            ((double) new Vector2((float) (x - pixelX), (float) (y - pixelY)).magnitude <=
-                             (double) radiusPixels))
+                            ((double)new Vector2((float)(x - pixelX), (float)(y - pixelY)).magnitude <=
+                             (double)radiusPixels))
                         {
                             VPlusMapSync.ServerMapData[y * Minimap.instance.m_textureSize + x] = true;
                         }

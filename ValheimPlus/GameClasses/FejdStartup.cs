@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using ValheimPlus.Configurations;
 using ValheimPlus.UI;
@@ -19,10 +18,6 @@ namespace ValheimPlus.GameClasses
             {
                 __instance.m_minimumPasswordLength = 0;
             }
-            if (Configuration.Current.Server.IsEnabled)
-            {
-                __instance.m_serverPlayerLimit = Configuration.Current.Server.maxPlayers;
-            }
         }
     }
 
@@ -35,7 +30,7 @@ namespace ValheimPlus.GameClasses
         private static void Postfix(ref FejdStartup __instance)
         {
             // logo
-            if(Configuration.Current.ValheimPlus.IsEnabled && Configuration.Current.ValheimPlus.mainMenuLogo)
+            if (Configuration.Current.ValheimPlus.IsEnabled && Configuration.Current.ValheimPlus.mainMenuLogo)
             {
                 GameObject logo = GameObject.Find("LOGO");
                 logo.GetComponent<Image>().sprite = VPlusMainMenu.VPlusLogoSprite;
@@ -46,8 +41,8 @@ namespace ValheimPlus.GameClasses
             string gameVersion = Version.CombineVersion(global::Version.m_major, global::Version.m_minor, global::Version.m_patch);
             __instance.m_versionLabel.text = "version " + gameVersion + "\n" + "ValheimPlus " + ValheimPlusPlugin.version;
 
-            
-            if(Configuration.Current.ValheimPlus.IsEnabled && Configuration.Current.ValheimPlus.serverBrowserAdvertisement)
+
+            if (Configuration.Current.ValheimPlus.IsEnabled && Configuration.Current.ValheimPlus.serverBrowserAdvertisement)
             {
                 DefaultControls.Resources uiResources = new DefaultControls.Resources();
                 GameObject joinpanel = GameObjectAssistant.GetChildComponentByName<Transform>("JoinPanel", __instance.m_startGamePanel).gameObject;
