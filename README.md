@@ -445,3 +445,4 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for d
 * Nick 'baconparticles' P. - https://github.com/baconparticles
 * An 'Hachidan' N. - https://github.com/ahnguyen09
 * Abra - https://github.com/Abrackadabra
+* Increddibelly - https://github.com/increddibelly
