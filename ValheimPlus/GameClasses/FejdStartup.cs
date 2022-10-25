@@ -36,6 +36,8 @@ namespace ValheimPlus.GameClasses
                 logo.GetComponent<Image>().sprite = VPlusMainMenu.VPlusLogoSprite;
             }
 
+            __instance.m_moddedText.transform.localPosition += new Vector3(0, 50);
+
             // version text for bottom right of startup
             __instance.m_versionLabel.fontSize = 14;
             __instance.m_versionLabel.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
