@@ -38,6 +38,7 @@ namespace ValheimPlus.GameClasses
 
             // version text for bottom right of startup
             __instance.m_versionLabel.fontSize = 14;
+            __instance.m_versionLabel.GetComponent<RectTransform>().sizeDelta = new Vector2(300, 30);
             string gameVersion = Version.CombineVersion(global::Version.m_major, global::Version.m_minor, global::Version.m_patch);
             __instance.m_versionLabel.text = "version " + gameVersion + "\n" + "ValheimPlus " + ValheimPlusPlugin.version;
 
