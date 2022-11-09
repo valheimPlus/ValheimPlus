@@ -1464,6 +1464,16 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
+			"disableDamageToPlayerCarts": {
+				"description": "Disables any damage from anything to all player built carts",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"disableWaterDamageToPlayerCarts": {
+				"description": "Disables water force damage to all player built carts",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
 			"wood": {
 				"description": "Each of these values reduce the loss of structural integrity by distance by %.",
 				"defaultValue": "0",
