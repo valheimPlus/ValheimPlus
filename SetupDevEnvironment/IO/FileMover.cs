@@ -11,7 +11,7 @@
 
             foreach (string file in sourceFiles)
             {
-                var relativeFile = file.Replace(sourceFolder, "");
+                var relativeFile = file.Replace(sourceFolder, "").Substring(1);
                 var destFile = Path.Combine(destinationFolder, relativeFile);
                 
                 // we may need new subfolders

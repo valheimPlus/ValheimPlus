@@ -1,5 +1,6 @@
 using SetupDevEnvironment.IO;
 using System.ComponentModel;
+using System.Diagnostics;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace SetupDevEnvironment
@@ -67,9 +68,11 @@ namespace SetupDevEnvironment
             tbLog.Enabled = false;
             tbLog.Visible = true;
 
-            var script = new InstallScript(ValheimPlusInstallPath);
+            var script = new InstallScript(ValheimInstallPath, ValheimPlusInstallPath);
             script.OnLogMessage += OnLogMessage;
             await script.Install();
+
+            btEditConfig.Enabled = true;
 
             EnableStartButton();
         }
@@ -105,6 +108,19 @@ namespace SetupDevEnvironment
         private void UpdateLog(string text)
         {
             tbLog.AppendText(text + Environment.NewLine);
+        }
+
+        private void btEditConfig_Click(object sender, EventArgs e)
+        {
+            var process = new Process();
+            process.StartInfo = new ProcessStartInfo()
+            {
+                UseShellExecute = true,
+                FileName = Path.Combine(ValheimPlusInstallPath, "BepInEx\\config\\BepInEx.cfg")
+            };
+
+            process.Start();
+            process.WaitForExit();
         }
     }
 }

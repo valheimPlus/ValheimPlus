@@ -36,6 +36,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tbValheimInstallDir = new System.Windows.Forms.TextBox();
             this.tbLog = new System.Windows.Forms.TextBox();
+            this.btEditConfig = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbValheimPlusInstallDir
@@ -70,7 +71,7 @@
             // 
             this.btStartInstallation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btStartInstallation.Enabled = false;
-            this.btStartInstallation.Location = new System.Drawing.Point(208, 488);
+            this.btStartInstallation.Location = new System.Drawing.Point(12, 488);
             this.btStartInstallation.Name = "btStartInstallation";
             this.btStartInstallation.Size = new System.Drawing.Size(161, 62);
             this.btStartInstallation.TabIndex = 3;
@@ -111,12 +112,24 @@
             this.tbLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbLog.Location = new System.Drawing.Point(18, 165);
+            this.tbLog.Location = new System.Drawing.Point(12, 165);
             this.tbLog.Multiline = true;
             this.tbLog.Name = "tbLog";
-            this.tbLog.Size = new System.Drawing.Size(842, 317);
+            this.tbLog.Size = new System.Drawing.Size(848, 317);
             this.tbLog.TabIndex = 7;
             this.tbLog.Visible = false;
+            // 
+            // btEditConfig
+            // 
+            this.btEditConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btEditConfig.Enabled = false;
+            this.btEditConfig.Location = new System.Drawing.Point(699, 488);
+            this.btEditConfig.Name = "btEditConfig";
+            this.btEditConfig.Size = new System.Drawing.Size(161, 62);
+            this.btEditConfig.TabIndex = 8;
+            this.btEditConfig.Text = "Edit Valheim+ config";
+            this.btEditConfig.UseVisualStyleBackColor = true;
+            this.btEditConfig.Click += new System.EventHandler(this.btEditConfig_Click);
             // 
             // SetupForm
             // 
@@ -125,6 +138,7 @@
             this.BackgroundImage = global::SetupDevEnvironment.Properties.Resources.Valheim_Wallpaper;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(872, 562);
+            this.Controls.Add(this.btEditConfig);
             this.Controls.Add(this.tbLog);
             this.Controls.Add(this.btBrowseValheimInstallDir);
             this.Controls.Add(this.label2);
@@ -152,5 +166,6 @@
         private Label label2;
         private TextBox tbValheimInstallDir;
         private TextBox tbLog;
+        private Button btEditConfig;
     }
 }

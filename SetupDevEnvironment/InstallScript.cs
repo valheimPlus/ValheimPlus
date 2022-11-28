@@ -1,11 +1,13 @@
 ﻿using SetupDevEnvironment.IO;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace SetupDevEnvironment
 {
     internal class InstallScript
     {
-        readonly string _installFolder;
+        private readonly string _valheimInstallFolder;
+        private readonly string _devInstallFolder;
 
         public event ProgressChangedEventHandler? OnLogMessage;
 
@@ -17,23 +19,31 @@ namespace SetupDevEnvironment
             }
         }
 
-        public InstallScript(string? installFolder)
+        public InstallScript(string valheimFolder, string valheimPlusFolder)
         {
-            _installFolder = installFolder;
+            _valheimInstallFolder = valheimFolder;
+            _devInstallFolder = valheimPlusFolder;
         }
 
         public async Task Install()
         {
+            CopyValheimFiles();
             await InstallBepInEx();
-            //await PublicizeAssemblies();
             PublicizeAssembliesDirectly();
             await ConfigureEnvironment();
+        }
+
+        private void CopyValheimFiles()
+        {
+            Log("Copying existing Valheim files to Dev Environment...");
+            FileMover.CopyFiles(_valheimInstallFolder, _devInstallFolder);
+            Log("Done!");
         }
 
         private async Task ConfigureEnvironment()
         {
             Log("Configuring environment...");
-            Environment.SetEnvironmentVariable("VALHEIM_INSTALL", _installFolder, EnvironmentVariableTarget.Machine);
+            Environment.SetEnvironmentVariable("VALHEIM_INSTALL", _devInstallFolder, EnvironmentVariableTarget.Machine);
             await Task.CompletedTask;
             Log("Done!");
         }
@@ -47,12 +57,14 @@ namespace SetupDevEnvironment
             File.Delete(bepInExZip);
 
             var sourceFolder = bepInExFiles.Single(file => file.EndsWith("BepInExPack_Valheim/"));
-            FileMover.CopyFiles(sourceFolder, _installFolder);
+            FileMover.CopyFiles(sourceFolder, _devInstallFolder);
 
             var unstripped_corlibFiles = bepInExFiles
                 .Where(path => path.Contains("unstripped_corlib"));
-            
-            foreach(var source in unstripped_corlibFiles)
+
+            var managedFolder = Path.Combine(_devInstallFolder, $"valheim_Data\\Managed\\");
+            Directory.CreateDirectory(managedFolder);
+            foreach (var source in unstripped_corlibFiles)
             {
                 var file = Path.GetFileName(source);
                 if (string.IsNullOrEmpty(file))
@@ -60,7 +72,7 @@ namespace SetupDevEnvironment
                     continue;
                 }
 
-                var destination = Path.Combine(_installFolder, $"valheim_Data\\Managed\\{file}");
+                var destination = Path.Combine($"{managedFolder}{file}");
                 File.Copy(source, destination, true);
             }
             Log("Done!");
@@ -81,7 +93,7 @@ namespace SetupDevEnvironment
             var pluginDll = publicizerFiles.Single(file => file.EndsWith(
                 @"plugins/Bepinex-Publicizer/Bepinex-Publicizer.dll", StringComparison.InvariantCultureIgnoreCase));
 
-            File.Copy(pluginDll, Path.Combine(_installFolder, $"BepInEx\\plugins\\{file}"), true);
+            File.Copy(pluginDll, Path.Combine(_devInstallFolder, $"BepInEx\\plugins\\{file}"), true);
         }
 
         public void PublicizeAssembliesDirectly()
@@ -89,7 +101,7 @@ namespace SetupDevEnvironment
             Log("Publicizing assemblies...");
             var pubber = new AssemblyPublicizer();
             pubber.OnLogMessage += this.OnLogMessage;
-            pubber.ProcessAssemblies(_installFolder);
+            pubber.ProcessAssemblies(_devInstallFolder);
             Log("Done!");
         }
     }
