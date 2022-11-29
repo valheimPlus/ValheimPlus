@@ -9,6 +9,8 @@
         public bool disableStructuralIntegrity { get; internal set; } = false;
         public bool disableDamageToPlayerStructures { get; internal set; } = false;
         public bool disableDamageToPlayerBoats { get; internal set; } = false;
+        public bool disableDamageToPlayerCarts { get; internal set; } = false;
         public bool disableWaterDamageToPlayerBoats { get; internal set; } = false;
+        public bool disableWaterDamageToPlayerCarts { get; internal set; } = false;
     }
 }
