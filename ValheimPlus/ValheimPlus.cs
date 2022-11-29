@@ -16,7 +16,7 @@ namespace ValheimPlus
     [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", version)]
     public class ValheimPlusPlugin : BaseUnityPlugin
     {
-        public const string version = "0.9.9.9";
+        public const string version = "0.9.9.10";
         public static string newestVersion = "";
         public static bool isUpToDate = false;
 

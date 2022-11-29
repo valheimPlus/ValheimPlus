@@ -59,7 +59,7 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Game), nameof(Game.GetDifficultyDamageScaleEnemy))]
     public static class Game_GetDifficultyHealthScale_Patch
     {
-        private static float baseDifficultyHealthScale = 0.4f;
+        private static float baseDifficultyHealthScale = 0.3f;
 
         private static void Postfix(ref float __result)
         {
