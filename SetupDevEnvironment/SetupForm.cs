@@ -1,16 +1,26 @@
 using SetupDevEnvironment.IO;
 using System.ComponentModel;
 
+#nullable disable
 namespace SetupDevEnvironment
 {
     public partial class SetupForm : Form
     {
-        private string? ValheimInstallPath { get; set; } = null;
-        private string? ValheimPlusInstallPath { get; set; } = null;
+        private string ValheimInstallPath 
+        { 
+            get => Settings.ValheimInstallDir; 
+            set { Settings.ValheimInstallDir = value; } 
+        }
+        private string ValheimPlusInstallPath 
+        { 
+            get => Settings.ValheimPlusDevInstallDir; 
+            set { Settings.ValheimPlusDevInstallDir = value; } 
+        }
 
         public SetupForm()
         {
             InitializeComponent();
+            EnableStartButton();
         }
 
         private void EnableStartButton()
@@ -20,7 +30,8 @@ namespace SetupDevEnvironment
                 tbValheimInstallDir.Text != tbValheimPlusInstallDir.Text)
             {
                 btStartInstallation.Enabled = true;
-            } else
+            }
+            else
             {
                 btStartInstallation.Enabled = false;
             }
@@ -36,7 +47,7 @@ namespace SetupDevEnvironment
             tbValheimInstallDir.Text = ValheimInstallPath;
             tbValheimInstallDir.Invalidate();
 
-            if (string.IsNullOrEmpty(ValheimPlusInstallPath))
+            if (ValheimPlusInstallPath == Links.DefaultValheimPlusDevInstallFolder)
             {
                 var steamRoot = Directory.GetParent(path);
                 ValheimPlusInstallPath = Path.Combine(steamRoot.FullName, "Valheim Plus Development");
@@ -72,7 +83,7 @@ namespace SetupDevEnvironment
             tbLog.Enabled = false;
             tbLog.Visible = true;
 
-            var script = new InstallScript(ValheimInstallPath, ValheimPlusInstallPath);
+            var script = new InstallScript();
             script.OnLogMessage += OnLogMessage;
             await script.Install();
 

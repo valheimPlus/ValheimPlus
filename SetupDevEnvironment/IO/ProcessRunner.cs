@@ -10,11 +10,10 @@ namespace SetupDevEnvironment.IO
             process.StartInfo = new ProcessStartInfo()
             {
                 UseShellExecute = true,
-                        FileName = path
-                    };
+                FileName = path,                
+            };
 
             process.Start();
-            process.WaitForExit();
         }
     }
 }

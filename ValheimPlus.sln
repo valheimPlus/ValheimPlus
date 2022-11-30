@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unix", "unix", "{7FBDF646-C
 		resources\unix\start_server_bepinex.sh = resources\unix\start_server_bepinex.sh
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetupDevEnvironment", "SetupDevEnvironment\SetupDevEnvironment.csproj", "{70D1B8BE-D049-4155-8D48-9B01EF38A6AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SetupDevEnvironment", "SetupDevEnvironment\SetupDevEnvironment.csproj", "{70D1B8BE-D049-4155-8D48-9B01EF38A6AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

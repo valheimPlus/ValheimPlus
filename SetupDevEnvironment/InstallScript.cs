@@ -1,15 +1,11 @@
 ﻿using SetupDevEnvironment.IO;
-using SetupDevEnvironment.Properties;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Reflection;
 
 namespace SetupDevEnvironment
 {
     internal class InstallScript
     {
-        private readonly string _valheimInstallFolder;
-        private readonly string _devInstallFolder;
 
         public event ProgressChangedEventHandler? OnLogMessage;
 
@@ -19,12 +15,6 @@ namespace SetupDevEnvironment
             {
                 OnLogMessage(this, new ProgressChangedEventArgs(0, msg ));
             }
-        }
-
-        public InstallScript(string valheimFolder, string valheimPlusFolder)
-        {
-            _valheimInstallFolder = valheimFolder;
-            _devInstallFolder = valheimPlusFolder;
         }
 
         public async Task Install()
@@ -39,14 +29,14 @@ namespace SetupDevEnvironment
         private void CopyValheimFiles()
         {
             Log("Copying existing Valheim files to Dev Environment...");
-            FileCopier.CopyFiles(_valheimInstallFolder, _devInstallFolder);
+            FileCopier.CopyFiles(Settings.ValheimInstallDir, Settings.ValheimPlusDevInstallDir);
             Log("Done!");
         }
 
         private void ConfigureEnvironment()
         {
             Log("Configuring environment...");
-            Environment.SetEnvironmentVariable("VALHEIM_INSTALL", _devInstallFolder, EnvironmentVariableTarget.Machine);
+            Environment.SetEnvironmentVariable("VALHEIM_INSTALL", Settings.ValheimPlusDevInstallDir, EnvironmentVariableTarget.Machine);
             Log("Done!");
         }
 
@@ -58,18 +48,24 @@ namespace SetupDevEnvironment
             var dnSpyFiles = Unzipper.Unzip(dnSpyZip, Links.DnSpy64TargetFolder);
             var dnSpyExecutable = dnSpyFiles.Single(file => file.EndsWith("dnSpy.exe"));
 
-            Log("* * * * * * * * * * * *");
             Log($"DnSpy installed to '{dnSpyExecutable}'");
-            Log("* * * * * * * * * * * *");
-            
+            Log("Done!");
+
             Log("Creating DnSpy configuration...");
             var template = ResourceHelper.GetResource("DnSpyConfiguration.xml");
-            template.Replace(@"%%DNSPYDIR%%", Links.DnSpy64TargetFolder);
-            template.Replace(@"%%VALHEIMPLUSINSTALLDIR%%", _devInstallFolder);
+            template = template.Replace(@"%%DNSPYDIR%%", Links.DnSpy64TargetFolder);
+            template = template.Replace(@"%%VALHEIMPLUSINSTALLDIR%%", Settings.ValheimPlusDevInstallDir);
             
             var configurationFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnSpy", "dnSpy.xml");
             File.WriteAllText(configurationFile, template);
+            Log("Done!");
 
+            Log("Installing patched mono dll...");
+            var executablePath = Assembly.GetEntryAssembly().Location;
+            var libPath = Path.Combine(executablePath, "../../../../../libraries/Debug/mono-2.0-bdwgc.dll");
+            var destinationPath = Path.Combine(Settings.ValheimPlusDevInstallDir, "MonoBleedingEdge\\EmbedRuntime\\mono-2.0-bdwgc.dll");
+            File.Copy(destinationPath, destinationPath + ".bak", true);
+            File.Copy(libPath, destinationPath, true);
             Log("Done!");
         }
 
@@ -82,12 +78,12 @@ namespace SetupDevEnvironment
             File.Delete(bepInExZip);
 
             var sourceFolder = bepInExFiles.Single(file => file.EndsWith("BepInExPack_Valheim/"));
-            FileCopier.CopyFiles(sourceFolder, _devInstallFolder);
+            FileCopier.CopyFiles(sourceFolder, Settings.ValheimPlusDevInstallDir);
 
             var unstripped_corlibFiles = bepInExFiles
                 .Where(path => path.Contains("unstripped_corlib"));
 
-            var managedFolder = Path.Combine(_devInstallFolder, $"valheim_Data\\Managed\\");
+            var managedFolder = Path.Combine(Settings.ValheimPlusDevInstallDir, $"valheim_Data\\Managed\\");
             Directory.CreateDirectory(managedFolder);
             foreach (var source in unstripped_corlibFiles)
             {
@@ -109,7 +105,7 @@ namespace SetupDevEnvironment
             Log("Publicizing assemblies...");
             var pubber = new AssemblyPublicizer();
             pubber.OnLogMessage += this.OnLogMessage;
-            pubber.ProcessAssemblies(_devInstallFolder);
+            pubber.ProcessAssemblies(Settings.ValheimPlusDevInstallDir);
             Log("Done!");
         }
     }
