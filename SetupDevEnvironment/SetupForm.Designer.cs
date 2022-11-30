@@ -37,20 +37,24 @@
             this.tbValheimInstallDir = new System.Windows.Forms.TextBox();
             this.tbLog = new System.Windows.Forms.TextBox();
             this.btEditConfig = new System.Windows.Forms.Button();
+            this.btStartDnSpy = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbValheimPlusInstallDir
             // 
             this.tbValheimPlusInstallDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbValheimPlusInstallDir.Enabled = false;
             this.tbValheimPlusInstallDir.Location = new System.Drawing.Point(12, 84);
             this.tbValheimPlusInstallDir.Name = "tbValheimPlusInstallDir";
-            this.tbValheimPlusInstallDir.Size = new System.Drawing.Size(848, 23);
+            this.tbValheimPlusInstallDir.PlaceholderText = "Where would you like to create the Valheim Plus folder?";
+            this.tbValheimPlusInstallDir.Size = new System.Drawing.Size(739, 23);
             this.tbValheimPlusInstallDir.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Location = new System.Drawing.Point(18, 63);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(174, 15);
@@ -71,7 +75,7 @@
             // 
             this.btStartInstallation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btStartInstallation.Enabled = false;
-            this.btStartInstallation.Location = new System.Drawing.Point(12, 488);
+            this.btStartInstallation.Location = new System.Drawing.Point(12, 460);
             this.btStartInstallation.Name = "btStartInstallation";
             this.btStartInstallation.Size = new System.Drawing.Size(161, 62);
             this.btStartInstallation.TabIndex = 3;
@@ -92,6 +96,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Location = new System.Drawing.Point(18, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(149, 15);
@@ -102,9 +107,11 @@
             // 
             this.tbValheimInstallDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbValheimInstallDir.Enabled = false;
             this.tbValheimInstallDir.Location = new System.Drawing.Point(12, 30);
             this.tbValheimInstallDir.Name = "tbValheimInstallDir";
-            this.tbValheimInstallDir.Size = new System.Drawing.Size(848, 23);
+            this.tbValheimInstallDir.PlaceholderText = "Where has Steam installed Valheim?";
+            this.tbValheimInstallDir.Size = new System.Drawing.Size(739, 23);
             this.tbValheimInstallDir.TabIndex = 4;
             // 
             // tbLog
@@ -112,18 +119,18 @@
             this.tbLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbLog.Location = new System.Drawing.Point(12, 165);
+            this.tbLog.Location = new System.Drawing.Point(12, 113);
             this.tbLog.Multiline = true;
             this.tbLog.Name = "tbLog";
-            this.tbLog.Size = new System.Drawing.Size(848, 317);
+            this.tbLog.Size = new System.Drawing.Size(739, 341);
             this.tbLog.TabIndex = 7;
             this.tbLog.Visible = false;
             // 
             // btEditConfig
             // 
-            this.btEditConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btEditConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btEditConfig.Enabled = false;
-            this.btEditConfig.Location = new System.Drawing.Point(699, 488);
+            this.btEditConfig.Location = new System.Drawing.Point(590, 460);
             this.btEditConfig.Name = "btEditConfig";
             this.btEditConfig.Size = new System.Drawing.Size(161, 62);
             this.btEditConfig.TabIndex = 8;
@@ -131,13 +138,26 @@
             this.btEditConfig.UseVisualStyleBackColor = true;
             this.btEditConfig.Click += new System.EventHandler(this.btEditConfig_Click);
             // 
+            // btStartDnSpy
+            // 
+            this.btStartDnSpy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btStartDnSpy.Enabled = false;
+            this.btStartDnSpy.Location = new System.Drawing.Point(423, 460);
+            this.btStartDnSpy.Name = "btStartDnSpy";
+            this.btStartDnSpy.Size = new System.Drawing.Size(161, 62);
+            this.btStartDnSpy.TabIndex = 9;
+            this.btStartDnSpy.Text = "Start DnSpy";
+            this.btStartDnSpy.UseVisualStyleBackColor = true;
+            this.btStartDnSpy.Click += new System.EventHandler(this.btStartDnSpy_Click);
+            // 
             // SetupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::SetupDevEnvironment.Properties.Resources.Valheim_Wallpaper;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(872, 562);
+            this.ClientSize = new System.Drawing.Size(763, 534);
+            this.Controls.Add(this.btStartDnSpy);
             this.Controls.Add(this.btEditConfig);
             this.Controls.Add(this.tbLog);
             this.Controls.Add(this.btBrowseValheimInstallDir);
@@ -150,7 +170,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "SetupForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "Form1";
+            this.Text = "Valheim Plus Development Plus Setup";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,5 +187,6 @@
         private TextBox tbValheimInstallDir;
         private TextBox tbLog;
         private Button btEditConfig;
+        private Button btStartDnSpy;
     }
 }

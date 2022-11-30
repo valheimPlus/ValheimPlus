@@ -1,7 +1,5 @@
 using SetupDevEnvironment.IO;
 using System.ComponentModel;
-using System.Diagnostics;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SetupDevEnvironment
 {
@@ -9,7 +7,6 @@ namespace SetupDevEnvironment
     {
         private string? ValheimInstallPath { get; set; } = null;
         private string? ValheimPlusInstallPath { get; set; } = null;
-        private Task _installTask = Task.CompletedTask;
 
         public SetupForm()
         {
@@ -19,7 +16,8 @@ namespace SetupDevEnvironment
         private void EnableStartButton()
         {
             if (Directory.Exists(tbValheimInstallDir.Text) &&
-                Directory.Exists(tbValheimPlusInstallDir.Text))
+                Directory.Exists(tbValheimPlusInstallDir.Text) &&
+                tbValheimInstallDir.Text != tbValheimPlusInstallDir.Text)
             {
                 btStartInstallation.Enabled = true;
             } else
@@ -55,6 +53,12 @@ namespace SetupDevEnvironment
             if (path == string.Empty)
                 return;
 
+            if (path == ValheimInstallPath)
+            {
+                MessageBox.Show("Folders can't be the same. Let's try that again.");
+                return;
+            }
+
             ValheimPlusInstallPath = path;
             tbValheimPlusInstallDir.Text = ValheimPlusInstallPath;
             tbValheimPlusInstallDir.Invalidate();
@@ -73,6 +77,7 @@ namespace SetupDevEnvironment
             await script.Install();
 
             btEditConfig.Enabled = true;
+            btStartDnSpy.Enabled = true;
 
             EnableStartButton();
         }
@@ -94,12 +99,16 @@ namespace SetupDevEnvironment
             return odd.SelectedPath;
         }
 
-
+        /// <summary>
+        /// yes, old school. but it works.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnLogMessage(object? sender, ProgressChangedEventArgs e)
         {
             if (InvokeRequired)
             {
-                Invoke((Action<string>)UpdateLog, (string)e.UserState);
+                Invoke(UpdateLog, (string)e.UserState);
                 return;
             }
             UpdateLog((string)e.UserState);
@@ -112,15 +121,12 @@ namespace SetupDevEnvironment
 
         private void btEditConfig_Click(object sender, EventArgs e)
         {
-            var process = new Process();
-            process.StartInfo = new ProcessStartInfo()
-            {
-                UseShellExecute = true,
-                FileName = Path.Combine(ValheimPlusInstallPath, "BepInEx\\config\\BepInEx.cfg")
-            };
+            ProcessRunner.Run(Path.Combine(ValheimPlusInstallPath, "BepInEx\\config\\BepInEx.cfg"));
+        }
 
-            process.Start();
-            process.WaitForExit();
+        private void btStartDnSpy_Click(object sender, EventArgs e)
+        {
+            ProcessRunner.Run(Path.Combine(Links.DnSpy64TargetFolder, "dnSpy.exe"));
         }
     }
 }

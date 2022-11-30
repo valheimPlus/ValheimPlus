@@ -1,6 +1,8 @@
 ﻿using SetupDevEnvironment.IO;
+using SetupDevEnvironment.Properties;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace SetupDevEnvironment
 {
@@ -30,21 +32,44 @@ namespace SetupDevEnvironment
             CopyValheimFiles();
             await InstallBepInEx();
             PublicizeAssembliesDirectly();
-            await ConfigureEnvironment();
+            ConfigureEnvironment();
+            await SetupDnSpy();
         }
 
         private void CopyValheimFiles()
         {
             Log("Copying existing Valheim files to Dev Environment...");
-            FileMover.CopyFiles(_valheimInstallFolder, _devInstallFolder);
+            FileCopier.CopyFiles(_valheimInstallFolder, _devInstallFolder);
             Log("Done!");
         }
 
-        private async Task ConfigureEnvironment()
+        private void ConfigureEnvironment()
         {
             Log("Configuring environment...");
             Environment.SetEnvironmentVariable("VALHEIM_INSTALL", _devInstallFolder, EnvironmentVariableTarget.Machine);
-            await Task.CompletedTask;
+            Log("Done!");
+        }
+
+        private async Task SetupDnSpy()
+        {
+            Log("Installing Debug helper DnSpy...");
+            var tempFolder = DirectoryHelper.CreateTempFolder();
+            var dnSpyZip = await Downloader.Download(Links.DnSpy64, Path.Combine(tempFolder, "dnSpy.zip"));
+            var dnSpyFiles = Unzipper.Unzip(dnSpyZip, Links.DnSpy64TargetFolder);
+            var dnSpyExecutable = dnSpyFiles.Single(file => file.EndsWith("dnSpy.exe"));
+
+            Log("* * * * * * * * * * * *");
+            Log($"DnSpy installed to '{dnSpyExecutable}'");
+            Log("* * * * * * * * * * * *");
+            
+            Log("Creating DnSpy configuration...");
+            var template = ResourceHelper.GetResource("DnSpyConfiguration.xml");
+            template.Replace(@"%%DNSPYDIR%%", Links.DnSpy64TargetFolder);
+            template.Replace(@"%%VALHEIMPLUSINSTALLDIR%%", _devInstallFolder);
+            
+            var configurationFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnSpy", "dnSpy.xml");
+            File.WriteAllText(configurationFile, template);
+
             Log("Done!");
         }
 
@@ -57,7 +82,7 @@ namespace SetupDevEnvironment
             File.Delete(bepInExZip);
 
             var sourceFolder = bepInExFiles.Single(file => file.EndsWith("BepInExPack_Valheim/"));
-            FileMover.CopyFiles(sourceFolder, _devInstallFolder);
+            FileCopier.CopyFiles(sourceFolder, _devInstallFolder);
 
             var unstripped_corlibFiles = bepInExFiles
                 .Where(path => path.Contains("unstripped_corlib"));
@@ -69,31 +94,14 @@ namespace SetupDevEnvironment
                 var file = Path.GetFileName(source);
                 if (string.IsNullOrEmpty(file))
                 {
+                    // ignore folders
                     continue;
                 }
 
-                var destination = Path.Combine($"{managedFolder}{file}");
+                var destination = Path.Combine(managedFolder, file);
                 File.Copy(source, destination, true);
             }
             Log("Done!");
-        }
-
-        /// <summary>
-        /// Install a plugin that automatically reads any file that matches "assembly_*.dll" and
-        /// creates a new dll where all properties, classes and fields are made public.
-        /// This allows devs to include these publicized dlls and use the correct consts, methods, etc.
-        /// </summary>
-        /// <returns></returns>
-        public async Task PublicizeAssemblies()
-        {
-            var publicizerZip = await Downloader.Download(Links.AssemblyPublicizer);
-            var publicizerFiles = Unzipper.Unzip(publicizerZip);
-
-            var file = "BepInEx-Publicizer.dll";
-            var pluginDll = publicizerFiles.Single(file => file.EndsWith(
-                @"plugins/Bepinex-Publicizer/Bepinex-Publicizer.dll", StringComparison.InvariantCultureIgnoreCase));
-
-            File.Copy(pluginDll, Path.Combine(_devInstallFolder, $"BepInEx\\plugins\\{file}"), true);
         }
 
         public void PublicizeAssembliesDirectly()
