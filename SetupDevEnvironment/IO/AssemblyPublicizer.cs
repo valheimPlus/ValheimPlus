@@ -1,7 +1,6 @@
 ﻿//elliotttate/Bepinex-Tools
 
 using dnlib.DotNet;
-using System.ComponentModel;
 using System.Reflection;
 using FieldAttributes = dnlib.DotNet.FieldAttributes;
 using MethodAttributes = dnlib.DotNet.MethodAttributes;
@@ -11,14 +10,9 @@ namespace SetupDevEnvironment.IO;
 
 internal class AssemblyPublicizer
 {
-    public event ProgressChangedEventHandler? OnLogMessage;
-
-    private void Log(string msg)
+    public AssemblyPublicizer()
     {
-        if (OnLogMessage != null)
-        {
-            OnLogMessage(this, new ProgressChangedEventArgs(0, msg));
-        }
+        Logger.Start();
     }
 
     public void ProcessAssemblies(string valheimPlusInstallDir)
@@ -35,16 +29,16 @@ internal class AssemblyPublicizer
                 ProcessAssembly(assembly);
             } catch(Exception ex)
             {
-                Log(ex.Message);
+                Logger.Log(ex.Message);
             }
         }
     }
 
-    void ProcessAssembly(Assembly assembly)
+    static void ProcessAssembly(Assembly assembly)
     {
         string assemblyPath = assembly.Location;
-        string filename = assembly.GetName().Name;
-        string outputPath = Path.Combine(Path.GetDirectoryName(assemblyPath), "publicized_assemblies");
+        string filename = assembly.GetName().Name!;
+        string outputPath = Path.Combine(Path.GetDirectoryName(assemblyPath)!, "publicized_assemblies");
         string outputSuffix = "_publicized";
 
         Directory.CreateDirectory(outputPath);
@@ -52,7 +46,7 @@ internal class AssemblyPublicizer
         string curHash = ComputeHash(assembly);
 
         string hashPath = Path.Combine(outputPath, $"{filename}{outputSuffix}.hash");
-        string lastHash = null;
+        string lastHash = string.Empty;
 
         if (File.Exists(hashPath))
             lastHash = File.ReadAllText(hashPath);
@@ -60,7 +54,7 @@ internal class AssemblyPublicizer
         if (curHash == lastHash)
             return;
 
-        Log($"Making a public assembly from {filename}");
+        Logger.Log($"Making a public assembly from {filename}");
         RewriteAssembly(assemblyPath).Write($"{Path.Combine(outputPath, filename)}{outputSuffix}.dll");
         File.WriteAllText(hashPath, curHash);
     }
@@ -72,36 +66,54 @@ internal class AssemblyPublicizer
 
     static ModuleDef RewriteAssembly(string assemblyPath)
     {
-        ModuleDef assembly = ModuleDefMD.Load(assemblyPath);
-
-        foreach (var type in assembly.GetTypes())
+        var assembly = ModuleDefMD.Load(assemblyPath);
+        var types = assembly.GetTypes();
+        Logger.Log($"{assembly.Name}: {types.Count()} types");
+        foreach (var type in types)
         {
-            type.Attributes &= ~TypeAttributes.VisibilityMask;
-
-            if (type.IsNested)
-                type.Attributes |= TypeAttributes.NestedPublic;
-            else
-                type.Attributes |= TypeAttributes.Public;
-
-            foreach (MethodDef method in type.Methods)
-            {
-                method.Attributes &= ~MethodAttributes.MemberAccessMask;
-                method.Attributes |= MethodAttributes.Public;
-            }
-
-            List<string> eventNames = new List<string>();
-            foreach (EventDef ev in type.Events)
-                eventNames.Add(ev.Name);
-
-            foreach (FieldDef field in type.Fields)
-            {
-                if (!eventNames.Contains(field.Name))
-                {
-                    field.Attributes &= ~FieldAttributes.FieldAccessMask;
-                    field.Attributes |= FieldAttributes.Public;
-                }
-            }
+            MakeTypePublic(assembly, type);
+            MakeMethodsPublic(assembly, type);
+            MakeFieldsPublic(assembly, type);
         }
+
         return assembly;
+    }
+
+    private static void MakeFieldsPublic(ModuleDef assembly, TypeDef type)
+    {
+        var eventNames = type.Events
+            .Select(ev => ev.Name.ToString()).ToList();
+
+        var fields = type.Fields
+            .Where(x => !eventNames.Contains(x.Name)).ToArray();
+
+        Logger.Log($"{assembly.Name}\\{type.Name}: {fields.Length} fields");
+
+        foreach (FieldDef field in fields)
+        {
+            field.Attributes &= ~FieldAttributes.FieldAccessMask;
+            field.Attributes |= FieldAttributes.Public;
+        }
+    }
+
+    private static void MakeTypePublic(ModuleDef assembly, TypeDef type)
+    {
+        Logger.Log($"{assembly.Name}\\{type.Name}");
+
+        type.Attributes &= ~TypeAttributes.VisibilityMask;
+        if (type.IsNested)
+            type.Attributes |= TypeAttributes.NestedPublic;
+        else
+            type.Attributes |= TypeAttributes.Public;
+    }
+
+    private static void MakeMethodsPublic(ModuleDef assembly, TypeDef type)
+    {
+        Logger.Log($"{assembly.Name}\\{type.Name}: {type.Methods.Count} Methods");
+        foreach (MethodDef method in type.Methods)
+        {
+            method.Attributes &= ~MethodAttributes.MemberAccessMask;
+            method.Attributes |= MethodAttributes.Public;
+        }
     }
 }

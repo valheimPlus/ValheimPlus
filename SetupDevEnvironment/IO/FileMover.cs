@@ -10,12 +10,12 @@
 
             foreach (string file in sourceFiles)
             {
-                var relativeFile = Path.GetRelativePath(sourceFolder, file);//.Substring(sourceFolder.Length + 1);
+                var relativeFile = Path.GetRelativePath(sourceFolder, file);
                 var destFile = Path.Combine(destinationFolder, relativeFile);
                 
                 // we may need new subfolders
                 var folder = Path.GetDirectoryName(destFile);
-                Directory.CreateDirectory(folder);
+                Directory.CreateDirectory(folder!);
 
                 File.Copy(file, destFile, true);
             }

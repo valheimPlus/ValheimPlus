@@ -24,7 +24,7 @@ namespace SetupDevEnvironment
             {
                 return
                     string.IsNullOrEmpty(Properties.Settings.Default.ValheimPlusDevInstallDir)
-                        ? Links.DefaultValheimInstallFolder
+                        ? Links.DefaultValheimPlusDevInstallFolder
                         : Properties.Settings.Default.ValheimPlusDevInstallDir;
             }
             set

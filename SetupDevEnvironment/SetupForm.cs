@@ -6,12 +6,12 @@ namespace SetupDevEnvironment
 {
     public partial class SetupForm : Form
     {
-        private string ValheimInstallPath 
+        private static string ValheimInstallPath 
         { 
             get => Settings.ValheimInstallDir; 
             set { Settings.ValheimInstallDir = value; } 
         }
-        private string ValheimPlusInstallPath 
+        private static string ValheimPlusInstallPath 
         { 
             get => Settings.ValheimPlusDevInstallDir; 
             set { Settings.ValheimPlusDevInstallDir = value; } 
@@ -20,6 +20,11 @@ namespace SetupDevEnvironment
         public SetupForm()
         {
             InitializeComponent();
+            Logger.Start().OnLogMessage += this.OnLogMessage;
+
+            tbValheimInstallDir.Text = Settings.ValheimInstallDir;
+            tbValheimPlusInstallDir.Text = Settings.ValheimPlusDevInstallDir;
+
             EnableStartButton();
         }
 
@@ -47,13 +52,10 @@ namespace SetupDevEnvironment
             tbValheimInstallDir.Text = ValheimInstallPath;
             tbValheimInstallDir.Invalidate();
 
-            if (ValheimPlusInstallPath == Links.DefaultValheimPlusDevInstallFolder)
-            {
-                var steamRoot = Directory.GetParent(path);
-                ValheimPlusInstallPath = Path.Combine(steamRoot.FullName, "Valheim Plus Development");
-                tbValheimPlusInstallDir.Text = ValheimPlusInstallPath;
-                tbValheimPlusInstallDir.Invalidate();
-            }
+            var steamRoot = Directory.GetParent(path);
+            ValheimPlusInstallPath = Path.Combine(steamRoot.FullName, "Valheim Plus Development");
+            tbValheimPlusInstallDir.Text = ValheimPlusInstallPath;
+            tbValheimPlusInstallDir.Invalidate();
 
             EnableStartButton();
         }
@@ -84,7 +86,6 @@ namespace SetupDevEnvironment
             tbLog.Visible = true;
 
             var script = new InstallScript();
-            script.OnLogMessage += OnLogMessage;
             await script.Install();
 
             btEditConfig.Enabled = true;
@@ -115,7 +116,7 @@ namespace SetupDevEnvironment
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnLogMessage(object? sender, ProgressChangedEventArgs e)
+        private void OnLogMessage(object sender, ProgressChangedEventArgs e)
         {
             if (InvokeRequired)
             {
@@ -132,7 +133,7 @@ namespace SetupDevEnvironment
 
         private void btEditConfig_Click(object sender, EventArgs e)
         {
-            ProcessRunner.Run(Path.Combine(ValheimPlusInstallPath, "BepInEx\\config\\BepInEx.cfg"));
+            ProcessRunner.Run(Path.Combine(ValheimPlusInstallPath, "BepInEx\\config\\ValheimPlus.cfg"));
         }
 
         private void btStartDnSpy_Click(object sender, EventArgs e)
