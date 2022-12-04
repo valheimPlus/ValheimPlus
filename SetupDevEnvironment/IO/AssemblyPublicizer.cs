@@ -67,27 +67,27 @@ internal class AssemblyPublicizer
     static ModuleDef RewriteAssembly(string assemblyPath)
     {
         var assembly = ModuleDefMD.Load(assemblyPath);
+        
         var types = assembly.GetTypes();
         Logger.Log($"{assembly.Name}: {types.Count()} types");
+
         foreach (var type in types)
         {
-            MakeTypePublic(assembly, type);
-            MakeMethodsPublic(assembly, type);
-            MakeFieldsPublic(assembly, type);
+            MakeTypePublic(type);
+            MakeMethodsPublic(type);
+            MakeFieldsPublic(type);
         }
 
         return assembly;
     }
 
-    private static void MakeFieldsPublic(ModuleDef assembly, TypeDef type)
+    private static void MakeFieldsPublic(TypeDef type)
     {
         var eventNames = type.Events
             .Select(ev => ev.Name.ToString()).ToList();
 
         var fields = type.Fields
             .Where(x => !eventNames.Contains(x.Name)).ToArray();
-
-        Logger.Log($"{assembly.Name}\\{type.Name}: {fields.Length} fields");
 
         foreach (FieldDef field in fields)
         {
@@ -96,10 +96,8 @@ internal class AssemblyPublicizer
         }
     }
 
-    private static void MakeTypePublic(ModuleDef assembly, TypeDef type)
+    private static void MakeTypePublic(TypeDef type)
     {
-        Logger.Log($"{assembly.Name}\\{type.Name}");
-
         type.Attributes &= ~TypeAttributes.VisibilityMask;
         if (type.IsNested)
             type.Attributes |= TypeAttributes.NestedPublic;
@@ -107,9 +105,8 @@ internal class AssemblyPublicizer
             type.Attributes |= TypeAttributes.Public;
     }
 
-    private static void MakeMethodsPublic(ModuleDef assembly, TypeDef type)
+    private static void MakeMethodsPublic(TypeDef type)
     {
-        Logger.Log($"{assembly.Name}\\{type.Name}: {type.Methods.Count} Methods");
         foreach (MethodDef method in type.Methods)
         {
             method.Attributes &= ~MethodAttributes.MemberAccessMask;

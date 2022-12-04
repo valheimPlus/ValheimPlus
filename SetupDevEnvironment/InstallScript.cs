@@ -25,6 +25,7 @@ internal class InstallScript
         await SetupDnSpy();
         ConfigureEnvironment();
         Logger.Log("All Done, have a nice dev.");
+        Logger.Stop();
     }
 
     private static void CopyValheimFiles()
@@ -98,6 +99,7 @@ internal class InstallScript
 
     public static async Task InstallUnstrippedFiles()
     {
+        Logger.Log("Installing Unstripped Unity Dlls...");
         var tempFolder = DirectoryHelper.CreateTempFolder();
         var unstrippedZip = await Downloader.Download(Links.Unstripped_Corlib, Path.Combine(tempFolder, "unstripped.zip"));
         var unstripped_corlibFiles = Unzipper.Unzip(unstrippedZip);
