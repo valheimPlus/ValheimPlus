@@ -19,7 +19,7 @@ internal class InstallScript
         //1.Define Environment Variable `VALHEIM_INSTALL` with path to Valheim Install Directory
 
         CopyValheimFiles();
-        await InstallBepInEx542100();
+        await InstallBepInEx541900();
         await InstallUnstrippedFiles();
         PublicizeAssembliesDirectly();
         await SetupDnSpy();
@@ -48,6 +48,9 @@ internal class InstallScript
             var defaultConfig = ResourceHelper.GetResource("valheim_plus.cfg");
             File.WriteAllText(configFile, defaultConfig);
         }
+
+        Directory.CreateDirectory(Path.Combine(Settings.ValheimPlusDevInstallDir, "BepInEx\\plugins\\"));
+
         Logger.Log("Done!");
     }
 
@@ -101,21 +104,27 @@ internal class InstallScript
     {
         Logger.Log("Installing Unstripped Unity Dlls...");
         var tempFolder = DirectoryHelper.CreateTempFolder();
-        var unstrippedZip = await Downloader.Download(Links.Unstripped_Corlib, Path.Combine(tempFolder, "unstripped.zip"));
-        var unstripped_corlibFiles = Unzipper.Unzip(unstrippedZip);
+        var unstrippedZip = await Downloader.Download(Links.Unstripped_Corlib_ValheimPlusSource, Path.Combine(tempFolder, "unstripped.zip"));
+        var unstripped_corlibFiles = Unzipper.Unzip(unstrippedZip)
+            .Where(x => x.Contains("unstripped", StringComparison.CurrentCultureIgnoreCase))
+            .ToArray();
 
         var managedFolder = Path.Combine(Settings.ValheimPlusDevInstallDir, $"valheim_Data\\Managed\\");
-        //var coreLibFolder = Path.Combine(Settings.ValheimPlusDevInstallDir, $"valheim_Data\\unstripped_corlib\\");
-        Directory.CreateDirectory(managedFolder);
-        foreach (var source in unstripped_corlibFiles)
-        {
-            if (File.GetAttributes(source).HasFlag(FileAttributes.Directory)) { continue; }
-            
-            var filename = Path.GetFileName(source);
+        var coreLibFolder = Path.Combine(Settings.ValheimPlusDevInstallDir, $"valheim_Data\\unstripped_corlib\\");
+        
+        FileCopier.CopyFiles(tempFolder, unstripped_corlibFiles, managedFolder);
+        FileCopier.CopyFiles(tempFolder, unstripped_corlibFiles, coreLibFolder);
 
-            var managedDestination = Path.Combine(managedFolder, filename);
-            File.Copy(source, managedDestination, true);
-        }
+        //Directory.CreateDirectory(managedFolder);
+        //foreach (var source in unstripped_corlibFiles)
+        //{
+        //    if (File.GetAttributes(source).HasFlag(FileAttributes.Directory)) { continue; }
+            
+        //    var filename = Path.GetFileName(source);
+
+        //    var managedDestination = Path.Combine(managedFolder, filename);
+        //    File.Copy(source, managedDestination, true);
+        //}
 
         Logger.Log("Done!");
     }
@@ -136,8 +145,9 @@ internal class InstallScript
     public static void PublicizeAssembliesDirectly()
     {
         Logger.Log("Publicizing assemblies...");
-        var pubber = new AssemblyPublicizer();
-        pubber.ProcessAssemblies(Settings.ValheimPlusDevInstallDir);
+        var managedFolder = Path.Combine(Settings.ValheimPlusDevInstallDir, "valheim_Data\\Managed\\");
+        var files = Directory.GetFiles(managedFolder, "assembly*.dll", SearchOption.TopDirectoryOnly);
+        AssemblyPublicizer.ProcessAssemblies(files);
         Logger.Log("Done!");
     }
 }

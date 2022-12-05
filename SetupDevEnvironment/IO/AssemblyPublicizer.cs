@@ -15,12 +15,8 @@ internal class AssemblyPublicizer
         Logger.Start();
     }
 
-    public void ProcessAssemblies(string valheimPlusInstallDir)
+    public static void ProcessAssemblies(string[] files)
     {
-        var managedFolder = Path.Combine(valheimPlusInstallDir, "valheim_Data\\Managed\\");
-        var files = Directory.GetFiles(
-            managedFolder, "assembly*.dll", SearchOption.TopDirectoryOnly);
-
         foreach (var file in files)
         {
             try
@@ -34,7 +30,7 @@ internal class AssemblyPublicizer
         }
     }
 
-    static void ProcessAssembly(Assembly assembly)
+    private static void ProcessAssembly(Assembly assembly)
     {
         string assemblyPath = assembly.Location;
         string filename = assembly.GetName().Name!;
@@ -59,12 +55,12 @@ internal class AssemblyPublicizer
         File.WriteAllText(hashPath, curHash);
     }
 
-    static string ComputeHash(Assembly assembly)
+    private static string ComputeHash(Assembly assembly)
     {
         return assembly.ManifestModule.ModuleVersionId.ToString();
     }
 
-    static ModuleDef RewriteAssembly(string assemblyPath)
+    private static ModuleDef RewriteAssembly(string assemblyPath)
     {
         var assembly = ModuleDefMD.Load(assemblyPath);
         
