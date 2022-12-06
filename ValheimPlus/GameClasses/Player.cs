@@ -249,16 +249,14 @@ namespace ValheimPlus.GameClasses
     }
 
 
-    [HarmonyPatch(typeof(Player), nameof(Player.UpdateFood))]
-    public static class Player_UpdateFood_Transpiler
+    [HarmonyPatch(typeof(Player), nameof(Player.EatFood))]
+    public static class Player_EatFood_Transpiler
     {
-        private static FieldInfo field_Player_m_foodUpdateTimer = AccessTools.Field(typeof(Player), nameof(Player.m_foodUpdateTimer));
-        private static MethodInfo method_ComputeModifiedDt = AccessTools.Method(typeof(Player_UpdateFood_Transpiler), nameof(Player_UpdateFood_Transpiler.ComputeModifiedDT));
+        private static FieldInfo field_ItemDrop_ItemData_SharedData_m_foodBurnTime = AccessTools.Field(typeof(ItemDrop.ItemData.SharedData), nameof(ItemDrop.ItemData.SharedData.m_foodBurnTime));
+        private static MethodInfo method_ComputeModifiedFoodBurnTime = AccessTools.Method(typeof(Player_EatFood_Transpiler), nameof(Player_EatFood_Transpiler.ComputeModifiedFoodBurnTime));
 
         /// <summary>
-        /// Replaces the first load of dt inside Player::UpdateFood with a modified dt that is scaled
-        /// by the food duration scaling multiplier. This ensures the food lasts longer while maintaining
-        /// the same rate of regeneration.
+        /// Apply a modifier on all loads of ItemDrop::ItemData::SharedData.m_foodBurnTime in the Player::EatFood function.
         /// </summary>
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -267,23 +265,23 @@ namespace ValheimPlus.GameClasses
 
             List<CodeInstruction> il = instructions.ToList();
 
-            for (int i = 0; i < il.Count - 2; ++i)
+            int count = il.Count;
+            for (int i = 0; i < count; i++)
             {
-                if (il[i].LoadsField(field_Player_m_foodUpdateTimer) &&
-                    il[i + 1].opcode == OpCodes.Ldarg_1 /* dt */ &&
-                    il[i + 2].opcode == OpCodes.Add)
+                if (il[i].LoadsField(field_ItemDrop_ItemData_SharedData_m_foodBurnTime))
                 {
-                    // We insert after Ldarg_1 (push dt) a call to our function, which computes the modified DT and returns it.
-                    il.Insert(i + 2, new CodeInstruction(OpCodes.Call, method_ComputeModifiedDt));
+                    // We insert a call to our ComputeModifiedFoodBurnTime right after the foodBurnTime has been loaded to apply the food duration multiplier
+                    il.Insert(i+1, new CodeInstruction(OpCodes.Call, method_ComputeModifiedFoodBurnTime));
+                    ++count;
                 }
             }
 
             return il.AsEnumerable();
         }
 
-        private static float ComputeModifiedDT(float dt)
+        private static float ComputeModifiedFoodBurnTime(float foodBurnTime)
         {
-            return dt / Helper.applyModifierValue(1.0f, Configuration.Current.Food.foodDurationMultiplier);
+            return Helper.applyModifierValue(foodBurnTime, Configuration.Current.Food.foodDurationMultiplier);;
         }
     }
 
