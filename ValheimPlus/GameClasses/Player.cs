@@ -381,8 +381,7 @@ namespace ValheimPlus.GameClasses
                         v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.fishing);
                     }
                 }
-
-                if (methodName.Contains(nameof(Player.UpdatePlacement)) || methodName.Contains(nameof(Player.Repair)) || methodName.Contains(nameof(Player.RemovePiece)))
+                else if (methodName.Contains(nameof(Player.UpdatePlacement)) || methodName.Contains(nameof(Player.Repair)) || methodName.Contains(nameof(Player.RemovePiece)))
                 {
                     string itemName = __instance.GetRightItem()?.m_shared.m_name;
                     if (itemName == "$item_hammer")
@@ -398,13 +397,9 @@ namespace ValheimPlus.GameClasses
                         v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.cultivator);
                     }
                 }
-                else if (methodName.Equals(nameof(Player.PlayerAttackInput)))
+                else if (methodName.Equals(nameof(Player.UpdateAttackBowDraw)))
                 {
-                    ItemDrop.ItemData item = __instance.GetCurrentWeapon();
-                    if (item?.m_shared.m_skillType == Skills.SkillType.Bows)
-                    {
-                        v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.bows);
-                    }
+                    v = Helper.applyModifierValue(v, Configuration.Current.StaminaUsage.bows);
                 }
                 else if (methodName.Equals(nameof(Player.BlockAttack)))
                 {
