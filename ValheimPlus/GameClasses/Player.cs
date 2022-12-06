@@ -833,6 +833,7 @@ namespace ValheimPlus.GameClasses
         }
     }
 
+    /*
     [HarmonyPatch(typeof(Player), nameof(Player.HaveRequirements), new System.Type[] { typeof(Piece.Requirement[]), typeof(bool), typeof(int) })]
     public static class Player_HaveRequirements_Transpiler
     {
@@ -1000,6 +1001,8 @@ namespace ValheimPlus.GameClasses
             InventoryAssistant.RemoveItemInAmountFromAllNearbyChests(pos, Helper.Clamp(Configuration.Current.CraftFromChest.range, 1, 50), item.m_resItem.m_itemData, amount, !Configuration.Current.CraftFromChest.ignorePrivateAreaCheck);
         }
     }
+
+    */
 
     public static class EquipPatchState
     {
