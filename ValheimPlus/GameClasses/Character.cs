@@ -119,9 +119,6 @@ namespace ValheimPlus.GameClasses
 
             bool found = false;
 
-            // The original code checks if (this.IsPlayer() && num > 4f); if so, it calculates the fall damage as Mathf.Clamp01((num - 4f) / 16f) * 100f
-            // ... where num is the fall distance.
-            // We want to remove this calculation and replace it with our own, so we replace the calculation with a call to our own method, defined below this one.
             for (int i = 0; i < il.Count; i++)
             {
                 if (!found && il[i].opcode != OpCodes.Newobj)
