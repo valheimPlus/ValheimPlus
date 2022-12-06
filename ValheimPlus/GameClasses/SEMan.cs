@@ -19,7 +19,6 @@ namespace ValheimPlus.GameClasses
             if (__instance.m_character.IsPlayer())
                 return;
 
-            Debug.Log(statusEffect.name);
             // Every guardian power starts with GP_
             if (statusEffect.name.StartsWith("GP_"))
             {
