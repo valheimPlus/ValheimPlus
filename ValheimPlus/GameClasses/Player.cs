@@ -833,12 +833,12 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-    /*
-    [HarmonyPatch(typeof(Player), nameof(Player.HaveRequirements), new System.Type[] { typeof(Piece.Requirement[]), typeof(bool), typeof(int) })]
-    public static class Player_HaveRequirements_Transpiler
+
+    [HarmonyPatch(typeof(Player), nameof(Player.HaveRequirementItems), new System.Type[] { typeof(Recipe), typeof(bool), typeof(int) })]
+    public static class Player_HaveRequirementItems_Transpiler
     {
         private static MethodInfo method_Inventory_CountItems = AccessTools.Method(typeof(Inventory), nameof(Inventory.CountItems));
-        private static MethodInfo method_ComputeItemQuantity = AccessTools.Method(typeof(Player_HaveRequirements_Transpiler), nameof(Player_HaveRequirements_Transpiler.ComputeItemQuantity));
+        private static MethodInfo method_ComputeItemQuantity = AccessTools.Method(typeof(Player_HaveRequirementItems_Transpiler), nameof(Player_HaveRequirementItems_Transpiler.ComputeItemQuantity));
 
         /// <summary>
         /// Patches out the code that checks if there is enough material to craft a specific object.
@@ -888,10 +888,10 @@ namespace ValheimPlus.GameClasses
     }
 
     [HarmonyPatch(typeof(Player), nameof(Player.HaveRequirements), new System.Type[] { typeof(Piece), typeof(Player.RequirementMode) })]
-    public static class Player_HaveRequirements_2_Transpiler
+    public static class Player_HaveRequirements_Transpiler
     {
         private static MethodInfo method_Inventory_CountItems = AccessTools.Method(typeof(Inventory), nameof(Inventory.CountItems));
-        private static MethodInfo method_ComputeItemQuantity = AccessTools.Method(typeof(Player_HaveRequirements_2_Transpiler), nameof(Player_HaveRequirements_2_Transpiler.ComputeItemQuantity));
+        private static MethodInfo method_ComputeItemQuantity = AccessTools.Method(typeof(Player_HaveRequirements_Transpiler), nameof(Player_HaveRequirements_Transpiler.ComputeItemQuantity));
 
         /// <summary>
         /// Patches out the code that checks if there is enough material to craft a specific object.
@@ -941,10 +941,10 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-    [HarmonyPatch(typeof(Player), nameof(Player.ConsumeResources))]
+    [HarmonyPatch(typeof(Player), nameof(Player.ConsumeResources), new Type[] { typeof(Piece.Requirement[]), typeof(int), typeof(int)})]
     public static class Player_ConsumeResources_Transpiler
     {
-        private static MethodInfo method_Inventory_RemoveItem = AccessTools.Method(typeof(Inventory), nameof(Inventory.RemoveItem), new System.Type[] { typeof(string), typeof(int) });
+        private static MethodInfo method_Inventory_RemoveItem = AccessTools.Method(typeof(Inventory), nameof(Inventory.RemoveItem), new Type[] { typeof(string), typeof(int), typeof(int) });
         private static MethodInfo method_RemoveItemsFromInventoryAndNearbyChests = AccessTools.Method(typeof(Player_ConsumeResources_Transpiler), nameof(Player_ConsumeResources_Transpiler.RemoveItemsFromInventoryAndNearbyChests));
 
         /// <summary>
@@ -983,18 +983,19 @@ namespace ValheimPlus.GameClasses
 
             il.Insert(++thisIdx, new CodeInstruction(OpCodes.Ldloc_2));
             il.Insert(++thisIdx, new CodeInstruction(OpCodes.Ldloc_3));
+            il.Insert(++thisIdx, new CodeInstruction(OpCodes.Ldarg_3));
             il.Insert(++thisIdx, new CodeInstruction(OpCodes.Call, method_RemoveItemsFromInventoryAndNearbyChests));
 
             return il.AsEnumerable();
         }
 
-        private static void RemoveItemsFromInventoryAndNearbyChests(Player player, Piece.Requirement item, int amount)
+        private static void RemoveItemsFromInventoryAndNearbyChests(Player player, Piece.Requirement item, int amount, int itemQuality)
         {
             GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
             if (!pos || !Configuration.Current.CraftFromChest.checkFromWorkbench) pos = player.gameObject;
 
             int inventoryAmount = player.m_inventory.CountItems(item.m_resItem.m_itemData.m_shared.m_name);
-            player.m_inventory.RemoveItem(item.m_resItem.m_itemData.m_shared.m_name, amount);
+            player.m_inventory.RemoveItem(item.m_resItem.m_itemData.m_shared.m_name, amount, itemQuality);
             amount -= inventoryAmount;
             if (amount <= 0) return;
 
@@ -1002,7 +1003,7 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-    */
+
 
     public static class EquipPatchState
     {
