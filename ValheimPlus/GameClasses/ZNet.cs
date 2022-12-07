@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using UnityEngine;
 using ValheimPlus.Configurations;
 using ValheimPlus.RPC;
@@ -89,7 +90,7 @@ namespace ValheimPlus.GameClasses
                 // Load the client config file on server ZNet instance exit (server disconnect)
                 if (ConfigurationExtra.LoadSettings() != true)
                 {
-                    Debug.LogError("Error while loading configuration file.");
+                    ZLog.LogError("Error while loading configuration file.");
                 }
 
                 ValheimPlusPlugin.harmony.PatchAll();

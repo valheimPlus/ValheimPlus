@@ -53,6 +53,9 @@ namespace ValheimPlus.GameClasses
                         case Skills.SkillType.Pickaxes:
                             __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.pickaxes);
                             break;
+                        case Skills.SkillType.Bows:
+                            __result = Helper.applyModifierValue(__result, Configuration.Current.StaminaUsage.bows);
+                            break;
                         default:
                             break;
                     }

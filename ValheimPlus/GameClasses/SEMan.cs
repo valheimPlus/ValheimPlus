@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using System;
-using UnityEngine;
 using ValheimPlus.Configurations;
 
 namespace ValheimPlus.GameClasses
@@ -12,11 +11,11 @@ namespace ValheimPlus.GameClasses
         private static void Postfix(ref SEMan __instance, ref StatusEffect statusEffect, bool resetTime = false, int itemLevel = 0, float skillLevel = 0)
         {
 
-            if (!Configuration.Current.Player.IsEnabled )
+            if (!Configuration.Current.Player.IsEnabled)
                 return;
 
             // Don't execute if the affected person is not the player
-            if (__instance.m_character.IsPlayer())
+            if (!__instance.m_character.IsPlayer())
                 return;
 
             // Every guardian power starts with GP_
@@ -26,11 +25,7 @@ namespace ValheimPlus.GameClasses
                 {
                     if (buff.m_name == __instance.GetStatusEffect(statusEffect.name).m_name)
                     {
-                        Player fromCharacter = (Player)__instance.m_character;
-                        if (fromCharacter.m_guardianSE)
-                        {
-                            fromCharacter.m_guardianSE.m_ttl = Configuration.Current.Player.guardianBuffDuration;
-                        }
+                        __instance.GetStatusEffect(statusEffect.name).m_ttl = Configuration.Current.Player.guardianBuffDuration;
                     }
                 }
             }
