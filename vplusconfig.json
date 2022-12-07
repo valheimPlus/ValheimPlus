@@ -1475,22 +1475,27 @@
 				"defaultType": "bool"
 			},
 			"wood": {
-				"description": "Each of these values reduce the loss of structural integrity by distance by %.",
+				"description": "Reduce the loss of structural integrity by distance by %.",
 				"defaultValue": "0",
 				"defaultType": "float"
 			},
 			"stone": {
-				"description": "Each of these values reduce the loss of structural integrity by distance by %.",
+				"description": "Reduce the loss of structural integrity by distance by %.",
 				"defaultValue": "0",
 				"defaultType": "float"
 			},
 			"iron": {
-				"description": "Each of these values reduce the loss of structural integrity by distance by %.",
+				"description": "Reduce the loss of structural integrity by distance by %.",
 				"defaultValue": "0",
 				"defaultType": "float"
 			},
 			"hardwood": {
-				"description": "Each of these values reduce the loss of structural integrity by distance by %.",
+				"description": "Reduce the loss of structural integrity by distance by %.",
+				"defaultValue": "0",
+				"defaultType": "float"
+			},
+			"marble": {
+				"description": "Reduce the loss of structural integrity by distance by %.",
 				"defaultValue": "0",
 				"defaultType": "float"
 			}
