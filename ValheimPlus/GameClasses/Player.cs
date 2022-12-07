@@ -117,7 +117,7 @@ namespace ValheimPlus.GameClasses
 
                 EnvMan env = EnvMan.instance;
                 // only update the time at most once per minute
-                if (savedEnvMinutes != env.m_totalSeconds/60)
+                if (savedEnvMinutes != env.m_totalSeconds / 60)
                 {
                     int day = env.GetCurrentDay();
 
@@ -145,7 +145,7 @@ namespace ValheimPlus.GameClasses
                     timeObj.GetComponent<RectTransform>().position = new Vector2(staminaBarRect.position.x, statusEffectBarRect.position.y);
                     timeObj.SetActive(true);
 
-                    savedEnvMinutes = env.m_totalSeconds/60;
+                    savedEnvMinutes = env.m_totalSeconds / 60;
                 }
             }
         }
@@ -271,7 +271,7 @@ namespace ValheimPlus.GameClasses
                 if (il[i].LoadsField(field_ItemDrop_ItemData_SharedData_m_foodBurnTime))
                 {
                     // We insert a call to our ComputeModifiedFoodBurnTime right after the foodBurnTime has been loaded to apply the food duration multiplier
-                    il.Insert(i+1, new CodeInstruction(OpCodes.Call, method_ComputeModifiedFoodBurnTime));
+                    il.Insert(i + 1, new CodeInstruction(OpCodes.Call, method_ComputeModifiedFoodBurnTime));
                     ++count;
                 }
             }
@@ -281,7 +281,7 @@ namespace ValheimPlus.GameClasses
 
         private static float ComputeModifiedFoodBurnTime(float foodBurnTime)
         {
-            return Helper.applyModifierValue(foodBurnTime, Configuration.Current.Food.foodDurationMultiplier);;
+            return Helper.applyModifierValue(foodBurnTime, Configuration.Current.Food.foodDurationMultiplier);
         }
     }
 
@@ -934,7 +934,7 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-    [HarmonyPatch(typeof(Player), nameof(Player.ConsumeResources), new Type[] { typeof(Piece.Requirement[]), typeof(int), typeof(int)})]
+    [HarmonyPatch(typeof(Player), nameof(Player.ConsumeResources), new Type[] { typeof(Piece.Requirement[]), typeof(int), typeof(int) })]
     public static class Player_ConsumeResources_Transpiler
     {
         private static MethodInfo method_Inventory_RemoveItem = AccessTools.Method(typeof(Inventory), nameof(Inventory.RemoveItem), new Type[] { typeof(string), typeof(int), typeof(int) });
@@ -1137,4 +1137,35 @@ namespace ValheimPlus.GameClasses
         }
     }
 
+
+    [HarmonyPatch(typeof(Player), nameof(Player.GetFirstRequiredItem))]
+    public static class Player_GetFirstRequiredItem_Transpiler
+    {
+        /// <summary>
+        /// Patches out the function Player::GetFirstRequiredItem
+        /// As the original code is calling Inventory::CountItems using `this` instead of using the inventory parameter
+        /// we can't use this function to check get the first required item from a Container (chest) inventory.
+        /// Instead of calling `this.m_inventory.CountItems` we're now calling `inventory.CountItems`.
+        ///
+        /// As the original function passes `this.GetInventory()` where `this` is the Player instance as the inventory parameter,
+        /// there is no change to the way the function would usually work.
+        /// </summary>
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpile(IEnumerable<CodeInstruction> instructions)
+        {
+            List<CodeInstruction> il = instructions.ToList();
+
+            for (int i = 0; i < il.Count; i++)
+            {
+                if (il[i].opcode == OpCodes.Ldarg_0)
+                {
+                    il[i].opcode = OpCodes.Ldarg_1;
+                    il.RemoveAt(i + 1);
+
+                    return il.AsEnumerable();
+                }
+            }
+            return instructions;
+        }
+    }
 }

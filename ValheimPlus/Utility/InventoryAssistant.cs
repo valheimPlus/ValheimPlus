@@ -18,11 +18,11 @@ namespace ValheimPlus
 
             string[] layerMask = { "piece" };
 
-            if(Configuration.Current.CraftFromChest.allowCraftingFromCarts || Configuration.Current.CraftFromChest.allowCraftingFromShips)
+            if (Configuration.Current.CraftFromChest.allowCraftingFromCarts || Configuration.Current.CraftFromChest.allowCraftingFromShips)
                 layerMask = new string[] { "piece", "item", "vehicle" };
 
             Collider[] hitColliders = Physics.OverlapSphere(target.transform.position, range, LayerMask.GetMask(layerMask));
-            
+
             // Order the found objects to select the nearest first instead of the farthest inventory.
             IOrderedEnumerable<Collider> orderedColliders = hitColliders.OrderBy(x => Vector3.Distance(x.gameObject.transform.position, target.transform.position));
 
@@ -49,7 +49,7 @@ namespace ValheimPlus
                         if (isShip && !Configuration.Current.CraftFromChest.allowCraftingFromShips)
                             continue;
 
-                        if(piece.IsPlacedByPlayer() || (isShip && Configuration.Current.CraftFromChest.allowCraftingFromShips))
+                        if (piece.IsPlacedByPlayer() || (isShip && Configuration.Current.CraftFromChest.allowCraftingFromShips))
                             validContainers.Add(foundContainer);
                     }
                 }
@@ -88,6 +88,19 @@ namespace ValheimPlus
             foreach (ItemDrop.ItemData item in items)
             {
                 if (item.m_shared.m_name == needle.m_shared.m_name)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public static bool ChestContainsItem(Container chest, string needle)
+        {
+            List<ItemDrop.ItemData> items = chest.GetInventory().GetAllItems();
+
+            foreach (ItemDrop.ItemData item in items)
+            {
+                if (item.m_shared.m_name == needle)
                     return true;
             }
 
@@ -144,8 +157,48 @@ namespace ValheimPlus
             return amount;
         }
 
+        public static int GetItemAmountInItemList(List<ItemDrop.ItemData> itemList, string needle)
+        {
+            int amount = 0;
+            foreach (ItemDrop.ItemData item in itemList)
+            {
+                if (item.m_shared.m_name == needle) amount += item.m_stack;
+            }
+
+            return amount;
+        }
+
         // function to remove items in the amount from all nearby chests
         public static int RemoveItemInAmountFromAllNearbyChests(GameObject target, float range, ItemDrop.ItemData needle, int amount, bool checkWard = true)
+        {
+            List<Container> nearbyChests = GetNearbyChests(target, range, checkWard);
+
+            // check if there are enough items nearby
+            List<ItemDrop.ItemData> allItems = GetNearbyChestItemsByContainerList(nearbyChests);
+
+            // get amount of item
+            int availableAmount = GetItemAmountInItemList(allItems, needle);
+
+            // check if there are enough items
+            if (amount == 0)
+                return 0;
+
+            // iterate all chests and remove as many items as possible for the respective chest
+            int itemsRemovedTotal = 0;
+            foreach (Container chest in nearbyChests)
+            {
+                if (itemsRemovedTotal != amount)
+                {
+                    int removedItems = RemoveItemFromChest(chest, needle, amount);
+                    itemsRemovedTotal += removedItems;
+                    amount -= removedItems;
+                }
+            }
+
+            return itemsRemovedTotal;
+        }
+
+        public static int RemoveItemInAmountFromAllNearbyChests(GameObject target, float range, string needle, int amount, bool checkWard = true)
         {
             List<Container> nearbyChests = GetNearbyChests(target, range, checkWard);
 
@@ -192,6 +245,42 @@ namespace ValheimPlus
             foreach (ItemDrop.ItemData itemData in allItems)
             {
                 if (itemData.m_shared.m_name == needle.m_shared.m_name)
+                {
+                    int num = Mathf.Min(itemData.m_stack, amount);
+                    itemData.m_stack -= num;
+                    amount -= num;
+                    totalRemoved += num;
+                    if (amount <= 0)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            // We don't want to send chest content through network
+            if (totalRemoved == 0) return 0;
+
+            allItems.RemoveAll((ItemDrop.ItemData x) => x.m_stack <= 0);
+            chest.m_inventory.m_inventory = allItems;
+
+            ConveyContainerToNetwork(chest);
+
+            return totalRemoved;
+        }
+
+        public static int RemoveItemFromChest(Container chest, string needle, int amount = 1)
+        {
+            if (!ChestContainsItem(chest, needle))
+            {
+                return 0;
+            }
+
+            int totalRemoved = 0;
+            // find item
+            List<ItemDrop.ItemData> allItems = chest.GetInventory().GetAllItems();
+            foreach (ItemDrop.ItemData itemData in allItems)
+            {
+                if (itemData.m_shared.m_name == needle)
                 {
                     int num = Mathf.Min(itemData.m_stack, amount);
                     itemData.m_stack -= num;
