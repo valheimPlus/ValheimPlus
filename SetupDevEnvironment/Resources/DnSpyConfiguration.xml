@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<settings>
+	<section _="0118143a-daaa-4614-9de4-034b028f791e" />
+	<section _="071cf92d-acfa-46a1-8eef-dfac1d01e644" />
+	<section _="1ace15fd-d689-40dc-b1e7-6eec25b3116f" />
+	<section _="2366a90d-c708-4a10-81af-7887976bc3fb" />
+	<section _="33e1988b-8eff-4f4c-a064-fa99a7d0c64d">
+		<section _="MainWindowControlState">
+			<section _="Horizontal" horizontal="True">
+				<section _="Length" l="551" />
+				<section _="Length" l="6" />
+				<section _="Length" l="1.05*" />
+			</section>
+			<section _="Location" g="5495ee9f-1ef2-45f3-a320-22a89bfdf731" l="Left" />
+			<section _="ToolWindow" index="0" is-horizontal="False" location="Left">
+				<section _="Group" index="0">
+					<section _="Content" g="5495ee9f-1ef2-45f3-a320-22a89bfdf731" />
+				</section>
+				<section _="StackedContent" horizontal="True">
+					<section _="Length" l="0.95*" />
+				</section>
+			</section>
+			<section _="ToolWindow" index="-1" is-horizontal="False" location="Right">
+				<section _="StackedContent" horizontal="True" />
+			</section>
+			<section _="ToolWindow" index="-1" is-horizontal="False" location="Top">
+				<section _="StackedContent" horizontal="True" />
+			</section>
+			<section _="ToolWindow" index="-1" is-horizontal="False" location="Bottom">
+				<section _="StackedContent" horizontal="True" />
+			</section>
+			<section _="Vertical" horizontal="False">
+				<section _="Length" l="0.95*" />
+			</section>
+		</section>
+		<section _="SavedWindowState" Bounds="574,444,1300,730" IsFullScreen="False" WindowState="Normal" />
+	</section>
+	<section _="34cf0af5-d265-4393-bc68-9b8c9b8ea622" ShowAllThemes="False" ThemeGuid="64efbb2c-0aca-467c-8389-9fa350376f3f" />
+	<section _="3643ce93-84d5-455a-9183-94b58bc80942" />
+	<section _="3e04abe0-fd5e-4938-b40c-f86aa0fa377d" />
+	<section _="4d05c47d-3f6a-429e-9cb3-232e10d45468" />
+	<section _="53863c11-df95-43f2-8f86-5e9dfcce6893">
+		<section _="FileLists" name="ValheimPlus">
+			<section _="FileList" name="(Default)">
+				<section _="File" name="%%DNSPYDIR%%\bin\System.Private.CoreLib.dll" />
+				<section _="File" name="%%DNSPYDIR%%\bin\System.Private.Uri.dll" />
+				<section _="File" name="%%DNSPYDIR%%\bin\System.Linq.dll" />
+				<section _="File" name="%%DNSPYDIR%%\bin\System.Private.Xml.dll" />
+				<section _="File" name="%%DNSPYDIR%%\bin\System.Xaml.dll" />
+				<section _="File" name="%%DNSPYDIR%%\bin\WindowsBase.dll" />
+				<section _="File" name="%%DNSPYDIR%%\bin\PresentationCore.dll" />
+				<section _="File" name="%%DNSPYDIR%%\bin\PresentationFramework.dll" />
+				<section _="File" name="%%DNSPYDIR%%\bin\dnlib.dll" />
+				<section _="File" name="%%DNSPYDIR%%\bin\dnSpy.dll" />
+			</section>
+			<section _="FileList" name="ValheimPlus">
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\assembly_googleanalytics.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\assembly_guiutils.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\assembly_lux.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\assembly_postprocessing.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\assembly_simplemeshcombine.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\assembly_steamworks.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\assembly_sunshafts.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\assembly_utils.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\assembly_valheim.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\Assembly-CSharp.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\mscorlib.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\Microsoft.CSharp.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\Mono.Posix.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\Mono.Security.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\mscorlib.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\netstandard.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\System.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\System.Configuration.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\System.Core.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\System.Data.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\System.Net.Http.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\System.Numerics.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\System.Runtime.Serialization.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\System.Security.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\System.Xml.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\System.Xml.Linq.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.AccessibilityModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.AIModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.AndroidJNIModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.AnimationModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.ARModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.AssetBundleModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.AudioModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.ClothModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.ClusterInputModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.ClusterRendererModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.CoreModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.CrashReportingModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.DirectorModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.DSPGraphModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.GameCenterModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.GIModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.GridModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.HotReloadModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.ImageConversionModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.IMGUIModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.InputLegacyModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.InputModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.JSONSerializeModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.LocalizationModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.ParticleSystemModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.PerformanceReportingModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.Physics2DModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.PhysicsModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.ProfilerModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.ScreenCaptureModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.SharedInternalsModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.SpriteMaskModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.SpriteShapeModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.StreamingModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.SubstanceModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.SubsystemsModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.TerrainModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.TerrainPhysicsModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.TextCoreModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.TextRenderingModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.TilemapModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.TLSModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UI.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UIElementsModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UIElementsNativeModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UIModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UmbraModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UNETModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityAnalyticsModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityConnectModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityCurlModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityTestProtocolModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityWebRequestAssetBundleModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityWebRequestAudioModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityWebRequestModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityWebRequestTextureModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityWebRequestWWWModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.VehiclesModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.VFXModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.VideoModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.VirtualTexturingModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.VRModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.WindModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.XRModule.dll" />
+				<section _="File" name="%%VALHEIMPLUSINSTALLDIR%%\BepInEx\plugins\ValheimPlus.dll" />
+			</section>
+		</section>
+		<section _="TabGroupWindow" index="-1" is-horizontal="False" name="Main">
+			<section _="StackedContent" horizontal="True" />
+		</section>
+	</section>
+	<section _="5e4c09be-8239-4275-b797-dcbce63aefc4" />
+	<section _="642b9276-3c9a-4efe-9b3b-d62046824b18">
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.XRModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.WindModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.VRModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.VirtualTexturingModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.VideoModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.VFXModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.VehiclesModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityWebRequestWWWModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityWebRequestTextureModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityWebRequestModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityWebRequestAudioModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityWebRequestAssetBundleModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityTestProtocolModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityCurlModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityConnectModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UnityAnalyticsModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UNETModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UmbraModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UIModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UIElementsNativeModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UIElementsModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.UI.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.TLSModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.TilemapModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.TextRenderingModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.TextCoreModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.TerrainPhysicsModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.TerrainModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\valheim_Data\Managed\UnityEngine.SubsystemsModule.dll" />
+		<section _="file" name="%%VALHEIMPLUSINSTALLDIR%%\BepInEx\plugins\ValheimPlus.dll" />
+	</section>
+	<section _="6745457f-254b-4b7b-90f1-f948f0721c3b" />
+	<section _="686c5cfb-ff63-4aa5-8c92-e08607ae5146" />
+	<section _="6a7e565d-dc09-4aae-a7c8-e86a835fcbfc" />
+	<section _="6aa691d6-c3b8-4823-87ec-dc2e9134cb3e" />
+	<section _="7caef193-7f6a-4710-8e47-547a71d6fdbc" />
+	<section _="91f1ed94-1bea-4853-9240-b542a7d022ca" />
+	<section _="b744ae6d-24e0-47a3-acf6-388eccb1c65a" />
+	<section _="ba10705f-f9a0-4cf6-b3a8-b0e4a76151a6">
+		<section _="Group" name="DocumentViewer">
+			<section _="ContentType" name="any">
+				<section _="Option" name="TextView/ZoomLevel" value="100" />
+			</section>
+		</section>
+	</section>
+	<section _="d9809eb3-1605-4e05-a84f-6ee241faad6c" />
+	<section _="dd6752b1-5336-4601-a9b2-0879e18ae9f3" />
+	<section _="eaa1be38-7a55-44af-ad93-5b7ee2327edd" />
+	<section _="ef5c4f77-ac84-413b-93ab-4773f0013514" ProjectVersion="VS2019" />
+	<section _="f1634589-21ad-42dc-a729-e23cbd7072d2" />
+	<section _="fbc6039c-8a7a-49dc-9c32-52c1b73de0a3" />
+</settings>
