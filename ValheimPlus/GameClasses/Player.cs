@@ -1168,4 +1168,21 @@ namespace ValheimPlus.GameClasses
             return instructions;
         }
     }
+
+    [HarmonyPatch(nameof(Player), nameof(Player.UpdateTeleport))]
+    public static class Player_Teleport_Time_Patch
+    {
+        /// <summary>
+        /// Remove the default 8 second minimum teleport
+        /// </summary>
+        /// <param name="___m_teleportTimer"></param>
+        [HarmonyPrefix]
+        public static void Prefix_UpdateTeleport(ref float ___m_teleportTimer)
+        {
+            if (Configuration.Current.Player.disableEightSecondTeleport)
+            {
+                ___m_teleportTimer += 10f;
+            }
+        }
+    }
 }
