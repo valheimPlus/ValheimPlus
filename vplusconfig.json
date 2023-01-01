@@ -1540,6 +1540,11 @@
 				"defaultValue": "false",
 				"defaultType": "bool"
 			},
+			"modifyPlayerInventory": {
+				"description": "Change to false to make V+ not touch the player inventory size (needed for compatibility with some mods)",
+				"defaultValue": "true",
+				"defaultType": "bool"
+			},
 			"playerInventoryRows": {
 				"description": "Player inventory number of rows (inventory is resized up to 6 rows, higher values will add a scrollbar)",
 				"defaultValue": "4",

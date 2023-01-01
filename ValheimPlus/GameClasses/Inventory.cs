@@ -52,7 +52,7 @@ namespace ValheimPlus.GameClasses
 
         public static void Prefix(string name, ref int w, ref int h)
         {
-            if (Configuration.Current.Inventory.IsEnabled)
+            if (Configuration.Current.Inventory.IsEnabled && Configuration.Current.Inventory.modifyPlayerInventory)
             {
                 // Player inventory
                 if (h == 4 && w == 8 || name == "Inventory")
