@@ -22,7 +22,7 @@ namespace ValheimPlus.GameClasses
 
         public static void Postfix(ref InventoryGui __instance)
         {
-            if (Configuration.Current.Inventory.IsEnabled)
+            if (Configuration.Current.Inventory.IsEnabled && Configuration.Current.Inventory.modifyPlayerInventory)
             {
                 RectTransform container = __instance.m_container;
                 RectTransform player = __instance.m_player;
