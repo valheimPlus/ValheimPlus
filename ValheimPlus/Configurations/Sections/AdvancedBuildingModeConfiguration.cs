@@ -9,6 +9,8 @@ namespace ValheimPlus.Configurations.Sections
 
         public KeyCode copyObjectRotation { get; internal set; } = KeyCode.Keypad7;
         public KeyCode pasteObjectRotation { get; internal set; } = KeyCode.Keypad8;
+        public KeyCode copyObjectRotationAndPosition { get; internal set; } = KeyCode.Keypad4;
+        public KeyCode pasteObjectRotationAndPosition { get; internal set; } = KeyCode.Keypad5;
 
         public KeyCode increaseScrollSpeed { get; internal set; } = KeyCode.KeypadPlus;
         public KeyCode decreaseScrollSpeed { get; internal set; } = KeyCode.KeypadMinus;
