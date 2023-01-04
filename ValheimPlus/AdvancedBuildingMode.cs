@@ -33,6 +33,7 @@ namespace ValheimPlus
 
         // Save and Load object rotation
         static Quaternion savedRotation;
+        private static Vector3 savedPosition;
 
         public static void Run(ref Player __instance)
         {
@@ -135,13 +136,27 @@ namespace ValheimPlus
             
             changeModificationSpeed();
 
+            // Copying/Pasting
             if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.copyObjectRotation))
             {
                 savedRotation = component.transform.rotation;
+                notifyUser("Copied Rotation");
             }
             if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.pasteObjectRotation))
             {
                 component.transform.rotation = savedRotation;
+                notifyUser("Pasted Rotation");
+            }
+            if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.copyObjectRotationAndPosition))
+            {
+                savedRotation = component.transform.rotation;
+                savedPosition = component.transform.position;
+                notifyUser("Copied Rotation and Position");
+            }
+            if (Input.GetKeyUp(Configuration.Current.AdvancedBuildingMode.pasteObjectRotationAndPosition))
+            {
+                component.transform.SetPositionAndRotation(savedPosition, savedRotation);
+                notifyUser("Pasted Rotation and Position");
             }
 
             var currentRotationAngleDegrees = BASE_ROTATION_ANGLE_DEGREES * currentModificationSpeed;

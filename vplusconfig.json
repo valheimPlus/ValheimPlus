@@ -46,6 +46,17 @@
 				"defaultValue": "Keypad8",
 				"defaultType": "KeyCode"
 			},
+			
+			"copyObjectRotationAndPosition": {
+				"description": "Copy the object rotation and position of the currently selected object in ABM",
+				"defaultValue": "Keypad4",
+				"defaultType": "KeyCode"
+			},
+			"pasteObjectRotationAndPosition": {
+				"description": "Apply the copied object rotation and position to the currently selected object in ABM",
+				"defaultValue": "Keypad5",
+				"defaultType": "KeyCode"
+			},
 			"increaseScrollSpeed": {
 				"description": "Increases the amount an object rotates and moves. Holding Shift will increase in increments of 10 instead of 1.",
 				"defaultValue": "KeypadPlus",
@@ -96,6 +107,16 @@
 			"pasteObjectRotation": {
 				"description": "Apply the copied object rotation to the currently selected object in AEM",
 				"defaultValue": "Keypad8",
+				"defaultType": "KeyCode"
+			},
+			"copyObjectRotationAndPosition": {
+				"description": "Copy the object rotation and position of the currently selected object in AEM",
+				"defaultValue": "Keypad4",
+				"defaultType": "KeyCode"
+			},
+			"pasteObjectRotationAndPosition": {
+				"description": "Apply the copied object rotation and position to the currently selected object in AEM",
+				"defaultValue": "Keypad5",
 				"defaultType": "KeyCode"
 			},
 			"increaseScrollSpeed": {

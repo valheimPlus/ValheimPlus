@@ -39,6 +39,7 @@ namespace ValheimPlus
 
         // Save and Load object rotation
         static Quaternion savedRotation;
+        private static Vector3 savedPosition;
 
         // Executing the raycast to find the object
         public static bool ExecuteRayCast(Player playerInstance)
@@ -234,10 +235,23 @@ namespace ValheimPlus
             if (Input.GetKeyUp(Configuration.Current.AdvancedEditingMode.copyObjectRotation))
             {
                 savedRotation = HitPiece.transform.rotation;
+                notifyUser("Copied Rotation");
             }
             if (Input.GetKeyUp(Configuration.Current.AdvancedEditingMode.pasteObjectRotation))
             {
                 HitPiece.transform.rotation = savedRotation;
+                notifyUser("Pasted Rotation");
+            }
+            if (Input.GetKeyUp(Configuration.Current.AdvancedEditingMode.copyObjectRotationAndPosition))
+            {
+                savedRotation = HitPiece.transform.rotation;
+                savedPosition = HitPiece.transform.position;
+                notifyUser("Copied Rotation and Position");
+            }
+            if (Input.GetKeyUp(Configuration.Current.AdvancedEditingMode.pasteObjectRotationAndPosition))
+            {
+                HitPiece.transform.SetPositionAndRotation(savedPosition, savedRotation);
+                notifyUser("Pasted Rotation and Position");
             }
 
             // Maximum distance between player and placed piece
