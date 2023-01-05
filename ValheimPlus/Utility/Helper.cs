@@ -64,22 +64,11 @@ namespace ValheimPlus
          
         public static float applyModifierValue(float targetValue, float value)
         {
-            
+            // cap negative modifiers at -100%
             if (value <= -100)
                 value = -100;
 
-            float newValue = targetValue;
-
-            if (value >= 0)
-            {
-                newValue = targetValue + ((targetValue / 100) * value);
-            }
-            else
-            {
-                newValue = targetValue - ((targetValue / 100) * (value * -1));
-            }
-
-            return newValue;
+            return targetValue * (1 + value / 100);
         }
 
         public static Texture2D LoadPng(Stream fileStream)
