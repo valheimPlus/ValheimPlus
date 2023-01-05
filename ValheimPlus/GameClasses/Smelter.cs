@@ -151,102 +151,99 @@ namespace ValheimPlus.GameClasses
             if (__instance == null || !Player.m_localPlayer || __instance.m_nview == null || !__instance.m_nview.IsOwner())
                 return;
 
-            Smelter smelter = __instance;
-
-            Stopwatch delta = GameObjectAssistant.GetStopwatch(smelter.gameObject);
+            Stopwatch delta = GameObjectAssistant.GetStopwatch(__instance.gameObject);
             if (delta.IsRunning && delta.ElapsedMilliseconds < 1000) return;
             delta.Restart();
 
             float autoFuelRange = 0f;
             bool ignorePrivateAreaCheck = false;
             bool isKiln = false;
-            if (smelter.m_name.Equals(SmelterDefinitions.KilnName))
+            switch(__instance.m_name)
             {
-                if (!Configuration.Current.Kiln.IsEnabled || !Configuration.Current.Kiln.autoFuel)
+                case SmelterDefinitions.KilnName:
+                    if (!Configuration.Current.Kiln.IsEnabled || !Configuration.Current.Kiln.autoFuel)
+                        return;
+                    isKiln = true;
+                    autoFuelRange = Configuration.Current.Kiln.autoRange;
+                    ignorePrivateAreaCheck = Configuration.Current.Kiln.ignorePrivateAreaCheck;
+                    break;
+                case SmelterDefinitions.SmelterName:
+                    if (!Configuration.Current.Smelter.IsEnabled || !Configuration.Current.Smelter.autoFuel)
+                        return;
+                    autoFuelRange = Configuration.Current.Smelter.autoRange;
+                    ignorePrivateAreaCheck = Configuration.Current.Smelter.ignorePrivateAreaCheck;
+                    break;
+                case SmelterDefinitions.FurnaceName:
+                    if (!Configuration.Current.Furnace.IsEnabled || !Configuration.Current.Furnace.autoFuel)
+                        return;
+                    autoFuelRange = Configuration.Current.Furnace.autoRange;
+                    ignorePrivateAreaCheck = Configuration.Current.Furnace.ignorePrivateAreaCheck;
+                    break;
+                case SmelterDefinitions.WindmillName:
+                    if (!Configuration.Current.Windmill.IsEnabled || !Configuration.Current.Windmill.autoFuel)
+                        return;
+                    autoFuelRange = Configuration.Current.Windmill.autoRange;
+                    ignorePrivateAreaCheck = Configuration.Current.Windmill.ignorePrivateAreaCheck;
+                    break;
+                case SmelterDefinitions.SpinningWheelName:
+                    if (!Configuration.Current.SpinningWheel.IsEnabled || !Configuration.Current.SpinningWheel.autoFuel)
+                        return;
+                    autoFuelRange = Configuration.Current.SpinningWheel.autoRange;
+                    ignorePrivateAreaCheck = Configuration.Current.SpinningWheel.ignorePrivateAreaCheck;
+                    break;
+                default:
                     return;
-                isKiln = true;
-                autoFuelRange = Configuration.Current.Kiln.autoRange;
-                ignorePrivateAreaCheck = Configuration.Current.Kiln.ignorePrivateAreaCheck;
-            }
-            else if (smelter.m_name.Equals(SmelterDefinitions.SmelterName))
-            {
-                if (!Configuration.Current.Smelter.IsEnabled || !Configuration.Current.Smelter.autoFuel)
-                    return;
-                autoFuelRange = Configuration.Current.Smelter.autoRange;
-                ignorePrivateAreaCheck = Configuration.Current.Smelter.ignorePrivateAreaCheck;
-            }
-            else if (smelter.m_name.Equals(SmelterDefinitions.FurnaceName))
-            {
-                if (!Configuration.Current.Furnace.IsEnabled || !Configuration.Current.Furnace.autoFuel)
-                    return;
-                autoFuelRange = Configuration.Current.Furnace.autoRange;
-                ignorePrivateAreaCheck = Configuration.Current.Furnace.ignorePrivateAreaCheck;
-            }
-            else if (__instance.m_name.Equals(SmelterDefinitions.WindmillName))
-            {
-                if (!Configuration.Current.Windmill.IsEnabled || !Configuration.Current.Windmill.autoFuel)
-                    return;
-                autoFuelRange = Configuration.Current.Windmill.autoRange;
-                ignorePrivateAreaCheck = Configuration.Current.Windmill.ignorePrivateAreaCheck;
-            }
-            else if (__instance.m_name.Equals(SmelterDefinitions.SpinningWheelName))
-            {
-                if (!Configuration.Current.SpinningWheel.IsEnabled || !Configuration.Current.SpinningWheel.autoFuel)
-                    return;
-                autoFuelRange = Configuration.Current.SpinningWheel.autoRange;
-                ignorePrivateAreaCheck = Configuration.Current.SpinningWheel.ignorePrivateAreaCheck;
             }
 
             autoFuelRange = Helper.Clamp(autoFuelRange, 1, 50);
 
-            int toMaxOre = smelter.m_maxOre - smelter.GetQueueSize();
-            int toMaxFuel = smelter.m_maxFuel - (int)System.Math.Ceiling(smelter.GetFuel());
+            int toMaxOre = __instance.m_maxOre - __instance.GetQueueSize();
+            int toMaxFuel = __instance.m_maxFuel - (int)System.Math.Ceiling(__instance.GetFuel());
+            int threshold = Configuration.Current.Kiln.stopAutoFuelThreshold < 0 ? 0 : Configuration.Current.Kiln.stopAutoFuelThreshold;
 
-            if (smelter.m_fuelItem && toMaxFuel > 0)
+            if (__instance.m_fuelItem && toMaxFuel > 0)
             {
-                ItemDrop.ItemData fuelItemData = smelter.m_fuelItem.m_itemData;
+                ItemDrop.ItemData fuelItemData = __instance.m_fuelItem.m_itemData;
 
                 // Check for fuel in nearby containers
-                int addedFuel = InventoryAssistant.RemoveItemInAmountFromAllNearbyChests(smelter.gameObject, autoFuelRange, fuelItemData, toMaxFuel, !ignorePrivateAreaCheck);
+                int addedFuel = InventoryAssistant.RemoveItemInAmountFromAllNearbyChests(__instance.gameObject, autoFuelRange, fuelItemData, toMaxFuel, !ignorePrivateAreaCheck);
                 for (int i = 0; i < addedFuel; i++)
                 {
-                    smelter.m_nview.InvokeRPC("AddFuel", new object[] { });
+                    __instance.m_nview.InvokeRPC("AddFuel", new object[] { });
                 }
                 if (addedFuel > 0)
-                    ZLog.Log("Added " + addedFuel + " fuel(" + fuelItemData.m_shared.m_name + ") in " + smelter.m_name);
+                    UnityEngine.Debug.Log("Added " + addedFuel + " fuel(" + fuelItemData.m_shared.m_name + ") in " + __instance.m_name);
             }
             if (toMaxOre > 0)
             {
-                List<Container> nearbyChests = InventoryAssistant.GetNearbyChests(smelter.gameObject, autoFuelRange);
-                foreach (Container c in nearbyChests)
+                foreach (Smelter.ItemConversion itemConversion in __instance.m_conversion)
                 {
-                    foreach (Smelter.ItemConversion itemConversion in smelter.m_conversion)
+                    if (isKiln)
                     {
-                        if (isKiln)
+                        if (Configuration.Current.Kiln.dontProcessFineWood && itemConversion.m_from.m_itemData.m_shared.m_name.Equals(WoodDefinitions.FineWoodName)) continue;
+                        if (Configuration.Current.Kiln.dontProcessRoundLog && itemConversion.m_from.m_itemData.m_shared.m_name.Equals(WoodDefinitions.RoundLogName)) continue;
+
+                        if (threshold > 0 && InventoryAssistant.GetItemAmountInItemList(
+                            InventoryAssistant.GetNearbyChestItems(__instance.gameObject, autoFuelRange, !ignorePrivateAreaCheck), itemConversion.m_to.m_itemData) >= threshold
+                            ) return;
+                    }
+
+                    ItemDrop.ItemData oreItem = itemConversion.m_from.m_itemData;
+
+                    int addedOres = InventoryAssistant.RemoveItemInAmountFromAllNearbyChests(__instance.gameObject, autoFuelRange, oreItem, toMaxFuel, !ignorePrivateAreaCheck);
+                    if (addedOres > 0)
+                    {
+                        GameObject orePrefab = ObjectDB.instance.GetItemPrefab(itemConversion.m_from.gameObject.name);
+
+                        for (int i = 0; i < addedOres; i++)
                         {
-                            if (Configuration.Current.Kiln.dontProcessFineWood && itemConversion.m_from.m_itemData.m_shared.m_name.Equals(WoodDefinitions.FineWoodName)) continue;
-                            if (Configuration.Current.Kiln.dontProcessRoundLog && itemConversion.m_from.m_itemData.m_shared.m_name.Equals(WoodDefinitions.RoundLogName)) continue;
-
-                            int threshold = Configuration.Current.Kiln.stopAutoFuelThreshold < 0 ? 0 : Configuration.Current.Kiln.stopAutoFuelThreshold;
-                            if (threshold > 0 && InventoryAssistant.GetItemAmountInItemList(InventoryAssistant.GetNearbyChestItemsByContainerList(nearbyChests), itemConversion.m_to.m_itemData) >= threshold) return;
+                            __instance.m_nview.InvokeRPC("AddOre", new object[] { orePrefab.name });
                         }
-
-                        ItemDrop.ItemData oreItem = itemConversion.m_from.m_itemData;
-                        int addedOres = InventoryAssistant.RemoveItemFromChest(c, oreItem, toMaxOre);
+                        toMaxOre -= addedOres;
                         if (addedOres > 0)
-                        {
-                            GameObject orePrefab = ObjectDB.instance.GetItemPrefab(itemConversion.m_from.gameObject.name);
-
-                            for (int i = 0; i < addedOres; i++)
-                            {
-                                smelter.m_nview.InvokeRPC("AddOre", new object[] { orePrefab.name });
-                            }
-                            toMaxOre -= addedOres;
-                            if (addedOres > 0)
-                                ZLog.Log("Added " + addedOres + " ores(" + oreItem.m_shared.m_name + ") in " + smelter.m_name);
-                            if (toMaxOre == 0)
-                                return;
-                        }
+                            UnityEngine.Debug.Log("Added " + addedOres + " ores(" + oreItem.m_shared.m_name + ") in " + __instance.m_name);
+                        if (toMaxOre == 0)
+                            return;
                     }
                 }
             }
@@ -340,24 +337,24 @@ namespace ValheimPlus.GameClasses
 
     public static class SmelterDefinitions
     {
-        public static readonly string KilnName = "$piece_charcoalkiln";
-        public static readonly string SmelterName = "$piece_smelter";
-        public static readonly string FurnaceName = "$piece_blastfurnace";
-        public static readonly string WindmillName = "$piece_windmill";
-        public static readonly string SpinningWheelName = "$piece_spinningwheel";
+        public const string KilnName = "$piece_charcoalkiln";
+        public const string SmelterName = "$piece_smelter";
+        public const string FurnaceName = "$piece_blastfurnace";
+        public const string WindmillName = "$piece_windmill";
+        public const string SpinningWheelName = "$piece_spinningwheel";
     }
 
     public static class FurnaceDefinitions
     {
-        public static readonly string CopperOrePrefabName = "CopperOre";
-        public static readonly string ScrapIronPrefabName = "IronScrap";
-        public static readonly string SilverOrePrefabName = "SilverOre";
-        public static readonly string TinOrePrefabName = "TinOre";
+        public const string CopperOrePrefabName = "CopperOre";
+        public const string ScrapIronPrefabName = "IronScrap";
+        public const string SilverOrePrefabName = "SilverOre";
+        public const string TinOrePrefabName = "TinOre";
 
-        public static readonly string CopperPrefabName = "Copper";
-        public static readonly string IronPrefabName = "Iron";
-        public static readonly string SilverPrefabName = "Silver";
-        public static readonly string TinPrefabName = "Tin";
+        public const string CopperPrefabName = "Copper";
+        public const string IronPrefabName = "Iron";
+        public const string SilverPrefabName = "Silver";
+        public const string TinPrefabName = "Tin";
 
         public static readonly List<Smelter.ItemConversion> AdditionalConversions = new List<Smelter.ItemConversion>
         {
