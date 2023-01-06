@@ -26,5 +26,6 @@
         public bool skipTutorials { get; internal set; } = false;
         public bool disableEncumbered { get; internal set; } = false;
         public bool autoPickUpWhenEncumbered { get; internal set; } = false;
+        public bool disableEightSecondTeleport { get; internal set; } = false;
     }
 }
