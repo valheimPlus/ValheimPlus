@@ -117,10 +117,12 @@ namespace ValheimPlus.GameClasses
 		Unarmed,
 		Pickaxes,
 		WoodCutting,
+		Crossbows,
 		Jump = 100,
 		Sneak,
 		Run,
 		Swim,
+		Fishing,
 		Ride = 110,
 		All = 999
 	}
