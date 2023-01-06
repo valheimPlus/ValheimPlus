@@ -15,10 +15,12 @@
 		public float unarmed { get; internal set; } = 0;
 		public float pickaxes { get; internal set; } = 0;
 		public float woodCutting { get; internal set; } = 0;
+		public float crossbows { get; internal set; } = 0;
 		public float jump { get; internal set; } = 0;
 		public float sneak { get; internal set; } = 0;
 		public float run { get; internal set; } = 0;
 		public float swim { get; internal set; } = 0;
+		public float fishing { get; internal set; } = 0;
 		public float ride { get; internal set; } = 0;
 
 	}
