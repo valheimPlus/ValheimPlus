@@ -58,6 +58,9 @@ namespace ValheimPlus.GameClasses
 					case SkillType.WoodCutting:
 						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.woodCutting);
 						break;
+					case SkillType.Crossbows:
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.crossbows);
+						break;
 					case SkillType.Jump:
 						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.jump);
 						break;
@@ -69,6 +72,9 @@ namespace ValheimPlus.GameClasses
 						break;
 					case SkillType.Swim:
 						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.swim);
+						break;
+					case SkillType.Fishing:
+						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.fishing);
 						break;
 					case SkillType.Ride:
 						factor = Helper.applyModifierValue(factor, Configuration.Current.Experience.ride);
@@ -117,10 +123,12 @@ namespace ValheimPlus.GameClasses
 		Unarmed,
 		Pickaxes,
 		WoodCutting,
+		Crossbows,
 		Jump = 100,
 		Sneak,
 		Run,
 		Swim,
+		Fishing,
 		Ride = 110,
 		All = 999
 	}
