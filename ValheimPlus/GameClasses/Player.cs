@@ -1137,7 +1137,6 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-
     [HarmonyPatch(typeof(Player), nameof(Player.GetFirstRequiredItem))]
     public static class Player_GetFirstRequiredItem_Transpiler
     {
@@ -1169,17 +1168,13 @@ namespace ValheimPlus.GameClasses
         }
     }
 
-    [HarmonyPatch(nameof(Player), nameof(Player.UpdateTeleport))]
-    public static class Player_Teleport_Time_Patch
+    [HarmonyPatch(typeof(Player), nameof(Player.UpdateTeleport))]
+    public static class Player_UpdateTeleport_Patch
     {
-        /// <summary>
-        /// Remove the default 8 second minimum teleport
-        /// </summary>
-        /// <param name="___m_teleportTimer"></param>
         [HarmonyPrefix]
-        public static void Prefix_UpdateTeleport(ref float ___m_teleportTimer)
+        private static void Prefix(float dt, ref float ___m_teleportTimer, ref bool ___m_teleporting, ref bool ___m_distantTeleport, ref Vector3 ___m_teleportTargetPos)
         {
-            if (Configuration.Current.Player.disableEightSecondTeleport)
+            if (Configuration.Current.Player.disableEightSecondTeleport && ZNetScene.instance.IsAreaReady(___m_teleportTargetPos) && ___m_teleporting)
             {
                 ___m_teleportTimer += 10f;
             }
