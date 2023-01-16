@@ -37,7 +37,7 @@ namespace ValheimPlus.UI
             }
 
             // If there is no bow or it is not equipped, remove the text element
-            if (bow == null || (Configuration.Current.Hud.displayBowAmmoCounts == 1 && !player.IsItemEquiped(bow)))
+            if (bow == null || (Configuration.Current.Hud.displayBowAmmoCounts == 1 && player != null && !player.IsItemEquiped(bow)))
             {
                 if (ammoCounter != null)
                 {

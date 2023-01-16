@@ -414,6 +414,8 @@ namespace ValheimPlus.GameClasses
                         }
                     }
                 }
+                
+                List<ZDO> toRemove = new List<ZDO>();
 
                 // clear pins for destroyed objects
                 foreach (KeyValuePair<ZDO, Minimap.PinData> pin in customPins)
@@ -421,8 +423,12 @@ namespace ValheimPlus.GameClasses
                     if (!pin.Key.IsValid())
                     {
                         __instance.RemovePin(pin.Value);
-                        customPins.Remove(pin.Key);
+                        toRemove.Add(pin.Key);
                     }
+                }
+                
+                foreach (ZDO zdo in toRemove) {
+                    customPins.Remove(zdo);
                 }
             }
         }
