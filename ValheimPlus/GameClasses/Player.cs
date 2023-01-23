@@ -323,12 +323,14 @@ namespace ValheimPlus.GameClasses
     [HarmonyPatch(typeof(Player), nameof(Player.GetTotalFoodValue))]
     public static class Player_GetTotalFoodValue_Transpiler
     {
-        private static FieldInfo field_Food_m_health = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_health));
-        private static FieldInfo field_Food_m_stamina = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_stamina));
-        private static FieldInfo field_Food_m_item = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_item));
-        private static FieldInfo field_ItemData_m_shared = AccessTools.Field(typeof(ItemDrop.ItemData), nameof(ItemDrop.ItemData.m_shared));
-        private static FieldInfo field_SharedData_m_food = AccessTools.Field(typeof(ItemDrop.ItemData.SharedData), nameof(ItemDrop.ItemData.SharedData.m_food));
-        private static FieldInfo field_SharedData_m_foodStamina = AccessTools.Field(typeof(ItemDrop.ItemData.SharedData), nameof(ItemDrop.ItemData.SharedData.m_foodStamina));
+        private static readonly FieldInfo field_Food_m_health = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_health));
+        private static readonly FieldInfo field_Food_m_stamina = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_stamina));
+        private static readonly FieldInfo field_Food_m_eitr = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_eitr));
+        private static readonly FieldInfo field_Food_m_item = AccessTools.Field(typeof(Player.Food), nameof(Player.Food.m_item));
+        private static readonly FieldInfo field_ItemData_m_shared = AccessTools.Field(typeof(ItemDrop.ItemData), nameof(ItemDrop.ItemData.m_shared));
+        private static readonly FieldInfo field_SharedData_m_food = AccessTools.Field(typeof(ItemDrop.ItemData.SharedData), nameof(ItemDrop.ItemData.SharedData.m_food));
+        private static readonly FieldInfo field_SharedData_m_foodStamina = AccessTools.Field(typeof(ItemDrop.ItemData.SharedData), nameof(ItemDrop.ItemData.SharedData.m_foodStamina));
+        private static readonly FieldInfo field_SharedData_m_foodEitr = AccessTools.Field(typeof(ItemDrop.ItemData.SharedData), nameof(ItemDrop.ItemData.SharedData.m_foodEitr));
 
         /// <summary>
         /// Replaces loads to the current health/stamina for food with loads to the original health/stamina for food
@@ -347,12 +349,23 @@ namespace ValheimPlus.GameClasses
                 {
                     bool loads_health = il[i].LoadsField(field_Food_m_health);
                     bool loads_stamina = il[i].LoadsField(field_Food_m_stamina);
+                    bool loads_eitr = il[i].LoadsField(field_Food_m_eitr);
 
-                    if (loads_health || loads_stamina)
+                    if (loads_health || loads_stamina || loads_eitr)
                     {
                         il[i].operand = field_Food_m_item;
                         il.Insert(++i, new CodeInstruction(OpCodes.Ldfld, field_ItemData_m_shared));
-                        il.Insert(++i, new CodeInstruction(OpCodes.Ldfld, loads_health ? field_SharedData_m_food : field_SharedData_m_foodStamina));
+                        if (loads_health)
+                        {
+                            il.Insert(++i, new CodeInstruction(OpCodes.Ldfld, field_SharedData_m_food));
+                        } else if (loads_stamina)
+                        {
+                            il.Insert(++i, new CodeInstruction(OpCodes.Ldfld, field_SharedData_m_foodStamina));
+                        }
+                        else
+                        {
+                            il.Insert(++i, new CodeInstruction(OpCodes.Ldfld, field_SharedData_m_foodEitr));
+                        }
                     }
                 }
             }
