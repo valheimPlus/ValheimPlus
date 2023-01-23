@@ -447,3 +447,4 @@ Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on compiling V+ for d
 * Abra - https://github.com/Abrackadabra
 * Increddibelly - https://github.com/increddibelly
 * Radvo - https://github.com/Radvo
+* Shawn - https://github.com/shawnwallace
