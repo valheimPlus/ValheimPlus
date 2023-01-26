@@ -2070,5 +2070,29 @@
 				"defaultType": "float"
 			}
 		}
+	},
+	"LootDrop": {
+		"description": "",
+		"icon": "fa fa-treasure-chest",
+		"description_website": "Change the chance and amount of loot dropped when creatures are slain.",
+		"entries": {
+			"enabled": {
+				"description": "Change false to true to enable this section",
+				"defaultValue": "false",
+				"defaultType": "bool"
+			},
+			"lootDropAmountMultiplier": {
+				"description": "The value 100 will double the amount of dropped loot, 200 will triple. Smaller values such as 50 only has an effect if more than 1 item would drop normally.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			},
+			"lootDropChanceMultiplier": {
+				"description": "The value 100 will double the percentage chance of drop, 200 will triple.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
+			}
+		}
 	}
 }
