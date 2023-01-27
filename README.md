@@ -186,6 +186,9 @@ We work together closely to make sure all our features are integrated and workin
 * Modify velocity and accuracy of projectiles from monsters.
 * Modify damage and health scaling of monsters in multiplayer based on player count.
 
+### Loot
+* Modify the chance and amount of loot dropped.
+
 # Server
 * Remove password requirement for the server.
 * Modify the maximum amount of players on a server.

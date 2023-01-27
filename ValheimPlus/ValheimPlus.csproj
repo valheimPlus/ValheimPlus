@@ -39,7 +39,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-	<Reference Include="netstandard" />
+    <Reference Include="netstandard" />
     <Reference Include="0Harmony, Version=2.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HarmonyX.2.10.0\lib\net45\0Harmony.dll</HintPath>
     </Reference>
@@ -344,6 +344,7 @@
     <Compile Include="Configurations\Sections\BrightnessConfiguration.cs" />
     <Compile Include="Configurations\Sections\ChatConfiguration.cs" />
     <Compile Include="Configurations\Sections\GameClockConfiguration.cs" />
+    <Compile Include="Configurations\Sections\LootDropConfiguration.cs" />
     <Compile Include="Configurations\Sections\MonsterProjectileConfiguration.cs" />
     <Compile Include="Configurations\Sections\PlayerProjectileConfiguration.cs" />
     <Compile Include="Configurations\Sections\CraftFromChestConfiguration.cs" />
@@ -396,6 +397,7 @@
     <Compile Include="Configurations\Sections\StaminaUsageConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
     <Compile Include="GameClasses\Character.cs" />
+    <Compile Include="GameClasses\CharacterDrop.cs" />
     <Compile Include="GameClasses\SEMan.cs" />
     <Compile Include="GameClasses\Talker.cs" />
     <Compile Include="GameClasses\Container.cs" />
