@@ -1,9 +1,9 @@
 ﻿using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ValheimPlus.Configurations;
-using ValheimPlus.Utility;
 
 namespace ValheimPlus.GameClasses
 {
@@ -84,7 +84,7 @@ namespace ValheimPlus.GameClasses
 		/// </summary>
 		private static void Postfix(Skills __instance, Skills.SkillType skillType, float factor = 1f)
 		{
-			if (Configuration.Current.Hud.IsEnabled && Configuration.Current.Hud.experienceGainedNotifications)
+			if (Configuration.Current.Hud.IsEnabled && Configuration.Current.Hud.experienceGainedNotifications && skillType != Skills.SkillType.None)
 			{
 				try
                 {
@@ -95,8 +95,11 @@ namespace ValheimPlus.GameClasses
 						+ " [" + Helper.tFloat(skill.m_accumulator, 2) + "/" + Helper.tFloat(skill.GetNextLevelRequirement(), 2) + "]"
 						+ " (" + Helper.tFloat(percent, 0) + "%)", 0, skill.m_info.m_icon);
 				}
-				catch
-                { return; }
+				catch (Exception ex)
+				{
+					ZLog.LogError(ex);
+					return;
+				}
 			}
 		}
 	}
