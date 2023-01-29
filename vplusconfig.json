@@ -856,6 +856,12 @@
 				"defaultValue": "0",
 				"defaultType": "float",
 				"modifier": "true"
+			},
+			"feather": {
+				"description": "The value 50 will increase the dropped resources from 10 to 15. The value -50 will reduce the amount of dropped resources from 10 to 5. This also affects the drop amount from shooting gulls/crows.",
+				"defaultValue": "0",
+				"defaultType": "float",
+				"modifier": "true"
 			}
 		}
 	},
