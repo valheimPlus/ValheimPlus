@@ -72,7 +72,7 @@ We work together closely to make sure all our features are integrated and workin
 * Hotkeys for changing FOV in first person.
 
 ### Gathering
-* Modify the amount of resources dropped on destruction of objects (this includes chitin, stone, all types of wood, and minerals).
+* Modify the amount of resources dropped on destruction of objects (this includes chitin, stone, all types of wood, feathers, and minerals).
 * Modify the amount of resources gathered from interactable objects.
   * Edibles: Carrots, Blueberries, Cloudberrys, Raspberrys, Mushrooms, Blue Mushrooms, Yellow Mushrooms
   * Flowers and Ingredients : Barley, CarrotSeeds, Dandelions, Flax, Thistle, TurnipSeeds, Turnips[/color]

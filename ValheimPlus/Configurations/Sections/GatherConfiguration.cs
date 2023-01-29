@@ -12,6 +12,7 @@
         public float copperOre { get; internal set; } = 0;
         public float silverOre { get; internal set; } = 0;
         public float chitin { get; internal set; } = 0;
+        public float feather { get; internal set; } = 0;
         public float dropChance { get; internal set; } = 0;
     }
 }
