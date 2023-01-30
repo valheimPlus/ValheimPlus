@@ -90,15 +90,19 @@ namespace ValheimPlus.GameClasses
                 if (Configuration.Current.PlayerProjectile.enableScaleWithSkillLevel)
                 {
 
-                    Player player = (Player)__instance.m_character;
-                    Skills.Skill skill = player.m_skills.GetSkill(__instance.m_weapon.m_shared.m_skillType);
-                    float maxLevelPercentage = skill.m_level * 0.01f;
+                    Skills.SkillType skillType = __instance.m_weapon.m_shared.m_skillType;
+                    if (skillType != Skills.SkillType.None) // https://github.com/valheimPlus/ValheimPlus/issues/758
+                    {
+                        Player player = (Player)__instance.m_character;
+                        Skills.Skill skill = player.m_skills.GetSkill(skillType);
+                        float maxLevelPercentage = skill.m_level * 0.01f;
 
-                    __instance.m_projectileVelMin = Mathf.Lerp(__instance.m_projectileVelMin, playerProjVelMinMod, maxLevelPercentage);
-                    __instance.m_projectileVel = Mathf.Lerp(__instance.m_projectileVel, playerProjVelMaxMod, maxLevelPercentage);
+                        __instance.m_projectileVelMin = Mathf.Lerp(__instance.m_projectileVelMin, playerProjVelMinMod, maxLevelPercentage);
+                        __instance.m_projectileVel = Mathf.Lerp(__instance.m_projectileVel, playerProjVelMaxMod, maxLevelPercentage);
 
-                    __instance.m_projectileAccuracyMin = Mathf.Lerp(__instance.m_projectileAccuracyMin, playerProjAccuMinMod, maxLevelPercentage);
-                    __instance.m_projectileAccuracy = Mathf.Lerp(__instance.m_projectileAccuracy, playerProjAccuMaxMod, maxLevelPercentage);
+                        __instance.m_projectileAccuracyMin = Mathf.Lerp(__instance.m_projectileAccuracyMin, playerProjAccuMinMod, maxLevelPercentage);
+                        __instance.m_projectileAccuracy = Mathf.Lerp(__instance.m_projectileAccuracy, playerProjAccuMaxMod, maxLevelPercentage);
+                    }
                 }
                 else
                 {
