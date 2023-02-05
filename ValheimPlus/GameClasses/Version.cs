@@ -18,7 +18,7 @@ namespace ValheimPlus.GameClasses
                 {
                     if (Configuration.Current.Server.enforceMod)
                     {
-                        __result = __result + "@" + ValheimPlusPlugin.version;
+                        __result += $"-ValheimPlus@{ValheimPlusPlugin.version}";
                     }
                 }
             }
