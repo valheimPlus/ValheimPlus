@@ -1,10 +1,12 @@
 using HarmonyLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
 using ValheimPlus.Configurations;
+using Object = UnityEngine.Object;
 
 namespace ValheimPlus.GameClasses
 {
@@ -98,7 +100,7 @@ namespace ValheimPlus.GameClasses
             if (!Configuration.Current.Beehive.autoDeposit || !Configuration.Current.Beehive.IsEnabled || !beehive.m_nview.IsOwner())
                 return true;
 
-            // if behive is empty
+            // if beehive is empty
             if (beehive.GetHoneyLevel() <= 0)
                 return true;
 
@@ -139,15 +141,20 @@ namespace ValheimPlus.GameClasses
                     Inventory cInventory = chest.GetInventory();
                     if (mustHaveItem && !cInventory.HaveItem(item.m_itemData.m_shared.m_name))
                         continue;
-
-                    if (!cInventory.AddItem(item.m_itemData))
-                    {
-                        //Chest full, move to the next
+                    if (!chest.IsOwner() || chest.IsInUse())
                         continue;
+
+                    using (InventoryAssistant.LockContainer(chest))
+                    {
+                        if (!cInventory.AddItem(item.m_itemData))
+                        {
+                            //Chest full, move to the next
+                            continue;
+                        }
+                        beehive.m_nview.GetZDO().Set("level", beehive.GetHoneyLevel() - 1);
+                        InventoryAssistant.ConveyContainerToNetwork(chest);
+                        return true;
                     }
-                    beehive.m_nview.GetZDO().Set("level", beehive.GetHoneyLevel() - 1);
-                    InventoryAssistant.ConveyContainerToNetwork(chest);
-                    return true;
                 }
 
                 if (mustHaveItem)
@@ -222,15 +229,20 @@ namespace ValheimPlus.GameClasses
                     Inventory cInventory = chest.GetInventory();
                     if (mustHaveItem && !cInventory.HaveItem(item.m_itemData.m_shared.m_name))
                         continue;
-
-                    if (!cInventory.AddItem(item.m_itemData))
-                    {
-                        //Chest full, move to the next
+                    if (!chest.IsOwner() || chest.IsInUse())
                         continue;
+
+                    using (InventoryAssistant.LockContainer(chest))
+                    {
+                        if (!cInventory.AddItem(item.m_itemData))
+                        {
+                            //Chest full, move to the next
+                            continue;
+                        }
+                        beehive.m_nview.GetZDO().Set("level", beehive.GetHoneyLevel() - 1);
+                        InventoryAssistant.ConveyContainerToNetwork(chest);
+                        return true;
                     }
-                    beehive.m_nview.GetZDO().Set("level", beehive.GetHoneyLevel() - 1);
-                    InventoryAssistant.ConveyContainerToNetwork(chest);
-                    return true;
                 }
 
                 if (mustHaveItem)

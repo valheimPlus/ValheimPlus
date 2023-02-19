@@ -71,10 +71,8 @@ namespace ValheimPlus.GameClasses
 
                 foreach (Container c in nearbyChests)
                 {
-                    if (c.GetInventory().HaveItem(itemData.m_shared.m_name))
+                    if (InventoryAssistant.RemoveItemFromChest(c, itemData) >= 1) // remove 1 item from chest
                     {
-                        // Remove one item from chest
-                        InventoryAssistant.RemoveItemFromChest(c, itemData);
                         // Instantiate cookabled GameObject
                         GameObject itemPrefab = ObjectDB.instance.GetItemPrefab(itemConversion.m_from.gameObject.name);
 

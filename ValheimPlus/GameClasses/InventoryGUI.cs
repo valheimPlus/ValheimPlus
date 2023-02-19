@@ -261,7 +261,8 @@ namespace ValheimPlus.GameClasses
 
         private static ItemDrop.ItemData GetFirstRequiredItemFromInventoryOrChest(Player player, Recipe recipe, int quality, out int quantity)
         {
-            ItemDrop.ItemData found = player.GetFirstRequiredItem(player.GetInventory(), recipe, quality, out quantity);
+            int extraAmount;
+            ItemDrop.ItemData found = player.GetFirstRequiredItem(player.GetInventory(), recipe, quality, out quantity, out extraAmount);
             if (found != null) return found;
 
             GameObject pos = player.GetCurrentCraftingStation()?.gameObject;
@@ -271,7 +272,9 @@ namespace ValheimPlus.GameClasses
 
             foreach (Container chest in nearbyChests)
             {
-                found = player.GetFirstRequiredItem(chest.GetInventory(), recipe, quality, out quantity);
+                if (!chest.IsOwner() || chest.IsInUse())
+                    continue;
+                found = player.GetFirstRequiredItem(chest.GetInventory(), recipe, quality, out quantity, out extraAmount);
                 if (found != null)
                 {
                     return found;
@@ -301,7 +304,10 @@ namespace ValheimPlus.GameClasses
                 Inventory chestInventory = chest.GetInventory();
                 if (chestInventory.CountItems(itemName, quality) > 0)
                 {
-                    toRemove -= InventoryAssistant.RemoveItemFromChest(chest, itemName, toRemove);
+                    using (InventoryAssistant.LockContainer(chest))
+                    {
+                        toRemove -= InventoryAssistant.RemoveItemFromChest(chest, itemName, toRemove);
+                    }
                     if (toRemove == 0) return;
                 }
             }
