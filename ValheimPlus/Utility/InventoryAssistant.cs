@@ -235,12 +235,12 @@ namespace ValheimPlus
         /// </summary>
         public static int RemoveItemFromChest(Container chest, ItemDrop.ItemData itemDataToRemove, int amount = 1)
         {
-            if (chest.IsInUse() || !ChestContainsItem(chest, itemDataToRemove))
+            if (!chest.IsOwner() || chest.IsInUse() || !ChestContainsItem(chest, itemDataToRemove))
             {
                 return 0;
             }
 
-            using (InventoryAssistant.lockContainer(chest))
+            using (InventoryAssistant.LockContainer(chest))
             {
                 int totalRemoved = 0;
                 // find item
@@ -274,12 +274,12 @@ namespace ValheimPlus
 
         public static int RemoveItemFromChest(Container chest, string itemNameToRemove, int amount = 1)
         {
-            if (chest.IsInUse() || !ChestContainsItem(chest, itemNameToRemove))
+            if (!chest.IsOwner() || chest.IsInUse() || !ChestContainsItem(chest, itemNameToRemove))
             {
                 return 0;
             }
 
-            using (InventoryAssistant.lockContainer(chest))
+            using (InventoryAssistant.LockContainer(chest))
             {
                 int totalRemoved = 0;
                 // find item
@@ -329,7 +329,7 @@ namespace ValheimPlus
         /// 
         /// Sample:
         /// <code>
-        /// if (chest.IsInUse()) 
+        /// if (!chest.isOwner() || chest.IsInUse()) 
         /// 	continue;
         /// using (InventoryAssistant.lockContainer(chest))
         /// {
@@ -341,7 +341,7 @@ namespace ValheimPlus
         /// </summary>
         /// <param name="container">the container to lock</param>
         /// <returns>a disposable that will unlock the container at the end of the using statement</returns>
-        public static IDisposable lockContainer(Container container)
+        public static IDisposable LockContainer(Container container)
         {
             return new ContainerDisposable(container);
         }
@@ -353,18 +353,20 @@ namespace ValheimPlus
             public ContainerDisposable(Container container)
             {
                 m_container = container;
+                if (!m_container.IsOwner())
+                    ZLog.LogWarning("Locking a container, but I'm not the owner. This may result in overwriting container changes.");
                 if (m_container.IsInUse())
                     ZLog.LogWarning("Locking a container that was already locked. This may result in overwriting container changes.");
-                else
-                    m_container.SetInUse(true);
+                m_container.SetInUse(true);
             }
 
             public void Dispose()
             {
+                if (!m_container.IsOwner())
+                    ZLog.LogWarning("Unlocking a container, but I'm not the owner. This may result in overwriting container changes.");
                 if (!m_container.IsInUse())
                     ZLog.LogWarning("Unlocking a container that was already unlocked. There may have been overwriting container changes.");
-                else
-                    m_container.SetInUse(false);
+                m_container.SetInUse(false);
             }
         }
     }

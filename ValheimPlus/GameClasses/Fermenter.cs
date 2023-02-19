@@ -263,9 +263,9 @@ namespace ValheimPlus.GameClasses
                     Inventory cInventory = chest.GetInventory();
                     if (mustHaveItem && !cInventory.HaveItem(item.m_itemData.m_shared.m_name))
                         continue;
-                    if (chest.IsInUse()) 
+                    if (!chest.IsOwner() || chest.IsInUse()) 
                         continue;
-                    using (InventoryAssistant.lockContainer(chest))
+                    using (InventoryAssistant.LockContainer(chest))
                     {
                         if (!cInventory.AddItem(item.m_itemData))
                         {

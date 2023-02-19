@@ -272,7 +272,7 @@ namespace ValheimPlus.GameClasses
 
             foreach (Container chest in nearbyChests)
             {
-                if (chest.IsInUse())
+                if (!chest.IsOwner() || chest.IsInUse())
                     continue;
                 found = player.GetFirstRequiredItem(chest.GetInventory(), recipe, quality, out quantity, out extraAmount);
                 if (found != null)
@@ -304,7 +304,7 @@ namespace ValheimPlus.GameClasses
                 Inventory chestInventory = chest.GetInventory();
                 if (chestInventory.CountItems(itemName, quality) > 0)
                 {
-                    using (InventoryAssistant.lockContainer(chest))
+                    using (InventoryAssistant.LockContainer(chest))
                     {
                         toRemove -= InventoryAssistant.RemoveItemFromChest(chest, itemName, toRemove);
                     }
