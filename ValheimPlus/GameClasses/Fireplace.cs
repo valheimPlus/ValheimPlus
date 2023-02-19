@@ -168,7 +168,7 @@ namespace ValheimPlus.GameClasses
 
             foreach (Container c in nearbyChests)
             {
-                if (c.GetInventory().HaveItem(item.m_shared.m_name))
+                if (!c.IsInUse() && c.GetInventory().HaveItem(item.m_shared.m_name))
                 {
                     inventory = c.GetInventory();
                     return true;
