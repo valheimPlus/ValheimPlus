@@ -256,7 +256,8 @@ We work together closely to make sure all our features are integrated and workin
       * Numpad plus/minus to either increase or decrease speed, holding SHIFT to raise/lower by 10 instead of 1 (Pressing Shift at any moment in time increases the distance/rotation angle 3 times)
    * Build the object by clicking.
   
-**NOTE:**
+**NOTES:**
+* *This mode requires to be in Build Mode, i.e. building hammer with the part you want to modify being highlighted.*
 * *Objects built with this system are not exempt from the structure/support system. Dungeons and other no-build areas are still restricted.*
 
 ### Advanced Editing Mode
@@ -273,7 +274,8 @@ We work together closely to make sure all our features are integrated and workin
       * Numpad plus/minus to either increase or decrease speed, holding SHIFT to raise/lower by 10 instead of 1 (Pressing Shift at any moment in time increases the distance/rotation angle 3 times)
    * Press the confirmPlacementOfAdvancedEditingMode Hotkey to confirm the changes. (press abortAndExitAdvancedEditingMode HotKey to abort editing mode and reset the object).
 
-**NOTE:**
+**NOTES:**
+* *This mode requires the player to NOT be in build mode, i.e. must be unarmed and targeting the item you want to edit and then pressing the hotkey to enter AEM.*
 * *Other players will not be able to see the item being moved until the player building the item confirms the placement. Dungeons and other no-build areas are still restricted.* 
 
 
