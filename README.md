@@ -277,7 +277,7 @@ We work together closely to make sure all our features are integrated and workin
 **NOTES:**
 * *This mode requires the player to NOT be in build mode, i.e. must be unarmed and targeting the item you want to edit and then pressing the hotkey to enter AEM.*
 * *Other players will not be able to see the item being moved until the player building the item confirms the placement. Dungeons and other no-build areas are still restricted.* 
-
+* *Moving a chest during AEM could and will break any automation, i.e. auto-fuel and deposit. It is best to destroy the chest and remake it.*
 
 
 
