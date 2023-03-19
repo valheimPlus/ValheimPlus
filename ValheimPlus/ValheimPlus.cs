@@ -16,7 +16,7 @@ namespace ValheimPlus
     [BepInPlugin("org.bepinex.plugins.valheim_plus", "Valheim Plus", version)]
     public class ValheimPlusPlugin : BaseUnityPlugin
     {
-        public const string version = "0.9.9.11";
+        public const string version = "0.9.9.12";
         public static string newestVersion = "";
         public static bool isUpToDate = false;
 
@@ -29,11 +29,11 @@ namespace ValheimPlus
         public static Harmony harmony = new Harmony("mod.valheim_plus");
 
         // Project Repository Info
-        public static string Repository = "https://github.com/valheimPlus/ValheimPlus";
-        public static string ApiRepository = "https://api.github.com/repos/valheimPlus/valheimPlus/tags";
+        public static string Repository = "https://github.com/grantapher/ValheimPlus";
+        public static string ApiRepository = "https://api.github.com/repos/grantapher/valheimPlus/tags";
 
         // Website INI for auto update
-        public static string iniFile = "https://raw.githubusercontent.com/valheimPlus/ValheimPlus/" + version + "/valheim_plus.cfg";
+        public static string iniFile = "https://raw.githubusercontent.com/grantapher/ValheimPlus/" + version + "/valheim_plus.cfg";
 
         // Awake is called once when both the game and the plug-in are loaded
         void Awake()
