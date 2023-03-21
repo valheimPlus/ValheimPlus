@@ -4,33 +4,28 @@ using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 using ValheimPlus.Configurations;
 using ValheimPlus.Utility;
+using static HarmonyLib.AccessTools;
 
 namespace ValheimPlus.GameClasses
 {
-    class WispSpawnerModification
+    [HarmonyPatch(typeof(WispSpawner), "Start")]
+    static class WispSpawnerModification
     {
-        [HarmonyPatch(typeof(WispSpawner), "TrySpawn")]
-        public static class ModifyWispSpawner
+        [HarmonyPrefix]
+        static void Prefix(WispSpawner __instance)
         {
-            // "WispSpawner" is from base game
-            private static bool Prefix(ref WispSpawner __instance)
+            if (Configuration.Current.WispSpawner.IsEnabled)
             {
-                WispSpawner wispSpawner = __instance;
-                if (!wispSpawner.m_nview.IsValid() || !wispSpawner.m_nview.IsOwner())
-                {
-                    return false;
-                }
+                FieldRef<WispSpawner, int> m_maxSpawned = FieldRefAccess<WispSpawner, int>("m_maxSpawned");
+                FieldRef<WispSpawner, float> m_spawnChance = FieldRefAccess<WispSpawner, float>("m_spawnChance");
+                FieldRef<WispSpawner, float> m_spawnInterval = FieldRefAccess<WispSpawner, float>("m_spawnInterval");
+                FieldRef<WispSpawner, bool> m_onlySpawnAtNight = FieldRefAccess<WispSpawner, bool>("m_onlySpawnAtNight");
 
-                if (Configuration.Current.WispSpawner.IsEnabled)
-                {
-                    wispSpawner.m_maxSpawned = Configuration.Current.WispSpawner.maximumWisps;
-                    wispSpawner.m_spawnChance = Helper.applyModifierValue(wispSpawner.m_spawnChance, Configuration.Current.WispSpawner.wispSpawnChanceMultiplier);
-                    wispSpawner.m_spawnInterval = Helper.applyModifierValue(wispSpawner.m_spawnInterval, Configuration.Current.WispSpawner.wispSpawnIntervalMultiplier);
-                }
-
-                return true;
+                m_onlySpawnAtNight(__instance) = Configuration.Current.WispSpawner.onlySpawnAtNight;
+                m_maxSpawned(__instance) = Configuration.Current.WispSpawner.maximumWisps;
+                m_spawnChance(__instance) = Helper.applyModifierValue(m_spawnChance(__instance), Configuration.Current.WispSpawner.wispSpawnChanceMultiplier);
+                m_spawnInterval(__instance) = Helper.applyModifierValue(m_spawnInterval(__instance), Configuration.Current.WispSpawner.wispSpawnIntervalMultiplier);
             }
-
         }
     }
 }
