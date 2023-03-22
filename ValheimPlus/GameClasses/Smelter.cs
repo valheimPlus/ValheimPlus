@@ -92,7 +92,7 @@ namespace ValheimPlus.GameClasses
             }
             if (__instance.m_name.Equals(SmelterDefinitions.EitrRefineryName) && Configuration.Current.EitrRefinery.IsEnabled && Configuration.Current.EitrRefinery.autoDeposit)
             {
-                return spawn(Helper.Clamp(Configuration.Current.EitrRefinery.autoRange, 1, 50), Configuration.Current.Windmill.ignorePrivateAreaCheck);
+                return spawn(Helper.Clamp(Configuration.Current.EitrRefinery.autoRange, 1, 50), Configuration.Current.EitrRefinery.ignorePrivateAreaCheck);
             }
             bool spawn(float autoDepositRange, bool ignorePrivateAreaCheck)
             {
