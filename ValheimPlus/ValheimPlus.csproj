@@ -360,6 +360,7 @@
     <Compile Include="Configurations\Sections\TameableConfiguration.cs" />
     <Compile Include="Configurations\Sections\ValheimPlusConfiguration.cs" />
     <Compile Include="Configurations\Sections\WindmillConfiguration.cs" />
+    <Compile Include="Configurations\Sections\WispSpawnerConfiguration.cs" />
     <Compile Include="Deconstruct.cs" />
     <Compile Include="FirstPerson\VPlusFirstPerson.cs" />
     <Compile Include="FreePlacementRotation.cs" />
@@ -396,6 +397,7 @@
     <Compile Include="Configurations\Sections\StaminaUsageConfiguration.cs" />
     <Compile Include="Configurations\Sections\StaminaConfiguration.cs" />
     <Compile Include="GameClasses\Character.cs" />
+    <Compile Include="GameClasses\LuredWisp.cs" />
     <Compile Include="GameClasses\SEMan.cs" />
     <Compile Include="GameClasses\Talker.cs" />
     <Compile Include="GameClasses\Container.cs" />
@@ -405,6 +407,7 @@
     <Compile Include="GameClasses\Fireplace.cs" />
     <Compile Include="GameClasses\GameCamera.cs" />
     <Compile Include="GameClasses\Chat.cs" />
+    <Compile Include="GameClasses\WispSpawner.cs" />
     <Compile Include="RPC\VPlusMapPinSync.cs" />
     <Compile Include="UI\HotkeyBar.cs" />
     <Compile Include="GameClasses\Hud.cs" />

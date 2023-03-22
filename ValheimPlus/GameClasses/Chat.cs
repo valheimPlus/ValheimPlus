@@ -10,10 +10,10 @@ namespace ValheimPlus.GameClasses
     /// <summary>
     /// Change Ping and global message behavior
     /// </summary>
-    [HarmonyPatch(typeof(Chat), nameof(Chat.OnNewChatMessage), new System.Type[] { typeof(GameObject), typeof(long), typeof(Vector3), typeof(Talker.Type), typeof(string), typeof(string), typeof(string) })]
+    [HarmonyPatch(typeof(Chat), nameof(Chat.OnNewChatMessage), new System.Type[] { typeof(GameObject), typeof(long), typeof(Vector3), typeof(Talker.Type), typeof(UserInfo), typeof(string), typeof(string) })]
     public static class Chat_AddInworldText_Patch
     {
-        private static bool Prefix(ref Chat __instance, GameObject go, long senderID, Vector3 pos, Talker.Type type, string user, string text, string senderNetworkUserId)
+        private static bool Prefix(ref Chat __instance, GameObject go, long senderID, Vector3 pos, Talker.Type type, UserInfo user, string text, string senderNetworkUserId)
         {
 
             if (Configuration.Current.Chat.IsEnabled)
@@ -50,7 +50,7 @@ namespace ValheimPlus.GameClasses
                     {
                         // Only add string to chat window and show no ping
                         if (Configuration.Current.Chat.outOfRangeShoutsDisplayInChatWindow)
-                            __instance.AddString(user, text, Talker.Type.Shout);
+                            __instance.AddString(user.GetDisplayName(senderNetworkUserId), text, Talker.Type.Shout);
                         return false;
                     }
                 }
@@ -64,7 +64,7 @@ namespace ValheimPlus.GameClasses
 
 
 
-    [HarmonyPatch(typeof(Chat), nameof(Chat.AddInworldText), new System.Type[] { typeof(GameObject), typeof(long), typeof(Vector3), typeof(Talker.Type), typeof(string), typeof(string) })]
+    [HarmonyPatch(typeof(Chat), nameof(Chat.AddInworldText), new System.Type[] { typeof(GameObject), typeof(long), typeof(Vector3), typeof(Talker.Type), typeof(UserInfo), typeof(string) })]
     public static class Chat_AddInworldText_Transpiler
     {
         /// <summary>
