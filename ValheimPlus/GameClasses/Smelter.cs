@@ -51,6 +51,12 @@ namespace ValheimPlus.GameClasses
                 __instance.m_maxOre = Configuration.Current.SpinningWheel.maximumFlax;
                 __instance.m_secPerProduct = Configuration.Current.SpinningWheel.productionSpeed;
             }
+            else if (__instance.m_name.Equals(SmelterDefinitions.EitrRefineryName) && Configuration.Current.EitrRefinery.IsEnabled)
+            {
+                __instance.m_maxOre = Configuration.Current.EitrRefinery.maximumSoftTissue;
+                __instance.m_maxFuel = Configuration.Current.EitrRefinery.maximumSap;
+                __instance.m_secPerProduct = Configuration.Current.EitrRefinery.productionSpeed;
+            }
         }
 
     }
@@ -83,6 +89,10 @@ namespace ValheimPlus.GameClasses
             if (__instance.m_name.Equals(SmelterDefinitions.SpinningWheelName) && Configuration.Current.SpinningWheel.IsEnabled && Configuration.Current.SpinningWheel.autoDeposit)
             {
                 return spawn(Helper.Clamp(Configuration.Current.SpinningWheel.autoRange, 1, 50), Configuration.Current.Windmill.ignorePrivateAreaCheck);
+            }
+            if (__instance.m_name.Equals(SmelterDefinitions.EitrRefineryName) && Configuration.Current.EitrRefinery.IsEnabled && Configuration.Current.EitrRefinery.autoDeposit)
+            {
+                return spawn(Helper.Clamp(Configuration.Current.EitrRefinery.autoRange, 1, 50), Configuration.Current.Windmill.ignorePrivateAreaCheck);
             }
             bool spawn(float autoDepositRange, bool ignorePrivateAreaCheck)
             {
@@ -195,6 +205,13 @@ namespace ValheimPlus.GameClasses
                     return;
                 autoFuelRange = Configuration.Current.SpinningWheel.autoRange;
                 ignorePrivateAreaCheck = Configuration.Current.SpinningWheel.ignorePrivateAreaCheck;
+            }
+            else if (__instance.m_name.Equals(SmelterDefinitions.EitrRefineryName))
+            {
+                if (!Configuration.Current.EitrRefinery.IsEnabled || !Configuration.Current.EitrRefinery.autoFuel)
+                    return;
+                autoFuelRange = Configuration.Current.EitrRefinery.autoRange;
+                ignorePrivateAreaCheck = Configuration.Current.EitrRefinery.ignorePrivateAreaCheck;
             }
 
             autoFuelRange = Helper.Clamp(autoFuelRange, 1, 50);
@@ -345,15 +362,18 @@ namespace ValheimPlus.GameClasses
         public static readonly string FurnaceName = "$piece_blastfurnace";
         public static readonly string WindmillName = "$piece_windmill";
         public static readonly string SpinningWheelName = "$piece_spinningwheel";
+        public static readonly string EitrRefineryName = "$piece_eitrrefinery";
     }
 
     public static class FurnaceDefinitions
     {
+        public static readonly string SapPrefabName = "Sap";
         public static readonly string CopperOrePrefabName = "CopperOre";
         public static readonly string ScrapIronPrefabName = "IronScrap";
         public static readonly string SilverOrePrefabName = "SilverOre";
         public static readonly string TinOrePrefabName = "TinOre";
 
+        public static readonly string RefinedEitrPrefabName = "Eitr";
         public static readonly string CopperPrefabName = "Copper";
         public static readonly string IronPrefabName = "Iron";
         public static readonly string SilverPrefabName = "Silver";
@@ -364,7 +384,8 @@ namespace ValheimPlus.GameClasses
             new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(CopperOrePrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(CopperPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() },
             new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(ScrapIronPrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(IronPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() },
             new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(SilverOrePrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(SilverPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() },
-            new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(TinOrePrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(TinPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() }
+            new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(TinOrePrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(TinPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() },
+            new Smelter.ItemConversion() { m_from = ObjectDB.instance.GetItemPrefab(SapPrefabName).GetComponent<ItemDrop>(), m_to = ObjectDB.instance.GetItemPrefab(RefinedEitrPrefabName).GetComponent<ItemDrop>().GetComponent<ItemDrop>() }
         };
     }
 
