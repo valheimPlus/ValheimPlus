@@ -1,4 +1,4 @@
-﻿using BepInEx;
+using BepInEx;
 using IniParser;
 using IniParser.Model;
 using System;
@@ -9,6 +9,8 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using ValheimPlus.Utility;
+using ValheimPlus.Configurations.Sections;
+using ValheimPlus.RPC;
 
 namespace ValheimPlus.Configurations
 {
@@ -21,7 +23,7 @@ namespace ValheimPlus.Configurations
             {
                 var keyName = prop.Name;
                 var method = prop.PropertyType.GetMethod("ServerSerializeSection", BindingFlags.Public | BindingFlags.FlattenHierarchy | BindingFlags.Instance);
-                
+
                 if (method != null)
                 {
                     var instance = prop.GetValue(config, null);
@@ -50,7 +52,7 @@ namespace ValheimPlus.Configurations
                         // get the current versions ini data
                         compareIni = ValheimPlusPlugin.getCurrentWebIniFile();
                     }
-                    catch (Exception e) { }
+                    catch (Exception) { }
 
                     if (compareIni != null)
                     {
@@ -75,7 +77,7 @@ namespace ValheimPlus.Configurations
                     try
                     {
                         string defaultIni = ValheimPlusPlugin.getCurrentWebIniFile();
-                        if(defaultIni != null)
+                        if (defaultIni != null)
                         {
                             System.IO.File.WriteAllText(ConfigIniPath, defaultIni);
                             Debug.Log("Default Configuration downloaded. Loading downloaded default settings.");
@@ -83,7 +85,7 @@ namespace ValheimPlus.Configurations
                             status = true;
                         }
                     }
-                    catch (Exception e) { }
+                    catch (Exception) { }
 
                     return status;
                 }
@@ -96,12 +98,13 @@ namespace ValheimPlus.Configurations
 
             return true;
         }
+        static public bool ReadHotKeys { get; private set; } = true;
 
         public static Configuration LoadFromIni(string filename)
         {
             FileIniDataParser parser = new FileIniDataParser();
             IniData configdata = parser.ReadFile(filename);
-
+            ReadHotKeys = true;
             Configuration conf = new Configuration();
             foreach (var prop in typeof(Configuration).GetProperties())
             {
@@ -124,6 +127,15 @@ namespace ValheimPlus.Configurations
             {
                 FileIniDataParser parser = new FileIniDataParser();
                 IniData configdata = parser.ReadData(iniReader);
+                var serverSection = configdata[nameof(Configuration.Server)];
+                var serverSyncsConfig = serverSection.GetBool(nameof(ServerConfiguration.serverSyncsConfig));
+                Debug.Log($"ServerSyncsConfig = {serverSyncsConfig}");
+
+                if (!serverSyncsConfig) return Configuration.Current;
+
+                var serverSyncsHotkeys = serverSection.GetBool(nameof(ServerConfiguration.serverSyncHotkeys));
+                Debug.Log($"ServerSyncsHotkeys = {serverSyncsConfig}");
+                ReadHotKeys = serverSyncsHotkeys;
 
                 Configuration conf = new Configuration();
                 foreach (var prop in typeof(Configuration).GetProperties())
@@ -134,7 +146,7 @@ namespace ValheimPlus.Configurations
 
                     if (method != null)
                     {
-                        object result = method.Invoke(null, new object[] {configdata, keyName});
+                        object result = method.Invoke(null, new object[] { configdata, keyName });
                         prop.SetValue(conf, result, null);
                     }
                 }
@@ -147,7 +159,8 @@ namespace ValheimPlus.Configurations
     {
         public static float GetFloat(this KeyDataCollection data, string key, float defaultVal)
         {
-            if (float.TryParse(data[key], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out var result)) { 
+            if (float.TryParse(data[key], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out var result))
+            {
                 return result;
             }
 
@@ -163,7 +176,8 @@ namespace ValheimPlus.Configurations
 
         public static int GetInt(this KeyDataCollection data, string key, int defaultVal)
         {
-            if (int.TryParse(data[key], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out var result)) { 
+            if (int.TryParse(data[key], NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out var result))
+            {
                 return result;
             }
 
@@ -173,7 +187,8 @@ namespace ValheimPlus.Configurations
 
         public static KeyCode GetKeyCode(this KeyDataCollection data, string key, KeyCode defaultVal)
         {
-            if (Enum.TryParse<KeyCode>(data[key].Trim(), out var result)) {
+            if (Enum.TryParse<KeyCode>(data[key].Trim(), out var result))
+            {
                 return result;
             }
 
