@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using BepInEx;
 using ValheimPlus.Configurations;
@@ -8,7 +8,6 @@ namespace ValheimPlus.RPC
     public class VPlusConfigSync
     {
 
-        static public bool isConnecting = false;
         public static void RPC_VPlusConfigSync(long sender, ZPackage configPkg)
         {
             if (ZNet.m_isServer) //Server
@@ -49,8 +48,8 @@ namespace ValheimPlus.RPC
             }
             else //Client
             {
-                if (configPkg != null && 
-                    configPkg.Size() > 0 && 
+                if (configPkg != null &&
+                    configPkg.Size() > 0 &&
                     sender == ZRoutedRpc.instance.GetServerPeerID()) //Validate the message is from the server and not another client.
                 {
                     int numLines = configPkg.ReadInt();
@@ -76,19 +75,8 @@ namespace ValheimPlus.RPC
                             memStream.Position = 0; //Rewind stream
 
                             ValheimPlusPlugin.harmony.UnpatchSelf();
+                            Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
 
-                            // Sync HotKeys when connecting ?
-                            if(Configuration.Current.Server.IsEnabled && !Configuration.Current.Server.serverSyncHotkeys)
-                            {
-                                isConnecting = true;
-                                Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
-                                isConnecting = false;
-                            }
-                            else
-                            {
-                                Configuration.Current = ConfigurationExtra.LoadFromIni(memStream);
-                            }
-                                
                             ValheimPlusPlugin.harmony.PatchAll();
 
                             ZLog.Log("Successfully synced VPlus configuration from server.");
